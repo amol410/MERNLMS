@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git init:*)",
       "Bash(npm create:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git tag:*)"
     ]
   }
 }
