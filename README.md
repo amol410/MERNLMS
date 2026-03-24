@@ -56,6 +56,8 @@ CLIENT_URL=https://dolphincoder.com
 VITE_API_BASE_URL=https://api.dolphincoder.com/api
 ```
 
+Deployed on Hostinger with auto-deployment from GitHub.
+
 ## Versions
 - **v1**: Auth + User Management
 - **v2**: Notes Feature
