@@ -63,10 +63,10 @@ app.use('/api/flashcards', require('./routes/flashcards'));
 
 // Serve frontend static files in production
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../frontend/dist')));
+    app.use(express.static(path.join(__dirname, 'dist')));
 
   app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../frontend/dist', 'index.html'));
+        res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
   });
 } else {
     // API-only error handling for development
