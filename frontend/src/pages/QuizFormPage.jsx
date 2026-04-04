@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { ArrowLeft, Plus, Trash2, Save, Brain, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Save, Brain, ChevronDown, ChevronUp, Upload, FileText } from 'lucide-react';
 
 const defaultQuestion = () => ({
   text: '',
@@ -29,6 +29,8 @@ export default function QuizFormPage() {
   const [questions, setQuestions] = useState([defaultQuestion()]);
   const [expandedQ, setExpandedQ] = useState(0);
   const [saving, setSaving] = useState(false);
+  const [bulkFile, setBulkFile] = useState(null);
+  const [bulkUploading, setBulkUploading] = useState(false);
 
   useEffect(() => {
     if (isEdit) {
@@ -72,6 +74,24 @@ export default function QuizFormPage() {
     setQuestions(prev => prev.map((q, i) => i === idx ? { ...q, type, options, correctIndex: 0 } : q));
   };
 
+  const handleBulkUpload = async () => {
+    if (!bulkFile) return;
+    setBulkUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', bulkFile);
+      const { data } = await api.post('/quizzes/bulk-upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      toast.success(data.message || 'Quiz uploaded!');
+      navigate('/quizzes');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Upload failed');
+    } finally {
+      setBulkUploading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     for (let i = 0; i < questions.length; i++) {
@@ -103,6 +123,72 @@ export default function QuizFormPage() {
         <ArrowLeft className="w-4 h-4" />
         Back to Quizzes
       </button>
+
+      {/* Bulk Upload */}
+      {!isEdit && (
+        <div className="glass-card p-6 mb-4 border border-purple-500/20">
+          <h2 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+            <Upload className="w-5 h-5 text-purple-400" />
+            Bulk Upload via Word File
+          </h2>
+          <p className="text-gray-500 text-sm mb-4">Upload a .docx file to create a quiz instantly. Use the format below (copy it and ask AI to fill in questions).</p>
+
+          <div className="bg-black/30 rounded-xl p-4 mb-4 font-mono text-xs text-gray-400 border border-white/10 overflow-auto">
+            <pre>{`TITLE: My Quiz Title
+DESCRIPTION: Brief description here
+PASSING_SCORE: 70
+TIME_LIMIT: 30
+TAGS: topic1, topic2
+
+Q: What is the capital of France?
+A) London
+B) Paris
+C) Berlin
+D) Madrid
+ANSWER: B
+EXPLANATION: Paris is the capital of France.
+POINTS: 1
+
+Q: Is JavaScript case-sensitive?
+TRUE_FALSE
+ANSWER: TRUE
+EXPLANATION: JavaScript is case-sensitive.
+POINTS: 1`}</pre>
+          </div>
+
+          <div className="flex gap-3 items-center">
+            <label className="flex-1">
+              <input
+                type="file"
+                accept=".docx"
+                className="hidden"
+                onChange={e => setBulkFile(e.target.files[0])}
+              />
+              <div className={`input-field flex items-center gap-2 cursor-pointer hover:border-purple-500/50 transition-colors ${bulkFile ? 'border-purple-500/40' : ''}`}>
+                <FileText className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                <span className={bulkFile ? 'text-white text-sm' : 'text-gray-500 text-sm'}>
+                  {bulkFile ? bulkFile.name : 'Click to choose .docx file...'}
+                </span>
+              </div>
+            </label>
+            <button
+              type="button"
+              onClick={handleBulkUpload}
+              disabled={!bulkFile || bulkUploading}
+              className="btn-primary flex items-center gap-2 flex-shrink-0"
+            >
+              {bulkUploading ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Upload className="w-4 h-4" />}
+              Upload
+            </button>
+          </div>
+          {bulkFile && (
+            <button type="button" onClick={() => setBulkFile(null)} className="mt-2 text-xs text-gray-500 hover:text-gray-300">
+              Clear file
+            </button>
+          )}
+          <p className="mt-3 text-xs text-gray-600">— or create quiz manually below —</p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Quiz settings */}

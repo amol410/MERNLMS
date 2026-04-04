@@ -60,6 +60,7 @@ app.use('/api/notes', require('./routes/notes'));
 app.use('/api/videos', require('./routes/videos'));
 app.use('/api/quizzes', require('./routes/quizzes'));
 app.use('/api/flashcards', require('./routes/flashcards'));
+app.use('/api/admin', require('./routes/admin'));
 
 // Serve frontend static files in production
 if (process.env.NODE_ENV === 'production') {

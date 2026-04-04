@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { Plus, Search, BookOpen, Pin, Trash2, Edit, Tag, X, SortDesc } from 'lucide-react';
 import EmptyState from '../components/common/EmptyState';
 import { GridSkeleton } from '../components/common/Loader';
+import { useAuth } from '../contexts/AuthContext';
 import clsx from 'clsx';
 
 const colorMap = {
@@ -26,9 +27,12 @@ const colorOptions = [
 ];
 
 export default function NotesPage() {
+  const { user } = useAuth();
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+
+  const isStaff = user?.role === 'trainer' || user?.role === 'admin';
   const [searchInput, setSearchInput] = useState('');
   const [activeTag, setActiveTag] = useState('');
   const [activeColor, setActiveColor] = useState('');
@@ -93,10 +97,12 @@ export default function NotesPage() {
           </h1>
           <p className="text-gray-500 mt-1">{notes.length} notes • Click to read, hover to edit</p>
         </div>
-        <Link to="/notes/new" className="btn-primary flex items-center gap-2">
-          <Plus className="w-4 h-4" />
-          New Note
-        </Link>
+        {isStaff && (
+          <Link to="/notes/new" className="btn-primary flex items-center gap-2">
+            <Plus className="w-4 h-4" />
+            New Note
+          </Link>
+        )}
       </div>
 
       {/* Filters */}
@@ -146,7 +152,7 @@ export default function NotesPage() {
           icon="📝"
           title="No notes found"
           description={search || activeTag ? 'No notes match your filters.' : 'Create your first note!'}
-          action={!search && !activeTag && <Link to="/notes/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Create Note</Link>}
+          action={!search && !activeTag && isStaff ? <Link to="/notes/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Create Note</Link> : null}
         />
       ) : (
         <>

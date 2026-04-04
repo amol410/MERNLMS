@@ -25,6 +25,8 @@ export default function FlashcardsPage() {
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
 
+  const isStaff = user?.role === 'trainer' || user?.role === 'admin';
+
   const fetchDecks = useCallback(async () => {
     setLoading(true);
     try {
@@ -65,10 +67,12 @@ export default function FlashcardsPage() {
           </h1>
           <p className="text-gray-500 mt-1">{decks.length} decks • Spaced repetition learning</p>
         </div>
-        <Link to="/flashcards/new" className="btn-primary flex items-center gap-2">
-          <Plus className="w-4 h-4" />
-          New Deck
-        </Link>
+        {isStaff && (
+          <Link to="/flashcards/new" className="btn-primary flex items-center gap-2">
+            <Plus className="w-4 h-4" />
+            New Deck
+          </Link>
+        )}
       </div>
 
       <div className="glass-card p-4 mb-6">
@@ -91,7 +95,7 @@ export default function FlashcardsPage() {
           icon="🃏"
           title="No decks yet"
           description="Create your first flashcard deck to start studying."
-          action={<Link to="/flashcards/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Create Deck</Link>}
+          action={isStaff ? <Link to="/flashcards/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Create Deck</Link> : null}
         />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">

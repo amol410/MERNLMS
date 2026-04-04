@@ -33,7 +33,7 @@ export default function VideoDetailPage() {
 
   if (loading) return <PageLoader />;
 
-  const isOwner = user?.role === 'instructor' && video.addedBy?._id === user._id;
+  const isOwner = (user?.role === 'trainer' || user?.role === 'admin') && video.addedBy?._id === user._id;
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">

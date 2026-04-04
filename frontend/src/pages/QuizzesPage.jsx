@@ -51,7 +51,7 @@ export default function QuizzesPage() {
           </h1>
           <p className="text-gray-500 mt-1">{quizzes.length} quizzes • Auto-graded with explanations</p>
         </div>
-        {user?.role === 'instructor' && (
+        {(user?.role === 'trainer' || user?.role === 'admin') && (
           <Link to="/quizzes/new" className="btn-primary flex items-center gap-2">
             <Plus className="w-4 h-4" />
             Create Quiz
@@ -76,14 +76,14 @@ export default function QuizzesPage() {
         <EmptyState
           icon="🧠"
           title="No quizzes yet"
-          description={user?.role === 'instructor' ? 'Create your first quiz.' : 'No quizzes available yet.'}
-          action={user?.role === 'instructor' && <Link to="/quizzes/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Create Quiz</Link>}
+          description={(user?.role === 'trainer' || user?.role === 'admin') ? 'Create your first quiz.' : 'No quizzes available yet.'}
+          action={(user?.role === 'trainer' || user?.role === 'admin') ? <Link to="/quizzes/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Create Quiz</Link> : null}
         />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {quizzes.map(quiz => {
             const diff = difficultyColor(quiz.questions);
-            const isOwner = user?.role === 'instructor' && quiz.createdBy?._id === user._id;
+            const isOwner = (user?.role === 'trainer' || user?.role === 'admin') && quiz.createdBy?._id === user._id;
             return (
               <div key={quiz._id} className="glass-card p-5 border border-purple-500/10 hover:border-purple-500/25 transition-all duration-300 group flex flex-col">
                 {/* Header */}

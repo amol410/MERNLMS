@@ -21,6 +21,7 @@ import FlashcardsPage from './pages/FlashcardsPage';
 import FlashcardFormPage from './pages/FlashcardFormPage';
 import StudyPage from './pages/StudyPage';
 import ProfilePage from './pages/ProfilePage';
+import AdminPage from './pages/AdminPage';
 
 function Layout({ children }) {
   return (
@@ -43,31 +44,33 @@ function AppRoutes() {
       <Route path="/dashboard" element={<ProtectedRoute><Layout><Dashboard /></Layout></ProtectedRoute>} />
 
       <Route path="/notes" element={<ProtectedRoute><Layout><NotesPage /></Layout></ProtectedRoute>} />
-      <Route path="/notes/new" element={<ProtectedRoute><Layout><NoteEditorPage /></Layout></ProtectedRoute>} />
+      <Route path="/notes/new" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><NoteEditorPage /></Layout></ProtectedRoute>} />
       <Route path="/notes/:id" element={<ProtectedRoute><Layout><NoteDetailPage /></Layout></ProtectedRoute>} />
-      <Route path="/notes/:id/edit" element={<ProtectedRoute><Layout><NoteEditorPage /></Layout></ProtectedRoute>} />
+      <Route path="/notes/:id/edit" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><NoteEditorPage /></Layout></ProtectedRoute>} />
 
       <Route path="/videos" element={<ProtectedRoute><Layout><VideosPage /></Layout></ProtectedRoute>} />
-      <Route path="/videos/new" element={<ProtectedRoute roles={['instructor']}><Layout><VideoFormPage /></Layout></ProtectedRoute>} />
+      <Route path="/videos/new" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><VideoFormPage /></Layout></ProtectedRoute>} />
       <Route path="/videos/:id" element={<ProtectedRoute><Layout><VideoDetailPage /></Layout></ProtectedRoute>} />
-      <Route path="/videos/:id/edit" element={<ProtectedRoute roles={['instructor']}><Layout><VideoFormPage /></Layout></ProtectedRoute>} />
+      <Route path="/videos/:id/edit" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><VideoFormPage /></Layout></ProtectedRoute>} />
 
       <Route path="/quizzes" element={<ProtectedRoute><Layout><QuizzesPage /></Layout></ProtectedRoute>} />
-      <Route path="/quizzes/new" element={<ProtectedRoute roles={['instructor']}><Layout><QuizFormPage /></Layout></ProtectedRoute>} />
-      <Route path="/quizzes/:id/edit" element={<ProtectedRoute roles={['instructor']}><Layout><QuizFormPage /></Layout></ProtectedRoute>} />
+      <Route path="/quizzes/new" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><QuizFormPage /></Layout></ProtectedRoute>} />
+      <Route path="/quizzes/:id/edit" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><QuizFormPage /></Layout></ProtectedRoute>} />
       <Route path="/quizzes/:id/take" element={<ProtectedRoute><Layout><QuizTakePage /></Layout></ProtectedRoute>} />
 
       <Route path="/flashcards" element={<ProtectedRoute><Layout><FlashcardsPage /></Layout></ProtectedRoute>} />
-      <Route path="/flashcards/new" element={<ProtectedRoute><Layout><FlashcardFormPage /></Layout></ProtectedRoute>} />
-      <Route path="/flashcards/:id/edit" element={<ProtectedRoute><Layout><FlashcardFormPage /></Layout></ProtectedRoute>} />
+      <Route path="/flashcards/new" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><FlashcardFormPage /></Layout></ProtectedRoute>} />
+      <Route path="/flashcards/:id/edit" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><FlashcardFormPage /></Layout></ProtectedRoute>} />
       <Route path="/flashcards/:id/study" element={<ProtectedRoute><Layout><StudyPage /></Layout></ProtectedRoute>} />
+
+      <Route path="/admin" element={<ProtectedRoute roles={['admin']}><Layout><AdminPage /></Layout></ProtectedRoute>} />
 
       <Route path="/profile" element={<ProtectedRoute><Layout><ProfilePage /></Layout></ProtectedRoute>} />
 
       <Route path="*" element={
         <div className="min-h-screen flex items-center justify-center text-center">
           <div>
-            <div className="text-8xl mb-4">🐬</div>
+            <div className="text-8xl mb-4">🚀</div>
             <h1 className="text-4xl font-bold text-white mb-2">404</h1>
             <p className="text-gray-500 mb-6">Page not found</p>
             <a href="/" className="btn-primary inline-flex">Go Home</a>

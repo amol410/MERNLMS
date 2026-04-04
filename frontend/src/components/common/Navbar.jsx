@@ -3,23 +3,23 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   BookOpen, Video, Brain, Layers, Home, LogOut, User,
-  Menu, X, ChevronDown, Zap,
+  Menu, X, ChevronDown, Zap, ShieldCheck,
 } from 'lucide-react';
 import clsx from 'clsx';
-
-const navItems = [
-  { to: '/dashboard', icon: Home, label: 'Dashboard' },
-  { to: '/notes', icon: BookOpen, label: 'Notes' },
-  { to: '/videos', icon: Video, label: 'Videos' },
-  { to: '/quizzes', icon: Brain, label: 'Quizzes' },
-  { to: '/flashcards', icon: Layers, label: 'Flashcards' },
-];
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+
+  const navItems = [
+    { to: '/dashboard', icon: Home, label: 'Dashboard' },
+    { to: '/notes', icon: BookOpen, label: 'Notes' },
+    { to: '/videos', icon: Video, label: 'Videos' },
+    { to: '/quizzes', icon: Brain, label: 'Quizzes' },
+    { to: '/flashcards', icon: Layers, label: 'Flashcards' },
+  ];
 
   const handleLogout = () => {
     logout();
@@ -38,7 +38,7 @@ export default function Navbar() {
                 <Zap className="w-5 h-5 text-white" />
               </div>
               <div>
-                <span className="text-white font-bold text-base leading-none block">DolphinCoder</span>
+                <span className="text-white font-bold text-base leading-none block">SpeedUpExam</span>
                 <span className="text-gray-500 text-xs">LMS Platform</span>
               </div>
             </Link>
@@ -62,6 +62,22 @@ export default function Navbar() {
                   {label}
                 </NavLink>
               ))}
+              {user?.role === 'admin' && (
+                <NavLink
+                  to="/admin"
+                  className={({ isActive }) =>
+                    clsx(
+                      'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200',
+                      isActive
+                        ? 'bg-orange-600/30 text-orange-300 border border-orange-500/30'
+                        : 'text-orange-400 hover:text-orange-300 hover:bg-orange-500/10'
+                    )
+                  }
+                >
+                  <ShieldCheck className="w-4 h-4" />
+                  Admin
+                </NavLink>
+              )}
             </div>
 
             {/* Profile */}
@@ -91,6 +107,16 @@ export default function Navbar() {
                       <User className="w-4 h-4" />
                       Profile Settings
                     </Link>
+                    {user?.role === 'admin' && (
+                      <Link
+                        to="/admin"
+                        className="flex items-center gap-3 px-4 py-3 text-orange-400 hover:text-orange-300 hover:bg-orange-500/10 transition-colors text-sm"
+                        onClick={() => setProfileOpen(false)}
+                      >
+                        <ShieldCheck className="w-4 h-4" />
+                        Admin Panel
+                      </Link>
+                    )}
                     <div className="border-t border-white/10" />
                     <button
                       onClick={handleLogout}
@@ -135,6 +161,21 @@ export default function Navbar() {
                 {label}
               </NavLink>
             ))}
+            {user?.role === 'admin' && (
+              <NavLink
+                to="/admin"
+                onClick={() => setMobileOpen(false)}
+                className={({ isActive }) =>
+                  clsx(
+                    'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all',
+                    isActive ? 'bg-orange-600/30 text-orange-300' : 'text-orange-400 hover:bg-orange-500/10'
+                  )
+                }
+              >
+                <ShieldCheck className="w-4 h-4" />
+                Admin Panel
+              </NavLink>
+            )}
             <div className="border-t border-white/10 pt-3 mt-3">
               <div className="flex items-center gap-3 px-3 py-2 mb-2">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-dolphin-500 to-ocean-500 flex items-center justify-center text-white text-sm font-bold">

@@ -18,8 +18,8 @@ const sendToken = (user, statusCode, res) => {
 
 exports.register = async (req, res, next) => {
   try {
-    const { name, email, password, role } = req.body;
-    const user = await User.create({ name, email, password, role: role || 'student' });
+    const { name, email, password } = req.body;
+    const user = await User.create({ name, email, password, role: 'student' });
     sendToken(user, 201, res);
   } catch (error) {
     next(error);

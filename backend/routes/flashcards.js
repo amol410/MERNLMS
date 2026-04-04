@@ -4,13 +4,16 @@ const {
   getDecks, getDeckById, createDeck, updateDeck, deleteDeck,
   addCard, removeCard, saveProgress, getProgress,
 } = require('../controllers/flashcardController');
-const { protect } = require('../middleware/auth');
+const { protect, authorize } = require('../middleware/auth');
 
 router.use(protect);
-router.route('/').get(getDecks).post(createDeck);
-router.route('/:id').get(getDeckById).put(updateDeck).delete(deleteDeck);
-router.post('/:id/cards', addCard);
-router.delete('/:id/cards/:cardId', removeCard);
+router.get('/', getDecks);
+router.post('/', authorize('trainer', 'admin'), createDeck);
+router.get('/:id', getDeckById);
+router.put('/:id', authorize('trainer', 'admin'), updateDeck);
+router.delete('/:id', authorize('trainer', 'admin'), deleteDeck);
+router.post('/:id/cards', authorize('trainer', 'admin'), addCard);
+router.delete('/:id/cards/:cardId', authorize('trainer', 'admin'), removeCard);
 router.route('/:id/progress').get(getProgress).post(saveProgress);
 
 module.exports = router;

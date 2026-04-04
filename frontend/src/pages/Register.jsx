@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Mail, Lock, User, Eye, EyeOff, Zap, ArrowRight, GraduationCap, Briefcase } from 'lucide-react';
+import { Mail, Lock, User, Eye, EyeOff, Zap, ArrowRight } from 'lucide-react';
 
 export default function Register() {
-  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'student' });
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [showPass, setShowPass] = useState(false);
   const { register, loading } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await register(form.name, form.email, form.password, form.role);
+    const result = await register(form.name, form.email, form.password, 'student');
     if (result.success) navigate('/dashboard');
   };
 
@@ -28,7 +28,7 @@ export default function Register() {
             <Zap className="w-7 h-7 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-white">Create Account</h1>
-          <p className="text-gray-500 mt-1">Join DolphinCoder LMS for free</p>
+          <p className="text-gray-500 mt-1">Join SpeedUpExam as a student</p>
         </div>
 
         <div className="glass-card p-8 gradient-border">
@@ -82,36 +82,6 @@ export default function Register() {
                   className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
                 >
                   {showPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-3">I am a...</label>
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setForm({ ...form, role: 'student' })}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all duration-200 ${
-                    form.role === 'student'
-                      ? 'bg-dolphin-600/20 border-dolphin-500/50 text-dolphin-300'
-                      : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20 hover:text-white'
-                  }`}
-                >
-                  <GraduationCap className="w-6 h-6" />
-                  <span className="text-sm font-medium">Student</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setForm({ ...form, role: 'instructor' })}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all duration-200 ${
-                    form.role === 'instructor'
-                      ? 'bg-ocean-600/20 border-ocean-500/50 text-ocean-300'
-                      : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20 hover:text-white'
-                  }`}
-                >
-                  <Briefcase className="w-6 h-6" />
-                  <span className="text-sm font-medium">Instructor</span>
                 </button>
               </div>
             </div>

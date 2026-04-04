@@ -53,7 +53,7 @@ export default function VideosPage() {
             {pagination?.total || 0} videos • YouTube embedded
           </p>
         </div>
-        {user?.role === 'instructor' && (
+        {(user?.role === 'trainer' || user?.role === 'admin') && (
           <Link to="/videos/new" className="btn-primary flex items-center gap-2">
             <Plus className="w-4 h-4" />
             Add Video
@@ -82,10 +82,10 @@ export default function VideosPage() {
         <EmptyState
           icon="🎬"
           title="No videos yet"
-          description={user?.role === 'instructor' ? 'Add your first YouTube video.' : 'No videos have been added yet.'}
-          action={user?.role === 'instructor' && (
+          description={(user?.role === 'trainer' || user?.role === 'admin') ? 'Add your first YouTube video.' : 'No videos have been added yet.'}
+          action={(user?.role === 'trainer' || user?.role === 'admin') ? (
             <Link to="/videos/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Add Video</Link>
-          )}
+          ) : null}
         />
       ) : (
         <>

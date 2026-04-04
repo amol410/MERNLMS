@@ -1,5 +1,6 @@
 const Quiz = require('../models/Quiz');
 const QuizAttempt = require('../models/QuizAttempt');
+const mammoth = require('mammoth');
 
 exports.getQuizzes = async (req, res, next) => {
   try {
@@ -172,13 +173,111 @@ exports.getAllAttempts = async (req, res, next) => {
   try {
     const quiz = await Quiz.findById(req.params.id);
     if (!quiz) return res.status(404).json({ success: false, message: 'Quiz not found' });
-    if (!quiz.createdBy.equals(req.user._id)) {
+    // Admin can view any quiz results; trainers can only view their own quizzes
+    if (req.user.role !== 'admin' && !quiz.createdBy.equals(req.user._id)) {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
     const attempts = await QuizAttempt.find({ quiz: req.params.id })
       .populate('student', 'name email avatar')
       .sort({ createdAt: -1 });
     res.json({ success: true, attempts });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.bulkUploadQuiz = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: 'No file uploaded' });
+    }
+
+    const result = await mammoth.extractRawText({ buffer: req.file.buffer });
+    const text = result.value;
+
+    // Parse quiz metadata
+    const titleMatch = text.match(/^TITLE:\s*(.+)/m);
+    const descMatch = text.match(/^DESCRIPTION:\s*(.+)/m);
+    const passingMatch = text.match(/^PASSING_SCORE:\s*(\d+)/m);
+    const timeLimitMatch = text.match(/^TIME_LIMIT:\s*(\d+)/m);
+    const tagsMatch = text.match(/^TAGS:\s*(.+)/m);
+
+    const title = titleMatch ? titleMatch[1].trim() : 'Uploaded Quiz';
+    const description = descMatch ? descMatch[1].trim() : '';
+    const passingScore = passingMatch ? parseInt(passingMatch[1]) : 70;
+    const timeLimit = timeLimitMatch ? parseInt(timeLimitMatch[1]) : 0;
+    const tags = tagsMatch ? tagsMatch[1].split(',').map(t => t.trim()).filter(Boolean) : [];
+
+    // Parse questions
+    // Split by Q: or Q1: Q2: etc.
+    const questionBlocks = text.split(/\n(?=Q\d*:|\nQ\d*:)/i).filter(b => b.match(/^Q\d*:/i));
+
+    const questions = [];
+    for (const block of questionBlocks) {
+      const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+
+      // Question text (first line after Q:)
+      const qLineMatch = lines[0].match(/^Q\d*:\s*(.+)/i);
+      if (!qLineMatch) continue;
+      const qText = qLineMatch[1].trim();
+
+      // Check if TRUE_FALSE type
+      const isTrueFalse = lines.some(l => /^TRUE_FALSE$/i.test(l));
+
+      let options = [];
+      let correctIndex = 0;
+      let explanation = '';
+      let points = 1;
+
+      if (isTrueFalse) {
+        options = ['True', 'False'];
+        const answerLine = lines.find(l => /^ANSWER:/i.test(l));
+        if (answerLine) {
+          const ans = answerLine.replace(/^ANSWER:/i, '').trim().toUpperCase();
+          correctIndex = ans === 'TRUE' ? 0 : 1;
+        }
+      } else {
+        // Multiple choice: lines starting with A) B) C) D)
+        const optionLines = lines.filter(l => /^[A-D]\)/i.test(l));
+        options = optionLines.map(l => l.replace(/^[A-D]\)\s*/i, '').trim());
+
+        const answerLine = lines.find(l => /^ANSWER:/i.test(l));
+        if (answerLine) {
+          const ans = answerLine.replace(/^ANSWER:/i, '').trim().toUpperCase();
+          const idx = ['A', 'B', 'C', 'D'].indexOf(ans);
+          correctIndex = idx >= 0 ? idx : 0;
+        }
+      }
+
+      const explanationLine = lines.find(l => /^EXPLANATION:/i.test(l));
+      if (explanationLine) explanation = explanationLine.replace(/^EXPLANATION:/i, '').trim();
+
+      const pointsLine = lines.find(l => /^POINTS:/i.test(l));
+      if (pointsLine) points = parseInt(pointsLine.replace(/^POINTS:/i, '').trim()) || 1;
+
+      if (options.length >= 2) {
+        questions.push({
+          text: qText,
+          type: isTrueFalse ? 'true-false' : 'multiple-choice',
+          options,
+          correctIndex,
+          explanation,
+          points,
+        });
+      }
+    }
+
+    if (questions.length === 0) {
+      return res.status(400).json({ success: false, message: 'No valid questions found. Check the file format.' });
+    }
+
+    const quiz = await Quiz.create({
+      createdBy: req.user._id,
+      title, description, questions, passingScore, timeLimit, tags,
+      isPublished: false,
+    });
+
+    res.status(201).json({ success: true, quiz, message: `Quiz created with ${questions.length} questions` });
   } catch (error) {
     next(error);
   }

@@ -41,27 +41,28 @@ export default function Dashboard() {
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
+  const isStaff = user?.role === 'trainer' || user?.role === 'admin';
+
   const statCards = [
-    { to: '/notes', icon: BookOpen, label: 'Notes', value: stats.notes, gradient: 'from-blue-500 to-cyan-500', shadow: 'shadow-blue-900/30', border: 'border-blue-500/15', action: '/notes/new' },
-    { to: '/videos', icon: Video, label: 'Videos', value: stats.videos, gradient: 'from-red-500 to-orange-500', shadow: 'shadow-red-900/30', border: 'border-red-500/15', action: user?.role === 'instructor' ? '/videos/new' : null },
-    { to: '/quizzes', icon: Brain, label: 'Quizzes', value: stats.quizzes, gradient: 'from-purple-500 to-pink-500', shadow: 'shadow-purple-900/30', border: 'border-purple-500/15', action: user?.role === 'instructor' ? '/quizzes/new' : null },
-    { to: '/flashcards', icon: Layers, label: 'Flashcard Decks', value: stats.flashcards, gradient: 'from-green-500 to-emerald-500', shadow: 'shadow-green-900/30', border: 'border-green-500/15', action: '/flashcards/new' },
+    { to: '/notes', icon: BookOpen, label: 'Notes', value: stats.notes, gradient: 'from-blue-500 to-cyan-500', shadow: 'shadow-blue-900/30', border: 'border-blue-500/15', action: isStaff ? '/notes/new' : null },
+    { to: '/videos', icon: Video, label: 'Videos', value: stats.videos, gradient: 'from-red-500 to-orange-500', shadow: 'shadow-red-900/30', border: 'border-red-500/15', action: isStaff ? '/videos/new' : null },
+    { to: '/quizzes', icon: Brain, label: 'Quizzes', value: stats.quizzes, gradient: 'from-purple-500 to-pink-500', shadow: 'shadow-purple-900/30', border: 'border-purple-500/15', action: isStaff ? '/quizzes/new' : null },
+    { to: '/flashcards', icon: Layers, label: 'Flashcard Decks', value: stats.flashcards, gradient: 'from-green-500 to-emerald-500', shadow: 'shadow-green-900/30', border: 'border-green-500/15', action: isStaff ? '/flashcards/new' : null },
   ];
 
-  const quickActions = [
-    { to: '/notes/new', icon: BookOpen, label: 'Write a Note', desc: 'Capture your thoughts', color: 'text-blue-400', bg: 'bg-blue-500/10' },
-    { to: '/flashcards/new', icon: Layers, label: 'Create Deck', desc: 'Build flashcards', color: 'text-green-400', bg: 'bg-green-500/10' },
-    ...(user?.role === 'instructor'
-      ? [
-          { to: '/videos/new', icon: Video, label: 'Add Video', desc: 'Embed YouTube', color: 'text-red-400', bg: 'bg-red-500/10' },
-          { to: '/quizzes/new', icon: Brain, label: 'New Quiz', desc: 'Test students', color: 'text-purple-400', bg: 'bg-purple-500/10' },
-        ]
-      : [
-          { to: '/quizzes', icon: Brain, label: 'Take a Quiz', desc: 'Test yourself', color: 'text-purple-400', bg: 'bg-purple-500/10' },
-          { to: '/videos', icon: Video, label: 'Watch Videos', desc: 'Learn from videos', color: 'text-red-400', bg: 'bg-red-500/10' },
-        ]
-    ),
-  ];
+  const quickActions = isStaff
+    ? [
+        { to: '/notes/new', icon: BookOpen, label: 'Write a Note', desc: 'Create study material', color: 'text-blue-400', bg: 'bg-blue-500/10' },
+        { to: '/flashcards/new', icon: Layers, label: 'Create Deck', desc: 'Build flashcards', color: 'text-green-400', bg: 'bg-green-500/10' },
+        { to: '/videos/new', icon: Video, label: 'Add Video', desc: 'Embed YouTube', color: 'text-red-400', bg: 'bg-red-500/10' },
+        { to: '/quizzes/new', icon: Brain, label: 'New Quiz', desc: 'Create a quiz', color: 'text-purple-400', bg: 'bg-purple-500/10' },
+      ]
+    : [
+        { to: '/quizzes', icon: Brain, label: 'Take a Quiz', desc: 'Test yourself', color: 'text-purple-400', bg: 'bg-purple-500/10' },
+        { to: '/videos', icon: Video, label: 'Watch Videos', desc: 'Learn from videos', color: 'text-red-400', bg: 'bg-red-500/10' },
+        { to: '/flashcards', icon: Layers, label: 'Study Flashcards', desc: 'Spaced repetition', color: 'text-green-400', bg: 'bg-green-500/10' },
+        { to: '/notes', icon: BookOpen, label: 'Read Notes', desc: 'Study materials', color: 'text-blue-400', bg: 'bg-blue-500/10' },
+      ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
@@ -78,7 +79,7 @@ export default function Dashboard() {
             </h1>
             <p className="text-gray-500 text-sm mt-1 capitalize flex items-center gap-2">
               <Zap className="w-3.5 h-3.5 text-dolphin-500" />
-              {user?.role} • DolphinCoder LMS
+              {user?.role} • SpeedUpExam LMS
             </p>
           </div>
           <div className="hidden md:flex items-center gap-2 text-orange-400">
@@ -157,10 +158,12 @@ export default function Dashboard() {
             <div className="text-center py-10">
               <BookOpen className="w-12 h-12 text-gray-800 mx-auto mb-3" />
               <p className="text-gray-600 text-sm mb-4">No notes yet</p>
-              <Link to="/notes/new" className="btn-primary inline-flex items-center gap-2 text-sm px-4 py-2">
-                <Plus className="w-3.5 h-3.5" />
-                Create First Note
-              </Link>
+              {isStaff && (
+                <Link to="/notes/new" className="btn-primary inline-flex items-center gap-2 text-sm px-4 py-2">
+                  <Plus className="w-3.5 h-3.5" />
+                  Create First Note
+                </Link>
+              )}
             </div>
           ) : (
             <div className="space-y-2">
