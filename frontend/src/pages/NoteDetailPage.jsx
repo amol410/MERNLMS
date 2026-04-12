@@ -85,10 +85,20 @@ export default function NoteDetailPage() {
             )}
           </div>
         </div>
-        <div
-          className="ProseMirror p-6 prose-invert max-w-none"
-          dangerouslySetInnerHTML={{ __html: note.content }}
-        />
+        {note.contentType === 'html' ? (
+          <iframe
+            srcDoc={note.content}
+            sandbox="allow-scripts"
+            className="w-full border-0 rounded-b-2xl"
+            style={{ minHeight: '80vh' }}
+            title={note.title}
+          />
+        ) : (
+          <div
+            className="ProseMirror p-6 prose-invert max-w-none"
+            dangerouslySetInnerHTML={{ __html: note.content }}
+          />
+        )}
       </div>
     </div>
   );

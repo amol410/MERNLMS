@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const Note = require('../models/Note');
 const User = require('../models/User');
+const mammoth = require('mammoth');
 
 const ownerInclude = { model: User, as: 'ownerUser', attributes: ['id', 'name'] };
 
@@ -72,8 +73,8 @@ exports.getNoteById = async (req, res, next) => {
 
 exports.createNote = async (req, res, next) => {
   try {
-    const { title, content, tags, color, isPinned } = req.body;
-    const note = await Note.create({ owner: req.user.id, title, content, tags, color, isPinned });
+    const { title, content, tags, color, isPinned, contentType } = req.body;
+    const note = await Note.create({ owner: req.user.id, title, content, tags, color, isPinned, contentType: contentType || 'richtext' });
     res.status(201).json({ success: true, note });
   } catch (error) {
     next(error);
@@ -87,14 +88,69 @@ exports.updateNote = async (req, res, next) => {
     if (note.owner !== req.user.id) {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
-    const { title, content, tags, color, isPinned } = req.body;
+    const { title, content, tags, color, isPinned, contentType } = req.body;
     if (title !== undefined) note.title = title;
     if (content !== undefined) note.content = content;
     if (tags !== undefined) note.tags = tags;
     if (color !== undefined) note.color = color;
     if (isPinned !== undefined) note.isPinned = isPinned;
+    if (contentType !== undefined) note.contentType = contentType;
     await note.save();
     res.json({ success: true, note });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.uploadNoteFile = async (req, res, next) => {
+  try {
+    if (!req.file) return res.status(400).json({ success: false, message: 'No file uploaded' });
+
+    const { title, tags, color, isPinned, noteId } = req.body;
+    const ext = req.file.originalname.split('.').pop().toLowerCase();
+
+    let content = '';
+    let contentType = '';
+
+    if (ext === 'docx') {
+      const result = await mammoth.convertToHtml({ buffer: req.file.buffer });
+      content = result.value;
+      contentType = 'docx';
+    } else if (ext === 'html' || ext === 'htm') {
+      content = req.file.buffer.toString('utf8');
+      contentType = 'html';
+    } else {
+      return res.status(400).json({ success: false, message: 'Only .docx and .html files are supported' });
+    }
+
+    if (!content.trim()) return res.status(400).json({ success: false, message: 'File appears to be empty' });
+
+    const parsedTags = tags ? JSON.parse(tags) : [];
+
+    if (noteId) {
+      // Update existing note
+      const note = await Note.findByPk(noteId);
+      if (!note) return res.status(404).json({ success: false, message: 'Note not found' });
+      if (note.owner !== req.user.id) return res.status(403).json({ success: false, message: 'Not authorized' });
+      note.title = title || note.title;
+      note.content = content;
+      note.contentType = contentType;
+      note.tags = parsedTags;
+      if (color !== undefined) note.color = color;
+      if (isPinned !== undefined) note.isPinned = isPinned === 'true';
+      await note.save();
+      return res.json({ success: true, note });
+    }
+
+    const note = await Note.create({
+      owner: req.user.id,
+      title: title || 'Uploaded Note',
+      content, contentType,
+      tags: parsedTags,
+      color: color || 'default',
+      isPinned: isPinned === 'true',
+    });
+    res.status(201).json({ success: true, note });
   } catch (error) {
     next(error);
   }

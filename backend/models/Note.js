@@ -12,8 +12,9 @@ const Note = sequelize.define('Note', {
           get() { try { return JSON.parse(this.getDataValue('tags')); } catch(e) { return []; } },
           set(val) { this.setDataValue('tags', JSON.stringify(Array.isArray(val) ? val : [])); }
     },
-    isPinned: { type: DataTypes.BOOLEAN, defaultValue: false },
-    color: { type: DataTypes.ENUM('default','blue','green','yellow','pink','purple'), defaultValue: 'default' },
+    isPinned:    { type: DataTypes.BOOLEAN, defaultValue: false },
+    color:       { type: DataTypes.ENUM('default','blue','green','yellow','pink','purple'), defaultValue: 'default' },
+    contentType: { type: DataTypes.ENUM('richtext','docx','html'), defaultValue: 'richtext' },
 }, { tableName: 'notes', timestamps: true });
 
 module.exports = Note;

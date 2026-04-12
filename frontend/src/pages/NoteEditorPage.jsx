@@ -8,17 +8,14 @@ import Underline from '@tiptap/extension-underline';
 import {
   ArrowLeft, Save, Bold, Italic, UnderlineIcon, List, ListOrdered,
   Heading1, Heading2, Code, Quote, Minus, Tag, X, Pin,
+  FileText, Code2, Upload,
 } from 'lucide-react';
 import clsx from 'clsx';
 
 const colors = ['default', 'blue', 'green', 'yellow', 'pink', 'purple'];
 const colorDots = {
-  default: 'bg-gray-500',
-  blue: 'bg-blue-500',
-  green: 'bg-green-500',
-  yellow: 'bg-yellow-500',
-  pink: 'bg-pink-500',
-  purple: 'bg-purple-500',
+  default: 'bg-gray-500', blue: 'bg-blue-500', green: 'bg-green-500',
+  yellow: 'bg-yellow-500', pink: 'bg-pink-500', purple: 'bg-purple-500',
 };
 
 function ToolbarBtn({ onClick, active, title, children }) {
@@ -29,9 +26,7 @@ function ToolbarBtn({ onClick, active, title, children }) {
       title={title}
       className={clsx(
         'p-2 rounded-lg text-sm transition-all duration-150',
-        active
-          ? 'bg-dolphin-600/40 text-dolphin-300'
-          : 'text-gray-400 hover:text-white hover:bg-white/10'
+        active ? 'bg-dolphin-600/40 text-dolphin-300' : 'text-gray-400 hover:text-white hover:bg-white/10'
       )}
     >
       {children}
@@ -44,6 +39,7 @@ export default function NoteEditorPage() {
   const navigate = useNavigate();
   const isEdit = Boolean(id);
 
+  const [mode, setMode] = useState('richtext'); // 'richtext' | 'docx' | 'html'
   const [title, setTitle] = useState('');
   const [color, setColor] = useState('default');
   const [tagInput, setTagInput] = useState('');
@@ -51,6 +47,8 @@ export default function NoteEditorPage() {
   const [isPinned, setIsPinned] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(isEdit);
+  const [uploadFile, setUploadFile] = useState(null);
+  const [existingContentType, setExistingContentType] = useState('richtext');
 
   const editor = useEditor({
     extensions: [StarterKit, Underline],
@@ -71,7 +69,14 @@ export default function NoteEditorPage() {
         setColor(note.color || 'default');
         setTags(note.tags || []);
         setIsPinned(note.isPinned || false);
-        editor.commands.setContent(note.content);
+        setExistingContentType(note.contentType || 'richtext');
+        // For richtext and docx, load into editor. For html, switch to html mode.
+        if (note.contentType === 'html') {
+          setMode('html');
+        } else {
+          setMode('richtext');
+          editor.commands.setContent(note.content);
+        }
         setLoading(false);
       }).catch(() => {
         toast.error('Failed to load note');
@@ -93,17 +98,31 @@ export default function NoteEditorPage() {
 
   const handleSave = async () => {
     if (!title.trim()) { toast.error('Title is required'); return; }
-    const content = editor?.getHTML();
-    if (!content || content === '<p></p>') { toast.error('Content is required'); return; }
 
     setSaving(true);
     try {
-      if (isEdit) {
-        await api.put(`/notes/${id}`, { title, content, tags, color, isPinned });
-        toast.success('Note updated!');
+      if (mode === 'richtext') {
+        const content = editor?.getHTML();
+        if (!content || content === '<p></p>') { toast.error('Content is required'); setSaving(false); return; }
+        if (isEdit) {
+          await api.put(`/notes/${id}`, { title, content, tags, color, isPinned, contentType: 'richtext' });
+          toast.success('Note updated!');
+        } else {
+          await api.post('/notes', { title, content, tags, color, isPinned, contentType: 'richtext' });
+          toast.success('Note created!');
+        }
       } else {
-        await api.post('/notes', { title, content, tags, color, isPinned });
-        toast.success('Note created!');
+        // docx or html — file upload
+        if (!uploadFile && !isEdit) { toast.error('Please select a file'); setSaving(false); return; }
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('tags', JSON.stringify(tags));
+        formData.append('color', color);
+        formData.append('isPinned', isPinned);
+        if (uploadFile) formData.append('file', uploadFile);
+        if (isEdit) formData.append('noteId', id);
+        await api.post('/notes/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        toast.success(isEdit ? 'Note updated!' : 'Note created!');
       }
       navigate('/notes');
     } catch (err) {
@@ -121,6 +140,12 @@ export default function NoteEditorPage() {
     );
   }
 
+  const modes = [
+    { key: 'richtext', label: 'Rich Text', icon: FileText },
+    { key: 'docx',     label: 'Upload DOCX', icon: Upload },
+    { key: 'html',     label: 'Upload HTML', icon: Code2 },
+  ];
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
       {/* Header */}
@@ -130,21 +155,33 @@ export default function NoteEditorPage() {
           Back to Notes
         </button>
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => setIsPinned(!isPinned)}
-            className={clsx('btn-icon', isPinned && 'text-yellow-400')}
-          >
+          <button onClick={() => setIsPinned(!isPinned)} className={clsx('btn-icon', isPinned && 'text-yellow-400')}>
             <Pin className={clsx('w-4 h-4', isPinned && 'fill-yellow-400')} />
           </button>
           <button onClick={handleSave} disabled={saving} className="btn-primary flex items-center gap-2">
-            {saving ? (
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            ) : (
-              <Save className="w-4 h-4" />
-            )}
+            {saving ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Save className="w-4 h-4" />}
             {isEdit ? 'Update' : 'Save Note'}
           </button>
         </div>
+      </div>
+
+      {/* Mode tabs */}
+      <div className="flex gap-1 p-1 bg-white/5 rounded-xl border border-white/10 mb-4 w-fit">
+        {modes.map(({ key, label, icon: Icon }) => (
+          <button
+            key={key}
+            onClick={() => { setMode(key); setUploadFile(null); }}
+            className={clsx(
+              'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+              mode === key
+                ? 'bg-dolphin-600 text-white shadow'
+                : 'text-gray-400 hover:text-white'
+            )}
+          >
+            <Icon className="w-3.5 h-3.5" />
+            {label}
+          </button>
+        ))}
       </div>
 
       <div className="glass-card overflow-hidden">
@@ -158,76 +195,106 @@ export default function NoteEditorPage() {
           />
         </div>
 
-        {/* Toolbar */}
-        <div className="flex flex-wrap items-center gap-0.5 px-4 py-2 border-b border-white/10 bg-white/3">
-          <ToolbarBtn onClick={() => editor?.chain().focus().toggleBold().run()} active={editor?.isActive('bold')} title="Bold">
-            <Bold className="w-4 h-4" />
-          </ToolbarBtn>
-          <ToolbarBtn onClick={() => editor?.chain().focus().toggleItalic().run()} active={editor?.isActive('italic')} title="Italic">
-            <Italic className="w-4 h-4" />
-          </ToolbarBtn>
-          <ToolbarBtn onClick={() => editor?.chain().focus().toggleUnderline().run()} active={editor?.isActive('underline')} title="Underline">
-            <UnderlineIcon className="w-4 h-4" />
-          </ToolbarBtn>
-          <div className="w-px h-5 bg-white/10 mx-1" />
-          <ToolbarBtn onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()} active={editor?.isActive('heading', { level: 1 })} title="Heading 1">
-            <Heading1 className="w-4 h-4" />
-          </ToolbarBtn>
-          <ToolbarBtn onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()} active={editor?.isActive('heading', { level: 2 })} title="Heading 2">
-            <Heading2 className="w-4 h-4" />
-          </ToolbarBtn>
-          <div className="w-px h-5 bg-white/10 mx-1" />
-          <ToolbarBtn onClick={() => editor?.chain().focus().toggleBulletList().run()} active={editor?.isActive('bulletList')} title="Bullet List">
-            <List className="w-4 h-4" />
-          </ToolbarBtn>
-          <ToolbarBtn onClick={() => editor?.chain().focus().toggleOrderedList().run()} active={editor?.isActive('orderedList')} title="Numbered List">
-            <ListOrdered className="w-4 h-4" />
-          </ToolbarBtn>
-          <div className="w-px h-5 bg-white/10 mx-1" />
-          <ToolbarBtn onClick={() => editor?.chain().focus().toggleCode().run()} active={editor?.isActive('code')} title="Inline Code">
-            <Code className="w-4 h-4" />
-          </ToolbarBtn>
-          <ToolbarBtn onClick={() => editor?.chain().focus().toggleBlockquote().run()} active={editor?.isActive('blockquote')} title="Blockquote">
-            <Quote className="w-4 h-4" />
-          </ToolbarBtn>
-          <ToolbarBtn onClick={() => editor?.chain().focus().setHorizontalRule().run()} active={false} title="Divider">
-            <Minus className="w-4 h-4" />
-          </ToolbarBtn>
-        </div>
+        {/* Content area — changes based on mode */}
+        {mode === 'richtext' && (
+          <>
+            <div className="flex flex-wrap items-center gap-0.5 px-4 py-2 border-b border-white/10 bg-white/3">
+              <ToolbarBtn onClick={() => editor?.chain().focus().toggleBold().run()} active={editor?.isActive('bold')} title="Bold"><Bold className="w-4 h-4" /></ToolbarBtn>
+              <ToolbarBtn onClick={() => editor?.chain().focus().toggleItalic().run()} active={editor?.isActive('italic')} title="Italic"><Italic className="w-4 h-4" /></ToolbarBtn>
+              <ToolbarBtn onClick={() => editor?.chain().focus().toggleUnderline().run()} active={editor?.isActive('underline')} title="Underline"><UnderlineIcon className="w-4 h-4" /></ToolbarBtn>
+              <div className="w-px h-5 bg-white/10 mx-1" />
+              <ToolbarBtn onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()} active={editor?.isActive('heading', { level: 1 })} title="Heading 1"><Heading1 className="w-4 h-4" /></ToolbarBtn>
+              <ToolbarBtn onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()} active={editor?.isActive('heading', { level: 2 })} title="Heading 2"><Heading2 className="w-4 h-4" /></ToolbarBtn>
+              <div className="w-px h-5 bg-white/10 mx-1" />
+              <ToolbarBtn onClick={() => editor?.chain().focus().toggleBulletList().run()} active={editor?.isActive('bulletList')} title="Bullet List"><List className="w-4 h-4" /></ToolbarBtn>
+              <ToolbarBtn onClick={() => editor?.chain().focus().toggleOrderedList().run()} active={editor?.isActive('orderedList')} title="Numbered List"><ListOrdered className="w-4 h-4" /></ToolbarBtn>
+              <div className="w-px h-5 bg-white/10 mx-1" />
+              <ToolbarBtn onClick={() => editor?.chain().focus().toggleCode().run()} active={editor?.isActive('code')} title="Inline Code"><Code className="w-4 h-4" /></ToolbarBtn>
+              <ToolbarBtn onClick={() => editor?.chain().focus().toggleBlockquote().run()} active={editor?.isActive('blockquote')} title="Blockquote"><Quote className="w-4 h-4" /></ToolbarBtn>
+              <ToolbarBtn onClick={() => editor?.chain().focus().setHorizontalRule().run()} active={false} title="Divider"><Minus className="w-4 h-4" /></ToolbarBtn>
+            </div>
+            <EditorContent editor={editor} className="min-h-96" />
+          </>
+        )}
 
-        {/* Editor */}
-        <EditorContent editor={editor} className="min-h-96" />
+        {mode === 'docx' && (
+          <div className="p-8 flex flex-col items-center justify-center min-h-64 gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center">
+              <Upload className="w-6 h-6 text-blue-400" />
+            </div>
+            <div className="text-center">
+              <p className="text-white font-medium mb-1">Upload a Word Document</p>
+              <p className="text-gray-500 text-sm">Your .docx file will be converted to a note automatically</p>
+            </div>
+            <label className="cursor-pointer">
+              <input type="file" accept=".docx" className="hidden" onChange={e => setUploadFile(e.target.files[0])} />
+              <div className={clsx(
+                'px-6 py-3 rounded-xl border-2 border-dashed transition-all text-sm font-medium',
+                uploadFile
+                  ? 'border-blue-500/60 bg-blue-500/10 text-blue-300'
+                  : 'border-white/20 text-gray-400 hover:border-blue-500/40 hover:text-blue-400'
+              )}>
+                {uploadFile ? `✓ ${uploadFile.name}` : 'Click to choose .docx file'}
+              </div>
+            </label>
+            {uploadFile && (
+              <button onClick={() => setUploadFile(null)} className="text-xs text-gray-500 hover:text-gray-300">Clear file</button>
+            )}
+            {isEdit && !uploadFile && existingContentType === 'docx' && (
+              <p className="text-gray-600 text-xs">Leave empty to keep existing content, or upload a new file to replace it.</p>
+            )}
+          </div>
+        )}
+
+        {mode === 'html' && (
+          <div className="p-8 flex flex-col items-center justify-center min-h-64 gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-orange-500/15 border border-orange-500/30 flex items-center justify-center">
+              <Code2 className="w-6 h-6 text-orange-400" />
+            </div>
+            <div className="text-center">
+              <p className="text-white font-medium mb-1">Upload an HTML File</p>
+              <p className="text-gray-500 text-sm">Your HTML file with CSS & JS will be displayed exactly as designed</p>
+            </div>
+            <label className="cursor-pointer">
+              <input type="file" accept=".html,.htm" className="hidden" onChange={e => setUploadFile(e.target.files[0])} />
+              <div className={clsx(
+                'px-6 py-3 rounded-xl border-2 border-dashed transition-all text-sm font-medium',
+                uploadFile
+                  ? 'border-orange-500/60 bg-orange-500/10 text-orange-300'
+                  : 'border-white/20 text-gray-400 hover:border-orange-500/40 hover:text-orange-400'
+              )}>
+                {uploadFile ? `✓ ${uploadFile.name}` : 'Click to choose .html file'}
+              </div>
+            </label>
+            {uploadFile && (
+              <button onClick={() => setUploadFile(null)} className="text-xs text-gray-500 hover:text-gray-300">Clear file</button>
+            )}
+            {isEdit && !uploadFile && existingContentType === 'html' && (
+              <p className="text-gray-600 text-xs">Leave empty to keep existing content, or upload a new file to replace it.</p>
+            )}
+          </div>
+        )}
 
         {/* Footer */}
         <div className="p-4 border-t border-white/10 bg-white/3 space-y-4">
-          {/* Color picker */}
           <div className="flex items-center gap-3">
             <span className="text-gray-500 text-xs font-medium">Color:</span>
             <div className="flex gap-2">
               {colors.map(c => (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => setColor(c)}
-                  className={clsx(
-                    'w-5 h-5 rounded-full transition-all duration-150',
-                    colorDots[c],
+                <button key={c} type="button" onClick={() => setColor(c)}
+                  className={clsx('w-5 h-5 rounded-full transition-all duration-150', colorDots[c],
                     color === c ? 'ring-2 ring-white ring-offset-1 ring-offset-gray-900 scale-125' : 'opacity-60 hover:opacity-100'
                   )}
                 />
               ))}
             </div>
           </div>
-
-          {/* Tags */}
           <div className="flex items-center flex-wrap gap-2">
             <Tag className="w-4 h-4 text-gray-500" />
             {tags.map(tag => (
               <span key={tag} className="inline-flex items-center gap-1 badge badge-blue">
                 {tag}
-                <button onClick={() => removeTag(tag)} className="hover:text-white">
-                  <X className="w-3 h-3" />
-                </button>
+                <button onClick={() => removeTag(tag)} className="hover:text-white"><X className="w-3 h-3" /></button>
               </span>
             ))}
             <input
