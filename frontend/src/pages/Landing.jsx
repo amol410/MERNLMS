@@ -117,10 +117,6 @@ export default function Landing() {
           {features.map(({ icon: Icon, title, description, gradient, bg }) => (
             <div key={title} className="glass-card-hover p-6 group">
               <div className={`w-12 h-12 rounded-xl ${bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <Icon className={`w-6 h-6 bg-gradient-to-r ${gradient} bg-clip-text`} style={{ color: 'transparent', filter: 'none' }} />
-                <Icon className={`w-6 h-6 text-white absolute`} />
-              </div>
-              <div className={`w-12 h-12 rounded-xl ${bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                 <Icon className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
