@@ -1,28 +1,22 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
 
-const flashcardProgressSchema = new mongoose.Schema(
-  {
-    student: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    flashcard: { type: mongoose.Schema.Types.ObjectId, ref: 'Flashcard', required: true },
-    cardResults: [
-      {
-        cardId: mongoose.Schema.Types.ObjectId,
-        status: {
-          type: String,
-          enum: ['unseen', 'known', 'unknown', 'reviewing'],
-          default: 'unseen',
-        },
-        lastReviewedAt: Date,
-        reviewCount: { type: Number, default: 0 },
-      },
-    ],
-    sessionCount: { type: Number, default: 0 },
-    masteredCount: { type: Number, default: 0 },
-    lastStudiedAt: Date,
-  },
-  { timestamps: true }
-);
+const FlashcardProgress = sequelize.define('FlashcardProgress', {
+    id:        { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    student:   { type: DataTypes.INTEGER, allowNull: false },
+    flashcard: { type: DataTypes.INTEGER, allowNull: false },
+    cardResults: {
+          type: DataTypes.TEXT('long'), defaultValue: '[]',
+          get() { try { return JSON.parse(this.getDataValue('cardResults')); } catch(e) { return []; } },
+          set(val) { this.setDataValue('cardResults', JSON.stringify(Array.isArray(val) ? val : [])); }
+    },
+    sessionCount:  { type: DataTypes.INTEGER, defaultValue: 0 },
+    masteredCount: { type: DataTypes.INTEGER, defaultValue: 0 },
+    lastStudiedAt: { type: DataTypes.DATE, defaultValue: null },
+}, {
+    tableName: 'flashcard_progress',
+    timestamps: true,
+    indexes: [{ unique: true, fields: ['student', 'flashcard'] }]
+});
 
-flashcardProgressSchema.index({ student: 1, flashcard: 1 }, { unique: true });
-
-module.exports = mongoose.model('FlashcardProgress', flashcardProgressSchema);
+module.exports = FlashcardProgress;
