@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { ArrowLeft, Edit, Trash2, Pin, Tag, Calendar } from 'lucide-react';
+import { ArrowLeft, Edit, Trash2, Pin, Tag, Calendar, Maximize2, Minimize2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { PageLoader } from '../components/common/Loader';
 import clsx from 'clsx';
@@ -21,7 +21,26 @@ export default function NoteDetailPage() {
   const navigate = useNavigate();
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const slideRef = useRef(null);
   const { user } = useAuth();
+
+  const toggleFullscreen = () => {
+    if (!isFullscreen) {
+      slideRef.current?.requestFullscreen?.();
+    } else {
+      document.exitFullscreen?.();
+    }
+    setIsFullscreen(f => !f);
+  };
+
+  useEffect(() => {
+    const onFsChange = () => {
+      if (!document.fullscreenElement) setIsFullscreen(false);
+    };
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
 
   useEffect(() => {
     api.get(`/notes/${id}`)
@@ -43,7 +62,7 @@ export default function NoteDetailPage() {
   if (loading) return <PageLoader />;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
+    <div className={clsx('mx-auto px-4 sm:px-6 py-8 animate-fade-in', note.contentType === 'html' ? 'max-w-6xl' : 'max-w-4xl')}>
       <div className="flex items-center justify-between mb-6">
         <Link to="/notes" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
           <ArrowLeft className="w-4 h-4" />
@@ -86,13 +105,29 @@ export default function NoteDetailPage() {
           </div>
         </div>
         {note.contentType === 'html' ? (
-          <iframe
-            srcDoc={note.content}
-            sandbox="allow-scripts"
-            className="w-full border-0 rounded-b-2xl"
-            style={{ minHeight: '80vh' }}
-            title={note.title}
-          />
+          /* 16:9 slide viewer */
+          <div
+            ref={slideRef}
+            className="relative w-full bg-black"
+            style={{ aspectRatio: '16/9' }}
+          >
+            <iframe
+              srcDoc={note.content}
+              sandbox="allow-scripts"
+              className="w-full h-full border-0"
+              title={note.title}
+            />
+            {/* Fullscreen toggle */}
+            <button
+              onClick={toggleFullscreen}
+              className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-white/20 text-white text-xs font-medium hover:bg-black/80 transition-all"
+            >
+              {isFullscreen
+                ? <><Minimize2 className="w-3.5 h-3.5" /> Exit Fullscreen</>
+                : <><Maximize2 className="w-3.5 h-3.5" /> Fullscreen</>
+              }
+            </button>
+          </div>
         ) : (
           <div
             className="ProseMirror p-6 prose-invert max-w-none"
