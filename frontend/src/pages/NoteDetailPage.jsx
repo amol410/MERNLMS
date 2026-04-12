@@ -22,9 +22,7 @@ export default function NoteDetailPage() {
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showExitBtn, setShowExitBtn] = useState(false);
   const slideRef = useRef(null);
-  const exitBtnTimer = useRef(null);
   const { user } = useAuth();
 
   const toggleFullscreen = () => {
@@ -111,21 +109,7 @@ export default function NoteDetailPage() {
           <div
             ref={slideRef}
             className="relative w-full bg-black"
-            style={{ aspectRatio: isFullscreen ? 'unset' : '16/9', height: isFullscreen ? '100vh' : undefined }}
-            onMouseMove={(e) => {
-              if (!isFullscreen) return;
-              // show exit button when mouse is in top-center zone
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const inCenter = x > rect.width * 0.3 && x < rect.width * 0.7;
-              const inTop = e.clientY - rect.top < 80;
-              if (inCenter && inTop) {
-                setShowExitBtn(true);
-                clearTimeout(exitBtnTimer.current);
-                exitBtnTimer.current = setTimeout(() => setShowExitBtn(false), 2000);
-              }
-            }}
-            onMouseLeave={() => { if (isFullscreen) setShowExitBtn(false); }}
+            style={{ aspectRatio: '16/9' }}
           >
             <iframe
               srcDoc={note.content}
@@ -134,30 +118,15 @@ export default function NoteDetailPage() {
               title={note.title}
             />
 
-            {/* Normal mode — fullscreen button bottom-right */}
-            {!isFullscreen && (
-              <button
-                onClick={toggleFullscreen}
-                className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-white/20 text-white text-xs font-medium hover:bg-black/80 transition-all"
-              >
-                <Maximize2 className="w-3.5 h-3.5" /> Fullscreen
-              </button>
-            )}
-
-            {/* Fullscreen mode — hover top-center to reveal exit button */}
-            {isFullscreen && (
-              <div className={clsx(
-                'absolute top-4 left-1/2 -translate-x-1/2 transition-all duration-300',
-                showExitBtn ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
-              )}>
-                <button
-                  onClick={toggleFullscreen}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-black/70 backdrop-blur-sm border border-white/20 text-white text-sm font-medium hover:bg-black/90 transition-all shadow-xl"
-                >
-                  <Minimize2 className="w-4 h-4" /> Exit Fullscreen
-                </button>
-              </div>
-            )}
+            <button
+              onClick={toggleFullscreen}
+              className="absolute bottom-14 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-white/20 text-white text-xs font-medium hover:bg-black/80 transition-all"
+            >
+              {isFullscreen
+                ? <><Minimize2 className="w-3.5 h-3.5" /> Exit Fullscreen</>
+                : <><Maximize2 className="w-3.5 h-3.5" /> Fullscreen</>
+              }
+            </button>
           </div>
         ) : (
           <div
