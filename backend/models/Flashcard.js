@@ -1,35 +1,32 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
 
-const cardSchema = new mongoose.Schema({
-  front: { type: String, required: true, maxlength: 500 },
-  back: { type: String, required: true, maxlength: 1000 },
-  hint: { type: String, default: '' },
-});
-
-const flashcardSchema = new mongoose.Schema(
-  {
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    deckName: { type: String, required: [true, 'Deck name is required'], trim: true, maxlength: 100 },
-    description: { type: String, default: '' },
-    cards: [cardSchema],
-    color: {
-      type: String,
-      enum: ['default', 'blue', 'green', 'yellow', 'pink', 'purple'],
-      default: 'default',
+const Flashcard = sequelize.define('Flashcard', {
+    id:          { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    owner:       { type: DataTypes.INTEGER, allowNull: false },
+    deckName:    { type: DataTypes.STRING(100), allowNull: false },
+    description: { type: DataTypes.TEXT, defaultValue: '' },
+    cards: {
+          type: DataTypes.TEXT('long'), defaultValue: '[]',
+          get() { try { return JSON.parse(this.getDataValue('cards')); } catch(e) { return []; } },
+          set(val) { this.setDataValue('cards', JSON.stringify(Array.isArray(val) ? val : [])); }
     },
-    isPublic: { type: Boolean, default: false },
-    tags: { type: [String], default: [] },
-    cardCount: { type: Number, default: 0 },
-  },
-  { timestamps: true }
-);
+    color: {
+          type: DataTypes.ENUM('default','blue','green','yellow','pink','purple'),
+          defaultValue: 'default'
+    },
+    isPublic: { type: DataTypes.BOOLEAN, defaultValue: false },
+    tags: {
+          type: DataTypes.TEXT, defaultValue: '[]',
+          get() { try { return JSON.parse(this.getDataValue('tags')); } catch(e) { return []; } },
+          set(val) { this.setDataValue('tags', JSON.stringify(Array.isArray(val) ? val : [])); }
+    },
+    cardCount: { type: DataTypes.INTEGER, defaultValue: 0 },
+}, { tableName: 'flashcards', timestamps: true });
 
-flashcardSchema.pre('save', function (next) {
-  this.cardCount = this.cards.length;
-  next();
+Flashcard.beforeSave((instance) => {
+    const cards = instance.cards;
+    instance.cardCount = Array.isArray(cards) ? cards.length : 0;
 });
 
-flashcardSchema.index({ owner: 1 });
-flashcardSchema.index({ deckName: 'text', description: 'text' });
-
-module.exports = mongoose.model('Flashcard', flashcardSchema);
+module.exports = Flashcard;
