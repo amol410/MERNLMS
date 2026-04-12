@@ -3,6 +3,7 @@ const { sequelize } = require('../config/database');
 
 const Video = sequelize.define('Video', {
     id:             { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    _id:            { type: DataTypes.VIRTUAL, get() { return this.id; } },
     addedBy:        { type: DataTypes.INTEGER, allowNull: false },
     title:          { type: DataTypes.STRING(200), allowNull: false },
     description:    { type: DataTypes.TEXT, defaultValue: '' },

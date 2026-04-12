@@ -3,6 +3,7 @@ const { sequelize } = require('../config/database');
 
 const FlashcardProgress = sequelize.define('FlashcardProgress', {
     id:        { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    _id:       { type: DataTypes.VIRTUAL, get() { return this.id; } },
     student:   { type: DataTypes.INTEGER, allowNull: false },
     flashcard: { type: DataTypes.INTEGER, allowNull: false },
     cardResults: {

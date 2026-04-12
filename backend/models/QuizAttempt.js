@@ -3,6 +3,7 @@ const { sequelize } = require('../config/database');
 
 const QuizAttempt = sequelize.define('QuizAttempt', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    _id: { type: DataTypes.VIRTUAL, get() { return this.id; } },
     quizId: { type: DataTypes.INTEGER, allowNull: false },
     studentId: { type: DataTypes.INTEGER, allowNull: false },
     answers: {

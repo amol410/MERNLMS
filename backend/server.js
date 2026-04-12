@@ -12,6 +12,7 @@ const { connectDB } = require('./config/database');
 const { errorHandler, notFound } = require('./middleware/errorHandler');
 
 connectDB();
+require('./models/associations');
 
 const app = express();
 

@@ -3,6 +3,7 @@ const { sequelize } = require('../config/database');
 
 const Flashcard = sequelize.define('Flashcard', {
     id:          { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    _id:         { type: DataTypes.VIRTUAL, get() { return this.id; } },
     owner:       { type: DataTypes.INTEGER, allowNull: false },
     deckName:    { type: DataTypes.STRING(100), allowNull: false },
     description: { type: DataTypes.TEXT, defaultValue: '' },

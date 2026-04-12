@@ -6,7 +6,7 @@ const sendToken = (user, statusCode, res) => {
     success: true,
     token,
     user: {
-      _id: user._id,
+      _id: user.id,
       name: user.name,
       email: user.email,
       role: user.role,
@@ -39,7 +39,7 @@ exports.login = async (req, res, next) => {
     }
 
     user.lastLogin = new Date();
-    await user.save({ validateBeforeSave: false });
+    await user.save();
 
     sendToken(user, 200, res);
   } catch (error) {
@@ -58,12 +58,15 @@ exports.getMe = async (req, res, next) => {
 exports.updateProfile = async (req, res, next) => {
   try {
     const { name, bio, avatar } = req.body;
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      { name, bio, avatar },
-      { new: true, runValidators: true }
-    );
-    res.status(200).json({ success: true, user });
+    const user = await User.findByPk(req.user.id);
+    if (name !== undefined) user.name = name;
+    if (bio !== undefined) user.bio = bio;
+    if (avatar !== undefined) user.avatar = avatar;
+    await user.save();
+    res.status(200).json({
+      success: true,
+      user: { _id: user.id, name: user.name, email: user.email, role: user.role, avatar: user.avatar, bio: user.bio },
+    });
   } catch (error) {
     next(error);
   }
@@ -72,7 +75,7 @@ exports.updateProfile = async (req, res, next) => {
 exports.changePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;
-    const user = await User.findById(req.user._id).select('+password');
+    const user = await User.findByPk(req.user.id);
 
     if (!(await user.matchPassword(currentPassword))) {
       return res.status(400).json({ success: false, message: 'Current password is incorrect' });

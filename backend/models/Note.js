@@ -3,6 +3,7 @@ const { sequelize } = require('../config/database');
 
 const Note = sequelize.define('Note', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    _id: { type: DataTypes.VIRTUAL, get() { return this.id; } },
     owner: { type: DataTypes.INTEGER, allowNull: false },
     title: { type: DataTypes.STRING(200), allowNull: false },
     content: { type: DataTypes.TEXT('long'), allowNull: false },
