@@ -93,6 +93,17 @@ export default function QuizFormPage() {
     }
   };
 
+  const handleDelete = async () => {
+    if (!confirm(`Delete "${form.title}"? This will also remove all students attempts for this quiz.`)) return;
+    try {
+      await api.delete(`/quizzes/${id}`);
+      toast.success('Quiz deleted');
+      navigate('/quizzes');
+    } catch {
+      toast.error('Failed to delete quiz');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     for (let i = 0; i < questions.length; i++) {
@@ -120,10 +131,22 @@ export default function QuizFormPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
-      <button onClick={() => navigate('/quizzes')} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6">
-        <ArrowLeft className="w-4 h-4" />
-        Back to Quizzes
-      </button>
+      <div className="flex items-center justify-between mb-6">
+        <button onClick={() => navigate('/quizzes')} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+          <ArrowLeft className="w-4 h-4" />
+          Back to Quizzes
+        </button>
+        {isEdit && (
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 hover:border-red-500/50 transition-all text-sm font-medium"
+          >
+            <Trash2 className="w-4 h-4" />
+            Delete Quiz
+          </button>
+        )}
+      </div>
 
       {/* Bulk Upload */}
       {!isEdit && (
