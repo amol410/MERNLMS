@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { ArrowLeft, Clock, CheckCircle, XCircle, Award, RotateCcw, ChevronRight, ChevronLeft } from 'lucide-react';
+import { ArrowLeft, Clock, CheckCircle, XCircle, Award, RotateCcw, ChevronRight, ChevronLeft, Flag } from 'lucide-react';
 import { PageLoader } from '../components/common/Loader';
 import clsx from 'clsx';
 
@@ -18,6 +18,7 @@ export default function QuizTakePage() {
   const [result, setResult] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [timeLeft, setTimeLeft] = useState(null);
+  const [flagged, setFlagged] = useState({});
   const startedAt = useRef(new Date().toISOString());
   const timerRef = useRef(null);
 
@@ -39,6 +40,10 @@ export default function QuizTakePage() {
     timerRef.current = setTimeout(() => setTimeLeft(t => t - 1), 1000);
     return () => clearTimeout(timerRef.current);
   }, [timeLeft, submitted]);
+
+  const toggleFlag = (questionId) => {
+    setFlagged(prev => ({ ...prev, [questionId]: !prev[questionId] }));
+  };
 
   const handleAnswer = (questionId, chosenIndex) => {
     if (submitted) return;
@@ -183,7 +188,7 @@ export default function QuizTakePage() {
   const answered = Object.keys(answers).length;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
       {/* Quiz header */}
       <div className="glass-card p-4 mb-6 flex items-center justify-between">
         <div>
@@ -212,89 +217,154 @@ export default function QuizTakePage() {
         />
       </div>
 
-      {/* Question */}
-      <div className="glass-card p-6 mb-4">
-        <div className="flex items-start gap-3 mb-6">
-          <span className="w-8 h-8 rounded-lg bg-purple-600/30 text-purple-300 flex items-center justify-center text-sm font-bold flex-shrink-0">
-            {currentQ + 1}
-          </span>
-          <h2 className="text-white text-lg font-medium leading-relaxed">{q.text}</h2>
-        </div>
-
-        <div className="space-y-3">
-          {q.options.map((opt, optIdx) => (
-            <button
-              key={optIdx}
-              onClick={() => handleAnswer(q._id, optIdx)}
-              className={clsx(
-                'w-full text-left px-4 py-3.5 rounded-xl border transition-all duration-200 text-sm font-medium',
-                answers[q._id] === optIdx
-                  ? 'bg-dolphin-600/25 border-dolphin-500/60 text-dolphin-200'
-                  : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:border-white/20 hover:text-white'
-              )}
-            >
-              <span className={clsx(
-                'inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mr-3 flex-shrink-0',
-                answers[q._id] === optIdx
-                  ? 'bg-dolphin-500 text-white'
-                  : 'bg-white/10 text-gray-500'
-              )}>
-                {String.fromCharCode(65 + optIdx)}
+      <div className="flex gap-6 items-start">
+        {/* Main question area */}
+        <div className="flex-1 min-w-0">
+          {/* Question */}
+          <div className="glass-card p-6 mb-4">
+            <div className="flex items-start gap-3 mb-6">
+              <span className="w-8 h-8 rounded-lg bg-purple-600/30 text-purple-300 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                {currentQ + 1}
               </span>
-              {opt}
-            </button>
-          ))}
-        </div>
-      </div>
+              <h2 className="text-white text-lg font-medium leading-relaxed flex-1">{q.text}</h2>
+              <button
+                type="button"
+                onClick={() => toggleFlag(q._id)}
+                title={flagged[q._id] ? 'Remove mark' : 'Mark for review'}
+                className={clsx(
+                  'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all duration-200 flex-shrink-0',
+                  flagged[q._id]
+                    ? 'bg-orange-500/20 border-orange-500/50 text-orange-400'
+                    : 'bg-white/5 border-white/15 text-gray-500 hover:border-orange-500/40 hover:text-orange-400'
+                )}
+              >
+                <Flag className={clsx('w-3.5 h-3.5', flagged[q._id] && 'fill-orange-400')} />
+                {flagged[q._id] ? 'Marked' : 'Mark for Review'}
+              </button>
+            </div>
 
-      {/* Navigation */}
-      <div className="flex items-center justify-between">
-        <button
-          onClick={() => setCurrentQ(Math.max(0, currentQ - 1))}
-          disabled={currentQ === 0}
-          className="btn-secondary flex items-center gap-2 disabled:opacity-30"
-        >
-          <ChevronLeft className="w-4 h-4" />
-          Previous
-        </button>
+            <div className="space-y-3">
+              {q.options.map((opt, optIdx) => (
+                <button
+                  key={optIdx}
+                  onClick={() => handleAnswer(q._id, optIdx)}
+                  className={clsx(
+                    'w-full text-left px-4 py-3.5 rounded-xl border transition-all duration-200 text-sm font-medium',
+                    answers[q._id] === optIdx
+                      ? 'bg-dolphin-600/25 border-dolphin-500/60 text-dolphin-200'
+                      : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:border-white/20 hover:text-white'
+                  )}
+                >
+                  <span className={clsx(
+                    'inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mr-3 flex-shrink-0',
+                    answers[q._id] === optIdx
+                      ? 'bg-dolphin-500 text-white'
+                      : 'bg-white/10 text-gray-500'
+                  )}>
+                    {String.fromCharCode(65 + optIdx)}
+                  </span>
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
 
-        <div className="flex gap-1.5">
-          {quiz.questions.map((_, i) => (
+          {/* Navigation */}
+          <div className="flex items-center justify-between">
             <button
-              key={i}
-              onClick={() => setCurrentQ(i)}
-              className={clsx(
-                'w-8 h-8 rounded-lg text-xs font-medium transition-all',
-                i === currentQ
-                  ? 'bg-dolphin-600 text-white'
-                  : answers[quiz.questions[i]._id] !== undefined
-                    ? 'bg-dolphin-600/30 text-dolphin-300'
-                    : 'bg-white/10 text-gray-500 hover:bg-white/15'
-              )}
+              onClick={() => setCurrentQ(Math.max(0, currentQ - 1))}
+              disabled={currentQ === 0}
+              className="btn-secondary flex items-center gap-2 disabled:opacity-30"
             >
-              {i + 1}
+              <ChevronLeft className="w-4 h-4" />
+              Previous
             </button>
-          ))}
+
+            {currentQ < quiz.questions.length - 1 ? (
+              <button onClick={() => setCurrentQ(currentQ + 1)} className="btn-primary flex items-center gap-2">
+                Next
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  if (answered < quiz.questions.length && !confirm(`You've answered ${answered}/${quiz.questions.length} questions. Submit anyway?`)) return;
+                  handleSubmit();
+                }}
+                disabled={submitting}
+                className="btn-primary flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600"
+              >
+                {submitting ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <CheckCircle className="w-4 h-4" />}
+                Submit Quiz
+              </button>
+            )}
+          </div>
         </div>
 
-        {currentQ < quiz.questions.length - 1 ? (
-          <button onClick={() => setCurrentQ(currentQ + 1)} className="btn-primary flex items-center gap-2">
-            Next
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        ) : (
-          <button
-            onClick={() => {
-              if (answered < quiz.questions.length && !confirm(`You've answered ${answered}/${quiz.questions.length} questions. Submit anyway?`)) return;
-              handleSubmit();
-            }}
-            disabled={submitting}
-            className="btn-primary flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600"
-          >
-            {submitting ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <CheckCircle className="w-4 h-4" />}
-            Submit Quiz
-          </button>
-        )}
+        {/* Right sidebar — question navigator */}
+        <div className="w-52 flex-shrink-0 sticky top-24">
+          <div className="glass-card p-4 border border-white/10">
+            <h3 className="text-white text-sm font-semibold mb-3">Questions</h3>
+
+            {/* Grid: 4 per row */}
+            <div className="grid grid-cols-4 gap-1.5 mb-4">
+              {quiz.questions.map((ques, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentQ(i)}
+                  className={clsx(
+                    'w-full aspect-square rounded-lg text-xs font-bold transition-all duration-200 relative',
+                    i === currentQ
+                      ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40 scale-110'
+                      : flagged[ques._id]
+                        ? 'bg-orange-500/25 text-orange-300 border border-orange-500/40'
+                        : answers[ques._id] !== undefined
+                          ? 'bg-green-600/40 text-green-300 border border-green-500/30'
+                          : 'bg-white/8 text-gray-500 hover:bg-white/15 hover:text-gray-300'
+                  )}
+                >
+                  {i + 1}
+                  {flagged[ques._id] && i !== currentQ && (
+                    <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-orange-400 rounded-full" />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Legend */}
+            <div className="space-y-1.5 text-xs text-gray-500 border-t border-white/10 pt-3 mb-4">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-purple-600 flex-shrink-0" />
+                Current
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-green-600/40 border border-green-500/30 flex-shrink-0" />
+                Answered
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-orange-500/25 border border-orange-500/40 flex-shrink-0" />
+                Marked for review
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-white/8 flex-shrink-0" />
+                Not answered
+              </div>
+            </div>
+
+            {/* Submit button */}
+            <button
+              onClick={() => {
+                if (answered < quiz.questions.length && !confirm(`You've answered ${answered}/${quiz.questions.length} questions. Submit anyway?`)) return;
+                handleSubmit();
+              }}
+              disabled={submitting}
+              className="w-full btn-primary text-xs py-2.5 flex items-center justify-center gap-1.5 bg-gradient-to-r from-green-600 to-emerald-600"
+            >
+              {submitting ? <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <CheckCircle className="w-3.5 h-3.5" />}
+              Submit Quiz
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
