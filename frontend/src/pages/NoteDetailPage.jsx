@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Edit, Trash2, Pin, Tag, Calendar } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 import { PageLoader } from '../components/common/Loader';
 import clsx from 'clsx';
 
@@ -20,6 +21,7 @@ export default function NoteDetailPage() {
   const navigate = useNavigate();
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     api.get(`/notes/${id}`)
@@ -47,15 +49,17 @@ export default function NoteDetailPage() {
           <ArrowLeft className="w-4 h-4" />
           Back to Notes
         </Link>
-        <div className="flex items-center gap-2">
-          <Link to={`/notes/${id}/edit`} className="btn-secondary flex items-center gap-2 px-4 py-2 text-sm">
-            <Edit className="w-4 h-4" />
-            Edit
-          </Link>
-          <button onClick={handleDelete} className="btn-danger">
-            <Trash2 className="w-4 h-4" />
-          </button>
-        </div>
+        {(user?.role === 'admin' || user?.role === 'trainer') && (
+          <div className="flex items-center gap-2">
+            <Link to={`/notes/${id}/edit`} className="btn-secondary flex items-center gap-2 px-4 py-2 text-sm">
+              <Edit className="w-4 h-4" />
+              Edit
+            </Link>
+            <button onClick={handleDelete} className="btn-danger">
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
 
       <div className={clsx('glass-card overflow-hidden border-l-4', colorAccent[note.color] || colorAccent.default)}>
