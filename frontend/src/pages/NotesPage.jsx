@@ -163,7 +163,7 @@ export default function NotesPage() {
                 <Pin className="w-3.5 h-3.5 text-yellow-500" /> Pinned
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {pinned.map(note => <NoteCard key={note._id} note={note} onPin={handlePin} onDelete={handleDelete} stripHtml={stripHtml} />)}
+                {pinned.map(note => <NoteCard key={note._id} note={note} onPin={handlePin} onDelete={handleDelete} stripHtml={stripHtml} isStaff={isStaff} />)}
               </div>
             </div>
           )}
@@ -173,7 +173,7 @@ export default function NotesPage() {
             <div>
               {pinned.length > 0 && <h2 className="text-sm font-medium text-gray-500 mb-3 flex items-center gap-2"><SortDesc className="w-3.5 h-3.5" /> All Notes</h2>}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {unpinned.map(note => <NoteCard key={note._id} note={note} onPin={handlePin} onDelete={handleDelete} stripHtml={stripHtml} />)}
+                {unpinned.map(note => <NoteCard key={note._id} note={note} onPin={handlePin} onDelete={handleDelete} stripHtml={stripHtml} isStaff={isStaff} />)}
               </div>
             </div>
           )}
@@ -183,7 +183,7 @@ export default function NotesPage() {
   );
 }
 
-function NoteCard({ note, onPin, onDelete, stripHtml }) {
+function NoteCard({ note, onPin, onDelete, stripHtml, isStaff }) {
   const color = colorMap[note.color] || colorMap.default;
   return (
     <div className={clsx('glass-card border-l-4 p-5 hover:scale-[1.02] transition-all duration-300 group cursor-pointer', color.border, color.bg)}>
@@ -193,17 +193,19 @@ function NoteCard({ note, onPin, onDelete, stripHtml }) {
             {note.title}
           </h3>
         </Link>
-        <div className="flex items-center gap-0.5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
-          <button onClick={() => onPin(note._id, note.isPinned)} className="btn-icon p-1.5" title={note.isPinned ? 'Unpin' : 'Pin'}>
-            <Pin className={clsx('w-3.5 h-3.5', note.isPinned ? 'text-yellow-400 fill-yellow-400' : 'text-gray-500')} />
-          </button>
-          <Link to={`/notes/${note._id}/edit`} className="btn-icon p-1.5" title="Edit">
-            <Edit className="w-3.5 h-3.5 text-gray-500" />
-          </Link>
-          <button onClick={() => onDelete(note._id)} className="btn-icon p-1.5" title="Delete">
-            <Trash2 className="w-3.5 h-3.5 text-red-400" />
-          </button>
-        </div>
+        {isStaff && (
+          <div className="flex items-center gap-0.5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+            <button onClick={() => onPin(note._id, note.isPinned)} className="btn-icon p-1.5" title={note.isPinned ? 'Unpin' : 'Pin'}>
+              <Pin className={clsx('w-3.5 h-3.5', note.isPinned ? 'text-yellow-400 fill-yellow-400' : 'text-gray-500')} />
+            </button>
+            <Link to={`/notes/${note._id}/edit`} className="btn-icon p-1.5" title="Edit">
+              <Edit className="w-3.5 h-3.5 text-gray-500" />
+            </Link>
+            <button onClick={() => onDelete(note._id)} className="btn-icon p-1.5" title="Delete">
+              <Trash2 className="w-3.5 h-3.5 text-red-400" />
+            </button>
+          </div>
+        )}
       </div>
 
       <Link to={`/notes/${note._id}`}>

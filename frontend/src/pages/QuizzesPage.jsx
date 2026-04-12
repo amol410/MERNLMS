@@ -83,7 +83,8 @@ export default function QuizzesPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {quizzes.map(quiz => {
             const diff = difficultyColor(quiz.questions);
-            const isOwner = (user?.role === 'trainer' || user?.role === 'admin') && quiz.createdBy?._id === user._id;
+            const createdById = quiz.createdBy?._id ?? quiz.createdBy?.id ?? quiz.createdBy;
+            const isOwner = (user?.role === 'trainer' || user?.role === 'admin') && createdById == user._id;
             return (
               <div key={quiz._id} className="glass-card p-5 border border-purple-500/10 hover:border-purple-500/25 transition-all duration-300 group flex flex-col">
                 {/* Header */}
