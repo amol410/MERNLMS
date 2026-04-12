@@ -41,6 +41,17 @@ export default function FlashcardFormPage() {
     setCards(prev => prev.map((c, i) => i === idx ? { ...c, [field]: value } : c));
   };
 
+  const handleDelete = async () => {
+    if (!confirm(`Delete "${form.deckName}"? This will also remove all students progress for this deck.`)) return;
+    try {
+      await api.delete(`/flashcards/${id}`);
+      toast.success('Deck deleted');
+      navigate('/flashcards');
+    } catch {
+      toast.error('Failed to delete deck');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     for (let i = 0; i < cards.length; i++) {
@@ -69,10 +80,22 @@ export default function FlashcardFormPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
-      <button onClick={() => navigate('/flashcards')} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6">
-        <ArrowLeft className="w-4 h-4" />
-        Back to Flashcards
-      </button>
+      <div className="flex items-center justify-between mb-6">
+        <button onClick={() => navigate('/flashcards')} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+          <ArrowLeft className="w-4 h-4" />
+          Back to Flashcards
+        </button>
+        {isEdit && (
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 hover:border-red-500/50 transition-all text-sm font-medium"
+          >
+            <Trash2 className="w-4 h-4" />
+            Delete Deck
+          </button>
+        )}
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Deck settings */}
