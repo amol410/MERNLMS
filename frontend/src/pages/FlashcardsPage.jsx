@@ -100,7 +100,8 @@ export default function FlashcardsPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {decks.map(deck => {
-            const isOwner = deck.owner?._id === user?._id || deck.owner === user?._id;
+            const ownerId = deck.owner?._id ?? deck.owner?.id ?? deck.owner;
+            const isOwner = ownerId == user?._id;
             return (
               <div
                 key={deck._id}
