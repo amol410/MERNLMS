@@ -223,7 +223,7 @@ export default function StudyPage() {
       ) : (
         <div className="flex items-center justify-between">
           <button
-            onClick={() => { setCurrentIdx(Math.max(0, currentIdx - 1)); setFlipped(false); }}
+            onClick={() => { setCurrentIdx(Math.max(0, currentIdx - 1)); setFlipped(false); setShowHint(false); }}
             disabled={currentIdx === 0}
             className="btn-secondary flex items-center gap-2 disabled:opacity-30"
           >
@@ -238,7 +238,7 @@ export default function StudyPage() {
             <RotateCcw className="w-4 h-4" />
           </button>
           <button
-            onClick={() => { setCurrentIdx(Math.min(total - 1, currentIdx + 1)); setFlipped(false); }}
+            onClick={() => { setCurrentIdx(Math.min(total - 1, currentIdx + 1)); setFlipped(false); setShowHint(false); }}
             disabled={currentIdx === total - 1}
             className="btn-secondary flex items-center gap-2 disabled:opacity-30"
           >
