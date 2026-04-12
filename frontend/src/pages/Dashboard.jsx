@@ -79,7 +79,7 @@ export default function Dashboard() {
             </h1>
             <p className="text-gray-500 text-sm mt-1 capitalize flex items-center gap-2">
               <Zap className="w-3.5 h-3.5 text-dolphin-500" />
-              {user?.role} • SpeedUpExam LMS
+              {user?.role} • DolphinCoder LMS
             </p>
           </div>
           <div className="hidden md:flex items-center gap-2 text-orange-400">

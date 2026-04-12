@@ -38,7 +38,7 @@ export default function Navbar() {
                 <Zap className="w-5 h-5 text-white" />
               </div>
               <div>
-                <span className="text-white font-bold text-base leading-none block">SpeedUpExam</span>
+                <span className="text-white font-bold text-base leading-none block">DolphinCoder</span>
                 <span className="text-gray-500 text-xs">LMS Platform</span>
               </div>
             </Link>
