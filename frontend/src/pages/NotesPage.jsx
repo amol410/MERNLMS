@@ -9,12 +9,12 @@ import { useAuth } from '../contexts/AuthContext';
 import clsx from 'clsx';
 
 const colorMap = {
-  default: { border: 'border-l-gray-600/40', bg: '' },
-  blue: { border: 'border-l-blue-500', bg: 'bg-blue-500/3' },
-  green: { border: 'border-l-green-500', bg: 'bg-green-500/3' },
-  yellow: { border: 'border-l-yellow-500', bg: 'bg-yellow-500/3' },
-  pink: { border: 'border-l-pink-500', bg: 'bg-pink-500/3' },
-  purple: { border: 'border-l-purple-500', bg: 'bg-purple-500/3' },
+  default: { border: 'border-l-gray-600/40', bg: '',                line: 'bg-gray-600/40' },
+  blue:    { border: 'border-l-blue-500',     bg: 'bg-blue-500/3',   line: 'bg-blue-500/60' },
+  green:   { border: 'border-l-green-500',    bg: 'bg-green-500/3',  line: 'bg-green-500/60' },
+  yellow:  { border: 'border-l-yellow-500',   bg: 'bg-yellow-500/3', line: 'bg-yellow-500/60' },
+  pink:    { border: 'border-l-pink-500',     bg: 'bg-pink-500/3',   line: 'bg-pink-500/60' },
+  purple:  { border: 'border-l-purple-500',   bg: 'bg-purple-500/3', line: 'bg-purple-500/60' },
 };
 
 const colorOptions = [
@@ -163,7 +163,7 @@ export default function NotesPage() {
                 <Pin className="w-3.5 h-3.5 text-yellow-500" /> Pinned
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {pinned.map(note => <NoteCard key={note._id} note={note} onPin={handlePin} onDelete={handleDelete} stripHtml={stripHtml} isStaff={isStaff} />)}
+                {pinned.map(note => <NoteCard key={note._id} note={note} onPin={handlePin} onDelete={handleDelete} isStaff={isStaff} />)}
               </div>
             </div>
           )}
@@ -173,7 +173,7 @@ export default function NotesPage() {
             <div>
               {pinned.length > 0 && <h2 className="text-sm font-medium text-gray-500 mb-3 flex items-center gap-2"><SortDesc className="w-3.5 h-3.5" /> All Notes</h2>}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {unpinned.map(note => <NoteCard key={note._id} note={note} onPin={handlePin} onDelete={handleDelete} stripHtml={stripHtml} isStaff={isStaff} />)}
+                {unpinned.map(note => <NoteCard key={note._id} note={note} onPin={handlePin} onDelete={handleDelete} isStaff={isStaff} />)}
               </div>
             </div>
           )}
@@ -183,13 +183,15 @@ export default function NotesPage() {
   );
 }
 
-function NoteCard({ note, onPin, onDelete, stripHtml, isStaff }) {
+function NoteCard({ note, onPin, onDelete, isStaff }) {
   const color = colorMap[note.color] || colorMap.default;
   return (
     <div className={clsx('glass-card border-l-4 p-5 hover:scale-[1.02] transition-all duration-300 group cursor-pointer', color.border, color.bg)}>
+      {/* Title row */}
       <div className="flex items-start justify-between mb-3">
         <Link to={`/notes/${note._id}`} className="flex-1 min-w-0">
-          <h3 className="text-white font-semibold truncate group-hover:text-dolphin-300 transition-colors text-sm leading-snug">
+          <h3 className="text-white font-bold text-base leading-snug group-hover:text-dolphin-300 transition-colors">
+            {note.isPinned && <Pin className="inline w-3.5 h-3.5 text-yellow-400 fill-yellow-400 mr-1.5 -mt-0.5" />}
             {note.title}
           </h3>
         </Link>
@@ -208,12 +210,10 @@ function NoteCard({ note, onPin, onDelete, stripHtml, isStaff }) {
         )}
       </div>
 
-      <Link to={`/notes/${note._id}`}>
-        <p className="text-gray-500 text-xs leading-relaxed line-clamp-4 mb-3 min-h-12">
-          {stripHtml(note.content) || 'Empty note'}
-        </p>
-      </Link>
+      {/* Colored divider line */}
+      <div className={clsx('h-px w-full rounded-full mb-4', color.line)} />
 
+      {/* Footer */}
       <div className="flex items-center justify-between">
         <div className="flex flex-wrap gap-1">
           {note.tags?.slice(0, 2).map(tag => (
