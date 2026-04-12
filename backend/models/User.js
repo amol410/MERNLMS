@@ -1,69 +1,40 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { sequelize } = require('../config/database');
 
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, 'Name is required'],
-      trim: true,
-      maxlength: [100, 'Name cannot exceed 100 characters'],
-    },
-    email: {
-      type: String,
-      required: [true, 'Email is required'],
-      unique: true,
-      lowercase: true,
-      match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email'],
-    },
-    password: {
-      type: String,
-      required: [true, 'Password is required'],
-      minlength: [6, 'Password must be at least 6 characters'],
-      select: false,
-    },
-    role: {
-      type: String,
-      enum: ['student', 'trainer', 'admin'],
-      default: 'student',
-    },
-    avatar: {
-      type: String,
-      default: null,
-    },
-    bio: {
-      type: String,
-      default: '',
-      maxlength: [500, 'Bio cannot exceed 500 characters'],
-    },
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
-    lastLogin: {
-      type: Date,
-      default: null,
-    },
-  },
-  { timestamps: true }
-);
+const User = sequelize.define('User', {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    name: { type: DataTypes.STRING(100), allowNull: false },
+    email: { type: DataTypes.STRING(255), allowNull: false, unique: true },
+    password: { type: DataTypes.STRING(255), allowNull: false },
+    role: { type: DataTypes.ENUM('student', 'trainer', 'admin'), defaultValue: 'student' },
+    avatar: { type: DataTypes.STRING(500), defaultValue: null },
+    bio: { type: DataTypes.TEXT, defaultValue: '' },
+    isActive: { type: DataTypes.BOOLEAN, defaultValue: true },
+    lastLogin: { type: DataTypes.DATE, defaultValue: null },
+}, { tableName: 'users', timestamps: true });
 
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  const rounds = parseInt(process.env.BCRYPT_ROUNDS) || 10;
-  this.password = await bcrypt.hash(this.password, rounds);
-  next();
+User.beforeCreate(async (user) => {
+    const rounds = parseInt(process.env.BCRYPT_ROUNDS) || 10;
+    user.password = await bcrypt.hash(user.password, rounds);
 });
 
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+User.beforeUpdate(async (user) => {
+    if (user.changed('password')) {
+          const rounds = parseInt(process.env.BCRYPT_ROUNDS) || 10;
+          user.password = await bcrypt.hash(user.password, rounds);
+    }
+});
+
+User.prototype.matchPassword = async function(enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
 };
 
-userSchema.methods.getSignedJwtToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE || '7d',
-  });
+User.prototype.getSignedJwtToken = function() {
+    return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
+          expiresIn: process.env.JWT_EXPIRE || '7d',
+    });
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = User;
