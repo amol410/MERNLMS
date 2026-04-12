@@ -18,24 +18,26 @@ const app = express();
 
 // Security middleware
 app.use(helmet({
-        contentSecurityPolicy: false,
-        crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
 }));
+
 app.use(cors({
-        origin: process.env.CLIENT_URL || 'http://localhost:5173',
-        credentials: true,
+    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    credentials: true,
 }));
 
 // Rate limiting
 const limiter = rateLimit({
-        windowMs: 15 * 60 * 1000, // 15 minutes
-        max: 100,
-        message: { success: false, message: 'Too many requests, please try again later.' },
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: { success: false, message: 'Too many requests, please try again later.' },
 });
+
 const authLimiter = rateLimit({
-        windowMs: 15 * 60 * 1000,
-        max: 20,
-        message: { success: false, message: 'Too many auth requests, please try again later.' },
+    windowMs: 15 * 60 * 1000,
+    max: 20,
+    message: { success: false, message: 'Too many auth requests, please try again later.' },
 });
 
 app.use('/api/', limiter);
@@ -46,12 +48,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Logging
 if (process.env.NODE_ENV === 'development') {
-        app.use(morgan('dev'));
+    app.use(morgan('dev'));
 }
 
 // Health check
 app.get('/api/health', (req, res) => {
-        res.json({ success: true, message: 'DolphinCoder LMS API is running', version: '1.0.0' });
+    res.json({ success: true, message: 'DolphinCoder LMS API is running', version: '1.0.0' });
 });
 
 // Routes
@@ -64,13 +66,11 @@ app.use('/api/admin', require('./routes/admin'));
 
 // Serve frontend static files in production
 if (process.env.NODE_ENV === 'production') {
-        app.use(express.static(path.join(__dirname, 'dist')));
-
+    app.use(express.static(path.join(__dirname, '../frontend/dist')));
     app.get('*', (req, res) => {
-                res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+        res.sendFile(path.resolve(__dirname, '../frontend/dist', 'index.html'));
     });
 } else {
-        // API-only error handling for development
     app.use(notFound);
 }
 
@@ -78,7 +78,7 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-        console.log(`DolphinCoder LMS API running on port ${PORT} in ${process.env.NODE_ENV} mode`);
+    console.log(`DolphinCoder LMS API running on port ${PORT} in ${process.env.NODE_ENV} mode`);
 });
 
 module.exports = app;
