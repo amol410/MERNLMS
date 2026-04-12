@@ -3,7 +3,6 @@ const Quiz = require('../models/Quiz');
 const QuizAttempt = require('../models/QuizAttempt');
 const User = require('../models/User');
 const mammoth = require('mammoth');
-const { generateQuizSample } = require('../utils/sampleDocx');
 
 const createdByInclude = { model: User, as: 'createdByUser', attributes: ['id', 'name', 'avatar'] };
 
@@ -314,13 +313,3 @@ exports.bulkUploadQuiz = async (req, res, next) => {
   }
 };
 
-exports.getSampleFormat = async (req, res, next) => {
-  try {
-    const buffer = await generateQuizSample();
-    res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-    res.set('Content-Disposition', 'attachment; filename="quiz_format.docx"');
-    res.send(buffer);
-  } catch (error) {
-    next(error);
-  }
-};

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { ArrowLeft, Plus, Trash2, Save, Layers, Globe, Lock, Upload, FileText, Download } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Save, Layers, Globe, Lock, Upload, FileText } from 'lucide-react';
 import clsx from 'clsx';
 
 const colors = ['default', 'blue', 'green', 'yellow', 'pink', 'purple'];
@@ -124,13 +124,7 @@ export default function FlashcardFormPage() {
             <Upload className="w-5 h-5 text-green-400" />
             Bulk Upload via Word File
           </h2>
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-gray-500 text-sm">Upload a .docx file to create a deck instantly.</p>
-            <a href="/api/flashcards/sample-format" download className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 hover:bg-green-500/20 transition-all text-xs font-medium">
-              <Download className="w-3.5 h-3.5" />
-              Download Format
-            </a>
-          </div>
+          <p className="text-gray-500 text-sm mb-4">Upload a .docx file to create a deck instantly. Use the format below (copy it and ask AI to fill in cards).</p>
 
           <div className="bg-black/30 rounded-xl p-4 mb-4 font-mono text-xs text-gray-400 border border-white/10 overflow-auto">
             <pre>{`DECK_NAME: My Flashcard Deck

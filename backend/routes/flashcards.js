@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   getDecks, getDeckById, createDeck, updateDeck, deleteDeck,
   addCard, removeCard, saveProgress, getProgress,
-  getSampleFormat, bulkUploadDeck,
+  bulkUploadDeck,
 } = require('../controllers/flashcardController');
 const { protect, authorize } = require('../middleware/auth');
 const multer = require('multer');
@@ -11,7 +11,6 @@ const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 
 router.use(protect);
-router.get('/sample-format', authorize('trainer', 'admin'), getSampleFormat);
 router.post('/bulk-upload', authorize('trainer', 'admin'), upload.single('file'), bulkUploadDeck);
 router.get('/', getDecks);
 router.post('/', authorize('trainer', 'admin'), createDeck);

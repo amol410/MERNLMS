@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { ArrowLeft, Plus, Trash2, Save, Brain, ChevronDown, ChevronUp, Upload, FileText, Globe, Lock, Download } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Save, Brain, ChevronDown, ChevronUp, Upload, FileText, Globe, Lock } from 'lucide-react';
 import clsx from 'clsx';
 
 const defaultQuestion = () => ({
@@ -155,13 +155,7 @@ export default function QuizFormPage() {
             <Upload className="w-5 h-5 text-purple-400" />
             Bulk Upload via Word File
           </h2>
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-gray-500 text-sm">Upload a .docx file to create a quiz instantly.</p>
-            <a href="/api/quizzes/sample-format" download className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400 hover:bg-purple-500/20 transition-all text-xs font-medium">
-              <Download className="w-3.5 h-3.5" />
-              Download Format
-            </a>
-          </div>
+          <p className="text-gray-500 text-sm mb-4">Upload a .docx file to create a quiz instantly. Use the format below (copy it and ask AI to fill in questions).</p>
 
           <div className="bg-black/30 rounded-xl p-4 mb-4 font-mono text-xs text-gray-400 border border-white/10 overflow-auto">
             <pre>{`TITLE: My Quiz Title
