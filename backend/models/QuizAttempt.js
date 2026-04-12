@@ -1,30 +1,23 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
 
-const quizAttemptSchema = new mongoose.Schema(
-  {
-    quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz', required: true },
-    student: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    answers: [
-      {
-        questionId: mongoose.Schema.Types.ObjectId,
-        chosenIndex: { type: Number, default: -1 },
-        isCorrect: Boolean,
-        pointsEarned: Number,
-      },
-    ],
-    score: { type: Number, default: 0 },
-    maxScore: Number,
-    percentage: { type: Number, default: 0 },
-    passed: { type: Boolean, default: false },
-    attemptNumber: { type: Number, default: 1 },
-    startedAt: Date,
-    submittedAt: Date,
-    timeTakenSecs: Number,
-  },
-  { timestamps: true }
-);
+const QuizAttempt = sequelize.define('QuizAttempt', {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    quizId: { type: DataTypes.INTEGER, allowNull: false },
+    studentId: { type: DataTypes.INTEGER, allowNull: false },
+    answers: {
+        type: DataTypes.TEXT('long'), defaultValue: '[]',
+        get() { try { return JSON.parse(this.getDataValue('answers')); } catch(e) { return []; } },
+        set(val) { this.setDataValue('answers', JSON.stringify(Array.isArray(val) ? val : [])); }
+    },
+    score: { type: DataTypes.INTEGER, defaultValue: 0 },
+    maxScore: { type: DataTypes.INTEGER, defaultValue: 0 },
+    percentage: { type: DataTypes.FLOAT, defaultValue: 0 },
+    passed: { type: DataTypes.BOOLEAN, defaultValue: false },
+    attemptNumber: { type: DataTypes.INTEGER, defaultValue: 1 },
+    startedAt: { type: DataTypes.DATE, defaultValue: null },
+    submittedAt: { type: DataTypes.DATE, defaultValue: null },
+    timeTakenSecs: { type: DataTypes.INTEGER, defaultValue: null },
+}, { tableName: 'quiz_attempts', timestamps: true });
 
-quizAttemptSchema.index({ quiz: 1, student: 1 });
-quizAttemptSchema.index({ student: 1 });
-
-module.exports = mongoose.model('QuizAttempt', quizAttemptSchema);
+module.exports = QuizAttempt;
