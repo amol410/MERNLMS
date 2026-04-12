@@ -1,47 +1,34 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
 
-const questionSchema = new mongoose.Schema({
-  text: { type: String, required: true },
-  type: { type: String, enum: ['multiple-choice', 'true-false'], default: 'multiple-choice' },
-  options: [String],
-  correctIndex: { type: Number, required: true },
-  explanation: { type: String, default: '' },
-  points: { type: Number, default: 1 },
+const Quiz = sequelize.define('Quiz', {
+    id:          { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    createdBy:   { type: DataTypes.INTEGER, allowNull: false },
+    title:       { type: DataTypes.STRING(200), allowNull: false },
+    description: { type: DataTypes.TEXT, defaultValue: '' },
+    questions: {
+          type: DataTypes.TEXT('long'), defaultValue: '[]',
+          get() { try { return JSON.parse(this.getDataValue('questions')); } catch(e) { return []; } },
+          set(val) { this.setDataValue('questions', JSON.stringify(Array.isArray(val) ? val : [])); }
+    },
+    tags: {
+          type: DataTypes.TEXT, defaultValue: '[]',
+          get() { try { return JSON.parse(this.getDataValue('tags')); } catch(e) { return []; } },
+          set(val) { this.setDataValue('tags', JSON.stringify(Array.isArray(val) ? val : [])); }
+    },
+    totalPoints:      { type: DataTypes.INTEGER, defaultValue: 0 },
+    passingScore:     { type: DataTypes.INTEGER, defaultValue: 70 },
+    timeLimit:        { type: DataTypes.INTEGER, defaultValue: 0 },
+    shuffleQuestions: { type: DataTypes.BOOLEAN, defaultValue: false },
+    isPublished:      { type: DataTypes.BOOLEAN, defaultValue: true },
+    attemptLimit:     { type: DataTypes.INTEGER, defaultValue: null },
+}, { tableName: 'quizzes', timestamps: true });
+
+Quiz.beforeSave((instance) => {
+    const questions = instance.questions;
+    if (Array.isArray(questions)) {
+          instance.totalPoints = questions.reduce((sum, q) => sum + (q.points || 1), 0);
+    }
 });
 
-const quizSchema = new mongoose.Schema(
-  {
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
-    title: {
-      type: String,
-      required: [true, 'Title is required'],
-      trim: true,
-      maxlength: [200, 'Title cannot exceed 200 characters'],
-    },
-    description: { type: String, default: '' },
-    questions: [questionSchema],
-    totalPoints: { type: Number, default: 0 },
-    passingScore: { type: Number, default: 70 },
-    timeLimit: { type: Number, default: 0 },
-    shuffleQuestions: { type: Boolean, default: false },
-    isPublished: { type: Boolean, default: true },
-    attemptLimit: { type: Number, default: null },
-    tags: { type: [String], default: [] },
-  },
-  { timestamps: true }
-);
-
-quizSchema.pre('save', function (next) {
-  this.totalPoints = this.questions.reduce((sum, q) => sum + (q.points || 1), 0);
-  next();
-});
-
-quizSchema.index({ createdBy: 1 });
-quizSchema.index({ isPublished: 1 });
-quizSchema.index({ title: 'text', description: 'text' });
-
-module.exports = mongoose.model('Quiz', quizSchema);
+module.exports = Quiz;
