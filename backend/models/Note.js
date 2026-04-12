@@ -1,41 +1,18 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
 
-const noteSchema = new mongoose.Schema(
-  {
-    owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
-    title: {
-      type: String,
-      required: [true, 'Title is required'],
-      trim: true,
-      maxlength: [200, 'Title cannot exceed 200 characters'],
-    },
-    content: {
-      type: String,
-      required: [true, 'Content is required'],
-    },
+const Note = sequelize.define('Note', {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    owner: { type: DataTypes.INTEGER, allowNull: false },
+    title: { type: DataTypes.STRING(200), allowNull: false },
+    content: { type: DataTypes.TEXT('long'), allowNull: false },
     tags: {
-      type: [String],
-      default: [],
+          type: DataTypes.TEXT, defaultValue: '[]',
+          get() { try { return JSON.parse(this.getDataValue('tags')); } catch(e) { return []; } },
+          set(val) { this.setDataValue('tags', JSON.stringify(Array.isArray(val) ? val : [])); }
     },
-    isPinned: {
-      type: Boolean,
-      default: false,
-    },
-    color: {
-      type: String,
-      enum: ['default', 'blue', 'green', 'yellow', 'pink', 'purple'],
-      default: 'default',
-    },
-  },
-  { timestamps: true }
-);
+    isPinned: { type: DataTypes.BOOLEAN, defaultValue: false },
+    color: { type: DataTypes.ENUM('default','blue','green','yellow','pink','purple'), defaultValue: 'default' },
+}, { tableName: 'notes', timestamps: true });
 
-noteSchema.index({ owner: 1 });
-noteSchema.index({ owner: 1, tags: 1 });
-noteSchema.index({ title: 'text', content: 'text' });
-
-module.exports = mongoose.model('Note', noteSchema);
+module.exports = Note;
