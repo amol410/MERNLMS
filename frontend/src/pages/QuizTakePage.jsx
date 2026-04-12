@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Clock, CheckCircle, XCircle, Award, RotateCcw, ChevronRight, ChevronLeft, Flag } from 'lucide-react';
+import { CodeSnippetDisplay } from '../components/quiz/CodeSnippetQuestion';
 import { PageLoader } from '../components/common/Loader';
 import clsx from 'clsx';
 
@@ -243,30 +244,39 @@ export default function QuizTakePage() {
               </button>
             </div>
 
-            <div className="space-y-3">
-              {q.options.map((opt, optIdx) => (
-                <button
-                  key={optIdx}
-                  onClick={() => handleAnswer(q._id, optIdx)}
-                  className={clsx(
-                    'w-full text-left px-4 py-3.5 rounded-xl border transition-all duration-200 text-sm font-medium',
-                    answers[q._id] === optIdx
-                      ? 'bg-dolphin-600/25 border-dolphin-500/60 text-dolphin-200'
-                      : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:border-white/20 hover:text-white'
-                  )}
-                >
-                  <span className={clsx(
-                    'inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mr-3 flex-shrink-0',
-                    answers[q._id] === optIdx
-                      ? 'bg-dolphin-500 text-white'
-                      : 'bg-white/10 text-gray-500'
-                  )}>
-                    {String.fromCharCode(65 + optIdx)}
-                  </span>
-                  {opt}
-                </button>
-              ))}
-            </div>
+            {q.type === 'code-mcq' ? (
+              <CodeSnippetDisplay
+                question={q}
+                selectedIndex={answers[q._id]}
+                onSelect={(idx) => handleAnswer(q._id, idx)}
+                disabled={submitted}
+              />
+            ) : (
+              <div className="space-y-3">
+                {q.options.map((opt, optIdx) => (
+                  <button
+                    key={optIdx}
+                    onClick={() => handleAnswer(q._id, optIdx)}
+                    className={clsx(
+                      'w-full text-left px-4 py-3.5 rounded-xl border transition-all duration-200 text-sm font-medium',
+                      answers[q._id] === optIdx
+                        ? 'bg-dolphin-600/25 border-dolphin-500/60 text-dolphin-200'
+                        : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:border-white/20 hover:text-white'
+                    )}
+                  >
+                    <span className={clsx(
+                      'inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mr-3 flex-shrink-0',
+                      answers[q._id] === optIdx
+                        ? 'bg-dolphin-500 text-white'
+                        : 'bg-white/10 text-gray-500'
+                    )}>
+                      {String.fromCharCode(65 + optIdx)}
+                    </span>
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Navigation */}

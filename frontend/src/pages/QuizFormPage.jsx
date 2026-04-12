@@ -4,6 +4,7 @@ import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Plus, Trash2, Save, Brain, ChevronDown, ChevronUp, Upload, FileText, Globe, Lock } from 'lucide-react';
 import clsx from 'clsx';
+import { CodeSnippetForm } from '../components/quiz/CodeSnippetQuestion';
 
 const defaultQuestion = () => ({
   text: '',
@@ -72,7 +73,8 @@ export default function QuizFormPage() {
 
   const handleTypeChange = (idx, type) => {
     const options = type === 'true-false' ? ['True', 'False'] : ['', '', '', ''];
-    setQuestions(prev => prev.map((q, i) => i === idx ? { ...q, type, options, correctIndex: 0 } : q));
+    const extra = type === 'code-mcq' ? { language: 'python' } : {};
+    setQuestions(prev => prev.map((q, i) => i === idx ? { ...q, type, options, correctIndex: 0, ...extra } : q));
   };
 
   const handleBulkUpload = async () => {
@@ -325,6 +327,7 @@ POINTS: 1`}</pre>
                       <select value={q.type} onChange={e => handleTypeChange(qIdx, e.target.value)} className="select-field text-sm">
                         <option value="multiple-choice">Multiple Choice</option>
                         <option value="true-false">True / False</option>
+                        <option value="code-mcq">Code Snippet</option>
                       </select>
                     </div>
                     <div>
@@ -333,38 +336,42 @@ POINTS: 1`}</pre>
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-medium text-gray-400 mb-2">Options (select correct)</label>
-                    <div className="space-y-2">
-                      {q.options.map((opt, optIdx) => (
-                        <div key={optIdx} className="flex items-center gap-2">
-                          <button
-                            type="button"
-                            onClick={() => updateQuestion(qIdx, 'correctIndex', optIdx)}
-                            className={`w-5 h-5 rounded-full border-2 flex-shrink-0 transition-all ${
-                              q.correctIndex === optIdx
-                                ? 'border-green-500 bg-green-500'
-                                : 'border-white/20 hover:border-white/40'
-                            }`}
-                          >
-                            {q.correctIndex === optIdx && (
-                              <span className="block w-full h-full rounded-full bg-green-500" />
+                  {q.type === 'code-mcq' ? (
+                    <CodeSnippetForm question={q} qIdx={qIdx} updateQuestion={updateQuestion} />
+                  ) : (
+                    <div>
+                      <label className="block text-xs font-medium text-gray-400 mb-2">Options (select correct)</label>
+                      <div className="space-y-2">
+                        {q.options.map((opt, optIdx) => (
+                          <div key={optIdx} className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => updateQuestion(qIdx, 'correctIndex', optIdx)}
+                              className={`w-5 h-5 rounded-full border-2 flex-shrink-0 transition-all ${
+                                q.correctIndex === optIdx
+                                  ? 'border-green-500 bg-green-500'
+                                  : 'border-white/20 hover:border-white/40'
+                              }`}
+                            >
+                              {q.correctIndex === optIdx && (
+                                <span className="block w-full h-full rounded-full bg-green-500" />
+                              )}
+                            </button>
+                            {q.type === 'true-false' ? (
+                              <span className="input-field text-sm py-2 flex-1">{opt}</span>
+                            ) : (
+                              <input
+                                value={opt}
+                                onChange={e => updateOption(qIdx, optIdx, e.target.value)}
+                                className="input-field text-sm py-2 flex-1"
+                                placeholder={`Option ${optIdx + 1}`}
+                              />
                             )}
-                          </button>
-                          {q.type === 'true-false' ? (
-                            <span className="input-field text-sm py-2 flex-1">{opt}</span>
-                          ) : (
-                            <input
-                              value={opt}
-                              onChange={e => updateOption(qIdx, optIdx, e.target.value)}
-                              className="input-field text-sm py-2 flex-1"
-                              placeholder={`Option ${optIdx + 1}`}
-                            />
-                          )}
-                        </div>
-                      ))}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <div>
                     <label className="block text-xs font-medium text-gray-400 mb-1.5">Explanation (shown after answer)</label>
