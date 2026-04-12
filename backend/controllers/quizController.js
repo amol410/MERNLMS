@@ -23,7 +23,10 @@ const assignQuestionIds = (questions) =>
 exports.getQuizzes = async (req, res, next) => {
   try {
     const { q, tag, page = 1, limit = 12 } = req.query;
-    const where = { isPublished: true };
+    const isStaff = req.user?.role === 'trainer' || req.user?.role === 'admin';
+    const where = isStaff
+      ? { [Op.or]: [{ isPublished: true }, { createdBy: req.user.id }] }
+      : { isPublished: true };
 
     if (q) {
       where[Op.or] = [
@@ -301,7 +304,7 @@ exports.bulkUploadQuiz = async (req, res, next) => {
       title, description,
       questions: assignQuestionIds(questions),
       passingScore, timeLimit, tags,
-      isPublished: false,
+      isPublished: true,
     });
 
     res.status(201).json({ success: true, quiz, message: `Quiz created with ${questions.length} questions` });

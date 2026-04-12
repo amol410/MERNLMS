@@ -4,7 +4,12 @@
       "Bash(git init:*)",
       "Bash(npm create:*)",
       "Bash(git add:*)",
-      "Bash(git tag:*)"
+      "Bash(git tag:*)",
+      "Bash(node -e ':*)",
+      "Read(//private/tmp/**)",
+      "Bash(cp /Users/cms/Downloads/python_quiz.docx .)",
+      "Bash(unzip -p python_quiz.docx word/document.xml)",
+      "Bash(npm install:*)"
     ]
   }
 }

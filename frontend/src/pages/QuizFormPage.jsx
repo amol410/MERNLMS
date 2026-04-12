@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { ArrowLeft, Plus, Trash2, Save, Brain, ChevronDown, ChevronUp, Upload, FileText } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Save, Brain, ChevronDown, ChevronUp, Upload, FileText, Globe, Lock } from 'lucide-react';
+import clsx from 'clsx';
 
 const defaultQuestion = () => ({
   text: '',
@@ -217,15 +218,35 @@ POINTS: 1`}</pre>
                 <input type="number" min={0} value={form.timeLimit} onChange={e => setForm({ ...form, timeLimit: parseInt(e.target.value) })} className="input-field" />
               </div>
             </div>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap items-center gap-4">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" checked={form.shuffleQuestions} onChange={e => setForm({ ...form, shuffleQuestions: e.target.checked })} className="accent-purple-500" />
                 <span className="text-gray-300 text-sm">Shuffle questions</span>
               </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={form.isPublished} onChange={e => setForm({ ...form, isPublished: e.target.checked })} className="accent-purple-500" />
-                <span className="text-gray-300 text-sm">Published</span>
-              </label>
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, isPublished: !form.isPublished })}
+                className={clsx(
+                  'flex items-center gap-3 px-4 py-2.5 rounded-xl border-2 transition-all duration-200 font-medium text-sm',
+                  form.isPublished
+                    ? 'bg-purple-500/20 border-purple-500/60 text-purple-300'
+                    : 'bg-white/5 border-white/20 text-gray-400 hover:border-white/40'
+                )}
+              >
+                {form.isPublished
+                  ? <><Globe className="w-4 h-4" /> Public — visible to all students</>
+                  : <><Lock className="w-4 h-4" /> Private — only staff can see this</>
+                }
+                <div className={clsx(
+                  'w-10 h-5 rounded-full transition-all duration-200 relative ml-2 flex-shrink-0',
+                  form.isPublished ? 'bg-purple-500' : 'bg-gray-600'
+                )}>
+                  <div className={clsx(
+                    'absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all duration-200',
+                    form.isPublished ? 'left-5' : 'left-0.5'
+                  )} />
+                </div>
+              </button>
             </div>
           </div>
         </div>
