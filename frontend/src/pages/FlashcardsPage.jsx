@@ -9,12 +9,16 @@ import { useAuth } from '../contexts/AuthContext';
 import clsx from 'clsx';
 
 const deckColors = {
-  default: 'from-gray-600 to-gray-700',
-  blue: 'from-blue-600 to-blue-700',
-  green: 'from-green-600 to-green-700',
-  yellow: 'from-yellow-600 to-yellow-700',
-  pink: 'from-pink-600 to-pink-700',
-  purple: 'from-purple-600 to-purple-700',
+  default: 'from-slate-500 via-slate-600 to-slate-700',
+  blue:    'from-blue-500 via-blue-600 to-indigo-700',
+  green:   'from-emerald-500 via-green-600 to-teal-700',
+  yellow:  'from-amber-400 via-yellow-500 to-orange-600',
+  pink:    'from-pink-500 via-rose-500 to-pink-700',
+  purple:  'from-violet-500 via-purple-600 to-indigo-700',
+};
+
+const deckEmojis = {
+  default: '📚', blue: '🔷', green: '🌿', yellow: '⭐', pink: '🌸', purple: '🔮',
 };
 
 export default function FlashcardsPage() {
@@ -105,48 +109,49 @@ export default function FlashcardsPage() {
             return (
               <div
                 key={deck._id}
-                className="glass-card overflow-hidden hover:scale-[1.02] transition-all duration-300 group cursor-pointer"
+                className="overflow-hidden rounded-2xl hover:scale-[1.03] hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-white/10"
                 onClick={() => navigate(`/flashcards/${deck._id}/study`)}
               >
                 {/* Color header */}
-                <div className={clsx('h-24 bg-gradient-to-br flex items-center justify-center relative', deckColors[deck.color] || deckColors.default)}>
-                  <div className="absolute inset-0 bg-black/20" />
-                  <div className="relative text-center">
-                    <div className="text-4xl mb-1">🃏</div>
+                <div className={clsx('h-36 bg-gradient-to-br flex flex-col items-center justify-center relative', deckColors[deck.color] || deckColors.default)}>
+                  <div className="absolute inset-0 bg-black/10" />
+                  {/* Decorative circles */}
+                  <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-white/10" />
+                  <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-white/10" />
+                  <div className="relative text-center px-4">
+                    <div className="text-5xl mb-2">{deckEmojis[deck.color] || deckEmojis.default}</div>
+                    <p className="text-white/80 text-xs font-semibold tracking-widest uppercase">{deck.cardCount} Cards</p>
                   </div>
-                  <div className="absolute top-2 right-2 flex items-center gap-1">
+                  <div className="absolute top-3 right-3">
                     {deck.isPublic
-                      ? <span className="badge bg-black/30 text-white border-white/20"><Globe className="w-3 h-3 mr-1" />Public</span>
-                      : <span className="badge bg-black/30 text-white border-white/20"><Lock className="w-3 h-3 mr-1" />Private</span>
+                      ? <span className="flex items-center gap-1 bg-black/30 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-full border border-white/20"><Globe className="w-3 h-3" />Public</span>
+                      : <span className="flex items-center gap-1 bg-black/30 backdrop-blur-sm text-white/70 text-xs font-medium px-2 py-1 rounded-full border border-white/10"><Lock className="w-3 h-3" />Private</span>
                     }
                   </div>
                 </div>
 
-                <div className="p-4">
-                  <h3 className="text-white font-semibold mb-1 group-hover:text-green-300 transition-colors truncate">
+                {/* Card body */}
+                <div className="p-5 bg-gray-900/80 backdrop-blur-sm">
+                  <h3 className="text-white font-bold text-lg mb-1 group-hover:text-green-300 transition-colors leading-tight line-clamp-2">
                     {deck.deckName}
                   </h3>
                   {deck.description && (
-                    <p className="text-gray-500 text-xs line-clamp-2 mb-3">{deck.description}</p>
+                    <p className="text-gray-400 text-sm line-clamp-2 mb-4 leading-relaxed">{deck.description}</p>
                   )}
-
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-gray-400 text-sm font-medium">{deck.cardCount} cards</span>
-                    <span className="text-gray-600 text-xs">{deck.owner?.name}</span>
-                  </div>
+                  {!deck.description && <div className="mb-4" />}
 
                   <div className="flex gap-2">
                     <button
                       onClick={(e) => { e.stopPropagation(); navigate(`/flashcards/${deck._id}/study`); }}
-                      className="flex-1 btn-primary text-sm py-2 flex items-center justify-center gap-1.5"
+                      className="flex-1 btn-primary text-sm py-2.5 flex items-center justify-center gap-2 font-semibold"
                     >
-                      <Play className="w-3.5 h-3.5" />
-                      Study
+                      <Play className="w-4 h-4" />
+                      Study Now
                     </button>
                     {isOwner && (
                       <button
                         onClick={(e) => { e.stopPropagation(); navigate(`/flashcards/${deck._id}/edit`); }}
-                        className="btn-secondary text-sm px-3 py-2"
+                        className="btn-secondary text-sm px-4 py-2.5 font-medium"
                       >
                         Edit
                       </button>
