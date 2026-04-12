@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { ArrowLeft, Plus, Trash2, Save, Layers, Globe, Lock } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Save, Layers, Globe, Lock, Upload, FileText, Download } from 'lucide-react';
 import clsx from 'clsx';
 
 const colors = ['default', 'blue', 'green', 'yellow', 'pink', 'purple'];
@@ -21,6 +21,8 @@ export default function FlashcardFormPage() {
   const [form, setForm] = useState({ deckName: '', description: '', color: 'default', isPublic: false });
   const [cards, setCards] = useState([defaultCard(), defaultCard()]);
   const [saving, setSaving] = useState(false);
+  const [bulkFile, setBulkFile] = useState(null);
+  const [bulkUploading, setBulkUploading] = useState(false);
 
   useEffect(() => {
     if (isEdit) {
@@ -39,6 +41,24 @@ export default function FlashcardFormPage() {
   };
   const updateCard = (idx, field, value) => {
     setCards(prev => prev.map((c, i) => i === idx ? { ...c, [field]: value } : c));
+  };
+
+  const handleBulkUpload = async () => {
+    if (!bulkFile) return;
+    setBulkUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', bulkFile);
+      const { data } = await api.post('/flashcards/bulk-upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      toast.success(data.message || 'Deck uploaded!');
+      navigate('/flashcards');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Upload failed');
+    } finally {
+      setBulkUploading(false);
+    }
   };
 
   const handleDelete = async () => {
@@ -96,6 +116,61 @@ export default function FlashcardFormPage() {
           </button>
         )}
       </div>
+
+      {/* Bulk Upload — only on create */}
+      {!isEdit && (
+        <div className="glass-card p-6 mb-4 border border-green-500/20">
+          <h2 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+            <Upload className="w-5 h-5 text-green-400" />
+            Bulk Upload via Word File
+          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-gray-500 text-sm">Upload a .docx file to create a deck instantly.</p>
+            <a href="/api/flashcards/sample-format" download className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 hover:bg-green-500/20 transition-all text-xs font-medium">
+              <Download className="w-3.5 h-3.5" />
+              Download Format
+            </a>
+          </div>
+
+          <div className="bg-black/30 rounded-xl p-4 mb-4 font-mono text-xs text-gray-400 border border-white/10 overflow-auto">
+            <pre>{`DECK_NAME: My Flashcard Deck
+DESCRIPTION: Brief description here
+COLOR: blue
+
+Q: What is RAM?
+A: Random Access Memory — temporary storage used by the CPU
+HINT: Think about what clears on restart
+
+Q: What is an API?
+A: Application Programming Interface
+HINT: Like a waiter between kitchen and customer
+
+Q: What is Python?
+A: A high-level programming language known for simplicity
+HINT: Named after Monty Python`}</pre>
+          </div>
+
+          <div className="flex gap-3 items-center">
+            <label className="flex-1">
+              <input type="file" accept=".docx" className="hidden" onChange={e => setBulkFile(e.target.files[0])} />
+              <div className={`input-field flex items-center gap-2 cursor-pointer hover:border-green-500/50 transition-colors ${bulkFile ? 'border-green-500/40' : ''}`}>
+                <FileText className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                <span className={bulkFile ? 'text-white text-sm' : 'text-gray-500 text-sm'}>
+                  {bulkFile ? bulkFile.name : 'Click to choose .docx file...'}
+                </span>
+              </div>
+            </label>
+            <button type="button" onClick={handleBulkUpload} disabled={!bulkFile || bulkUploading} className="btn-primary flex items-center gap-2 flex-shrink-0">
+              {bulkUploading ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Upload className="w-4 h-4" />}
+              Upload
+            </button>
+          </div>
+          {bulkFile && (
+            <button type="button" onClick={() => setBulkFile(null)} className="mt-2 text-xs text-gray-500 hover:text-gray-300">Clear file</button>
+          )}
+          <p className="mt-3 text-xs text-gray-600">— or create deck manually below —</p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Deck settings */}

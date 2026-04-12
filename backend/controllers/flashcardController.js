@@ -2,6 +2,8 @@ const { Op } = require('sequelize');
 const Flashcard = require('../models/Flashcard');
 const FlashcardProgress = require('../models/FlashcardProgress');
 const User = require('../models/User');
+const mammoth = require('mammoth');
+const { generateFlashcardSample } = require('../utils/sampleDocx');
 
 const ownerInclude = { model: User, as: 'ownerUser', attributes: ['id', 'name', 'avatar'] };
 
@@ -180,6 +182,67 @@ exports.getProgress = async (req, res, next) => {
       where: { student: req.user.id, flashcard: req.params.id },
     });
     res.json({ success: true, progress });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getSampleFormat = async (req, res, next) => {
+  try {
+    const buffer = await generateFlashcardSample();
+    res.set('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    res.set('Content-Disposition', 'attachment; filename="flashcard_format.docx"');
+    res.send(buffer);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.bulkUploadDeck = async (req, res, next) => {
+  try {
+    if (!req.file) return res.status(400).json({ success: false, message: 'No file uploaded' });
+
+    const result = await mammoth.extractRawText({ buffer: req.file.buffer });
+    const text = result.value;
+
+    const deckNameMatch  = text.match(/^DECK_NAME:\s*(.+)/m);
+    const descMatch      = text.match(/^DESCRIPTION:\s*(.+)/m);
+    const colorMatch     = text.match(/^COLOR:\s*(\w+)/m);
+
+    const deckName    = deckNameMatch ? deckNameMatch[1].trim() : 'Uploaded Deck';
+    const description = descMatch     ? descMatch[1].trim()     : '';
+    const color       = colorMatch    ? colorMatch[1].trim()    : 'default';
+
+    const cardBlocks = text.split(/\n(?=Q:)/i).filter(b => b.match(/^Q:/i));
+    const cards = [];
+
+    for (const block of cardBlocks) {
+      const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+      const frontMatch = lines[0].match(/^Q:\s*(.+)/i);
+      const backLine   = lines.find(l => /^A:/i.test(l));
+      const hintLine   = lines.find(l => /^HINT:/i.test(l));
+
+      if (!frontMatch || !backLine) continue;
+
+      const front = frontMatch[1].trim();
+      const back  = backLine.replace(/^A:\s*/i, '').trim();
+      const hint  = hintLine ? hintLine.replace(/^HINT:\s*/i, '').trim() : '';
+
+      if (front && back) cards.push({ front, back, hint });
+    }
+
+    if (cards.length === 0) {
+      return res.status(400).json({ success: false, message: 'No valid cards found. Check the file format.' });
+    }
+
+    const deck = await Flashcard.create({
+      owner: req.user.id,
+      deckName, description, color,
+      cards,
+      isPublic: false,
+    });
+
+    res.status(201).json({ success: true, deck, message: `Deck created with ${cards.length} cards` });
   } catch (error) {
     next(error);
   }
