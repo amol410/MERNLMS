@@ -7,23 +7,35 @@ export default function AdminPage() {
   const [tab, setTab] = useState('users');
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [creating, setCreating] = useState(false);
 
-  const fetchUsers = async () => {
-    setLoading(true);
+  const fetchUsers = async (pageNumber = 1) => {
+    if (pageNumber === 1) setLoading(true);
+    else setLoadingMore(true);
+    
     try {
-      const { data } = await api.get('/admin/users');
-      setUsers(data.users);
+      const { data } = await api.get(`/admin/users?page=${pageNumber}`);
+      if (pageNumber === 1) {
+        setUsers(data.users);
+      } else {
+        setUsers(prev => [...prev, ...data.users]);
+      }
+      setHasMore(data.pagination?.page < data.pagination?.pages);
+      setPage(data.pagination?.page || 1);
     } catch {
       toast.error('Failed to load users');
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   };
 
-  useEffect(() => { fetchUsers(); }, []);
+  useEffect(() => { fetchUsers(1); }, []);
 
   const handleCreateTrainer = async (e) => {
     e.preventDefault();
@@ -33,7 +45,7 @@ export default function AdminPage() {
       toast.success(`Trainer "${data.user.name}" created!`);
       setForm({ name: '', email: '', password: '' });
       setShowCreateForm(false);
-      fetchUsers();
+      fetchUsers(1);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to create trainer');
     } finally {
@@ -227,6 +239,17 @@ export default function AdminPage() {
               )}
             </tbody>
           </table>
+          {hasMore && (
+            <div className="p-4 border-t border-white/10 flex justify-center">
+              <button 
+                onClick={() => fetchUsers(page + 1)} 
+                disabled={loadingMore}
+                className="px-6 py-2 rounded-xl text-sm font-medium transition-all bg-white/5 hover:bg-white/10 text-white border border-white/10"
+              >
+                {loadingMore ? 'Loading...' : 'Load More'}
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
