@@ -197,15 +197,6 @@ export default function QuizTakePage() {
           <p className="text-gray-500 text-sm">{answered}/{quiz.questions.length} answered</p>
         </div>
         <div className="flex items-center gap-4">
-          {timeLeft !== null && (
-            <div className={clsx(
-              'flex items-center gap-1.5 font-mono font-bold',
-              timeLeft < 60 ? 'text-red-400' : 'text-dolphin-300'
-            )}>
-              <Clock className="w-4 h-4" />
-              {formatTime(timeLeft)}
-            </div>
-          )}
           <div className="text-gray-500 text-sm">Q {currentQ + 1}/{quiz.questions.length}</div>
         </div>
       </div>
@@ -311,8 +302,21 @@ export default function QuizTakePage() {
           </div>
         </div>
 
-        {/* Right sidebar — question navigator */}
-        <div className="w-52 flex-shrink-0 sticky top-24">
+        {/* Right sidebar — question navigator & timer */}
+        <div className="w-52 flex-shrink-0 sticky top-24 space-y-4">
+          {timeLeft !== null && (
+            <div className="glass-card p-4 border border-white/10 text-center">
+              <h3 className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-2">Time Remaining</h3>
+              <div className={clsx(
+                'flex items-center justify-center gap-2 text-2xl font-mono font-bold',
+                timeLeft < 60 ? 'text-red-400 animate-pulse' : 'text-white'
+              )}>
+                <Clock className="w-6 h-6" />
+                {formatTime(timeLeft)}
+              </div>
+            </div>
+          )}
+
           <div className="glass-card p-4 border border-white/10">
             <h3 className="text-white text-sm font-semibold mb-3">Questions</h3>
 
