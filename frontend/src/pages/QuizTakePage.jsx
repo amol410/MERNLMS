@@ -29,7 +29,25 @@ export default function QuizTakePage() {
         setQuiz(data.quiz);
         setLoading(false);
         if (data.quiz.timeLimit > 0) {
-          setTimeLeft(data.quiz.timeLimit * 60);
+          const savedStateStr = sessionStorage.getItem(`quiz_${id}_state`);
+          if (savedStateStr) {
+            const savedState = JSON.parse(savedStateStr);
+            const remaining = Math.floor((savedState.endTime - Date.now()) / 1000);
+            if (remaining > 0) {
+              setTimeLeft(remaining);
+              startedAt.current = savedState.startedAt;
+            } else {
+              setTimeLeft(0);
+              startedAt.current = savedState.startedAt;
+            }
+          } else {
+            const timeInSecs = data.quiz.timeLimit * 60;
+            setTimeLeft(timeInSecs);
+            sessionStorage.setItem(`quiz_${id}_state`, JSON.stringify({
+              startedAt: startedAt.current,
+              endTime: Date.now() + timeInSecs * 1000
+            }));
+          }
         }
       })
       .catch(() => { toast.error('Quiz not found'); navigate('/quizzes'); });
@@ -74,6 +92,7 @@ export default function QuizTakePage() {
 
       setResult(data.result);
       setSubmitted(true);
+      sessionStorage.removeItem(`quiz_${id}_state`);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to submit');
     } finally {
@@ -130,7 +149,18 @@ export default function QuizTakePage() {
               All Quizzes
             </button>
             <button
-              onClick={() => { setSubmitted(false); setResult(null); setAnswers({}); setCurrentQ(0); startedAt.current = new Date().toISOString(); if (quiz.timeLimit > 0) setTimeLeft(quiz.timeLimit * 60); }}
+              onClick={() => { 
+                setSubmitted(false); setResult(null); setAnswers({}); setCurrentQ(0); 
+                startedAt.current = new Date().toISOString(); 
+                if (quiz.timeLimit > 0) {
+                  const timeInSecs = quiz.timeLimit * 60;
+                  setTimeLeft(timeInSecs);
+                  sessionStorage.setItem(`quiz_${id}_state`, JSON.stringify({
+                    startedAt: startedAt.current,
+                    endTime: Date.now() + timeInSecs * 1000
+                  }));
+                } 
+              }}
               className="btn-primary flex items-center gap-2"
             >
               <RotateCcw className="w-4 h-4" />
@@ -305,13 +335,13 @@ export default function QuizTakePage() {
         {/* Right sidebar — question navigator & timer */}
         <div className="w-52 flex-shrink-0 sticky top-24 space-y-4">
           {timeLeft !== null && (
-            <div className="glass-card p-4 border border-white/10 text-center">
-              <h3 className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-2">Time Remaining</h3>
+            <div className="glass-card p-2 border border-white/10 text-center">
+              <h3 className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-1">Time Remaining</h3>
               <div className={clsx(
-                'flex items-center justify-center gap-2 text-2xl font-mono font-bold',
+                'flex items-center justify-center gap-1.5 text-base font-mono font-bold',
                 timeLeft < 60 ? 'text-red-400 animate-pulse' : 'text-white'
               )}>
-                <Clock className="w-6 h-6" />
+                <Clock className="w-4 h-4" />
                 {formatTime(timeLeft)}
               </div>
             </div>
