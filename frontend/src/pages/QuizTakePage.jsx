@@ -60,6 +60,13 @@ export default function QuizTakePage() {
     return () => clearTimeout(timerRef.current);
   }, [timeLeft, submitted]);
 
+  // Clean up session storage when navigating away (but not on refresh)
+  useEffect(() => {
+    return () => {
+      sessionStorage.removeItem(`quiz_${id}_state`);
+    };
+  }, [id]);
+
   const toggleFlag = (questionId) => {
     setFlagged(prev => ({ ...prev, [questionId]: !prev[questionId] }));
   };
