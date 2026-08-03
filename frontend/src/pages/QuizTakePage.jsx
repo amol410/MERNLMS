@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Clock, CheckCircle, XCircle, Award, RotateCcw, ChevronRight, ChevronLeft, Flag } from 'lucide-react';
@@ -23,13 +23,25 @@ export default function QuizTakePage() {
   const startedAt = useRef(new Date().toISOString());
   const timerRef = useRef(null);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const attemptId = searchParams.get('attempt');
+
   useEffect(() => {
+    if (!attemptId) {
+      setSearchParams({ attempt: Date.now().toString() }, { replace: true });
+    }
+  }, [attemptId, setSearchParams]);
+
+  useEffect(() => {
+    if (!attemptId) return;
+
     api.get(`/quizzes/${id}`)
       .then(({ data }) => {
         setQuiz(data.quiz);
         setLoading(false);
         if (data.quiz.timeLimit > 0) {
-          const savedStateStr = sessionStorage.getItem(`quiz_${id}_state`);
+          const sessionKey = `quiz_${id}_${attemptId}_state`;
+          const savedStateStr = sessionStorage.getItem(sessionKey);
           if (savedStateStr) {
             const savedState = JSON.parse(savedStateStr);
             const remaining = Math.floor((savedState.endTime - Date.now()) / 1000);
@@ -43,7 +55,7 @@ export default function QuizTakePage() {
           } else {
             const timeInSecs = data.quiz.timeLimit * 60;
             setTimeLeft(timeInSecs);
-            sessionStorage.setItem(`quiz_${id}_state`, JSON.stringify({
+            sessionStorage.setItem(sessionKey, JSON.stringify({
               startedAt: startedAt.current,
               endTime: Date.now() + timeInSecs * 1000
             }));
@@ -51,7 +63,7 @@ export default function QuizTakePage() {
         }
       })
       .catch(() => { toast.error('Quiz not found'); navigate('/quizzes'); });
-  }, [id, navigate]);
+  }, [id, navigate, attemptId]);
 
   useEffect(() => {
     if (timeLeft === null || submitted) return;
@@ -60,12 +72,36 @@ export default function QuizTakePage() {
     return () => clearTimeout(timerRef.current);
   }, [timeLeft, submitted]);
 
-  // Clean up session storage when navigating away (but not on refresh)
+  // Navigation guards
   useEffect(() => {
-    return () => {
-      sessionStorage.removeItem(`quiz_${id}_state`);
+    if (submitted || loading) return;
+
+    // 1. Tab close or refresh
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = ''; // standard for most browsers to show prompt
     };
-  }, [id]);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // 2. Back button
+    window.history.pushState(null, null, window.location.href);
+    const handlePopState = () => {
+      if (window.confirm("You have an active quiz attempt. Are you sure you want to quit? Your progress will not be saved.")) {
+        // They confirmed they want to leave.
+        // We push state back and then navigate away cleanly.
+        navigate('/quizzes', { replace: true });
+      } else {
+        // They want to stay, re-push dummy state
+        window.history.pushState(null, null, window.location.href);
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [submitted, loading, navigate]);
 
   const toggleFlag = (questionId) => {
     setFlagged(prev => ({ ...prev, [questionId]: !prev[questionId] }));
@@ -99,7 +135,7 @@ export default function QuizTakePage() {
 
       setResult(data.result);
       setSubmitted(true);
-      sessionStorage.removeItem(`quiz_${id}_state`);
+      if (attemptId) sessionStorage.removeItem(`quiz_${id}_${attemptId}_state`);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to submit');
     } finally {
@@ -159,10 +195,15 @@ export default function QuizTakePage() {
               onClick={() => { 
                 setSubmitted(false); setResult(null); setAnswers({}); setCurrentQ(0); 
                 startedAt.current = new Date().toISOString(); 
+                
+                // Generate a new attempt ID for the retake
+                const newAttempt = Date.now().toString();
+                setSearchParams({ attempt: newAttempt }, { replace: true });
+                
                 if (quiz.timeLimit > 0) {
                   const timeInSecs = quiz.timeLimit * 60;
                   setTimeLeft(timeInSecs);
-                  sessionStorage.setItem(`quiz_${id}_state`, JSON.stringify({
+                  sessionStorage.setItem(`quiz_${id}_${newAttempt}_state`, JSON.stringify({
                     startedAt: startedAt.current,
                     endTime: Date.now() + timeInSecs * 1000
                   }));

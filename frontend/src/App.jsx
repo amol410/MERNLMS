@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
@@ -24,10 +24,13 @@ import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/AdminPage';
 
 function Layout({ children }) {
+  const location = useLocation();
+  const isQuizTake = location.pathname.includes('/take');
+  
   return (
-    <div className="pt-24 min-h-screen">
-      <Navbar />
-      <main className="pb-12">{children}</main>
+    <div className={isQuizTake ? "min-h-screen" : "pt-24 min-h-screen"}>
+      {!isQuizTake && <Navbar />}
+      <main className={isQuizTake ? "pb-0" : "pb-12"}>{children}</main>
     </div>
   );
 }
