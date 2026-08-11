@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { ArrowLeft, Plus, Trash2, Save, Brain, ChevronDown, ChevronUp, Upload, FileText, Globe, Lock } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Save, Brain, ChevronDown, ChevronUp, Upload, FileText, Globe, Lock, Download } from 'lucide-react';
 import clsx from 'clsx';
 import { CodeSnippetForm } from '../components/quiz/CodeSnippetQuestion';
+import { useSubjects } from '../hooks/useSubjects';
+import { downloadQuizTemplate } from '../utils/downloadTemplateDoc';
 
 const defaultQuestion = () => ({
   text: '',
@@ -27,12 +29,18 @@ export default function QuizFormPage() {
     timeLimit: 0,
     shuffleQuestions: false,
     isPublished: true,
+    subject: '',
+    topic: '',
   });
   const [questions, setQuestions] = useState([defaultQuestion()]);
   const [expandedQ, setExpandedQ] = useState(0);
   const [saving, setSaving] = useState(false);
   const [bulkFile, setBulkFile] = useState(null);
   const [bulkUploading, setBulkUploading] = useState(false);
+  const [bulkSubject, setBulkSubject] = useState('');
+  const [bulkTopic, setBulkTopic] = useState('');
+
+  const { subjects, createSubject, createTopic } = useSubjects();
 
   useEffect(() => {
     if (isEdit) {
@@ -41,6 +49,7 @@ export default function QuizFormPage() {
         setForm({
           title: q.title, description: q.description, passingScore: q.passingScore,
           timeLimit: q.timeLimit, shuffleQuestions: q.shuffleQuestions, isPublished: q.isPublished,
+          subject: q.subjectId || '', topic: q.topic || ''
         });
         setQuestions(q.questions.length > 0 ? q.questions : [defaultQuestion()]);
       }).catch(() => navigate('/quizzes'));
@@ -77,12 +86,42 @@ export default function QuizFormPage() {
     setQuestions(prev => prev.map((q, i) => i === idx ? { ...q, type, options, correctIndex: 0, ...extra } : q));
   };
 
+  const handleSubjectChange = async (val, isBulk = false) => {
+    if (val === 'CREATE_NEW') {
+      const name = prompt('Enter new subject name:');
+      if (name) {
+        const s = await createSubject(name);
+        if (s) {
+          isBulk ? setBulkSubject(s.id) : setForm({ ...form, subject: s.id, topic: '' });
+          if (isBulk) setBulkTopic('');
+        }
+      }
+    } else {
+      if (isBulk) { setBulkSubject(val); setBulkTopic(''); }
+      else setForm({ ...form, subject: val, topic: '' });
+    }
+  };
+
+  const handleTopicChange = async (val, subjectId, isBulk = false) => {
+    if (val === 'CREATE_NEW') {
+      const name = prompt('Enter new topic name:');
+      if (name) {
+        const t = await createTopic(subjectId, name);
+        if (t) isBulk ? setBulkTopic(name) : setForm({ ...form, topic: name });
+      }
+    } else {
+      isBulk ? setBulkTopic(val) : setForm({ ...form, topic: val });
+    }
+  };
+
   const handleBulkUpload = async () => {
     if (!bulkFile) return;
     setBulkUploading(true);
     try {
       const formData = new FormData();
       formData.append('file', bulkFile);
+      if (bulkSubject) formData.append('subject', bulkSubject);
+      if (bulkTopic) formData.append('topic', bulkTopic);
       const { data } = await api.post('/quizzes/bulk-upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
@@ -157,9 +196,15 @@ export default function QuizFormPage() {
             <Upload className="w-5 h-5 text-purple-400" />
             Bulk Upload via Word File
           </h2>
-          <p className="text-gray-500 text-sm mb-4">Upload a .docx file to create a quiz instantly. Use the format below (copy it and ask AI to fill in questions).</p>
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-gray-500 text-sm">Upload a .docx file to create a quiz instantly. Use the format below (copy it and ask AI to fill in questions).</p>
+            <button type="button" onClick={downloadQuizTemplate} className="btn-secondary py-1.5 px-3 text-xs flex items-center gap-2">
+              <Download className="w-3.5 h-3.5" />
+              Download Template
+            </button>
+          </div>
 
-          <div className="bg-black/30 rounded-xl p-4 mb-4 font-mono text-xs text-gray-400 border border-white/10 overflow-auto">
+          <div className="bg-black/30 rounded-xl p-4 mb-4 font-mono text-xs text-gray-400 border border-white/10 overflow-auto max-h-48">
             <pre>{`TITLE: My Quiz Title
 DESCRIPTION: Brief description here
 PASSING_SCORE: 70
@@ -180,6 +225,31 @@ TRUE_FALSE
 ANSWER: TRUE
 EXPLANATION: JavaScript is case-sensitive.
 POINTS: 1`}</pre>
+          </div>
+
+          <div className="flex gap-3 mb-4">
+            <div className="flex-1">
+              <label className="block text-xs font-medium text-gray-400 mb-1.5">Subject</label>
+              <select value={bulkSubject} onChange={e => handleSubjectChange(e.target.value, true)} className="select-field text-sm">
+                <option value="">Select Subject (Optional)</option>
+                {subjects.map(s => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
+                ))}
+                <option value="CREATE_NEW" className="font-bold text-purple-400">+ Create New Subject</option>
+              </select>
+            </div>
+            {bulkSubject && (
+              <div className="flex-1">
+                <label className="block text-xs font-medium text-gray-400 mb-1.5">Topic</label>
+                <select value={bulkTopic} onChange={e => handleTopicChange(e.target.value, bulkSubject, true)} className="select-field text-sm">
+                  <option value="">Select Topic (Optional)</option>
+                  {subjects.find(s => s.id === parseInt(bulkSubject))?.topics?.map(t => (
+                    <option key={t._id} value={t.name}>{t.name}</option>
+                  ))}
+                  <option value="CREATE_NEW" className="font-bold text-purple-400">+ Create New Topic</option>
+                </select>
+              </div>
+            )}
           </div>
 
           <div className="flex gap-3 items-center">
@@ -212,7 +282,7 @@ POINTS: 1`}</pre>
               Clear file
             </button>
           )}
-          <p className="mt-3 text-xs text-gray-600">— or create quiz manually below —</p>
+          <p className="mt-3 text-xs text-gray-600 text-center">— or create quiz manually below —</p>
         </div>
       )}
 
@@ -228,6 +298,33 @@ POINTS: 1`}</pre>
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Quiz Title *</label>
               <input value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} className="input-field" placeholder="e.g. JavaScript Fundamentals" required />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                <select value={form.subject} onChange={e => handleSubjectChange(e.target.value)} className="select-field">
+                  <option value="">Select Subject (Optional)</option>
+                  {subjects.map(s => (
+                    <option key={s.id} value={s.id}>{s.name}</option>
+                  ))}
+                  <option value="CREATE_NEW" className="font-bold text-purple-400">+ Create New Subject</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Topic</label>
+                <select 
+                  value={form.topic} 
+                  onChange={e => handleTopicChange(e.target.value, form.subject)} 
+                  className="select-field"
+                  disabled={!form.subject}
+                >
+                  <option value="">Select Topic (Optional)</option>
+                  {form.subject && subjects.find(s => s.id === parseInt(form.subject))?.topics?.map(t => (
+                    <option key={t._id} value={t.name}>{t.name}</option>
+                  ))}
+                  {form.subject && <option value="CREATE_NEW" className="font-bold text-purple-400">+ Create New Topic</option>}
+                </select>
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>

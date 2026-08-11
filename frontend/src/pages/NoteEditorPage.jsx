@@ -8,9 +8,11 @@ import Underline from '@tiptap/extension-underline';
 import {
   ArrowLeft, Save, Bold, Italic, UnderlineIcon, List, ListOrdered,
   Heading1, Heading2, Code, Quote, Minus, Tag, X, Pin,
-  FileText, Code2, Upload,
+  FileText, Code2, Upload, Download,
 } from 'lucide-react';
 import clsx from 'clsx';
+import { useSubjects } from '../hooks/useSubjects';
+import { downloadNoteTemplate } from '../utils/downloadTemplateDoc';
 
 const colors = ['default', 'blue', 'green', 'yellow', 'pink', 'purple'];
 const colorDots = {
@@ -49,6 +51,10 @@ export default function NoteEditorPage() {
   const [loading, setLoading] = useState(isEdit);
   const [uploadFile, setUploadFile] = useState(null);
   const [existingContentType, setExistingContentType] = useState('richtext');
+  const [subject, setSubject] = useState('');
+  const [topic, setTopic] = useState('');
+
+  const { subjects, createSubject, createTopic } = useSubjects();
 
   const editor = useEditor({
     extensions: [StarterKit, Underline],
@@ -66,6 +72,8 @@ export default function NoteEditorPage() {
       api.get(`/notes/${id}`).then(({ data }) => {
         const note = data.note;
         setTitle(note.title);
+        setSubject(note.subjectId || '');
+        setTopic(note.topic || '');
         setColor(note.color || 'default');
         setTags(note.tags || []);
         setIsPinned(note.isPinned || false);
@@ -96,6 +104,31 @@ export default function NoteEditorPage() {
 
   const removeTag = (tag) => setTags(tags.filter(t => t !== tag));
 
+  const handleSubjectChange = async (val) => {
+    if (val === 'CREATE_NEW') {
+      const name = prompt('Enter new subject name:');
+      if (name) {
+        const s = await createSubject(name);
+        if (s) { setSubject(s.id); setTopic(''); }
+      }
+    } else {
+      setSubject(val);
+      setTopic('');
+    }
+  };
+
+  const handleTopicChange = async (val, subjectId) => {
+    if (val === 'CREATE_NEW') {
+      const name = prompt('Enter new topic name:');
+      if (name) {
+        const t = await createTopic(subjectId, name);
+        if (t) setTopic(name);
+      }
+    } else {
+      setTopic(val);
+    }
+  };
+
   const handleSave = async () => {
     if (!title.trim()) { toast.error('Title is required'); return; }
 
@@ -105,10 +138,10 @@ export default function NoteEditorPage() {
         const content = editor?.getHTML();
         if (!content || content === '<p></p>') { toast.error('Content is required'); setSaving(false); return; }
         if (isEdit) {
-          await api.put(`/notes/${id}`, { title, content, tags, color, isPinned, contentType: 'richtext' });
+          await api.put(`/notes/${id}`, { title, content, tags, color, isPinned, contentType: 'richtext', subject, topic });
           toast.success('Note updated!');
         } else {
-          await api.post('/notes', { title, content, tags, color, isPinned, contentType: 'richtext' });
+          await api.post('/notes', { title, content, tags, color, isPinned, contentType: 'richtext', subject, topic });
           toast.success('Note created!');
         }
       } else {
@@ -119,6 +152,8 @@ export default function NoteEditorPage() {
         formData.append('tags', JSON.stringify(tags));
         formData.append('color', color);
         formData.append('isPinned', isPinned);
+        if (subject) formData.append('subject', subject);
+        if (topic) formData.append('topic', topic);
         if (uploadFile) formData.append('file', uploadFile);
         if (isEdit) formData.append('noteId', id);
         await api.post('/notes/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
@@ -186,13 +221,40 @@ export default function NoteEditorPage() {
 
       <div className="glass-card overflow-hidden">
         {/* Title */}
-        <div className="p-6 border-b border-white/10">
+        <div className="p-6 border-b border-white/10 space-y-4">
           <input
             value={title}
             onChange={e => setTitle(e.target.value)}
             placeholder="Note title..."
             className="w-full text-3xl font-bold bg-transparent text-white placeholder-gray-700 border-none outline-none"
           />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-medium text-gray-400 mb-1.5">Subject</label>
+              <select value={subject} onChange={e => handleSubjectChange(e.target.value)} className="select-field text-sm">
+                <option value="">Select Subject (Optional)</option>
+                {subjects.map(s => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
+                ))}
+                <option value="CREATE_NEW" className="font-bold text-purple-400">+ Create New Subject</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-400 mb-1.5">Topic</label>
+              <select 
+                value={topic} 
+                onChange={e => handleTopicChange(e.target.value, subject)} 
+                className="select-field text-sm"
+                disabled={!subject}
+              >
+                <option value="">Select Topic (Optional)</option>
+                {subject && subjects.find(s => s.id === parseInt(subject))?.topics?.map(t => (
+                  <option key={t._id} value={t.name}>{t.name}</option>
+                ))}
+                {subject && <option value="CREATE_NEW" className="font-bold text-purple-400">+ Create New Topic</option>}
+              </select>
+            </div>
+          </div>
         </div>
 
         {/* Content area — changes based on mode */}
@@ -218,7 +280,13 @@ export default function NoteEditorPage() {
         )}
 
         {mode === 'docx' && (
-          <div className="p-8 flex flex-col items-center justify-center min-h-64 gap-4">
+          <div className="p-8 flex flex-col items-center justify-center min-h-64 gap-4 relative">
+            <div className="absolute top-4 right-4">
+              <button type="button" onClick={downloadNoteTemplate} className="btn-secondary py-1.5 px-3 text-xs flex items-center gap-2">
+                <Download className="w-3.5 h-3.5" />
+                Download Template
+              </button>
+            </div>
             <div className="w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center">
               <Upload className="w-6 h-6 text-blue-400" />
             </div>
