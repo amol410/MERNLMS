@@ -3,24 +3,34 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../contexts/AuthContext';
-import { Brain, Search, Plus, Clock, Award, Users, Play, X, CheckCircle, Pencil } from 'lucide-react';
+import { useSubjects } from '../hooks/useSubjects';
+import { Brain, Search, Plus, Clock, Award, Play, X, CheckCircle, Pencil, BookOpen, Tag } from 'lucide-react';
 import EmptyState from '../components/common/EmptyState';
 import { GridSkeleton } from '../components/common/Loader';
 
 export default function QuizzesPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { subjects } = useSubjects();
+
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
-  const [myAttempts, setMyAttempts] = useState({});
+  const [filterSubject, setFilterSubject] = useState('');
+  const [filterTopic, setFilterTopic] = useState('');
+
+  const filterTopics = filterSubject
+    ? (subjects.find(s => s._id === filterSubject)?.topics || [])
+    : [];
 
   const fetchQuizzes = useCallback(async () => {
     setLoading(true);
     try {
       const params = { limit: 24 };
       if (search) params.q = search;
+      if (filterSubject) params.subject = filterSubject;
+      if (filterTopic) params.topic = filterTopic;
       const { data } = await api.get('/quizzes', { params });
       setQuizzes(data.quizzes);
     } catch {
@@ -28,11 +38,17 @@ export default function QuizzesPage() {
     } finally {
       setLoading(false);
     }
-  }, [search]);
+  }, [search, filterSubject, filterTopic]);
 
   useEffect(() => { fetchQuizzes(); }, [fetchQuizzes]);
 
   const handleSearch = (e) => { e.preventDefault(); setSearch(searchInput); };
+
+  const clearFilters = () => {
+    setSearch(''); setSearchInput(''); setFilterSubject(''); setFilterTopic('');
+  };
+
+  const hasFilters = search || filterSubject || filterTopic;
 
   const difficultyColor = (questions) => {
     const q = questions?.length || 0;
@@ -59,15 +75,48 @@ export default function QuizzesPage() {
         )}
       </div>
 
-      <div className="glass-card p-4 mb-6">
+      {/* Filters */}
+      <div className="glass-card p-4 mb-6 space-y-3">
         <form onSubmit={handleSearch} className="flex gap-3">
           <div className="relative flex-1">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
             <input value={searchInput} onChange={e => setSearchInput(e.target.value)} className="input-field pl-11" placeholder="Search quizzes..." />
           </div>
-          {search && <button type="button" onClick={() => { setSearch(''); setSearchInput(''); }} className="btn-icon"><X className="w-4 h-4" /></button>}
+          {hasFilters && (
+            <button type="button" onClick={clearFilters} className="btn-icon flex items-center gap-1.5 px-3 text-sm text-gray-400">
+              <X className="w-3.5 h-3.5" /> Clear
+            </button>
+          )}
           <button type="submit" className="btn-primary px-5">Search</button>
         </form>
+
+        {/* Subject + Topic dropdowns */}
+        <div className="flex flex-wrap gap-3">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-gray-500 flex-shrink-0" />
+            <select
+              value={filterSubject}
+              onChange={e => { setFilterSubject(e.target.value); setFilterTopic(''); }}
+              className="select-field text-sm py-2 min-w-36"
+            >
+              <option value="">All Subjects</option>
+              {subjects.map(s => <option key={s._id} value={s._id}>{s.name}</option>)}
+            </select>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Tag className="w-4 h-4 text-gray-500 flex-shrink-0" />
+            <select
+              value={filterTopic}
+              onChange={e => setFilterTopic(e.target.value)}
+              disabled={!filterSubject}
+              className="select-field text-sm py-2 min-w-36 disabled:opacity-40"
+            >
+              <option value="">All Topics</option>
+              {filterTopics.map(t => <option key={t._id} value={t.name}>{t.name}</option>)}
+            </select>
+          </div>
+        </div>
       </div>
 
       {loading ? (
@@ -75,7 +124,7 @@ export default function QuizzesPage() {
       ) : quizzes.length === 0 ? (
         <EmptyState
           icon="🧠"
-          title="No quizzes yet"
+          title="No quizzes found"
           description={(user?.role === 'trainer' || user?.role === 'admin') ? 'Create your first quiz.' : 'No quizzes available yet.'}
           action={(user?.role === 'trainer' || user?.role === 'admin') ? <Link to="/quizzes/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Create Quiz</Link> : null}
         />
@@ -88,11 +137,11 @@ export default function QuizzesPage() {
             return (
               <div key={quiz._id} className="glass-card p-5 border border-purple-500/10 hover:border-purple-500/25 transition-all duration-300 group flex flex-col">
                 {/* Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-900/30">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-900/30 flex-shrink-0">
                     <Brain className="w-5 h-5 text-white" />
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap justify-end">
                     <span className={`badge border text-xs ${diff.color}`}>{diff.label}</span>
                     {quiz.timeLimit > 0 && (
                       <span className="badge badge-yellow flex items-center gap-1 text-xs">
@@ -102,6 +151,22 @@ export default function QuizzesPage() {
                     )}
                   </div>
                 </div>
+
+                {/* Subject + Topic badges */}
+                {(quiz.subject?.name || quiz.topic) && (
+                  <div className="flex items-center gap-1.5 flex-wrap mb-2">
+                    {quiz.subject?.name && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/20 flex items-center gap-1">
+                        <BookOpen className="w-2.5 h-2.5" />{quiz.subject.name}
+                      </span>
+                    )}
+                    {quiz.topic && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/20 flex items-center gap-1">
+                        <Tag className="w-2.5 h-2.5" />{quiz.topic}
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 <h3 className="text-white font-semibold mb-1.5 group-hover:text-purple-300 transition-colors leading-snug">{quiz.title}</h3>
                 {quiz.description && (

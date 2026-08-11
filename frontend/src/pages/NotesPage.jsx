@@ -6,6 +6,7 @@ import { Plus, Search, BookOpen, Pin, Trash2, Edit, Tag, X, SortDesc } from 'luc
 import EmptyState from '../components/common/EmptyState';
 import { GridSkeleton } from '../components/common/Loader';
 import { useAuth } from '../contexts/AuthContext';
+import { useSubjects } from '../hooks/useSubjects';
 import clsx from 'clsx';
 
 const colorMap = {
@@ -28,6 +29,7 @@ const colorOptions = [
 
 export default function NotesPage() {
   const { user } = useAuth();
+  const { subjects } = useSubjects();
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -37,6 +39,12 @@ export default function NotesPage() {
   const [activeTag, setActiveTag] = useState('');
   const [activeColor, setActiveColor] = useState('');
   const [allTags, setAllTags] = useState([]);
+  const [filterSubject, setFilterSubject] = useState('');
+  const [filterTopic, setFilterTopic] = useState('');
+
+  const filterTopics = filterSubject
+    ? (subjects.find(s => s._id === filterSubject)?.topics || [])
+    : [];
 
   const fetchNotes = useCallback(async () => {
     setLoading(true);
@@ -44,6 +52,8 @@ export default function NotesPage() {
       const params = { limit: 50 };
       if (search) params.q = search;
       if (activeTag) params.tag = activeTag;
+      if (filterSubject) params.subject = filterSubject;
+      if (filterTopic) params.topic = filterTopic;
       const { data } = await api.get('/notes', { params });
       let result = data.notes;
       if (activeColor) result = result.filter(n => n.color === activeColor);
@@ -55,11 +65,13 @@ export default function NotesPage() {
     } finally {
       setLoading(false);
     }
-  }, [search, activeTag, activeColor]);
+  }, [search, activeTag, activeColor, filterSubject, filterTopic]);
 
   useEffect(() => { fetchNotes(); }, [fetchNotes]);
 
   const handleSearch = (e) => { e.preventDefault(); setSearch(searchInput); };
+
+  const clearAll = () => { setSearch(''); setSearchInput(''); setActiveTag(''); setActiveColor(''); setFilterSubject(''); setFilterTopic(''); };
 
   const handlePin = async (id, isPinned) => {
     try {
@@ -112,13 +124,40 @@ export default function NotesPage() {
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
             <input value={searchInput} onChange={e => setSearchInput(e.target.value)} className="input-field pl-11" placeholder="Search notes..." />
           </div>
-          {(search || activeTag || activeColor) && (
-            <button type="button" onClick={() => { setSearch(''); setSearchInput(''); setActiveTag(''); setActiveColor(''); }} className="btn-icon flex items-center gap-1.5 px-3 text-sm text-gray-400">
+          {(search || activeTag || activeColor || filterSubject || filterTopic) && (
+            <button type="button" onClick={clearAll} className="btn-icon flex items-center gap-1.5 px-3 text-sm text-gray-400">
               <X className="w-3.5 h-3.5" /> Clear
             </button>
           )}
           <button type="submit" className="btn-primary px-5">Search</button>
         </form>
+
+        {/* Subject + Topic filters */}
+        <div className="flex flex-wrap gap-3">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-gray-500 flex-shrink-0" />
+            <select
+              value={filterSubject}
+              onChange={e => { setFilterSubject(e.target.value); setFilterTopic(''); }}
+              className="select-field text-sm py-2 min-w-36"
+            >
+              <option value="">All Subjects</option>
+              {subjects.map(s => <option key={s._id} value={s._id}>{s.name}</option>)}
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <Tag className="w-4 h-4 text-gray-500 flex-shrink-0" />
+            <select
+              value={filterTopic}
+              onChange={e => setFilterTopic(e.target.value)}
+              disabled={!filterSubject}
+              className="select-field text-sm py-2 min-w-36 disabled:opacity-40"
+            >
+              <option value="">All Topics</option>
+              {filterTopics.map(t => <option key={t._id} value={t.name}>{t.name}</option>)}
+            </select>
+          </div>
+        </div>
 
         <div className="flex flex-wrap items-center gap-3">
           {/* Tags */}

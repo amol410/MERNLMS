@@ -40,6 +40,7 @@ app.use('/api/videos', require('./routes/videos'));
 app.use('/api/quizzes', require('./routes/quizzes'));
 app.use('/api/flashcards', require('./routes/flashcards'));
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/subjects', require('./routes/subjects'));
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'dist')));
