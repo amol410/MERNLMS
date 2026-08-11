@@ -6,3 +6,5 @@ dist/
 build/
 .env.local
 .env.production
+backend/package-lock.json
+frontend/package-lock.json
