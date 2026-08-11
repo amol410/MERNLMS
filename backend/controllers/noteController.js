@@ -1,9 +1,11 @@
 const { Op } = require('sequelize');
 const Note = require('../models/Note');
 const User = require('../models/User');
+const Subject = require('../models/Subject');
 const mammoth = require('mammoth');
 
 const ownerInclude = { model: User, as: 'ownerUser', attributes: ['id', 'name'] };
+const subjectInclude = { model: Subject, as: 'subject', attributes: ['id', 'name'] };
 
 // Reshape ownerUser -> owner to match frontend expectations
 const reshape = (note) => {
@@ -39,7 +41,7 @@ exports.getNotes = async (req, res, next) => {
     const offset = (parseInt(page) - 1) * parseInt(limit);
     const { count, rows } = await Note.findAndCountAll({
       where,
-      include: [ownerInclude],
+      include: [ownerInclude, subjectInclude],
       order: [['isPinned', 'DESC'], ['updatedAt', 'DESC']],
       offset,
       limit: parseInt(limit),
@@ -57,7 +59,7 @@ exports.getNotes = async (req, res, next) => {
 
 exports.getNoteById = async (req, res, next) => {
   try {
-    const note = await Note.findByPk(req.params.id, { include: [ownerInclude] });
+    const note = await Note.findByPk(req.params.id, { include: [ownerInclude, subjectInclude] });
     if (!note) return res.status(404).json({ success: false, message: 'Note not found' });
 
     // Students can read any note; trainers/admins can only read their own
@@ -73,8 +75,13 @@ exports.getNoteById = async (req, res, next) => {
 
 exports.createNote = async (req, res, next) => {
   try {
-    const { title, content, tags, color, isPinned, contentType } = req.body;
-    const note = await Note.create({ owner: req.user.id, title, content, tags, color, isPinned, contentType: contentType || 'richtext' });
+    const { title, content, tags, color, isPinned, contentType, subject, topic } = req.body;
+    const note = await Note.create({ 
+      owner: req.user.id, title, content, tags, color, isPinned, 
+      contentType: contentType || 'richtext',
+      subjectId: subject || null,
+      topic: topic || null
+    });
     res.status(201).json({ success: true, note });
   } catch (error) {
     next(error);
@@ -88,13 +95,15 @@ exports.updateNote = async (req, res, next) => {
     if (note.owner !== req.user.id) {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
-    const { title, content, tags, color, isPinned, contentType } = req.body;
+    const { title, content, tags, color, isPinned, contentType, subject, topic } = req.body;
     if (title !== undefined) note.title = title;
     if (content !== undefined) note.content = content;
     if (tags !== undefined) note.tags = tags;
     if (color !== undefined) note.color = color;
     if (isPinned !== undefined) note.isPinned = isPinned;
     if (contentType !== undefined) note.contentType = contentType;
+    if (subject !== undefined) note.subjectId = subject || null;
+    if (topic !== undefined) note.topic = topic || null;
     await note.save();
     res.json({ success: true, note });
   } catch (error) {
@@ -106,7 +115,7 @@ exports.uploadNoteFile = async (req, res, next) => {
   try {
     if (!req.file) return res.status(400).json({ success: false, message: 'No file uploaded' });
 
-    const { title, tags, color, isPinned, noteId } = req.body;
+    const { title, tags, color, isPinned, noteId, subject, topic } = req.body;
     const ext = req.file.originalname.split('.').pop().toLowerCase();
 
     let content = '';
@@ -138,6 +147,8 @@ exports.uploadNoteFile = async (req, res, next) => {
       note.tags = parsedTags;
       if (color !== undefined) note.color = color;
       if (isPinned !== undefined) note.isPinned = isPinned === 'true';
+      if (subject !== undefined) note.subjectId = subject || null;
+      if (topic !== undefined) note.topic = topic || null;
       await note.save();
       return res.json({ success: true, note });
     }
@@ -149,6 +160,8 @@ exports.uploadNoteFile = async (req, res, next) => {
       tags: parsedTags,
       color: color || 'default',
       isPinned: isPinned === 'true',
+      subjectId: subject || null,
+      topic: topic || null
     });
     res.status(201).json({ success: true, note });
   } catch (error) {

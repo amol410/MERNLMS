@@ -5,6 +5,8 @@ const Quiz = sequelize.define('Quiz', {
     id:          { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     _id:         { type: DataTypes.VIRTUAL, get() { return this.id; } },
     createdBy:   { type: DataTypes.INTEGER, allowNull: false },
+    subjectId:   { type: DataTypes.INTEGER, defaultValue: null, allowNull: true },
+    topic:       { type: DataTypes.STRING(200), defaultValue: null, allowNull: true },
     title:       { type: DataTypes.STRING(200), allowNull: false },
     description: { type: DataTypes.TEXT, defaultValue: '' },
     questions: {

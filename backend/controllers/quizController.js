@@ -2,9 +2,11 @@ const { Op } = require('sequelize');
 const Quiz = require('../models/Quiz');
 const QuizAttempt = require('../models/QuizAttempt');
 const User = require('../models/User');
+const Subject = require('../models/Subject');
 const mammoth = require('mammoth');
 
 const createdByInclude = { model: User, as: 'createdByUser', attributes: ['id', 'name', 'avatar'] };
+const subjectInclude = { model: Subject, as: 'subject', attributes: ['id', 'name'] };
 
 // Reshape createdByUser -> createdBy to match frontend expectations
 const reshape = (quiz) => {
@@ -42,7 +44,7 @@ exports.getQuizzes = async (req, res, next) => {
     const offset = (parseInt(page) - 1) * parseInt(limit);
     const { count, rows } = await Quiz.findAndCountAll({
       where,
-      include: [createdByInclude],
+      include: [createdByInclude, subjectInclude],
       order: [['createdAt', 'DESC']],
       offset,
       limit: parseInt(limit),
@@ -63,7 +65,7 @@ exports.getQuizzes = async (req, res, next) => {
 
 exports.getQuizById = async (req, res, next) => {
   try {
-    const quiz = await Quiz.findByPk(req.params.id, { include: [createdByInclude] });
+    const quiz = await Quiz.findByPk(req.params.id, { include: [createdByInclude, subjectInclude] });
     if (!quiz) return res.status(404).json({ success: false, message: 'Quiz not found' });
 
     const isOwner = req.user && quiz.createdBy === req.user.id;
@@ -81,7 +83,7 @@ exports.getQuizById = async (req, res, next) => {
 
 exports.createQuiz = async (req, res, next) => {
   try {
-    const { title, description, questions, passingScore, timeLimit, shuffleQuestions, isPublished, tags } = req.body;
+    const { title, description, questions, passingScore, timeLimit, shuffleQuestions, isPublished, tags, subject, topic } = req.body;
 
     if (!questions || questions.length === 0) {
       return res.status(400).json({ success: false, message: 'At least one question is required' });
@@ -90,6 +92,8 @@ exports.createQuiz = async (req, res, next) => {
     const quiz = await Quiz.create({
       createdBy: req.user.id,
       title, description,
+      subjectId: subject || null,
+      topic: topic || null,
       questions: assignQuestionIds(questions),
       passingScore, timeLimit, shuffleQuestions, isPublished, tags,
     });
@@ -108,7 +112,7 @@ exports.updateQuiz = async (req, res, next) => {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
 
-    const { title, description, questions, passingScore, timeLimit, shuffleQuestions, isPublished, tags } = req.body;
+    const { title, description, questions, passingScore, timeLimit, shuffleQuestions, isPublished, tags, subject, topic } = req.body;
     if (title !== undefined) quiz.title = title;
     if (description !== undefined) quiz.description = description;
     if (questions !== undefined) quiz.questions = assignQuestionIds(questions);
@@ -117,6 +121,8 @@ exports.updateQuiz = async (req, res, next) => {
     if (shuffleQuestions !== undefined) quiz.shuffleQuestions = shuffleQuestions;
     if (isPublished !== undefined) quiz.isPublished = isPublished;
     if (tags !== undefined) quiz.tags = tags;
+    if (subject !== undefined) quiz.subjectId = subject || null;
+    if (topic !== undefined) quiz.topic = topic || null;
     await quiz.save();
 
     res.json({ success: true, quiz });
@@ -299,9 +305,13 @@ exports.bulkUploadQuiz = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'No valid questions found. Check the file format.' });
     }
 
+    const { subject, topic: reqTopic } = req.body;
+    
     const quiz = await Quiz.create({
       createdBy: req.user.id,
       title, description,
+      subjectId: subject || null,
+      topic: reqTopic || null,
       questions: assignQuestionIds(questions),
       passingScore, timeLimit, tags,
       isPublished: true,
