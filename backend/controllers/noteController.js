@@ -19,7 +19,7 @@ const reshape = (note) => {
 
 exports.getNotes = async (req, res, next) => {
   try {
-    const { q, tag, page = 1, limit = 12 } = req.query;
+    const { q, tag, page = 1, limit = 12, subject, topic } = req.query;
     const where = {};
 
     // Students see all notes; trainers/admins see only their own
@@ -36,6 +36,14 @@ exports.getNotes = async (req, res, next) => {
 
     if (tag) {
       where.tags = { [Op.like]: `%"${tag}"%` };
+    }
+
+    if (subject) {
+      where.subjectId = parseInt(subject);
+    }
+
+    if (topic) {
+      where.topic = topic;
     }
 
     const offset = (parseInt(page) - 1) * parseInt(limit);

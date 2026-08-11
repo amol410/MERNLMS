@@ -43,7 +43,7 @@ export default function NotesPage() {
   const [filterTopic, setFilterTopic] = useState('');
 
   const filterTopics = filterSubject
-    ? (subjects.find(s => s._id === filterSubject)?.topics || [])
+    ? (subjects.find(s => s.id === parseInt(filterSubject))?.topics || [])
     : [];
 
   const fetchNotes = useCallback(async () => {
@@ -142,7 +142,7 @@ export default function NotesPage() {
               className="select-field text-sm py-2 min-w-36"
             >
               <option value="">All Subjects</option>
-              {subjects.map(s => <option key={s._id} value={s._id}>{s.name}</option>)}
+              {subjects.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
           </div>
           <div className="flex items-center gap-2">
