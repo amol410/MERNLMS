@@ -11,8 +11,8 @@ dotenv.config();
 const { connectDB } = require('./config/database');
 const { errorHandler, notFound } = require('./middleware/errorHandler');
 
+require('./models/associations'); // must be before connectDB so all models are registered before sync
 connectDB();
-require('./models/associations');
 
 const app = express();
 
