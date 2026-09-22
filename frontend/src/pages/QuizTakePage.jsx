@@ -4,6 +4,7 @@ import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Clock, CheckCircle, XCircle, Award, RotateCcw, ChevronRight, ChevronLeft, Flag } from 'lucide-react';
 import { CodeSnippetDisplay } from '../components/quiz/CodeSnippetQuestion';
+import { MatchPairsDisplay, MatchPairsReview } from '../components/quiz/MatchPairsQuestion';
 import { PageLoader } from '../components/common/Loader';
 import clsx from 'clsx';
 
@@ -122,10 +123,18 @@ export default function QuizTakePage() {
       : Math.round((new Date() - new Date(startedAt.current)) / 1000);
 
     try {
-      const answerPayload = quiz.questions.map(q => ({
-        questionId: q._id,
-        chosenIndex: answers[q._id] ?? -1,
-      }));
+      const answerPayload = quiz.questions.map(q => {
+        if (q.type === 'match-pairs') {
+          return {
+            questionId: q._id,
+            matches: answers[q._id] || [],
+          };
+        }
+        return {
+          questionId: q._id,
+          chosenIndex: answers[q._id] ?? -1,
+        };
+      });
 
       const { data } = await api.post(`/quizzes/${id}/attempt`, {
         answers: answerPayload,
@@ -223,48 +232,62 @@ export default function QuizTakePage() {
           Question Review
         </h2>
         <div className="space-y-4">
-          {questions.map((q, i) => (
-            <div key={q._id} className={clsx(
-              'glass-card p-5 border-l-4',
-              q.isCorrect ? 'border-green-500/60' : 'border-red-500/60'
-            )}>
-              <div className="flex items-start justify-between mb-3">
-                <p className="text-white font-medium text-sm flex-1">{i + 1}. {q.text}</p>
-                {q.isCorrect
-                  ? <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 ml-3" />
-                  : <XCircle className="w-5 h-5 text-red-400 flex-shrink-0 ml-3" />
-                }
-              </div>
-              <div className="space-y-2">
-                {q.options.map((opt, optIdx) => (
-                  <div key={optIdx} className={clsx(
-                    'px-3 py-2 rounded-lg text-sm',
-                    optIdx === q.correctIndex
-                      ? 'bg-green-500/20 text-green-300 border border-green-500/40'
-                      : optIdx === q.chosenIndex && !q.isCorrect
-                        ? 'bg-red-500/20 text-red-300 border border-red-500/40'
-                        : 'text-gray-500'
-                  )}>
-                    {opt}
-                    {optIdx === q.correctIndex && ' ✓'}
-                    {optIdx === q.chosenIndex && !q.isCorrect && ' (your answer)'}
-                  </div>
-                ))}
-              </div>
-              {q.explanation && (
-                <div className="mt-3 px-3 py-2 bg-dolphin-600/10 rounded-lg border border-dolphin-500/20">
-                  <p className="text-dolphin-300 text-xs"><strong>Explanation:</strong> {q.explanation}</p>
+          {questions.map((q, i) => {
+            if (q.type === 'match-pairs') {
+              return <MatchPairsReview key={q._id ?? i} question={q} index={i} />;
+            }
+            return (
+              <div key={q._id ?? i} className={clsx(
+                'glass-card p-5 border-l-4',
+                q.isCorrect ? 'border-green-500/60' : 'border-red-500/60'
+              )}>
+                <div className="flex items-start justify-between mb-3">
+                  <p className="text-white font-medium text-sm flex-1">{i + 1}. {q.text}</p>
+                  {q.isCorrect
+                    ? <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 ml-3" />
+                    : <XCircle className="w-5 h-5 text-red-400 flex-shrink-0 ml-3" />
+                  }
                 </div>
-              )}
-            </div>
-          ))}
+                <div className="space-y-2">
+                  {q.options.map((opt, optIdx) => (
+                    <div key={optIdx} className={clsx(
+                      'px-3 py-2 rounded-lg text-sm',
+                      optIdx === q.correctIndex
+                        ? 'bg-green-500/20 text-green-300 border border-green-500/40'
+                        : optIdx === q.chosenIndex && !q.isCorrect
+                          ? 'bg-red-500/20 text-red-300 border border-red-500/40'
+                          : 'text-gray-500'
+                    )}>
+                      {opt}
+                      {optIdx === q.correctIndex && ' ✓'}
+                      {optIdx === q.chosenIndex && !q.isCorrect && ' (your answer)'}
+                    </div>
+                  ))}
+                </div>
+                {q.explanation && (
+                  <div className="mt-3 px-3 py-2 bg-dolphin-600/10 rounded-lg border border-dolphin-500/20">
+                    <p className="text-dolphin-300 text-xs"><strong>Explanation:</strong> {q.explanation}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
   }
 
+  const isQuestionAnswered = (ques) => {
+    const ans = answers[ques._id];
+    if (ans === undefined || ans === null) return false;
+    if (ques.type === 'match-pairs') {
+      return Array.isArray(ans) && ans.some(p => Boolean(p.right));
+    }
+    return ans !== -1;
+  };
+
   const q = quiz.questions[currentQ];
-  const answered = Object.keys(answers).length;
+  const answered = quiz ? quiz.questions.filter(isQuestionAnswered).length : 0;
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
@@ -327,6 +350,13 @@ export default function QuizTakePage() {
                 question={q}
                 selectedIndex={answers[q._id]}
                 onSelect={(idx) => handleAnswer(q._id, idx)}
+                disabled={submitted}
+              />
+            ) : q.type === 'match-pairs' ? (
+              <MatchPairsDisplay
+                question={q}
+                currentAnswer={answers[q._id]}
+                onAnswer={(matches) => handleAnswer(q._id, matches)}
                 disabled={submitted}
               />
             ) : (
@@ -406,7 +436,7 @@ export default function QuizTakePage() {
                       ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40 scale-110'
                       : flagged[ques._id]
                         ? 'bg-orange-500/25 text-orange-300 border border-orange-500/40'
-                        : answers[ques._id] !== undefined
+                        : isQuestionAnswered(ques)
                           ? 'bg-green-600/40 text-green-300 border border-green-500/30'
                           : 'bg-white/8 text-gray-500 hover:bg-white/15 hover:text-gray-300'
                   )}

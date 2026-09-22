@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { ArrowLeft, Plus, Trash2, Save, Brain, ChevronDown, ChevronUp, Upload, FileText, Globe, Lock, Download } from 'lucide-react';
 import clsx from 'clsx';
 import { CodeSnippetForm } from '../components/quiz/CodeSnippetQuestion';
+import { MatchPairsForm } from '../components/quiz/MatchPairsQuestion';
 import { useSubjects } from '../hooks/useSubjects';
 import { downloadQuizTemplate } from '../utils/downloadTemplateDoc';
 
@@ -12,6 +13,12 @@ const defaultQuestion = () => ({
   text: '',
   type: 'multiple-choice',
   options: ['', '', '', ''],
+  pairs: [
+    { left: '', right: '' },
+    { left: '', right: '' },
+    { left: '', right: '' },
+    { left: '', right: '' }
+  ],
   correctIndex: 0,
   explanation: '',
   points: 1,
@@ -83,7 +90,20 @@ export default function QuizFormPage() {
   const handleTypeChange = (idx, type) => {
     const options = type === 'true-false' ? ['True', 'False'] : ['', '', '', ''];
     const extra = type === 'code-mcq' ? { language: 'python' } : {};
-    setQuestions(prev => prev.map((q, i) => i === idx ? { ...q, type, options, correctIndex: 0, ...extra } : q));
+    const pairs = [
+      { left: '', right: '' },
+      { left: '', right: '' },
+      { left: '', right: '' },
+      { left: '', right: '' }
+    ];
+    setQuestions(prev => prev.map((q, i) => i === idx ? {
+      ...q,
+      type,
+      options,
+      pairs: q.pairs && q.pairs.length === 4 ? q.pairs : pairs,
+      correctIndex: 0,
+      ...extra
+    } : q));
   };
 
   const handleSubjectChange = async (val, isBulk = false) => {
@@ -150,7 +170,16 @@ export default function QuizFormPage() {
     for (let i = 0; i < questions.length; i++) {
       const q = questions[i];
       if (!q.text.trim()) { toast.error(`Question ${i + 1}: text is required`); return; }
-      if (q.options.some(o => !o.trim())) { toast.error(`Question ${i + 1}: all options must be filled`); return; }
+      if (q.type === 'match-pairs') {
+        const pairs = Array.isArray(q.pairs) ? q.pairs : [];
+        if (pairs.length < 4 || pairs.some(p => !p.left?.trim() || !p.right?.trim())) {
+          toast.error(`Question ${i + 1}: All 4 pairs (left prompts and right matches) must be filled`);
+          setExpandedQ(i);
+          return;
+        }
+      } else {
+        if (q.options.some(o => !o.trim())) { toast.error(`Question ${i + 1}: all options must be filled`); return; }
+      }
     }
 
     setSaving(true);
@@ -204,7 +233,7 @@ export default function QuizFormPage() {
             </button>
           </div>
 
-          <div className="bg-black/30 rounded-xl p-4 mb-4 font-mono text-xs text-gray-400 border border-white/10 overflow-auto max-h-48">
+          <div className="bg-black/30 rounded-xl p-4 mb-4 font-mono text-xs text-gray-400 border border-white/10 overflow-auto max-h-56">
             <pre>{`TITLE: My Quiz Title
 DESCRIPTION: Brief description here
 PASSING_SCORE: 70
@@ -224,7 +253,20 @@ Q: Is JavaScript case-sensitive?
 TRUE_FALSE
 ANSWER: TRUE
 EXPLANATION: JavaScript is case-sensitive.
-POINTS: 1`}</pre>
+POINTS: 1
+
+Q: Match the following Python data structures with their characteristics:
+MATCH_PAIRS
+LEFT_1: list
+RIGHT_1: Ordered, mutable sequence of items
+LEFT_2: tuple
+RIGHT_2: Ordered, immutable sequence of items
+LEFT_3: set
+RIGHT_3: Unordered collection of unique elements
+LEFT_4: dict
+RIGHT_4: Key-value pair collection
+EXPLANATION: Lists are mutable, tuples are immutable, sets store unique items, dicts store key-value pairs.
+POINTS: 2`}</pre>
           </div>
 
           <div className="flex gap-3 mb-4">
@@ -425,6 +467,7 @@ POINTS: 1`}</pre>
                         <option value="multiple-choice">Multiple Choice</option>
                         <option value="true-false">True / False</option>
                         <option value="code-mcq">Code Snippet</option>
+                        <option value="match-pairs">Match the Pairs (Drag & Drop)</option>
                       </select>
                     </div>
                     <div>
@@ -435,6 +478,8 @@ POINTS: 1`}</pre>
 
                   {q.type === 'code-mcq' ? (
                     <CodeSnippetForm question={q} qIdx={qIdx} updateQuestion={updateQuestion} />
+                  ) : q.type === 'match-pairs' ? (
+                    <MatchPairsForm question={q} qIdx={qIdx} updateQuestion={updateQuestion} />
                   ) : (
                     <div>
                       <label className="block text-xs font-medium text-gray-400 mb-2">Options (select correct)</label>
