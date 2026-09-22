@@ -48,77 +48,102 @@ export function MatchPairsForm({ question, qIdx, updateQuestion }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between pb-1 border-b border-white/10">
+      <div className="flex items-center justify-between pb-2 border-b border-white/10">
         <div>
-          <label className="block text-xs font-semibold text-purple-300 uppercase tracking-wider">
-            Define 4 Matching Pairs (Required)
+          <label className="block text-xs font-bold text-purple-300 uppercase tracking-wider">
+            Match the Pairs Editor — 4 on Left and 4 on Right
           </label>
           <p className="text-xs text-gray-400 mt-0.5">
-            Enter 4 premises on the left and their corresponding correct matches on the right.
+            Define 4 prompts on the left and their 4 corresponding matching answers on the right.
           </p>
         </div>
-        <span className="text-xs font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
-          4 Pairs
+        <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+          4 Left ↔ 4 Right
         </span>
       </div>
 
-      <div className="space-y-3">
-        {pairs.map((pair, idx) => (
-          <div
-            key={idx}
-            className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-purple-500/30 transition-all group"
-          >
-            <div className="flex items-center gap-2 mb-2 text-xs font-medium text-gray-400">
-              <span className="w-5 h-5 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-[11px]">
-                {idx + 1}
-              </span>
-              <span>Pair {idx + 1}</span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
-              {/* Left Item Input */}
-              <div className="space-y-1">
-                <span className="text-[11px] font-medium text-gray-400 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-dolphin-400" />
-                  Left Item {idx + 1} (Prompt / Premise) *
-                </span>
-                <input
-                  value={pair.left}
-                  onChange={e => handlePairChange(idx, 'left', e.target.value)}
-                  placeholder={`e.g. Term or Concept ${idx + 1}`}
-                  className="input-field text-sm py-2"
-                  required
-                />
-              </div>
-
-              {/* Right Item Input */}
-              <div className="space-y-1">
-                <span className="text-[11px] font-medium text-gray-400 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-                  Right Item {idx + 1} (Correct Match) *
-                </span>
-                <div className="relative">
-                  <input
-                    value={pair.right}
-                    onChange={e => handlePairChange(idx, 'right', e.target.value)}
-                    placeholder={`e.g. Definition or Match ${idx + 1}`}
-                    className="input-field text-sm py-2 pr-8"
-                    required
-                  />
-                  <div className="absolute right-2.5 top-2.5 text-purple-400/60 pointer-events-none">
-                    <Link2 className="w-4 h-4" />
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* Side-by-side: 4 on Left and 4 on Right */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {/* LEFT COLUMN: 4 ITEMS */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between pb-1.5 border-b border-dolphin-500/30">
+            <span className="text-xs font-bold uppercase tracking-wider text-dolphin-300 flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-dolphin-400" />
+              Left Side — 4 Prompts / Premises
+            </span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-dolphin-500/20 text-dolphin-300">
+              Left
+            </span>
           </div>
-        ))}
+
+          {pairs.map((pair, idx) => (
+            <div
+              key={idx}
+              className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-dolphin-500/40 transition-all space-y-1.5"
+            >
+              <label className="text-xs font-semibold text-gray-300 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-md bg-dolphin-500/20 text-dolphin-300 flex items-center justify-center font-bold text-xs">
+                  {idx + 1}
+                </span>
+                Left Item {idx + 1} (Prompt / Premise) *
+              </label>
+              <textarea
+                value={pair.left}
+                onChange={e => handlePairChange(idx, 'left', e.target.value)}
+                placeholder={`Enter prompt / premise ${idx + 1}...`}
+                rows={2}
+                className="input-field text-sm resize-none"
+                required
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* RIGHT COLUMN: 4 ITEMS */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between pb-1.5 border-b border-purple-500/30">
+            <span className="text-xs font-bold uppercase tracking-wider text-purple-300 flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-purple-400" />
+              Right Side — 4 Corresponding Matches
+            </span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300">
+              Right
+            </span>
+          </div>
+
+          {pairs.map((pair, idx) => (
+            <div
+              key={idx}
+              className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-purple-500/40 transition-all space-y-1.5"
+            >
+              <div className="flex items-center justify-between text-xs font-semibold text-gray-300">
+                <span className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-md bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-xs">
+                    {idx + 1}
+                  </span>
+                  Right Item {idx + 1} (Match for Left {idx + 1}) *
+                </span>
+                <span className="text-[10px] text-purple-400/80 font-mono flex items-center gap-1">
+                  <Link2 className="w-3 h-3" /> Pair {idx + 1}
+                </span>
+              </div>
+              <textarea
+                value={pair.right}
+                onChange={e => handlePairChange(idx, 'right', e.target.value)}
+                placeholder={`Enter matching answer for left prompt ${idx + 1}...`}
+                rows={2}
+                className="input-field text-sm resize-none"
+                required
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="p-3 rounded-lg bg-black/20 border border-white/5 text-xs text-gray-400 flex items-center gap-2">
         <Sparkles className="w-4 h-4 text-purple-400 flex-shrink-0" />
         <span>
-          During the quiz, the right items will automatically be randomized/mismatched for students.
+          During the quiz, the 4 right items will automatically be randomized/mismatched so students must match them.
         </span>
       </div>
     </div>
