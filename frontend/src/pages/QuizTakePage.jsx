@@ -354,6 +354,7 @@ export default function QuizTakePage() {
               />
             ) : q.type === 'match-pairs' ? (
               <MatchPairsDisplay
+                key={q._id}
                 question={q}
                 currentAnswer={answers[q._id]}
                 onAnswer={(matches) => handleAnswer(q._id, matches)}

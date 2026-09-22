@@ -178,13 +178,20 @@ export function MatchPairsDisplay({ question, currentAnswer, onAnswer, disabled 
     return [];
   }, [question]);
 
-  // Initial Mismatch: Ensure the right items start in a randomized order where no item
-  // starts aligned across from its original pair index.
-  const [initialRightList] = useState(() => getDerangedRightItems(rawRightItems));
+  // Initial Mismatch: Ensure the right items start in a randomized order for this specific question
+  const initialRightList = useMemo(() => {
+    return getDerangedRightItems(rawRightItems);
+  }, [question._id, rawRightItems]);
 
   // Current pairing mapping: { [leftItemText]: rightItemText }
   const [selectedLeft, setSelectedLeft] = useState(null);
   const [draggedRight, setDraggedRight] = useState(null);
+
+  // Clear selected state when question changes
+  useEffect(() => {
+    setSelectedLeft(null);
+    setDraggedRight(null);
+  }, [question._id]);
 
   // Initialize or restore answer map
   const pairsMap = useMemo(() => {
