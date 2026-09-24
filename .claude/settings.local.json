@@ -9,7 +9,13 @@
       "Read(//private/tmp/**)",
       "Bash(cp /Users/cms/Downloads/python_quiz.docx .)",
       "Bash(unzip -p python_quiz.docx word/document.xml)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(flutter pub *)",
+      "Bash(flutter analyze *)",
+      "Bash(flutter devices *)",
+      "Read(//Users/cms/.pub-cache/**)",
+      "Bash(find / -maxdepth 6 -iname \"flutter_secure_storage-9*\")",
+      "Bash(dart run *)"
     ]
   }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
@@ -27,6 +27,7 @@ export default function StudyPage() {
   const [results, setResults] = useState({});
   const [done, setDone] = useState(false);
   const [saving, setSaving] = useState(false);
+  const sessionStartRef = useRef(Date.now()); // track total session time
 
   useEffect(() => {
     api.get(`/flashcards/${id}`)
@@ -56,13 +57,14 @@ export default function StudyPage() {
   const saveProgress = async (finalResults) => {
     setSaving(true);
     try {
+      const engagementSecs = Math.floor((Date.now() - sessionStartRef.current) / 1000);
       const cardResults = deck.cards.map(c => ({
         cardId: c._id,
         status: finalResults[c._id] || 'unseen',
         reviewCount: finalResults[c._id] ? 1 : 0,
         lastReviewedAt: finalResults[c._id] ? new Date() : null,
       }));
-      await api.post(`/flashcards/${id}/progress`, { cardResults });
+      await api.post(`/flashcards/${id}/progress`, { cardResults, engagementSecs });
     } catch {
       // silent
     } finally {

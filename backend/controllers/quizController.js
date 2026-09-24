@@ -3,6 +3,7 @@ const Quiz = require('../models/Quiz');
 const QuizAttempt = require('../models/QuizAttempt');
 const User = require('../models/User');
 const Subject = require('../models/Subject');
+const UserActivity = require('../models/UserActivity');
 const mammoth = require('mammoth');
 
 const createdByInclude = { model: User, as: 'createdByUser', attributes: ['id', 'name', 'avatar'] };
@@ -264,6 +265,23 @@ exports.submitAttempt = async (req, res, next) => {
       submittedAt: new Date(),
       timeTakenSecs,
     });
+
+    // Log activity (non-blocking — swallow errors so a logging failure never breaks submission)
+    try {
+      const quizWithSubject = await Quiz.findByPk(quiz.id, { include: [subjectInclude] });
+      await UserActivity.create({
+        userId: req.user.id,
+        activityType: 'quiz',
+        resourceId: quiz.id,
+        resourceTitle: quiz.title,
+        subjectName: quizWithSubject?.subject?.name || null,
+        topicName: quiz.topic || null,
+        metadata: { attemptCount: attemptNumber, timeTakenSecs: timeTakenSecs || 0, score, maxScore, percentage, passed },
+        activityDate: new Date().toISOString().split('T')[0],
+      });
+    } catch (logErr) {
+      console.error('Activity log error (quiz):', logErr.message);
+    }
 
     const result = {
       attempt,

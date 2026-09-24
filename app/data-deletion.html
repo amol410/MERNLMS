@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete My Account — DolphinCoder</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+      background: #0A0F1E;
+      color: #F9FAFB;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1A1F3A 0%, #0F172A 100%);
+      border-bottom: 1px solid rgba(239,68,68,0.2);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .logo-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366F1, #A855F7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 0 16px rgba(99,102,241,0.4);
+    }
+
+    .logo-text {
+      font-size: 20px; font-weight: 800;
+      background: linear-gradient(90deg, #6366F1, #A855F7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header h1 {
+      font-size: 24px; font-weight: 700; color: #F9FAFB;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* Warning banner */
+    .warn-banner {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 36px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .warn-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+
+    .warn-banner h2 {
+      font-size: 16px; font-weight: 700;
+      color: #FCA5A5; margin-bottom: 6px;
+    }
+
+    .warn-banner p {
+      font-size: 14px; color: #FCA5A5; opacity: 0.85;
+    }
+
+    /* What gets deleted */
+    .card {
+      background: #111827;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .card h3 {
+      font-size: 15px; font-weight: 700;
+      color: #F9FAFB;
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .delete-list {
+      list-style: none;
+      padding: 0; margin: 0;
+    }
+
+    .delete-list li {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 14px; color: #D1D5DB;
+    }
+
+    .delete-list li:last-child { border-bottom: none; }
+
+    .dot-red  { width: 8px; height: 8px; border-radius: 50%; background: #EF4444; flex-shrink: 0; }
+    .dot-gray { width: 8px; height: 8px; border-radius: 50%; background: #4B5563; flex-shrink: 0; }
+
+    /* Timeline */
+    .timeline {
+      background: rgba(16,185,129,0.07);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      font-size: 14px; color: #A7F3D0;
+      display: flex; gap: 12px; align-items: center;
+    }
+
+    /* Steps */
+    .steps { margin-bottom: 32px; }
+
+    .steps h3 {
+      font-size: 15px; font-weight: 700; color: #F9FAFB;
+      margin-bottom: 16px;
+    }
+
+    .step {
+      display: flex; gap: 14px; align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .step-num {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: linear-gradient(135deg, #6366F1, #A855F7);
+      font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    .step-text { font-size: 14px; color: #D1D5DB; }
+    .step-text strong { color: #F9FAFB; }
+
+    /* CTA Button */
+    .cta-section { text-align: center; margin-bottom: 28px; }
+
+    .btn-delete {
+      display: inline-block;
+      background: linear-gradient(135deg, #EF4444, #DC2626);
+      color: #fff;
+      font-size: 15px; font-weight: 700;
+      padding: 16px 40px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(239,68,68,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .btn-delete:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(239,68,68,0.5);
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .btn-note {
+      font-size: 12px;
+      color: #6B7280;
+      margin-top: 8px;
+    }
+
+    /* Alternatively */
+    .alt-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 13px;
+      color: #9CA3AF;
+    }
+
+    .alt-box a { color: #818CF8; }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 24px;
+      text-align: center;
+      color: #4B5563;
+      font-size: 12px;
+    }
+
+    footer a { color: #6366F1; }
+
+    @media (max-width: 500px) {
+      .container { padding: 32px 16px 60px; }
+      .btn-delete { padding: 14px 28px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🐬</div>
+    <span class="logo-text">DolphinCoder</span>
+  </div>
+  <h1>Account Deletion Request</h1>
+</header>
+
+<div class="container">
+
+  <!-- Warning banner -->
+  <div class="warn-banner">
+    <div class="warn-icon">⚠️</div>
+    <div>
+      <h2>This action is permanent and cannot be undone</h2>
+      <p>Once your account is deleted, all your data will be permanently removed from our servers within 30 days and cannot be recovered.</p>
+    </div>
+  </div>
+
+  <!-- What gets deleted -->
+  <div class="card">
+    <h3>🗑️ What will be deleted</h3>
+    <ul class="delete-list">
+      <li><span class="dot-red"></span> Your account (email, name, password)</li>
+      <li><span class="dot-red"></span> Profile information and photo</li>
+      <li><span class="dot-red"></span> All quiz attempt history and scores</li>
+      <li><span class="dot-red"></span> Flashcard study progress and mastery data</li>
+      <li><span class="dot-red"></span> Authentication sessions and tokens</li>
+    </ul>
+  </div>
+
+  <!-- What is NOT deleted -->
+  <div class="card">
+    <h3>📚 What will NOT be deleted</h3>
+    <ul class="delete-list">
+      <li><span class="dot-gray"></span> Shared course content (notes, videos, quizzes) — these are not yours to delete</li>
+      <li><span class="dot-gray"></span> Anonymised, aggregated statistics (if any)</li>
+    </ul>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline">
+    ⏱️ &nbsp; <span>We will process your deletion request within <strong>30 days</strong> of receiving your email.</span>
+  </div>
+
+  <!-- How to request -->
+  <div class="steps">
+    <h3>How to submit your request</h3>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">Click the button below — it will open your email app with a pre-filled deletion request.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>Include your registered email address</strong> in the message so we can identify your account.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">We will send you a confirmation email within 7 days and complete the deletion within 30 days.</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <a class="btn-delete"
+       href="mailto:support@dolphincoder.com?subject=Account%20Deletion%20Request&body=Hello%2C%0A%0AI%20would%20like%20to%20request%20the%20permanent%20deletion%20of%20my%20DolphinCoder%20account%20and%20all%20associated%20data.%0A%0ARegistered%20email%3A%20%5BYour%20email%20here%5D%0A%0APlease%20confirm%20once%20the%20deletion%20is%20complete.%0A%0AThank%20you.">
+      🗑️ &nbsp; Request Account Deletion
+    </a>
+    <p class="btn-note">Opens your email app with a pre-filled request</p>
+  </div>
+
+  <!-- Alternative -->
+  <div class="alt-box">
+    <strong>Alternatively,</strong> you can email us directly at
+    <a href="mailto:support@dolphincoder.com">support@dolphincoder.com</a>
+    with the subject line <em>"Account Deletion Request"</em> and include your registered email address.
+    We will process your request within 30 days.
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 DolphinCoder · <a href="privacy-policy.html">Privacy Policy</a></p>
+  <p style="margin-top:6px;">com.dolphincoder.lms</p>
+</footer>
+
+</body>
+</html>

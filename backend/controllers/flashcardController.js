@@ -2,6 +2,7 @@ const { Op } = require('sequelize');
 const Flashcard = require('../models/Flashcard');
 const FlashcardProgress = require('../models/FlashcardProgress');
 const User = require('../models/User');
+const UserActivity = require('../models/UserActivity');
 const mammoth = require('mammoth');
 
 const ownerInclude = { model: User, as: 'ownerUser', attributes: ['id', 'name', 'avatar'] };
@@ -145,7 +146,7 @@ exports.removeCard = async (req, res, next) => {
 
 exports.saveProgress = async (req, res, next) => {
   try {
-    const { cardResults } = req.body;
+    const { cardResults, engagementSecs } = req.body;
     const masteredCount = cardResults.filter(r => r.status === 'known').length;
 
     let progress = await FlashcardProgress.findOne({
@@ -167,6 +168,33 @@ exports.saveProgress = async (req, res, next) => {
         lastStudiedAt: new Date(),
         sessionCount: 1,
       });
+    }
+
+    // Log activity if total engagement >= 2 minutes (120s)
+    const FLASHCARD_THRESHOLD_SECS = 120;
+    const totalSecs = parseInt(engagementSecs) || 0;
+    if (totalSecs >= FLASHCARD_THRESHOLD_SECS) {
+      try {
+        const deck = await Flashcard.findByPk(req.params.id);
+        if (deck) {
+          await UserActivity.create({
+            userId: req.user.id,
+            activityType: 'flashcard',
+            resourceId: deck.id,
+            resourceTitle: deck.deckName,
+            subjectName: null, // Flashcards have no subject association currently
+            topicName: null,
+            metadata: {
+              engagementSecs: totalSecs,
+              cardCount: cardResults.length,
+              masteredCount,
+            },
+            activityDate: new Date().toISOString().split('T')[0],
+          });
+        }
+      } catch (logErr) {
+        console.error('Activity log error (flashcard):', logErr.message);
+      }
     }
 
     res.json({ success: true, progress });

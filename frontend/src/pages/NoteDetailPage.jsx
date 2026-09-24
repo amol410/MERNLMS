@@ -25,6 +25,69 @@ export default function NoteDetailPage() {
   const slideRef = useRef(null);
   const { user } = useAuth();
 
+  // ── Engagement tracking ──────────────────────────────────────────────────
+  const startRef = useRef(null);        // when current active segment began
+  const totalSecsRef = useRef(0);       // accumulated active seconds
+  const noteIdRef = useRef(id);         // stable ref for cleanup
+  noteIdRef.current = id;
+
+  const pauseTimer = () => {
+    if (startRef.current !== null) {
+      totalSecsRef.current += Math.floor((Date.now() - startRef.current) / 1000);
+      startRef.current = null;
+    }
+  };
+
+  const resumeTimer = () => {
+    if (startRef.current === null) {
+      startRef.current = Date.now();
+    }
+  };
+
+  // Start timer once note is loaded; pause/resume on tab visibility changes
+  useEffect(() => {
+    if (!note) return;
+    startRef.current = Date.now();
+
+    const onVisibility = () => {
+      document.hidden ? pauseTimer() : resumeTimer();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    const sendTracking = () => {
+      pauseTimer();
+      const secs = totalSecsRef.current;
+      if (secs <= 0) return;
+      // Use sendBeacon for reliable delivery on page unload
+      const token = localStorage.getItem('token');
+      const blob = new Blob([JSON.stringify({ engagementSecs: secs })], { type: 'application/json' });
+      const beaconSent = navigator.sendBeacon
+        ? (() => {
+            const base = import.meta.env.VITE_API_BASE_URL || '/api';
+            return navigator.sendBeacon(
+              `${base}/notes/${noteIdRef.current}/track`,
+              blob
+            );
+          })()
+        : false;
+
+      // If sendBeacon not available or failed, use fetch as fallback
+      if (!beaconSent) {
+        api.post(`/notes/${noteIdRef.current}/track`, { engagementSecs: secs }).catch(() => {});
+      }
+    };
+
+    window.addEventListener('beforeunload', sendTracking);
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('beforeunload', sendTracking);
+      sendTracking(); // fire on React unmount (navigation)
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [note]);
+  // ────────────────────────────────────────────────────────────────────────
+
   const toggleFullscreen = () => {
     if (!isFullscreen) {
       slideRef.current?.requestFullscreen?.();
@@ -47,6 +110,7 @@ export default function NoteDetailPage() {
       .then(({ data }) => { setNote(data.note); setLoading(false); })
       .catch(() => { toast.error('Note not found'); navigate('/notes'); });
   }, [id, navigate]);
+
 
   const handleDelete = async () => {
     if (!confirm('Delete this note?')) return;

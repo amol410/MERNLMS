@@ -2,6 +2,7 @@ const { Op } = require('sequelize');
 const Note = require('../models/Note');
 const User = require('../models/User');
 const Subject = require('../models/Subject');
+const UserActivity = require('../models/UserActivity');
 const mammoth = require('mammoth');
 
 const ownerInclude = { model: User, as: 'ownerUser', attributes: ['id', 'name'] };
@@ -201,6 +202,42 @@ exports.togglePin = async (req, res, next) => {
     note.isPinned = !note.isPinned;
     await note.save();
     res.json({ success: true, note });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * POST /api/notes/:id/track
+ * Body: { engagementSecs: number }
+ * Logs a note read activity if the student spent >= 3 minutes actively reading.
+ * Available to all authenticated users (students too).
+ */
+exports.trackView = async (req, res, next) => {
+  try {
+    const engagementSecs = parseInt(req.body.engagementSecs) || 0;
+    const NOTE_THRESHOLD_SECS = 180; // 3 minutes
+
+    // Only log if above threshold
+    if (engagementSecs < NOTE_THRESHOLD_SECS) {
+      return res.json({ success: true, logged: false, reason: 'below_threshold' });
+    }
+
+    const note = await Note.findByPk(req.params.id, { include: [subjectInclude] });
+    if (!note) return res.status(404).json({ success: false, message: 'Note not found' });
+
+    await UserActivity.create({
+      userId: req.user.id,
+      activityType: 'note',
+      resourceId: note.id,
+      resourceTitle: note.title,
+      subjectName: note.subject?.name || null,
+      topicName: note.topic || null,
+      metadata: { engagementSecs },
+      activityDate: new Date().toISOString().split('T')[0],
+    });
+
+    res.json({ success: true, logged: true });
   } catch (error) {
     next(error);
   }

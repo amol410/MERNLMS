@@ -39,6 +39,7 @@ app.use('/api/notes', require('./routes/notes'));
 app.use('/api/videos', require('./routes/videos'));
 app.use('/api/quizzes', require('./routes/quizzes'));
 app.use('/api/flashcards', require('./routes/flashcards'));
+app.use('/api/activity', require('./routes/activity'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/subjects', require('./routes/subjects'));
 

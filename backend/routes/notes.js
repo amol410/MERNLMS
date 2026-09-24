@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getNotes, getNoteById, createNote, updateNote, deleteNote, togglePin, uploadNoteFile } = require('../controllers/noteController');
+const { getNotes, getNoteById, createNote, updateNote, deleteNote, togglePin, uploadNoteFile, trackView } = require('../controllers/noteController');
 const { protect, authorize } = require('../middleware/auth');
 const multer = require('multer');
 
@@ -14,5 +14,8 @@ router.get('/:id', getNoteById);
 router.put('/:id', authorize('trainer', 'admin'), updateNote);
 router.delete('/:id', authorize('trainer', 'admin'), deleteNote);
 router.patch('/:id/pin', authorize('trainer', 'admin'), togglePin);
+// Engagement tracking — available to all authenticated users
+router.post('/:id/track', trackView);
 
 module.exports = router;
+
