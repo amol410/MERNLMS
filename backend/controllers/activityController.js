@@ -63,6 +63,42 @@ exports.getSummary = async (req, res, next) => {
             responseDate = date;
         }
 
+        // Fast counts-only aggregation for Dashboard (skips heavy row fetching and metadata decoding)
+        if (req.query.countsOnly === 'true') {
+            const rawCounts = await UserActivity.findAll({
+                attributes: [
+                    'activityType',
+                    [UserActivity.sequelize.fn('COUNT', UserActivity.sequelize.col('id')), 'count'],
+                ],
+                where,
+                group: ['activityType'],
+                raw: true,
+            });
+
+            let quizCount = 0;
+            let noteCount = 0;
+            let flashcardCount = 0;
+
+            for (const item of rawCounts) {
+                const count = parseInt(item.count || item['COUNT(`id`)'] || item['count'] || 0, 10) || 0;
+                if (item.activityType === 'quiz') quizCount = count;
+                else if (item.activityType === 'note') noteCount = count;
+                else if (item.activityType === 'flashcard') flashcardCount = count;
+            }
+
+            return res.json({
+                success: true,
+                type: 'counts',
+                date: responseDate,
+                summary: {
+                    quizCount,
+                    noteCount,
+                    flashcardCount,
+                    total: quizCount + noteCount + flashcardCount,
+                },
+            });
+        }
+
         const rows = await UserActivity.findAll({
             where,
             order: [['activityDate', 'DESC'], ['createdAt', 'DESC']],
