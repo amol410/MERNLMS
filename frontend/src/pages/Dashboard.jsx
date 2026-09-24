@@ -6,7 +6,7 @@ import {
   BookOpen, Video, Brain, Layers, ArrowRight, TrendingUp,
   Clock, Plus, Zap, Flame,
 } from 'lucide-react';
-import YesterdayPerformance from '../components/dashboard/YesterdayPerformance';
+import TodayPerformance from '../components/dashboard/TodayPerformance';
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -90,8 +90,8 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Yesterday's Performance */}
-      <YesterdayPerformance />
+      {/* Today's Performance */}
+      <TodayPerformance />
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

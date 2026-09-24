@@ -19,7 +19,15 @@ function getWeekBounds(date) {
 }
 
 /**
- * Helper: format DATEONLY string for yesterday (UTC+5:30 aware for production)
+ * Helper: format DATEONLY string for today (local/UTC date)
+ */
+function getTodayDate() {
+    const d = new Date();
+    return d.toISOString().split('T')[0];
+}
+
+/**
+ * Helper: format DATEONLY string for yesterday
  */
 function getYesterdayDate() {
     const d = new Date();
@@ -30,7 +38,7 @@ function getYesterdayDate() {
 /**
  * GET /api/activity/summary
  * Query params:
- *   date    — single day (YYYY-MM-DD), defaults to yesterday
+ *   date    — single day (YYYY-MM-DD), defaults to today
  *   weekOf  — returns full week containing this date (YYYY-MM-DD)
  */
 exports.getSummary = async (req, res, next) => {
@@ -45,14 +53,14 @@ exports.getSummary = async (req, res, next) => {
             where.activityDate = { [Op.between]: [start, end] };
             weekRange = { start, end };
         } else {
-            const date = req.query.date || getYesterdayDate();
+            const date = req.query.date || getTodayDate();
             where.activityDate = date;
             responseDate = date;
         }
 
         const rows = await UserActivity.findAll({
             where,
-            order: [['activityDate', 'ASC'], ['createdAt', 'ASC']],
+            order: [['activityDate', 'DESC'], ['createdAt', 'DESC']],
         });
 
         if (weekRange) {
