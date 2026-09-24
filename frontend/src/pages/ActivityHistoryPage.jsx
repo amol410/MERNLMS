@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import {
   ChevronLeft, BarChart2, Brain, BookOpen, Layers,
-  Clock, Calendar, CheckCircle2, XCircle, Filter, ArrowUpRight
+  Clock, Calendar, CheckCircle2, XCircle, Filter, ArrowUpRight, ArrowRight
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -405,9 +405,12 @@ function DayBlock({ dateStr, day, activeFilter }) {
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-white text-sm font-semibold truncate hover:text-purple-300 transition-colors">
+                  <Link
+                    to={`/quizzes/${quiz.resourceId}/review`}
+                    className="text-white text-sm font-semibold truncate hover:text-purple-300 transition-colors"
+                  >
                     {quiz.resourceTitle}
-                  </span>
+                  </Link>
                   <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-300 border border-purple-500/20">
                     Quiz
                   </span>
@@ -428,8 +431,8 @@ function DayBlock({ dateStr, day, activeFilter }) {
               </div>
             </div>
 
-            {/* Quiz performance badges */}
-            <div className="flex items-center gap-3 sm:flex-shrink-0 pl-12 sm:pl-0">
+            {/* Quiz performance badges and review button */}
+            <div className="flex items-center gap-2.5 sm:flex-shrink-0 pl-12 sm:pl-0 flex-wrap">
               {quiz.metadata?.timeTakenSecs > 0 && (
                 <div className="text-xs text-gray-400 flex items-center gap-1" title="Time taken">
                   <Clock className="w-3.5 h-3.5 text-gray-500" />
@@ -443,7 +446,7 @@ function DayBlock({ dateStr, day, activeFilter }) {
               )}
               {quiz.metadata?.passed !== undefined && (
                 <div className={clsx(
-                  'flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg',
+                  'flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-lg',
                   quiz.metadata.passed
                     ? 'bg-green-500/15 text-green-400 border border-green-500/20'
                     : 'bg-red-500/15 text-red-400 border border-red-500/20'
@@ -459,6 +462,14 @@ function DayBlock({ dateStr, day, activeFilter }) {
                   )}
                 </div>
               )}
+              <Link
+                to={`/quizzes/${quiz.resourceId}/review`}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/30 transition-colors"
+                title="Review test questions, answers, and solutions"
+              >
+                <span>Review</span>
+                <ArrowRight className="w-3 h-3" />
+              </Link>
             </div>
           </div>
         ))}

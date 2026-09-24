@@ -199,15 +199,23 @@ exports.submitAttempt = async (req, res, next) => {
 
     const { answers, startedAt, timeTakenSecs } = req.body;
 
+    // Calculate attempt number before removing old attempt
+    const existingAttempts = await QuizAttempt.findAll({
+      where: { quizId: quiz.id, studentId: req.user.id },
+      order: [['attemptNumber', 'DESC']],
+    });
+    const latestPrev = existingAttempts[0];
+    const attemptNumber = latestPrev ? (latestPrev.attemptNumber + 1) : 1;
+
     // Check attempt limit
-    if (quiz.attemptLimit) {
-      const attemptCount = await QuizAttempt.count({ where: { quizId: quiz.id, studentId: req.user.id } });
-      if (attemptCount >= quiz.attemptLimit) {
-        return res.status(400).json({ success: false, message: 'Attempt limit reached' });
-      }
+    if (quiz.attemptLimit && attemptNumber > quiz.attemptLimit) {
+      return res.status(400).json({ success: false, message: 'Attempt limit reached' });
     }
 
-    const attemptNumber = await QuizAttempt.count({ where: { quizId: quiz.id, studentId: req.user.id } }) + 1;
+    // Clean replacement: erase prior attempts for this quiz and user so only latest is kept
+    await QuizAttempt.destroy({
+      where: { quizId: quiz.id, studentId: req.user.id },
+    });
 
     // Grade answers — match by question._id (index assigned at creation)
     const gradedAnswers = quiz.questions.map((question, index) => {
@@ -266,8 +274,17 @@ exports.submitAttempt = async (req, res, next) => {
       timeTakenSecs,
     });
 
-    // Log activity (non-blocking — swallow errors so a logging failure never breaks submission)
+    // Clean replacement in activity log:
+    // Remove previous activity entry for this user and quiz so it only appears on the most recent date
     try {
+      await UserActivity.destroy({
+        where: {
+          userId: req.user.id,
+          activityType: 'quiz',
+          resourceId: quiz.id,
+        },
+      });
+
       const quizWithSubject = await Quiz.findByPk(quiz.id, { include: [subjectInclude] });
       await UserActivity.create({
         userId: req.user.id,
@@ -276,7 +293,15 @@ exports.submitAttempt = async (req, res, next) => {
         resourceTitle: quiz.title,
         subjectName: quizWithSubject?.subject?.name || null,
         topicName: quiz.topic || null,
-        metadata: { attemptCount: attemptNumber, timeTakenSecs: timeTakenSecs || 0, score, maxScore, percentage, passed },
+        metadata: {
+          attemptId: attempt.id,
+          attemptCount: attemptNumber,
+          timeTakenSecs: timeTakenSecs || 0,
+          score,
+          maxScore,
+          percentage,
+          passed
+        },
         activityDate: new Date().toISOString().split('T')[0],
       });
     } catch (logErr) {
@@ -328,6 +353,75 @@ exports.getMyAttempts = async (req, res, next) => {
       order: [['createdAt', 'DESC']],
     });
     res.json({ success: true, attempts });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * GET /api/quizzes/:id/review
+ * Returns the student's latest quiz attempt with full questions, submitted answers, and explanations.
+ */
+exports.getLatestQuizAttemptReview = async (req, res, next) => {
+  try {
+    const quiz = await Quiz.findByPk(req.params.id, { include: [subjectInclude] });
+    if (!quiz) return res.status(404).json({ success: false, message: 'Quiz not found' });
+
+    const attempt = await QuizAttempt.findOne({
+      where: { quizId: quiz.id, studentId: req.user.id },
+      order: [['createdAt', 'DESC']],
+    });
+
+    if (!attempt) {
+      return res.status(404).json({ success: false, message: 'No attempt found for this quiz' });
+    }
+
+    const gradedAnswers = attempt.answers || [];
+
+    const result = {
+      attempt,
+      quiz: {
+        id: quiz.id,
+        title: quiz.title,
+        description: quiz.description,
+        subject: quiz.subject,
+        topic: quiz.topic,
+        totalPoints: quiz.totalPoints,
+        passingScore: quiz.passingScore,
+        timeLimit: quiz.timeLimit,
+      },
+      questions: quiz.questions.map((q, i) => {
+        const qId = q._id ?? i;
+        const ga = gradedAnswers.find(a => String(a.questionId) === String(qId)) || gradedAnswers[i] || {};
+        if (q.type === 'match-pairs') {
+          return {
+            _id: qId,
+            text: q.text,
+            type: q.type,
+            pairs: q.pairs,
+            submittedMatches: ga.matches || ga.submittedMatches || [],
+            correctCount: ga.correctCount || 0,
+            totalPairs: ga.totalPairs || (Array.isArray(q.pairs) ? q.pairs.length : 4),
+            explanation: q.explanation,
+            isCorrect: ga.isCorrect || false,
+            pointsEarned: ga.pointsEarned || 0,
+          };
+        }
+        return {
+          _id: qId,
+          text: q.text,
+          type: q.type,
+          options: q.options,
+          correctIndex: q.correctIndex,
+          explanation: q.explanation,
+          chosenIndex: ga.chosenIndex !== undefined ? ga.chosenIndex : -1,
+          isCorrect: ga.isCorrect || false,
+          pointsEarned: ga.pointsEarned || 0,
+        };
+      }),
+    };
+
+    res.json({ success: true, result });
   } catch (error) {
     next(error);
   }

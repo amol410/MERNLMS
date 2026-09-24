@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
   getQuizzes, getQuizById, createQuiz, updateQuiz, deleteQuiz,
-  submitAttempt, getMyAttempts, getAllAttempts, bulkUploadQuiz,
+  submitAttempt, getMyAttempts, getLatestQuizAttemptReview, getAllAttempts, bulkUploadQuiz,
 } = require('../controllers/quizController');
 const { protect, authorize } = require('../middleware/auth');
 const multer = require('multer');
@@ -15,6 +15,7 @@ router.post('/', protect, authorize('trainer', 'admin'), createQuiz);
 router.put('/:id', protect, authorize('trainer', 'admin'), updateQuiz);
 router.delete('/:id', protect, authorize('trainer', 'admin'), deleteQuiz);
 router.post('/:id/attempt', protect, submitAttempt);
+router.get('/:id/review', protect, getLatestQuizAttemptReview);
 router.get('/:id/attempts', protect, getMyAttempts);
 router.get('/:id/results', protect, authorize('trainer', 'admin'), getAllAttempts);
 router.post('/bulk-upload', protect, authorize('trainer', 'admin'), upload.single('file'), bulkUploadQuiz);

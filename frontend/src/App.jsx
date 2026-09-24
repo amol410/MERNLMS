@@ -23,6 +23,7 @@ import StudyPage from './pages/StudyPage';
 import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/AdminPage';
 import ActivityHistoryPage from './pages/ActivityHistoryPage';
+import QuizReviewPage from './pages/QuizReviewPage';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -61,6 +62,7 @@ function AppRoutes() {
       <Route path="/quizzes/new" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><QuizFormPage /></Layout></ProtectedRoute>} />
       <Route path="/quizzes/:id/edit" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><QuizFormPage /></Layout></ProtectedRoute>} />
       <Route path="/quizzes/:id/take" element={<ProtectedRoute><Layout><QuizTakePage /></Layout></ProtectedRoute>} />
+      <Route path="/quizzes/:id/review" element={<ProtectedRoute><Layout><QuizReviewPage /></Layout></ProtectedRoute>} />
 
       <Route path="/flashcards" element={<ProtectedRoute><Layout><FlashcardsPage /></Layout></ProtectedRoute>} />
       <Route path="/flashcards/new" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><FlashcardFormPage /></Layout></ProtectedRoute>} />
