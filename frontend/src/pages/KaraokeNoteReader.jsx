@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import demoStory from '../data/demoKaraokeStory.json';
 import {
   Play, Pause, RotateCcw, Volume2, VolumeX, ChevronLeft,
-  Music, Sparkles, BookOpen, Clock, Eye, EyeOff, Upload
+  Music, Sparkles, BookOpen, Clock, Eye, EyeOff, Upload,
+  FileText, Download, Sliders
 } from 'lucide-react';
 import clsx from 'clsx';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
+import { downloadKaraokeTemplate, normalizeKaraokeJson } from '../utils/downloadKaraokeTemplate';
 
 function formatTime(secs) {
   if (!secs || isNaN(secs)) return '0:00';
@@ -44,21 +46,25 @@ function resolveAudioUrl(url) {
 
 export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) {
   const navigate = useNavigate();
-  const story = noteData || demoStory;
+  const [localStory, setLocalStory] = useState(null);
+  const story = localStory || noteData || demoStory;
 
   const audioRef = useRef(null);
   const fileInputRef = useRef(null);
+  const jsonImportRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(parseFloat(story.duration) || 42.35);
   const [playbackRate, setPlaybackRate] = useState(1.0);
+  const [timingOffset, setTimingOffset] = useState(0); // Offset in seconds (-2.0 to +2.0)
   const [isMuted, setIsMuted] = useState(false);
   const [audioError, setAudioError] = useState(false);
   const [showTranslations, setShowTranslations] = useState(true);
   const [hoveredVocab, setHoveredVocab] = useState(null);
   const [currentAudioUrl, setCurrentAudioUrl] = useState(() => resolveAudioUrl(story.audioUrl));
   const [uploadingAudio, setUploadingAudio] = useState(false);
+  const [importingJson, setImportingJson] = useState(false);
 
   const activeSentenceRef = useRef(null);
   const autoScrollEnabled = useRef(true);
@@ -77,13 +83,16 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
   const displaySubject = (typeof story.subject === 'object' ? story.subject?.name : story.subject) || 'German';
   const displayTopic = (typeof story.topic === 'object' ? story.topic?.name : story.topic) || 'Reading Practice';
 
-  // Determine active sentence and active word based on currentTime
+  // Apply real-time timing offset
+  const effectiveTime = Math.max(currentTime + timingOffset, 0);
+
+  // Determine active sentence and active word based on effectiveTime
   const activeSentenceIndex = sentences.findIndex(
-    s => currentTime >= s.start && currentTime <= s.end + 0.3
+    s => effectiveTime >= s.start && effectiveTime <= s.end + 0.3
   );
 
   const activeWord = allWords.find(
-    w => currentTime >= w.start && currentTime <= w.end
+    w => effectiveTime >= w.start && effectiveTime <= w.end
   );
 
   // Auto-scroll to active sentence
@@ -228,6 +237,37 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     }
   };
 
+  // Import JSON Alignment directly onto this note
+  const handleImportJson = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        setImportingJson(true);
+        const raw = JSON.parse(event.target.result);
+        const normalized = normalizeKaraokeJson(raw);
+        if (noteId) {
+          await api.put(`/notes/${noteId}`, {
+            karaokeData: normalized,
+            title: normalized.title || story.title,
+            content: normalized.sentences.map(s => s.text).join('\n\n'),
+          });
+        }
+        setLocalStory(normalized);
+        if (normalized.duration) {
+          setDuration(normalized.duration);
+        }
+        toast.success(`✅ Alignment updated: ${normalized.sentences.length} sentences synchronized!`);
+      } catch (err) {
+        toast.error(`JSON Import failed: ${err.message}`);
+      } finally {
+        setImportingJson(false);
+      }
+    };
+    reader.readAsText(file);
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
       {/* Hidden File Input for Audio Replacement */}
@@ -237,6 +277,15 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
         accept="audio/*"
         className="hidden"
         onChange={handleUploadAudio}
+      />
+
+      {/* Hidden File Input for JSON Alignment Import */}
+      <input
+        ref={jsonImportRef}
+        type="file"
+        accept=".json,application/json"
+        className="hidden"
+        onChange={handleImportJson}
       />
 
       {/* Hidden Audio Element */}
@@ -250,8 +299,8 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
         preload="auto"
       />
 
-      {/* Breadcrumb Navigation */}
-      <div className="flex items-center justify-between mb-6">
+      {/* Breadcrumb Navigation & Top Action Toolbar */}
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <Link
           to="/notes"
           className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors group px-3 py-1.5 rounded-lg hover:bg-white/5"
@@ -260,7 +309,31 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
           Back to Notes
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* Import JSON Alignment Button */}
+          {noteId && (
+            <button
+              onClick={() => jsonImportRef.current?.click()}
+              disabled={importingJson}
+              className="btn-secondary text-xs px-2.5 py-1.5 flex items-center gap-1.5 cursor-pointer shadow-sm hover:border-dolphin-400"
+              title="Upload JSON alignment file for exact word synchronization"
+            >
+              <FileText className="w-3.5 h-3.5 text-dolphin-400" />
+              <span>{importingJson ? 'Importing...' : 'Import Sync JSON'}</span>
+            </button>
+          )}
+
+          {/* Download Template Button */}
+          <button
+            onClick={downloadKaraokeTemplate}
+            className="text-xs text-gray-400 hover:text-white px-2.5 py-1.5 rounded-lg hover:bg-white/5 transition-colors flex items-center gap-1 cursor-pointer border border-white/5"
+            title="Download JSON template file"
+          >
+            <Download className="w-3.5 h-3.5 text-gray-400" />
+            <span className="hidden sm:inline">JSON Template</span>
+          </button>
+
+          {/* Replace Audio Button */}
           {noteId && (
             <button
               onClick={() => fileInputRef.current?.click()}
@@ -273,6 +346,7 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
             </button>
           )}
 
+          {/* Toggle Translations Button */}
           <button
             onClick={() => setShowTranslations(!showTranslations)}
             className={clsx(
@@ -412,10 +486,39 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
               </button>
             </div>
 
-            {/* Hint message */}
-            <div className="hidden md:flex items-center gap-1.5 text-xs text-gray-400">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Click on any word to jump audio & listen</span>
+            {/* Timing Calibration Offset Adjuster */}
+            <div className="flex items-center gap-1.5 bg-white/5 px-2.5 py-1.5 rounded-xl border border-white/5 text-xs text-gray-400">
+              <Sliders className="w-3.5 h-3.5 text-dolphin-400" />
+              <span className="text-[10px] text-gray-400 uppercase font-bold hidden sm:inline">Sync Offset:</span>
+              <button
+                type="button"
+                onClick={() => setTimingOffset(prev => Math.round((prev - 0.25) * 100) / 100)}
+                className="px-1.5 py-0.5 rounded bg-white/5 hover:bg-white/15 text-gray-300 font-mono text-[11px] cursor-pointer"
+                title="Highlight words earlier (-0.25s)"
+              >
+                -0.25s
+              </button>
+              <span className={clsx('font-mono font-bold px-1 text-[11px]', timingOffset !== 0 ? 'text-amber-400' : 'text-gray-300')}>
+                {timingOffset > 0 ? `+${timingOffset}s` : `${timingOffset}s`}
+              </span>
+              <button
+                type="button"
+                onClick={() => setTimingOffset(prev => Math.round((prev + 0.25) * 100) / 100)}
+                className="px-1.5 py-0.5 rounded bg-white/5 hover:bg-white/15 text-gray-300 font-mono text-[11px] cursor-pointer"
+                title="Highlight words later (+0.25s)"
+              >
+                +0.25s
+              </button>
+              {timingOffset !== 0 && (
+                <button
+                  type="button"
+                  onClick={() => setTimingOffset(0)}
+                  className="text-[10px] text-gray-500 hover:text-amber-300 ml-0.5 underline cursor-pointer"
+                  title="Reset offset to 0s"
+                >
+                  reset
+                </button>
+              )}
             </div>
 
             {/* Speed Selector */}
@@ -486,7 +589,7 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
                       activeWord.sentenceIndex === sIdx &&
                       activeWord.start === w.start;
 
-                    const isWordPast = currentTime > w.end;
+                    const isWordPast = effectiveTime > w.end;
                     const rawVocab = story.vocab?.[w.clean];
                     const vocabInfo = getVocabItemInfo(rawVocab);
 

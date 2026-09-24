@@ -1,10 +1,13 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { X, BookOpen, Music, Sparkles, Upload, FileText, ArrowRight, Loader2, Play, CheckCircle } from 'lucide-react';
+import {
+  X, BookOpen, Music, Sparkles, Upload, FileText, ArrowRight,
+  Loader2, CheckCircle, Download, AlertCircle
+} from 'lucide-react';
 import api from '../../api/axios';
 import toast from 'react-hot-toast';
 import { useSubjects } from '../../hooks/useSubjects';
-import demoStory from '../../data/demoKaraokeStory.json';
+import { downloadKaraokeTemplate, normalizeKaraokeJson } from '../../utils/downloadKaraokeTemplate';
 import clsx from 'clsx';
 
 // Helper to determine audio duration from a File or URL
@@ -24,7 +27,7 @@ const getAudioDuration = (fileOrUrl) => {
   });
 };
 
-// Generates time-aligned sentence & word timestamps across the audio duration
+// Generates time-aligned sentence & word timestamps across the audio duration (Approximation)
 function generateKaraokePayload(title, storyText, translationText, duration, subjectName, topicName) {
   const totalDuration = Math.max(duration || 40, 10);
   
@@ -88,7 +91,7 @@ function generateKaraokePayload(title, storyText, translationText, duration, sub
       if (cleanWord.length > 3 && cleanWord[0] === cleanWord[0].toUpperCase() && !vocabMap[cleanWord]) {
         vocabMap[cleanWord] = {
           word: cleanWord,
-          meaning: `German vocabulary item: ${cleanWord}`,
+          meaning: `Vocabulary item: ${cleanWord}`,
           type: 'Noun'
         };
       }
@@ -120,6 +123,7 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
   const navigate = useNavigate();
   const { subjects } = useSubjects();
   const [mode, setMode] = useState('select'); // 'select' | 'karaoke-form'
+  const [creationTab, setCreationTab] = useState('json'); // 'json' | 'text'
 
   const [title, setTitle] = useState('');
   const [subjectId, setSubjectId] = useState('');
@@ -129,9 +133,13 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
   const [audioFile, setAudioFile] = useState(null);
   const [audioFileName, setAudioFileName] = useState('');
   const [customAudioUrl, setCustomAudioUrl] = useState('');
+  const [jsonFile, setJsonFile] = useState(null);
+  const [jsonFileName, setJsonFileName] = useState('');
+  const [parsedKaraokeData, setParsedKaraokeData] = useState(null);
   const [saving, setSaving] = useState(false);
 
   const fileInputRef = useRef(null);
+  const jsonInputRef = useRef(null);
 
   if (!isOpen) return null;
 
@@ -155,9 +163,36 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
     navigate('/notes/karaoke/demo');
   };
 
-  // Safe subject & topic extraction (prevents Minified React error #31)
+  // Safe subject & topic extraction
   const selectedSubject = subjects.find(s => String(s.id ?? s._id) === String(subjectId));
   const currentTopics = selectedSubject?.topics || [];
+
+  // Handler for uploading JSON alignment file
+  const handleJsonSelect = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setJsonFile(file);
+    setJsonFileName(file.name);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const rawObj = JSON.parse(event.target.result);
+        const normalized = normalizeKaraokeJson(rawObj);
+        setParsedKaraokeData(normalized);
+        if (normalized.title && !title) setTitle(normalized.title);
+        if (normalized.audioUrl && !customAudioUrl && !audioFile) {
+          setCustomAudioUrl(normalized.audioUrl);
+          setAudioFileName(normalized.audioUrl);
+        }
+        toast.success(`Valid alignment JSON: ${normalized.sentences.length} sentences parsed!`);
+      } catch (err) {
+        setParsedKaraokeData(null);
+        toast.error(`Invalid JSON file: ${err.message}`);
+      }
+    };
+    reader.readAsText(file);
+  };
 
   // Populate sample German fable
   const handleLoadSample = () => {
@@ -184,7 +219,6 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
     );
     setCustomAudioUrl('/audio/demo_german_story.mp3');
     setAudioFileName('demo_german_story.mp3 (Built-in Audio)');
-    // If a German subject exists, auto-select it
     const germanSub = subjects.find(s => s.name.toLowerCase().includes('german'));
     if (germanSub) {
       setSubjectId(String(germanSub.id ?? germanSub._id));
@@ -203,15 +237,23 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
       toast.error('Please enter a note title');
       return;
     }
-    if (!storyText.trim()) {
-      toast.error('Please enter the story text');
-      return;
+
+    if (creationTab === 'json') {
+      if (!parsedKaraokeData) {
+        toast.error('Please upload a valid Karaoke alignment JSON file');
+        return;
+      }
+    } else {
+      if (!storyText.trim()) {
+        toast.error('Please enter the story text');
+        return;
+      }
     }
 
     setSaving(true);
     try {
       let finalAudioUrl = customAudioUrl || '/audio/demo_german_story.mp3';
-      let audioDuration = 42.35;
+      let audioDuration = parsedKaraokeData?.duration || 42.35;
 
       // 1. Upload audio file if user attached one
       if (audioFile) {
@@ -228,21 +270,37 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
         audioDuration = await getAudioDuration(customAudioUrl);
       }
 
-      // 2. Generate karaoke alignment data
-      const karaokeData = generateKaraokePayload(
-        title.trim(),
-        storyText.trim(),
-        translationText.trim(),
-        audioDuration,
-        selectedSubject?.name,
-        topic
-      );
-      karaokeData.audioUrl = finalAudioUrl;
+      // 2. Prepare karaoke alignment data
+      let karaokeData;
+      let noteContent = '';
+
+      if (creationTab === 'json') {
+        karaokeData = {
+          ...parsedKaraokeData,
+          title: title.trim(),
+          duration: audioDuration || parsedKaraokeData.duration,
+          subject: selectedSubject?.name || parsedKaraokeData.subject,
+          topic: topic || parsedKaraokeData.topic,
+          audioUrl: finalAudioUrl,
+        };
+        noteContent = parsedKaraokeData.sentences.map(s => s.text).join('\n\n');
+      } else {
+        karaokeData = generateKaraokePayload(
+          title.trim(),
+          storyText.trim(),
+          translationText.trim(),
+          audioDuration,
+          selectedSubject?.name,
+          topic
+        );
+        karaokeData.audioUrl = finalAudioUrl;
+        noteContent = storyText.trim();
+      }
 
       // 3. Create note in DB
       const res = await api.post('/notes', {
         title: title.trim(),
-        content: storyText.trim(),
+        content: noteContent,
         subject: subjectId || null,
         topic: topic || null,
         isKaraoke: true,
@@ -359,7 +417,7 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
         ) : (
           /* ─── Step 2: Karaoke Note Form ─── */
           <form onSubmit={handleCreateKaraoke} className="p-6 sm:p-8 max-h-[85vh] overflow-y-auto">
-            <div className="flex items-center justify-between gap-3 mb-5">
+            <div className="flex items-center justify-between gap-3 mb-4">
               <div className="flex items-center gap-3">
                 <button
                   type="button"
@@ -374,16 +432,49 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
                     <Music className="w-5 h-5 text-dolphin-400" />
                     New Karaoke Note
                   </h2>
-                  <p className="text-xs text-gray-400">Upload audio and story text for synchronized reading</p>
+                  <p className="text-xs text-gray-400">Audio and word alignment for synchronized reading</p>
                 </div>
               </div>
+
+              {creationTab === 'text' && (
+                <button
+                  type="button"
+                  onClick={handleLoadSample}
+                  className="text-[11px] font-semibold text-dolphin-400 hover:text-dolphin-300 border border-dolphin-500/30 hover:border-dolphin-500/60 bg-dolphin-500/10 px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
+                >
+                  <Sparkles className="w-3 h-3 text-amber-400" />
+                  <span>Fill Sample</span>
+                </button>
+              )}
+            </div>
+
+            {/* Sync Method Tabs */}
+            <div className="flex items-center gap-2 p-1 bg-white/5 rounded-xl border border-white/10 mb-5">
               <button
                 type="button"
-                onClick={handleLoadSample}
-                className="text-[11px] font-semibold text-dolphin-400 hover:text-dolphin-300 border border-dolphin-500/30 hover:border-dolphin-500/60 bg-dolphin-500/10 px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
+                onClick={() => setCreationTab('json')}
+                className={clsx(
+                  'flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer',
+                  creationTab === 'json'
+                    ? 'bg-gradient-to-r from-dolphin-500 to-ocean-500 text-white shadow-md'
+                    : 'text-gray-400 hover:text-white'
+                )}
               >
-                <Sparkles className="w-3 h-3 text-amber-400" />
-                <span>Fill Sample</span>
+                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                <span>Upload JSON & Audio (Exact Sync)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setCreationTab('text')}
+                className={clsx(
+                  'flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer',
+                  creationTab === 'text'
+                    ? 'bg-gradient-to-r from-dolphin-500 to-ocean-500 text-white shadow-md'
+                    : 'text-gray-400 hover:text-white'
+                )}
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>Paste Text (Auto-Align)</span>
               </button>
             </div>
 
@@ -446,7 +537,68 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
                 </div>
               </div>
 
-              {/* Audio Upload Box */}
+              {/* TAB 1: JSON Alignment Upload */}
+              {creationTab === 'json' && (
+                <div className="space-y-3 p-4 rounded-2xl bg-white/[0.02] border border-dolphin-500/20">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs text-dolphin-200">
+                      <span className="font-bold text-white block">Word-Level JSON Alignment</span>
+                      <span>Provides frame-accurate millisecond timestamps matching your audio.</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={downloadKaraokeTemplate}
+                      className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5 flex-shrink-0 cursor-pointer hover:border-dolphin-400"
+                      title="Download template JSON format"
+                    >
+                      <Download className="w-3.5 h-3.5 text-dolphin-400" />
+                      <span>Download Template</span>
+                    </button>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+                      Alignment File (.json) *
+                    </label>
+                    <div
+                      onClick={() => jsonInputRef.current?.click()}
+                      className={clsx(
+                        'flex flex-col items-center justify-center p-4 border-2 border-dashed rounded-xl transition-all cursor-pointer group',
+                        parsedKaraokeData
+                          ? 'border-emerald-500/50 bg-emerald-500/5'
+                          : 'border-white/15 hover:border-dolphin-500/50 bg-white/[0.02] hover:bg-white/[0.04]'
+                      )}
+                    >
+                      {parsedKaraokeData ? (
+                        <CheckCircle className="w-6 h-6 text-emerald-400 mb-1" />
+                      ) : (
+                        <FileText className="w-6 h-6 text-gray-400 group-hover:text-dolphin-400 transition-colors mb-1" />
+                      )}
+                      <span className="text-xs text-gray-200 font-medium text-center">
+                        {jsonFileName ? jsonFileName : 'Click to select JSON alignment file (.json)'}
+                      </span>
+                      {parsedKaraokeData ? (
+                        <span className="text-[11px] text-emerald-400 font-semibold mt-1">
+                          ✅ {parsedKaraokeData.sentences.length} sentences • {parsedKaraokeData.words.length} words • {parsedKaraokeData.duration}s duration
+                        </span>
+                      ) : (
+                        <span className="text-[10px] text-gray-500 mt-0.5">
+                          Contains sentence and word start/end timestamps
+                        </span>
+                      )}
+                      <input
+                        ref={jsonInputRef}
+                        type="file"
+                        accept=".json,application/json"
+                        className="hidden"
+                        onChange={handleJsonSelect}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Audio Upload Box (for both tabs) */}
               <div>
                 <label className="block text-xs font-semibold text-gray-300 mb-1.5">
                   Audio File (.mp3, .wav, .m4a)
@@ -460,7 +612,7 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
                     {audioFileName ? audioFileName : 'Click to select audio file (.mp3, .wav)'}
                   </span>
                   <span className="text-[10px] text-gray-500 mt-0.5">
-                    Audio will sync automatically with your text
+                    Audio will stream in real-time with word highlighting
                   </span>
                   <input
                     ref={fileInputRef}
@@ -479,36 +631,39 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
                 </div>
               </div>
 
-              {/* Story Text Area */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-semibold text-gray-300">Story Text (German) *</label>
-                  <span className="text-[10px] text-gray-500">Sentence per line or separated by periods</span>
-                </div>
-                <textarea
-                  rows={4}
-                  required
-                  value={storyText}
-                  onChange={(e) => setStoryText(e.target.value)}
-                  placeholder="Paste your story text here (e.g. German story)..."
-                  className="input-field w-full text-sm leading-relaxed"
-                />
-              </div>
+              {/* TAB 2: Text Area Inputs */}
+              {creationTab === 'text' && (
+                <>
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-semibold text-gray-300">Story Text (Target Language) *</label>
+                      <span className="text-[10px] text-gray-500">Sentence per line or separated by periods</span>
+                    </div>
+                    <textarea
+                      rows={4}
+                      required={creationTab === 'text'}
+                      value={storyText}
+                      onChange={(e) => setStoryText(e.target.value)}
+                      placeholder="Paste your story text here..."
+                      className="input-field w-full text-sm leading-relaxed"
+                    />
+                  </div>
 
-              {/* English Translation Area (Optional) */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-semibold text-gray-300">English Translation (Optional)</label>
-                  <span className="text-[10px] text-gray-500">Matches sentences 1-to-1</span>
-                </div>
-                <textarea
-                  rows={3}
-                  value={translationText}
-                  onChange={(e) => setTranslationText(e.target.value)}
-                  placeholder="Paste English translation lines here..."
-                  className="input-field w-full text-sm leading-relaxed"
-                />
-              </div>
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-semibold text-gray-300">English Translation (Optional)</label>
+                      <span className="text-[10px] text-gray-500">Matches sentences 1-to-1</span>
+                    </div>
+                    <textarea
+                      rows={3}
+                      value={translationText}
+                      onChange={(e) => setTranslationText(e.target.value)}
+                      placeholder="Paste English translation lines here..."
+                      className="input-field w-full text-sm leading-relaxed"
+                    />
+                  </div>
+                </>
+              )}
 
               {/* Submit Buttons */}
               <div className="pt-2 flex items-center justify-end gap-3">
