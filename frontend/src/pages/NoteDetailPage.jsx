@@ -135,6 +135,10 @@ export default function NoteDetailPage() {
     }
     return (
       <KaraokeNoteReader
+        noteId={note._id || note.id}
+        onAudioUpdated={(newUrl) => {
+          setNote(prev => prev ? { ...prev, audioUrl: newUrl } : prev);
+        }}
         noteData={{
           title: note.title,
           englishTitle: parsedData.englishTitle || '',

@@ -27,6 +27,20 @@ const uploadAudio = multer({
   limits: { fileSize: 50 * 1024 * 1024 }
 });
 
+// Public audio stream route for <audio> tags (which do not send Authorization headers)
+router.get('/audio/:filename', (req, res) => {
+  const safeFilename = path.basename(req.params.filename);
+  const audioPath = path.join(__dirname, '../uploads/audio', safeFilename);
+  if (fs.existsSync(audioPath)) {
+    return res.sendFile(audioPath);
+  }
+  const distAudioPath = path.join(__dirname, '../dist/audio', safeFilename);
+  if (fs.existsSync(distAudioPath)) {
+    return res.sendFile(distAudioPath);
+  }
+  res.status(404).send('Audio file not found');
+});
+
 router.use(protect);
 router.get('/', getNotes);
 router.post('/', authorize('trainer', 'admin'), createNote);

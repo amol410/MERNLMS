@@ -258,7 +258,7 @@ exports.uploadAudioFile = async (req, res, next) => {
     if (!req.file) {
       return res.status(400).json({ success: false, message: 'No audio file uploaded' });
     }
-    const audioUrl = `/uploads/audio/${req.file.filename}`;
+    const audioUrl = `/api/notes/audio/${req.file.filename}`;
     res.json({ success: true, audioUrl, filename: req.file.originalname });
   } catch (error) {
     next(error);

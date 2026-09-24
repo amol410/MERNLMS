@@ -237,6 +237,7 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
         selectedSubject?.name,
         topic
       );
+      karaokeData.audioUrl = finalAudioUrl;
 
       // 3. Create note in DB
       const res = await api.post('/notes', {

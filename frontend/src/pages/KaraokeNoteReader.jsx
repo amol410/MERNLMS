@@ -3,9 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import demoStory from '../data/demoKaraokeStory.json';
 import {
   Play, Pause, RotateCcw, Volume2, VolumeX, ChevronLeft,
-  Music, Sparkles, BookOpen, Clock, Eye, EyeOff
+  Music, Sparkles, BookOpen, Clock, Eye, EyeOff, Upload
 } from 'lucide-react';
 import clsx from 'clsx';
+import api from '../api/axios';
+import toast from 'react-hot-toast';
 
 function formatTime(secs) {
   if (!secs || isNaN(secs)) return '0:00';
@@ -29,11 +31,24 @@ function getVocabItemInfo(val) {
   return { meaning: String(val), type: null };
 }
 
-export default function KaraokeNoteReader({ noteData }) {
+// Ensure relative audio paths route through the API streaming endpoint on shared hosting
+function resolveAudioUrl(url) {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('blob:')) return url;
+  if (url.startsWith('/uploads/audio/')) {
+    const filename = url.replace('/uploads/audio/', '');
+    return `/api/notes/audio/${filename}`;
+  }
+  return url;
+}
+
+export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) {
   const navigate = useNavigate();
   const story = noteData || demoStory;
 
   const audioRef = useRef(null);
+  const fileInputRef = useRef(null);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(parseFloat(story.duration) || 42.35);
@@ -42,9 +57,17 @@ export default function KaraokeNoteReader({ noteData }) {
   const [audioError, setAudioError] = useState(false);
   const [showTranslations, setShowTranslations] = useState(true);
   const [hoveredVocab, setHoveredVocab] = useState(null);
+  const [currentAudioUrl, setCurrentAudioUrl] = useState(() => resolveAudioUrl(story.audioUrl));
+  const [uploadingAudio, setUploadingAudio] = useState(false);
 
   const activeSentenceRef = useRef(null);
   const autoScrollEnabled = useRef(true);
+
+  useEffect(() => {
+    const resolved = resolveAudioUrl(story.audioUrl);
+    setCurrentAudioUrl(resolved);
+    setAudioError(false);
+  }, [story.audioUrl]);
 
   const sentences = Array.isArray(story.sentences) ? story.sentences : [];
   const allWords = (Array.isArray(story.words) && story.words.length > 0)
@@ -83,6 +106,7 @@ export default function KaraokeNoteReader({ noteData }) {
   const handleLoadedMetadata = () => {
     if (audioRef.current && !isNaN(audioRef.current.duration) && audioRef.current.duration > 0) {
       setDuration(audioRef.current.duration);
+      setAudioError(false);
     }
   };
 
@@ -94,8 +118,10 @@ export default function KaraokeNoteReader({ noteData }) {
     } else {
       audioRef.current.play().then(() => {
         setIsPlaying(true);
+        setAudioError(false);
       }).catch(err => {
         console.error('Audio play error:', err);
+        setAudioError(true);
       });
     }
   };
@@ -113,7 +139,12 @@ export default function KaraokeNoteReader({ noteData }) {
     audioRef.current.currentTime = wordStartTime;
     setCurrentTime(wordStartTime);
     if (!isPlaying) {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+        setAudioError(false);
+      }).catch(() => {
+        setAudioError(true);
+      });
     }
   };
 
@@ -129,7 +160,12 @@ export default function KaraokeNoteReader({ noteData }) {
     audioRef.current.currentTime = 0;
     setCurrentTime(0);
     if (!isPlaying) {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+        setAudioError(false);
+      }).catch(() => {
+        setAudioError(true);
+      });
     }
   };
 
@@ -139,12 +175,74 @@ export default function KaraokeNoteReader({ noteData }) {
     setIsMuted(!isMuted);
   };
 
+  // Upload or replace audio on this note directly
+  const handleUploadAudio = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingAudio(true);
+    try {
+      const formData = new FormData();
+      formData.append('audio', file);
+      const res = await api.post('/notes/upload-audio', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      const newUrl = res.data?.audioUrl;
+      if (newUrl) {
+        if (noteId) {
+          await api.put(`/notes/${noteId}`, { audioUrl: newUrl });
+        }
+        setCurrentAudioUrl(newUrl);
+        setAudioError(false);
+        if (onAudioUpdated) onAudioUpdated(newUrl);
+        toast.success('Audio file uploaded and attached successfully!');
+        if (audioRef.current) {
+          audioRef.current.src = newUrl;
+          audioRef.current.load();
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to upload audio file');
+    } finally {
+      setUploadingAudio(false);
+    }
+  };
+
+  // Switch to the built-in German demo audio
+  const handleUseDemoAudio = async () => {
+    const demoAudio = '/audio/demo_german_story.mp3';
+    setCurrentAudioUrl(demoAudio);
+    setAudioError(false);
+    if (noteId) {
+      try {
+        await api.put(`/notes/${noteId}`, { audioUrl: demoAudio });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    if (onAudioUpdated) onAudioUpdated(demoAudio);
+    toast.success('Switched to built-in German demo audio!');
+    if (audioRef.current) {
+      audioRef.current.src = demoAudio;
+      audioRef.current.load();
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
+      {/* Hidden File Input for Audio Replacement */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="audio/*"
+        className="hidden"
+        onChange={handleUploadAudio}
+      />
+
       {/* Hidden Audio Element */}
       <audio
         ref={audioRef}
-        src={story.audioUrl}
+        src={currentAudioUrl}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onError={() => setAudioError(true)}
@@ -163,6 +261,18 @@ export default function KaraokeNoteReader({ noteData }) {
         </Link>
 
         <div className="flex items-center gap-2">
+          {noteId && (
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploadingAudio}
+              className="text-xs text-dolphin-400 hover:text-dolphin-300 bg-white/5 hover:bg-white/10 border border-white/10 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer"
+              title="Change audio file"
+            >
+              <Upload className="w-3.5 h-3.5" />
+              <span>{uploadingAudio ? 'Uploading...' : 'Replace Audio'}</span>
+            </button>
+          )}
+
           <button
             onClick={() => setShowTranslations(!showTranslations)}
             className={clsx(
@@ -179,10 +289,35 @@ export default function KaraokeNoteReader({ noteData }) {
         </div>
       </div>
 
+      {/* Audio Unavailable Banner with Quick Fix Options */}
       {audioError && (
-        <div className="mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-center gap-3">
-          <VolumeX className="w-5 h-5 flex-shrink-0" />
-          <span>Audio file is currently unavailable or still uploading, but you can read through the time-aligned text and vocabulary below.</span>
+        <div className="mb-6 p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-fade-in shadow-xl backdrop-blur-md">
+          <div className="flex items-start gap-3">
+            <VolumeX className="w-5 h-5 flex-shrink-0 text-amber-400 mt-0.5" />
+            <div>
+              <p className="font-bold text-amber-300 text-sm">Audio stream unavailable</p>
+              <p className="text-gray-300 mt-0.5">
+                The audio source could not be played. You can attach an MP3 file directly or switch to the built-in German demo audio.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 flex-shrink-0 flex-wrap">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploadingAudio}
+              className="btn-primary text-xs px-3.5 py-2 flex items-center gap-1.5 cursor-pointer shadow-lg"
+            >
+              <Upload className="w-3.5 h-3.5" />
+              <span>{uploadingAudio ? 'Uploading...' : 'Upload MP3'}</span>
+            </button>
+            <button
+              onClick={handleUseDemoAudio}
+              className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs transition-colors flex items-center gap-1.5 cursor-pointer border border-white/10"
+            >
+              <Music className="w-3.5 h-3.5 text-dolphin-400" />
+              <span>Use Demo Audio</span>
+            </button>
+          </div>
         </div>
       )}
 
