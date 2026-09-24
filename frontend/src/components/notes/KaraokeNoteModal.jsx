@@ -1,8 +1,120 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { X, BookOpen, Music, Sparkles, Upload, FileText, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { X, BookOpen, Music, Sparkles, Upload, FileText, ArrowRight, Loader2, Play, CheckCircle } from 'lucide-react';
+import api from '../../api/axios';
+import toast from 'react-hot-toast';
 import { useSubjects } from '../../hooks/useSubjects';
+import demoStory from '../../data/demoKaraokeStory.json';
 import clsx from 'clsx';
+
+// Helper to determine audio duration from a File or URL
+const getAudioDuration = (fileOrUrl) => {
+  return new Promise((resolve) => {
+    try {
+      const audio = new Audio();
+      const src = typeof fileOrUrl === 'string' ? fileOrUrl : URL.createObjectURL(fileOrUrl);
+      audio.src = src;
+      audio.onloadedmetadata = () => {
+        resolve(audio.duration || 45);
+      };
+      audio.onerror = () => resolve(45);
+    } catch {
+      resolve(45);
+    }
+  });
+};
+
+// Generates time-aligned sentence & word timestamps across the audio duration
+function generateKaraokePayload(title, storyText, translationText, duration, subjectName, topicName) {
+  const totalDuration = Math.max(duration || 40, 10);
+  
+  // Split into sentences by punctuation or newlines
+  const rawSentences = storyText
+    .split(/(?<=[.!?])\s+|\n+/)
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  const rawTranslations = (translationText || '')
+    .split(/(?<=[.!?])\s+|\n+/)
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  if (rawSentences.length === 0) {
+    throw new Error('Please enter at least one sentence of story text.');
+  }
+
+  // Calculate proportional length weight for each sentence
+  const totalChars = rawSentences.reduce((sum, s) => sum + Math.max(s.length, 5), 0);
+  let accumulatedTime = 0.5; // slight intro padding
+  const usableDuration = totalDuration - 1.0; // leave padding at end
+
+  const sentences = [];
+  const allWords = [];
+  const vocabMap = {};
+
+  rawSentences.forEach((sentenceText, sIdx) => {
+    const sWeight = Math.max(sentenceText.length, 5) / totalChars;
+    const sDuration = sWeight * usableDuration;
+    const sStart = parseFloat(accumulatedTime.toFixed(2));
+    const sEnd = parseFloat((accumulatedTime + sDuration).toFixed(2));
+    accumulatedTime = sEnd + 0.2; // small pause between sentences
+
+    // Split sentence into words
+    const rawWords = sentenceText.split(/\s+/).filter(Boolean);
+    const sentenceWords = [];
+    const totalWordChars = rawWords.reduce((sum, w) => sum + Math.max(w.length, 1), 0);
+    let wordAccumTime = sStart;
+
+    rawWords.forEach((word) => {
+      const cleanWord = word.replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '');
+      const wWeight = Math.max(word.length, 1) / totalWordChars;
+      const wDuration = wWeight * (sEnd - sStart);
+      const wStart = parseFloat(wordAccumTime.toFixed(2));
+      const wEnd = parseFloat((wordAccumTime + wDuration).toFixed(2));
+      wordAccumTime = wEnd;
+
+      const wordObj = {
+        word,
+        clean: cleanWord,
+        start: wStart,
+        end: wEnd,
+        sentenceIndex: sIdx,
+      };
+
+      sentenceWords.push(wordObj);
+      allWords.push(wordObj);
+
+      // Collect potential German nouns (capitalized and length > 3)
+      if (cleanWord.length > 3 && cleanWord[0] === cleanWord[0].toUpperCase() && !vocabMap[cleanWord]) {
+        vocabMap[cleanWord] = {
+          word: cleanWord,
+          meaning: `German vocabulary item: ${cleanWord}`,
+          type: 'Noun'
+        };
+      }
+    });
+
+    sentences.push({
+      index: sIdx,
+      text: sentenceText,
+      translation: rawTranslations[sIdx] || '',
+      start: sStart,
+      end: sEnd,
+      words: sentenceWords,
+    });
+  });
+
+  return {
+    title,
+    englishTitle: title,
+    subject: subjectName || 'German',
+    topic: topicName || 'Reading Practice',
+    duration: totalDuration,
+    sentences,
+    words: allWords,
+    vocab: vocabMap,
+  };
+}
 
 export default function KaraokeNoteModal({ isOpen, onClose }) {
   const navigate = useNavigate();
@@ -13,12 +125,19 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
   const [subjectId, setSubjectId] = useState('');
   const [topic, setTopic] = useState('');
   const [storyText, setStoryText] = useState('');
+  const [translationText, setTranslationText] = useState('');
+  const [audioFile, setAudioFile] = useState(null);
   const [audioFileName, setAudioFileName] = useState('');
+  const [customAudioUrl, setCustomAudioUrl] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  const fileInputRef = useRef(null);
 
   if (!isOpen) return null;
 
   const handleClose = () => {
     setMode('select');
+    setSaving(false);
     onClose();
   };
 
@@ -36,17 +155,125 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
     navigate('/notes/karaoke/demo');
   };
 
-  const currentTopics = subjectId
-    ? (subjects.find(s => s.id === parseInt(subjectId))?.topics || [])
-    : [];
+  // Safe subject & topic extraction (prevents Minified React error #31)
+  const selectedSubject = subjects.find(s => String(s.id ?? s._id) === String(subjectId));
+  const currentTopics = selectedSubject?.topics || [];
+
+  // Populate sample German fable
+  const handleLoadSample = () => {
+    setTitle('Die Schildkröte und der Hase');
+    setStoryText(
+      'Es war einmal eine kleine Schildkröte und ein schneller Hase.\n' +
+      'Der Hase lachte oft über die langsame Schildkröte.\n' +
+      'Eines Tages sagte die Schildkröte: Lass uns ein Rennen machen!\n' +
+      'Alle Waldtiere kamen zusammen, um das große Rennen zu sehen.\n' +
+      'Der Hase rannte so schnell er konnte und war bald weit vorne.\n' +
+      'Er dachte sich: Ich habe genug Zeit und kann mich etwas ausruhen.\n' +
+      'Während der Hase tief schlief, ging die Schildkröte Schritt für Schritt weiter.\n' +
+      'Als der Hase endlich aufwachte, sah er die Schildkröte schon im Ziel.'
+    );
+    setTranslationText(
+      'Once upon a time there was a little tortoise and a fast hare.\n' +
+      'The hare often laughed at the slow tortoise.\n' +
+      'One day the tortoise said: Let\'s have a race!\n' +
+      'All the forest animals gathered to watch the big race.\n' +
+      'The hare ran as fast as he could and was soon far ahead.\n' +
+      'He thought to himself: I have plenty of time and can rest a bit.\n' +
+      'While the hare slept deeply, the tortoise kept walking step by step.\n' +
+      'When the hare finally woke up, he saw the tortoise already at the finish line.'
+    );
+    setCustomAudioUrl('/audio/demo_german_story.mp3');
+    setAudioFileName('demo_german_story.mp3 (Built-in Audio)');
+    // If a German subject exists, auto-select it
+    const germanSub = subjects.find(s => s.name.toLowerCase().includes('german'));
+    if (germanSub) {
+      setSubjectId(String(germanSub.id ?? germanSub._id));
+      if (germanSub.topics?.length > 0) {
+        const firstTopic = germanSub.topics[0];
+        setTopic(typeof firstTopic === 'string' ? firstTopic : (firstTopic.name || ''));
+      }
+    }
+    toast.success('Sample German fable loaded!');
+  };
+
+  // Handle Create Karaoke Note submission
+  const handleCreateKaraoke = async (e) => {
+    e.preventDefault();
+    if (!title.trim()) {
+      toast.error('Please enter a note title');
+      return;
+    }
+    if (!storyText.trim()) {
+      toast.error('Please enter the story text');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      let finalAudioUrl = customAudioUrl || '/audio/demo_german_story.mp3';
+      let audioDuration = 42.35;
+
+      // 1. Upload audio file if user attached one
+      if (audioFile) {
+        const formData = new FormData();
+        formData.append('audio', audioFile);
+        const uploadRes = await api.post('/notes/upload-audio', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        if (uploadRes.data?.audioUrl) {
+          finalAudioUrl = uploadRes.data.audioUrl;
+        }
+        audioDuration = await getAudioDuration(audioFile);
+      } else if (customAudioUrl) {
+        audioDuration = await getAudioDuration(customAudioUrl);
+      }
+
+      // 2. Generate karaoke alignment data
+      const karaokeData = generateKaraokePayload(
+        title.trim(),
+        storyText.trim(),
+        translationText.trim(),
+        audioDuration,
+        selectedSubject?.name,
+        topic
+      );
+
+      // 3. Create note in DB
+      const res = await api.post('/notes', {
+        title: title.trim(),
+        content: storyText.trim(),
+        subject: subjectId || null,
+        topic: topic || null,
+        isKaraoke: true,
+        audioUrl: finalAudioUrl,
+        karaokeData,
+      });
+
+      toast.success('Karaoke note created successfully!');
+      handleClose();
+
+      const createdId = res.data?.note?._id || res.data?.note?.id;
+      if (createdId) {
+        navigate(`/notes/${createdId}`);
+      } else {
+        navigate('/notes');
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.message || err.message || 'Failed to create karaoke note');
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in">
-      <div className="glass-card w-full max-w-xl border border-white/15 rounded-2xl shadow-2xl overflow-hidden relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fade-in overflow-y-auto">
+      <div className="glass-card w-full max-w-xl border border-white/15 rounded-2xl shadow-2xl overflow-hidden relative my-8">
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+          disabled={saving}
+          className="absolute top-4 right-4 text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer disabled:opacity-50"
         >
           <X className="w-5 h-5" />
         </button>
@@ -67,6 +294,7 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
             <div className="space-y-4">
               {/* Option 1: Normal Note */}
               <button
+                type="button"
                 onClick={handleSelectNormal}
                 className="w-full text-left p-4 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] hover:border-blue-500/40 transition-all duration-200 group flex items-start gap-4 cursor-pointer"
               >
@@ -88,6 +316,7 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
 
               {/* Option 2: Karaoke Note */}
               <button
+                type="button"
                 onClick={handleSelectKaraoke}
                 className="w-full text-left p-4 rounded-xl border border-dolphin-500/30 bg-gradient-to-r from-dolphin-600/10 via-ocean-600/10 to-transparent hover:border-dolphin-500/60 hover:bg-dolphin-600/15 transition-all duration-200 group flex items-start gap-4 cursor-pointer relative overflow-hidden"
               >
@@ -117,6 +346,7 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
             {/* Quick Demo Shortcut */}
             <div className="mt-6 pt-5 border-t border-white/5 text-center">
               <button
+                type="button"
                 onClick={handleOpenDemo}
                 className="inline-flex items-center gap-2 text-xs font-semibold text-dolphin-400 hover:text-dolphin-300 transition-colors group cursor-pointer"
               >
@@ -127,29 +357,42 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
           </div>
         ) : (
           /* ─── Step 2: Karaoke Note Form ─── */
-          <div className="p-6 sm:p-8">
-            <div className="flex items-center gap-3 mb-5">
-              <button
-                onClick={() => setMode('select')}
-                className="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-xs flex items-center gap-1"
-              >
-                &larr; Back
-              </button>
-              <div>
-                <h2 className="text-xl font-black text-white flex items-center gap-2">
-                  <Music className="w-5 h-5 text-dolphin-400" />
-                  New Karaoke Note
-                </h2>
-                <p className="text-xs text-gray-400">Upload audio and story text for synchronized reading</p>
+          <form onSubmit={handleCreateKaraoke} className="p-6 sm:p-8 max-h-[85vh] overflow-y-auto">
+            <div className="flex items-center justify-between gap-3 mb-5">
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setMode('select')}
+                  disabled={saving}
+                  className="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-xs flex items-center gap-1 disabled:opacity-50"
+                >
+                  &larr; Back
+                </button>
+                <div>
+                  <h2 className="text-xl font-black text-white flex items-center gap-2">
+                    <Music className="w-5 h-5 text-dolphin-400" />
+                    New Karaoke Note
+                  </h2>
+                  <p className="text-xs text-gray-400">Upload audio and story text for synchronized reading</p>
+                </div>
               </div>
+              <button
+                type="button"
+                onClick={handleLoadSample}
+                className="text-[11px] font-semibold text-dolphin-400 hover:text-dolphin-300 border border-dolphin-500/30 hover:border-dolphin-500/60 bg-dolphin-500/10 px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
+              >
+                <Sparkles className="w-3 h-3 text-amber-400" />
+                <span>Fill Sample</span>
+              </button>
             </div>
 
             <div className="space-y-4">
               {/* Title */}
               <div>
-                <label className="block text-xs font-semibold text-gray-300 mb-1.5">Story / Note Title</label>
+                <label className="block text-xs font-semibold text-gray-300 mb-1.5">Story / Note Title *</label>
                 <input
                   type="text"
+                  required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. Die Schildkröte und der Hase"
@@ -167,12 +410,17 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
                       setSubjectId(e.target.value);
                       setTopic('');
                     }}
-                    className="input-field w-full text-sm"
+                    className="select-field text-sm w-full"
                   >
                     <option value="">Select Subject</option>
-                    {subjects.map(s => (
-                      <option key={s.id} value={s.id}>{s.name}</option>
-                    ))}
+                    {subjects.map(s => {
+                      const sId = s.id ?? s._id;
+                      return (
+                        <option key={sId} value={sId}>
+                          {s.name}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div>
@@ -181,56 +429,121 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
                     disabled={!subjectId}
-                    className="input-field w-full text-sm disabled:opacity-50"
+                    className="select-field text-sm w-full disabled:opacity-50"
                   >
                     <option value="">Select Topic</option>
-                    {currentTopics.map(t => (
-                      <option key={t} value={t}>{t}</option>
-                    ))}
+                    {currentTopics.map((t, idx) => {
+                      const topicName = typeof t === 'string' ? t : (t.name || t.title || '');
+                      const topicKey = typeof t === 'string' ? t : (t._id || t.id || idx);
+                      return (
+                        <option key={topicKey} value={topicName}>
+                          {topicName}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>
 
               {/* Audio Upload Box */}
               <div>
-                <label className="block text-xs font-semibold text-gray-300 mb-1.5">Audio File (.mp3, .wav)</label>
-                <label className="flex flex-col items-center justify-center p-4 border-2 border-dashed border-white/15 hover:border-dolphin-500/50 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] transition-all cursor-pointer group">
+                <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+                  Audio File (.mp3, .wav, .m4a)
+                </label>
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex flex-col items-center justify-center p-4 border-2 border-dashed border-white/15 hover:border-dolphin-500/50 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] transition-all cursor-pointer group"
+                >
                   <Upload className="w-6 h-6 text-gray-400 group-hover:text-dolphin-400 transition-colors mb-1" />
-                  <span className="text-xs text-gray-300 font-medium">
-                    {audioFileName ? audioFileName : 'Click to select or drop audio file'}
+                  <span className="text-xs text-gray-300 font-medium text-center">
+                    {audioFileName ? audioFileName : 'Click to select audio file (.mp3, .wav)'}
                   </span>
-                  <span className="text-[10px] text-gray-500 mt-0.5">MP3, WAV up to 20MB</span>
+                  <span className="text-[10px] text-gray-500 mt-0.5">
+                    Audio will sync automatically with your text
+                  </span>
                   <input
+                    ref={fileInputRef}
                     type="file"
                     accept="audio/*"
                     className="hidden"
                     onChange={(e) => {
-                      if (e.target.files?.[0]) {
-                        setAudioFileName(e.target.files[0].name);
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setAudioFile(file);
+                        setAudioFileName(file.name);
+                        setCustomAudioUrl('');
                       }
                     }}
                   />
-                </label>
+                </div>
               </div>
 
               {/* Story Text Area */}
               <div>
-                <label className="block text-xs font-semibold text-gray-300 mb-1.5">Story Text</label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs font-semibold text-gray-300">Story Text (German) *</label>
+                  <span className="text-[10px] text-gray-500">Sentence per line or separated by periods</span>
+                </div>
                 <textarea
                   rows={4}
+                  required
                   value={storyText}
                   onChange={(e) => setStoryText(e.target.value)}
-                  placeholder="Paste your story text here..."
+                  placeholder="Paste your story text here (e.g. German story)..."
                   className="input-field w-full text-sm leading-relaxed"
                 />
               </div>
 
+              {/* English Translation Area (Optional) */}
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs font-semibold text-gray-300">English Translation (Optional)</label>
+                  <span className="text-[10px] text-gray-500">Matches sentences 1-to-1</span>
+                </div>
+                <textarea
+                  rows={3}
+                  value={translationText}
+                  onChange={(e) => setTranslationText(e.target.value)}
+                  placeholder="Paste English translation lines here..."
+                  className="input-field w-full text-sm leading-relaxed"
+                />
+              </div>
+
+              {/* Submit Buttons */}
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  disabled={saving}
+                  className="px-4 py-2 rounded-xl text-xs font-medium text-gray-400 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={saving}
+                  className="btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 cursor-pointer shadow-lg shadow-dolphin-600/30 disabled:opacity-50"
+                >
+                  {saving ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Creating Karaoke Note...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-4 h-4 text-amber-300" />
+                      <span>Create Karaoke Note</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
               {/* Interactive Demo Banner inside form */}
-              <div className="p-3 rounded-xl bg-dolphin-500/10 border border-dolphin-500/20 flex items-center justify-between gap-3">
+              <div className="p-3 rounded-xl bg-dolphin-500/10 border border-dolphin-500/20 flex items-center justify-between gap-3 mt-2">
                 <div className="flex items-center gap-2 min-w-0">
                   <Sparkles className="w-4 h-4 text-amber-400 flex-shrink-0" />
                   <p className="text-xs text-dolphin-200 truncate">
-                    Ready to test? Launch the sample German story now.
+                    Want to test first? Launch the pre-built German fable.
                   </p>
                 </div>
                 <button
@@ -243,7 +556,7 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
                 </button>
               </div>
             </div>
-          </div>
+          </form>
         )}
       </div>
     </div>

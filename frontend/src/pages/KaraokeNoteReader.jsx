@@ -31,12 +31,17 @@ export default function KaraokeNoteReader({ noteData }) {
   const activeSentenceRef = useRef(null);
   const autoScrollEnabled = useRef(true);
 
+  const sentences = story.sentences || [];
+  const allWords = (story.words && story.words.length > 0)
+    ? story.words
+    : (sentences.flatMap(s => s.words || []) || []);
+
   // Determine active sentence and active word based on currentTime
-  const activeSentenceIndex = story.sentences.findIndex(
+  const activeSentenceIndex = sentences.findIndex(
     s => currentTime >= s.start && currentTime <= s.end + 0.3
   );
 
-  const activeWord = story.words.find(
+  const activeWord = allWords.find(
     w => currentTime >= w.start && currentTime <= w.end
   );
 

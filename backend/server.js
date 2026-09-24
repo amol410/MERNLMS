@@ -43,6 +43,13 @@ app.use('/api/activity', require('./routes/activity'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/subjects', require('./routes/subjects'));
 
+const fs = require('fs');
+const audioUploadDir = path.join(__dirname, 'uploads/audio');
+if (!fs.existsSync(audioUploadDir)) {
+    fs.mkdirSync(audioUploadDir, { recursive: true });
+}
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'dist')));
     app.get('*', (req, res) => {
