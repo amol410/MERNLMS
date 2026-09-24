@@ -3,6 +3,7 @@ const Note = require('../models/Note');
 const User = require('../models/User');
 const Subject = require('../models/Subject');
 const UserActivity = require('../models/UserActivity');
+const { getClientDate } = require('../utils/dateHelper');
 const mammoth = require('mammoth');
 
 const ownerInclude = { model: User, as: 'ownerUser', attributes: ['id', 'name'] };
@@ -240,7 +241,7 @@ exports.trackView = async (req, res, next) => {
       subjectName: note.subject?.name || null,
       topicName: note.topic || null,
       metadata: { engagementSecs },
-      activityDate: new Date().toISOString().split('T')[0],
+      activityDate: getClientDate(req),
     });
 
     res.json({ success: true, logged: true });

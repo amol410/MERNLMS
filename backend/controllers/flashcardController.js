@@ -3,6 +3,7 @@ const Flashcard = require('../models/Flashcard');
 const FlashcardProgress = require('../models/FlashcardProgress');
 const User = require('../models/User');
 const UserActivity = require('../models/UserActivity');
+const { getClientDate } = require('../utils/dateHelper');
 const mammoth = require('mammoth');
 
 const ownerInclude = { model: User, as: 'ownerUser', attributes: ['id', 'name', 'avatar'] };
@@ -189,7 +190,7 @@ exports.saveProgress = async (req, res, next) => {
               cardCount: cardResults.length,
               masteredCount,
             },
-            activityDate: new Date().toISOString().split('T')[0],
+            activityDate: getClientDate(req),
           });
         }
       } catch (logErr) {

@@ -4,6 +4,7 @@ const QuizAttempt = require('../models/QuizAttempt');
 const User = require('../models/User');
 const Subject = require('../models/Subject');
 const UserActivity = require('../models/UserActivity');
+const { getClientDate } = require('../utils/dateHelper');
 const mammoth = require('mammoth');
 
 const createdByInclude = { model: User, as: 'createdByUser', attributes: ['id', 'name', 'avatar'] };
@@ -302,7 +303,7 @@ exports.submitAttempt = async (req, res, next) => {
           percentage,
           passed
         },
-        activityDate: new Date().toISOString().split('T')[0],
+        activityDate: getClientDate(req),
       });
     } catch (logErr) {
       console.error('Activity log error (quiz):', logErr.message);

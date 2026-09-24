@@ -10,6 +10,20 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
+  // Ensure server knows the user's exact calendar date & timezone
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  config.headers['x-client-date'] = `${year}-${month}-${day}`;
+  config.headers['x-timezone-offset'] = now.getTimezoneOffset();
+  try {
+    config.headers['x-client-timezone'] = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  } catch (e) {
+    // Ignore if not supported
+  }
+
   return config;
 });
 

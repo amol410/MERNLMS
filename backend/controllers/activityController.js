@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const UserActivity = require('../models/UserActivity');
+const { getClientDate, toClientLocalDate, getClientDayUtcBounds } = require('../utils/dateHelper');
 
 /**
  * Helper: get the Monday (start) and Sunday (end) of the ISO week
@@ -24,27 +25,11 @@ function getWeekBounds(dateInput) {
 }
 
 /**
- * Helper: format DATEONLY string for today (local/UTC date)
- */
-function getTodayDate() {
-    const d = new Date();
-    return d.toISOString().split('T')[0];
-}
-
-/**
- * Helper: format DATEONLY string for yesterday
- */
-function getYesterdayDate() {
-    const d = new Date();
-    d.setDate(d.getDate() - 1);
-    return d.toISOString().split('T')[0];
-}
-
-/**
  * GET /api/activity/summary
  * Query params:
- *   date    — single day (YYYY-MM-DD), defaults to today
- *   weekOf  — returns full week containing this date (YYYY-MM-DD)
+ *   date        — single day (YYYY-MM-DD), defaults to client's local today
+ *   weekOf      — returns full week containing this date (YYYY-MM-DD)
+ *   countsOnly  — returns lightweight summary counts only (for dashboard)
  */
 exports.getSummary = async (req, res, next) => {
     try {
@@ -55,23 +40,28 @@ exports.getSummary = async (req, res, next) => {
 
         if (req.query.weekOf) {
             const { start, end } = getWeekBounds(new Date(req.query.weekOf));
-            where.activityDate = { [Op.between]: [start, end] };
+            // Broaden range by 1 day on each side so activities crossing UTC/local midnight are retrieved
+            const prevDay = new Date(new Date(start).getTime() - 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            const nextDay = new Date(new Date(end).getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            where.activityDate = { [Op.between]: [prevDay, nextDay] };
             weekRange = { start, end };
         } else {
-            const date = req.query.date || getTodayDate();
-            where.activityDate = date;
+            const date = req.query.date || getClientDate(req);
             responseDate = date;
+            const { startUtc, endUtc } = getClientDayUtcBounds(date, req);
+
+            // Match either stored activityDate or actual createdAt in client's local day
+            where[Op.or] = [
+                { activityDate: date },
+                { createdAt: { [Op.between]: [startUtc, endUtc] } },
+            ];
         }
 
         // Fast counts-only aggregation for Dashboard (skips heavy row fetching and metadata decoding)
         if (req.query.countsOnly === 'true') {
-            const rawCounts = await UserActivity.findAll({
-                attributes: [
-                    'activityType',
-                    [UserActivity.sequelize.fn('COUNT', UserActivity.sequelize.col('id')), 'count'],
-                ],
+            const rows = await UserActivity.findAll({
+                attributes: ['id', 'activityType', 'activityDate', 'createdAt'],
                 where,
-                group: ['activityType'],
                 raw: true,
             });
 
@@ -79,11 +69,14 @@ exports.getSummary = async (req, res, next) => {
             let noteCount = 0;
             let flashcardCount = 0;
 
-            for (const item of rawCounts) {
-                const count = parseInt(item.count || item['COUNT(`id`)'] || item['count'] || 0, 10) || 0;
-                if (item.activityType === 'quiz') quizCount = count;
-                else if (item.activityType === 'note') noteCount = count;
-                else if (item.activityType === 'flashcard') flashcardCount = count;
+            for (const item of rows) {
+                // Confirm the activity belongs to responseDate in user's timezone
+                const localDate = toClientLocalDate(item.createdAt, req) || item.activityDate;
+                if (localDate === responseDate) {
+                    if (item.activityType === 'quiz') quizCount++;
+                    else if (item.activityType === 'note') noteCount++;
+                    else if (item.activityType === 'flashcard') flashcardCount++;
+                }
             }
 
             return res.json({
@@ -101,32 +94,49 @@ exports.getSummary = async (req, res, next) => {
 
         const rows = await UserActivity.findAll({
             where,
-            order: [['activityDate', 'DESC'], ['createdAt', 'DESC']],
+            order: [['createdAt', 'DESC']],
         });
 
         if (weekRange) {
-            // Group by date then by type for weekly view
+            // Group by client local date then by type for weekly view
             const byDate = {};
+            let totalInWeek = 0;
+
             for (const row of rows) {
-                const d = row.activityDate;
-                if (!byDate[d]) byDate[d] = { quizzes: [], notes: [], flashcards: [] };
-                const key = row.activityType === 'quiz' ? 'quizzes'
-                    : row.activityType === 'note' ? 'notes' : 'flashcards';
-                byDate[d][key].push(formatActivity(row));
+                const d = toClientLocalDate(row.createdAt, req) || row.activityDate;
+                // Only place in day if it falls within the requested week
+                if (d >= weekRange.start && d <= weekRange.end) {
+                    totalInWeek++;
+                    if (!byDate[d]) byDate[d] = { quizzes: [], notes: [], flashcards: [] };
+                    const key = row.activityType === 'quiz' ? 'quizzes'
+                        : row.activityType === 'note' ? 'notes' : 'flashcards';
+                    byDate[d][key].push(formatActivity(row, d));
+                }
             }
+
             return res.json({
                 success: true,
                 type: 'week',
                 weekRange,
                 days: byDate,
-                total: rows.length,
+                total: totalInWeek,
             });
         }
 
-        // Single-day response
-        const quizzes = rows.filter(r => r.activityType === 'quiz').map(formatActivity);
-        const notes = rows.filter(r => r.activityType === 'note').map(formatActivity);
-        const flashcards = rows.filter(r => r.activityType === 'flashcard').map(formatActivity);
+        // Single-day response: group and return formatted items
+        const quizzes = [];
+        const notes = [];
+        const flashcards = [];
+
+        for (const row of rows) {
+            const d = toClientLocalDate(row.createdAt, req) || row.activityDate;
+            if (d === responseDate) {
+                const formatted = formatActivity(row, d);
+                if (row.activityType === 'quiz') quizzes.push(formatted);
+                else if (row.activityType === 'note') notes.push(formatted);
+                else if (row.activityType === 'flashcard') flashcards.push(formatted);
+            }
+        }
 
         res.json({
             success: true,
@@ -137,7 +147,7 @@ exports.getSummary = async (req, res, next) => {
                 quizCount: quizzes.length,
                 noteCount: notes.length,
                 flashcardCount: flashcards.length,
-                total: rows.length,
+                total: quizzes.length + notes.length + flashcards.length,
             },
         });
     } catch (error) {
@@ -145,7 +155,7 @@ exports.getSummary = async (req, res, next) => {
     }
 };
 
-function formatActivity(row) {
+function formatActivity(row, effectiveDate = null) {
     return {
         id: row.id,
         activityType: row.activityType,
@@ -154,7 +164,7 @@ function formatActivity(row) {
         subjectName: row.subjectName,
         topicName: row.topicName,
         metadata: row.metadata,
-        activityDate: row.activityDate,
+        activityDate: effectiveDate || row.activityDate,
         createdAt: row.createdAt,
     };
 }
