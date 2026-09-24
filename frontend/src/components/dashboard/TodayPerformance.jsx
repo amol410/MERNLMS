@@ -260,15 +260,6 @@ export default function TodayPerformance() {
               )}
             />
           </div>
-
-          <div className="mt-3 pt-3 border-t border-white/5 flex justify-end">
-            <Link
-              to="/activity"
-              className="inline-flex items-center gap-1 text-xs text-dolphin-400 hover:text-dolphin-300 font-medium group"
-            >
-              View full weekly history <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          </div>
         </>
       )}
     </div>
