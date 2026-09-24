@@ -2,11 +2,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { Plus, Search, BookOpen, Pin, Trash2, Edit, Tag, X, SortDesc } from 'lucide-react';
+import { Plus, Search, BookOpen, Pin, Trash2, Edit, Tag, X, SortDesc, Music, Sparkles, Play } from 'lucide-react';
 import EmptyState from '../components/common/EmptyState';
 import { GridSkeleton } from '../components/common/Loader';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubjects } from '../hooks/useSubjects';
+import KaraokeNoteModal from '../components/notes/KaraokeNoteModal';
 import clsx from 'clsx';
 
 const colorMap = {
@@ -41,6 +42,7 @@ export default function NotesPage() {
   const [allTags, setAllTags] = useState([]);
   const [filterSubject, setFilterSubject] = useState('');
   const [filterTopic, setFilterTopic] = useState('');
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const filterTopics = filterSubject
     ? (subjects.find(s => s.id === parseInt(filterSubject))?.topics || [])
@@ -110,11 +112,43 @@ export default function NotesPage() {
           <p className="text-gray-500 mt-1">{notes.length} notes • Click to read, hover to edit</p>
         </div>
         {isStaff && (
-          <Link to="/notes/new" className="btn-primary flex items-center gap-2">
+          <button 
+            type="button"
+            onClick={() => setIsCreateModalOpen(true)} 
+            className="btn-primary flex items-center gap-2 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all"
+          >
             <Plus className="w-4 h-4" />
             New Note
-          </Link>
+          </button>
         )}
+      </div>
+
+      {/* Featured Karaoke Demo Card Banner */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-950/70 via-indigo-950/60 to-blue-950/70 border border-purple-500/30 p-5 sm:p-6 mb-6 shadow-xl backdrop-blur-md group hover:border-purple-400/50 transition-all">
+        <div className="absolute -top-12 -right-12 w-44 h-44 bg-purple-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-purple-500/20 transition-all duration-700" />
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+              <Sparkles className="w-3.5 h-3.5 text-purple-400 animate-pulse" />
+              Interactive Story Reader • Karaoke Demo
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+              <span>🇩🇪</span> Die Schildkröte und der Hase
+            </h2>
+            <p className="text-gray-400 text-sm max-w-2xl">
+              Listen to native German speech with live real-time word highlighting, German-to-English translations, and vocabulary tooltips. Click any word to jump audio directly!
+            </p>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <Link
+              to="/notes/karaoke/demo"
+              className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium shadow-lg shadow-purple-600/30 hover:shadow-purple-600/50 hover:scale-105 active:scale-95 transition-all text-sm"
+            >
+              <Play className="w-4 h-4 fill-white" />
+              Launch Reader
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Filters */}
@@ -191,7 +225,16 @@ export default function NotesPage() {
           icon="📝"
           title="No notes found"
           description={search || activeTag ? 'No notes match your filters.' : 'Create your first note!'}
-          action={!search && !activeTag && isStaff ? <Link to="/notes/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Create Note</Link> : null}
+          action={!search && !activeTag && isStaff ? (
+            <button
+              type="button"
+              onClick={() => setIsCreateModalOpen(true)}
+              className="btn-primary inline-flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              Create Note
+            </button>
+          ) : null}
         />
       ) : (
         <>
@@ -218,6 +261,12 @@ export default function NotesPage() {
           )}
         </>
       )}
+
+      {/* Karaoke Creation Modal */}
+      <KaraokeNoteModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+      />
     </div>
   );
 }
@@ -225,12 +274,20 @@ export default function NotesPage() {
 function NoteCard({ note, onPin, onDelete, isStaff }) {
   const color = colorMap[note.color] || colorMap.default;
   return (
-    <div className={clsx('glass-card border-l-4 p-5 hover:scale-[1.02] transition-all duration-300 group cursor-pointer', color.border, color.bg)}>
+    <div className={clsx('glass-card border-l-4 p-5 hover:scale-[1.02] transition-all duration-300 group cursor-pointer relative', color.border, color.bg)}>
       {/* Title row */}
       <div className="flex items-start justify-between mb-3">
         <Link to={`/notes/${note._id}`} className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap mb-1">
+            {note.isPinned && <Pin className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400 -mt-0.5" />}
+            {note.isKaraoke && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                <Music className="w-2.5 h-2.5" />
+                Karaoke
+              </span>
+            )}
+          </div>
           <h3 className="text-white font-bold text-base leading-snug group-hover:text-dolphin-300 transition-colors">
-            {note.isPinned && <Pin className="inline w-3.5 h-3.5 text-yellow-400 fill-yellow-400 mr-1.5 -mt-0.5" />}
             {note.title}
           </h3>
         </Link>

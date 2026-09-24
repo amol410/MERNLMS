@@ -24,6 +24,7 @@ import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/AdminPage';
 import ActivityHistoryPage from './pages/ActivityHistoryPage';
 import QuizReviewPage from './pages/QuizReviewPage';
+import KaraokeNoteReader from './pages/KaraokeNoteReader';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -50,6 +51,7 @@ function AppRoutes() {
 
       <Route path="/notes" element={<ProtectedRoute><Layout><NotesPage /></Layout></ProtectedRoute>} />
       <Route path="/notes/new" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><NoteEditorPage /></Layout></ProtectedRoute>} />
+      <Route path="/notes/karaoke/demo" element={<ProtectedRoute><Layout><KaraokeNoteReader /></Layout></ProtectedRoute>} />
       <Route path="/notes/:id" element={<ProtectedRoute><Layout><NoteDetailPage /></Layout></ProtectedRoute>} />
       <Route path="/notes/:id/edit" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><NoteEditorPage /></Layout></ProtectedRoute>} />
 

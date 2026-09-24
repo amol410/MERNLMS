@@ -17,6 +17,18 @@ const Note = sequelize.define('Note', {
     isPinned:    { type: DataTypes.BOOLEAN, defaultValue: false },
     color:       { type: DataTypes.ENUM('default','blue','green','yellow','pink','purple'), defaultValue: 'default' },
     contentType: { type: DataTypes.ENUM('richtext','docx','html'), defaultValue: 'richtext' },
+    isKaraoke:   { type: DataTypes.BOOLEAN, defaultValue: false },
+    audioUrl:    { type: DataTypes.STRING(500), defaultValue: null },
+    karaokeData: {
+        type: DataTypes.TEXT('long'),
+        defaultValue: null,
+        get() {
+            try { return JSON.parse(this.getDataValue('karaokeData')); } catch (e) { return null; }
+        },
+        set(val) {
+            this.setDataValue('karaokeData', val ? (typeof val === 'string' ? val : JSON.stringify(val)) : null);
+        },
+    },
 }, { tableName: 'notes', timestamps: true });
 
 module.exports = Note;

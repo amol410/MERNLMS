@@ -84,12 +84,15 @@ exports.getNoteById = async (req, res, next) => {
 
 exports.createNote = async (req, res, next) => {
   try {
-    const { title, content, tags, color, isPinned, contentType, subject, topic } = req.body;
+    const { title, content, tags, color, isPinned, contentType, subject, topic, isKaraoke, audioUrl, karaokeData } = req.body;
     const note = await Note.create({ 
       owner: req.user.id, title, content, tags, color, isPinned, 
       contentType: contentType || 'richtext',
       subjectId: subject || null,
-      topic: topic || null
+      topic: topic || null,
+      isKaraoke: Boolean(isKaraoke),
+      audioUrl: audioUrl || null,
+      karaokeData: karaokeData || null,
     });
     res.status(201).json({ success: true, note });
   } catch (error) {
@@ -104,7 +107,7 @@ exports.updateNote = async (req, res, next) => {
     if (note.owner !== req.user.id) {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
-    const { title, content, tags, color, isPinned, contentType, subject, topic } = req.body;
+    const { title, content, tags, color, isPinned, contentType, subject, topic, isKaraoke, audioUrl, karaokeData } = req.body;
     if (title !== undefined) note.title = title;
     if (content !== undefined) note.content = content;
     if (tags !== undefined) note.tags = tags;
@@ -113,6 +116,9 @@ exports.updateNote = async (req, res, next) => {
     if (contentType !== undefined) note.contentType = contentType;
     if (subject !== undefined) note.subjectId = subject || null;
     if (topic !== undefined) note.topic = topic || null;
+    if (isKaraoke !== undefined) note.isKaraoke = Boolean(isKaraoke);
+    if (audioUrl !== undefined) note.audioUrl = audioUrl;
+    if (karaokeData !== undefined) note.karaokeData = karaokeData;
     await note.save();
     res.json({ success: true, note });
   } catch (error) {

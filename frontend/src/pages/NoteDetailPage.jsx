@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { ArrowLeft, Edit, Trash2, Pin, Tag, Calendar, Maximize2, Minimize2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { PageLoader } from '../components/common/Loader';
+import KaraokeNoteReader from './KaraokeNoteReader';
 import clsx from 'clsx';
 
 const colorAccent = {
@@ -124,6 +125,30 @@ export default function NoteDetailPage() {
   };
 
   if (loading) return <PageLoader />;
+
+  if (note?.isKaraoke) {
+    let parsedData = {};
+    try {
+      parsedData = typeof note.karaokeData === 'string' ? JSON.parse(note.karaokeData) : (note.karaokeData || {});
+    } catch (e) {
+      console.error(e);
+    }
+    return (
+      <KaraokeNoteReader
+        noteData={{
+          title: note.title,
+          englishTitle: parsedData.englishTitle || '',
+          subject: note.subject?.name || 'Subject',
+          topic: note.topic || 'Topic',
+          audioUrl: note.audioUrl || parsedData.audioUrl,
+          duration: parsedData.duration || 42,
+          sentences: parsedData.sentences || [],
+          words: parsedData.words || [],
+          vocab: parsedData.vocab || {},
+        }}
+      />
+    );
+  }
 
   return (
     <div className={clsx('mx-auto px-4 sm:px-6 py-8 animate-fade-in', note.contentType === 'html' ? 'max-w-6xl' : 'max-w-4xl')}>

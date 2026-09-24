@@ -1,0 +1,1598 @@
+{
+  "title": "Die Schildkröte und der Hase",
+  "englishTitle": "The Tortoise and the Hare",
+  "subject": "German",
+  "topic": "Reading & Stories (A1-A2)",
+  "audioUrl": "/audio/demo_german_story.mp3",
+  "duration": 42.35,
+  "sentences": [
+    {
+      "index": 0,
+      "text": "Es war einmal eine kleine Schildkröte und ein schneller Hase.",
+      "translation": "Once upon a time there was a little tortoise and a fast hare.",
+      "start": 0.0,
+      "end": 3.4,
+      "words": [
+        {
+          "word": "Es",
+          "clean": "Es",
+          "start": 0.0,
+          "end": 0.13,
+          "sentenceIndex": 0
+        },
+        {
+          "word": "war",
+          "clean": "war",
+          "start": 0.13,
+          "end": 0.33,
+          "sentenceIndex": 0
+        },
+        {
+          "word": "einmal",
+          "clean": "einmal",
+          "start": 0.33,
+          "end": 0.72,
+          "sentenceIndex": 0
+        },
+        {
+          "word": "eine",
+          "clean": "eine",
+          "start": 0.72,
+          "end": 0.98,
+          "sentenceIndex": 0
+        },
+        {
+          "word": "kleine",
+          "clean": "kleine",
+          "start": 0.98,
+          "end": 1.37,
+          "sentenceIndex": 0
+        },
+        {
+          "word": "Schildkröte",
+          "clean": "Schildkröte",
+          "start": 1.37,
+          "end": 2.09,
+          "sentenceIndex": 0
+        },
+        {
+          "word": "und",
+          "clean": "und",
+          "start": 2.09,
+          "end": 2.29,
+          "sentenceIndex": 0
+        },
+        {
+          "word": "ein",
+          "clean": "ein",
+          "start": 2.29,
+          "end": 2.49,
+          "sentenceIndex": 0
+        },
+        {
+          "word": "schneller",
+          "clean": "schneller",
+          "start": 2.49,
+          "end": 3.08,
+          "sentenceIndex": 0
+        },
+        {
+          "word": "Hase.",
+          "clean": "Hase",
+          "start": 3.08,
+          "end": 3.41,
+          "sentenceIndex": 0
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "text": "Der Hase lachte oft über die langsame Schildkröte.",
+      "translation": "The hare often laughed at the slow tortoise.",
+      "start": 3.85,
+      "end": 6.76,
+      "words": [
+        {
+          "word": "Der",
+          "clean": "Der",
+          "start": 3.85,
+          "end": 4.05,
+          "sentenceIndex": 1
+        },
+        {
+          "word": "Hase",
+          "clean": "Hase",
+          "start": 4.05,
+          "end": 4.32,
+          "sentenceIndex": 1
+        },
+        {
+          "word": "lachte",
+          "clean": "lachte",
+          "start": 4.32,
+          "end": 4.73,
+          "sentenceIndex": 1
+        },
+        {
+          "word": "oft",
+          "clean": "oft",
+          "start": 4.73,
+          "end": 4.93,
+          "sentenceIndex": 1
+        },
+        {
+          "word": "über",
+          "clean": "über",
+          "start": 4.93,
+          "end": 5.2,
+          "sentenceIndex": 1
+        },
+        {
+          "word": "die",
+          "clean": "die",
+          "start": 5.2,
+          "end": 5.4,
+          "sentenceIndex": 1
+        },
+        {
+          "word": "langsame",
+          "clean": "langsame",
+          "start": 5.4,
+          "end": 5.94,
+          "sentenceIndex": 1
+        },
+        {
+          "word": "Schildkröte.",
+          "clean": "Schildkröte",
+          "start": 5.94,
+          "end": 6.75,
+          "sentenceIndex": 1
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "text": "Eines Tages sagte die Schildkröte: Lass uns ein Rennen machen!",
+      "translation": "One day the tortoise said: Let's have a race!",
+      "start": 7.21,
+      "end": 10.95,
+      "words": [
+        {
+          "word": "Eines",
+          "clean": "Eines",
+          "start": 7.21,
+          "end": 7.56,
+          "sentenceIndex": 2
+        },
+        {
+          "word": "Tages",
+          "clean": "Tages",
+          "start": 7.56,
+          "end": 7.91,
+          "sentenceIndex": 2
+        },
+        {
+          "word": "sagte",
+          "clean": "sagte",
+          "start": 7.91,
+          "end": 8.26,
+          "sentenceIndex": 2
+        },
+        {
+          "word": "die",
+          "clean": "die",
+          "start": 8.26,
+          "end": 8.47,
+          "sentenceIndex": 2
+        },
+        {
+          "word": "Schildkröte:",
+          "clean": "Schildkröte",
+          "start": 8.47,
+          "end": 9.32,
+          "sentenceIndex": 2
+        },
+        {
+          "word": "Lass",
+          "clean": "Lass",
+          "start": 9.32,
+          "end": 9.6,
+          "sentenceIndex": 2
+        },
+        {
+          "word": "uns",
+          "clean": "uns",
+          "start": 9.6,
+          "end": 9.81,
+          "sentenceIndex": 2
+        },
+        {
+          "word": "ein",
+          "clean": "ein",
+          "start": 9.81,
+          "end": 10.02,
+          "sentenceIndex": 2
+        },
+        {
+          "word": "Rennen",
+          "clean": "Rennen",
+          "start": 10.02,
+          "end": 10.44,
+          "sentenceIndex": 2
+        },
+        {
+          "word": "machen!",
+          "clean": "machen",
+          "start": 10.44,
+          "end": 10.93,
+          "sentenceIndex": 2
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "text": "Der Hase antwortete lachend: Du wirst sicher verlieren!",
+      "translation": "The hare answered laughing: You will definitely lose!",
+      "start": 11.4,
+      "end": 14.61,
+      "words": [
+        {
+          "word": "Der",
+          "clean": "Der",
+          "start": 11.4,
+          "end": 11.6,
+          "sentenceIndex": 3
+        },
+        {
+          "word": "Hase",
+          "clean": "Hase",
+          "start": 11.6,
+          "end": 11.87,
+          "sentenceIndex": 3
+        },
+        {
+          "word": "antwortete",
+          "clean": "antwortete",
+          "start": 11.87,
+          "end": 12.54,
+          "sentenceIndex": 3
+        },
+        {
+          "word": "lachend:",
+          "clean": "lachend",
+          "start": 12.54,
+          "end": 13.08,
+          "sentenceIndex": 3
+        },
+        {
+          "word": "Du",
+          "clean": "Du",
+          "start": 13.08,
+          "end": 13.21,
+          "sentenceIndex": 3
+        },
+        {
+          "word": "wirst",
+          "clean": "wirst",
+          "start": 13.21,
+          "end": 13.54,
+          "sentenceIndex": 3
+        },
+        {
+          "word": "sicher",
+          "clean": "sicher",
+          "start": 13.54,
+          "end": 13.94,
+          "sentenceIndex": 3
+        },
+        {
+          "word": "verlieren!",
+          "clean": "verlieren",
+          "start": 13.94,
+          "end": 14.61,
+          "sentenceIndex": 3
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "text": "Am nächsten Morgen starteten sie gemeinsam im Wald.",
+      "translation": "The next morning they started together in the forest.",
+      "start": 15.06,
+      "end": 18.11,
+      "words": [
+        {
+          "word": "Am",
+          "clean": "Am",
+          "start": 15.06,
+          "end": 15.2,
+          "sentenceIndex": 4
+        },
+        {
+          "word": "nächsten",
+          "clean": "nächsten",
+          "start": 15.2,
+          "end": 15.75,
+          "sentenceIndex": 4
+        },
+        {
+          "word": "Morgen",
+          "clean": "Morgen",
+          "start": 15.75,
+          "end": 16.16,
+          "sentenceIndex": 4
+        },
+        {
+          "word": "starteten",
+          "clean": "starteten",
+          "start": 16.16,
+          "end": 16.78,
+          "sentenceIndex": 4
+        },
+        {
+          "word": "sie",
+          "clean": "sie",
+          "start": 16.78,
+          "end": 16.99,
+          "sentenceIndex": 4
+        },
+        {
+          "word": "gemeinsam",
+          "clean": "gemeinsam",
+          "start": 16.99,
+          "end": 17.61,
+          "sentenceIndex": 4
+        },
+        {
+          "word": "im",
+          "clean": "im",
+          "start": 17.61,
+          "end": 17.75,
+          "sentenceIndex": 4
+        },
+        {
+          "word": "Wald.",
+          "clean": "Wald",
+          "start": 17.75,
+          "end": 18.1,
+          "sentenceIndex": 4
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "text": "Der Hase rannte sehr schnell voraus und sah bald das Ziel.",
+      "translation": "The hare ran ahead very fast and soon saw the finish line.",
+      "start": 18.56,
+      "end": 21.72,
+      "words": [
+        {
+          "word": "Der",
+          "clean": "Der",
+          "start": 18.56,
+          "end": 18.76,
+          "sentenceIndex": 5
+        },
+        {
+          "word": "Hase",
+          "clean": "Hase",
+          "start": 18.76,
+          "end": 19.02,
+          "sentenceIndex": 5
+        },
+        {
+          "word": "rannte",
+          "clean": "rannte",
+          "start": 19.02,
+          "end": 19.42,
+          "sentenceIndex": 5
+        },
+        {
+          "word": "sehr",
+          "clean": "sehr",
+          "start": 19.42,
+          "end": 19.68,
+          "sentenceIndex": 5
+        },
+        {
+          "word": "schnell",
+          "clean": "schnell",
+          "start": 19.68,
+          "end": 20.14,
+          "sentenceIndex": 5
+        },
+        {
+          "word": "voraus",
+          "clean": "voraus",
+          "start": 20.14,
+          "end": 20.54,
+          "sentenceIndex": 5
+        },
+        {
+          "word": "und",
+          "clean": "und",
+          "start": 20.54,
+          "end": 20.74,
+          "sentenceIndex": 5
+        },
+        {
+          "word": "sah",
+          "clean": "sah",
+          "start": 20.74,
+          "end": 20.94,
+          "sentenceIndex": 5
+        },
+        {
+          "word": "bald",
+          "clean": "bald",
+          "start": 20.94,
+          "end": 21.2,
+          "sentenceIndex": 5
+        },
+        {
+          "word": "das",
+          "clean": "das",
+          "start": 21.2,
+          "end": 21.4,
+          "sentenceIndex": 5
+        },
+        {
+          "word": "Ziel.",
+          "clean": "Ziel",
+          "start": 21.4,
+          "end": 21.73,
+          "sentenceIndex": 5
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "text": "Er dachte: Ich habe genug Zeit, ich mache eine Pause.",
+      "translation": "He thought: I have plenty of time, I'll take a break.",
+      "start": 22.17,
+      "end": 25.61,
+      "words": [
+        {
+          "word": "Er",
+          "clean": "Er",
+          "start": 22.17,
+          "end": 22.33,
+          "sentenceIndex": 6
+        },
+        {
+          "word": "dachte:",
+          "clean": "dachte",
+          "start": 22.33,
+          "end": 22.88,
+          "sentenceIndex": 6
+        },
+        {
+          "word": "Ich",
+          "clean": "Ich",
+          "start": 22.88,
+          "end": 23.11,
+          "sentenceIndex": 6
+        },
+        {
+          "word": "habe",
+          "clean": "habe",
+          "start": 23.11,
+          "end": 23.42,
+          "sentenceIndex": 6
+        },
+        {
+          "word": "genug",
+          "clean": "genug",
+          "start": 23.42,
+          "end": 23.81,
+          "sentenceIndex": 6
+        },
+        {
+          "word": "Zeit,",
+          "clean": "Zeit",
+          "start": 23.81,
+          "end": 24.2,
+          "sentenceIndex": 6
+        },
+        {
+          "word": "ich",
+          "clean": "ich",
+          "start": 24.2,
+          "end": 24.43,
+          "sentenceIndex": 6
+        },
+        {
+          "word": "mache",
+          "clean": "mache",
+          "start": 24.43,
+          "end": 24.82,
+          "sentenceIndex": 6
+        },
+        {
+          "word": "eine",
+          "clean": "eine",
+          "start": 24.82,
+          "end": 25.13,
+          "sentenceIndex": 6
+        },
+        {
+          "word": "Pause.",
+          "clean": "Pause",
+          "start": 25.13,
+          "end": 25.6,
+          "sentenceIndex": 6
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "text": "Der Hase legte sich unter einen Baum und schlief ein.",
+      "translation": "The hare lay down under a tree and fell asleep.",
+      "start": 26.06,
+      "end": 29.08,
+      "words": [
+        {
+          "word": "Der",
+          "clean": "Der",
+          "start": 26.06,
+          "end": 26.27,
+          "sentenceIndex": 7
+        },
+        {
+          "word": "Hase",
+          "clean": "Hase",
+          "start": 26.27,
+          "end": 26.55,
+          "sentenceIndex": 7
+        },
+        {
+          "word": "legte",
+          "clean": "legte",
+          "start": 26.55,
+          "end": 26.89,
+          "sentenceIndex": 7
+        },
+        {
+          "word": "sich",
+          "clean": "sich",
+          "start": 26.89,
+          "end": 27.17,
+          "sentenceIndex": 7
+        },
+        {
+          "word": "unter",
+          "clean": "unter",
+          "start": 27.17,
+          "end": 27.51,
+          "sentenceIndex": 7
+        },
+        {
+          "word": "einen",
+          "clean": "einen",
+          "start": 27.51,
+          "end": 27.85,
+          "sentenceIndex": 7
+        },
+        {
+          "word": "Baum",
+          "clean": "Baum",
+          "start": 27.85,
+          "end": 28.13,
+          "sentenceIndex": 7
+        },
+        {
+          "word": "und",
+          "clean": "und",
+          "start": 28.13,
+          "end": 28.34,
+          "sentenceIndex": 7
+        },
+        {
+          "word": "schlief",
+          "clean": "schlief",
+          "start": 28.34,
+          "end": 28.82,
+          "sentenceIndex": 7
+        },
+        {
+          "word": "ein.",
+          "clean": "ein",
+          "start": 28.82,
+          "end": 29.1,
+          "sentenceIndex": 7
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "text": "Die Schildkröte ging langsam, Schritt für Schritt, ohne Pause weiter.",
+      "translation": "The tortoise walked slowly, step by step, without stopping.",
+      "start": 29.53,
+      "end": 33.54,
+      "words": [
+        {
+          "word": "Die",
+          "clean": "Die",
+          "start": 29.53,
+          "end": 29.73,
+          "sentenceIndex": 8
+        },
+        {
+          "word": "Schildkröte",
+          "clean": "Schildkröte",
+          "start": 29.73,
+          "end": 30.46,
+          "sentenceIndex": 8
+        },
+        {
+          "word": "ging",
+          "clean": "ging",
+          "start": 30.46,
+          "end": 30.73,
+          "sentenceIndex": 8
+        },
+        {
+          "word": "langsam,",
+          "clean": "langsam",
+          "start": 30.73,
+          "end": 31.26,
+          "sentenceIndex": 8
+        },
+        {
+          "word": "Schritt",
+          "clean": "Schritt",
+          "start": 31.26,
+          "end": 31.73,
+          "sentenceIndex": 8
+        },
+        {
+          "word": "für",
+          "clean": "für",
+          "start": 31.73,
+          "end": 31.93,
+          "sentenceIndex": 8
+        },
+        {
+          "word": "Schritt,",
+          "clean": "Schritt",
+          "start": 31.93,
+          "end": 32.46,
+          "sentenceIndex": 8
+        },
+        {
+          "word": "ohne",
+          "clean": "ohne",
+          "start": 32.46,
+          "end": 32.73,
+          "sentenceIndex": 8
+        },
+        {
+          "word": "Pause",
+          "clean": "Pause",
+          "start": 32.73,
+          "end": 33.06,
+          "sentenceIndex": 8
+        },
+        {
+          "word": "weiter.",
+          "clean": "weiter",
+          "start": 33.06,
+          "end": 33.53,
+          "sentenceIndex": 8
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "text": "Als der Hase endlich aufwachte, war es schon zu spät.",
+      "translation": "When the hare finally woke up, it was already too late.",
+      "start": 33.99,
+      "end": 37.39,
+      "words": [
+        {
+          "word": "Als",
+          "clean": "Als",
+          "start": 33.99,
+          "end": 34.22,
+          "sentenceIndex": 9
+        },
+        {
+          "word": "der",
+          "clean": "der",
+          "start": 34.22,
+          "end": 34.45,
+          "sentenceIndex": 9
+        },
+        {
+          "word": "Hase",
+          "clean": "Hase",
+          "start": 34.45,
+          "end": 34.76,
+          "sentenceIndex": 9
+        },
+        {
+          "word": "endlich",
+          "clean": "endlich",
+          "start": 34.76,
+          "end": 35.3,
+          "sentenceIndex": 9
+        },
+        {
+          "word": "aufwachte,",
+          "clean": "aufwachte",
+          "start": 35.3,
+          "end": 36.07,
+          "sentenceIndex": 9
+        },
+        {
+          "word": "war",
+          "clean": "war",
+          "start": 36.07,
+          "end": 36.3,
+          "sentenceIndex": 9
+        },
+        {
+          "word": "es",
+          "clean": "es",
+          "start": 36.3,
+          "end": 36.45,
+          "sentenceIndex": 9
+        },
+        {
+          "word": "schon",
+          "clean": "schon",
+          "start": 36.45,
+          "end": 36.84,
+          "sentenceIndex": 9
+        },
+        {
+          "word": "zu",
+          "clean": "zu",
+          "start": 36.84,
+          "end": 36.99,
+          "sentenceIndex": 9
+        },
+        {
+          "word": "spät.",
+          "clean": "spät",
+          "start": 36.99,
+          "end": 37.38,
+          "sentenceIndex": 9
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "text": "Die geduldige Schildkröte überquerte die Ziellinie und gewann das Rennen!",
+      "translation": "The patient tortoise crossed the finish line and won the race!",
+      "start": 37.84,
+      "end": 41.9,
+      "words": [
+        {
+          "word": "Die",
+          "clean": "Die",
+          "start": 37.84,
+          "end": 38.03,
+          "sentenceIndex": 10
+        },
+        {
+          "word": "geduldige",
+          "clean": "geduldige",
+          "start": 38.03,
+          "end": 38.6,
+          "sentenceIndex": 10
+        },
+        {
+          "word": "Schildkröte",
+          "clean": "Schildkröte",
+          "start": 38.6,
+          "end": 39.3,
+          "sentenceIndex": 10
+        },
+        {
+          "word": "überquerte",
+          "clean": "überquerte",
+          "start": 39.3,
+          "end": 39.93,
+          "sentenceIndex": 10
+        },
+        {
+          "word": "die",
+          "clean": "die",
+          "start": 39.93,
+          "end": 40.12,
+          "sentenceIndex": 10
+        },
+        {
+          "word": "Ziellinie",
+          "clean": "Ziellinie",
+          "start": 40.12,
+          "end": 40.69,
+          "sentenceIndex": 10
+        },
+        {
+          "word": "und",
+          "clean": "und",
+          "start": 40.69,
+          "end": 40.88,
+          "sentenceIndex": 10
+        },
+        {
+          "word": "gewann",
+          "clean": "gewann",
+          "start": 40.88,
+          "end": 41.26,
+          "sentenceIndex": 10
+        },
+        {
+          "word": "das",
+          "clean": "das",
+          "start": 41.26,
+          "end": 41.45,
+          "sentenceIndex": 10
+        },
+        {
+          "word": "Rennen!",
+          "clean": "Rennen",
+          "start": 41.45,
+          "end": 41.89,
+          "sentenceIndex": 10
+        }
+      ]
+    }
+  ],
+  "words": [
+    {
+      "word": "Es",
+      "clean": "Es",
+      "start": 0.0,
+      "end": 0.13,
+      "sentenceIndex": 0
+    },
+    {
+      "word": "war",
+      "clean": "war",
+      "start": 0.13,
+      "end": 0.33,
+      "sentenceIndex": 0
+    },
+    {
+      "word": "einmal",
+      "clean": "einmal",
+      "start": 0.33,
+      "end": 0.72,
+      "sentenceIndex": 0
+    },
+    {
+      "word": "eine",
+      "clean": "eine",
+      "start": 0.72,
+      "end": 0.98,
+      "sentenceIndex": 0
+    },
+    {
+      "word": "kleine",
+      "clean": "kleine",
+      "start": 0.98,
+      "end": 1.37,
+      "sentenceIndex": 0
+    },
+    {
+      "word": "Schildkröte",
+      "clean": "Schildkröte",
+      "start": 1.37,
+      "end": 2.09,
+      "sentenceIndex": 0
+    },
+    {
+      "word": "und",
+      "clean": "und",
+      "start": 2.09,
+      "end": 2.29,
+      "sentenceIndex": 0
+    },
+    {
+      "word": "ein",
+      "clean": "ein",
+      "start": 2.29,
+      "end": 2.49,
+      "sentenceIndex": 0
+    },
+    {
+      "word": "schneller",
+      "clean": "schneller",
+      "start": 2.49,
+      "end": 3.08,
+      "sentenceIndex": 0
+    },
+    {
+      "word": "Hase.",
+      "clean": "Hase",
+      "start": 3.08,
+      "end": 3.41,
+      "sentenceIndex": 0
+    },
+    {
+      "word": "Der",
+      "clean": "Der",
+      "start": 3.85,
+      "end": 4.05,
+      "sentenceIndex": 1
+    },
+    {
+      "word": "Hase",
+      "clean": "Hase",
+      "start": 4.05,
+      "end": 4.32,
+      "sentenceIndex": 1
+    },
+    {
+      "word": "lachte",
+      "clean": "lachte",
+      "start": 4.32,
+      "end": 4.73,
+      "sentenceIndex": 1
+    },
+    {
+      "word": "oft",
+      "clean": "oft",
+      "start": 4.73,
+      "end": 4.93,
+      "sentenceIndex": 1
+    },
+    {
+      "word": "über",
+      "clean": "über",
+      "start": 4.93,
+      "end": 5.2,
+      "sentenceIndex": 1
+    },
+    {
+      "word": "die",
+      "clean": "die",
+      "start": 5.2,
+      "end": 5.4,
+      "sentenceIndex": 1
+    },
+    {
+      "word": "langsame",
+      "clean": "langsame",
+      "start": 5.4,
+      "end": 5.94,
+      "sentenceIndex": 1
+    },
+    {
+      "word": "Schildkröte.",
+      "clean": "Schildkröte",
+      "start": 5.94,
+      "end": 6.75,
+      "sentenceIndex": 1
+    },
+    {
+      "word": "Eines",
+      "clean": "Eines",
+      "start": 7.21,
+      "end": 7.56,
+      "sentenceIndex": 2
+    },
+    {
+      "word": "Tages",
+      "clean": "Tages",
+      "start": 7.56,
+      "end": 7.91,
+      "sentenceIndex": 2
+    },
+    {
+      "word": "sagte",
+      "clean": "sagte",
+      "start": 7.91,
+      "end": 8.26,
+      "sentenceIndex": 2
+    },
+    {
+      "word": "die",
+      "clean": "die",
+      "start": 8.26,
+      "end": 8.47,
+      "sentenceIndex": 2
+    },
+    {
+      "word": "Schildkröte:",
+      "clean": "Schildkröte",
+      "start": 8.47,
+      "end": 9.32,
+      "sentenceIndex": 2
+    },
+    {
+      "word": "Lass",
+      "clean": "Lass",
+      "start": 9.32,
+      "end": 9.6,
+      "sentenceIndex": 2
+    },
+    {
+      "word": "uns",
+      "clean": "uns",
+      "start": 9.6,
+      "end": 9.81,
+      "sentenceIndex": 2
+    },
+    {
+      "word": "ein",
+      "clean": "ein",
+      "start": 9.81,
+      "end": 10.02,
+      "sentenceIndex": 2
+    },
+    {
+      "word": "Rennen",
+      "clean": "Rennen",
+      "start": 10.02,
+      "end": 10.44,
+      "sentenceIndex": 2
+    },
+    {
+      "word": "machen!",
+      "clean": "machen",
+      "start": 10.44,
+      "end": 10.93,
+      "sentenceIndex": 2
+    },
+    {
+      "word": "Der",
+      "clean": "Der",
+      "start": 11.4,
+      "end": 11.6,
+      "sentenceIndex": 3
+    },
+    {
+      "word": "Hase",
+      "clean": "Hase",
+      "start": 11.6,
+      "end": 11.87,
+      "sentenceIndex": 3
+    },
+    {
+      "word": "antwortete",
+      "clean": "antwortete",
+      "start": 11.87,
+      "end": 12.54,
+      "sentenceIndex": 3
+    },
+    {
+      "word": "lachend:",
+      "clean": "lachend",
+      "start": 12.54,
+      "end": 13.08,
+      "sentenceIndex": 3
+    },
+    {
+      "word": "Du",
+      "clean": "Du",
+      "start": 13.08,
+      "end": 13.21,
+      "sentenceIndex": 3
+    },
+    {
+      "word": "wirst",
+      "clean": "wirst",
+      "start": 13.21,
+      "end": 13.54,
+      "sentenceIndex": 3
+    },
+    {
+      "word": "sicher",
+      "clean": "sicher",
+      "start": 13.54,
+      "end": 13.94,
+      "sentenceIndex": 3
+    },
+    {
+      "word": "verlieren!",
+      "clean": "verlieren",
+      "start": 13.94,
+      "end": 14.61,
+      "sentenceIndex": 3
+    },
+    {
+      "word": "Am",
+      "clean": "Am",
+      "start": 15.06,
+      "end": 15.2,
+      "sentenceIndex": 4
+    },
+    {
+      "word": "nächsten",
+      "clean": "nächsten",
+      "start": 15.2,
+      "end": 15.75,
+      "sentenceIndex": 4
+    },
+    {
+      "word": "Morgen",
+      "clean": "Morgen",
+      "start": 15.75,
+      "end": 16.16,
+      "sentenceIndex": 4
+    },
+    {
+      "word": "starteten",
+      "clean": "starteten",
+      "start": 16.16,
+      "end": 16.78,
+      "sentenceIndex": 4
+    },
+    {
+      "word": "sie",
+      "clean": "sie",
+      "start": 16.78,
+      "end": 16.99,
+      "sentenceIndex": 4
+    },
+    {
+      "word": "gemeinsam",
+      "clean": "gemeinsam",
+      "start": 16.99,
+      "end": 17.61,
+      "sentenceIndex": 4
+    },
+    {
+      "word": "im",
+      "clean": "im",
+      "start": 17.61,
+      "end": 17.75,
+      "sentenceIndex": 4
+    },
+    {
+      "word": "Wald.",
+      "clean": "Wald",
+      "start": 17.75,
+      "end": 18.1,
+      "sentenceIndex": 4
+    },
+    {
+      "word": "Der",
+      "clean": "Der",
+      "start": 18.56,
+      "end": 18.76,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "Hase",
+      "clean": "Hase",
+      "start": 18.76,
+      "end": 19.02,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "rannte",
+      "clean": "rannte",
+      "start": 19.02,
+      "end": 19.42,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "sehr",
+      "clean": "sehr",
+      "start": 19.42,
+      "end": 19.68,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "schnell",
+      "clean": "schnell",
+      "start": 19.68,
+      "end": 20.14,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "voraus",
+      "clean": "voraus",
+      "start": 20.14,
+      "end": 20.54,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "und",
+      "clean": "und",
+      "start": 20.54,
+      "end": 20.74,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "sah",
+      "clean": "sah",
+      "start": 20.74,
+      "end": 20.94,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "bald",
+      "clean": "bald",
+      "start": 20.94,
+      "end": 21.2,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "das",
+      "clean": "das",
+      "start": 21.2,
+      "end": 21.4,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "Ziel.",
+      "clean": "Ziel",
+      "start": 21.4,
+      "end": 21.73,
+      "sentenceIndex": 5
+    },
+    {
+      "word": "Er",
+      "clean": "Er",
+      "start": 22.17,
+      "end": 22.33,
+      "sentenceIndex": 6
+    },
+    {
+      "word": "dachte:",
+      "clean": "dachte",
+      "start": 22.33,
+      "end": 22.88,
+      "sentenceIndex": 6
+    },
+    {
+      "word": "Ich",
+      "clean": "Ich",
+      "start": 22.88,
+      "end": 23.11,
+      "sentenceIndex": 6
+    },
+    {
+      "word": "habe",
+      "clean": "habe",
+      "start": 23.11,
+      "end": 23.42,
+      "sentenceIndex": 6
+    },
+    {
+      "word": "genug",
+      "clean": "genug",
+      "start": 23.42,
+      "end": 23.81,
+      "sentenceIndex": 6
+    },
+    {
+      "word": "Zeit,",
+      "clean": "Zeit",
+      "start": 23.81,
+      "end": 24.2,
+      "sentenceIndex": 6
+    },
+    {
+      "word": "ich",
+      "clean": "ich",
+      "start": 24.2,
+      "end": 24.43,
+      "sentenceIndex": 6
+    },
+    {
+      "word": "mache",
+      "clean": "mache",
+      "start": 24.43,
+      "end": 24.82,
+      "sentenceIndex": 6
+    },
+    {
+      "word": "eine",
+      "clean": "eine",
+      "start": 24.82,
+      "end": 25.13,
+      "sentenceIndex": 6
+    },
+    {
+      "word": "Pause.",
+      "clean": "Pause",
+      "start": 25.13,
+      "end": 25.6,
+      "sentenceIndex": 6
+    },
+    {
+      "word": "Der",
+      "clean": "Der",
+      "start": 26.06,
+      "end": 26.27,
+      "sentenceIndex": 7
+    },
+    {
+      "word": "Hase",
+      "clean": "Hase",
+      "start": 26.27,
+      "end": 26.55,
+      "sentenceIndex": 7
+    },
+    {
+      "word": "legte",
+      "clean": "legte",
+      "start": 26.55,
+      "end": 26.89,
+      "sentenceIndex": 7
+    },
+    {
+      "word": "sich",
+      "clean": "sich",
+      "start": 26.89,
+      "end": 27.17,
+      "sentenceIndex": 7
+    },
+    {
+      "word": "unter",
+      "clean": "unter",
+      "start": 27.17,
+      "end": 27.51,
+      "sentenceIndex": 7
+    },
+    {
+      "word": "einen",
+      "clean": "einen",
+      "start": 27.51,
+      "end": 27.85,
+      "sentenceIndex": 7
+    },
+    {
+      "word": "Baum",
+      "clean": "Baum",
+      "start": 27.85,
+      "end": 28.13,
+      "sentenceIndex": 7
+    },
+    {
+      "word": "und",
+      "clean": "und",
+      "start": 28.13,
+      "end": 28.34,
+      "sentenceIndex": 7
+    },
+    {
+      "word": "schlief",
+      "clean": "schlief",
+      "start": 28.34,
+      "end": 28.82,
+      "sentenceIndex": 7
+    },
+    {
+      "word": "ein.",
+      "clean": "ein",
+      "start": 28.82,
+      "end": 29.1,
+      "sentenceIndex": 7
+    },
+    {
+      "word": "Die",
+      "clean": "Die",
+      "start": 29.53,
+      "end": 29.73,
+      "sentenceIndex": 8
+    },
+    {
+      "word": "Schildkröte",
+      "clean": "Schildkröte",
+      "start": 29.73,
+      "end": 30.46,
+      "sentenceIndex": 8
+    },
+    {
+      "word": "ging",
+      "clean": "ging",
+      "start": 30.46,
+      "end": 30.73,
+      "sentenceIndex": 8
+    },
+    {
+      "word": "langsam,",
+      "clean": "langsam",
+      "start": 30.73,
+      "end": 31.26,
+      "sentenceIndex": 8
+    },
+    {
+      "word": "Schritt",
+      "clean": "Schritt",
+      "start": 31.26,
+      "end": 31.73,
+      "sentenceIndex": 8
+    },
+    {
+      "word": "für",
+      "clean": "für",
+      "start": 31.73,
+      "end": 31.93,
+      "sentenceIndex": 8
+    },
+    {
+      "word": "Schritt,",
+      "clean": "Schritt",
+      "start": 31.93,
+      "end": 32.46,
+      "sentenceIndex": 8
+    },
+    {
+      "word": "ohne",
+      "clean": "ohne",
+      "start": 32.46,
+      "end": 32.73,
+      "sentenceIndex": 8
+    },
+    {
+      "word": "Pause",
+      "clean": "Pause",
+      "start": 32.73,
+      "end": 33.06,
+      "sentenceIndex": 8
+    },
+    {
+      "word": "weiter.",
+      "clean": "weiter",
+      "start": 33.06,
+      "end": 33.53,
+      "sentenceIndex": 8
+    },
+    {
+      "word": "Als",
+      "clean": "Als",
+      "start": 33.99,
+      "end": 34.22,
+      "sentenceIndex": 9
+    },
+    {
+      "word": "der",
+      "clean": "der",
+      "start": 34.22,
+      "end": 34.45,
+      "sentenceIndex": 9
+    },
+    {
+      "word": "Hase",
+      "clean": "Hase",
+      "start": 34.45,
+      "end": 34.76,
+      "sentenceIndex": 9
+    },
+    {
+      "word": "endlich",
+      "clean": "endlich",
+      "start": 34.76,
+      "end": 35.3,
+      "sentenceIndex": 9
+    },
+    {
+      "word": "aufwachte,",
+      "clean": "aufwachte",
+      "start": 35.3,
+      "end": 36.07,
+      "sentenceIndex": 9
+    },
+    {
+      "word": "war",
+      "clean": "war",
+      "start": 36.07,
+      "end": 36.3,
+      "sentenceIndex": 9
+    },
+    {
+      "word": "es",
+      "clean": "es",
+      "start": 36.3,
+      "end": 36.45,
+      "sentenceIndex": 9
+    },
+    {
+      "word": "schon",
+      "clean": "schon",
+      "start": 36.45,
+      "end": 36.84,
+      "sentenceIndex": 9
+    },
+    {
+      "word": "zu",
+      "clean": "zu",
+      "start": 36.84,
+      "end": 36.99,
+      "sentenceIndex": 9
+    },
+    {
+      "word": "spät.",
+      "clean": "spät",
+      "start": 36.99,
+      "end": 37.38,
+      "sentenceIndex": 9
+    },
+    {
+      "word": "Die",
+      "clean": "Die",
+      "start": 37.84,
+      "end": 38.03,
+      "sentenceIndex": 10
+    },
+    {
+      "word": "geduldige",
+      "clean": "geduldige",
+      "start": 38.03,
+      "end": 38.6,
+      "sentenceIndex": 10
+    },
+    {
+      "word": "Schildkröte",
+      "clean": "Schildkröte",
+      "start": 38.6,
+      "end": 39.3,
+      "sentenceIndex": 10
+    },
+    {
+      "word": "überquerte",
+      "clean": "überquerte",
+      "start": 39.3,
+      "end": 39.93,
+      "sentenceIndex": 10
+    },
+    {
+      "word": "die",
+      "clean": "die",
+      "start": 39.93,
+      "end": 40.12,
+      "sentenceIndex": 10
+    },
+    {
+      "word": "Ziellinie",
+      "clean": "Ziellinie",
+      "start": 40.12,
+      "end": 40.69,
+      "sentenceIndex": 10
+    },
+    {
+      "word": "und",
+      "clean": "und",
+      "start": 40.69,
+      "end": 40.88,
+      "sentenceIndex": 10
+    },
+    {
+      "word": "gewann",
+      "clean": "gewann",
+      "start": 40.88,
+      "end": 41.26,
+      "sentenceIndex": 10
+    },
+    {
+      "word": "das",
+      "clean": "das",
+      "start": 41.26,
+      "end": 41.45,
+      "sentenceIndex": 10
+    },
+    {
+      "word": "Rennen!",
+      "clean": "Rennen",
+      "start": 41.45,
+      "end": 41.89,
+      "sentenceIndex": 10
+    }
+  ],
+  "vocab": {
+    "Schildkröte": "tortoise / turtle",
+    "Hase": "hare / rabbit",
+    "schneller": "faster",
+    "langsame": "slow",
+    "lachte": "laughed",
+    "Rennen": "race",
+    "verlieren": "to lose",
+    "gemeinsam": "together",
+    "Wald": "forest / woods",
+    "rannte": "ran",
+    "Ziellinie": "finish line",
+    "Pause": "break / pause",
+    "schlief": "slept",
+    "geduldige": "patient",
+    "gewann": "won"
+  }
+}
