@@ -138,8 +138,8 @@ export default function NoteDetailPage() {
         noteData={{
           title: note.title,
           englishTitle: parsedData.englishTitle || '',
-          subject: note.subject?.name || 'Subject',
-          topic: note.topic || 'Topic',
+          subject: (typeof note.subject === 'object' ? note.subject?.name : note.subject) || parsedData.subject || 'Subject',
+          topic: (typeof note.topic === 'object' ? note.topic?.name : note.topic) || parsedData.topic || 'Topic',
           audioUrl: note.audioUrl || parsedData.audioUrl,
           duration: parsedData.duration || 42,
           sentences: parsedData.sentences || [],

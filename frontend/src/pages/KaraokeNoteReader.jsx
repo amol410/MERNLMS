@@ -3,8 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import demoStory from '../data/demoKaraokeStory.json';
 import {
   Play, Pause, RotateCcw, Volume2, VolumeX, ChevronLeft,
-  Music, Sparkles, BookOpen, Clock, Globe, ArrowLeft,
-  HelpCircle, Eye, EyeOff
+  Music, Sparkles, BookOpen, Clock, Eye, EyeOff
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -15,6 +14,21 @@ function formatTime(secs) {
   return `${m}:${String(s).padStart(2, '0')}`;
 }
 
+// Safely normalize vocabulary definitions whether they are strings or { word, meaning, type } objects
+function getVocabItemInfo(val) {
+  if (!val) return null;
+  if (typeof val === 'string') {
+    return { meaning: val, type: null };
+  }
+  if (typeof val === 'object') {
+    return {
+      meaning: val.meaning || val.translation || val.definition || val.def || val.word || '',
+      type: val.type || null,
+    };
+  }
+  return { meaning: String(val), type: null };
+}
+
 export default function KaraokeNoteReader({ noteData }) {
   const navigate = useNavigate();
   const story = noteData || demoStory;
@@ -22,19 +36,23 @@ export default function KaraokeNoteReader({ noteData }) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(story.duration || 42.35);
+  const [duration, setDuration] = useState(parseFloat(story.duration) || 42.35);
   const [playbackRate, setPlaybackRate] = useState(1.0);
   const [isMuted, setIsMuted] = useState(false);
+  const [audioError, setAudioError] = useState(false);
   const [showTranslations, setShowTranslations] = useState(true);
   const [hoveredVocab, setHoveredVocab] = useState(null);
 
   const activeSentenceRef = useRef(null);
   const autoScrollEnabled = useRef(true);
 
-  const sentences = story.sentences || [];
-  const allWords = (story.words && story.words.length > 0)
+  const sentences = Array.isArray(story.sentences) ? story.sentences : [];
+  const allWords = (Array.isArray(story.words) && story.words.length > 0)
     ? story.words
-    : (sentences.flatMap(s => s.words || []) || []);
+    : (sentences.flatMap(s => s?.words || []) || []);
+
+  const displaySubject = (typeof story.subject === 'object' ? story.subject?.name : story.subject) || 'German';
+  const displayTopic = (typeof story.topic === 'object' ? story.topic?.name : story.topic) || 'Reading Practice';
 
   // Determine active sentence and active word based on currentTime
   const activeSentenceIndex = sentences.findIndex(
@@ -63,8 +81,8 @@ export default function KaraokeNoteReader({ noteData }) {
   }, []);
 
   const handleLoadedMetadata = () => {
-    if (audioRef.current) {
-      setDuration(audioRef.current.duration || story.duration);
+    if (audioRef.current && !isNaN(audioRef.current.duration) && audioRef.current.duration > 0) {
+      setDuration(audioRef.current.duration);
     }
   };
 
@@ -95,7 +113,7 @@ export default function KaraokeNoteReader({ noteData }) {
     audioRef.current.currentTime = wordStartTime;
     setCurrentTime(wordStartTime);
     if (!isPlaying) {
-      audioRef.current.play().then(() => setIsPlaying(true));
+      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
     }
   };
 
@@ -111,7 +129,7 @@ export default function KaraokeNoteReader({ noteData }) {
     audioRef.current.currentTime = 0;
     setCurrentTime(0);
     if (!isPlaying) {
-      audioRef.current.play().then(() => setIsPlaying(true));
+      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
     }
   };
 
@@ -129,6 +147,7 @@ export default function KaraokeNoteReader({ noteData }) {
         src={story.audioUrl}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
+        onError={() => setAudioError(true)}
         onEnded={() => setIsPlaying(false)}
         preload="auto"
       />
@@ -160,6 +179,13 @@ export default function KaraokeNoteReader({ noteData }) {
         </div>
       </div>
 
+      {audioError && (
+        <div className="mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-center gap-3">
+          <VolumeX className="w-5 h-5 flex-shrink-0" />
+          <span>Audio file is currently unavailable or still uploading, but you can read through the time-aligned text and vocabulary below.</span>
+        </div>
+      )}
+
       {/* Story Header */}
       <div className="glass-card p-6 mb-6 border border-white/10 bg-gradient-to-r from-dolphin-600/10 via-ocean-600/10 to-transparent">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -172,11 +198,17 @@ export default function KaraokeNoteReader({ noteData }) {
                 <span className="text-[10px] font-bold uppercase tracking-wider bg-dolphin-500 text-white px-2.5 py-0.5 rounded-full shadow-md">
                   🎵 Karaoke Note
                 </span>
-                <span className="badge badge-purple text-xs px-2.5 py-0.5">{story.subject}</span>
-                <span className="badge badge-blue text-xs px-2.5 py-0.5">{story.topic}</span>
+                {displaySubject && (
+                  <span className="badge badge-purple text-xs px-2.5 py-0.5">{displaySubject}</span>
+                )}
+                {displayTopic && (
+                  <span className="badge badge-blue text-xs px-2.5 py-0.5">{displayTopic}</span>
+                )}
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white">{story.title}</h1>
-              <p className="text-gray-400 text-sm italic mt-0.5">{story.englishTitle}</p>
+              {story.englishTitle && (
+                <p className="text-gray-400 text-sm italic mt-0.5">{story.englishTitle}</p>
+              )}
             </div>
           </div>
 
@@ -274,84 +306,100 @@ export default function KaraokeNoteReader({ noteData }) {
 
       {/* Karaoke Reading Text Container */}
       <div className="glass-card p-6 sm:p-10 border border-white/10 space-y-6">
-        {story.sentences.map((sentence, sIdx) => {
-          const isSentenceActive = sIdx === activeSentenceIndex;
+        {sentences.length === 0 ? (
+          <div className="text-center py-12 text-gray-400">
+            <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-30 text-dolphin-400" />
+            <p className="text-sm">No sentences found in this karaoke note.</p>
+          </div>
+        ) : (
+          sentences.map((sentence, sIdx) => {
+            const isSentenceActive = sIdx === activeSentenceIndex;
 
-          return (
-            <div
-              key={sIdx}
-              ref={isSentenceActive ? activeSentenceRef : null}
-              className={clsx(
-                'p-4 sm:p-5 rounded-2xl transition-all duration-300 relative',
-                isSentenceActive
-                  ? 'bg-dolphin-500/10 border border-dolphin-500/30 shadow-lg shadow-dolphin-950/40 scale-[1.01]'
-                  : 'hover:bg-white/[0.02] border border-transparent'
-              )}
-            >
-              {/* Spoken sentence index badge */}
-              <div className="flex items-center gap-2 mb-2">
-                <span className={clsx(
-                  'w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold',
+            return (
+              <div
+                key={sIdx}
+                ref={isSentenceActive ? activeSentenceRef : null}
+                className={clsx(
+                  'p-4 sm:p-5 rounded-2xl transition-all duration-300 relative',
                   isSentenceActive
-                    ? 'bg-dolphin-500 text-white'
-                    : 'bg-white/10 text-gray-400'
-                )}>
-                  {sIdx + 1}
-                </span>
-                {isSentenceActive && (
-                  <span className="text-[11px] font-semibold text-dolphin-400 animate-pulse">
-                    Currently Reading...
+                    ? 'bg-dolphin-500/10 border border-dolphin-500/30 shadow-lg shadow-dolphin-950/40 scale-[1.01]'
+                    : 'hover:bg-white/[0.02] border border-transparent'
+                )}
+              >
+                {/* Spoken sentence index badge */}
+                <div className="flex items-center gap-2 mb-2">
+                  <span className={clsx(
+                    'w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold',
+                    isSentenceActive
+                      ? 'bg-dolphin-500 text-white'
+                      : 'bg-white/10 text-gray-400'
+                  )}>
+                    {sIdx + 1}
                   </span>
+                  {isSentenceActive && (
+                    <span className="text-[11px] font-semibold text-dolphin-400 animate-pulse">
+                      Currently Reading...
+                    </span>
+                  )}
+                </div>
+
+                {/* Words with Live Karaoke Highlighting */}
+                <p className="text-lg sm:text-xl md:text-2xl leading-relaxed sm:leading-loose text-gray-300 font-medium">
+                  {(sentence.words || []).map((w, wIdx) => {
+                    const isWordActive =
+                      activeWord &&
+                      activeWord.sentenceIndex === sIdx &&
+                      activeWord.start === w.start;
+
+                    const isWordPast = currentTime > w.end;
+                    const rawVocab = story.vocab?.[w.clean];
+                    const vocabInfo = getVocabItemInfo(rawVocab);
+
+                    return (
+                      <span
+                        key={wIdx}
+                        onClick={() => jumpToWord(w.start)}
+                        onMouseEnter={() => {
+                          if (vocabInfo) {
+                            setHoveredVocab({
+                              word: w.clean,
+                              meaning: vocabInfo.meaning,
+                              type: vocabInfo.type,
+                            });
+                          }
+                        }}
+                        onMouseLeave={() => setHoveredVocab(null)}
+                        className={clsx(
+                          'inline-block px-1.5 py-0.5 rounded-lg mx-0.5 transition-all duration-150 cursor-pointer select-none relative group',
+                          isWordActive
+                            ? 'bg-gradient-to-r from-dolphin-500 to-ocean-500 text-white font-extrabold scale-110 shadow-lg shadow-dolphin-500/50 z-20'
+                            : isWordPast
+                            ? 'text-white'
+                            : 'text-gray-400 hover:text-gray-200 hover:bg-white/10'
+                        )}
+                        title={vocabInfo ? `Click to listen • Meaning: ${vocabInfo.meaning}${vocabInfo.type ? ` (${vocabInfo.type})` : ''}` : 'Click to listen from here'}
+                      >
+                        {w.word}
+
+                        {/* Small subtle dot if word has vocabulary tooltip */}
+                        {vocabInfo && !isWordActive && (
+                          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-amber-400 rounded-full opacity-60" />
+                        )}
+                      </span>
+                    );
+                  })}
+                </p>
+
+                {/* English Sentence Translation */}
+                {showTranslations && sentence.translation && (
+                  <p className="mt-2.5 text-xs sm:text-sm text-gray-500 italic pl-7 border-l-2 border-dolphin-500/30">
+                    {sentence.translation}
+                  </p>
                 )}
               </div>
-
-              {/* German Words with Live Karaoke Highlighting */}
-              <p className="text-lg sm:text-xl md:text-2xl leading-relaxed sm:leading-loose text-gray-300 font-medium">
-                {sentence.words.map((w, wIdx) => {
-                  const isWordActive =
-                    activeWord &&
-                    activeWord.sentenceIndex === sIdx &&
-                    activeWord.start === w.start;
-
-                  const isWordPast = currentTime > w.end;
-                  const vocabDefinition = story.vocab?.[w.clean];
-
-                  return (
-                    <span
-                      key={wIdx}
-                      onClick={() => jumpToWord(w.start)}
-                      onMouseEnter={() => vocabDefinition && setHoveredVocab({ word: w.clean, meaning: vocabDefinition })}
-                      onMouseLeave={() => setHoveredVocab(null)}
-                      className={clsx(
-                        'inline-block px-1.5 py-0.5 rounded-lg mx-0.5 transition-all duration-150 cursor-pointer select-none relative group',
-                        isWordActive
-                          ? 'bg-gradient-to-r from-dolphin-500 to-ocean-500 text-white font-extrabold scale-110 shadow-lg shadow-dolphin-500/50 z-20'
-                          : isWordPast
-                          ? 'text-white'
-                          : 'text-gray-400 hover:text-gray-200 hover:bg-white/10'
-                      )}
-                      title={vocabDefinition ? `Click to listen • Meaning: ${vocabDefinition}` : 'Click to listen from here'}
-                    >
-                      {w.word}
-
-                      {/* Small subtle dot if word has vocabulary tooltip */}
-                      {vocabDefinition && !isWordActive && (
-                        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-amber-400 rounded-full opacity-60" />
-                      )}
-                    </span>
-                  );
-                })}
-              </p>
-
-              {/* English Sentence Translation */}
-              {showTranslations && (
-                <p className="mt-2.5 text-xs sm:text-sm text-gray-500 italic pl-7 border-l-2 border-dolphin-500/30">
-                  {sentence.translation}
-                </p>
-              )}
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
 
       {/* Floating Vocabulary Tooltip (Bottom Bar) */}
@@ -359,24 +407,42 @@ export default function KaraokeNoteReader({ noteData }) {
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 glass-card px-5 py-2.5 border border-amber-500/40 rounded-full shadow-2xl flex items-center gap-3 animate-slide-up bg-gray-950/90">
           <span className="text-sm font-bold text-amber-300">{hoveredVocab.word}:</span>
           <span className="text-sm font-medium text-white">{hoveredVocab.meaning}</span>
+          {hoveredVocab.type && (
+            <span className="text-[10px] uppercase font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full">
+              {hoveredVocab.type}
+            </span>
+          )}
         </div>
       )}
 
       {/* Bottom Vocabulary List Card */}
-      <div className="mt-8 glass-card p-6 border border-white/10">
-        <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
-          <BookOpen className="w-4 h-4 text-dolphin-400" />
-          Story Vocabulary & Key Phrases
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
-          {Object.entries(story.vocab || {}).map(([de, en]) => (
-            <div key={de} className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-xs">
-              <span className="font-bold text-dolphin-300 block">{de}</span>
-              <span className="text-gray-400 block mt-0.5">{en}</span>
-            </div>
-          ))}
+      {story.vocab && typeof story.vocab === 'object' && Object.keys(story.vocab).length > 0 && (
+        <div className="mt-8 glass-card p-6 border border-white/10">
+          <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-dolphin-400" />
+            Story Vocabulary & Key Phrases
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
+            {Object.entries(story.vocab).map(([de, val]) => {
+              const info = getVocabItemInfo(val);
+              if (!info) return null;
+              return (
+                <div key={de} className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-xs">
+                  <div className="flex items-center justify-between gap-1 mb-0.5">
+                    <span className="font-bold text-dolphin-300 truncate">{de}</span>
+                    {info.type && (
+                      <span className="text-[9px] uppercase tracking-wider text-dolphin-400/80 bg-white/5 px-1.5 py-0.5 rounded flex-shrink-0 font-medium">
+                        {info.type}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-gray-400 block mt-0.5 break-words">{info.meaning}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
