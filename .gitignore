@@ -8,3 +8,4 @@ build/
 .env.production
 backend/package-lock.json
 frontend/package-lock.json
+sync_your_audio/
