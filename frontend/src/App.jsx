@@ -22,6 +22,7 @@ import FlashcardFormPage from './pages/FlashcardFormPage';
 import StudyPage from './pages/StudyPage';
 import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/AdminPage';
+import ActivityHistoryPage from './pages/ActivityHistoryPage';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -69,6 +70,9 @@ function AppRoutes() {
       <Route path="/admin" element={<ProtectedRoute roles={['admin']}><Layout><AdminPage /></Layout></ProtectedRoute>} />
 
       <Route path="/profile" element={<ProtectedRoute><Layout><ProfilePage /></Layout></ProtectedRoute>} />
+
+      <Route path="/activity" element={<ProtectedRoute><Layout><ActivityHistoryPage /></Layout></ProtectedRoute>} />
+      <Route path="/history" element={<Navigate to="/activity" replace />} />
 
       <Route path="*" element={
         <div className="min-h-screen flex items-center justify-center text-center">

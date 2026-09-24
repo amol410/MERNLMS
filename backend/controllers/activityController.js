@@ -5,14 +5,19 @@ const UserActivity = require('../models/UserActivity');
  * Helper: get the Monday (start) and Sunday (end) of the ISO week
  * containing the given Date object. Returns DATEONLY strings.
  */
-function getWeekBounds(date) {
-    const d = new Date(date);
-    // getDay(): 0=Sun…6=Sat — adjust so Monday is 0
-    const day = (d.getDay() + 6) % 7;
+function getWeekBounds(dateInput) {
+    let d;
+    if (typeof dateInput === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateInput)) {
+        const [y, m, day] = dateInput.split('-').map(Number);
+        d = new Date(Date.UTC(y, m - 1, day));
+    } else {
+        d = new Date(dateInput);
+    }
+    const day = (d.getUTCDay() + 6) % 7;
     const monday = new Date(d);
-    monday.setDate(d.getDate() - day);
+    monday.setUTCDate(d.getUTCDate() - day);
     const sunday = new Date(monday);
-    sunday.setDate(monday.getDate() + 6);
+    sunday.setUTCDate(monday.getUTCDate() + 6);
 
     const fmt = (dt) => dt.toISOString().split('T')[0];
     return { start: fmt(monday), end: fmt(sunday) };

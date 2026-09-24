@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   BookOpen, Video, Brain, Layers, Home, LogOut, User,
-  Menu, X, ChevronDown, Zap, ShieldCheck,
+  Menu, X, ChevronDown, Zap, ShieldCheck, BarChart2,
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -107,6 +107,14 @@ export default function Navbar() {
                       <User className="w-4 h-4" />
                       Profile Settings
                     </Link>
+                    <Link
+                      to="/activity"
+                      className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/8 transition-colors text-sm"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      <BarChart2 className="w-4 h-4 text-dolphin-400" />
+                      Activity History
+                    </Link>
                     {user?.role === 'admin' && (
                       <Link
                         to="/admin"
@@ -161,6 +169,21 @@ export default function Navbar() {
                 {label}
               </NavLink>
             ))}
+            <NavLink
+              to="/activity"
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) =>
+                clsx(
+                  'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all',
+                  isActive
+                    ? 'bg-dolphin-600/30 text-dolphin-300'
+                    : 'text-gray-400 hover:text-white hover:bg-white/8'
+                )
+              }
+            >
+              <BarChart2 className="w-4 h-4 text-dolphin-400" />
+              Activity History
+            </NavLink>
             {user?.role === 'admin' && (
               <NavLink
                 to="/admin"
