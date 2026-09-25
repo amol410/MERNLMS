@@ -362,13 +362,24 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     const time = audioRef.current.currentTime;
     setCurrentTime(time);
 
-    // Auto-pause at the end of sentence when in Sprechen (Speaking Practice) Mode
+    // Auto-pause at the end of sentence ONLY when in Sprechen (Speaking Practice) Mode
     if (isSprechenModeRef.current && isPlayingRef.current) {
       const effTime = Math.max(time + (timingOffsetRef.current || 0), 0);
       const sList = sentencesRef.current;
-      const currIdx = activeSentenceIndexRef.current >= 0
-        ? activeSentenceIndexRef.current
-        : sList.findIndex(s => effTime >= s.start && effTime < s.end);
+      if (!sList || sList.length === 0) return;
+
+      // Determine which sentence corresponds to current playback position
+      let currIdx = sList.findIndex(s => effTime >= s.start && effTime < s.end);
+
+      // If in a silent gap between sentences, find the most recently completed sentence
+      if (currIdx === -1) {
+        for (let i = sList.length - 1; i >= 0; i--) {
+          if (effTime >= sList[i].start) {
+            currIdx = i;
+            break;
+          }
+        }
+      }
 
       if (currIdx >= 0 && sList[currIdx]) {
         const sentence = sList[currIdx];
@@ -416,8 +427,20 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
 
   const jumpToWord = (wordStartTime) => {
     if (!audioRef.current) return;
+    cleanupListening();
     audioRef.current.currentTime = wordStartTime;
     setCurrentTime(wordStartTime);
+
+    // Prevent previous sentence from instantly re-triggering a pause
+    const sList = sentencesRef.current;
+    const targetIdx = sList.findIndex(s => wordStartTime >= s.start && wordStartTime <= s.end);
+    if (targetIdx >= 0) {
+      lastPausedSentenceRef.current = targetIdx - 1;
+      setSprechenSentenceIndex(null);
+      setSpeechResult(null);
+      setSpokenText('');
+    }
+
     if (!isPlaying) {
       audioRef.current.play().then(() => {
         setIsPlaying(true);
@@ -548,6 +571,10 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     };
 
     recognition.onerror = (event) => {
+      if (event.error === 'aborted') {
+        // Normal intentional stop, suppress warning
+        return;
+      }
       console.warn('Speech recognition status:', event.error);
       if (event.error === 'not-allowed') {
         toast.error('Microphone permission was denied. Please allow microphone access in your browser.');
@@ -608,7 +635,8 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     if (!audioRef.current || !sentences[sIdx]) return;
     cleanupListening();
     const targetSentence = sentences[sIdx];
-    lastPausedSentenceRef.current = -1;
+    // Mark previous sentence as already paused so it cannot re-trigger pause
+    lastPausedSentenceRef.current = sIdx - 1;
     audioRef.current.currentTime = targetSentence.start;
     setCurrentTime(targetSentence.start);
     setSprechenSentenceIndex(null);
@@ -616,8 +644,11 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     setSpokenText('');
     audioRef.current.play().then(() => {
       handleAudioPlay();
-    }).catch(() => {
-      setAudioError(true);
+    }).catch((err) => {
+      console.warn('Auto-play note:', err);
+      // If browser autoplay restrictions prevented immediate playback,
+      // still open the target sentence for practice
+      setSprechenSentenceIndex(sIdx);
     });
   };
 
@@ -632,6 +663,11 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
 
   const handleRestart = () => {
     if (!audioRef.current) return;
+    cleanupListening();
+    lastPausedSentenceRef.current = -1;
+    setSprechenSentenceIndex(null);
+    setSpeechResult(null);
+    setSpokenText('');
     audioRef.current.currentTime = 0;
     setCurrentTime(0);
     if (!isPlaying) {
