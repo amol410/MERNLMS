@@ -119,7 +119,7 @@ function generateKaraokePayload(title, storyText, translationText, duration, sub
   };
 }
 
-export default function KaraokeNoteModal({ isOpen, onClose }) {
+export default function KaraokeNoteModal({ isOpen, onClose, noteToEdit = null }) {
   const navigate = useNavigate();
   const { subjects } = useSubjects();
   const [mode, setMode] = useState('select'); // 'select' | 'karaoke-form'
