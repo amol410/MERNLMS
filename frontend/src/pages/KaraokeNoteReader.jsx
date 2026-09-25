@@ -4,7 +4,8 @@ import demoStory from '../data/demoKaraokeStory.json';
 import {
   Play, Pause, RotateCcw, Volume2, VolumeX, ChevronLeft,
   Music, Sparkles, BookOpen, Clock, Eye, EyeOff, Upload,
-  FileText, Download, Sliders, Link2
+  FileText, Download, Sliders, Link2,
+  Mic, MicOff, Check, CheckCircle2, Headphones, RefreshCw, XCircle, ChevronRight, Award
 } from 'lucide-react';
 import clsx from 'clsx';
 import api from '../api/axios';
@@ -16,6 +17,96 @@ function formatTime(secs) {
   const m = Math.floor(secs / 60);
   const s = Math.floor(secs % 60);
   return `${m}:${String(s).padStart(2, '0')}`;
+}
+
+// ─── Native Web Audio Chimes & German Pronunciation Evaluation Helpers ──────
+
+function playCelebrationSound() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 major chord arpeggio
+    freqs.forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.1);
+      gain.gain.setValueAtTime(0.18, ctx.currentTime + idx * 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.1 + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + idx * 0.1);
+      osc.stop(ctx.currentTime + idx * 0.1 + 0.4);
+    });
+  } catch (e) {}
+}
+
+function playRetrySound() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(329.63, ctx.currentTime);
+    osc.frequency.setValueAtTime(261.63, ctx.currentTime + 0.15);
+    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.3);
+  } catch (e) {}
+}
+
+function cleanGermanWords(text) {
+  return (text || '')
+    .toLowerCase()
+    .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»„“]/g, '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
+function isFuzzyGermanMatch(w1, w2) {
+  if (w1 === w2) return true;
+  if (Math.abs(w1.length - w2.length) <= 1) {
+    let diff = 0;
+    const minLen = Math.min(w1.length, w2.length);
+    for (let i = 0; i < minLen; i++) {
+      if (w1[i] !== w2[i]) diff++;
+    }
+    return diff <= 1;
+  }
+  return false;
+}
+
+function evaluatePronunciation(targetText, spokenText) {
+  const targetWords = cleanGermanWords(targetText);
+  const spokenWords = cleanGermanWords(spokenText);
+
+  if (targetWords.length === 0) return { accuracy: 100, isMatch: true, wordStatus: [] };
+  if (spokenWords.length === 0) return { accuracy: 0, isMatch: false, wordStatus: [] };
+
+  let matchCount = 0;
+  const wordStatus = targetWords.map((tWord) => {
+    const isMatched = spokenWords.some(sWord => isFuzzyGermanMatch(tWord, sWord));
+    if (isMatched) matchCount++;
+    return { word: tWord, matched: isMatched };
+  });
+
+  const accuracy = Math.round((matchCount / targetWords.length) * 100);
+  const isMatch = accuracy >= 75;
+
+  return {
+    accuracy,
+    isMatch,
+    wordStatus,
+    targetWords,
+    spokenWords,
+  };
 }
 
 // Safely normalize vocabulary definitions whether they are strings or { word, meaning, type } objects
@@ -61,7 +152,15 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(parseFloat(story.duration) || 42.35);
-  const [playbackRate, setPlaybackRate] = useState(1.0);
+
+  // Default to 0.75 pace if note is configured for Sprechen, otherwise 1.0
+  const defaultIsSprechen = Boolean(
+    story.isSprechen || 
+    story.karaokeData?.isSprechen || 
+    (typeof story.karaokeData === 'string' && story.karaokeData.includes('"isSprechen":true'))
+  );
+  const [isSprechenMode, setIsSprechenMode] = useState(defaultIsSprechen);
+  const [playbackRate, setPlaybackRate] = useState(() => (defaultIsSprechen ? 0.75 : 1.0));
   const [timingOffset, setTimingOffset] = useState(0); // Offset in seconds (-2.0 to +2.0)
   const [isMuted, setIsMuted] = useState(false);
   const [audioError, setAudioError] = useState(false);
@@ -70,6 +169,40 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
   const [currentAudioUrl, setCurrentAudioUrl] = useState(() => resolveAudioUrl(story.audioUrl));
   const [uploadingAudio, setUploadingAudio] = useState(false);
   const [importingJson, setImportingJson] = useState(false);
+
+  // ─── Sprechen Interactive Speaking State ─────────────────────────────────────
+  const [sprechenSentenceIndex, setSprechenSentenceIndex] = useState(null);
+  const [isListening, setIsListening] = useState(false);
+  const [spokenText, setSpokenText] = useState('');
+  const [speechResult, setSpeechResult] = useState(null);
+  const [sentenceChances, setSentenceChances] = useState({});
+  const [sentencePassed, setSentencePassed] = useState({});
+
+  const recognitionRef = useRef(null);
+  const lastPausedSentenceRef = useRef(-1);
+  const isSprechenModeRef = useRef(isSprechenMode);
+  const isPlayingRef = useRef(isPlaying);
+  const activeSentenceIndexRef = useRef(-1);
+  const sentencesRef = useRef([]);
+  const timingOffsetRef = useRef(timingOffset);
+
+  useEffect(() => {
+    isSprechenModeRef.current = isSprechenMode;
+  }, [isSprechenMode]);
+
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
+
+  useEffect(() => {
+    timingOffsetRef.current = timingOffset;
+  }, [timingOffset]);
+
+  useEffect(() => {
+    if (audioRef.current && defaultIsSprechen) {
+      audioRef.current.playbackRate = 0.75;
+    }
+  }, [defaultIsSprechen]);
 
   // ─── Dedicated Karaoke Listening & Practice Tracking ────────────────────────
   const listeningSecsRef = useRef(0);
@@ -197,6 +330,14 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     s => effectiveTime >= s.start && effectiveTime <= s.end + 0.3
   );
 
+  useEffect(() => {
+    activeSentenceIndexRef.current = activeSentenceIndex;
+  }, [activeSentenceIndex]);
+
+  useEffect(() => {
+    sentencesRef.current = sentences;
+  }, [sentences]);
+
   const activeWord = allWords.find(
     w => effectiveTime >= w.start && effectiveTime <= w.end
   );
@@ -213,8 +354,29 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
 
   // Audio time update handler
   const handleTimeUpdate = useCallback(() => {
-    if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime);
+    if (!audioRef.current) return;
+    const time = audioRef.current.currentTime;
+    setCurrentTime(time);
+
+    // Auto-pause at the end of sentence when in Sprechen (Speaking Practice) Mode
+    if (isSprechenModeRef.current && isPlayingRef.current) {
+      const effTime = Math.max(time + (timingOffsetRef.current || 0), 0);
+      const sList = sentencesRef.current;
+      const currIdx = activeSentenceIndexRef.current >= 0
+        ? activeSentenceIndexRef.current
+        : sList.findIndex(s => effTime >= s.start && effTime < s.end);
+
+      if (currIdx >= 0 && sList[currIdx]) {
+        const sentence = sList[currIdx];
+        if (effTime >= sentence.end) {
+          if (lastPausedSentenceRef.current !== currIdx) {
+            lastPausedSentenceRef.current = currIdx;
+            audioRef.current.pause();
+            handleAudioPause();
+            setSprechenSentenceIndex(currIdx);
+          }
+        }
+      }
     }
   }, []);
 
@@ -267,6 +429,136 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     if (audioRef.current) {
       audioRef.current.playbackRate = rate;
     }
+  };
+
+  // Speech recognition cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (recognitionRef.current) {
+        try { recognitionRef.current.abort(); } catch (e) {}
+      }
+    };
+  }, []);
+
+  const startListening = (targetSentenceText, sIdx) => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      toast.error('Voice recognition is not supported in this browser. Please use Google Chrome, Microsoft Edge, or Safari.');
+      return;
+    }
+
+    if (recognitionRef.current) {
+      try { recognitionRef.current.abort(); } catch (e) {}
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'de-DE'; // Native German language recognition
+    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognition.maxAlternatives = 1;
+
+    setIsListening(true);
+    setSpokenText('');
+
+    recognition.onresult = (event) => {
+      let interim = '';
+      let final = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          final += event.results[i][0].transcript;
+        } else {
+          interim += event.results[i][0].transcript;
+        }
+      }
+      const spoken = (final || interim).trim();
+      setSpokenText(spoken);
+
+      if (final) {
+        evaluateSentenceSpoken(targetSentenceText, final, sIdx);
+      }
+    };
+
+    recognition.onerror = (event) => {
+      console.warn('Speech recognition status:', event.error);
+      setIsListening(false);
+      if (event.error === 'not-allowed') {
+        toast.error('Microphone permission was denied. Please allow microphone access in your browser.');
+      } else if (event.error === 'no-speech') {
+        toast('No speech detected. Please speak clearly into your microphone.', { icon: '🎙️' });
+      }
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognitionRef.current = recognition;
+    try {
+      recognition.start();
+    } catch (err) {
+      console.error(err);
+      setIsListening(false);
+    }
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current) {
+      try { recognitionRef.current.stop(); } catch (e) {}
+    }
+    setIsListening(false);
+  };
+
+  const evaluateSentenceSpoken = (targetText, spoken, sIdx) => {
+    const result = evaluatePronunciation(targetText, spoken);
+    setSpeechResult(result);
+
+    const currentChances = sentenceChances[sIdx] !== undefined ? sentenceChances[sIdx] : 3;
+
+    if (result.isMatch) {
+      playCelebrationSound();
+      setSentencePassed(prev => ({ ...prev, [sIdx]: true }));
+      toast.success('Ausgezeichnet! Great pronunciation! 🎉');
+
+      setTimeout(() => {
+        if (sIdx + 1 < sentences.length) {
+          playSentence(sIdx + 1);
+        }
+      }, 1600);
+    } else {
+      playRetrySound();
+      const newChances = currentChances - 1;
+      setSentenceChances(prev => ({ ...prev, [sIdx]: newChances }));
+
+      if (newChances <= 0) {
+        toast.error('3 attempts completed. Let\'s move forward or listen again!', { duration: 3000 });
+      } else {
+        toast.error(`Not quite right (${result.accuracy}%). ${newChances} chance${newChances === 1 ? '' : 's'} remaining!`);
+      }
+    }
+  };
+
+  const playSentence = (sIdx) => {
+    if (!audioRef.current || !sentences[sIdx]) return;
+    const targetSentence = sentences[sIdx];
+    lastPausedSentenceRef.current = -1;
+    audioRef.current.currentTime = targetSentence.start;
+    setCurrentTime(targetSentence.start);
+    setSprechenSentenceIndex(null);
+    setSpeechResult(null);
+    setSpokenText('');
+    audioRef.current.play().then(() => {
+      handleAudioPlay();
+    }).catch(() => {
+      setAudioError(true);
+    });
+  };
+
+  const handleRestartSentencePractice = (sIdx) => {
+    setSentenceChances(prev => ({ ...prev, [sIdx]: 3 }));
+    setSentencePassed(prev => ({ ...prev, [sIdx]: false }));
+    setSpeechResult(null);
+    setSpokenText('');
+    playSentence(sIdx);
   };
 
   const handleRestart = () => {
@@ -537,6 +829,46 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
               <span>Link URL</span>
             </button>
           )}
+
+          {/* Mode Selector: Listening vs Sprechen (Speaking Practice) */}
+          <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/10">
+            <button
+              type="button"
+              onClick={() => {
+                setIsSprechenMode(false);
+                setSprechenSentenceIndex(null);
+                setSpeechResult(null);
+                setSpokenText('');
+              }}
+              className={clsx(
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer',
+                !isSprechenMode
+                  ? 'bg-dolphin-500 text-white shadow-md'
+                  : 'text-gray-400 hover:text-white'
+              )}
+              title="Continuous audio listening mode"
+            >
+              <Headphones className="w-3.5 h-3.5" />
+              <span>Listening</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsSprechenMode(true);
+                handleSpeedChange(0.75); // auto-set to 0.75 pace
+              }}
+              className={clsx(
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer',
+                isSprechenMode
+                  ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-md shadow-pink-900/40'
+                  : 'text-gray-400 hover:text-pink-300'
+              )}
+              title="Practice speaking after each sentence (auto-pauses at 0.75x)"
+            >
+              <Mic className="w-3.5 h-3.5" />
+              <span>Sprechen Practice</span>
+            </button>
+          </div>
 
           {/* Toggle Translations Button */}
           <button
@@ -828,11 +1160,193 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
                   })}
                 </p>
 
-                {/* English Sentence Translation */}
+                {/* English Sentence Translation (preserved below German sentence) */}
                 {showTranslations && sentence.translation && (
-                  <p className="mt-2.5 text-xs sm:text-sm text-gray-500 italic pl-7 border-l-2 border-dolphin-500/30">
+                  <p className="mt-2.5 text-xs sm:text-sm text-gray-400 italic pl-7 border-l-2 border-dolphin-500/30">
                     {sentence.translation}
                   </p>
+                )}
+
+                {/* Sprechen (Speaking Practice) Interactive Panel */}
+                {isSprechenMode && (
+                  <div className="mt-3.5 pt-3 border-t border-white/5">
+                    {sprechenSentenceIndex === sIdx ? (
+                      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-pink-950/40 via-purple-950/25 to-black/60 border border-pink-500/30 shadow-2xl backdrop-blur-md animate-fade-in">
+                        {/* Status bar: Chances left & Ausgezeichnet badge */}
+                        <div className="flex items-center justify-between gap-3 mb-3 pb-2.5 border-b border-white/10 flex-wrap">
+                          <div className="flex items-center gap-2">
+                            <div className="w-7 h-7 rounded-lg bg-pink-500/20 border border-pink-500/30 flex items-center justify-center">
+                              <Mic className="w-4 h-4 text-pink-400" />
+                            </div>
+                            <span className="text-xs font-bold text-white uppercase tracking-wider">
+                              Sprechen (Speaking Practice)
+                            </span>
+                            {Boolean(sentencePassed[sIdx]) && (
+                              <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                <CheckCircle2 className="w-3.5 h-3.5" /> Ausgezeichnet!
+                              </span>
+                            )}
+                          </div>
+
+                          {/* 3 Chances Indicator */}
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-gray-400 font-medium">Chances:</span>
+                            <div className="flex items-center gap-1">
+                              {[1, 2, 3].map(cIdx => {
+                                const chancesLeft = sentenceChances[sIdx] !== undefined ? sentenceChances[sIdx] : 3;
+                                const isAvailable = cIdx <= chancesLeft;
+                                return (
+                                  <div
+                                    key={cIdx}
+                                    className={clsx(
+                                      'w-2.5 h-2.5 rounded-full transition-all',
+                                      isAvailable
+                                        ? 'bg-pink-400 shadow-sm shadow-pink-400/50'
+                                        : 'bg-white/15'
+                                    )}
+                                    title={`Chance ${cIdx} of 3`}
+                                  />
+                                );
+                              })}
+                            </div>
+                            <span className="text-[11px] text-gray-400">
+                              ({(sentenceChances[sIdx] !== undefined ? sentenceChances[sIdx] : 3)} left)
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Pronunciation Target Words with Highlighted Feedback */}
+                        <div className="mb-4">
+                          <p className="text-xs text-gray-400 mb-1.5 font-medium">Pronounce this German sentence:</p>
+                          <div className="text-base sm:text-lg font-bold text-white flex flex-wrap gap-1.5 items-center">
+                            {speechResult?.wordStatus ? (
+                              speechResult.wordStatus.map((ws, i) => (
+                                <span
+                                  key={i}
+                                  className={clsx(
+                                    'px-2 py-0.5 rounded-lg text-sm sm:text-base transition-all font-semibold',
+                                    ws.matched
+                                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                                      : 'bg-amber-500/20 text-amber-300 border border-amber-500/40 line-through decoration-amber-400/60'
+                                  )}
+                                >
+                                  {ws.word}
+                                </span>
+                              ))
+                            ) : (
+                              <span className="text-white bg-white/5 px-2.5 py-1 rounded-lg border border-white/5">
+                                {sentence.text}
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Live Speech or Recorded Feedback */}
+                          {spokenText && (
+                            <div className="mt-2.5 text-xs text-gray-300 bg-white/5 p-2.5 rounded-xl border border-white/5 flex items-center justify-between gap-3 flex-wrap">
+                              <div>
+                                <span className="text-gray-400 font-medium">You said: </span>
+                                <span className="italic font-semibold text-pink-200">"{spokenText}"</span>
+                              </div>
+                              {speechResult && (
+                                <span className={clsx(
+                                  'font-bold px-2 py-0.5 rounded-full text-xs border',
+                                  speechResult.isMatch
+                                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                                    : 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                                )}>
+                                  {speechResult.accuracy}% Accuracy
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Sprechen Action Buttons */}
+                        <div className="flex items-center gap-2.5 flex-wrap">
+                          {/* Speak Button (Active while chances remain and not passed) */}
+                          {!Boolean(sentencePassed[sIdx]) && ((sentenceChances[sIdx] !== undefined ? sentenceChances[sIdx] : 3) > 0) && (
+                            <button
+                              type="button"
+                              onClick={() => isListening ? stopListening() : startListening(sentence.text, sIdx)}
+                              className={clsx(
+                                'px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-lg',
+                                isListening
+                                  ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse shadow-red-500/50'
+                                  : 'bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-pink-500/30 hover:scale-105'
+                              )}
+                            >
+                              {isListening ? (
+                                <>
+                                  <MicOff className="w-4 h-4 animate-bounce" />
+                                  <span>Listening... Click to Finish</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Mic className="w-4 h-4" />
+                                  <span>Click to Speak (Auf Deutsch)</span>
+                                </>
+                              )}
+                            </button>
+                          )}
+
+                          {/* Listen Again at 0.75x speed */}
+                          <button
+                            type="button"
+                            onClick={() => playSentence(sIdx)}
+                            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/10 flex items-center gap-1.5 transition-colors cursor-pointer"
+                            title="Listen to native audio for this sentence again"
+                          >
+                            <Volume2 className="w-3.5 h-3.5 text-dolphin-400" />
+                            <span>Listen Again (0.75x)</span>
+                          </button>
+
+                          {/* Practice Again button (Resets chances) */}
+                          <button
+                            type="button"
+                            onClick={() => handleRestartSentencePractice(sIdx)}
+                            className="px-3 py-2 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 flex items-center gap-1.5 transition-colors cursor-pointer"
+                            title="Reset chances and practice speaking again"
+                          >
+                            <RotateCcw className="w-3.5 h-3.5 text-pink-400" />
+                            <span>Practice Again</span>
+                          </button>
+
+                          {/* Next Sentence button */}
+                          {sIdx + 1 < sentences.length && (
+                            <button
+                              type="button"
+                              onClick={() => playSentence(sIdx + 1)}
+                              className="ml-auto px-4 py-2 rounded-xl text-xs font-semibold bg-dolphin-500/20 hover:bg-dolphin-500/30 text-dolphin-300 border border-dolphin-500/30 flex items-center gap-1.5 transition-colors cursor-pointer"
+                            >
+                              <span>Next Sentence</span>
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      /* Compact button when card is not the active speaking challenge */
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSprechenSentenceIndex(sIdx);
+                            setSpeechResult(null);
+                            setSpokenText('');
+                          }}
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-pink-500/10 hover:bg-pink-500/20 text-pink-300 border border-pink-500/20 transition-all cursor-pointer group"
+                        >
+                          <Mic className="w-3.5 h-3.5 group-hover:scale-110 transition-transform text-pink-400" />
+                          <span>Practice Speaking this Sentence</span>
+                        </button>
+                        {Boolean(sentencePassed[sIdx]) && (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400">
+                            <CheckCircle2 className="w-3.5 h-3.5" /> Ausgezeichnet (Passed)
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             );

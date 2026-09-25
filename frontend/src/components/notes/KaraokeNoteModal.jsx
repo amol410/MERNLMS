@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   X, BookOpen, Music, Sparkles, Upload, FileText, ArrowRight,
-  Loader2, CheckCircle, Download, AlertCircle
+  Loader2, CheckCircle, Download, AlertCircle, Mic
 } from 'lucide-react';
 import api from '../../api/axios';
 import toast from 'react-hot-toast';
@@ -136,6 +136,7 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
   const [jsonFile, setJsonFile] = useState(null);
   const [jsonFileName, setJsonFileName] = useState('');
   const [parsedKaraokeData, setParsedKaraokeData] = useState(null);
+  const [isSprechenMode, setIsSprechenMode] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const fileInputRef = useRef(null);
@@ -301,7 +302,10 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
         noteContent = storyText.trim();
       }
 
-      // 3. Create note in DB
+      // 3. Mark if Sprechen (Speaking Practice) mode is enabled
+      karaokeData.isSprechen = isSprechenMode;
+
+      // 4. Create note in DB
       const res = await api.post('/notes', {
         title: title.trim(),
         content: noteContent,
@@ -668,6 +672,32 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
                   </div>
                 </>
               )}
+
+              {/* Sprechen (Speaking Practice) Mode Option */}
+              <div className="p-3.5 rounded-xl bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-transparent border border-pink-500/25 flex items-center justify-between gap-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-pink-500/20 border border-pink-500/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Mic className="w-4 h-4 text-pink-400" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-white block">
+                      Sprechen (Speaking Practice) Mode
+                    </span>
+                    <p className="text-[11px] text-gray-400">
+                      Pauses audio after each sentence at 0.75x speed and checks student pronunciation with 3 chances.
+                    </p>
+                  </div>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                  <input
+                    type="checkbox"
+                    checked={isSprechenMode}
+                    onChange={(e) => setIsSprechenMode(e.target.checked)}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-500"></div>
+                </label>
+              </div>
 
               {/* Submit Buttons */}
               <div className="pt-2 flex items-center justify-end gap-3">
