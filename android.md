@@ -23,13 +23,13 @@
 | Feature Domain | Web LMS Status | Flutter Mobile Status | Synchronization Needed |
 |---|---|---|---|
 | **Authentication** | Login, Register, Profile, Password, Roles | Login, Register, Profile, Password | ✅ Parity achieved |
-| **Dashboard** | Stat cards, Today's Performance (countsOnly), Activity history | Stat cards, Recent Notes, Featured Quiz | ⚠️ Needs Today's Performance (`/api/activity/summary`) |
-| **Notes** | Richtext, DOCX, HTML slides, **Karaoke Audio Reader** | Richtext (`flutter_html`), DOCX, HTML slides (WebView) | 🔴 Needs **Karaoke Audio Reader & Sprechen Mode** |
-| **Quizzes** | MCQ, True/False, Code-MCQ, **Match the Pairs (`match_pairs`)**, **Quiz Review** | MCQ, True/False, Code (text) | 🔴 Needs **Match Pairs widget** & **Quiz Review screen** |
-| **Flashcards** | Decks, 3D flip card study, mastery score | Decks, flip card study, mastery score | ⚠️ Needs card-id progress alignment |
-| **Videos** | YouTube embeds, view count, tags | YouTube player in WebView | ⚠️ Video reload guard polish |
-| **Activity History**| `/activity` with localized Day categories & Daily hours | Not implemented | 🔴 Needs Activity History screen |
-| **Pagination** | 6-item pagination across lists | Single-page fetch | ⚠️ Needs pagination or infinite scroll |
+| **Dashboard** | Stat cards, Today's Performance (countsOnly), Activity history | Stat cards, Today's Performance Card, History link | ✅ Parity achieved (`/api/activity/summary`) |
+| **Notes** | Richtext, DOCX, HTML slides, **Karaoke Audio Reader** | Richtext, DOCX, HTML, **Karaoke Reader & Sprechen Mode** | ✅ Parity achieved (`audioplayers` & `speech_to_text`) |
+| **Quizzes** | MCQ, True/False, Code-MCQ, **Match the Pairs (`match-pairs`)**, **Quiz Review** | MCQ, Code, **MatchPairsWidget**, **QuizReviewScreen** | ✅ Parity achieved (`/quizzes/:id/review`) |
+| **Flashcards** | Decks, 3D flip card study, mastery score | Decks, flip card study, mastery score | ✅ Parity achieved |
+| **Videos** | YouTube embeds, view count, tags | YouTube player in WebView | ✅ Parity achieved |
+| **Activity History**| `/activity` with localized Day categories & Daily hours | `ActivityHistoryScreen` with Daily hours & Categories | ✅ Parity achieved (`/activity`) |
+| **Pagination** | 6-item pagination across lists | 6-item pagination across Notes & Quizzes | ✅ Parity achieved |
 
 ---
 
