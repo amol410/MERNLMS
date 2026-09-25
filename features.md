@@ -1,131 +1,156 @@
-# DolphinCoder LMS — Features Reference
+# DolphinCoder LMS — Comprehensive Features Reference
 
-## Platform & Branding
-- Rebranded from SpeedUpExam to **DolphinCoder** across navbar, dashboard, landing page, footer
-- Landing page with animated background orbs, feature cards (fixed duplicate icon bug), stats section, CTA
+A complete feature inventory and technical breakdown of the DolphinCoder Learning Management System (Web and Mobile).
 
 ---
 
-## Authentication
-- JWT-based login / register
-- Google login support
-- Role-based access: **student**, **trainer**, **admin**
-- Profile update, password change
-- Protected routes per role
+## 🐬 1. Platform & User Experience
+- **Brand Identity**: Rebranded from SpeedUpExam to **DolphinCoder** across the entire web application, mobile clients, headers, and metadata.
+- **Responsive Dark Theme**: Modern glassmorphism UI designed with deep ocean hues (`#0A0F1E`), gradient accents, and Tailwind CSS.
+- **Landing Page**: Animated background orbs, live stats section, interactive feature preview cards, and call-to-action flows.
+- **Role-Based Access Control (RBAC)**:
+  - `student`: Access to all published notes, videos, quizzes, flashcards, karaoke reading, and personal activity tracking.
+  - `trainer`: Full student permissions plus authoring, editing, deleting, and bulk-uploading content.
+  - `admin`: Full system access, user role promotion/demotion, account activation toggling, and administrative control.
 
 ---
 
-## Admin Panel
-- View all users with pagination
-- Toggle user active/inactive
-- Delete users
-- Create / update trainer accounts
+## 🎤 2. Interactive Karaoke Notes & Sprechen (Speaking Practice) Mode
+An immersive language-learning and audio-reading engine located at `/notes/karaoke/demo` and integrated into `/notes/:id`.
+
+### Audio-Text Synchronization
+- **Word-Level Timing**: Real-time highlighting of individual German words as native audio plays.
+- **Playback Tempo Controls**: Configurable playback speeds (0.75x default for Sprechen mode, 1.0x, and 1.25x).
+- **Real-Time Sync Offset Adjuster**: Interactive timing adjusters (-0.25s, 0s, +0.25s) allowing students to recalibrate audio/text sync dynamically for any device latency.
+- **Translations & Vocabulary**:
+  - English sentence translations rendered directly below each German sentence with a toggle visibility button.
+  - Interactive vocabulary words with inline tooltip popups showing word meanings, translations, and grammatical types.
+- **Database-Backed Audio Storage**:
+  - Audio files stored directly in MySQL (`karaoke_audios` table) as `LONGBLOB` data.
+  - Full HTTP 206 Partial Content range-seeking support (`/api/notes/audio/db/:id`), eliminating audio file loss on ephemeral or shared server filesystems.
+- **JSON Alignment Import & Export**:
+  - Built-in tool to download structured JSON templates.
+  - Seamless import mechanism that normalizes alignments while permanently preserving original audio stream bindings.
+
+### Sprechen (Speaking Practice) Mode
+- **Dual Mode Toggle**: One-click toggle between continuous **Listening Mode** (plays uninterrupted from start to finish) and **Sprechen Practice Mode** (guided sentence-by-sentence training).
+- **Sentence-Boundary Auto-Pause**:
+  - Audio plays the sentence at 0.75x speed and automatically pauses cleanly at the end of the sentence to open the speaking challenge.
+  - Synchronous boundary detection prevents race conditions or audio stalling across sentence transitions.
+- **Continuous Speech Recognition (`de-DE`)**:
+  - Web Speech API integration with `continuous: true`, allowing natural pauses between German words without premature microphone cutoffs.
+- **Dual Submission Mechanism**:
+  - **Trigger 1 (Automatic)**: Automatically submits and evaluates speech after **3 seconds of continuous silence**.
+  - **Trigger 2 (Manual)**: Prominent, vibrant **"Done Speaking (Check Now ✓)"** button allows instant submission without waiting.
+- **Pronunciation Evaluation Engine**:
+  - Word-level fuzzy matching algorithm evaluates German pronunciation against the target sentence.
+  - Live feedback shows matched words in green and mispronounced words in amber/strikethrough.
+  - Pass threshold set at **≥75% accuracy**.
+- **Interactive Audio & Visual Feedback**:
+  - **Celebration Chimes**: Synthesized C-major chord arpeggio via Web Audio API on successful pronunciation.
+  - **Retry Chimes**: Low harmonic tone on unsuccessful attempts.
+  - **3-Chance Counter**: Visual chance counter per sentence. Students have 3 attempts before being prompted to listen again or proceed.
+  - **Autoplay Handling**: Automatic progression to subsequent sentences with user-gesture fallback handling.
 
 ---
 
-## Notes
-- Rich text editor (Tiptap) with bold, italic, underline, headings, lists, code, blockquote, divider
-- **DOCX upload** — converts Word file to HTML note automatically (mammoth)
-- **HTML upload** — upload self-contained HTML+CSS+JS file, displayed as a **16:9 slide viewer** (PPT style)
-  - Fullscreen toggle button (bottom-right), switches to "Exit Fullscreen" when active
-- Note colors: default, blue, green, yellow, pink, purple
-- Pin / unpin notes
-- Tags with filter by tag
-- Filter by color
-- Search notes
-- Note detail page with color accent border
-- **Note cards** show bold title + thin color divider line only (no content preview — clean design)
-- Staff-only edit/delete controls (students cannot see edit/delete buttons)
-- `contentType` field: richtext / docx / html
-- DB column added via `alter: true` migration (see fix.md to revert back to `force: false`)
+## 📝 3. Rich Text, DOCX, and HTML Slide Notes
+- **Tiptap Rich Text Editor**: Heading levels (H1–H3), bold, italic, underline, blockquotes, ordered/unordered lists, code blocks, horizontal rules, and custom accent colors.
+- **DOCX Import**: Instant conversion of Microsoft Word documents into styled notes via server-side `mammoth` parsing.
+- **HTML Slide Viewer (16:9 Presentation Mode)**:
+  - Upload self-contained HTML/CSS/JS slide files.
+  - Embedded in an isolated sandboxed iframe (`allow-scripts`).
+  - Fullscreen toggle button for full-screen classroom presentation.
+- **Categorization & Filtering**:
+  - Color accents: Default, Blue, Green, Yellow, Pink, Purple.
+  - Pinning / unpinning important notes to the top of the list.
+  - Tagging system with tag-based filtering and instant search.
+- **6-Item Pagination**: Notes list renders with a 6-item pagination control for fast, organized browsing.
 
 ---
 
-## Videos
-- Embed YouTube videos
-- View count tracking
-- Tags, description
-- Search videos
-- Owner-only edit/delete controls
-- Staff can add, students can view
+## 🧠 4. Quizzes & Timed Assessments
+- **Diverse Question Types**:
+  1. **Multiple Choice (MCQ)**: Standard 4-option single-answer questions with explanations.
+  2. **True / False**: Quick concept validation questions.
+  3. **Code Snippet Questions (`code-mcq`)**: Syntax-highlighted code blocks in a 2×2 grid supporting Python, JavaScript, Java, SQL, C++, and PHP.
+  4. **Match the Pairs (`match_pairs`)**:
+     - Interactive side-by-side matching columns (Terms on left, Definitions on right).
+     - Drag-and-drop / click-to-pair interface with dynamic color-coded pairing tags.
+     - Supports `.docx` bulk upload formatting.
+- **Bulk Upload via .docx**:
+  - Upload formatted Word files to automatically generate full quizzes with questions, options, correct answers, and explanations.
+- **Exam-Taking Experience**:
+  - Sticky sidebar question navigator with status indicators:
+    - 🟣 Purple = Current question
+    - 🟢 Green = Answered
+    - 🟠 Orange = Marked for review
+    - ⚪ Gray = Unanswered
+  - **Mark for Review**: Flag questions to revisit before final submission.
+  - **Session-Preserved Countdown Timer**: Timer state saved in `sessionStorage`; page reloads do not reset the exam clock. Timer turns red when under 60 seconds.
+  - **Unanswered Warning**: Confirmation modal warns students if they attempt to submit with unanswered questions.
+- **Grading & Test Review**:
+  - Instant automated grading with score percentage, circular progress ring, and pass/fail indicators.
+  - **Dedicated Test Review Page (`/quizzes/:id/review`)**: Detailed post-submission review showing selected answers, correct answers, and full explanations.
+  - **Clean Attempt Replacement**: Retaking a quiz cleanly updates and archives attempt history without orphaned records.
+- **6-Item Pagination**: Quizzes list displays 6 items per page.
 
 ---
 
-## Quizzes
-- Multiple choice (MCQ) questions
-- True / False questions
-- **Code Snippet questions** (new type: `code-mcq`)
-  - 4 syntax-highlighted code options in 2×2 grid
-  - Language selector: Python, JavaScript, Java, SQL, C++, PHP
-  - Component isolated in `src/components/quiz/CodeSnippetQuestion.jsx` (easy rollback)
-- **Bulk upload via .docx** — format shown inline in the form, parses and creates quiz instantly
-- **Public / Private toggle** — styled toggle button (purple = public, gray = private)
-- **Delete quiz** button on edit page with confirmation alert
-- Passing score, time limit, shuffle questions settings
-- Auto-graded with instant feedback and explanations after submission
-- Score percentage with circular progress ring on results page
-- Detailed question review after submission
-- Retake quiz option
-- Staff see their own unpublished quizzes in the list
-- Owner-only edit controls with loose equality ID comparison
+## 🃏 5. Flashcards & Spaced Learning
+- **Deck Management**: Create and categorize flashcard decks with multi-stop gradient themes and subject associations.
+- **Interactive 3D Study Mode**:
+  - Realistic card flip animation with front (question/prompt) and back (answer/explanation).
+  - Hint button on each card that **automatically resets** when navigating between cards.
+  - Self-assessment ratings: **"Got It"** (marked as mastered) vs. **"Still Learning"**.
+- **Progress & Mastery Tracking**:
+  - Student progress saved per deck in the database.
+  - Completion summary screen showing mastery percentage and circular score rings.
+- **Bulk Upload via .docx**: Upload structured Word documents to populate entire decks instantly.
+- **6-Item Pagination**: Flashcard decks list displays 6 items per page.
 
 ---
 
-## Quiz Taking Experience
-- **Right sidebar** with question navigator (4-per-row grid, sticky)
-  - Purple = current question
-  - Green = answered
-  - Orange = marked for review
-  - Gray = not answered
-- **Mark for Review** button on each question (orange flag, toggleable)
-- Submit button in sidebar as well as bottom nav
-- Previous / Next navigation
-- Countdown timer (turns red under 60 seconds)
-- Progress bar
-- Confirm dialog if submitting with unanswered questions
+## 📊 6. Activity & Performance Analytics
+A comprehensive engagement tracking suite connecting student study habits to actionable metrics.
+
+### Dashboard Today's Performance
+- **High-Performance Query**: Lightweight, counts-only backend endpoint (`/api/activity/summary?countsOnly=true`) that queries completed notes, quizzes, and flashcards in milliseconds.
+- **Clean Overview**: Displays clear count badges and study milestones directly on the student dashboard without loading heavy historical tables.
+
+### Dedicated Activity History Page (`/activity`)
+- **Calendar-Day Categorization**:
+  - Aggregates activity into distinct daily cards: **Today**, **Yesterday**, **Day Before Yesterday (Day of Week)**, and full weekly breakdowns.
+  - Visual color-coded Day Category badges.
+- **Daily Study Time Tracking**:
+  - Displays total accumulated study time (hours and minutes) on the right side of every daily section header.
+  - Accurately tracks active reading time, quiz time, and flashcard practice time.
+- **Karaoke Engagement Integration**:
+  - Tracks both active listening time and speaking practice time in seconds, logging sessions directly to `user_activities`.
+- **Timezone Awareness**:
+  - Accurately accounts for client local timezones so activities completed after UTC midnight are correctly assigned to the user's local calendar day.
 
 ---
 
-## Flashcards
-- Create decks with cards (front, back, hint)
-- **Bulk upload via .docx** — format: DECK_NAME, DESCRIPTION, COLOR, Q:/A:/HINT: blocks
-- **Public / Private toggle** — green styled toggle (same as quiz)
-- **Delete deck** button on edit page with confirmation alert
-- Deck colors: default, blue, green, yellow, pink, purple — rich multi-stop gradients
-- Deck cards: large emoji, card count in header, decorative circles, bold title
-- Study mode with flip animation
-- Hint button on each card — **resets when navigating to next/prev card** (bug fixed)
-- Self-rating: "Got It" (known) / "Still Learning" (unknown)
-- Progress saved per student per deck
-- Completion screen with mastery percentage and progress bar
-- Owner-only edit controls
+## 📚 7. Subjects & Topics Architecture
+- **Relational Data Model**:
+  - Dedicated `Subject` and `Topic` Sequelize models linked to Notes and Quizzes.
+- **Unified UI Selectors**:
+  - Subject and Topic dropdown filters available across Notes and Quiz lists.
+  - Content creation modals include hierarchical Subject → Topic selection.
 
 ---
 
-## Backend Architecture
-- **Express.js** REST API
-- **Sequelize ORM** with MySQL (Hostinger)
-- `_id` virtual getter on all models for frontend compatibility
-- `associations.js` centralizes all Sequelize `belongsTo` relationships
-- `reshape()` helpers in each controller convert association aliases to match frontend expectations
-- `trust proxy` set for rate limiter behind reverse proxy
-- JWT authentication middleware using `findByPk`
-- Multer memory storage for file uploads (notes, quiz, flashcard)
-- Mammoth for DOCX → HTML conversion
-- **highlight.js** for code syntax highlighting (frontend)
-- Role-based authorization middleware
+## 🎬 8. YouTube Video Library
+- Embed and organize YouTube educational videos.
+- Automatic 11-character video ID extraction from standard, short, or embed URLs.
+- View count tracking and search by title or tag.
 
 ---
 
-## Production (Hostinger)
-- Node.js at `/opt/alt/alt-nodejs20/root/usr/bin/node`
-- PM2 process manager via `ecosystem.config.js`
-- `.env` created from `.env.example`
-- Admin role fixed via `fixAdmin.js` utility script
-- `seedAdmin.js` for seeding initial admin user
-
----
-
-## Pending / To Do
-- Revert `alter: true` back to `force: false` in `backend/config/database.js` after confirming notes DOCX/HTML upload works in production (see `fix.md`)
-- Android app API — backend is already REST API ready, same endpoints usable with Bearer token auth
+## 📱 9. Mobile Application (Flutter Companion)
+- **Codebase**: Located in `app/dolphincoder/`.
+- **Architecture**: Flutter 3, Dart, Riverpod 2 (`StateNotifier`), GoRouter navigation, Dio HTTP client with JWT interceptor.
+- **Theme**: Dark Material 3 theme with Google Fonts (*Plus Jakarta Sans* & *Inter*).
+- **Core Screens**: Authentication (Splash, Login, Register, Profile), Dashboard with greeting and quick links, Notes list/detail, Quiz list/taker, and Flashcard study.
+- **Upcoming Parity Roadmap**: Integration of Karaoke Reader, Match the Pairs questions, dedicated test review screen, and daily activity tracking.

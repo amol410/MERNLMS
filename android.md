@@ -1,299 +1,150 @@
-# android.md — Agent Context for the Flutter Mobile App
+# android.md — Agent Context & Synchronization Guide for the Flutter Mobile App
 
-> **Purpose:** Onboarding context for coding agents (and humans) working in
-> `app/dolphincoder/` (the Flutter app; the `android/` folder holds only planning docs —
-> see §8). Documents what exists, how it is wired, which conventions to follow, which
-> parts are logically broken, and the improvement backlog. Analysis only — no code was
-> changed. Verified against the source on 2026-08-29.
+> **Purpose:** Comprehensive onboarding and technical specification for coding agents and engineers working in
+> `app/dolphincoder/` (the Flutter mobile client for Android and iOS).
+> Documents existing architecture, Riverpod state models, navigation, network client, and the roadmap
+> for synchronizing mobile features with the latest web releases.
+> Verified against active source on 2026-09-26.
 >
 > **Rules of engagement for agents:**
-> 1. The app is a **read-only student companion** to the API in `backend/` (which is
->    MySQL + Sequelize — see `backend.md`). Content creation lives on the web
->    (`frontend.md`); every screen here consumes the same REST endpoints.
-> 2. State is **Riverpod 2** with hand-written `StateNotifier`s (no codegen, despite
->    codegen packages in pubspec — see §5.8). Match the existing provider patterns.
-> 3. Navigation is **go_router** with a token-check redirect; auth data lives in
->    `flutter_secure_storage` (token) + `SharedPreferences` (user JSON). Do not move
->    the token into SharedPreferences.
+> 1. The mobile app is located in `app/dolphincoder/` (the root `android/` directory contains legacy planning artifacts).
+> 2. State management is **Riverpod 2** using hand-written `StateNotifier`s and `FutureProvider.family`.
+> 3. Navigation is **GoRouter** with token-checking redirects. Session tokens live in `flutter_secure_storage` (`tokenKey`), while user data JSON lives in `SharedPreferences` (`userDataKey`).
+> 4. Do NOT modify any Flutter code until instructed. Update documentation first.
 
 ---
 
-## 1. What this is
+## 1. What This Is
 
-**DolphinCoder** mobile app (`pubspec` name: `dolphincoder`, v1.0.0+2) — a dark-themed
-Material 3 student client for the LMS. Features:
+**DolphinCoder Mobile Client** (`pubspec` package: `dolphincoder`, v1.0.0+2) — A native, dark-themed Material 3 mobile application for Android (SDK 23+) and iOS, serving as the student companion for [dolphincoder.com](https://dolphincoder.com).
 
-| Feature | Screens | Mutations supported? |
-|---|---|---|
-| Auth | splash (animated), onboarding, login, register | login / register / logout / update profile / change password |
-| Dashboard | greeting, stat cards, recent notes, featured quiz, latest video, deck shortcuts | read-only (watches the list providers) |
-| Notes | grid list (search + subject/topic chips), detail | read-only |
-| Videos | grid list (search), detail (YouTube via WebView) | read-only |
-| Quizzes | list (search + subject chips + infinite scroll), detail (rules + past attempts), take (timer, navigator sheet, flag-for-review), result (score ring + answer review) | submit attempt |
-| Flashcards | deck grid, study session (flip cards, know/still-learning, progress ring) | save progress |
-| Profile | profile, edit profile, change password, settings | name/bio, password |
+### Feature Comparison Matrix (Web vs Mobile Status)
 
-Not implemented (deliberately, so far): content creation/editing, quiz review from past
-attempts, flashcard deck detail page (list goes straight into study), notifications,
-localization, light theme.
+| Feature Domain | Web LMS Status | Flutter Mobile Status | Synchronization Needed |
+|---|---|---|---|
+| **Authentication** | Login, Register, Profile, Password, Roles | Login, Register, Profile, Password | ✅ Parity achieved |
+| **Dashboard** | Stat cards, Today's Performance (countsOnly), Activity history | Stat cards, Recent Notes, Featured Quiz | ⚠️ Needs Today's Performance (`/api/activity/summary`) |
+| **Notes** | Richtext, DOCX, HTML slides, **Karaoke Audio Reader** | Richtext (`flutter_html`), DOCX, HTML slides (WebView) | 🔴 Needs **Karaoke Audio Reader & Sprechen Mode** |
+| **Quizzes** | MCQ, True/False, Code-MCQ, **Match the Pairs (`match_pairs`)**, **Quiz Review** | MCQ, True/False, Code (text) | 🔴 Needs **Match Pairs widget** & **Quiz Review screen** |
+| **Flashcards** | Decks, 3D flip card study, mastery score | Decks, flip card study, mastery score | ⚠️ Needs card-id progress alignment |
+| **Videos** | YouTube embeds, view count, tags | YouTube player in WebView | ⚠️ Video reload guard polish |
+| **Activity History**| `/activity` with localized Day categories & Daily hours | Not implemented | 🔴 Needs Activity History screen |
+| **Pagination** | 6-item pagination across lists | Single-page fetch | ⚠️ Needs pagination or infinite scroll |
 
-## 2. Run & build
+---
+
+## 2. Run & Build
 
 ```bash
 cd app/dolphincoder
 flutter pub get
-flutter run                    # debug — talks to https://dolphincoder.com/api (see §5.1!)
-flutter build apk --release    # pretty_dio_logger is skipped in release (JWT protection)
+flutter run                    # Debug mode (defaults to https://dolphincoder.com/api)
+flutter build apk --release    # Production Android APK
+flutter build appbundle        # Production Google Play App Bundle
 ```
 
-- **API base URL:** `lib/core/constants/api_constants.dart` — `defaultBaseUrl =
-  'https://dolphincoder.com/api'` (the **web** domain) is the only URL ever used;
-  `productionBaseUrl = 'https://api.dolphincoder.com/api'` is declared but dead (§5.1).
-  Pointing at the right host is a one-line change **plus** wiring `getBaseUrl()`.
-- Min SDK 23, launcher icons configured via `flutter_launcher_icons` (assets from
-  `assets/images/logo.png`), adaptive icon background `#0A0F1E`.
+- **API Base URL**: `lib/core/constants/api_constants.dart`.
+  - Default URL is `https://dolphincoder.com/api` (relies on web reverse proxy to backend port 5000).
+  - Production direct URL is `https://api.dolphincoder.com/api`.
+  - For local Android emulator testing, point to `http://10.0.2.2:5000/api`.
 
-## 3. Directory map
+---
+
+## 3. Directory Map
 
 ```
 app/dolphincoder/
 ├── pubspec.yaml
 ├── lib/
-│   ├── main.dart                   # ProviderScope + runApp
-│   ├── app.dart                    # MaterialApp.router(theme: AppTheme.dark)
+│   ├── main.dart                      # ProviderScope initialization & runApp
+│   ├── app.dart                       # MaterialApp.router with AppTheme.dark
 │   ├── core/
-│   │   ├── constants/api_constants.dart   # endpoints + base URL logic (§5.1)
-│   │   ├── constants/app_constants.dart   # storage keys, app name/version
-│   │   ├── network/dio_client.dart        # Dio singleton, auth interceptor, handleError
-│   │   ├── network/api_exception.dart
-│   │   ├── router/app_router.dart         # GoRouter: splash/onboarding/auth + ShellRoute tabs
-│   │   ├── theme/app_colors.dart          # palette, gradients, noteColorFromString, deckGradientFromString
-│   │   ├── theme/app_theme.dart           # M3 dark theme, Plus Jakarta Sans + Inter
-│   │   └── utils/validators.dart          # email/password/strength helpers
+│   │   ├── constants/
+│   │   │   ├── api_constants.dart     # Endpoint URLs and base domain configuration
+│   │   │   └── app_constants.dart     # Storage keys (tokenKey, userDataKey)
+│   │   ├── network/
+│   │   │   ├── dio_client.dart        # Dio singleton with JWT Bearer interceptor & error handling
+│   │   │   └── api_exception.dart     # Custom exception mapping status codes to UI messages
+│   │   ├── router/
+│   │   │   └── app_router.dart        # GoRouter: ShellRoute for bottom navigation tabs & auth redirects
+│   │   ├── theme/
+│   │   │   ├── app_colors.dart        # Deep ocean `#0A0F1E`, gradient accents, note & deck colors
+│   │   │   └── app_theme.dart         # Material 3 dark theme, Google Fonts (Plus Jakarta Sans + Inter)
+│   │   └── utils/
+│   │       └── validators.dart        # Email, password strength, and field validators
 │   ├── features/
-│   │   ├── auth/         # splash, onboarding, login, register + auth_provider + auth_repository
-│   │   ├── dashboard/    # dashboard_screen (aggregates all list providers)
-│   │   ├── notes/        # models / notes_repository / notes_provider / notes+detail screens
-│   │   ├── videos/       # same layering; detail plays YouTube in a WebView
-│   │   ├── quizzes/      # quiz_model (quiz/question/attempt), repo, providers, 4 screens
-│   │   ├── flashcards/   # deck/card models, repo, providers, deck grid + study screen
-│   │   └── profile/      # profile, edit profile, change password, settings
-│   └── shared/widgets/   # glass_card, gradient_button, shimmer_loader, empty_state,
-│                         # subject_badge (+TopicBadge), app_text_field, bottom_nav
-└── (repo-root android/ folder is planning docs only — §8)
+│   │   ├── auth/                      # Splash, Onboarding, Login, Register + AuthProvider & Repository
+│   │   ├── dashboard/                 # Dashboard screen with greetings, stats, and quick links
+│   │   ├── notes/                     # NoteModel, NotesRepository, NotesProvider, NotesScreen, NoteDetailScreen
+│   │   ├── videos/                    # VideoModel, VideosRepository, VideosScreen, VideoDetailScreen (WebView)
+│   │   ├── quizzes/                   # QuizModel, QuizTakeScreen, QuizResultScreen, providers & repo
+│   │   ├── flashcards/                # FlashcardModel, DecksScreen, StudyScreen, providers & repo
+│   │   └── profile/                   # ProfileScreen, EditProfileScreen, ChangePasswordScreen, SettingsScreen
+│   └── shared/
+│       └── widgets/
+│           ├── app_text_field.dart    # Styled input with prefix icon and validator
+│           ├── bottom_nav.dart        # Custom 5-tab floating bottom navigation bar
+│           ├── empty_state.dart       # Empty list placeholders with emojis and action buttons
+│           ├── glass_card.dart        # Frosted glass container with border gradients
+│           ├── gradient_button.dart   # Primary button with loading indicator
+│           ├── shimmer_loader.dart    # Shimmer placeholder animations for loading lists
+│           └── subject_badge.dart     # Color-coded Subject and Topic chips
 ```
-
-## 4. Architecture & conventions (follow these)
-
-### 4.1 Data layering
-Every feature follows the same three-file layering:
-- `data/models/<x>_model.dart` — hand-written `fromJson` classes. Tolerant parsing
-  conventions: ids via `json['_id']?.toString() ?? ''` (backend exposes the virtual
-  `_id`), list payloads via `data is List ? data : (data['<key>'] ?? data['data'] ?? [])`
-  because the API envelope varies per controller.
-- `data/<x>_repository.dart` — thin Dio wrappers; every method does
-  `final dio = await DioClient.getInstance()` then wraps errors with
-  `throw DioClient.handleError(e)`.
-- `providers/<x>_provider.dart` — Riverpod providers. **List providers are plain (not
-  autoDispose) `StateNotifier`s that self-fetch in their constructor**; the Dashboard
-  relies on that (it just `ref.watch`es them and the data is already there). Detail
-  providers are `FutureProvider.family`.
-
-### 4.2 Networking
-`DioClient` is a lazily-created static singleton: 15s timeouts, JSON content type, and an
-interceptor that reads the token from secure storage **per request** and attaches
-`Authorization: Bearer`. On 401 it deletes the stored token and lets the router's
-redirect handle navigation on the next transition (it does not navigate itself).
-`PrettyDioLogger` is added only when `!kReleaseMode` so JWTs are never logged in release
-builds — preserve that guard. `DioClient.handleError` maps Dio errors to
-`ApiException(message, statusCode)`; screens catch `ApiException` for snackbars.
-
-### 4.3 Navigation
-`app_router.dart`:
-- `redirect` reads the token; no token + protected route → `/login`; token + auth route → `/home`.
-- A `ShellRoute` hosts the bottom-nav tabs (home, notes, quizzes, flashcards, profile)
-  with subroutes (detail/take/study/edit screens) inside the shell; `/videos` and
-  `/settings` are top-level (no bottom nav).
-- Quiz results are passed **both** via `extra` and via `quizResultProvider(quizId)` (a
-  `StateProvider.family` set just before `context.pushReplacement`) because `extra`
-  through ShellRoute child transitions proved unreliable — the result screen prefers the
-  provider and falls back to `extra`. Keep both paths when refactoring.
-
-### 4.4 Session storage
-`auth_repository._saveSession`: token → `flutter_secure_storage` (`AppConstants.tokenKey`),
-user JSON → `SharedPreferences` (`userDataKey`). `AuthProvider` loads the cached user
-from prefs synchronously at construction so the UI never flashes unauthenticated.
-Logout deletes both and `DioClient.reset()` is *not* called — the singleton keeps the
-old base URL only (harmless today because the URL is hardcoded, §5.1).
-
-### 4.5 Styling
-- `AppTheme.dark` (Material 3) + `AppColors` (background `#0A0F1E`, surface, primary
-  gradient, note color mapper, deck gradient mapper). Google Fonts: Plus Jakarta Sans for
-  headings, Inter for body — prefer the `GoogleFonts.*` calls used in existing screens
-  over raw `TextStyle`.
-- Shared widgets to reuse instead of rebuilding: `GlassCard`, `GradientButton`
-  (has `isLoading` + `icon`), `ShimmerListLoader` / `ShimmerGridLoader` / `ShimmerCard`,
-  `EmptyState` (emoji + optional action), `SubjectBadge` / `TopicBadge`, `AppTextField`
-  (label + validator + prefix icon), `BottomNav`.
-- Loading pattern: list screens show shimmer while `isLoading`; detail screens use
-  `async.when(...)` with a Retry button that `ref.invalidate(...)`s the provider.
-
-## 5. Verified bugs & logical issues
-
-### 5.1 CRITICAL — base URL points at the web frontend domain
-`api_constants.dart`: `defaultBaseUrl = 'https://dolphincoder.com/api'` while the API
-actually lives at `https://api.dolphincoder.com/api` (that constant exists as
-`productionBaseUrl` but `getBaseUrl()` ignores it *and* ignores the stored preference —
-it always returns `defaultBaseUrl`). This only works if the web domain proxies `/api`.
-Meanwhile the Settings screen lets users edit "API Base URL" and saves it to
-`SharedPreferences` (`settings_screen.dart:_editApiUrl`) — a **dead setting** the app
-silently ignores. Fix: make `getBaseUrl()` return the stored pref ?? `productionBaseUrl`,
-and have `DioClient.reset()` + app restart messaging stay as is.
-
-### 5.2 CRITICAL — flashcard progress collapses (same root cause as web)
-`Flashcard.fromJson` reads `json['_id']` per card, but backend cards are stored as
-`{ front, back, hint }` with **no id** (`backend/controllers/flashcardController.js:220`),
-so `card.id` is `''` for every card. `study_screen.dart` calls
-`rate(card.id, 'known' | 'unknown', total)` → all ratings collapse onto the single `''`
-key in `cardResults`; `masteredCount` can never exceed 1 and `POST /flashcards/:id/progress`
-saves `{ '': 'known' }`. Fix together with the backend (assign stable card ids) and the
-same fix in `frontend/src/pages/StudyPage.jsx`.
-
-### 5.3 Video player reloads on every rebuild
-`video_detail_screen.dart`: `_loadVideo(video.youtubeVideoId)` is called **inside the
-`data:` build branch**, and the WebView's `onPageFinished` calls `setState` → rebuild →
-`data:` branch → `_loadVideo` again. The player keeps reloading/restarting itself
-(audio restarts, page flashes). Fix: load once in `initState`-like flow (e.g. react to the
-future completing once with a `bool _loaded` guard) and keep `setState` for the loader only.
-
-### 5.4 Quiz shuffle flag reads a nonexistent field
-`QuizModel.fromJson` reads `json['shuffle']`, but the backend model field is
-`shuffleQuestions` (`backend/models/Quiz.js`) — `quiz_detail_screen.dart` therefore always
-shows "Shuffle: No". Also note `difficulty` is **derived client-side from question count**
-(Easy ≤5, Medium ≤15, Hard >15), not a real backend field; and the detail screen
-hard-codes "You can retake this quiz anytime" while the backend's `attemptLimit` is never
-surfaced anywhere.
-
-### 5.5 Quiz take screen edge cases
-- `quiz.questions[qState.currentIndex]` throws a `RangeError` if a quiz has zero
-  questions (backend allows empty question arrays in edge cases).
-- The `code`/`language` fields are parsed by `QuizQuestion` but **never rendered** —
-  code-MCQ questions display as plain text + options (matching the web's rollback state).
-- Timer: `secondsRemaining / (quiz.timeLimit * 60)` can exceed 1.0 briefly; auto-submit
-  fires at `<= 1` second. Client timing only — the backend doesn't enforce limits either
-  (see `backend.md` §5.4), so "auto-submit when time runs out" is advisory.
-- After submission the result screen reads `quizResultProvider`, which is **not
-  autoDispose** — retaking the same quiz overwrites it (fine), but leaving the screen
-  keeps stale data in memory.
-
-### 5.6 Session/token handling gaps
-- `changePassword` (`auth_repository.dart:63-70`) **discards the rotated token** the
-  backend returns from `PUT /auth/password`; the old token stays in secure storage.
-  Harmless while the backend doesn't invalidate old JWTs, but the day it does, password
-  changes will log users out unexpectedly. Save the new token like login/register do.
-- 401 handling deletes the token but the user stays on the current screen until the next
-  navigation triggers the router redirect — API errors meanwhile surface as generic
-  failed requests. Consider broadcasting a logout event instead.
-- `AuthProvider` never revalidates the cached user with `GET /auth/me`, so role/name
-  changes made on the web don't appear until the user logs in again.
-
-### 5.7 Dashboard accuracy
-Stat cards use `notesState.notes.length` / `videos.length` / `quizzes.length` /
-`decks.length` — i.e. **page-size-capped counts (12)** presented as totals, and "Recent
-Notes" is just the first 5 items of page 1 (the API list order is newest-first, so that
-part is right). "Featured Quiz" is simply `quizzes.first`. Fine as a placeholder; don't
-present these numbers as real analytics. Profile screen stats are hard-coded `'0'`.
-
-### 5.8 Dead weight & minor issues
-- **Unused dependencies** (declared in pubspec, never imported in `lib/`):
-  `image_picker`, `permission_handler`, `riverpod_annotation`, `freezed_annotation`,
-  `freezed`, `json_serializable`, `equatable`, `build_runner`/`riverpod_generator` tooling,
-  `flutter_animate`. All models are hand-written; no `.g.dart` files exist. Either adopt
-  codegen or prune the pubspec.
-- Onboarding shows on **every launch** for logged-out users (no "seen" flag persisted).
-- Login's "Forgot Password?" button has no handler (dead); there is no backend endpoint
-  for it either.
-- Edit Profile's "Change Photo" is a dead button (`onPressed: () {}`) even though the
-  backend `PUT /auth/profile` accepts `avatar` and the User model has the column.
-- `subjectsProvider` is defined inside `notes/screens/notes_screen.dart` and imported
-  cross-feature by `quizzes_screen.dart` — move it to a shared location when touched.
-- Search "debounce" schedules a `Future.delayed(400ms)` per keystroke and checks
-  `text == q` after — works but stacks timers; a `Timer`-based debounce would be cleaner.
-- `saveProgress` in `flashcard_repository.dart` swallows all errors silently
-  ("non-critical") — students lose progress with zero feedback.
-- `QuizTakeNotifier.unansweredCount` getter hard-returns 0 (computed externally in the
-  screen); dead API surface.
-- `WillPopScope` (study screen) is deprecated in favor of `PopScope` on newer Flutter.
-
-## 6. Feature inventory & logical-correctness verdicts
-
-| Feature | Verdict | Notes |
-|---|---|---|
-| Splash/onboarding/login/register | ✅ sound | 5-phase splash (~2.2s) then token check → /home or /onboarding. Register has password-strength meter. Onboarding repeats every launch (§5.8). |
-| Session persistence | ✅ sound core | Secure storage + prefs split is right; changePassword token rotation gap (§5.6). |
-| Dashboard | ⚠ placeholder metrics | Works via self-fetching providers; counts capped at page size (§5.7). |
-| Notes browse/detail | ✅ sound | richtext/docx render via `flutter_html`; `html` contentType renders in a WebView with **unrestricted JS** + fullscreen route — trainer-authored content is trusted; keep it that way or sandbox it. |
-| Videos browse/detail | ⚠ reload loop | WebView embed with autoplay; rebuild-driven reload bug (§5.3). |
-| Quizzes browse/detail/take/result | ✅ strongest feature | Navigator sheet, mark-for-review, timer ring, auto-submit, result review with explanations; shuffle flag + attemptLimit + code-MCQ gaps (§5.4, §5.5). |
-| Flashcards study | ⚠ broken progress | Flip UX is good; progress saving is structurally broken (§5.2) and silent on failure (§5.8). |
-| Profile/settings | ⚠ partial | Edit name/bio works; change photo dead; API-URL setting ignored (§5.1); clear cache works. |
-
-## 7. Gotchas for coding agents
-
-1. **Always `await DioClient.getInstance()`** — the token interceptor is attached at
-   creation; don't create bare `Dio()` instances.
-2. Parse defensively: the API envelope differs per controller (`{ notes: [...] }` vs
-   `{ data: [...] }` vs bare arrays). Use the existing tolerant pattern in §4.1.
-3. IDs are strings (`_id?.toString()`); the backend sends integers as the virtual `_id`.
-   Don't `int.parse` them.
-4. The router passes complex objects through `extra` unreliably inside the ShellRoute —
-   use the `quizResultProvider`-style provider handoff for anything non-primitive.
-5. `ref.read(...notifier)` for actions, `ref.watch` for state — consistent throughout.
-   List providers self-fetch at construction; **don't** also fetch in screen `initState`
-   or you'll double-fetch on every tab visit... except detail `FutureProvider.family`s,
-   which cache per-argument and need `ref.invalidate` to refresh.
-6. Dark theme only — never hardcode `Colors.black`/`Colors.white` for surfaces; use
-   `AppColors` so the palette stays coherent.
-7. Keep the `kReleaseMode` guard around any logging interceptor.
-8. Backend cards/quizzes JSON: quiz questions get index-based `_id`s at creation
-   (`0,1,2...`); flashcard cards have **no ids** (until §5.2 is fixed) — don't assume
-   they exist.
-
-## 8. Related folders outside the app
-
-- `android/plan.md`, `android/screens.md` — pre-build **planning documents** (screen
-  specs, phased plan). They describe intent, not the shipped code; where they disagree
-  with `lib/`, the code wins. No Gradle/manifest lives there — the actual Android shell
-  is the standard Flutter `android/` folder *inside* `app/dolphincoder/`.
-- `app/plan.md`, `app/prompts.md` — the AI prompts used to generate the screens
-  (useful for regenerating in the same style), plus `privacy-policy.html` /
-  `data-deletion.html` served from the website (Settings links to
-  `dolphincoder.com/privacy`).
-
-## 9. Improvement backlog (prioritized)
-
-**P0 — correctness**
-1. Fix the base URL wiring (§5.1): use `productionBaseUrl` (or the stored pref) in
-   `getBaseUrl()`, then the Settings toggle actually works.
-2. Fix flashcard progress with backend card ids (§5.2) — coordinate with `backend.md` §8.2.
-3. Stop the video reload loop (§5.3).
-
-**P1 — completeness**
-4. Render code snippets in the quiz take screen; surface `attemptLimit` and real
-   `shuffleQuestions`; guard empty-question quizzes (§5.4, §5.5).
-5. Save the rotated token after password change; revalidate the session with `/auth/me`
-   on app start (§5.6).
-6. Handle saveProgress failures visibly; add a deck detail screen; pull-to-refresh on
-   dashboard.
-
-**P2 — polish / product**
-7. Persist an onboarding "seen" flag; wire or remove "Forgot Password?"; wire avatar
-   upload via `image_picker` (the dependency is already there) or prune unused deps (§5.8).
-8. Real usage stats for dashboard/profile (needs a backend `/me/summary`-style endpoint —
-   coordinate with `backend.md` §8).
-9. Adopt the declared freezed/riverpod codegen **or** remove those deps; replace
-   `WillPopScope` with `PopScope`.
 
 ---
 
-*Cross-references: API contract and its bugs → `backend.md`; web client → `frontend.md`.*
+## 4. Mobile Architecture & Conventions
+
+### 4.1 Data & State Layering
+Each feature directory adheres strictly to the three-tier pattern:
+1. `data/models/<feature>_model.dart`: Hand-written serialization (`fromJson` and `toJson`). All models extract `_id` defensively:
+   ```dart
+   id: json['_id']?.toString() ?? json['id']?.toString() ?? '',
+   ```
+2. `data/<feature>_repository.dart`: Dio client wrapper. Always initializes via:
+   ```dart
+   final dio = await DioClient.getInstance();
+   ```
+3. `providers/<feature>_provider.dart`:
+   - List providers are `StateNotifier`s that self-fetch on creation.
+   - Detail providers use `FutureProvider.family<T, String>`.
+
+### 4.2 Network & Authentication Pipeline
+- `DioClient` attaches the JWT token from `FlutterSecureStorage` dynamically on every request.
+- Logs are gated with `!kReleaseMode` (`PrettyDioLogger`) to ensure sensitive authentication tokens are never exposed in release APK builds.
+- On HTTP 401, the interceptor purges the local secure token, triggering GoRouter's redirect to `/login` on the next navigation transition.
+
+---
+
+## 5. Mobile Alignment Roadmap (Upcoming Implementation)
+
+To bring the Flutter mobile app to complete parity with the latest web releases, the following screens and capabilities will be added:
+
+### 1. Karaoke Audio Reader & Sprechen Speaking Practice
+- **Audio Playback Engine**: Integrate `just_audio` to stream audio with range seeking from `/api/notes/audio/db/:id`.
+- **Word-by-Word Synchronized Transcript**: Highlighting words in real time matching `story.sentences[i].words[j]`.
+- **Sprechen Practice Mode**:
+  - Auto-pause audio at sentence boundaries.
+  - Integrate `speech_to_text` for native Android German speech recognition (`de-DE`).
+  - **Dual Submission**: 3-second continuous silence auto-evaluator + "Done Speaking" action button.
+  - Word accuracy matching and celebration audio chimes.
+
+### 2. Match the Pairs Question Type (`match_pairs`)
+- Build a dedicated `MatchPairsWidget` within `QuizTakeScreen`:
+  - Left column: Terms.
+  - Right column: Definitions.
+  - Interactive tap-to-connect pairing with dynamic color badges and reset capabilities.
+
+### 3. Dedicated Quiz Review Screen
+- Build `quiz_review_screen.dart` to view previous test submissions:
+  - Displays user's selected answers vs correct answers.
+  - Shows trainer explanations for each question.
+
+### 4. Activity & Study Performance Screen
+- Create `activity_screen.dart` consuming `/api/activity/summary`:
+  - Show Today's study milestones.
+  - Categorized weekly cards (**Today**, **Yesterday**, **Day Before Yesterday**).
+  - Display daily study hours and engagement seconds.
+
+### 5. 6-Item Pagination
+- Standardize 6-item pagination across Notes, Quizzes, and Flashcard lists using pull-to-refresh and page navigation.
