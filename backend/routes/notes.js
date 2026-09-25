@@ -30,13 +30,18 @@ const uploadAudio = multer({
 // Public audio stream route for <audio> tags (which do not send Authorization headers)
 router.get('/audio/:filename', (req, res) => {
   const safeFilename = path.basename(req.params.filename);
-  const audioPath = path.join(__dirname, '../uploads/audio', safeFilename);
-  if (fs.existsSync(audioPath)) {
-    return res.sendFile(audioPath);
-  }
-  const distAudioPath = path.join(__dirname, '../dist/audio', safeFilename);
-  if (fs.existsSync(distAudioPath)) {
-    return res.sendFile(distAudioPath);
+  const candidates = [
+    path.join(__dirname, '../uploads/audio', safeFilename),
+    path.join(__dirname, '../dist/audio', safeFilename),
+    path.join(__dirname, '../../frontend/public/audio', safeFilename),
+    path.join(process.cwd(), 'uploads/audio', safeFilename),
+    path.join(process.cwd(), 'backend/uploads/audio', safeFilename),
+  ];
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return res.sendFile(candidate);
+    }
   }
   res.status(404).send('Audio file not found');
 });

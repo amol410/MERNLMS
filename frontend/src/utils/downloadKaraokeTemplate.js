@@ -72,7 +72,7 @@ export function downloadKaraokeTemplate() {
 /**
  * Normalizes any uploaded JSON object so that it complies with the KaraokeNoteReader expectations
  */
-export function normalizeKaraokeJson(parsed) {
+export function normalizeKaraokeJson(parsed, fallbackAudioUrl = null) {
   if (!parsed || typeof parsed !== 'object') {
     throw new Error('Invalid JSON format: file must contain a valid JSON object.');
   }
@@ -150,6 +150,6 @@ export function normalizeKaraokeJson(parsed) {
     sentences: normalizedSentences,
     words: allWords,
     vocab: parsed.vocab && typeof parsed.vocab === 'object' ? parsed.vocab : {},
-    audioUrl: parsed.audioUrl || null,
+    audioUrl: parsed.audioUrl || fallbackAudioUrl || null,
   };
 }

@@ -144,7 +144,7 @@ export default function NoteDetailPage() {
           englishTitle: parsedData.englishTitle || '',
           subject: (typeof note.subject === 'object' ? note.subject?.name : note.subject) || parsedData.subject || 'Subject',
           topic: (typeof note.topic === 'object' ? note.topic?.name : note.topic) || parsedData.topic || 'Topic',
-          audioUrl: note.audioUrl || parsedData.audioUrl,
+          audioUrl: note.audioUrl || parsedData.audioUrl || '/audio/demo_german_story.mp3',
           duration: parsedData.duration || 42,
           sentences: parsedData.sentences || [],
           words: parsedData.words || [],

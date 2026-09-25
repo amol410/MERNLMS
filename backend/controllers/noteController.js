@@ -16,6 +16,9 @@ const reshape = (note) => {
     data.owner = data.ownerUser;
     delete data.ownerUser;
   }
+  if (!data.audioUrl && data.karaokeData && typeof data.karaokeData === 'object' && data.karaokeData.audioUrl) {
+    data.audioUrl = data.karaokeData.audioUrl;
+  }
   return data;
 };
 
@@ -105,7 +108,7 @@ exports.updateNote = async (req, res, next) => {
   try {
     const note = await Note.findByPk(req.params.id);
     if (!note) return res.status(404).json({ success: false, message: 'Note not found' });
-    if (note.owner !== req.user.id) {
+    if (req.user.role !== 'admin' && note.owner !== req.user.id) {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
     const { title, content, tags, color, isPinned, contentType, subject, topic, isKaraoke, audioUrl, karaokeData } = req.body;
@@ -118,10 +121,27 @@ exports.updateNote = async (req, res, next) => {
     if (subject !== undefined) note.subjectId = subject || null;
     if (topic !== undefined) note.topic = topic || null;
     if (isKaraoke !== undefined) note.isKaraoke = Boolean(isKaraoke);
-    if (audioUrl !== undefined) note.audioUrl = audioUrl;
-    if (karaokeData !== undefined) note.karaokeData = karaokeData;
+    if (audioUrl !== undefined) {
+      note.audioUrl = audioUrl;
+      // Keep karaokeData.audioUrl synchronized
+      if (note.karaokeData && typeof note.karaokeData === 'object') {
+        const kData = { ...note.karaokeData, audioUrl };
+        note.karaokeData = kData;
+      }
+    }
+    if (karaokeData !== undefined) {
+      if (karaokeData && typeof karaokeData === 'object') {
+        // If incoming karaokeData lacks audioUrl, preserve note's existing audioUrl
+        if (!karaokeData.audioUrl && note.audioUrl) {
+          karaokeData.audioUrl = note.audioUrl;
+        } else if (karaokeData.audioUrl && !note.audioUrl) {
+          note.audioUrl = karaokeData.audioUrl;
+        }
+      }
+      note.karaokeData = karaokeData;
+    }
     await note.save();
-    res.json({ success: true, note });
+    res.json({ success: true, note: reshape(note) });
   } catch (error) {
     next(error);
   }

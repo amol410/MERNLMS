@@ -4,7 +4,7 @@ import demoStory from '../data/demoKaraokeStory.json';
 import {
   Play, Pause, RotateCcw, Volume2, VolumeX, ChevronLeft,
   Music, Sparkles, BookOpen, Clock, Eye, EyeOff, Upload,
-  FileText, Download, Sliders
+  FileText, Download, Sliders, Link2
 } from 'lucide-react';
 import clsx from 'clsx';
 import api from '../api/axios';
@@ -35,13 +35,18 @@ function getVocabItemInfo(val) {
 
 // Ensure relative audio paths route through the API streaming endpoint on shared hosting
 function resolveAudioUrl(url) {
-  if (!url) return '';
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('blob:')) return url;
-  if (url.startsWith('/uploads/audio/')) {
-    const filename = url.replace('/uploads/audio/', '');
+  if (!url || typeof url !== 'string') return '/audio/demo_german_story.mp3';
+  const trimmed = url.trim();
+  if (!trimmed) return '/audio/demo_german_story.mp3';
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('blob:') || trimmed.startsWith('data:')) {
+    return trimmed;
+  }
+  const clean = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+  if (clean.startsWith('/uploads/audio/')) {
+    const filename = clean.replace('/uploads/audio/', '');
     return `/api/notes/audio/${filename}`;
   }
-  return url;
+  return clean;
 }
 
 export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) {
@@ -197,15 +202,24 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
       });
       const newUrl = res.data?.audioUrl;
       if (newUrl) {
+        const resolved = resolveAudioUrl(newUrl);
+        const updatedStory = {
+          ...story,
+          audioUrl: newUrl,
+        };
         if (noteId) {
-          await api.put(`/notes/${noteId}`, { audioUrl: newUrl });
+          await api.put(`/notes/${noteId}`, {
+            audioUrl: newUrl,
+            karaokeData: updatedStory,
+          });
         }
-        setCurrentAudioUrl(newUrl);
+        setLocalStory(updatedStory);
+        setCurrentAudioUrl(resolved);
         setAudioError(false);
         if (onAudioUpdated) onAudioUpdated(newUrl);
-        toast.success('Audio file uploaded and attached successfully!');
+        toast.success('Audio file uploaded and permanently saved!');
         if (audioRef.current) {
-          audioRef.current.src = newUrl;
+          audioRef.current.src = resolved;
           audioRef.current.load();
         }
       }
@@ -217,18 +231,61 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     }
   };
 
+  // Directly link any external or cloud-hosted audio URL (e.g. S3, Cloudinary, Drive)
+  const handleLinkAudioUrl = async () => {
+    const currentInput = (currentAudioUrl && !currentAudioUrl.includes('demo_german_story')) ? currentAudioUrl : '';
+    const input = window.prompt(
+      'Enter audio stream URL (MP3/WAV/AAC/OGG from Cloudinary, S3, or direct link):',
+      currentInput
+    );
+    if (!input || !input.trim()) return;
+    const cleanUrl = input.trim();
+    const resolved = resolveAudioUrl(cleanUrl);
+    const updatedStory = {
+      ...story,
+      audioUrl: cleanUrl,
+    };
+    if (noteId) {
+      try {
+        await api.put(`/notes/${noteId}`, {
+          audioUrl: cleanUrl,
+          karaokeData: updatedStory,
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    setLocalStory(updatedStory);
+    setCurrentAudioUrl(resolved);
+    setAudioError(false);
+    if (onAudioUpdated) onAudioUpdated(cleanUrl);
+    toast.success('Audio URL linked and saved successfully!');
+    if (audioRef.current) {
+      audioRef.current.src = resolved;
+      audioRef.current.load();
+    }
+  };
+
   // Switch to the built-in German demo audio
   const handleUseDemoAudio = async () => {
     const demoAudio = '/audio/demo_german_story.mp3';
-    setCurrentAudioUrl(demoAudio);
-    setAudioError(false);
+    const updatedStory = {
+      ...story,
+      audioUrl: demoAudio,
+    };
     if (noteId) {
       try {
-        await api.put(`/notes/${noteId}`, { audioUrl: demoAudio });
+        await api.put(`/notes/${noteId}`, {
+          audioUrl: demoAudio,
+          karaokeData: updatedStory,
+        });
       } catch (e) {
         console.error(e);
       }
     }
+    setLocalStory(updatedStory);
+    setCurrentAudioUrl(demoAudio);
+    setAudioError(false);
     if (onAudioUpdated) onAudioUpdated(demoAudio);
     toast.success('Switched to built-in German demo audio!');
     if (audioRef.current) {
@@ -237,7 +294,7 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     }
   };
 
-  // Import JSON Alignment directly onto this note
+  // Import JSON Alignment directly onto this note WITHOUT wiping out attached audio
   const handleImportJson = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -246,19 +303,37 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
       try {
         setImportingJson(true);
         const raw = JSON.parse(event.target.result);
-        const normalized = normalizeKaraokeJson(raw);
+
+        // Retain existing audio URL so alignment updates NEVER wipe out the audio!
+        const existingAudio = currentAudioUrl || story.audioUrl || noteData?.audioUrl || null;
+        const normalized = normalizeKaraokeJson(raw, existingAudio);
+        if (!normalized.audioUrl && existingAudio) {
+          normalized.audioUrl = existingAudio;
+        }
+
         if (noteId) {
-          await api.put(`/notes/${noteId}`, {
+          const updatePayload = {
             karaokeData: normalized,
             title: normalized.title || story.title,
             content: normalized.sentences.map(s => s.text).join('\n\n'),
-          });
+          };
+          if (normalized.audioUrl) {
+            updatePayload.audioUrl = normalized.audioUrl;
+          }
+          await api.put(`/notes/${noteId}`, updatePayload);
         }
+
         setLocalStory(normalized);
+        if (normalized.audioUrl) {
+          const resolved = resolveAudioUrl(normalized.audioUrl);
+          setCurrentAudioUrl(resolved);
+          if (onAudioUpdated) onAudioUpdated(normalized.audioUrl);
+        }
         if (normalized.duration) {
           setDuration(normalized.duration);
         }
-        toast.success(`✅ Alignment updated: ${normalized.sentences.length} sentences synchronized!`);
+        setAudioError(false);
+        toast.success(`✅ Alignment updated: ${normalized.sentences.length} sentences synchronized! Audio preserved.`);
       } catch (err) {
         toast.error(`JSON Import failed: ${err.message}`);
       } finally {
@@ -291,7 +366,7 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
       {/* Hidden Audio Element */}
       <audio
         ref={audioRef}
-        src={currentAudioUrl}
+        src={currentAudioUrl || '/audio/demo_german_story.mp3'}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onError={() => setAudioError(true)}
@@ -346,6 +421,18 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
             </button>
           )}
 
+          {/* Link Audio URL Button */}
+          {noteId && (
+            <button
+              onClick={handleLinkAudioUrl}
+              className="text-xs text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer"
+              title="Link external audio URL (Cloudinary, S3, or direct stream)"
+            >
+              <Link2 className="w-3.5 h-3.5 text-ocean-400" />
+              <span>Link URL</span>
+            </button>
+          )}
+
           {/* Toggle Translations Button */}
           <button
             onClick={() => setShowTranslations(!showTranslations)}
@@ -371,7 +458,7 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
             <div>
               <p className="font-bold text-amber-300 text-sm">Audio stream unavailable</p>
               <p className="text-gray-300 mt-0.5">
-                The audio source could not be played. You can attach an MP3 file directly or switch to the built-in German demo audio.
+                The audio source could not be played. You can attach an MP3 file directly, link a cloud URL, or switch to the built-in German demo audio.
               </p>
             </div>
           </div>
@@ -383,6 +470,14 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
             >
               <Upload className="w-3.5 h-3.5" />
               <span>{uploadingAudio ? 'Uploading...' : 'Upload MP3'}</span>
+            </button>
+            <button
+              onClick={handleLinkAudioUrl}
+              className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs transition-colors flex items-center gap-1.5 cursor-pointer border border-white/10"
+              title="Link direct audio URL"
+            >
+              <Link2 className="w-3.5 h-3.5 text-ocean-400" />
+              <span>Link URL</span>
             </button>
             <button
               onClick={handleUseDemoAudio}
