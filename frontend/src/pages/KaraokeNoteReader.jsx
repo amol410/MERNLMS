@@ -71,6 +71,107 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
   const [uploadingAudio, setUploadingAudio] = useState(false);
   const [importingJson, setImportingJson] = useState(false);
 
+  // ─── Dedicated Karaoke Listening & Practice Tracking ────────────────────────
+  const listeningSecsRef = useRef(0);
+  const playStartRef = useRef(null);
+  const activeTabStartRef = useRef(Date.now());
+  const engagementSecsRef = useRef(0);
+  const hasTrackedRef = useRef(false);
+
+  const handleAudioPlay = () => {
+    setIsPlaying(true);
+    setAudioError(false);
+    if (playStartRef.current === null) {
+      playStartRef.current = Date.now();
+    }
+  };
+
+  const handleAudioPause = () => {
+    setIsPlaying(false);
+    if (playStartRef.current !== null) {
+      listeningSecsRef.current += Math.round((Date.now() - playStartRef.current) / 1000);
+      playStartRef.current = null;
+    }
+  };
+
+  const handleAudioEnded = () => {
+    setIsPlaying(false);
+    if (playStartRef.current !== null) {
+      listeningSecsRef.current += Math.round((Date.now() - playStartRef.current) / 1000);
+      playStartRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    activeTabStartRef.current = Date.now();
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        if (activeTabStartRef.current !== null) {
+          engagementSecsRef.current += Math.round((Date.now() - activeTabStartRef.current) / 1000);
+          activeTabStartRef.current = null;
+        }
+        if (playStartRef.current !== null) {
+          listeningSecsRef.current += Math.round((Date.now() - playStartRef.current) / 1000);
+          playStartRef.current = null;
+        }
+      } else {
+        activeTabStartRef.current = Date.now();
+        if (audioRef.current && !audioRef.current.paused) {
+          playStartRef.current = Date.now();
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibility);
+
+    const sendTracking = () => {
+      if (hasTrackedRef.current) return;
+
+      if (playStartRef.current !== null) {
+        listeningSecsRef.current += Math.round((Date.now() - playStartRef.current) / 1000);
+        playStartRef.current = null;
+      }
+      if (activeTabStartRef.current !== null) {
+        engagementSecsRef.current += Math.round((Date.now() - activeTabStartRef.current) / 1000);
+        activeTabStartRef.current = null;
+      }
+
+      const lSecs = listeningSecsRef.current;
+      const eSecs = engagementSecsRef.current;
+      const effectiveSecs = Math.max(lSecs, eSecs);
+
+      // Only save if practiced or listened for at least 15 seconds
+      if (effectiveSecs < 15) return;
+      hasTrackedRef.current = true;
+
+      const trackTargetId = noteId || 'demo';
+      const payload = {
+        engagementSecs: effectiveSecs,
+        listeningSecs: lSecs,
+        isKaraoke: true,
+      };
+
+      const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+      const base = import.meta.env.VITE_API_BASE_URL || '/api';
+      const beaconSent = navigator.sendBeacon
+        ? navigator.sendBeacon(`${base}/notes/${trackTargetId}/track`, blob)
+        : false;
+
+      if (!beaconSent) {
+        api.post(`/notes/${trackTargetId}/track`, payload).catch(() => {});
+      }
+    };
+
+    window.addEventListener('beforeunload', sendTracking);
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('beforeunload', sendTracking);
+      sendTracking();
+    };
+  }, [noteId]);
+
   const activeSentenceRef = useRef(null);
   const autoScrollEnabled = useRef(true);
 
@@ -128,11 +229,10 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     if (!audioRef.current) return;
     if (isPlaying) {
       audioRef.current.pause();
-      setIsPlaying(false);
+      handleAudioPause();
     } else {
       audioRef.current.play().then(() => {
-        setIsPlaying(true);
-        setAudioError(false);
+        handleAudioPlay();
       }).catch(err => {
         console.error('Audio play error:', err);
         setAudioError(true);
@@ -369,8 +469,10 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
         src={currentAudioUrl || '/audio/demo_german_story.mp3'}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
+        onPlay={handleAudioPlay}
+        onPause={handleAudioPause}
+        onEnded={handleAudioEnded}
         onError={() => setAudioError(true)}
-        onEnded={() => setIsPlaying(false)}
         preload="auto"
       />
 

@@ -63,7 +63,7 @@ exports.getSummary = async (req, res, next) => {
         // Fast counts-only aggregation for Dashboard (skips heavy row fetching and metadata decoding)
         if (req.query.countsOnly === 'true') {
             const rows = await UserActivity.findAll({
-                attributes: ['id', 'activityType', 'activityDate', 'createdAt'],
+                attributes: ['id', 'activityType', 'activityDate', 'createdAt', 'metadata'],
                 where,
                 raw: true,
             });
@@ -71,13 +71,22 @@ exports.getSummary = async (req, res, next) => {
             let quizCount = 0;
             let noteCount = 0;
             let flashcardCount = 0;
+            let karaokeCount = 0;
 
             for (const item of rows) {
                 // Confirm the activity belongs to responseDate in user's timezone
                 const localDate = toClientLocalDate(item.createdAt, req) || item.activityDate;
                 if (localDate === responseDate) {
+                    let meta = {};
+                    try {
+                        meta = typeof item.metadata === 'string' ? JSON.parse(item.metadata) : (item.metadata || {});
+                    } catch (e) {}
+
                     if (item.activityType === 'quiz') quizCount++;
-                    else if (item.activityType === 'note') noteCount++;
+                    else if (item.activityType === 'note') {
+                        if (meta && meta.isKaraoke) karaokeCount++;
+                        else noteCount++;
+                    }
                     else if (item.activityType === 'flashcard') flashcardCount++;
                 }
             }
@@ -90,7 +99,8 @@ exports.getSummary = async (req, res, next) => {
                     quizCount,
                     noteCount,
                     flashcardCount,
-                    total: quizCount + noteCount + flashcardCount,
+                    karaokeCount,
+                    total: quizCount + noteCount + flashcardCount + karaokeCount,
                 },
             });
         }
@@ -110,10 +120,19 @@ exports.getSummary = async (req, res, next) => {
                 // Only place in day if it falls within the requested week
                 if (d >= weekRange.start && d <= weekRange.end) {
                     totalInWeek++;
-                    if (!byDate[d]) byDate[d] = { quizzes: [], notes: [], flashcards: [] };
-                    const key = row.activityType === 'quiz' ? 'quizzes'
-                        : row.activityType === 'note' ? 'notes' : 'flashcards';
-                    byDate[d][key].push(formatActivity(row, d));
+                    if (!byDate[d]) byDate[d] = { quizzes: [], notes: [], flashcards: [], karaoke: [] };
+                    const formatted = formatActivity(row, d);
+                    if (row.activityType === 'quiz') {
+                        byDate[d].quizzes.push(formatted);
+                    } else if (row.activityType === 'note') {
+                        if (row.metadata?.isKaraoke) {
+                            byDate[d].karaoke.push(formatted);
+                        } else {
+                            byDate[d].notes.push(formatted);
+                        }
+                    } else if (row.activityType === 'flashcard') {
+                        byDate[d].flashcards.push(formatted);
+                    }
                 }
             }
 
@@ -130,13 +149,17 @@ exports.getSummary = async (req, res, next) => {
         const quizzes = [];
         const notes = [];
         const flashcards = [];
+        const karaoke = [];
 
         for (const row of rows) {
             const d = toClientLocalDate(row.createdAt, req) || row.activityDate;
             if (d === responseDate) {
                 const formatted = formatActivity(row, d);
                 if (row.activityType === 'quiz') quizzes.push(formatted);
-                else if (row.activityType === 'note') notes.push(formatted);
+                else if (row.activityType === 'note') {
+                    if (row.metadata?.isKaraoke) karaoke.push(formatted);
+                    else notes.push(formatted);
+                }
                 else if (row.activityType === 'flashcard') flashcards.push(formatted);
             }
         }
@@ -145,12 +168,13 @@ exports.getSummary = async (req, res, next) => {
             success: true,
             type: 'day',
             date: responseDate,
-            activities: { quizzes, notes, flashcards },
+            activities: { quizzes, notes, flashcards, karaoke },
             summary: {
                 quizCount: quizzes.length,
                 noteCount: notes.length,
                 flashcardCount: flashcards.length,
-                total: quizzes.length + notes.length + flashcards.length,
+                karaokeCount: karaoke.length,
+                total: quizzes.length + notes.length + flashcards.length + karaoke.length,
             },
         });
     } catch (error) {

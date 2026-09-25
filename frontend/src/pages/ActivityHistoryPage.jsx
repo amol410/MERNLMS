@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import {
   ChevronLeft, BarChart2, Brain, BookOpen, Layers,
-  Clock, Calendar, CheckCircle2, XCircle, Filter, ArrowUpRight, ArrowRight
+  Clock, Calendar, CheckCircle2, XCircle, Filter, ArrowUpRight, ArrowRight,
+  Music, Headphones, Sparkles
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -146,15 +147,17 @@ export default function ActivityHistoryPage() {
   const stats = useMemo(() => {
     let quizCount = 0;
     let noteCount = 0;
+    let karaokeCount = 0;
     let flashcardCount = 0;
     let totalQuizSecs = 0;
     let totalNoteSecs = 0;
+    let totalKaraokeSecs = 0;
     let totalFlashcardSecs = 0;
     const activeDaysSet = new Set();
 
     weeks.forEach(w => {
       Object.entries(w.days || {}).forEach(([dateStr, day]) => {
-        const dayTotal = (day.quizzes?.length || 0) + (day.notes?.length || 0) + (day.flashcards?.length || 0);
+        const dayTotal = (day.quizzes?.length || 0) + (day.notes?.length || 0) + (day.karaoke?.length || 0) + (day.flashcards?.length || 0);
         if (dayTotal > 0) activeDaysSet.add(dateStr);
 
         (day.quizzes || []).forEach(q => {
@@ -167,6 +170,11 @@ export default function ActivityHistoryPage() {
           totalNoteSecs += n.metadata?.engagementSecs || 0;
         });
 
+        (day.karaoke || []).forEach(k => {
+          karaokeCount++;
+          totalKaraokeSecs += (k.metadata?.listeningSecs || k.metadata?.engagementSecs || 0);
+        });
+
         (day.flashcards || []).forEach(f => {
           flashcardCount++;
           totalFlashcardSecs += f.metadata?.engagementSecs || 0;
@@ -177,13 +185,14 @@ export default function ActivityHistoryPage() {
     return {
       quizCount,
       noteCount,
+      karaokeCount,
       flashcardCount,
-      totalSecs: totalQuizSecs + totalNoteSecs + totalFlashcardSecs,
+      totalSecs: totalQuizSecs + totalNoteSecs + totalKaraokeSecs + totalFlashcardSecs,
       activeDays: activeDaysSet.size,
     };
   }, [weeks]);
 
-  const totalLoadedActivities = stats.quizCount + stats.noteCount + stats.flashcardCount;
+  const totalLoadedActivities = stats.quizCount + stats.noteCount + stats.karaokeCount + stats.flashcardCount;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
@@ -210,13 +219,13 @@ export default function ActivityHistoryPage() {
                 Weekly Performance History
               </h1>
               <p className="text-gray-400 text-sm mt-1">
-                Detailed day-by-day record of your quizzes, notes completed, and flashcards studied
+                Detailed day-by-day record of your quizzes, notes, karaoke stories, and flashcards studied
               </p>
             </div>
           </div>
 
           {/* Quick Stat Chips */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
             <div className="bg-white/5 border border-white/5 rounded-xl px-3 py-2 text-center">
               <div className="text-lg font-bold text-purple-400">{stats.quizCount}</div>
               <div className="text-[11px] text-gray-500 uppercase tracking-wider">Quizzes</div>
@@ -226,10 +235,14 @@ export default function ActivityHistoryPage() {
               <div className="text-[11px] text-gray-500 uppercase tracking-wider">Notes</div>
             </div>
             <div className="bg-white/5 border border-white/5 rounded-xl px-3 py-2 text-center">
+              <div className="text-lg font-bold text-pink-400">{stats.karaokeCount}</div>
+              <div className="text-[11px] text-gray-500 uppercase tracking-wider">Karaoke</div>
+            </div>
+            <div className="bg-white/5 border border-white/5 rounded-xl px-3 py-2 text-center">
               <div className="text-lg font-bold text-green-400">{stats.flashcardCount}</div>
               <div className="text-[11px] text-gray-500 uppercase tracking-wider">Flashcards</div>
             </div>
-            <div className="bg-white/5 border border-white/5 rounded-xl px-3 py-2 text-center">
+            <div className="bg-white/5 border border-white/5 rounded-xl px-3 py-2 text-center col-span-2 sm:col-span-1">
               <div className="text-lg font-bold text-amber-400">{formatTime(stats.totalSecs)}</div>
               <div className="text-[11px] text-gray-500 uppercase tracking-wider">Total Time</div>
             </div>
@@ -245,6 +258,7 @@ export default function ActivityHistoryPage() {
             { id: 'all', label: 'All Activities', count: totalLoadedActivities },
             { id: 'quiz', label: 'Quizzes', count: stats.quizCount, icon: Brain, color: 'text-purple-400' },
             { id: 'note', label: 'Notes', count: stats.noteCount, icon: BookOpen, color: 'text-blue-400' },
+            { id: 'karaoke', label: 'Karaoke Practice', count: stats.karaokeCount, icon: Music, color: 'text-pink-400' },
             { id: 'flashcard', label: 'Flashcards', count: stats.flashcardCount, icon: Layers, color: 'text-green-400' },
           ].map(tab => {
             const Icon = tab.icon;
@@ -292,7 +306,7 @@ export default function ActivityHistoryPage() {
           <div className="text-5xl mb-3">📊</div>
           <h3 className="text-lg font-bold text-white mb-1">No Activity History Yet</h3>
           <p className="text-gray-400 text-sm max-w-md mx-auto mb-6">
-            Complete quizzes, study notes for at least 3 minutes, or practice flashcards to start tracking your performance.
+            Complete quizzes, study notes, practice karaoke stories, or review flashcards to start tracking your performance.
           </p>
           <Link to="/quizzes" className="btn-primary inline-flex items-center gap-2 text-sm px-5 py-2.5">
             Take a Quiz <ArrowUpRight className="w-4 h-4" />
@@ -352,8 +366,9 @@ function WeekSection({ weekRange, days, activeFilter }) {
     const day = days[dateStr];
     if (activeFilter === 'quiz') return (day.quizzes?.length || 0) > 0;
     if (activeFilter === 'note') return (day.notes?.length || 0) > 0;
+    if (activeFilter === 'karaoke') return (day.karaoke?.length || 0) > 0;
     if (activeFilter === 'flashcard') return (day.flashcards?.length || 0) > 0;
-    return (day.quizzes?.length || 0) + (day.notes?.length || 0) + (day.flashcards?.length || 0) > 0;
+    return (day.quizzes?.length || 0) + (day.notes?.length || 0) + (day.karaoke?.length || 0) + (day.flashcards?.length || 0) > 0;
   });
 
   return (
@@ -400,19 +415,22 @@ function WeekSection({ weekRange, days, activeFilter }) {
 function DayBlock({ dateStr, day, activeFilter }) {
   const showQuizzes = activeFilter === 'all' || activeFilter === 'quiz';
   const showNotes = activeFilter === 'all' || activeFilter === 'note';
+  const showKaraoke = activeFilter === 'all' || activeFilter === 'karaoke';
   const showFlashcards = activeFilter === 'all' || activeFilter === 'flashcard';
 
   const quizzes = showQuizzes ? (day.quizzes || []) : [];
   const notes = showNotes ? (day.notes || []) : [];
+  const karaoke = showKaraoke ? (day.karaoke || []) : [];
   const flashcards = showFlashcards ? (day.flashcards || []) : [];
 
   const category = getDayCategoryInfo(dateStr);
 
   const dayQuizSecs = (day.quizzes || []).reduce((acc, q) => acc + (q.metadata?.timeTakenSecs || 0), 0);
   const dayNoteSecs = (day.notes || []).reduce((acc, n) => acc + (n.metadata?.engagementSecs || 0), 0);
+  const dayKaraokeSecs = (day.karaoke || []).reduce((acc, k) => acc + (k.metadata?.listeningSecs || k.metadata?.engagementSecs || 0), 0);
   const dayFlashcardSecs = (day.flashcards || []).reduce((acc, f) => acc + (f.metadata?.engagementSecs || 0), 0);
-  const dayTotalSecs = dayQuizSecs + dayNoteSecs + dayFlashcardSecs;
-  const totalActivities = quizzes.length + notes.length + flashcards.length;
+  const dayTotalSecs = dayQuizSecs + dayNoteSecs + dayKaraokeSecs + dayFlashcardSecs;
+  const totalActivities = quizzes.length + notes.length + karaoke.length + flashcards.length;
 
   return (
     <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4 sm:p-5">
@@ -570,6 +588,76 @@ function DayBlock({ dateStr, day, activeFilter }) {
             </div>
           </div>
         ))}
+
+        {/* Karaoke Stories */}
+        {karaoke.map((item, i) => {
+          const listeningSecs = item.metadata?.listeningSecs || 0;
+          const engagementSecs = item.metadata?.engagementSecs || 0;
+          const displaySecs = listeningSecs > 0 ? listeningSecs : engagementSecs;
+          const isDemo = item.resourceId === 0 || item.resourceTitle?.toLowerCase().includes('demo');
+          const targetUrl = isDemo ? '/notes/karaoke/demo' : `/notes/${item.resourceId}`;
+
+          return (
+            <div
+              key={`karaoke-${item.id || i}`}
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-pink-500/10 transition-colors"
+            >
+              <div className="flex items-start gap-3 min-w-0">
+                <div className="w-9 h-9 rounded-xl bg-pink-500/15 border border-pink-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Music className="w-4 h-4 text-pink-400" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Link
+                      to={targetUrl}
+                      className="text-white text-sm font-semibold truncate hover:text-pink-300 transition-colors"
+                    >
+                      {item.resourceTitle || 'Karaoke Story Practice'}
+                    </Link>
+                    <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md bg-pink-500/10 text-pink-300 border border-pink-500/20 flex items-center gap-1">
+                      <Sparkles className="w-3 h-3 text-pink-400" />
+                      Karaoke Story
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-1 flex-wrap">
+                    {item.subjectName && (
+                      <span className="badge badge-purple text-[11px] px-2 py-0">{item.subjectName}</span>
+                    )}
+                    {item.topicName && (
+                      <span className="badge badge-blue text-[11px] px-2 py-0">{item.topicName}</span>
+                    )}
+                    <span className="text-xs text-gray-500">
+                      Audio synced listening & practice
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 sm:flex-shrink-0 pl-12 sm:pl-0 flex-wrap">
+                {listeningSecs > 0 && (
+                  <div className="text-xs text-pink-300 bg-pink-500/10 border border-pink-500/20 px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium" title="Active audio listening time">
+                    <Headphones className="w-3.5 h-3.5 text-pink-400" />
+                    Listened {formatTime(listeningSecs)}
+                  </div>
+                )}
+                {listeningSecs === 0 && displaySecs > 0 && (
+                  <div className="text-xs text-pink-300 bg-pink-500/10 border border-pink-500/20 px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium">
+                    <Clock className="w-3.5 h-3.5 text-pink-400" />
+                    Practiced {formatTime(displaySecs)}
+                  </div>
+                )}
+                <Link
+                  to={targetUrl}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-pink-500/15 hover:bg-pink-500/25 text-pink-300 border border-pink-500/30 transition-colors"
+                  title="Practice this karaoke story"
+                >
+                  <span>Practice</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+          );
+        })}
 
         {/* Flashcards */}
         {flashcards.map((card, i) => (

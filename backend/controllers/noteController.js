@@ -264,31 +264,56 @@ exports.togglePin = async (req, res, next) => {
 
 /**
  * POST /api/notes/:id/track
- * Body: { engagementSecs: number }
- * Logs a note read activity if the student spent >= 3 minutes actively reading.
+ * Body: { engagementSecs: number, listeningSecs?: number, isKaraoke?: boolean }
+ * Logs a note read or karaoke listening activity.
  * Available to all authenticated users (students too).
  */
 exports.trackView = async (req, res, next) => {
   try {
     const engagementSecs = parseInt(req.body.engagementSecs) || 0;
-    const NOTE_THRESHOLD_SECS = 180; // 3 minutes
+    const listeningSecs = parseInt(req.body.listeningSecs) || 0;
+    const isKaraokeParam = Boolean(req.body.isKaraoke);
 
-    // Only log if above threshold
-    if (engagementSecs < NOTE_THRESHOLD_SECS) {
+    const isDemo = req.params.id === 'demo' || req.params.id === '0';
+    const isKaraokeReq = isKaraokeParam || isDemo;
+
+    // For regular notes: 180s (3m) threshold.
+    // For karaoke notes: 15s listening/practice threshold so every story session counts!
+    const effectiveSecs = isKaraokeReq ? Math.max(engagementSecs, listeningSecs) : engagementSecs;
+    const minThreshold = isKaraokeReq ? 15 : 180;
+
+    if (effectiveSecs < minThreshold) {
       return res.json({ success: true, logged: false, reason: 'below_threshold' });
     }
 
-    const note = await Note.findByPk(req.params.id, { include: [subjectInclude] });
-    if (!note) return res.status(404).json({ success: false, message: 'Note not found' });
+    let resourceId = 0;
+    let resourceTitle = 'Interactive Karaoke Story';
+    let subjectName = 'German';
+    let topicName = 'Reading Practice';
+    let isKaraokeNote = isKaraokeReq;
+
+    if (!isDemo) {
+      const note = await Note.findByPk(req.params.id, { include: [subjectInclude] });
+      if (!note) return res.status(404).json({ success: false, message: 'Note not found' });
+      resourceId = note.id;
+      resourceTitle = note.title;
+      subjectName = note.subject?.name || null;
+      topicName = note.topic || null;
+      if (note.isKaraoke) isKaraokeNote = true;
+    }
 
     await UserActivity.create({
       userId: req.user.id,
       activityType: 'note',
-      resourceId: note.id,
-      resourceTitle: note.title,
-      subjectName: note.subject?.name || null,
-      topicName: note.topic || null,
-      metadata: { engagementSecs },
+      resourceId,
+      resourceTitle,
+      subjectName,
+      topicName,
+      metadata: {
+        engagementSecs: effectiveSecs,
+        listeningSecs: isKaraokeNote ? (listeningSecs || effectiveSecs) : 0,
+        isKaraoke: isKaraokeNote,
+      },
       activityDate: getClientDate(req),
     });
 

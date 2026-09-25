@@ -47,7 +47,7 @@ export default function NoteDetailPage() {
 
   // Start timer once note is loaded; pause/resume on tab visibility changes
   useEffect(() => {
-    if (!note) return;
+    if (!note || note.isKaraoke) return;
     startRef.current = Date.now();
 
     const onVisibility = () => {

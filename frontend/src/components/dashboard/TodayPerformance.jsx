@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../api/axios';
-import { Brain, BookOpen, Layers, ArrowRight, TrendingUp } from 'lucide-react';
+import { Brain, BookOpen, Layers, ArrowRight, TrendingUp, Music } from 'lucide-react';
 
 function getLocalDateString(d = new Date()) {
   const year = d.getFullYear();
@@ -11,17 +11,17 @@ function getLocalDateString(d = new Date()) {
 }
 
 export default function TodayPerformance() {
-  const [summary, setSummary] = useState({ quizCount: 0, noteCount: 0, flashcardCount: 0 });
+  const [summary, setSummary] = useState({ quizCount: 0, noteCount: 0, flashcardCount: 0, karaokeCount: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const today = getLocalDateString(new Date());
     api.get(`/activity/summary?date=${today}&countsOnly=true`)
       .then(({ data }) => {
-        setSummary(data.summary || { quizCount: 0, noteCount: 0, flashcardCount: 0 });
+        setSummary(data.summary || { quizCount: 0, noteCount: 0, flashcardCount: 0, karaokeCount: 0 });
       })
       .catch(() => {
-        setSummary({ quizCount: 0, noteCount: 0, flashcardCount: 0 });
+        setSummary({ quizCount: 0, noteCount: 0, flashcardCount: 0, karaokeCount: 0 });
       })
       .finally(() => setLoading(false));
   }, []);
@@ -62,6 +62,7 @@ export default function TodayPerformance() {
           <>
             <div className="skeleton h-8 w-24 rounded-full" />
             <div className="skeleton h-8 w-20 rounded-full" />
+            <div className="skeleton h-8 w-24 rounded-full" />
             <div className="skeleton h-8 w-28 rounded-full" />
           </>
         ) : (
@@ -79,6 +80,13 @@ export default function TodayPerformance() {
               iconBg="bg-blue-500/10"
               value={summary.noteCount ?? 0}
               label="Notes"
+            />
+            <StatChip
+              icon={Music}
+              iconColor="text-pink-400"
+              iconBg="bg-pink-500/10"
+              value={summary.karaokeCount ?? 0}
+              label="Karaoke"
             />
             <StatChip
               icon={Layers}
