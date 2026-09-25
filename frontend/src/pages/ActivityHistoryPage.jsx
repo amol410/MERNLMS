@@ -39,15 +39,53 @@ function formatWeekLabel(start, end) {
   return `${s} – ${e}`;
 }
 
-function formatDateLabel(dateStr) {
-  const d = new Date(dateStr + 'T00:00:00');
+function getDayCategoryInfo(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const target = new Date(y, m - 1, d);
   const today = new Date();
-  const yesterday = new Date();
-  yesterday.setDate(today.getDate() - 1);
+  today.setHours(0, 0, 0, 0);
+  target.setHours(0, 0, 0, 0);
 
-  if (d.toDateString() === today.toDateString()) return 'Today';
-  if (d.toDateString() === yesterday.toDateString()) return 'Yesterday';
-  return d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+  const diffMs = today.getTime() - target.getTime();
+  const diffDays = Math.round(diffMs / (24 * 60 * 60 * 1000));
+  const weekdayShort = target.toLocaleDateString('en-US', { weekday: 'short' });
+  const weekdayLong = target.toLocaleDateString('en-US', { weekday: 'long' });
+  const formattedDate = target.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  if (diffDays === 0) {
+    return {
+      badge: 'TODAY',
+      badgeClass: 'bg-dolphin-500/20 text-dolphin-300 border-dolphin-500/30',
+      dateLabel: `${weekdayLong}, ${formattedDate}`,
+    };
+  } else if (diffDays === 1) {
+    return {
+      badge: 'YESTERDAY',
+      badgeClass: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+      dateLabel: `${weekdayLong}, ${formattedDate}`,
+    };
+  } else if (diffDays === 2) {
+    return {
+      badge: `DAY BEFORE YESTERDAY (${weekdayShort.toUpperCase()})`,
+      badgeClass: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+      dateLabel: `${weekdayLong}, ${formattedDate}`,
+    };
+  } else {
+    const colors = {
+      Mon: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+      Tue: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+      Wed: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
+      Thu: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
+      Fri: 'bg-pink-500/20 text-pink-300 border-pink-500/30',
+      Sat: 'bg-rose-500/20 text-rose-300 border-rose-500/30',
+      Sun: 'bg-violet-500/20 text-violet-300 border-violet-500/30',
+    };
+    return {
+      badge: weekdayLong.toUpperCase(),
+      badgeClass: colors[weekdayShort] || 'bg-white/10 text-gray-300 border-white/15',
+      dateLabel: `${weekdayLong}, ${formattedDate}`,
+    };
+  }
 }
 
 // ─── Main Page Component ─────────────────────────────────────────────────────
@@ -364,26 +402,21 @@ function DayBlock({ dateStr, day, activeFilter }) {
   const notes = showNotes ? (day.notes || []) : [];
   const flashcards = showFlashcards ? (day.flashcards || []) : [];
 
-  const isToday = formatDateLabel(dateStr) === 'Today';
-  const isYesterday = formatDateLabel(dateStr) === 'Yesterday';
+  const category = getDayCategoryInfo(dateStr);
 
   return (
     <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4 sm:p-5">
       {/* Day Title */}
       <div className="flex items-center justify-between mb-3.5">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5 flex-wrap">
           <span className={clsx(
-            'text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider',
-            isToday
-              ? 'bg-dolphin-500/20 text-dolphin-300 border border-dolphin-500/30'
-              : isYesterday
-              ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
-              : 'bg-white/5 text-gray-400'
+            'text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider border',
+            category.badgeClass
           )}>
-            {formatDateLabel(dateStr)}
+            {category.badge}
           </span>
-          <span className="text-xs text-gray-500">
-            {new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+          <span className="text-xs text-gray-400 font-medium">
+            {category.dateLabel}
           </span>
         </div>
         <div className="text-xs text-gray-500 font-medium">

@@ -43,7 +43,10 @@ exports.getSummary = async (req, res, next) => {
             // Broaden range by 1 day on each side so activities crossing UTC/local midnight are retrieved
             const prevDay = new Date(new Date(start).getTime() - 24 * 60 * 60 * 1000).toISOString().split('T')[0];
             const nextDay = new Date(new Date(end).getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-            where.activityDate = { [Op.between]: [prevDay, nextDay] };
+            where[Op.or] = [
+                { activityDate: { [Op.between]: [prevDay, nextDay] } },
+                { createdAt: { [Op.between]: [new Date(start + 'T00:00:00Z'), new Date(nextDay + 'T23:59:59Z')] } },
+            ];
             weekRange = { start, end };
         } else {
             const date = req.query.date || getClientDate(req);
