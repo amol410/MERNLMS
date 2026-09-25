@@ -6,9 +6,12 @@ const QuizAttempt = require('./QuizAttempt');
 const Flashcard = require('./Flashcard');
 const Subject = require('./Subject');
 const UserActivity = require('./UserActivity');
+const KaraokeAudio = require('./KaraokeAudio');
 
 Note.belongsTo(User,     { foreignKey: 'owner',     as: 'ownerUser' });
 Note.belongsTo(Subject,  { foreignKey: 'subjectId', as: 'subject' });
+Note.hasMany(KaraokeAudio, { foreignKey: 'noteId', as: 'audioTracks' });
+KaraokeAudio.belongsTo(Note, { foreignKey: 'noteId', as: 'note' });
 Video.belongsTo(User,    { foreignKey: 'addedBy',   as: 'addedByUser' });
 Quiz.belongsTo(User,     { foreignKey: 'createdBy', as: 'createdByUser' });
 Quiz.belongsTo(Subject,  { foreignKey: 'subjectId', as: 'subject' });

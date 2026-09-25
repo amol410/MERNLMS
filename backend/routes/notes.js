@@ -2,32 +2,25 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
-const { getNotes, getNoteById, createNote, updateNote, deleteNote, togglePin, uploadNoteFile, uploadAudioFile, trackView } = require('../controllers/noteController');
+const { 
+  getNotes, getNoteById, createNote, updateNote, deleteNote, 
+  togglePin, uploadNoteFile, uploadAudioFile, streamAudioFromDb, trackView 
+} = require('../controllers/noteController');
 const { protect, authorize } = require('../middleware/auth');
 const multer = require('multer');
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 20 * 1024 * 1024 } });
 
-const audioStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, '../uploads/audio');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase() || '.mp3';
-    const uniqueName = `audio_${Date.now()}_${Math.round(Math.random() * 1e9)}${ext}`;
-    cb(null, uniqueName);
-  }
-});
+// In-memory audio upload so buffers are saved directly into MySQL LONGBLOB
 const uploadAudio = multer({
-  storage: audioStorage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: 50 * 1024 * 1024 }
 });
 
-// Public audio stream route for <audio> tags (which do not send Authorization headers)
+// 1. Permanent audio stream route from MySQL database (supports HTTP 206 Range seeking)
+router.get('/audio/db/:id', streamAudioFromDb);
+
+// 2. Legacy disk/static audio fallback route for existing files or demo tracks
 router.get('/audio/:filename', (req, res) => {
   const safeFilename = path.basename(req.params.filename);
   const candidates = [

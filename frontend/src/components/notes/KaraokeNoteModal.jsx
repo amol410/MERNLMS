@@ -259,6 +259,10 @@ export default function KaraokeNoteModal({ isOpen, onClose }) {
       if (audioFile) {
         const formData = new FormData();
         formData.append('audio', audioFile);
+        const editId = noteToEdit?._id || noteToEdit?.id;
+        if (editId) {
+          formData.append('noteId', editId);
+        }
         const uploadRes = await api.post('/notes/upload-audio', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });

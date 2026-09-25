@@ -297,6 +297,9 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
     try {
       const formData = new FormData();
       formData.append('audio', file);
+      if (noteId) {
+        formData.append('noteId', noteId);
+      }
       const res = await api.post('/notes/upload-audio', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
@@ -317,7 +320,7 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
         setCurrentAudioUrl(resolved);
         setAudioError(false);
         if (onAudioUpdated) onAudioUpdated(newUrl);
-        toast.success('Audio file uploaded and permanently saved!');
+        toast.success('Audio file permanently saved in database!');
         if (audioRef.current) {
           audioRef.current.src = resolved;
           audioRef.current.load();

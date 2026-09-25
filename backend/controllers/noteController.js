@@ -3,6 +3,7 @@ const Note = require('../models/Note');
 const User = require('../models/User');
 const Subject = require('../models/Subject');
 const UserActivity = require('../models/UserActivity');
+const KaraokeAudio = require('../models/KaraokeAudio');
 const { getClientDate } = require('../utils/dateHelper');
 const mammoth = require('mammoth');
 
@@ -325,16 +326,106 @@ exports.trackView = async (req, res, next) => {
 
 /**
  * POST /api/notes/upload-audio
- * Accepts audio file and returns its static public URL
+ * Accepts audio file and saves directly into MySQL `karaoke_audios` table as LONGBLOB
+ * Returns permanent URL `/api/notes/audio/db/:id`
  */
 exports.uploadAudioFile = async (req, res, next) => {
   try {
     if (!req.file) {
       return res.status(400).json({ success: false, message: 'No audio file uploaded' });
     }
-    const audioUrl = `/api/notes/audio/${req.file.filename}`;
-    res.json({ success: true, audioUrl, filename: req.file.originalname });
+
+    const buffer = req.file.buffer || (req.file.path ? require('fs').readFileSync(req.file.path) : null);
+    if (!buffer || buffer.length === 0) {
+      return res.status(400).json({ success: false, message: 'Audio file buffer is empty' });
+    }
+
+    const noteId = req.body.noteId ? parseInt(req.body.noteId) : null;
+
+    // Save permanently in MySQL database
+    const audioRecord = await KaraokeAudio.create({
+      noteId,
+      filename: req.file.originalname || 'karaoke_story.mp3',
+      mimeType: req.file.mimetype || 'audio/mpeg',
+      audioData: buffer,
+      fileSize: buffer.length,
+    });
+
+    const audioUrl = `/api/notes/audio/db/${audioRecord.id}`;
+
+    // If noteId was supplied, update the note in database right away
+    if (noteId) {
+      const note = await Note.findByPk(noteId);
+      if (note) {
+        note.audioUrl = audioUrl;
+        if (note.karaokeData && typeof note.karaokeData === 'object') {
+          note.karaokeData = { ...note.karaokeData, audioUrl };
+        }
+        await note.save();
+      }
+    }
+
+    res.json({
+      success: true,
+      audioUrl,
+      audioId: audioRecord.id,
+      filename: req.file.originalname,
+      fileSize: buffer.length,
+    });
   } catch (error) {
     next(error);
   }
 };
+
+/**
+ * GET /api/notes/audio/db/:id
+ * Streams audio binary data directly from MySQL table `karaoke_audios`
+ * Supports HTTP 206 Partial Content (Range requests) for smooth playback and seeking
+ */
+exports.streamAudioFromDb = async (req, res, next) => {
+  try {
+    const audio = await KaraokeAudio.findByPk(req.params.id);
+    if (!audio || !audio.audioData) {
+      return res.status(404).send('Audio track not found in database');
+    }
+
+    const buffer = Buffer.isBuffer(audio.audioData) ? audio.audioData : Buffer.from(audio.audioData);
+    const totalLength = buffer.length;
+    const contentType = audio.mimeType || 'audio/mpeg';
+
+    const range = req.headers.range;
+    if (range) {
+      // Parse Range header e.g. "bytes=0-" or "bytes=1000-2000"
+      const parts = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(parts[0], 10) || 0;
+      const end = parts[1] ? parseInt(parts[1], 10) : totalLength - 1;
+
+      if (start >= totalLength || end >= totalLength || start > end) {
+        res.setHeader('Content-Range', `bytes */${totalLength}`);
+        return res.status(416).send('Requested Range Not Satisfiable');
+      }
+
+      const chunkSize = (end - start) + 1;
+      res.writeHead(206, {
+        'Content-Range': `bytes ${start}-${end}/${totalLength}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunkSize,
+        'Content-Type': contentType,
+        'Cache-Control': 'public, max-age=31536000',
+      });
+      return res.end(buffer.subarray(start, end + 1));
+    }
+
+    res.writeHead(200, {
+      'Content-Length': totalLength,
+      'Content-Type': contentType,
+      'Accept-Ranges': 'bytes',
+      'Cache-Control': 'public, max-age=31536000',
+    });
+    return res.end(buffer);
+  } catch (error) {
+    console.error('Error streaming audio from DB:', error);
+    res.status(500).send('Error streaming audio from database');
+  }
+};
+
