@@ -179,6 +179,10 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
   const [sentencePassed, setSentencePassed] = useState({});
 
   const recognitionRef = useRef(null);
+  const silenceTimerRef = useRef(null);
+  const currentSpokenTextRef = useRef('');
+  const isSubmittingRef = useRef(false);
+  const activeSpeechTargetRef = useRef({ text: '', index: -1 });
   const lastPausedSentenceRef = useRef(-1);
   const isSprechenModeRef = useRef(isSprechenMode);
   const isPlayingRef = useRef(isPlaying);
@@ -434,11 +438,61 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
   // Speech recognition cleanup on unmount
   useEffect(() => {
     return () => {
+      if (silenceTimerRef.current) {
+        clearTimeout(silenceTimerRef.current);
+        silenceTimerRef.current = null;
+      }
       if (recognitionRef.current) {
         try { recognitionRef.current.abort(); } catch (e) {}
+        recognitionRef.current = null;
       }
     };
   }, []);
+
+  const cleanupListening = () => {
+    if (silenceTimerRef.current) {
+      clearTimeout(silenceTimerRef.current);
+      silenceTimerRef.current = null;
+    }
+    if (recognitionRef.current) {
+      try { recognitionRef.current.abort(); } catch (e) {}
+      recognitionRef.current = null;
+    }
+    setIsListening(false);
+  };
+
+  const handleAutoSubmit = () => {
+    if (isSubmittingRef.current) return;
+    const spoken = currentSpokenTextRef.current.trim();
+    if (!spoken) return;
+
+    isSubmittingRef.current = true;
+    cleanupListening();
+
+    const { text, index } = activeSpeechTargetRef.current;
+    if (index >= 0) {
+      evaluateSentenceSpoken(text, spoken, index);
+    }
+  };
+
+  const handleManualSubmit = (targetSentenceText, sIdx) => {
+    if (isSubmittingRef.current) return;
+    const spoken = currentSpokenTextRef.current.trim();
+    if (!spoken) {
+      toast('Please speak first before submitting!', { icon: '🎙️' });
+      return;
+    }
+
+    isSubmittingRef.current = true;
+    cleanupListening();
+
+    evaluateSentenceSpoken(targetSentenceText, spoken, sIdx);
+  };
+
+  const stopListening = () => {
+    cleanupListening();
+    toast('Voice recognition stopped.', { icon: '⏹️' });
+  };
 
   const startListening = (targetSentenceText, sIdx) => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -447,49 +501,69 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
       return;
     }
 
-    if (recognitionRef.current) {
-      try { recognitionRef.current.abort(); } catch (e) {}
-    }
+    cleanupListening();
+
+    isSubmittingRef.current = false;
+    currentSpokenTextRef.current = '';
+    activeSpeechTargetRef.current = { text: targetSentenceText, index: sIdx };
 
     const recognition = new SpeechRecognition();
     recognition.lang = 'de-DE'; // Native German language recognition
     recognition.interimResults = true;
-    recognition.continuous = false;
+    recognition.continuous = true; // Continuous listening prevents premature pause cutoffs
     recognition.maxAlternatives = 1;
 
     setIsListening(true);
     setSpokenText('');
+    setSpeechResult(null);
+
+    const resetSilenceTimer = () => {
+      if (silenceTimerRef.current) {
+        clearTimeout(silenceTimerRef.current);
+      }
+      silenceTimerRef.current = setTimeout(() => {
+        // Auto-submit after 3 seconds of continuous silence
+        handleAutoSubmit();
+      }, 3000);
+    };
 
     recognition.onresult = (event) => {
-      let interim = '';
       let final = '';
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
+      let interim = '';
+      for (let i = 0; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
-          final += event.results[i][0].transcript;
+          final += event.results[i][0].transcript + ' ';
         } else {
           interim += event.results[i][0].transcript;
         }
       }
-      const spoken = (final || interim).trim();
+      const spoken = (final + interim).trim();
+      currentSpokenTextRef.current = spoken;
       setSpokenText(spoken);
 
-      if (final) {
-        evaluateSentenceSpoken(targetSentenceText, final, sIdx);
+      // Reset the 3-second silence timer whenever speech is captured
+      if (spoken.length > 0) {
+        resetSilenceTimer();
       }
     };
 
     recognition.onerror = (event) => {
       console.warn('Speech recognition status:', event.error);
-      setIsListening(false);
       if (event.error === 'not-allowed') {
         toast.error('Microphone permission was denied. Please allow microphone access in your browser.');
+        cleanupListening();
       } else if (event.error === 'no-speech') {
-        toast('No speech detected. Please speak clearly into your microphone.', { icon: '🎙️' });
+        // No speech detected yet; let user continue speaking
       }
     };
 
     recognition.onend = () => {
-      setIsListening(false);
+      // If recognition ended unexpectedly but speech was detected, auto-submit
+      if (!isSubmittingRef.current && currentSpokenTextRef.current.trim()) {
+        handleAutoSubmit();
+      } else if (!isSubmittingRef.current) {
+        setIsListening(false);
+      }
     };
 
     recognitionRef.current = recognition;
@@ -499,13 +573,6 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
       console.error(err);
       setIsListening(false);
     }
-  };
-
-  const stopListening = () => {
-    if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch (e) {}
-    }
-    setIsListening(false);
   };
 
   const evaluateSentenceSpoken = (targetText, spoken, sIdx) => {
@@ -539,6 +606,7 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
 
   const playSentence = (sIdx) => {
     if (!audioRef.current || !sentences[sIdx]) return;
+    cleanupListening();
     const targetSentence = sentences[sIdx];
     lastPausedSentenceRef.current = -1;
     audioRef.current.currentTime = targetSentence.start;
@@ -554,6 +622,7 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
   };
 
   const handleRestartSentencePractice = (sIdx) => {
+    cleanupListening();
     setSentenceChances(prev => ({ ...prev, [sIdx]: 3 }));
     setSentencePassed(prev => ({ ...prev, [sIdx]: false }));
     setSpeechResult(null);
@@ -1241,52 +1310,78 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
                           </div>
 
                           {/* Live Speech or Recorded Feedback */}
-                          {spokenText && (
+                          {(spokenText || isListening) && (
                             <div className="mt-2.5 text-xs text-gray-300 bg-white/5 p-2.5 rounded-xl border border-white/5 flex items-center justify-between gap-3 flex-wrap">
-                              <div>
+                              <div className="flex items-center gap-2 flex-wrap">
                                 <span className="text-gray-400 font-medium">You said: </span>
-                                <span className="italic font-semibold text-pink-200">"{spokenText}"</span>
+                                {spokenText ? (
+                                  <span className="italic font-semibold text-pink-200">"{spokenText}"</span>
+                                ) : (
+                                  <span className="text-pink-300/70 italic flex items-center gap-1.5 animate-pulse">
+                                    Listening... speak now in German
+                                  </span>
+                                )}
                               </div>
-                              {speechResult && (
-                                <span className={clsx(
-                                  'font-bold px-2 py-0.5 rounded-full text-xs border',
-                                  speechResult.isMatch
-                                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
-                                    : 'bg-amber-500/20 text-amber-300 border-amber-500/30'
-                                )}>
-                                  {speechResult.accuracy}% Accuracy
-                                </span>
-                              )}
+                              <div className="flex items-center gap-2">
+                                {isListening && (
+                                  <span className="text-[11px] font-medium text-emerald-400/90 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center gap-1.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                                    Submits in 3s silence or click Done
+                                  </span>
+                                )}
+                                {speechResult && !isListening && (
+                                  <span className={clsx(
+                                    'font-bold px-2 py-0.5 rounded-full text-xs border',
+                                    speechResult.isMatch
+                                      ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                                      : 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                                  )}>
+                                    {speechResult.accuracy}% Accuracy
+                                  </span>
+                                )}
+                              </div>
                             </div>
                           )}
                         </div>
 
                         {/* Sprechen Action Buttons */}
                         <div className="flex items-center gap-2.5 flex-wrap">
-                          {/* Speak Button (Active while chances remain and not passed) */}
+                          {/* Speak / Done Speaking / Cancel Controls */}
                           {!Boolean(sentencePassed[sIdx]) && ((sentenceChances[sIdx] !== undefined ? sentenceChances[sIdx] : 3) > 0) && (
-                            <button
-                              type="button"
-                              onClick={() => isListening ? stopListening() : startListening(sentence.text, sIdx)}
-                              className={clsx(
-                                'px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-lg',
-                                isListening
-                                  ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse shadow-red-500/50'
-                                  : 'bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-pink-500/30 hover:scale-105'
-                              )}
-                            >
-                              {isListening ? (
-                                <>
-                                  <MicOff className="w-4 h-4 animate-bounce" />
-                                  <span>Listening... Click to Finish</span>
-                                </>
-                              ) : (
-                                <>
+                            <>
+                              {!isListening ? (
+                                <button
+                                  type="button"
+                                  onClick={() => startListening(sentence.text, sIdx)}
+                                  className="px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-lg bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-pink-500/30 hover:scale-105"
+                                >
                                   <Mic className="w-4 h-4" />
                                   <span>Click to Speak (Auf Deutsch)</span>
+                                </button>
+                              ) : (
+                                <>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleManualSubmit(sentence.text, sIdx)}
+                                    className="px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-lg bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-emerald-500/30 hover:scale-105 animate-pulse"
+                                    title="Click to immediately submit and evaluate without waiting for 3 seconds of silence"
+                                  >
+                                    <CheckCircle2 className="w-4 h-4" />
+                                    <span>Done Speaking (Check Now ✓)</span>
+                                  </button>
+
+                                  <button
+                                    type="button"
+                                    onClick={stopListening}
+                                    className="px-3 py-2 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/10 flex items-center gap-1.5 transition-colors cursor-pointer"
+                                    title="Cancel listening"
+                                  >
+                                    <XCircle className="w-3.5 h-3.5 text-gray-400" />
+                                    <span>Cancel</span>
+                                  </button>
                                 </>
                               )}
-                            </button>
+                            </>
                           )}
 
                           {/* Listen Again at 0.75x speed */}
