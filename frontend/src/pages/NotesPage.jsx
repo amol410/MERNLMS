@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { Plus, Search, BookOpen, Pin, Trash2, Edit, Tag, X, SortDesc, Music, Sparkles, Play } from 'lucide-react';
 import EmptyState from '../components/common/EmptyState';
 import { GridSkeleton } from '../components/common/Loader';
+import Pagination from '../components/common/Pagination';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubjects } from '../hooks/useSubjects';
 import KaraokeNoteModal from '../components/notes/KaraokeNoteModal';
@@ -34,6 +35,8 @@ export default function NotesPage() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0, limit: 6 });
 
   const isStaff = user?.role === 'trainer' || user?.role === 'admin';
   const [searchInput, setSearchInput] = useState('');
@@ -51,29 +54,47 @@ export default function NotesPage() {
   const fetchNotes = useCallback(async () => {
     setLoading(true);
     try {
-      const params = { limit: 50 };
+      const params = { limit: 6, page };
       if (search) params.q = search;
       if (activeTag) params.tag = activeTag;
+      if (activeColor) params.color = activeColor;
       if (filterSubject) params.subject = filterSubject;
       if (filterTopic) params.topic = filterTopic;
       const { data } = await api.get('/notes', { params });
-      let result = data.notes;
-      if (activeColor) result = result.filter(n => n.color === activeColor);
-      setNotes(result);
-      const tags = [...new Set(data.notes.flatMap(n => n.tags))].filter(Boolean);
-      setAllTags(tags);
+      setNotes(data.notes || []);
+      if (data.tags) {
+        setAllTags(data.tags);
+      } else {
+        const tags = [...new Set((data.notes || []).flatMap(n => n.tags))].filter(Boolean);
+        setAllTags(tags);
+      }
+      if (data.pagination) {
+        setPagination(data.pagination);
+      }
     } catch {
       toast.error('Failed to load notes');
     } finally {
       setLoading(false);
     }
-  }, [search, activeTag, activeColor, filterSubject, filterTopic]);
+  }, [search, page, activeTag, activeColor, filterSubject, filterTopic]);
 
   useEffect(() => { fetchNotes(); }, [fetchNotes]);
 
-  const handleSearch = (e) => { e.preventDefault(); setSearch(searchInput); };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setPage(1);
+    setSearch(searchInput);
+  };
 
-  const clearAll = () => { setSearch(''); setSearchInput(''); setActiveTag(''); setActiveColor(''); setFilterSubject(''); setFilterTopic(''); };
+  const clearAll = () => {
+    setSearch('');
+    setSearchInput('');
+    setActiveTag('');
+    setActiveColor('');
+    setFilterSubject('');
+    setFilterTopic('');
+    setPage(1);
+  };
 
   const handlePin = async (id, isPinned) => {
     try {
@@ -109,7 +130,7 @@ export default function NotesPage() {
             <BookOpen className="w-8 h-8 text-blue-400" />
             My Notes
           </h1>
-          <p className="text-gray-500 mt-1">{notes.length} notes • Click to read, hover to edit</p>
+          <p className="text-gray-500 mt-1">{(pagination?.total ?? notes.length)} notes • Click to read, hover to edit</p>
         </div>
         {isStaff && (
           <button 
@@ -172,7 +193,7 @@ export default function NotesPage() {
             <BookOpen className="w-4 h-4 text-gray-500 flex-shrink-0" />
             <select
               value={filterSubject}
-              onChange={e => { setFilterSubject(e.target.value); setFilterTopic(''); }}
+              onChange={e => { setFilterSubject(e.target.value); setFilterTopic(''); setPage(1); }}
               className="select-field text-sm py-2 min-w-36"
             >
               <option value="">All Subjects</option>
@@ -183,7 +204,7 @@ export default function NotesPage() {
             <Tag className="w-4 h-4 text-gray-500 flex-shrink-0" />
             <select
               value={filterTopic}
-              onChange={e => setFilterTopic(e.target.value)}
+              onChange={e => { setFilterTopic(e.target.value); setPage(1); }}
               disabled={!filterSubject}
               className="select-field text-sm py-2 min-w-36 disabled:opacity-40"
             >
@@ -199,7 +220,7 @@ export default function NotesPage() {
             <div className="flex flex-wrap gap-1.5">
               <Tag className="w-4 h-4 text-gray-600 self-center" />
               {allTags.map(tag => (
-                <button key={tag} onClick={() => setActiveTag(activeTag === tag ? '' : tag)}
+                <button key={tag} onClick={() => { setActiveTag(activeTag === tag ? '' : tag); setPage(1); }}
                   className={clsx('badge transition-all', activeTag === tag ? 'badge-blue' : 'bg-white/5 text-gray-400 border border-white/10 hover:border-white/20')}>
                   {tag}
                 </button>
@@ -211,7 +232,7 @@ export default function NotesPage() {
           <div className="flex items-center gap-2 ml-auto">
             <span className="text-gray-600 text-xs">Color:</span>
             {colorOptions.map(({ value, dot }) => (
-              <button key={value} onClick={() => setActiveColor(activeColor === value ? '' : value)}
+              <button key={value} onClick={() => { setActiveColor(activeColor === value ? '' : value); setPage(1); }}
                 className={clsx('w-4 h-4 rounded-full transition-all', dot, activeColor === value ? 'ring-2 ring-white ring-offset-1 ring-offset-gray-900 scale-125' : 'opacity-50 hover:opacity-100')} />
             ))}
           </div>
@@ -244,7 +265,7 @@ export default function NotesPage() {
               <h2 className="text-sm font-medium text-gray-500 mb-3 flex items-center gap-2">
                 <Pin className="w-3.5 h-3.5 text-yellow-500" /> Pinned
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {pinned.map(note => <NoteCard key={note._id} note={note} onPin={handlePin} onDelete={handleDelete} isStaff={isStaff} />)}
               </div>
             </div>
@@ -254,11 +275,21 @@ export default function NotesPage() {
           {unpinned.length > 0 && (
             <div>
               {pinned.length > 0 && <h2 className="text-sm font-medium text-gray-500 mb-3 flex items-center gap-2"><SortDesc className="w-3.5 h-3.5" /> All Notes</h2>}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {unpinned.map(note => <NoteCard key={note._id} note={note} onPin={handlePin} onDelete={handleDelete} isStaff={isStaff} />)}
               </div>
             </div>
           )}
+
+          {/* Pagination */}
+          <Pagination
+            page={pagination.page}
+            pages={pagination.pages}
+            total={pagination.total}
+            limit={6}
+            onPageChange={setPage}
+            itemName="notes"
+          />
         </>
       )}
 

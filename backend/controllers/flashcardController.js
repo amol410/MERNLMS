@@ -20,7 +20,7 @@ const reshape = (deck) => {
 
 exports.getDecks = async (req, res, next) => {
   try {
-    const { q, page = 1, limit = 12 } = req.query;
+    const { q, page = 1, limit = 6 } = req.query;
 
     const conditions = [
       { [Op.or]: [{ owner: req.user.id }, { isPublic: true }] },
@@ -35,16 +35,28 @@ exports.getDecks = async (req, res, next) => {
       });
     }
 
-    const offset = (parseInt(page) - 1) * parseInt(limit);
+    const parsedLimit = parseInt(limit) || 6;
+    const parsedPage = Math.max(1, parseInt(page) || 1);
+    const offset = (parsedPage - 1) * parsedLimit;
+
     const { count, rows } = await Flashcard.findAndCountAll({
       where: { [Op.and]: conditions },
       include: [ownerInclude],
       order: [['createdAt', 'DESC']],
       offset,
-      limit: parseInt(limit),
+      limit: parsedLimit,
     });
 
-    res.json({ success: true, decks: rows.map(reshape), pagination: { total: count, page: parseInt(page), pages: Math.ceil(count / parseInt(limit)) } });
+    res.json({
+      success: true,
+      decks: rows.map(reshape),
+      pagination: {
+        total: count,
+        page: parsedPage,
+        pages: Math.ceil(count / parsedLimit) || 1,
+        limit: parsedLimit,
+      },
+    });
   } catch (error) {
     next(error);
   }

@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { Layers, Search, Plus, X, Play, Lock, Globe } from 'lucide-react';
 import EmptyState from '../components/common/EmptyState';
 import { GridSkeleton } from '../components/common/Loader';
+import Pagination from '../components/common/Pagination';
 import { useAuth } from '../contexts/AuthContext';
 import clsx from 'clsx';
 
@@ -28,26 +29,35 @@ export default function FlashcardsPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0, limit: 6 });
 
   const isStaff = user?.role === 'trainer' || user?.role === 'admin';
 
   const fetchDecks = useCallback(async () => {
     setLoading(true);
     try {
-      const params = { limit: 24 };
+      const params = { limit: 6, page };
       if (search) params.q = search;
       const { data } = await api.get('/flashcards', { params });
-      setDecks(data.decks);
+      setDecks(data.decks || []);
+      if (data.pagination) {
+        setPagination(data.pagination);
+      }
     } catch {
       toast.error('Failed to load decks');
     } finally {
       setLoading(false);
     }
-  }, [search]);
+  }, [search, page]);
 
   useEffect(() => { fetchDecks(); }, [fetchDecks]);
 
-  const handleSearch = (e) => { e.preventDefault(); setSearch(searchInput); };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setPage(1);
+    setSearch(searchInput);
+  };
 
   const handleDelete = async (e, id) => {
     e.stopPropagation();
@@ -69,7 +79,7 @@ export default function FlashcardsPage() {
             <Layers className="w-8 h-8 text-green-400" />
             Flashcard Decks
           </h1>
-          <p className="text-gray-500 mt-1">{decks.length} decks • Spaced repetition learning</p>
+          <p className="text-gray-500 mt-1">{(pagination?.total ?? decks.length)} decks • Spaced repetition learning</p>
         </div>
         {isStaff && (
           <Link to="/flashcards/new" className="btn-primary flex items-center gap-2">
@@ -86,7 +96,7 @@ export default function FlashcardsPage() {
             <input value={searchInput} onChange={e => setSearchInput(e.target.value)} className="input-field pl-11" placeholder="Search decks..." />
           </div>
           {search && (
-            <button type="button" onClick={() => { setSearch(''); setSearchInput(''); }} className="btn-icon"><X className="w-4 h-4" /></button>
+            <button type="button" onClick={() => { setSearch(''); setSearchInput(''); setPage(1); }} className="btn-icon"><X className="w-4 h-4" /></button>
           )}
           <button type="submit" className="btn-primary px-5">Search</button>
         </form>
@@ -102,66 +112,78 @@ export default function FlashcardsPage() {
           action={isStaff ? <Link to="/flashcards/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Create Deck</Link> : null}
         />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {decks.map(deck => {
-            const ownerId = deck.owner?._id ?? deck.owner?.id ?? deck.owner;
-            const isOwner = ownerId == user?._id;
-            return (
-              <div
-                key={deck._id}
-                className="overflow-hidden rounded-2xl hover:scale-[1.03] hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-white/10"
-                onClick={() => navigate(`/flashcards/${deck._id}/study`)}
-              >
-                {/* Color header */}
-                <div className={clsx('h-36 bg-gradient-to-br flex flex-col items-center justify-center relative', deckColors[deck.color] || deckColors.default)}>
-                  <div className="absolute inset-0 bg-black/10" />
-                  {/* Decorative circles */}
-                  <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-white/10" />
-                  <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-white/10" />
-                  <div className="relative text-center px-4">
-                    <div className="text-5xl mb-2">{deckEmojis[deck.color] || deckEmojis.default}</div>
-                    <p className="text-white/80 text-xs font-semibold tracking-widest uppercase">{deck.cardCount} Cards</p>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {decks.map(deck => {
+              const ownerId = deck.owner?._id ?? deck.owner?.id ?? deck.owner;
+              const isOwner = ownerId == user?._id;
+              return (
+                <div
+                  key={deck._id}
+                  className="overflow-hidden rounded-2xl hover:scale-[1.03] hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-white/10"
+                  onClick={() => navigate(`/flashcards/${deck._id}/study`)}
+                >
+                  {/* Color header */}
+                  <div className={clsx('h-36 bg-gradient-to-br flex flex-col items-center justify-center relative', deckColors[deck.color] || deckColors.default)}>
+                    <div className="absolute inset-0 bg-black/10" />
+                    {/* Decorative circles */}
+                    <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-white/10" />
+                    <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-white/10" />
+                    <div className="relative text-center px-4">
+                      <div className="text-5xl mb-2">{deckEmojis[deck.color] || deckEmojis.default}</div>
+                      <p className="text-white/80 text-xs font-semibold tracking-widest uppercase">{deck.cardCount} Cards</p>
+                    </div>
+                    <div className="absolute top-3 right-3">
+                      {deck.isPublic
+                        ? <span className="flex items-center gap-1 bg-black/30 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-full border border-white/20"><Globe className="w-3 h-3" />Public</span>
+                        : <span className="flex items-center gap-1 bg-black/30 backdrop-blur-sm text-white/70 text-xs font-medium px-2 py-1 rounded-full border border-white/10"><Lock className="w-3 h-3" />Private</span>
+                      }
+                    </div>
                   </div>
-                  <div className="absolute top-3 right-3">
-                    {deck.isPublic
-                      ? <span className="flex items-center gap-1 bg-black/30 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-full border border-white/20"><Globe className="w-3 h-3" />Public</span>
-                      : <span className="flex items-center gap-1 bg-black/30 backdrop-blur-sm text-white/70 text-xs font-medium px-2 py-1 rounded-full border border-white/10"><Lock className="w-3 h-3" />Private</span>
-                    }
-                  </div>
-                </div>
 
-                {/* Card body */}
-                <div className="p-5 bg-gray-900/80 backdrop-blur-sm">
-                  <h3 className="text-white font-bold text-lg mb-1 group-hover:text-green-300 transition-colors leading-tight line-clamp-2">
-                    {deck.deckName}
-                  </h3>
-                  {deck.description && (
-                    <p className="text-gray-400 text-sm line-clamp-2 mb-4 leading-relaxed">{deck.description}</p>
-                  )}
-                  {!deck.description && <div className="mb-4" />}
-
-                  <div className="flex gap-2">
-                    <button
-                      onClick={(e) => { e.stopPropagation(); navigate(`/flashcards/${deck._id}/study`); }}
-                      className="flex-1 btn-primary text-sm py-2.5 flex items-center justify-center gap-2 font-semibold"
-                    >
-                      <Play className="w-4 h-4" />
-                      Study Now
-                    </button>
-                    {isOwner && (
-                      <button
-                        onClick={(e) => { e.stopPropagation(); navigate(`/flashcards/${deck._id}/edit`); }}
-                        className="btn-secondary text-sm px-4 py-2.5 font-medium"
-                      >
-                        Edit
-                      </button>
+                  {/* Card body */}
+                  <div className="p-5 bg-gray-900/80 backdrop-blur-sm">
+                    <h3 className="text-white font-bold text-lg mb-1 group-hover:text-green-300 transition-colors leading-tight line-clamp-2">
+                      {deck.deckName}
+                    </h3>
+                    {deck.description && (
+                      <p className="text-gray-400 text-sm line-clamp-2 mb-4 leading-relaxed">{deck.description}</p>
                     )}
+                    {!deck.description && <div className="mb-4" />}
+
+                    <div className="flex gap-2">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); navigate(`/flashcards/${deck._id}/study`); }}
+                        className="flex-1 btn-primary text-sm py-2.5 flex items-center justify-center gap-2 font-semibold"
+                      >
+                        <Play className="w-4 h-4" />
+                        Study Now
+                      </button>
+                      {isOwner && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); navigate(`/flashcards/${deck._id}/edit`); }}
+                          className="btn-secondary text-sm px-4 py-2.5 font-medium"
+                        >
+                          Edit
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+
+          {/* Pagination */}
+          <Pagination
+            page={pagination.page}
+            pages={pagination.pages}
+            total={pagination.total}
+            limit={6}
+            onPageChange={setPage}
+            itemName="decks"
+          />
+        </>
       )}
     </div>
   );

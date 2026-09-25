@@ -7,6 +7,7 @@ import { useSubjects } from '../hooks/useSubjects';
 import { Brain, Search, Plus, Clock, Award, Play, X, CheckCircle, Pencil, BookOpen, Tag } from 'lucide-react';
 import EmptyState from '../components/common/EmptyState';
 import { GridSkeleton } from '../components/common/Loader';
+import Pagination from '../components/common/Pagination';
 
 export default function QuizzesPage() {
   const { user } = useAuth();
@@ -17,6 +18,8 @@ export default function QuizzesPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0, limit: 6 });
   const [filterSubject, setFilterSubject] = useState('');
   const [filterTopic, setFilterTopic] = useState('');
 
@@ -27,25 +30,36 @@ export default function QuizzesPage() {
   const fetchQuizzes = useCallback(async () => {
     setLoading(true);
     try {
-      const params = { limit: 24 };
+      const params = { limit: 6, page };
       if (search) params.q = search;
       if (filterSubject) params.subject = filterSubject;
       if (filterTopic) params.topic = filterTopic;
       const { data } = await api.get('/quizzes', { params });
-      setQuizzes(data.quizzes);
+      setQuizzes(data.quizzes || []);
+      if (data.pagination) {
+        setPagination(data.pagination);
+      }
     } catch {
       toast.error('Failed to load quizzes');
     } finally {
       setLoading(false);
     }
-  }, [search, filterSubject, filterTopic]);
+  }, [search, page, filterSubject, filterTopic]);
 
   useEffect(() => { fetchQuizzes(); }, [fetchQuizzes]);
 
-  const handleSearch = (e) => { e.preventDefault(); setSearch(searchInput); };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setPage(1);
+    setSearch(searchInput);
+  };
 
   const clearFilters = () => {
-    setSearch(''); setSearchInput(''); setFilterSubject(''); setFilterTopic('');
+    setSearch('');
+    setSearchInput('');
+    setFilterSubject('');
+    setFilterTopic('');
+    setPage(1);
   };
 
   const hasFilters = search || filterSubject || filterTopic;
@@ -65,7 +79,7 @@ export default function QuizzesPage() {
             <Brain className="w-8 h-8 text-purple-400" />
             Quizzes
           </h1>
-          <p className="text-gray-500 mt-1">{quizzes.length} quizzes • Auto-graded with explanations</p>
+          <p className="text-gray-500 mt-1">{(pagination?.total ?? quizzes.length)} quizzes • Auto-graded with explanations</p>
         </div>
         {(user?.role === 'trainer' || user?.role === 'admin') && (
           <Link to="/quizzes/new" className="btn-primary flex items-center gap-2">
@@ -96,7 +110,7 @@ export default function QuizzesPage() {
             <BookOpen className="w-4 h-4 text-gray-500 flex-shrink-0" />
             <select
               value={filterSubject}
-              onChange={e => { setFilterSubject(e.target.value); setFilterTopic(''); }}
+              onChange={e => { setFilterSubject(e.target.value); setFilterTopic(''); setPage(1); }}
               className="select-field text-sm py-2 min-w-36"
             >
               <option value="">All Subjects</option>
@@ -108,7 +122,7 @@ export default function QuizzesPage() {
             <Tag className="w-4 h-4 text-gray-500 flex-shrink-0" />
             <select
               value={filterTopic}
-              onChange={e => setFilterTopic(e.target.value)}
+              onChange={e => { setFilterTopic(e.target.value); setPage(1); }}
               disabled={!filterSubject}
               className="select-field text-sm py-2 min-w-36 disabled:opacity-40"
             >
@@ -129,78 +143,90 @@ export default function QuizzesPage() {
           action={(user?.role === 'trainer' || user?.role === 'admin') ? <Link to="/quizzes/new" className="btn-primary inline-flex items-center gap-2"><Plus className="w-4 h-4" />Create Quiz</Link> : null}
         />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {quizzes.map(quiz => {
-            const diff = difficultyColor(quiz.questions);
-            const createdById = quiz.createdBy?._id ?? quiz.createdBy?.id ?? quiz.createdBy;
-            const isOwner = (user?.role === 'trainer' || user?.role === 'admin') && createdById == user._id;
-            return (
-              <div key={quiz._id} className="glass-card p-5 border border-purple-500/10 hover:border-purple-500/25 transition-all duration-300 group flex flex-col">
-                {/* Header */}
-                <div className="flex items-start justify-between mb-3">
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-900/30 flex-shrink-0">
-                    <Brain className="w-5 h-5 text-white" />
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {quizzes.map(quiz => {
+              const diff = difficultyColor(quiz.questions);
+              const createdById = quiz.createdBy?._id ?? quiz.createdBy?.id ?? quiz.createdBy;
+              const isOwner = (user?.role === 'trainer' || user?.role === 'admin') && createdById == user._id;
+              return (
+                <div key={quiz._id} className="glass-card p-5 border border-purple-500/10 hover:border-purple-500/25 transition-all duration-300 group flex flex-col">
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-900/30 flex-shrink-0">
+                      <Brain className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="flex items-center gap-2 flex-wrap justify-end">
+                      <span className={`badge border text-xs ${diff.color}`}>{diff.label}</span>
+                      {quiz.timeLimit > 0 && (
+                        <span className="badge badge-yellow flex items-center gap-1 text-xs">
+                          <Clock className="w-3 h-3" />
+                          {quiz.timeLimit}m
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 flex-wrap justify-end">
-                    <span className={`badge border text-xs ${diff.color}`}>{diff.label}</span>
-                    {quiz.timeLimit > 0 && (
-                      <span className="badge badge-yellow flex items-center gap-1 text-xs">
-                        <Clock className="w-3 h-3" />
-                        {quiz.timeLimit}m
-                      </span>
-                    )}
-                  </div>
-                </div>
 
-                {/* Subject + Topic badges */}
-                {(quiz.subject?.name || quiz.topic) && (
-                  <div className="flex items-center gap-1.5 flex-wrap mb-2">
-                    {quiz.subject?.name && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/20 flex items-center gap-1">
-                        <BookOpen className="w-2.5 h-2.5" />{quiz.subject.name}
-                      </span>
-                    )}
-                    {quiz.topic && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/20 flex items-center gap-1">
-                        <Tag className="w-2.5 h-2.5" />{quiz.topic}
-                      </span>
-                    )}
-                  </div>
-                )}
-
-                <h3 className="text-white font-semibold mb-1.5 group-hover:text-purple-300 transition-colors leading-snug">{quiz.title}</h3>
-                {quiz.description && (
-                  <p className="text-gray-500 text-sm line-clamp-2 mb-3 flex-1">{quiz.description}</p>
-                )}
-
-                {/* Stats */}
-                <div className="flex items-center gap-4 text-xs text-gray-600 mb-4">
-                  <span className="flex items-center gap-1.5">
-                    <Award className="w-3.5 h-3.5 text-purple-500" />
-                    {quiz.questions?.length || 0} questions
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <CheckCircle className="w-3.5 h-3.5 text-green-500" />
-                    Pass: {quiz.passingScore}%
-                  </span>
-                </div>
-
-                {/* Actions */}
-                <div className="flex gap-2 mt-auto">
-                  <Link to={`/quizzes/${quiz._id}/take`} className="flex-1 btn-primary text-sm py-2 flex items-center justify-center gap-2">
-                    <Play className="w-3.5 h-3.5" />
-                    Take Quiz
-                  </Link>
-                  {isOwner && (
-                    <Link to={`/quizzes/${quiz._id}/edit`} className="btn-icon p-2.5 border border-white/10" title="Edit">
-                      <Pencil className="w-3.5 h-3.5" />
-                    </Link>
+                  {/* Subject + Topic badges */}
+                  {(quiz.subject?.name || quiz.topic) && (
+                    <div className="flex items-center gap-1.5 flex-wrap mb-2">
+                      {quiz.subject?.name && (
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/20 flex items-center gap-1">
+                          <BookOpen className="w-2.5 h-2.5" />{quiz.subject.name}
+                        </span>
+                      )}
+                      {quiz.topic && (
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/20 flex items-center gap-1">
+                          <Tag className="w-2.5 h-2.5" />{quiz.topic}
+                        </span>
+                      )}
+                    </div>
                   )}
+
+                  <h3 className="text-white font-semibold mb-1.5 group-hover:text-purple-300 transition-colors leading-snug">{quiz.title}</h3>
+                  {quiz.description && (
+                    <p className="text-gray-500 text-sm line-clamp-2 mb-3 flex-1">{quiz.description}</p>
+                  )}
+
+                  {/* Stats */}
+                  <div className="flex items-center gap-4 text-xs text-gray-600 mb-4">
+                    <span className="flex items-center gap-1.5">
+                      <Award className="w-3.5 h-3.5 text-purple-500" />
+                      {quiz.questions?.length || 0} questions
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <CheckCircle className="w-3.5 h-3.5 text-green-500" />
+                      Pass: {quiz.passingScore}%
+                    </span>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-2 mt-auto">
+                    <Link to={`/quizzes/${quiz._id}/take`} className="flex-1 btn-primary text-sm py-2 flex items-center justify-center gap-2">
+                      <Play className="w-3.5 h-3.5" />
+                      Take Quiz
+                    </Link>
+                    {isOwner && (
+                      <Link to={`/quizzes/${quiz._id}/edit`} className="btn-icon p-2.5 border border-white/10" title="Edit">
+                        <Pencil className="w-3.5 h-3.5" />
+                      </Link>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+
+          {/* Pagination */}
+          <Pagination
+            page={pagination.page}
+            pages={pagination.pages}
+            total={pagination.total}
+            limit={6}
+            onPageChange={setPage}
+            itemName="quizzes"
+          />
+        </>
       )}
     </div>
   );

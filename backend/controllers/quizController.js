@@ -62,7 +62,7 @@ const assignQuestionIds = (questions) =>
 
 exports.getQuizzes = async (req, res, next) => {
   try {
-    const { q, tag, page = 1, limit = 12, subject, topic } = req.query;
+    const { q, tag, page = 1, limit = 6, subject, topic } = req.query;
     const isStaff = req.user?.role === 'trainer' || req.user?.role === 'admin';
     const where = isStaff
       ? { [Op.or]: [{ isPublished: true }, { createdBy: req.user.id }] }
@@ -87,13 +87,16 @@ exports.getQuizzes = async (req, res, next) => {
       where.topic = topic;
     }
 
-    const offset = (parseInt(page) - 1) * parseInt(limit);
+    const parsedLimit = parseInt(limit) || 6;
+    const parsedPage = Math.max(1, parseInt(page) || 1);
+    const offset = (parsedPage - 1) * parsedLimit;
+
     const { count, rows } = await Quiz.findAndCountAll({
       where,
       include: [createdByInclude, subjectInclude],
       order: [['createdAt', 'DESC']],
       offset,
-      limit: parseInt(limit),
+      limit: parsedLimit,
     });
 
     // Strip correct answers for list view
@@ -103,7 +106,16 @@ exports.getQuizzes = async (req, res, next) => {
       return data;
     });
 
-    res.json({ success: true, quizzes, pagination: { total: count, page: parseInt(page), pages: Math.ceil(count / parseInt(limit)) } });
+    res.json({
+      success: true,
+      quizzes,
+      pagination: {
+        total: count,
+        page: parsedPage,
+        pages: Math.ceil(count / parsedLimit) || 1,
+        limit: parsedLimit,
+      },
+    });
   } catch (error) {
     next(error);
   }

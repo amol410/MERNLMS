@@ -24,7 +24,7 @@ const reshape = (note) => {
 
 exports.getNotes = async (req, res, next) => {
   try {
-    const { q, tag, page = 1, limit = 12, subject, topic } = req.query;
+    const { q, tag, page = 1, limit = 6, subject, topic, color } = req.query;
     const where = {};
 
     // Students see all notes; trainers/admins see only their own
@@ -43,6 +43,10 @@ exports.getNotes = async (req, res, next) => {
       where.tags = { [Op.like]: `%"${tag}"%` };
     }
 
+    if (color) {
+      where.color = color;
+    }
+
     if (subject) {
       where.subjectId = parseInt(subject);
     }
@@ -51,19 +55,43 @@ exports.getNotes = async (req, res, next) => {
       where.topic = topic;
     }
 
-    const offset = (parseInt(page) - 1) * parseInt(limit);
+    const parsedLimit = parseInt(limit) || 6;
+    const parsedPage = Math.max(1, parseInt(page) || 1);
+    const offset = (parsedPage - 1) * parsedLimit;
+
     const { count, rows } = await Note.findAndCountAll({
       where,
       include: [ownerInclude, subjectInclude],
       order: [['isPinned', 'DESC'], ['updatedAt', 'DESC']],
       offset,
-      limit: parseInt(limit),
+      limit: parsedLimit,
+    });
+
+    // Extract all distinct tags for the filter bar
+    const tagOwnerWhere = req.user.role !== 'student' ? { owner: req.user.id } : {};
+    const allNoteTags = await Note.findAll({
+      attributes: ['tags'],
+      where: tagOwnerWhere,
+      raw: true,
+    });
+    const tagSet = new Set();
+    allNoteTags.forEach(n => {
+      try {
+        const parsed = typeof n.tags === 'string' ? JSON.parse(n.tags) : (Array.isArray(n.tags) ? n.tags : []);
+        parsed.forEach(t => t && tagSet.add(t));
+      } catch (e) {}
     });
 
     res.json({
       success: true,
       notes: rows.map(reshape),
-      pagination: { total: count, page: parseInt(page), pages: Math.ceil(count / parseInt(limit)), limit: parseInt(limit) },
+      tags: Array.from(tagSet),
+      pagination: {
+        total: count,
+        page: parsedPage,
+        pages: Math.ceil(count / parsedLimit) || 1,
+        limit: parsedLimit,
+      },
     });
   } catch (error) {
     next(error);
