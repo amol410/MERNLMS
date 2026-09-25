@@ -10,9 +10,13 @@ import clsx from 'clsx';
 // ─── Date & Time Helpers ──────────────────────────────────────────────────────
 
 function formatTime(secs) {
-  if (!secs) return '0s';
-  const m = Math.floor(secs / 60);
-  const s = secs % 60;
+  if (!secs || secs <= 0) return '0s';
+  const h = Math.floor(secs / 3600);
+  const m = Math.floor((secs % 3600) / 60);
+  const s = Math.floor(secs % 60);
+  if (h > 0) {
+    return m > 0 ? `${h}h ${m}m` : `${h}h`;
+  }
   if (m > 0 && s > 0) return `${m}m ${s}s`;
   if (m > 0) return `${m}m`;
   return `${s}s`;
@@ -404,10 +408,16 @@ function DayBlock({ dateStr, day, activeFilter }) {
 
   const category = getDayCategoryInfo(dateStr);
 
+  const dayQuizSecs = (day.quizzes || []).reduce((acc, q) => acc + (q.metadata?.timeTakenSecs || 0), 0);
+  const dayNoteSecs = (day.notes || []).reduce((acc, n) => acc + (n.metadata?.engagementSecs || 0), 0);
+  const dayFlashcardSecs = (day.flashcards || []).reduce((acc, f) => acc + (f.metadata?.engagementSecs || 0), 0);
+  const dayTotalSecs = dayQuizSecs + dayNoteSecs + dayFlashcardSecs;
+  const totalActivities = quizzes.length + notes.length + flashcards.length;
+
   return (
     <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4 sm:p-5">
-      {/* Day Title */}
-      <div className="flex items-center justify-between mb-3.5">
+      {/* Day Title & Daily Stats */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3.5 pb-2.5 border-b border-white/5">
         <div className="flex items-center gap-2.5 flex-wrap">
           <span className={clsx(
             'text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider border',
@@ -419,8 +429,18 @@ function DayBlock({ dateStr, day, activeFilter }) {
             {category.dateLabel}
           </span>
         </div>
-        <div className="text-xs text-gray-500 font-medium">
-          {quizzes.length + notes.length + flashcards.length} {quizzes.length + notes.length + flashcards.length === 1 ? 'activity' : 'activities'}
+
+        <div className="flex items-center gap-3 self-end sm:self-auto">
+          {/* Daily Study Time Badge */}
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/25 text-amber-300 font-bold text-xs shadow-sm shadow-amber-500/5">
+            <Clock className="w-3.5 h-3.5 text-amber-400" />
+            <span>{formatTime(dayTotalSecs)}</span>
+            <span className="text-[10px] text-amber-400/80 font-normal uppercase tracking-wider">study time</span>
+          </div>
+
+          <span className="text-xs text-gray-500 font-medium">
+            {totalActivities} {totalActivities === 1 ? 'activity' : 'activities'}
+          </span>
         </div>
       </div>
 
