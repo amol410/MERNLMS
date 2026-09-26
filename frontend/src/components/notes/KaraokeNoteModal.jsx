@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   X, BookOpen, Music, Sparkles, Upload, FileText, ArrowRight,
-  Loader2, CheckCircle, Download, AlertCircle, Mic
+  Loader2, CheckCircle, Download, AlertCircle, Mic, Languages
 } from 'lucide-react';
 import api from '../../api/axios';
 import toast from 'react-hot-toast';
@@ -138,15 +138,18 @@ export default function KaraokeNoteModal({ isOpen, onClose, noteToEdit = null })
   const [parsedKaraokeData, setParsedKaraokeData] = useState(null);
   const [isSprechenMode, setIsSprechenMode] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [translationFileName, setTranslationFileName] = useState('');
 
   const fileInputRef = useRef(null);
   const jsonInputRef = useRef(null);
+  const translationInputRef = useRef(null);
 
   if (!isOpen) return null;
 
   const handleClose = () => {
     setMode('select');
     setSaving(false);
+    setTranslationFileName('');
     onClose();
   };
 
@@ -168,6 +171,42 @@ export default function KaraokeNoteModal({ isOpen, onClose, noteToEdit = null })
   const selectedSubject = subjects.find(s => String(s.id ?? s._id) === String(subjectId));
   const currentTopics = selectedSubject?.topics || [];
 
+  // Handler for uploading English translation/script file (.txt or .json)
+  const handleTranslationFileSelect = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setTranslationFileName(file.name);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const content = event.target.result;
+        if (file.name.endsWith('.json')) {
+          try {
+            const parsed = JSON.parse(content);
+            if (Array.isArray(parsed)) {
+              setTranslationText(parsed.map(item => typeof item === 'string' ? item : (item.translation || item.text || '')).join('\n'));
+            } else if (Array.isArray(parsed.sentences)) {
+              setTranslationText(parsed.sentences.map(s => s.translation || s.text || '').join('\n'));
+            } else if (parsed.translations && Array.isArray(parsed.translations)) {
+              setTranslationText(parsed.translations.join('\n'));
+            } else {
+              setTranslationText(content);
+            }
+          } catch {
+            setTranslationText(content);
+          }
+        } else {
+          setTranslationText(content);
+        }
+        toast.success(`English translation file "${file.name}" loaded!`);
+      } catch (err) {
+        toast.error(`Failed to read translation file: ${err.message}`);
+      }
+    };
+    reader.readAsText(file);
+  };
+
   // Handler for uploading JSON alignment file
   const handleJsonSelect = (e) => {
     const file = e.target.files?.[0];
@@ -185,6 +224,12 @@ export default function KaraokeNoteModal({ isOpen, onClose, noteToEdit = null })
         if (normalized.audioUrl && !customAudioUrl && !audioFile) {
           setCustomAudioUrl(normalized.audioUrl);
           setAudioFileName(normalized.audioUrl);
+        }
+        // If JSON includes translations, populate translationText so user can review/edit
+        if (normalized.sentences?.some(s => s.translation)) {
+          const autoExtracted = normalized.sentences.map(s => s.translation || '').join('\n');
+          setTranslationText(autoExtracted);
+          setTranslationFileName('Included in JSON alignment');
         }
         toast.success(`Valid alignment JSON: ${normalized.sentences.length} sentences parsed!`);
       } catch (err) {
@@ -280,15 +325,27 @@ export default function KaraokeNoteModal({ isOpen, onClose, noteToEdit = null })
       let noteContent = '';
 
       if (creationTab === 'json') {
+        const rawTranslations = (translationText || '')
+          .split('\n')
+          .map(t => t.trim());
+
+        const mergedSentences = parsedKaraokeData.sentences.map((s, idx) => ({
+          ...s,
+          translation: (rawTranslations[idx] !== undefined && rawTranslations[idx] !== '')
+            ? rawTranslations[idx]
+            : (s.translation || ''),
+        }));
+
         karaokeData = {
           ...parsedKaraokeData,
+          sentences: mergedSentences,
           title: title.trim(),
           duration: audioDuration || parsedKaraokeData.duration,
           subject: selectedSubject?.name || parsedKaraokeData.subject,
           topic: topic || parsedKaraokeData.topic,
           audioUrl: finalAudioUrl,
         };
-        noteContent = parsedKaraokeData.sentences.map(s => s.text).join('\n\n');
+        noteContent = mergedSentences.map(s => s.text).join('\n\n');
       } else {
         karaokeData = generateKaraokePayload(
           title.trim(),
@@ -603,6 +660,69 @@ export default function KaraokeNoteModal({ isOpen, onClose, noteToEdit = null })
                       />
                     </div>
                   </div>
+
+                  {/* English Translation Script Option (for Understanding Purpose) */}
+                  <div className="pt-3 border-t border-white/10 space-y-2">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <div className="flex items-center gap-1.5">
+                        <Languages className="w-4 h-4 text-dolphin-400" />
+                        <label className="text-xs font-semibold text-gray-200">
+                          English Version of Script
+                        </label>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-dolphin-500/20 text-dolphin-300 font-semibold border border-dolphin-500/30">
+                          Understanding Only
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => translationInputRef.current?.click()}
+                        className="text-xs text-dolphin-400 hover:text-dolphin-300 flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
+                        title="Upload English text (.txt) or JSON script file"
+                      >
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>Upload English Script (.txt / .json)</span>
+                      </button>
+                    </div>
+
+                    <p className="text-[11px] text-gray-400 leading-snug">
+                      Optionally provide the English version of the script. This gives learners a static reference for understanding while speaking. It is <strong className="text-gray-200">never read aloud</strong> and will not pop up.
+                    </p>
+
+                    <textarea
+                      rows={3}
+                      value={translationText}
+                      onChange={(e) => setTranslationText(e.target.value)}
+                      placeholder={
+                        parsedKaraokeData?.sentences?.length
+                          ? `Paste ${parsedKaraokeData.sentences.length} English translation lines (1 sentence per line)...`
+                          : "Paste English translation script (1 sentence per line)..."
+                      }
+                      className="input-field w-full text-xs leading-relaxed"
+                    />
+
+                    {parsedKaraokeData && (
+                      <div className="flex items-center justify-between text-[11px] text-gray-400 pt-0.5">
+                        <span className="truncate max-w-[240px]">
+                          {translationFileName ? `File: ${translationFileName}` : 'Matches JSON sentences line-by-line'}
+                        </span>
+                        <span className={clsx(
+                          translationText.split('\n').filter(l => l.trim()).length === parsedKaraokeData.sentences.length
+                            ? 'text-emerald-400 font-semibold'
+                            : 'text-dolphin-400 font-medium'
+                        )}>
+                          {translationText.split('\n').filter(l => l.trim()).length} of {parsedKaraokeData.sentences.length} sentences translated
+                        </span>
+                      </div>
+                    )}
+
+                    <input
+                      ref={translationInputRef}
+                      type="file"
+                      accept=".txt,.json"
+                      className="hidden"
+                      onChange={handleTranslationFileSelect}
+                    />
+                  </div>
                 </div>
               )}
 
@@ -659,9 +779,20 @@ export default function KaraokeNoteModal({ isOpen, onClose, noteToEdit = null })
 
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-semibold text-gray-300">English Translation (Optional)</label>
+                      <div className="flex items-center gap-1.5">
+                        <Languages className="w-3.5 h-3.5 text-dolphin-400" />
+                        <label className="text-xs font-semibold text-gray-300">
+                          English Translation (Understanding Purpose Only)
+                        </label>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-dolphin-500/20 text-dolphin-300 font-semibold border border-dolphin-500/30">
+                          Understanding Only
+                        </span>
+                      </div>
                       <span className="text-[10px] text-gray-500">Matches sentences 1-to-1</span>
                     </div>
+                    <p className="text-[11px] text-gray-400 mb-1.5 leading-snug">
+                      Displayed as static reference under each sentence while speaking. Will <strong className="text-gray-200">not be read aloud</strong> and will not pop up.
+                    </p>
                     <textarea
                       rows={3}
                       value={translationText}
@@ -680,11 +811,18 @@ export default function KaraokeNoteModal({ isOpen, onClose, noteToEdit = null })
                     <Mic className="w-4 h-4 text-pink-400" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-white block">
-                      Sprechen (Speaking Practice) Mode
-                    </span>
-                    <p className="text-[11px] text-gray-400">
-                      Pauses audio after each sentence at 0.75x speed and checks student pronunciation with 3 chances.
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-white block">
+                        Sprechen (Speaking Practice) Mode
+                      </span>
+                      {translationText.trim() && (
+                        <span className="text-[10px] px-1.5 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded font-medium">
+                          English Reference Linked
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-gray-400 mt-0.5">
+                      Pauses audio after each sentence at 0.75x speed for speaking practice. English script remains statically visible underneath for understanding what you speak.
                     </p>
                   </div>
                 </div>

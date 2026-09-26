@@ -1345,6 +1345,18 @@ export default function KaraokeNoteReader({ noteId, noteData, onAudioUpdated }) 
                             )}
                           </div>
 
+                          {/* English Translation Reference (for understanding purpose only, static, no audio, no popup) */}
+                          {sentence.translation && (
+                            <div className="mt-2.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 flex items-start gap-2">
+                              <span className="text-[11px] font-bold uppercase tracking-wider text-dolphin-300/80 select-none flex-shrink-0 mt-0.5">
+                                Meaning:
+                              </span>
+                              <p className="text-xs text-gray-300 italic leading-relaxed">
+                                {sentence.translation}
+                              </p>
+                            </div>
+                          )}
+
                           {/* Live Speech or Recorded Feedback */}
                           {(spokenText || isListening) && (
                             <div className="mt-2.5 text-xs text-gray-300 bg-white/5 p-2.5 rounded-xl border border-white/5 flex items-center justify-between gap-3 flex-wrap">
