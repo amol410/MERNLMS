@@ -116,35 +116,50 @@ Each feature directory adheres strictly to the three-tier pattern:
 
 ---
 
-## 5. Mobile Alignment Roadmap (Upcoming Implementation)
+## 5. Verified Implementation Features (Full Web Parity)
 
-To bring the Flutter mobile app to complete parity with the latest web releases, the following screens and capabilities will be added:
+The Flutter mobile client (`app/dolphincoder/`) has achieved complete parity with the web platform across all core domains:
 
-### 1. Karaoke Audio Reader & Sprechen Speaking Practice
-- **Audio Playback Engine**: Integrate `just_audio` to stream audio with range seeking from `/api/notes/audio/db/:id`.
-- **Word-by-Word Synchronized Transcript**: Highlighting words in real time matching `story.sentences[i].words[j]`.
+### 1. Karaoke Audio Reader & Sprechen Speaking Practice (`karaoke_note_reader_screen.dart`)
+- **Audio Playback Engine**: Powered by `audioplayers` with range-seeking from `/api/notes/audio/db/:id` and demo playback.
+- **Word-by-Word Synchronized Transcript**: Word-level highlighting matching native German audio playback timestamps.
+- **Playback & Latency Calibration**:
+  - Configurable tempo speeds (`0.75x` default for Sprechen, `1.0x`, and `1.25x`).
+  - Real-time sync offset buttons (`-0.25s`, `0s`, `+0.25s`) allowing instant recalibration for speaker or Bluetooth latency.
 - **Sprechen Practice Mode**:
   - Auto-pause audio at sentence boundaries.
-  - Integrate `speech_to_text` for native Android German speech recognition (`de-DE`).
-  - **Dual Submission**: 3-second continuous silence auto-evaluator + "Done Speaking" action button.
-  - Word accuracy matching and celebration audio chimes.
+  - Native Android German speech recognition (`de-DE`) using `speech_to_text`.
+  - **Continuous Dictation**: Initialized with `stt.ListenMode.dictation`, `listenFor: const Duration(seconds: 90)`, and `pauseFor: const Duration(seconds: 6)` to eliminate premature cutoffs during natural breathing pauses.
+  - **True 3-Second Silence Timer**: Dedicated 3000ms timer resets on every recognized word and strictly waits for 3 seconds of continuous silence before auto-evaluating.
+  - **Live Visual Countdown**: Status indicator displaying `"Submits in 3s of silence, or tap Done"`.
+  - **Instant Evaluation Action**: Prominent `"Done Speaking (Check Now ✓)"` button bypasses the silence timer for immediate checking.
+  - **Static English Translation Reference**: Displayed as a clean subtitle box (`Meaning: ...`) inside the Sprechen challenge card strictly for comprehension; **never read aloud via audio/TTS** and **never interrupts with popups**.
+  - Word accuracy matching (≥75% pass threshold) and visual feedback.
 
-### 2. Match the Pairs Question Type (`match_pairs`)
-- Build a dedicated `MatchPairsWidget` within `QuizTakeScreen`:
+### 2. Quizzes with Dual Subject & Topic Filtering (`quizzes_screen.dart`)
+- **Subject Chips Carousel**: Horizontally scrollable chip row for fast subject filtering.
+- **Dynamic Topic Chips Carousel**: Automatically renders below the subject row when a subject is active.
+  - Includes **"All Topics"** reset chip alongside granular topic chips (e.g. `Grammar`, `Vocabulary`).
+  - Cyan accent styling distinguishes topic tier from subject tier.
+  - State synchronized with `ref.read(quizzesListProvider.notifier).filterTopic(topic)`.
+
+### 3. Match the Pairs Question Type (`match_pairs_widget.dart`)
+- Integrated within `QuizTakeScreen`:
   - Left column: Terms.
   - Right column: Definitions.
   - Interactive tap-to-connect pairing with dynamic color badges and reset capabilities.
 
-### 3. Dedicated Quiz Review Screen
-- Build `quiz_review_screen.dart` to view previous test submissions:
-  - Displays user's selected answers vs correct answers.
-  - Shows trainer explanations for each question.
+### 4. Dedicated Quiz Review Screen (`quiz_review_screen.dart`)
+- Full post-submission review:
+  - Overall score percentage ring and pass/fail status.
+  - Detailed breakdown of user's selected answers vs correct answers.
+  - Full trainer pedagogical explanations for every question.
 
-### 4. Activity & Study Performance Screen
-- Create `activity_screen.dart` consuming `/api/activity/summary`:
-  - Show Today's study milestones.
+### 5. Activity History & Daily Study Hours (`activity_history_screen.dart`)
+- Direct consumption of `/api/activity/summary`:
+  - Today's study milestones card.
   - Categorized weekly cards (**Today**, **Yesterday**, **Day Before Yesterday**).
-  - Display daily study hours and engagement seconds.
+  - Daily study hours chart and activity distribution.
 
-### 5. 6-Item Pagination
-- Standardize 6-item pagination across Notes, Quizzes, and Flashcard lists using pull-to-refresh and page navigation.
+### 6. Standardized 6-Item Pagination
+- Standard 6-item pagination across Notes and Quizzes with pull-to-refresh and infinite scroll.

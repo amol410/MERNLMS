@@ -24,13 +24,15 @@ An immersive language-learning and audio-reading engine located at `/notes/karao
 - **Real-Time Sync Offset Adjuster**: Interactive timing adjusters (-0.25s, 0s, +0.25s) allowing students to recalibrate audio/text sync dynamically for any device latency.
 - **Translations & Vocabulary**:
   - English sentence translations rendered directly below each German sentence with a toggle visibility button.
+  - **Understanding-Only Constraint**: English translations serve strictly as a static comprehension reference; they are **never spoken aloud via audio/TTS** and **never interrupt with popups**.
   - Interactive vocabulary words with inline tooltip popups showing word meanings, translations, and grammatical types.
 - **Database-Backed Audio Storage**:
   - Audio files stored directly in MySQL (`karaoke_audios` table) as `LONGBLOB` data.
   - Full HTTP 206 Partial Content range-seeking support (`/api/notes/audio/db/:id`), eliminating audio file loss on ephemeral or shared server filesystems.
-- **JSON Alignment Import & Export**:
+- **JSON Alignment Import & English Script Upload**:
   - Built-in tool to download structured JSON templates.
-  - Seamless import mechanism that normalizes alignments while permanently preserving original audio stream bindings.
+  - Multi-source alignment loader supporting JSON timestamps plus optional English script upload (`.txt` / `.json`) or line-by-line pasting to map English meaning to every sentence.
+  - Normalizes alignments while permanently preserving original audio stream bindings.
 
 ### Sprechen (Speaking Practice) Mode
 - **Dual Mode Toggle**: One-click toggle between continuous **Listening Mode** (plays uninterrupted from start to finish) and **Sprechen Practice Mode** (guided sentence-by-sentence training).
@@ -38,10 +40,12 @@ An immersive language-learning and audio-reading engine located at `/notes/karao
   - Audio plays the sentence at 0.75x speed and automatically pauses cleanly at the end of the sentence to open the speaking challenge.
   - Synchronous boundary detection prevents race conditions or audio stalling across sentence transitions.
 - **Continuous Speech Recognition (`de-DE`)**:
-  - Web Speech API integration with `continuous: true`, allowing natural pauses between German words without premature microphone cutoffs.
+  - Web Speech API integration (Web) and `speech_to_text` with `ListenMode.dictation` (Android Mobile), allowing natural pauses without premature microphone cutoffs.
 - **Dual Submission Mechanism**:
   - **Trigger 1 (Automatic)**: Automatically submits and evaluates speech after **3 seconds of continuous silence**.
   - **Trigger 2 (Manual)**: Prominent, vibrant **"Done Speaking (Check Now ✓)"** button allows instant submission without waiting.
+- **Static Meaning Reference**:
+  - Clean subtitle box (`Meaning: ...`) directly in the active speaking prompt, allowing students to comprehend what they are speaking without disruptive popups or sound.
 - **Pronunciation Evaluation Engine**:
   - Word-level fuzzy matching algorithm evaluates German pronunciation against the target sentence.
   - Live feedback shows matched words in green and mispronounced words in amber/strikethrough.
@@ -153,4 +157,9 @@ A comprehensive engagement tracking suite connecting student study habits to act
 - **Architecture**: Flutter 3, Dart, Riverpod 2 (`StateNotifier`), GoRouter navigation, Dio HTTP client with JWT interceptor.
 - **Theme**: Dark Material 3 theme with Google Fonts (*Plus Jakarta Sans* & *Inter*).
 - **Core Screens**: Authentication (Splash, Login, Register, Profile), Dashboard with greeting and quick links, Notes list/detail, Quiz list/taker, and Flashcard study.
-- **Upcoming Parity Roadmap**: Integration of Karaoke Reader, Match the Pairs questions, dedicated test review screen, and daily activity tracking.
+- **Full Parity Achieved**:
+  - **Karaoke & Sprechen Mode**: Mobile word-level highlight synchronized with audio, continuous speech recognition (`ListenMode.dictation`), true 3-second silence timer, and static English meaning display.
+  - **Quizzes**: Support for Multiple Choice, Code Snippets, **Match the Pairs (`MatchPairsWidget`)**, and **Dedicated Quiz Review Screen (`QuizReviewScreen`)**.
+  - **Dual Subject & Topic Filtering**: Dynamic horizontal topic chips row in `quizzes_screen.dart` with "All Topics" toggle.
+  - **Activity History**: Localized daily tracking of study hours, categories, and weekly totals (`ActivityHistoryScreen`).
+

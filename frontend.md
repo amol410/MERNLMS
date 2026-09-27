@@ -98,11 +98,16 @@ frontend/
 
 ## 4. Key Subsystems & Architectures
 
-### 4.1 Interactive Karaoke Reader & Sprechen Practice (`KaraokeNoteReader.jsx`)
+### 4.1 Interactive Karaoke Reader & Sprechen Practice (`KaraokeNoteReader.jsx`, `KaraokeNoteModal.jsx`)
 - **Word-Level Audio Synchronization**:
   Tracks `currentTime` on HTML5 `<audio>` elements and highlights active words based on alignment timestamps (`start` and `end`).
 - **Real-Time Offset Calibration**:
   Students can adjust audio/text alignment by -0.25s, 0s, or +0.25s to account for Bluetooth latency or system differences.
+- **English Script Upload & Static Reference**:
+  - `KaraokeNoteModal.jsx` provides dedicated English script file upload (`.txt` / `.json`) and line-by-line input in both JSON alignment and Text modes.
+  - Translates each sentence to provide an understanding reference (`sentence.translation`).
+  - **Strict Constraint**: English is strictly for understanding while speaking; it is **never read aloud via audio/TTS** and **never interrupts with popups**.
+  - Displayed statically beneath the German sentence and inside the Sprechen challenge card (`Meaning: ...`).
 - **Sprechen (Speaking Practice) Mode**:
   - Automatically pauses playback at sentence boundaries (`effTime >= sentence.end`).
   - Uses `lastPausedSentenceRef.current` to prevent stale sentence re-pause loops during transitions.
@@ -117,7 +122,9 @@ frontend/
   - Synthesizes major chord arpeggios on successful pronunciation (≥75% accuracy).
   - Synthesizes retry chimes on failed attempts with a 3-chance indicator.
 
-### 4.2 Assessment & Exam Engine (`QuizTakePage.jsx`, `MatchPairsQuestion.jsx`)
+### 4.2 Assessment & Exam Engine (`QuizzesPage.jsx`, `QuizTakePage.jsx`, `MatchPairsQuestion.jsx`)
+- **Dual Subject & Topic Filtering**:
+  - `QuizzesPage.jsx` provides dynamic topic selection dependent on the chosen subject, allowing granular topic-specific assessments.
 - **Question Types Supported**:
   - Single-choice Multiple Choice (`mcq`).
   - True/False (`true_false`).
