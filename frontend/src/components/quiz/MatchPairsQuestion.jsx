@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { ArrowRight, Link2, Unlink, GripVertical, CheckCircle, XCircle, RotateCcw, Sparkles } from 'lucide-react';
 import clsx from 'clsx';
+import StarBookmarkButton from '../common/StarBookmarkButton';
 
 /**
  * Helper to produce a derangement (shuffled array where no item stays at its original index)
@@ -542,8 +543,8 @@ export function MatchPairsReview({ question, index }) {
               </span>
             </div>
 
-            {/* Correct Match (if wrong) */}
-            <div className="md:col-span-3 text-right">
+            {/* Correct Match (if wrong) + Star Bookmark */}
+            <div className="md:col-span-3 flex items-center justify-end gap-2 text-right">
               {item.isPairCorrect ? (
                 <span className="inline-flex items-center gap-1 text-green-400 font-semibold">
                   <CheckCircle className="w-3.5 h-3.5" /> Correct
@@ -553,6 +554,12 @@ export function MatchPairsReview({ question, index }) {
                   Match: <strong className="text-green-400">{item.correctRight}</strong>
                 </span>
               )}
+              <StarBookmarkButton
+                front={item.left}
+                back={item.correctRight}
+                hint="Matching Pair"
+                size={16}
+              />
             </div>
           </div>
         ))}

@@ -6,6 +6,7 @@ import { ArrowLeft, Clock, CheckCircle, XCircle, Award, RotateCcw, ChevronRight,
 import { CodeSnippetDisplay } from '../components/quiz/CodeSnippetQuestion';
 import { MatchPairsDisplay, MatchPairsReview } from '../components/quiz/MatchPairsQuestion';
 import { PageLoader } from '../components/common/Loader';
+import StarBookmarkButton from '../components/common/StarBookmarkButton';
 import clsx from 'clsx';
 
 export default function QuizTakePage() {
@@ -243,10 +244,21 @@ export default function QuizTakePage() {
               )}>
                 <div className="flex items-start justify-between mb-3">
                   <p className="text-white font-medium text-sm flex-1">{i + 1}. {q.text}</p>
-                  {q.isCorrect
-                    ? <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 ml-3" />
-                    : <XCircle className="w-5 h-5 text-red-400 flex-shrink-0 ml-3" />
-                  }
+                  <div className="flex items-center gap-2 flex-shrink-0 ml-3">
+                    {q.isCorrect
+                      ? <CheckCircle className="w-5 h-5 text-green-400" />
+                      : <XCircle className="w-5 h-5 text-red-400" />
+                    }
+                    <StarBookmarkButton
+                      front={q.text}
+                      back={
+                        Array.isArray(q.options) && q.correctIndex >= 0
+                          ? q.options[q.correctIndex] + (q.explanation ? `\n\n💡 ${q.explanation}` : '')
+                          : q.explanation || ''
+                      }
+                      hint="Quiz Revision"
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
                   {q.options.map((opt, optIdx) => (

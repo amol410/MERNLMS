@@ -13,12 +13,12 @@ const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 
 router.use(protect);
 router.post('/bulk-upload', authorize('trainer', 'admin'), upload.single('file'), bulkUploadDeck);
 router.get('/', getDecks);
-router.post('/', authorize('trainer', 'admin'), createDeck);
+router.post('/', createDeck);
 router.get('/:id', getDeckById);
-router.put('/:id', authorize('trainer', 'admin'), updateDeck);
-router.delete('/:id', authorize('trainer', 'admin'), deleteDeck);
-router.post('/:id/cards', authorize('trainer', 'admin'), addCard);
-router.delete('/:id/cards/:cardId', authorize('trainer', 'admin'), removeCard);
+router.put('/:id', updateDeck);
+router.delete('/:id', deleteDeck);
+router.post('/:id/cards', addCard);
+router.delete('/:id/cards/:cardId', removeCard);
 router.route('/:id/progress').get(getProgress).post(saveProgress);
 
 module.exports = router;

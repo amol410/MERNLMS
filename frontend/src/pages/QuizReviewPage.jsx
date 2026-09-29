@@ -4,6 +4,7 @@ import api from '../api/axios';
 import { PageLoader } from '../components/common/Loader';
 import { MatchPairsReview } from '../components/quiz/MatchPairsQuestion';
 import { CodeSnippetDisplay } from '../components/quiz/CodeSnippetQuestion';
+import StarBookmarkButton from '../components/common/StarBookmarkButton';
 import {
   ChevronLeft, Award, CheckCircle, XCircle, RotateCcw,
   Clock, Calendar, BookOpen, ArrowRight, BarChart2
@@ -209,7 +210,7 @@ export default function QuizReviewPage() {
                   </span>
                   <p className="text-white font-medium text-sm sm:text-base leading-relaxed">{q.text}</p>
                 </div>
-                <div className="flex items-center gap-1.5 flex-shrink-0">
+                <div className="flex items-center gap-2 flex-shrink-0">
                   {q.isCorrect ? (
                     <span className="flex items-center gap-1 text-xs font-semibold text-green-400 bg-green-500/10 px-2 py-1 rounded-lg">
                       <CheckCircle className="w-3.5 h-3.5" /> Correct (+{q.pointsEarned})
@@ -219,6 +220,15 @@ export default function QuizReviewPage() {
                       <XCircle className="w-3.5 h-3.5" /> Incorrect
                     </span>
                   )}
+                  <StarBookmarkButton
+                    front={q.text}
+                    back={
+                      Array.isArray(q.options) && q.correctIndex >= 0
+                        ? q.options[q.correctIndex] + (q.explanation ? `\n\n💡 ${q.explanation}` : '')
+                        : q.explanation || ''
+                    }
+                    hint="Quiz Review"
+                  />
                 </div>
               </div>
 
