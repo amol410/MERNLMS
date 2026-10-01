@@ -197,9 +197,7 @@ export default function LessonEditorModal({
 
       setEnableListenTap(Boolean(listenStage));
       if (listenStage?.targetSentence) setListenTarget(listenStage.targetSentence);
-      if (listenStage?.audioUrl) setListenAudioUrl(listenStage.audioUrl);
-      else if (initialData.audioUrl) setListenAudioUrl(initialData.audioUrl);
-      else setListenAudioUrl('');
+      setListenAudioUrl(listenStage?.audioUrl || '');
 
       setEnableSentenceBuilder(Boolean(builderStage));
       if (builderStage?.prompt) setBuilderPrompt(builderStage.prompt.replace(/^Translate:\s*"?|"?$/gi, ''));
@@ -213,9 +211,7 @@ export default function LessonEditorModal({
       setEnableKaraoke(Boolean(karaokeStage) || initialData.nodeType === 'karaoke');
       if (karaokeStage?.storyText) setKaraokeStory(karaokeStage.storyText);
       if (karaokeStage?.translationText) setKaraokeTranslation(karaokeStage.translationText);
-      if (karaokeStage?.audioUrl) setKaraokeAudioUrl(karaokeStage.audioUrl);
-      else if (initialData.audioUrl) setKaraokeAudioUrl(initialData.audioUrl);
-      else setKaraokeAudioUrl('');
+      setKaraokeAudioUrl(karaokeStage?.audioUrl || '');
 
       if (initialData.karaokeData) {
         const kd = typeof initialData.karaokeData === 'string' ? JSON.parse(initialData.karaokeData) : initialData.karaokeData;
@@ -349,7 +345,7 @@ export default function LessonEditorModal({
         title: 'Listen and tap what you hear',
         targetSentence: listenTarget.trim(),
         tokens: allTokens,
-        audioUrl: listenAudioUrl.trim() || audioUrl.trim() || null,
+        audioUrl: listenAudioUrl.trim() || null,
       });
     }
 
@@ -389,7 +385,7 @@ export default function LessonEditorModal({
         title: 'Karaoke Synced Rhythm',
         storyText: karaokeStory.trim(),
         translationText: karaokeTranslation.trim(),
-        audioUrl: karaokeAudioUrl.trim() || audioUrl.trim() || null,
+        audioUrl: karaokeAudioUrl.trim() || null,
         karaokeData: karaokeJsonData || null,
       });
     }
@@ -405,7 +401,7 @@ export default function LessonEditorModal({
       xpReward: parseInt(xpReward, 10) || 15,
       pearlsReward: parseInt(pearlsReward, 10) || 5,
       isLive: Boolean(isLive),
-      audioUrl: (karaokeAudioUrl || listenAudioUrl || audioUrl || '').trim() || null,
+      audioUrl: audioUrl.trim() || null,
       karaokeData: karaokeJsonData || null,
       sourceNoteId: sourceNoteId ? parseInt(sourceNoteId, 10) : null,
       stages,
