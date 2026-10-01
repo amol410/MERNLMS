@@ -168,6 +168,22 @@
   * **"Listen Again"** audio button (replays the current sentence audio at 0.75x speed).
   * **"Next Sentence"** navigation button (advances to the subsequent sentence).
 
+### 5.5 Animated Speaking Character / Avatar Companion (Architectural Specification)
+* **Screen Placement Options**:
+  * **Layout A (Top Stage Header)**: Positioned above the transcript as an interactive visual companion (100–140dp height) looking towards the user with audio waveform/speech bubbles.
+  * **Layout B (Inline Sentence Anchor)**: Renders directly alongside the active sentence card or Sprechen challenge box as the "Speaker Avatar" representing the story speaker (`sentence.speaker`).
+  * **Layout C (Floating Assistant FAB/Bubble)**: Draggable or corner-docked interactive mascot avatar that reacts dynamically without consuming vertical scroll height.
+* **Structural Elements**:
+  * **Vector Character Head & Body**: Vector animation canvas (Rive State Machine or Lottie composition) featuring idle breathing, eye blinks, and dynamic mouth visemes.
+  * **Dynamic Lip-Sync Controller**: Synchronized strictly to active word start/end timestamps (`KaraokeWord.start` and `KaraokeWord.end`) delivered in the karaoke story payload.
+  * **Speech Bubble Readout (Optional)**: Pop-up thought/speech bubble showing current spoken phrase or phonetic kata tip.
+  * **Reactive Expressions**:
+    * *Idle*: Attentive listening posture, natural blinking.
+    * *Speaking*: Real-time mouth articulators matching audio rhythm; automatic mouth close during inter-word silences.
+    * *Listening to Student*: Head cocked with hand-to-ear gesture when mic is recording in Sprechen mode.
+    * *Celebrating*: Confetti burst, smiling, thumbs-up on ≥75% pronunciation score.
+    * *Encouraging*: Gentle nodding gesture when student has chances remaining.
+
 ---
 
 ## 6. Mobile Standard Note Detail Screen

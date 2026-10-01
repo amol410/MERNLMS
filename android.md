@@ -163,3 +163,38 @@ The Flutter mobile client (`app/dolphincoder/`) has achieved complete parity wit
 
 ### 6. Standardized 6-Item Pagination
 - Standard 6-item pagination across Notes and Quizzes with pull-to-refresh and infinite scroll.
+
+---
+
+---
+
+## 6. Verified Implementation: Animated Speaking Character & Duolingo Sprechen Mode
+
+The interactive, animated character companion and single-sentence Duolingo-style Sprechen mode have been fully implemented in `app/dolphincoder/lib/features/notes/`:
+
+### 6.1 Architecture & Components
+1. **`AnimatedKaraokeCharacter` (`widgets/animated_karaoke_character.dart`)**:
+   - Custom 60 FPS vector character drawn with Flutter `CustomPainter`.
+   - **Real-Time Lip-Sync**: Smoothly opens and articulates mouth (`mouthOpen` oscillation) specifically while `currentSeconds >= activeWord.start && currentSeconds <= activeWord.end`. Mouth closes naturally on inter-word pauses.
+   - **Eye Blinking Engine**: Periodic 3.2s cycle with realistic 150ms eye blinks.
+   - **Subtle Breathing**: Sinusoidal floating offset (`sin(t)`) keeping the character lively.
+   - **Dynamic States**:
+     - *Idle*: Calm, friendly expression with glance towards speech bubble.
+     - *Speaking*: Dynamic mouth movements with visible teeth and tongue.
+     - *Listening*: Head tilt (`headTilt: 0.08`) and attentive cupping gesture when student speaks into the microphone.
+     - *Celebration*: Smiling arched closed eyes (`^‿^`), cheerful open laugh, raised arms, and twinkling gold star confetti.
+2. **`KaraokeSpeechBubble` (`widgets/karaoke_speech_bubble.dart`)**:
+   - Comic-style speech bubble with triangular tail pointing to the character's mouth.
+   - Circular speaker replay icon button (`🔊`) allowing immediate audio replay.
+   - Word-by-word highlighted German sentence text.
+3. **Duolingo-Style Sprechen Screen (`karaoke_note_reader_screen.dart`)**:
+   - **Top Navigation Bar**: Exit button (`✕`), Gold/Orange sentence progress bar with star counter (`X OF Y IN A ROW`), and Hearts counter (`❤️ 3`).
+   - **Prompt**: Large bold `"Speak this sentence"` header.
+   - **"TAP TO SPEAK" Card**: Prominent rounded action card (`Color(0xFF1CB0F6)`), switching to active recording canvas with silence countdown and instant `"Done Speaking (Check Now ✓)"` button.
+   - **Duolingo Bottom Feedback Sheet**:
+     - **On Pass (≥75%)**: Pastel green sheet (`#D7FFB8`), `"Excellent! Meaning:"` with English translation, and full-width green **`CONTINUE`** button advancing to the next sentence.
+     - **On Retry**: Pastel red sheet (`#FFDFE0`), `"Not quite! Meaning:"`, with `"Listen (0.75x)"` and `"TRY AGAIN"` action buttons.
+     - **Lesson Complete**: Celebration dialog upon mastering all sentences.
+   - **Mode Preserved**: Continuous full-script reading view remains fully accessible via the top `"Full Script"` toggle pill.
+
+

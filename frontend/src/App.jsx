@@ -25,6 +25,7 @@ import AdminPage from './pages/AdminPage';
 import ActivityHistoryPage from './pages/ActivityHistoryPage';
 import QuizReviewPage from './pages/QuizReviewPage';
 import KaraokeNoteReader from './pages/KaraokeNoteReader';
+import CurriculumPage from './pages/CurriculumPage';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -70,6 +71,8 @@ function AppRoutes() {
       <Route path="/flashcards/new" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><FlashcardFormPage /></Layout></ProtectedRoute>} />
       <Route path="/flashcards/:id/edit" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><FlashcardFormPage /></Layout></ProtectedRoute>} />
       <Route path="/flashcards/:id/study" element={<ProtectedRoute><Layout><StudyPage /></Layout></ProtectedRoute>} />
+
+      <Route path="/lessons" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><CurriculumPage /></Layout></ProtectedRoute>} />
 
       <Route path="/admin" element={<ProtectedRoute roles={['admin']}><Layout><AdminPage /></Layout></ProtectedRoute>} />
 

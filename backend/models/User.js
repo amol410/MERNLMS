@@ -14,7 +14,19 @@ const User = sequelize.define('User', {
     bio: { type: DataTypes.TEXT, defaultValue: '' },
     isActive: { type: DataTypes.BOOLEAN, defaultValue: true },
     lastLogin: { type: DataTypes.DATE, defaultValue: null },
-}, { tableName: 'users', timestamps: true });
+
+    // Gamification & In-Game Economy
+    streakCount: { type: DataTypes.INTEGER, defaultValue: 1, field: 'streak_count' },
+    longestStreak: { type: DataTypes.INTEGER, defaultValue: 1, field: 'longest_streak' },
+    lastActiveDate: { type: DataTypes.DATEONLY, defaultValue: null, field: 'last_active_date' },
+    dailyTargetXp: { type: DataTypes.INTEGER, defaultValue: 20, field: 'daily_target_xp' },
+    targetLanguage: { type: DataTypes.STRING(10), defaultValue: 'de', field: 'target_language' },
+    pearls: { type: DataTypes.INTEGER, defaultValue: 100, field: 'pearls' },
+    oxygen: { type: DataTypes.INTEGER, defaultValue: 5, field: 'oxygen' },
+    lastOxygenRefill: { type: DataTypes.DATE, defaultValue: DataTypes.NOW, field: 'last_oxygen_refill' },
+    totalXp: { type: DataTypes.INTEGER, defaultValue: 0, field: 'total_xp' },
+    currentLeague: { type: DataTypes.STRING(50), defaultValue: 'Coral Reef', field: 'current_league' },
+}, { tableName: 'users', timestamps: true, underscored: true });
 
 User.beforeCreate(async (user) => {
     const rounds = parseInt(process.env.BCRYPT_ROUNDS) || 10;

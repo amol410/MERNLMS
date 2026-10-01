@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   BookOpen, Video, Brain, Layers, Home, LogOut, User,
-  Menu, X, ChevronDown, Zap, ShieldCheck, BarChart2,
+  Menu, X, ChevronDown, Zap, ShieldCheck, BarChart2, Compass,
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -13,12 +13,15 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
+  const isStaff = user?.role === 'admin' || user?.role === 'trainer';
+
   const navItems = [
     { to: '/dashboard', icon: Home, label: 'Dashboard' },
     { to: '/notes', icon: BookOpen, label: 'Notes' },
     { to: '/videos', icon: Video, label: 'Videos' },
     { to: '/quizzes', icon: Brain, label: 'Quizzes' },
     { to: '/flashcards', icon: Layers, label: 'Flashcards' },
+    ...(isStaff ? [{ to: '/lessons', icon: Compass, label: 'Lessons' }] : []),
   ];
 
   const handleLogout = () => {
