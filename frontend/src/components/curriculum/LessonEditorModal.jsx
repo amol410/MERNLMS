@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   X, Check, Plus, Trash2, Headphones, Mic, Sparkles, Layers,
-  Volume2, Music, Link2, BookOpen, AlertCircle, Eye, EyeOff
+  Volume2, Music, Link2, BookOpen, AlertCircle, Eye, EyeOff, Upload, Loader2, FileCode
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api/axios';
@@ -30,6 +30,100 @@ export default function LessonEditorModal({
   const [isLive, setIsLive] = useState(false); // CRITICAL: default false
   const [audioUrl, setAudioUrl] = useState('');
   const [sourceNoteId, setSourceNoteId] = useState('');
+
+  // Audio Upload & Player State (Direct to MySQL karaoke_audios)
+  const [listenAudioUrl, setListenAudioUrl] = useState('');
+  const [uploadingListenAudio, setUploadingListenAudio] = useState(false);
+  const listenAudioInputRef = useRef(null);
+
+  const [karaokeAudioUrl, setKaraokeAudioUrl] = useState('');
+  const [uploadingKaraokeAudio, setUploadingKaraokeAudio] = useState(false);
+  const karaokeAudioInputRef = useRef(null);
+
+  // Karaoke Alignment JSON state (.json with sentence/word timestamps)
+  const [karaokeJsonData, setKaraokeJsonData] = useState(null);
+  const [karaokeJsonFileName, setKaraokeJsonFileName] = useState('');
+  const karaokeJsonInputRef = useRef(null);
+
+  const [uploadingGeneralAudio, setUploadingGeneralAudio] = useState(false);
+  const generalAudioInputRef = useRef(null);
+
+  // Helper: Resolve relative audio URLs through backend streaming endpoint
+  const resolveAudioUrl = (url) => {
+    if (!url || typeof url !== 'string') return '';
+    const trimmed = url.trim();
+    if (!trimmed) return '';
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('blob:') || trimmed.startsWith('data:')) {
+      return trimmed;
+    }
+    const clean = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+    return clean;
+  };
+
+  // Helper: Upload audio directly to MySQL karaoke_audios via existing /notes/upload-audio
+  const handleAudioFileUpload = async (file, setUrlState, setLoadingState) => {
+    if (!file) return;
+    setLoadingState(true);
+    try {
+      const formData = new FormData();
+      formData.append('audio', file);
+      const res = await api.post('/notes/upload-audio', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      if (res.data?.audioUrl) {
+        setUrlState(res.data.audioUrl);
+        toast.success(`Audio uploaded to database: ${file.name}`);
+      } else {
+        toast.error('Failed to get audio URL from server');
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to upload audio file');
+    } finally {
+      setLoadingState(false);
+    }
+  };
+
+  // Helper: Read and parse Karaoke Alignment JSON file
+  const handleKaraokeJsonSelect = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setKaraokeJsonFileName(file.name);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const raw = JSON.parse(event.target.result);
+        setKaraokeJsonData(raw);
+
+        // Auto-extract sentences and text
+        if (raw.sentences && Array.isArray(raw.sentences)) {
+          const story = raw.sentences.map(s => s.text || '').filter(Boolean).join('\n');
+          if (story) setKaraokeStory(story);
+
+          const trans = raw.sentences.map(s => s.translation || '').filter(Boolean).join('\n');
+          if (trans) setKaraokeTranslation(trans);
+        } else if (raw.storyText) {
+          setKaraokeStory(raw.storyText);
+          if (raw.translationText) setKaraokeTranslation(raw.translationText);
+        }
+
+        // Auto-extract audioUrl if present in JSON
+        if (raw.audioUrl && !karaokeAudioUrl) {
+          setKaraokeAudioUrl(raw.audioUrl);
+        }
+
+        // Auto-populate title if empty
+        if (raw.title && !title) {
+          setTitle(raw.title);
+        }
+
+        toast.success(`Karaoke JSON parsed: ${raw.sentences ? raw.sentences.length : 1} sentences ready!`);
+      } catch (err) {
+        toast.error(`Invalid JSON file: ${err.message}`);
+      }
+    };
+    reader.readAsText(file);
+  };
 
   // Modular Challenge Stage Toggles
   const [enableWordMatch, setEnableWordMatch] = useState(true);
@@ -103,6 +197,9 @@ export default function LessonEditorModal({
 
       setEnableListenTap(Boolean(listenStage));
       if (listenStage?.targetSentence) setListenTarget(listenStage.targetSentence);
+      if (listenStage?.audioUrl) setListenAudioUrl(listenStage.audioUrl);
+      else if (initialData.audioUrl) setListenAudioUrl(initialData.audioUrl);
+      else setListenAudioUrl('');
 
       setEnableSentenceBuilder(Boolean(builderStage));
       if (builderStage?.prompt) setBuilderPrompt(builderStage.prompt.replace(/^Translate:\s*"?|"?$/gi, ''));
@@ -116,6 +213,21 @@ export default function LessonEditorModal({
       setEnableKaraoke(Boolean(karaokeStage) || initialData.nodeType === 'karaoke');
       if (karaokeStage?.storyText) setKaraokeStory(karaokeStage.storyText);
       if (karaokeStage?.translationText) setKaraokeTranslation(karaokeStage.translationText);
+      if (karaokeStage?.audioUrl) setKaraokeAudioUrl(karaokeStage.audioUrl);
+      else if (initialData.audioUrl) setKaraokeAudioUrl(initialData.audioUrl);
+      else setKaraokeAudioUrl('');
+
+      if (initialData.karaokeData) {
+        const kd = typeof initialData.karaokeData === 'string' ? JSON.parse(initialData.karaokeData) : initialData.karaokeData;
+        setKaraokeJsonData(kd);
+        setKaraokeJsonFileName('Attached Alignment JSON');
+      } else if (karaokeStage?.karaokeData) {
+        setKaraokeJsonData(karaokeStage.karaokeData);
+        setKaraokeJsonFileName('Attached Alignment JSON');
+      } else {
+        setKaraokeJsonData(null);
+        setKaraokeJsonFileName('');
+      }
     } else {
       // New lesson defaults
       setTitle('');
@@ -125,6 +237,10 @@ export default function LessonEditorModal({
       setPearlsReward(5);
       setIsLive(false); // DEFAULT OFF
       setAudioUrl('');
+      setListenAudioUrl('');
+      setKaraokeAudioUrl('');
+      setKaraokeJsonData(null);
+      setKaraokeJsonFileName('');
       setSourceNoteId('');
       setEnableWordMatch(true);
       setEnableListenTap(true);
@@ -145,7 +261,11 @@ export default function LessonEditorModal({
     if (!note) return;
 
     setTitle(note.title || title);
-    if (note.audioUrl) setAudioUrl(note.audioUrl);
+    if (note.audioUrl) {
+      setAudioUrl(note.audioUrl);
+      setListenAudioUrl(note.audioUrl);
+      setKaraokeAudioUrl(note.audioUrl);
+    }
 
     // If note has karaokeData, import sentences and vocabulary
     if (note.karaokeData) {
@@ -167,6 +287,8 @@ export default function LessonEditorModal({
         }));
         if (pairs.length > 0) setWordPairs(pairs);
       }
+      setKaraokeJsonData(kd);
+      setKaraokeJsonFileName(`Imported from Note: ${note.title}`);
       setEnableKaraoke(true);
       setKaraokeStory(note.content?.slice(0, 500) || '');
     }
@@ -227,7 +349,7 @@ export default function LessonEditorModal({
         title: 'Listen and tap what you hear',
         targetSentence: listenTarget.trim(),
         tokens: allTokens,
-        audioUrl: audioUrl || null,
+        audioUrl: listenAudioUrl.trim() || audioUrl.trim() || null,
       });
     }
 
@@ -267,6 +389,8 @@ export default function LessonEditorModal({
         title: 'Karaoke Synced Rhythm',
         storyText: karaokeStory.trim(),
         translationText: karaokeTranslation.trim(),
+        audioUrl: karaokeAudioUrl.trim() || audioUrl.trim() || null,
+        karaokeData: karaokeJsonData || null,
       });
     }
 
@@ -281,7 +405,8 @@ export default function LessonEditorModal({
       xpReward: parseInt(xpReward, 10) || 15,
       pearlsReward: parseInt(pearlsReward, 10) || 5,
       isLive: Boolean(isLive),
-      audioUrl: audioUrl.trim() || null,
+      audioUrl: (karaokeAudioUrl || listenAudioUrl || audioUrl || '').trim() || null,
+      karaokeData: karaokeJsonData || null,
       sourceNoteId: sourceNoteId ? parseInt(sourceNoteId, 10) : null,
       stages,
     };
@@ -443,18 +568,64 @@ export default function LessonEditorModal({
               </div>
             </div>
 
-            {/* Audio URL Input */}
+            {/* Audio URL Input with Direct DB Upload */}
             <div>
-              <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1 flex items-center gap-1.5">
-                <Volume2 className="w-3.5 h-3.5 text-cyan-400" /> Audio Prompt URL (Optional)
+              <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1 flex items-center justify-between">
+                <span className="flex items-center gap-1.5">
+                  <Volume2 className="w-3.5 h-3.5 text-cyan-400" /> Lesson Primary Audio (Optional)
+                </span>
+                {audioUrl && (
+                  <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
+                    <Check className="w-3 h-3" /> Audio Attached
+                  </span>
+                )}
               </label>
-              <input
-                type="text"
-                value={audioUrl}
-                onChange={e => setAudioUrl(e.target.value)}
-                placeholder="https://.../guten_tag.mp3 or /uploads/audio/..."
-                className="input-field text-xs font-mono"
-              />
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={audioUrl}
+                  onChange={e => setAudioUrl(e.target.value)}
+                  placeholder="https://.../audio.mp3 or /api/notes/audio/db/..."
+                  className="input-field text-xs font-mono flex-1"
+                />
+                <button
+                  type="button"
+                  onClick={() => generalAudioInputRef.current?.click()}
+                  disabled={uploadingGeneralAudio}
+                  className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
+                  title="Upload audio file directly to database"
+                >
+                  {uploadingGeneralAudio ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-cyan-400" />
+                  ) : (
+                    <Upload className="w-3.5 h-3.5 text-cyan-400" />
+                  )}
+                  <span>{uploadingGeneralAudio ? 'Uploading...' : 'Upload Audio'}</span>
+                </button>
+                <input
+                  ref={generalAudioInputRef}
+                  type="file"
+                  accept="audio/*"
+                  className="hidden"
+                  onChange={e => {
+                    const file = e.target.files?.[0];
+                    if (file) handleAudioFileUpload(file, setAudioUrl, setUploadingGeneralAudio);
+                  }}
+                />
+              </div>
+              {audioUrl && (
+                <div className="mt-2 flex items-center gap-2 p-1.5 rounded-xl bg-slate-900/60 border border-white/10">
+                  <audio controls src={resolveAudioUrl(audioUrl)} className="w-full h-8" />
+                  <button
+                    type="button"
+                    onClick={() => setAudioUrl('')}
+                    className="text-xs text-red-400 hover:text-red-300 p-1 rounded-lg hover:bg-red-500/10 transition-colors"
+                    title="Remove audio"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -576,6 +747,84 @@ export default function LessonEditorModal({
                       placeholder="e.g. Kaffee, Brot, Nacht"
                       className="input-field text-xs"
                     />
+                  </div>
+
+                  {/* Stage B Dedicated Audio Voice Track Upload */}
+                  <div>
+                    <label className="text-xs font-semibold text-gray-300 block mb-1.5 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <Headphones className="w-3.5 h-3.5 text-cyan-400" />
+                        Stage Audio Voice Track (.mp3, .wav, .m4a)
+                      </span>
+                      {listenAudioUrl && (
+                        <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
+                          <Check className="w-3 h-3" /> Audio Attached
+                        </span>
+                      )}
+                    </label>
+
+                    <div className="space-y-2">
+                      <div
+                        onClick={() => listenAudioInputRef.current?.click()}
+                        className={`flex flex-col items-center justify-center p-3.5 border-2 border-dashed rounded-xl transition-all cursor-pointer group ${
+                          listenAudioUrl
+                            ? 'border-emerald-500/40 bg-emerald-500/5 hover:bg-emerald-500/10'
+                            : 'border-white/15 hover:border-cyan-500/50 bg-white/[0.02] hover:bg-white/[0.04]'
+                        }`}
+                      >
+                        <input
+                          ref={listenAudioInputRef}
+                          type="file"
+                          accept="audio/*"
+                          className="hidden"
+                          onChange={e => {
+                            const file = e.target.files?.[0];
+                            if (file) handleAudioFileUpload(file, setListenAudioUrl, setUploadingListenAudio);
+                          }}
+                        />
+                        {uploadingListenAudio ? (
+                          <div className="flex items-center gap-2 py-1 text-cyan-400 text-xs font-medium">
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span>Uploading voice track to database...</span>
+                          </div>
+                        ) : (
+                          <>
+                            <Upload className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors mb-1" />
+                            <span className="text-xs text-gray-300 font-medium text-center">
+                              {listenAudioUrl ? 'Click to replace audio file' : 'Click to select audio file (.mp3, .wav, .m4a)'}
+                            </span>
+                            <span className="text-[10px] text-gray-500 mt-0.5">
+                              Learners listen to this voice clip and tap the corresponding words
+                            </span>
+                          </>
+                        )}
+                      </div>
+
+                      {listenAudioUrl && (
+                        <div className="flex flex-col sm:flex-row items-center gap-2 p-2 rounded-xl bg-slate-900/60 border border-white/10">
+                          <audio controls src={resolveAudioUrl(listenAudioUrl)} className="w-full sm:flex-1 h-8" />
+                          <button
+                            type="button"
+                            onClick={() => setListenAudioUrl('')}
+                            className="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded-lg hover:bg-red-500/10 flex items-center gap-1 transition-colors cursor-pointer"
+                            title="Remove audio"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" /> Remove
+                          </button>
+                        </div>
+                      )}
+
+                      <div className="flex items-center gap-2 text-[11px] text-gray-400">
+                        <Link2 className="w-3 h-3 text-gray-500 flex-shrink-0" />
+                        <input
+                          type="text"
+                          value={listenAudioUrl}
+                          onChange={e => setListenAudioUrl(e.target.value)}
+                          placeholder="Or paste audio URL (/api/notes/audio/db/... or https://...)"
+                          className="input-field text-xs py-1 font-mono text-[11px] flex-1 bg-black/30"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
@@ -723,6 +972,65 @@ export default function LessonEditorModal({
 
               {enableKaraoke && (
                 <div className="space-y-3 mt-2">
+                  {/* Karaoke Alignment JSON Upload Option */}
+                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-cyan-500/20 space-y-2">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <div className="flex items-center gap-1.5">
+                        <FileCode className="w-4 h-4 text-cyan-400" />
+                        <span className="text-xs font-bold text-white">
+                          Word-Level Karaoke Alignment (.json)
+                        </span>
+                        {karaokeJsonData && (
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30 flex items-center gap-1">
+                            <Check className="w-3 h-3" /> JSON Loaded {karaokeJsonData.sentences ? `(${karaokeJsonData.sentences.length} sentences)` : ''}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => karaokeJsonInputRef.current?.click()}
+                          className="btn-secondary text-xs px-2.5 py-1 flex items-center gap-1.5 cursor-pointer hover:border-cyan-400"
+                        >
+                          <Upload className="w-3.5 h-3.5 text-cyan-400" />
+                          <span>{karaokeJsonData ? 'Replace JSON' : 'Upload Alignment JSON (.json)'}</span>
+                        </button>
+                        {karaokeJsonData && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setKaraokeJsonData(null);
+                              setKaraokeJsonFileName('');
+                            }}
+                            className="text-xs text-red-400 hover:text-red-300 p-1 rounded hover:bg-red-500/10 cursor-pointer"
+                            title="Clear JSON"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="text-[11px] text-gray-400 leading-snug">
+                      Upload your syllable/word-aligned JSON file with timestamps. It automatically populates sentences, parallel translation, and rhythm sync!
+                    </p>
+
+                    {karaokeJsonFileName && (
+                      <div className="text-[11px] text-cyan-300 flex items-center gap-1.5 pt-0.5 font-mono">
+                        <span>📄 {karaokeJsonFileName}</span>
+                      </div>
+                    )}
+
+                    <input
+                      ref={karaokeJsonInputRef}
+                      type="file"
+                      accept=".json,application/json"
+                      className="hidden"
+                      onChange={handleKaraokeJsonSelect}
+                    />
+                  </div>
+
                   <div>
                     <label className="text-xs text-gray-400 block mb-1">
                       German Story Sentences
@@ -746,6 +1054,84 @@ export default function LessonEditorModal({
                       placeholder="Good morning Germany. A new day begins with music and joy."
                       className="input-field text-xs leading-relaxed"
                     />
+                  </div>
+
+                  {/* Stage E Dedicated Karaoke Audio Track Upload */}
+                  <div>
+                    <label className="text-xs font-semibold text-gray-300 block mb-1.5 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <Music className="w-3.5 h-3.5 text-cyan-400" />
+                        Karaoke Story Audio Track (.mp3, .wav, .m4a)
+                      </span>
+                      {karaokeAudioUrl && (
+                        <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
+                          <Check className="w-3 h-3" /> Audio Attached
+                        </span>
+                      )}
+                    </label>
+
+                    <div className="space-y-2">
+                      <div
+                        onClick={() => karaokeAudioInputRef.current?.click()}
+                        className={`flex flex-col items-center justify-center p-3.5 border-2 border-dashed rounded-xl transition-all cursor-pointer group ${
+                          karaokeAudioUrl
+                            ? 'border-emerald-500/40 bg-emerald-500/5 hover:bg-emerald-500/10'
+                            : 'border-white/15 hover:border-cyan-500/50 bg-white/[0.02] hover:bg-white/[0.04]'
+                        }`}
+                      >
+                        <input
+                          ref={karaokeAudioInputRef}
+                          type="file"
+                          accept="audio/*"
+                          className="hidden"
+                          onChange={e => {
+                            const file = e.target.files?.[0];
+                            if (file) handleAudioFileUpload(file, setKaraokeAudioUrl, setUploadingKaraokeAudio);
+                          }}
+                        />
+                        {uploadingKaraokeAudio ? (
+                          <div className="flex items-center gap-2 py-1 text-cyan-400 text-xs font-medium">
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span>Uploading karaoke story audio to database...</span>
+                          </div>
+                        ) : (
+                          <>
+                            <Upload className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors mb-1" />
+                            <span className="text-xs text-gray-300 font-medium text-center">
+                              {karaokeAudioUrl ? 'Click to replace story audio' : 'Click to select audio file (.mp3, .wav, .m4a)'}
+                            </span>
+                            <span className="text-[10px] text-gray-500 mt-0.5">
+                              Synchronized story reading audio streamed in real-time
+                            </span>
+                          </>
+                        )}
+                      </div>
+
+                      {karaokeAudioUrl && (
+                        <div className="flex flex-col sm:flex-row items-center gap-2 p-2 rounded-xl bg-slate-900/60 border border-white/10">
+                          <audio controls src={resolveAudioUrl(karaokeAudioUrl)} className="w-full sm:flex-1 h-8" />
+                          <button
+                            type="button"
+                            onClick={() => setKaraokeAudioUrl('')}
+                            className="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded-lg hover:bg-red-500/10 flex items-center gap-1 transition-colors cursor-pointer"
+                            title="Remove audio"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" /> Remove
+                          </button>
+                        </div>
+                      )}
+
+                      <div className="flex items-center gap-2 text-[11px] text-gray-400">
+                        <Link2 className="w-3 h-3 text-gray-500 flex-shrink-0" />
+                        <input
+                          type="text"
+                          value={karaokeAudioUrl}
+                          onChange={e => setKaraokeAudioUrl(e.target.value)}
+                          placeholder="Or paste audio URL (/api/notes/audio/db/... or https://...)"
+                          className="input-field text-xs py-1 font-mono text-[11px] flex-1 bg-black/30"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
