@@ -3,7 +3,6 @@ const { sequelize } = require('../config/database');
 
 const UserQuest = sequelize.define('UserQuest', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    _id: { type: DataTypes.VIRTUAL, get() { return this.id; } },
     userId: { type: DataTypes.INTEGER, allowNull: false, field: 'user_id' },
     questTitle: { type: DataTypes.STRING(120), allowNull: false, field: 'quest_title' },
     questType: { type: DataTypes.STRING(50), allowNull: false, field: 'quest_type' },

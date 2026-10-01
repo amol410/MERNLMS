@@ -7,10 +7,6 @@ const CurriculumLesson = sequelize.define('CurriculumLesson', {
         autoIncrement: true, 
         primaryKey: true 
     },
-    _id: { 
-        type: DataTypes.VIRTUAL, 
-        get() { return this.id; } 
-    },
     owner: { 
         type: DataTypes.INTEGER, 
         allowNull: false 

@@ -1,5 +1,20 @@
 const { Sequelize } = require('sequelize');
 
+// Support MongoDB-style instance._id and toJSON() without generating invalid SQL VIRTUAL column
+Object.defineProperty(Sequelize.Model.prototype, '_id', {
+    get() { return this.id; },
+    configurable: true,
+});
+
+const origToJSON = Sequelize.Model.prototype.toJSON;
+Sequelize.Model.prototype.toJSON = function() {
+    const values = origToJSON ? origToJSON.call(this) : { ...this.get() };
+    if (this.id !== undefined && values._id === undefined) {
+        values._id = this.id;
+    }
+    return values;
+};
+
 const sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,

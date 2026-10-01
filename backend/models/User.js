@@ -5,7 +5,6 @@ const { sequelize } = require('../config/database');
 
 const User = sequelize.define('User', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    _id: { type: DataTypes.VIRTUAL, get() { return this.id; } },
     name: { type: DataTypes.STRING(100), allowNull: false },
     email: { type: DataTypes.STRING(255), allowNull: false, unique: true },
     password: { type: DataTypes.STRING(255), allowNull: false },
@@ -26,7 +25,7 @@ const User = sequelize.define('User', {
     lastOxygenRefill: { type: DataTypes.DATE, defaultValue: DataTypes.NOW, field: 'last_oxygen_refill' },
     totalXp: { type: DataTypes.INTEGER, defaultValue: 0, field: 'total_xp' },
     currentLeague: { type: DataTypes.STRING(50), defaultValue: 'Coral Reef', field: 'current_league' },
-}, { tableName: 'users', timestamps: true, underscored: true });
+}, { tableName: 'users', timestamps: true });
 
 User.beforeCreate(async (user) => {
     const rounds = parseInt(process.env.BCRYPT_ROUNDS) || 10;

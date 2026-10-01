@@ -3,7 +3,6 @@ const { sequelize } = require('../config/database');
 
 const UserNodeProgress = sequelize.define('UserNodeProgress', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    _id: { type: DataTypes.VIRTUAL, get() { return this.id; } },
     userId: { type: DataTypes.INTEGER, allowNull: false, field: 'user_id' },
     nodeIndex: { type: DataTypes.INTEGER, allowNull: false, field: 'node_index' },
     status: {

@@ -3,7 +3,6 @@ const { sequelize } = require('../config/database');
 
 const UserActivity = sequelize.define('UserActivity', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    _id: { type: DataTypes.VIRTUAL, get() { return this.id; } },
     userId: { type: DataTypes.INTEGER, allowNull: false },
     activityType: {
         type: DataTypes.ENUM('quiz', 'note', 'flashcard'),
