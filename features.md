@@ -163,3 +163,32 @@ A comprehensive engagement tracking suite connecting student study habits to act
   - **Dual Subject & Topic Filtering**: Dynamic horizontal topic chips row in `quizzes_screen.dart` with "All Topics" toggle.
   - **Activity History**: Localized daily tracking of study hours, categories, and weekly totals (`ActivityHistoryScreen`).
 
+---
+
+## 🏝️ 10. Curriculum Studio & Gamified Island Archipelago
+A Duolingo-grade interactive curriculum management and mobile learning progression engine.
+
+### Web Curriculum Studio (`/curriculum`)
+- **Unit & Lesson Architecture**: Organize language curriculum into structured Units (e.g. Unit 1 Coral Reef) with sequential interactive nodes.
+- **Multi-Stage Lesson Builder (`LessonEditorModal`)**:
+  - **Stage 1: Match the German Words (`match_pairs`)**: Interactive vocabulary pairs (German + English).
+  - **Stage 2: Listen and Tap What You Hear (`listen_tap`)**:
+    - Dedicated audio upload directly stored in MySQL (`karaoke_audios` table via `/api/notes/upload-audio`) and streamed via `/api/notes/audio/db/:id`.
+    - Target German sentence and distractor tokens.
+    - **Strict Isolation**: Audio uploaded here is strictly stage-bound and never pollutes other stages or the lesson overview.
+  - **Stage 3: Sentence Builder (`sentence_builder`)**: English prompt, German target sentence, and draggable/tappable word bank tokens.
+  - **Stage 4: Sprechen Pronunciation (`sprechen`)**: Speaking prompt, parallel translation, and minimum pronunciation accuracy.
+  - **Stage 5: Audio Karaoke Synced Story (`karaoke`)**:
+    - Dedicated story audio upload.
+    - Word-level alignment JSON (`.json`) parser that extracts sentences, translations, and timestamps.
+- **Draft vs. Live Mode**: Default draft toggle protecting students from unpublished lesson changes.
+
+### Mobile Gamified Archipelago (`app/dolphincoder`)
+- **Visual Zigzag Path (`ArchipelagoMapScreen`)**: 3D elevated island nodes with status indicators (Locked, Available, Completed with 1-3 Stars), animated dolphin mascot, and dopamine feedback.
+- **Interactive Multi-Stage Challenge (`LessonSessionScreen`)**:
+  - Dynamic stage initialization from `PathNodeModel.stages`.
+  - **Real-Time Audio Streaming**: Integrated `AudioPlayer` streaming high-fidelity audio from `dolphincoder.com/api/notes/audio/db/:id`.
+  - Interactive speaker button with play/pause state toggling and animated listening mascot.
+  - Punctuation-tolerant token matching for listening comprehension and sentence building.
+  - Dopamine rewards: XP, Pearls, streak increments, and victory celebration screens.
+

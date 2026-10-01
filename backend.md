@@ -67,13 +67,16 @@ backend/
 │   ├── Flashcard.js               # cards JSON TEXT, cardCount, color
 │   ├── FlashcardProgress.js       # studentId, flashcardId, cardResults JSON, masteredCount
 │   ├── Subject.js                 # name, description, icon, topics JSON TEXT
-│   └── Video.js                   # youtubeVideoId, viewCount, isPublic, tags
-├── models/associations.js         # BelongsTo aliases (ownerUser, subject, addedByUser, student, quiz)
+│   ├── Video.js                   # youtubeVideoId, viewCount, isPublic, tags
+│   └── CurriculumLesson.js        # unitNumber, lessonIndex, title, nodeType, stages JSON, audioUrl, isLive
+├── models/associations.js         # BelongsTo aliases (ownerUser, subject, addedByUser, student, quiz, sourceNote)
 ├── controllers/
 │   ├── activityController.js      # getSummary (countsOnly, single day, ISO week with timezone awareness)
 │   ├── adminController.js         # getUsers, createTrainer, toggleActive, deleteUser
 │   ├── authController.js          # register, login, getMe, updateProfile, changePassword
+│   ├── curriculumController.js    # getLessons, getLessonById, createLesson, updateLesson, deleteLesson, toggleLive
 │   ├── flashcardController.js     # getDecks, getDeckById, createDeck, updateDeck, deleteDeck, saveProgress
+│   ├── gamificationController.js  # getStatus, getPath (Archipelago island nodes), completeNode, getLeaderboard
 │   ├── noteController.js          # getNotes, getNoteById, createNote, updateNote, deleteNote, uploadAudioFile, streamAudioFromDb, trackView
 │   ├── quizController.js          # getQuizzes, getQuizById, createQuiz, updateQuiz, deleteQuiz, submitAttempt
 │   ├── subjectController.js       # getSubjects, createSubject, updateSubject, deleteSubject
@@ -82,7 +85,9 @@ backend/
 │   ├── activity.js                # GET /api/activity/summary
 │   ├── admin.js                   # /api/admin/*
 │   ├── auth.js                    # /api/auth/*
+│   ├── curriculum.js              # /api/curriculum/* (units, lessons, draft/live status)
 │   ├── flashcards.js              # /api/flashcards/*
+│   ├── gamification.js            # /api/gamification/* (status, path, complete-node, leaderboard)
 │   ├── notes.js                   # /api/notes/* (includes audio upload & HTTP 206 streaming)
 │   ├── quizzes.js                 # /api/quizzes/*
 │   ├── subjects.js                # /api/subjects/*

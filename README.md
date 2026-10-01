@@ -47,8 +47,16 @@ A comprehensive, state-of-the-art Learning Management System powering [dolphinco
 - JWT-based authentication (7-day validity) with bcrypt password hashing.
 - Admin dashboard for user role management, account toggling, and trainer creation.
 
+### 🏝️ Curriculum Studio & Interactive Lessons (`/curriculum`)
+- Multi-stage interactive lesson authoring: Match German Words, Listen and Tap What You Hear, Sentence Builder, Sprechen Pronunciation, and Audio Karaoke Story.
+- **Isolated Stage Audio Upload**: Dedicated direct-to-MySQL audio storage per stage; voice clips in Listen & Tap do not bleed into Karaoke or Lesson Overview.
+- Word-level alignment JSON parser (`.json`) for synchronized syllable reading.
+- Live / Draft publishing toggle protecting in-progress courses.
+
 ### 📱 Flutter Mobile App (Android & iOS)
 - Dark-themed Material 3 mobile companion located in `app/dolphincoder/`.
+- **Gamified Coral Reef Archipelago**: Sinusoidal 3D island progression path with oxygen, streak, and pearls economy.
+- **Interactive Multi-Stage Challenge**: Live audio streaming via `audioplayers` from `https://dolphincoder.com/api/notes/audio/db/:id`, interactive speaker button with play/pause toggling, animated listening dolphin mascot, and dopamine feedback chimes.
 
 ---
 

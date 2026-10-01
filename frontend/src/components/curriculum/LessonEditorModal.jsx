@@ -28,7 +28,6 @@ export default function LessonEditorModal({
   const [xpReward, setXpReward] = useState(15);
   const [pearlsReward, setPearlsReward] = useState(5);
   const [isLive, setIsLive] = useState(false); // CRITICAL: default false
-  const [audioUrl, setAudioUrl] = useState('');
   const [sourceNoteId, setSourceNoteId] = useState('');
 
   // Audio Upload & Player State (Direct to MySQL karaoke_audios)
@@ -44,9 +43,6 @@ export default function LessonEditorModal({
   const [karaokeJsonData, setKaraokeJsonData] = useState(null);
   const [karaokeJsonFileName, setKaraokeJsonFileName] = useState('');
   const karaokeJsonInputRef = useRef(null);
-
-  const [uploadingGeneralAudio, setUploadingGeneralAudio] = useState(false);
-  const generalAudioInputRef = useRef(null);
 
   // Helper: Resolve relative audio URLs through backend streaming endpoint
   const resolveAudioUrl = (url) => {
@@ -182,7 +178,6 @@ export default function LessonEditorModal({
       setXpReward(initialData.xpReward || 15);
       setPearlsReward(initialData.pearlsReward || 5);
       setIsLive(Boolean(initialData.isLive));
-      setAudioUrl(initialData.audioUrl || '');
       setSourceNoteId(initialData.sourceNoteId || '');
 
       const stages = Array.isArray(initialData.stages) ? initialData.stages : [];
@@ -232,7 +227,6 @@ export default function LessonEditorModal({
       setXpReward(15);
       setPearlsReward(5);
       setIsLive(false); // DEFAULT OFF
-      setAudioUrl('');
       setListenAudioUrl('');
       setKaraokeAudioUrl('');
       setKaraokeJsonData(null);
@@ -258,9 +252,11 @@ export default function LessonEditorModal({
 
     setTitle(note.title || title);
     if (note.audioUrl) {
-      setAudioUrl(note.audioUrl);
-      setListenAudioUrl(note.audioUrl);
-      setKaraokeAudioUrl(note.audioUrl);
+      if (note.isKaraoke || note.karaokeData) {
+        setKaraokeAudioUrl(note.audioUrl);
+      } else {
+        setListenAudioUrl(note.audioUrl);
+      }
     }
 
     // If note has karaokeData, import sentences and vocabulary
@@ -401,7 +397,7 @@ export default function LessonEditorModal({
       xpReward: parseInt(xpReward, 10) || 15,
       pearlsReward: parseInt(pearlsReward, 10) || 5,
       isLive: Boolean(isLive),
-      audioUrl: audioUrl.trim() || null,
+      audioUrl: null, // Strictly decoupled; stages maintain their own audio
       karaokeData: karaokeJsonData || null,
       sourceNoteId: sourceNoteId ? parseInt(sourceNoteId, 10) : null,
       stages,
@@ -562,66 +558,6 @@ export default function LessonEditorModal({
                   ))}
                 </select>
               </div>
-            </div>
-
-            {/* Audio URL Input with Direct DB Upload */}
-            <div>
-              <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1 flex items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <Volume2 className="w-3.5 h-3.5 text-cyan-400" /> Lesson Primary Audio (Optional)
-                </span>
-                {audioUrl && (
-                  <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
-                    <Check className="w-3 h-3" /> Audio Attached
-                  </span>
-                )}
-              </label>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={audioUrl}
-                  onChange={e => setAudioUrl(e.target.value)}
-                  placeholder="https://.../audio.mp3 or /api/notes/audio/db/..."
-                  className="input-field text-xs font-mono flex-1"
-                />
-                <button
-                  type="button"
-                  onClick={() => generalAudioInputRef.current?.click()}
-                  disabled={uploadingGeneralAudio}
-                  className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
-                  title="Upload audio file directly to database"
-                >
-                  {uploadingGeneralAudio ? (
-                    <Loader2 className="w-3.5 h-3.5 animate-spin text-cyan-400" />
-                  ) : (
-                    <Upload className="w-3.5 h-3.5 text-cyan-400" />
-                  )}
-                  <span>{uploadingGeneralAudio ? 'Uploading...' : 'Upload Audio'}</span>
-                </button>
-                <input
-                  ref={generalAudioInputRef}
-                  type="file"
-                  accept="audio/*"
-                  className="hidden"
-                  onChange={e => {
-                    const file = e.target.files?.[0];
-                    if (file) handleAudioFileUpload(file, setAudioUrl, setUploadingGeneralAudio);
-                  }}
-                />
-              </div>
-              {audioUrl && (
-                <div className="mt-2 flex items-center gap-2 p-1.5 rounded-xl bg-slate-900/60 border border-white/10">
-                  <audio controls src={resolveAudioUrl(audioUrl)} className="w-full h-8" />
-                  <button
-                    type="button"
-                    onClick={() => setAudioUrl('')}
-                    className="text-xs text-red-400 hover:text-red-300 p-1 rounded-lg hover:bg-red-500/10 transition-colors"
-                    title="Remove audio"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              )}
             </div>
           </div>
 

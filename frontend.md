@@ -63,6 +63,10 @@ frontend/
     │   │   └── Pagination.jsx         # 6-item pagination control with next/prev buttons
     │   ├── notes/
     │   │   └── KaraokeNoteModal.jsx   # Modal for creating/editing Karaoke notes with audio attachment
+    │   ├── curriculum/
+    │   │   ├── LessonEditorModal.jsx  # Multi-stage lesson builder (isolated stage audio uploads, JSON alignment parser)
+    │   │   ├── UnitOutlineModal.jsx   # Unit title and description creator/editor
+    │   │   └── BulkUploadModal.jsx    # Bulk curriculum lesson import
     │   ├── quiz/
     │   │   ├── CodeSnippetQuestion.jsx# Syntax-highlighted code question component (highlight.js)
     │   │   ├── MatchPairsQuestion.jsx # Interactive student pairing interface (Match the Pairs)
@@ -75,6 +79,7 @@ frontend/
     │   ├── Landing.jsx                # Public home page with animated orbs and feature previews
     │   ├── Login.jsx / Register.jsx   # Authentication forms
     │   ├── Dashboard.jsx              # Main student/trainer dashboard with study stats & quick links
+    │   ├── CurriculumPage.jsx         # Curriculum & Lesson Studio with Unit tabs, Live/Draft toggling, sequencing
     │   ├── NotesPage.jsx              # Notes directory with 6-item pagination & search/tag filters
     │   ├── NoteEditorPage.jsx         # Tiptap rich-text editor & DOCX/HTML slide upload
     │   ├── NoteDetailPage.jsx         # Note reader with color themes or embedded slide iframe

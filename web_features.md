@@ -416,3 +416,40 @@
       * Role selector dropdown (`student`, `trainer`, `admin`).
       * Active status toggle switch (enable/disable account access).
       * Delete user button (with confirmation modal).
+
+---
+
+## 17. Curriculum & Lesson Studio
+* **Route:** `/curriculum` (Trainer / Admin Role)
+* **Page Purpose:** Author and manage structured language curriculum, learning units, and gamified multi-stage interactive lessons.
+* **Structural Elements:**
+  * **Top Action Bar**:
+    * Language & Level Pickers (`learningLanguage`, `nativeLanguage`, `level` A1–C2).
+    * Unit Switcher tab bar with Unit creation modal (`UnitOutlineModal`).
+    * "New Lesson" button opening `LessonEditorModal`.
+    * "Bulk Upload" button (`BulkUploadModal`) for rapid curriculum import.
+    * "Seed Unit 1" default template initializer.
+  * **Lesson Cards Grid**:
+    * Sequential lesson nodes with index pills, XP rewards, pearls rewards, live status badges (`LIVE` vs `DRAFT`).
+    * Quick actions: Toggle Live status, Edit Lesson, Delete Lesson, Move Order.
+  * **Multi-Stage Lesson Builder (`LessonEditorModal`)**:
+    * **Section 1: Lesson Overview**:
+      * Metadata fields: Title, Node Type (Interactive Lesson, Audio Karaoke, Boss Exam, Treasure Chest), Subtitle, XP Reward, Pearls Reward, Link from Notes.
+      * *Architecture Note:* Does **not** include top-level audio upload; all audio is decoupled and stage-specific.
+    * **Stage 1: Match the German Words (`match_pairs`)**:
+      * Pair rows mapping German terms to English meanings.
+    * **Stage 2: Listen and Tap What You Hear (`listen_tap`)**:
+      * Target German sentence input.
+      * Distractor words input (comma-separated).
+      * **Dedicated Audio Upload**: File picker uploading `.mp3`, `.wav`, `.m4a` to MySQL `karaoke_audios` table via `/api/notes/upload-audio`.
+      * In-browser audio player with instant preview and removal button.
+      * **Audio Isolation**: Completely decoupled from all other stages and top-level lesson records.
+    * **Stage 3: Sentence Builder (`sentence_builder`)**:
+      * English translation prompt, German target sentence, and distractor tokens.
+    * **Stage 4: Sprechen Pronunciation (`sprechen`)**:
+      * German pronunciation prompt, English translation, and minimum pass accuracy percentage (default 75%).
+    * **Stage 5: Audio Karaoke Synced Story (`karaoke`)**:
+      * Story German sentences and English parallel translations.
+      * **Dedicated Karaoke Audio Upload**: Separate audio file attachment for story reading.
+      * **Word-Level Alignment JSON (.json) Upload**: Uploads timestamps for syllable-by-syllable synchronized karaoke highlighting.
+    * **Save & Publish Actions**: "Save Changes" submits structured JSON payload to `/api/curriculum/lessons/:id`.

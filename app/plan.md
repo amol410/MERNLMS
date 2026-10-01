@@ -205,9 +205,20 @@ lib/
 │   │       ├── flashcards_screen.dart
 │   │       └── study_screen.dart
 │   │
-│   └── profile/
+│   ├── profile/
+│   │   └── screens/
+│   │       └── profile_screen.dart
+│   │
+│   └── gamification/
+│       ├── data/
+│       │   ├── gamification_repository.dart
+│       │   └── models/gamification_models.dart
+│       ├── providers/
+│       │   └── gamification_provider.dart
 │       └── screens/
-│           └── profile_screen.dart
+│           ├── archipelago_map_screen.dart     # Sinusoidal zigzag island path, oxygen & pearls
+│           ├── lesson_session_screen.dart      # Multi-stage challenge with native audioplayers
+│           └── leagues_screen.dart             # Leaderboard leagues & promotion tier
 │
 └── shared/
     ├── widgets/

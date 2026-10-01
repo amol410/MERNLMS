@@ -348,3 +348,52 @@
       * Tapping opens an editable modal dialog allowing students/developers to point the mobile app to a custom backend IP or local development server (`http://10.0.2.2:5000/api`).
   * **Application Info**: App version (`v1.0.0+2`), copyright notice.
   * **Logout Action**: Full-width button clearing secure token storage and navigating back to `/login`.
+
+---
+
+## 14. Gamified Coral Reef Archipelago & Interactive Lesson Session Screen
+* **Route:** `/home` (Archipelago Map) and `/lesson/:nodeIndex` (Interactive Session Screen)
+* **Screen Purpose:** Duolingo-style gamified language learning path with interactive multi-stage challenges, mascot reactions, and native audio streaming.
+* **Archipelago Map Screen (`ArchipelagoMapScreen`)**:
+  * **Top Status Bar**:
+    * Language Flag selector (German flag).
+    * Streak flame counter with daily status.
+    * Oxygen gauge (`5/5`) showing remaining health for challenges.
+    * Pearls wallet counter with gemstone icon.
+  * **Unit Banner**: "Unit 1 • Coral Reef: Introductions & Daily Greetings" with chapter progress indicator.
+  * **Zigzag Island Nodes**:
+    * 3D tactile circular island buttons positioned in an alternating sinusoidal pattern.
+    * Node types: `lesson`, `karaoke`, `speech`, `chest` (Treasure), `match`, `builder`, `boss` (Exam).
+    * Statuses: `locked` (dimmed with padlock), `available` (vibrant with pulsating crown), `completed` (check icon with 1-3 earned stars).
+    * Tapping a playable node routes to `/lesson/:nodeIndex` passing `PathNodeModel`.
+* **Interactive Lesson Session Screen (`LessonSessionScreen`)**:
+  * **Top Progress Bar**:
+    * Close button `(X)` with exit confirmation.
+    * Multi-stage linear progress bar advancing with each task.
+    * Lives / Hearts indicator (`❤️ 5`).
+  * **Stage 0: Word Match (`match_pairs`)**:
+    * 2-column vocabulary matching tiles (German left, English right).
+    * Instant audio-visual tactile feedback upon pairing.
+  * **Stage 1: Listen and Tap What You Hear (`listen_tap`)**:
+    * **Animated Mascot (`AnimatedDolphinMascot`)**: Echo the Dolphin wearing headphones, pulsing when audio plays.
+    * **Native Audio Streaming**: Integrated `AudioPlayer` streaming high-quality audio directly from `https://dolphincoder.com/api/notes/audio/db/:id`.
+    * **Tactile Speaker Button**:
+      * Plays/pauses audio track.
+      * Toggles icon between `volume_up_rounded` and `pause_rounded` based on playback state.
+    * **Interactive Assembly Box**: Selected word tokens assemble into the sentence box; tapping removes tokens back to the word bank.
+    * **Word Bank**: Tappable word chips derived dynamically from `stages[listen_tap].tokens`.
+    * **Tolerant Sequence Verification**: Punctuation-insensitive and whitespace-normalized verification.
+    * **Feedback Bottom Sheet (`DuoFeedbackSheet`)**: Displays success or target sentence with "NEXT TASK →".
+  * **Stage 2: Sentence Builder (`sentence_builder`)**:
+    * English translation prompt bubble.
+    * Word bank token selector with animated tile transitions.
+    * Tolerant grammar verification against German target sentence.
+  * **Stage 3: Sprechen Pronunciation (`sprechen`)**:
+    * German target phrase with English parallel translation.
+    * Large microphone button with animated ripple effect during active dictation.
+    * Speech recognition simulation / speech evaluation feedback.
+  * **Stage 4: Celebration & Rewards Screen**:
+    * Animated celebratory mascot doing flips.
+    * XP Reward, Accuracy %, and Pearls earned metric cards.
+    * Confetti and audio chimes on lesson completion.
+    * Saves node progress to `/api/gamification/complete-node` and returns to the Archipelago Map.
