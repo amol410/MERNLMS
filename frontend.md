@@ -154,6 +154,22 @@ frontend/
 ### 4.4 Pagination Engine (`Pagination.jsx`)
 - Standardized 6-item pagination deployed across Notes, Quizzes, and Flashcards directories, ensuring rapid initial rendering and organized browsing.
 
+### 4.5 Curriculum Studio & Multi-Stage Lesson Editor (`CurriculumStudioPage.jsx`, `LessonEditorModal.jsx`)
+- **Unit & Lesson Architecture**:
+  - Author curriculum lessons with language pairing (e.g. `de` -> `en`), CEFR level (`A1-B2`), and units.
+  - Safe default status: `isLive = false` (Draft) to prevent incomplete lessons from appearing on student archipelago maps until explicitly toggled.
+- **Stage 1: Match the Word Pairs (`word_match`)**:
+  - Interactive row authoring with Target Language (`target`) and Native Translation (`native`).
+  - **JSON Upload & Template Download**: Admins can download a pre-filled JSON template (`word_match_pairs_template.json`) and upload pair JSON files (`{ "pairs": [{ "target": "...", "native": "..." }] }`).
+- **Stage 2: Listen and Tap What You Hear (`listen_tap`)**:
+  - Target German sentence and distractor tokens.
+  - Isolated stage audio uploaded to MySQL `karaoke_audios` table (`/api/notes/upload-audio`).
+  - **Word-Level Timestamps JSON & Template Download**: Admins can download a pre-filled timestamp template (`listen_tap_word_timestamps_template.json`) based on target sentence words, and upload JSON mapping each word to `start` and `end` seconds for tap-to-pronounce audio playback on mobile.
+- **Stage 3: Sentence Builder (`sentence_builder`)**:
+  - English prompt, scrambled token bank, and target sentence structure.
+- **Stage 4: Sprechen Pronunciation (`sprechen`)**:
+  - Challenge phrase, English translation, and accuracy passing threshold.
+
 ---
 
 ## 5. Coding & Contribution Rules

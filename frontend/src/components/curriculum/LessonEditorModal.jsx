@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import {
   X, Check, Plus, Trash2, Headphones, Mic, Sparkles, Layers,
-  Volume2, Music, Link2, BookOpen, AlertCircle, Eye, EyeOff, Upload, Loader2, FileCode
+  Volume2, Music, Link2, BookOpen, AlertCircle, Eye, EyeOff, Upload, Loader2, FileCode, Download
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api/axios';
@@ -39,10 +39,18 @@ export default function LessonEditorModal({
   const [uploadingKaraokeAudio, setUploadingKaraokeAudio] = useState(false);
   const karaokeAudioInputRef = useRef(null);
 
+  // Listen & Tap — Word-Level Timestamps JSON (.json with per-word start/end for tap-to-pronounce)
+  const [listenWordTimestamps, setListenWordTimestamps] = useState(null);
+  const [listenTimestampsFileName, setListenTimestampsFileName] = useState('');
+  const listenTimestampsInputRef = useRef(null);
+
   // Karaoke Alignment JSON state (.json with sentence/word timestamps)
   const [karaokeJsonData, setKaraokeJsonData] = useState(null);
   const [karaokeJsonFileName, setKaraokeJsonFileName] = useState('');
   const karaokeJsonInputRef = useRef(null);
+
+  // Word Match Pairs JSON upload ref
+  const wordMatchInputRef = useRef(null);
 
   // Helper: Resolve relative audio URLs through backend streaming endpoint
   const resolveAudioUrl = (url) => {
@@ -121,6 +129,127 @@ export default function LessonEditorModal({
     reader.readAsText(file);
   };
 
+  // Helper: Handle Listen & Tap word timestamps JSON file upload
+  const handleListenTimestampsSelect = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setListenTimestampsFileName(file.name);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const raw = JSON.parse(event.target.result);
+        if (raw.words && Array.isArray(raw.words)) {
+          setListenWordTimestamps(raw.words);
+          toast.success(`Word timestamps loaded: ${raw.words.length} words`);
+        } else if (Array.isArray(raw)) {
+          setListenWordTimestamps(raw);
+          toast.success(`Word timestamps loaded: ${raw.length} words`);
+        } else {
+          toast.error('Invalid format — expected { "words": [{ "word", "start", "end" }] }');
+        }
+      } catch (err) {
+        toast.error(`Invalid JSON file: ${err.message}`);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  // Helper: Download word timestamps template JSON
+  const downloadListenTimestampsTemplate = () => {
+    const targetWords = listenTarget
+      .split(/\s+/)
+      .filter(Boolean);
+    const template = {
+      _comment: 'Word-level timestamps for the Listen & Tap audio. Each word maps to its start/end time (in seconds) within the audio file.',
+      audioUrl: listenAudioUrl || '/api/notes/audio/db/YOUR_ID',
+      words: targetWords.length > 0
+        ? targetWords.map((w, i) => ({
+            word: w,
+            start: parseFloat((i * 0.5).toFixed(2)),
+            end: parseFloat(((i + 1) * 0.5).toFixed(2)),
+          }))
+        : [
+            { word: 'Guten', start: 0.0, end: 0.45 },
+            { word: 'Tag,', start: 0.45, end: 0.85 },
+            { word: 'ich', start: 0.90, end: 1.05 },
+            { word: 'bin', start: 1.05, end: 1.25 },
+            { word: 'Anna', start: 1.25, end: 1.70 },
+          ],
+    };
+    const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'listen_tap_word_timestamps_template.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success('Template downloaded! Fill in the correct start/end times for each word.');
+  };
+
+  // Helper: Read and parse Word Match Pairs JSON file
+  const handleWordMatchJsonSelect = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const raw = JSON.parse(event.target.result);
+        let list = [];
+        if (Array.isArray(raw)) {
+          list = raw;
+        } else if (raw.pairs && Array.isArray(raw.pairs)) {
+          list = raw.pairs;
+        } else if (raw.words && Array.isArray(raw.words)) {
+          list = raw.words;
+        }
+
+        const normalized = list.map(item => ({
+          target: String(item.target || item.german || item.word || '').trim(),
+          native: String(item.native || item.english || item.translation || '').trim(),
+        })).filter(p => p.target && p.native);
+
+        if (normalized.length === 0) {
+          toast.error('No valid word pairs found. Format: { "pairs": [{ "target": "...", "native": "..." }] }');
+          return;
+        }
+
+        setWordPairs(normalized);
+        toast.success(`Loaded ${normalized.length} word pairs from JSON!`);
+      } catch (err) {
+        toast.error(`Invalid JSON file: ${err.message}`);
+      }
+    };
+    reader.readAsText(file);
+    // Reset file input so user can re-upload same file if needed
+    e.target.value = '';
+  };
+
+  // Helper: Download Word Match pairs template JSON
+  const downloadWordMatchTemplate = () => {
+    const validPairs = wordPairs.filter(p => p.target.trim() && p.native.trim());
+    const template = {
+      _comment: 'Word pairs for Stage 1: Match the Word Pairs in lesson challenges.',
+      pairs: validPairs.length > 0
+        ? validPairs
+        : [
+            { target: 'Guten Tag', native: 'Hello' },
+            { target: 'Danke', native: 'Thank you' },
+            { target: 'Bitte', native: 'Please' },
+            { target: 'Tschüss', native: 'Bye' },
+          ],
+    };
+    const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'word_match_pairs_template.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success('Word pairs template downloaded!');
+  };
+
   // Modular Challenge Stage Toggles
   const [enableWordMatch, setEnableWordMatch] = useState(true);
   const [enableListenTap, setEnableListenTap] = useState(true);
@@ -181,18 +310,42 @@ export default function LessonEditorModal({
       setSourceNoteId(initialData.sourceNoteId || '');
 
       const stages = Array.isArray(initialData.stages) ? initialData.stages : [];
-      const matchStage = stages.find(s => s.type === 'word_match');
+      const matchStage = stages.find(s => s.type === 'word_match' || s.type === 'match_pairs');
       const listenStage = stages.find(s => s.type === 'listen_tap');
       const builderStage = stages.find(s => s.type === 'sentence_builder');
       const sprechenStage = stages.find(s => s.type === 'sprechen');
       const karaokeStage = stages.find(s => s.type === 'karaoke');
 
       setEnableWordMatch(Boolean(matchStage));
-      if (matchStage?.pairs) setWordPairs(matchStage.pairs);
+      if (matchStage?.pairs && Array.isArray(matchStage.pairs) && matchStage.pairs.length > 0) {
+        setWordPairs(matchStage.pairs.map(p => ({
+          target: p.target || p.german || p.word || '',
+          native: p.native || p.english || p.translation || '',
+        })));
+      }
 
       setEnableListenTap(Boolean(listenStage));
       if (listenStage?.targetSentence) setListenTarget(listenStage.targetSentence);
       setListenAudioUrl(listenStage?.audioUrl || '');
+      if (listenStage?.wordTimestamps) {
+        setListenWordTimestamps(listenStage.wordTimestamps);
+        setListenTimestampsFileName('Attached Word Timestamps');
+      } else {
+        setListenWordTimestamps(null);
+        setListenTimestampsFileName('');
+      }
+      // Restore distractor tokens
+      if (listenStage?.tokens && listenStage?.targetSentence) {
+        const targetTokens = new Set(listenStage.targetSentence
+          .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '')
+          .split(/\s+/)
+          .filter(Boolean)
+          .map(w => w.toLowerCase()));
+        const distractors = listenStage.tokens
+          .filter(t => !targetTokens.has(t.toLowerCase()))
+          .join(', ');
+        if (distractors) setListenDistractors(distractors);
+      }
 
       setEnableSentenceBuilder(Boolean(builderStage));
       if (builderStage?.prompt) setBuilderPrompt(builderStage.prompt.replace(/^Translate:\s*"?|"?$/gi, ''));
@@ -228,6 +381,8 @@ export default function LessonEditorModal({
       setPearlsReward(5);
       setIsLive(false); // DEFAULT OFF
       setListenAudioUrl('');
+      setListenWordTimestamps(null);
+      setListenTimestampsFileName('');
       setKaraokeAudioUrl('');
       setKaraokeJsonData(null);
       setKaraokeJsonFileName('');
@@ -342,6 +497,7 @@ export default function LessonEditorModal({
         targetSentence: listenTarget.trim(),
         tokens: allTokens,
         audioUrl: listenAudioUrl.trim() || null,
+        wordTimestamps: listenWordTimestamps || null,
       });
     }
 
@@ -589,13 +745,40 @@ export default function LessonEditorModal({
                   </span>
                 </label>
                 {enableWordMatch && (
-                  <button
-                    type="button"
-                    onClick={addWordPair}
-                    className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold"
-                  >
-                    <Plus className="w-3.5 h-3.5" /> Add Pair
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={downloadWordMatchTemplate}
+                      className="btn-secondary text-xs px-2.5 py-1 flex items-center gap-1.5 cursor-pointer hover:border-cyan-400"
+                      title="Download JSON template for word match pairs"
+                    >
+                      <Download className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>Download Template</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => wordMatchInputRef.current?.click()}
+                      className="btn-secondary text-xs px-2.5 py-1 flex items-center gap-1.5 cursor-pointer hover:border-cyan-400"
+                      title="Upload JSON file with word pairs"
+                    >
+                      <Upload className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>Upload JSON</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={addWordPair}
+                      className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold"
+                    >
+                      <Plus className="w-3.5 h-3.5" /> Add Pair
+                    </button>
+                    <input
+                      ref={wordMatchInputRef}
+                      type="file"
+                      accept=".json,application/json"
+                      className="hidden"
+                      onChange={handleWordMatchJsonSelect}
+                    />
+                  </div>
                 )}
               </div>
 
@@ -757,6 +940,87 @@ export default function LessonEditorModal({
                         />
                       </div>
                     </div>
+                  </div>
+
+                  {/* Word-Level Timestamps JSON Upload (for tap-to-pronounce) */}
+                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-violet-500/20 space-y-2">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <div className="flex items-center gap-1.5">
+                        <FileCode className="w-4 h-4 text-violet-400" />
+                        <span className="text-xs font-bold text-white">
+                          Word-Level Timestamps (.json) — Tap to Pronounce
+                        </span>
+                        {listenWordTimestamps && (
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30 flex items-center gap-1">
+                            <Check className="w-3 h-3" /> {listenWordTimestamps.length} words loaded
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={downloadListenTimestampsTemplate}
+                          className="btn-secondary text-xs px-2.5 py-1 flex items-center gap-1.5 cursor-pointer hover:border-violet-400"
+                          title="Download a pre-filled template JSON with your current target sentence words"
+                        >
+                          <Download className="w-3.5 h-3.5 text-violet-400" />
+                          <span>Download Template</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => listenTimestampsInputRef.current?.click()}
+                          className="btn-secondary text-xs px-2.5 py-1 flex items-center gap-1.5 cursor-pointer hover:border-cyan-400"
+                        >
+                          <Upload className="w-3.5 h-3.5 text-cyan-400" />
+                          <span>{listenWordTimestamps ? 'Replace JSON' : 'Upload Timestamps JSON'}</span>
+                        </button>
+                        {listenWordTimestamps && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setListenWordTimestamps(null);
+                              setListenTimestampsFileName('');
+                            }}
+                            className="text-xs text-red-400 hover:text-red-300 p-1 rounded hover:bg-red-500/10 cursor-pointer"
+                            title="Clear timestamps"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="text-[11px] text-gray-400 leading-snug">
+                      Upload a JSON with per-word <code className="text-violet-300 bg-violet-500/10 px-1 rounded">start</code> and <code className="text-violet-300 bg-violet-500/10 px-1 rounded">end</code> timestamps (seconds). When learners tap a word token, the app seeks to that word&apos;s audio segment and plays it.
+                    </p>
+
+                    {listenTimestampsFileName && (
+                      <div className="text-[11px] text-violet-300 flex items-center gap-1.5 pt-0.5 font-mono">
+                        <span>📄 {listenTimestampsFileName}</span>
+                      </div>
+                    )}
+
+                    {listenWordTimestamps && (
+                      <div className="mt-1 flex flex-wrap gap-1">
+                        {listenWordTimestamps.slice(0, 8).map((w, i) => (
+                          <span key={i} className="text-[10px] px-1.5 py-0.5 rounded bg-violet-500/15 text-violet-200 border border-violet-500/20 font-mono">
+                            {w.word} <span className="text-gray-500">{w.start}s–{w.end}s</span>
+                          </span>
+                        ))}
+                        {listenWordTimestamps.length > 8 && (
+                          <span className="text-[10px] text-gray-500">+{listenWordTimestamps.length - 8} more</span>
+                        )}
+                      </div>
+                    )}
+
+                    <input
+                      ref={listenTimestampsInputRef}
+                      type="file"
+                      accept=".json,application/json"
+                      className="hidden"
+                      onChange={handleListenTimestampsSelect}
+                    />
                   </div>
                 </div>
               )}

@@ -177,6 +177,28 @@ In `controllers/activityController.js` and `utils/dateHelper.js`:
 | `/api/subjects` | GET | **Public** | Lists subjects with embedded topic lists |
 | `/api/admin/users` | GET | `protect`, `admin` | Lists all users with pagination |
 | `/api/admin/users/:id/active` | PATCH | `protect`, `admin` | Toggles user active/inactive status |
+| `/api/curriculum/lessons` | GET | `protect` | Lists curriculum lessons (students see `isLive=true` only; staff see all) |
+| `/api/curriculum/lessons/:id` | GET | `protect` | Retrieves single lesson detail with all configured stages |
+| `/api/curriculum/lessons` | POST | `protect`, `trainer/admin` | Creates new curriculum lesson with multi-stage JSON payload |
+| `/api/curriculum/lessons/:id` | PUT | `protect`, `trainer/admin` | Updates lesson overview and stage definitions |
+| `/api/curriculum/lessons/:id/live` | PATCH | `protect`, `trainer/admin` | Toggles lesson publication status (`isLive: true/false`) |
+| `/api/curriculum/lessons/:id` | DELETE | `protect`, `trainer/admin` | Deletes lesson record |
+| `/api/curriculum/units` | GET | `protect` | Returns summary list of units with lesson counts |
+| `/api/curriculum/units/headings` | POST | `protect`, `trainer/admin` | Batch creates lesson outline nodes for a unit |
+| `/api/curriculum/bulk-upload` | POST | `protect`, `trainer/admin` | Imports curriculum lessons in bulk via JSON/CSV |
+| `/api/curriculum/seed-default` | POST | `protect`, `trainer/admin` | Seeds default Unit 1 with initial curriculum nodes |
+| `/api/gamification/status` | GET | `protect` | Returns user economy: oxygen (`🫧 5/5`), pearls (`💎`), streak (`🔥`) with auto-refill |
+| `/api/gamification/path` | GET | `protect` | Returns live learning path nodes with completion & star status |
+| `/api/gamification/complete-node` | POST | `protect` | Records lesson completion, awards XP/Pearls, increments streak |
+| `/api/gamification/leaderboard` | GET | `protect` | Returns weekly leaderboard rankings & league tiers |
+| `/api/gamification/shop/refill-oxygen` | POST | `protect` | Refills oxygen to 5/5 using pearls |
+| `/api/gamification/quests` | GET | `protect` | Lists daily & monthly quests with progress |
+| `/api/gamification/claim-quest` | POST | `protect` | Claims quest pearl reward |
+
+### 5.1 Decoupled Stage Audio Architecture
+- **Stage Audio Upload**: Audio files for multi-stage curriculum lessons are uploaded via `POST /api/notes/upload-audio` (leveraging the existing `karaoke_audios` table).
+- **Public Range Streaming**: Streamed via `GET /api/notes/audio/db/:id` with complete HTTP 206 byte-range seeking.
+- **Strict Stage Isolation**: Audio attachments belong exclusively to their respective stage (`stages[listen_tap].audioUrl` or `stages[karaoke].audioUrl`). The top-level lesson row `audioUrl` is intentionally set to `null` to prevent cross-stage audio bleeding.
 
 ---
 

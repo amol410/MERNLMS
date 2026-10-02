@@ -371,15 +371,18 @@
     * Close button `(X)` with exit confirmation.
     * Multi-stage linear progress bar advancing with each task.
     * Lives / Hearts indicator (`❤️ 5`).
-  * **Stage 0: Word Match (`match_pairs`)**:
-    * 2-column vocabulary matching tiles (German left, English right).
-    * Instant audio-visual tactile feedback upon pairing.
+  * **Stage 0: Word Match (`word_match` / `match_pairs`)**:
+    * Dynamic vocabulary matching pairs loaded directly from lesson stage data (supports `target`/`native` and `german`/`english` schemas).
+    * 2-column vocabulary matching tiles (Target language left, Native right) with tactile pairing and green success dissolution.
   * **Stage 1: Listen and Tap What You Hear (`listen_tap`)**:
     * **Animated Mascot (`AnimatedDolphinMascot`)**: Echo the Dolphin wearing headphones, pulsing when audio plays.
-    * **Native Audio Streaming**: Integrated `AudioPlayer` streaming high-quality audio directly from `https://dolphincoder.com/api/notes/audio/db/:id`.
+    * **Native Audio Streaming**: Integrated `AudioPlayer` streaming high-quality audio directly from `/api/notes/audio/db/:id` (resolved via `dolphincoder.com`).
     * **Tactile Speaker Button**:
-      * Plays/pauses audio track.
+      * Plays/pauses full sentence audio track.
       * Toggles icon between `volume_up_rounded` and `pause_rounded` based on playback state.
+    * **Tap-to-Pronounce Word Chips**:
+      * When learners tap any word token in the word bank, the app checks for `wordTimestamps` in the stage definition.
+      * If timestamps exist for that word, it seeks to the exact `start` second and plays the word segment for `end - start` duration.
     * **Interactive Assembly Box**: Selected word tokens assemble into the sentence box; tapping removes tokens back to the word bank.
     * **Word Bank**: Tappable word chips derived dynamically from `stages[listen_tap].tokens`.
     * **Tolerant Sequence Verification**: Punctuation-insensitive and whitespace-normalized verification.

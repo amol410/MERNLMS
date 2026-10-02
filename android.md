@@ -30,6 +30,7 @@
 | **Videos** | YouTube embeds, view count, tags | YouTube player in WebView | ✅ Parity achieved |
 | **Activity History**| `/activity` with localized Day categories & Daily hours | `ActivityHistoryScreen` with Daily hours & Categories | ✅ Parity achieved (`/activity`) |
 | **Pagination** | 6-item pagination across lists | 6-item pagination across Notes & Quizzes | ✅ Parity achieved |
+| **Curriculum & Archipelago** | `/curriculum` studio, Units, multi-stage lessons | `ArchipelagoMapScreen`, `LessonSessionScreen`, `audioplayers` | ✅ Parity achieved (`/api/gamification/*`) |
 
 ---
 
@@ -79,7 +80,8 @@ app/dolphincoder/
 │   │   ├── videos/                    # VideoModel, VideosRepository, VideosScreen, VideoDetailScreen (WebView)
 │   │   ├── quizzes/                   # QuizModel, QuizTakeScreen, QuizResultScreen, providers & repo
 │   │   ├── flashcards/                # FlashcardModel, DecksScreen, StudyScreen, providers & repo
-│   │   └── profile/                   # ProfileScreen, EditProfileScreen, ChangePasswordScreen, SettingsScreen
+│   │   ├── profile/                   # ProfileScreen, EditProfileScreen, ChangePasswordScreen, SettingsScreen
+│   │   └── gamification/              # ArchipelagoMapScreen, LessonSessionScreen, AnimatedDolphinMascot, economy
 │   └── shared/
 │       └── widgets/
 │           ├── app_text_field.dart    # Styled input with prefix icon and validator
@@ -197,4 +199,43 @@ The interactive, animated character companion and single-sentence Duolingo-style
      - **Lesson Complete**: Celebration dialog upon mastering all sentences.
    - **Mode Preserved**: Continuous full-script reading view remains fully accessible via the top `"Full Script"` toggle pill.
 
+---
 
+## 7. Verified Implementation: Gamified Archipelago & Multi-Stage Lesson Session
+
+The Duolingo-grade gamified language path and interactive multi-stage lesson challenge runner are implemented in `app/dolphincoder/lib/features/gamification/`:
+
+### 7.1 Archipelago Map Screen (`archipelago_map_screen.dart`)
+- **Top Ocean Status Bar**:
+  - Flag switcher: `🇩🇪 German (A1)`.
+  - Oxygen Energy counter (`🫧 5/5`) with automatic time-based replenishment.
+  - Pearls virtual currency (`💎 420`) and streak flame counter (`🔥 7`).
+- **3D Sinusoidal Island Path**:
+  - Curved serpentine stepping stones oscillating across horizontal offsets.
+  - Interactive node states:
+    - **Completed**: Gold star badge (`⭐ 1–3`), glowing emerald ring.
+    - **Active**: Elevated vibrant circular button with animated pulsing halo and mascot icon.
+    - **Locked**: Subtly muted stone with lock padlock icon (`🔒`).
+    - **Bonus**: Sunken treasure chests and checkpoint lighthouses.
+- **Dynamic Curriculum Integration**:
+  - Fetches live learning nodes from `/api/gamification/path`.
+  - Automatically loads authored curriculum units and lessons from MySQL backend.
+
+### 7.2 Multi-Stage Interactive Lesson Session (`lesson_session_screen.dart`)
+- **Stage Orchestration Engine**:
+  - Dynamically parses stages from `node.stages` JSON via `_initStagesData()`.
+  - Seamlessly runs through all authored challenges:
+    1. **Stage 0: Match the Word Pairs (`word_match` / `match_pairs`)**: Dynamic vocabulary pairing loaded directly from lesson stage data (supporting `target`/`native` and `german`/`english` structures) with tactile pairing and green success dissolution.
+    2. **Stage 1: Listen and Tap What You Hear (`listen_tap`)**:
+       - **Native `audioplayers` Streaming**: High-fidelity streaming directly from `/api/notes/audio/db/:id` resolved to `https://dolphincoder.com/api/notes/audio/db/:id`.
+       - **Interactive Speaker Button**: Toggles between `volume_up_rounded` and `pause_rounded` reflecting active playback state.
+       - **Mascot Listening Reaction**: Vector dolphin mascot (`AnimatedDolphinMascot`) wears headphones (`hasHeadphones: true`) and reacts with attentive listening animation (`isListening: true`).
+       - **Dynamic Word Bank & Tap-to-Pronounce**: Tappable word chips derived from `stages[listen_tap].tokens`. When learners tap any word chip, the app checks `stages[listen_tap].wordTimestamps` and plays that specific word's audio segment (seeking to `start` for `end - start` duration).
+       - **Interactive Assembly Canvas**: Tapping tokens moves them into the target assembly box; tapping assembled tokens returns them to the bank.
+       - **Tolerant Verification**: Whitespace-normalized, punctuation-insensitive sequence validation.
+    3. **Stage 2: Sentence Builder (`sentence_builder`)**: English prompt card, scrambled German token bank, and grammar syntax check.
+    4. **Stage 3: Sprechen Pronunciation (`sprechen`)**: German challenge phrase, parallel English translation reference, and microphone dictation.
+    5. **Stage 4: Celebration & Rewards**: Flip animation, XP earnings, accuracy percentage, pearls reward, and progress submission to `/api/gamification/complete-node`.
+- **Duolingo-Style Feedback Sheets (`DuoFeedbackSheet`)**:
+  - **Success**: Emerald green card (`#D7FFB8`) with checkmark and full-width green "CONTINUE →" button.
+  - **Correction**: Warm rose card (`#FFDFE0`) displaying correct translation with retry action.
