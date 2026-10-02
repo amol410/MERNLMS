@@ -164,7 +164,8 @@ frontend/
 - **Stage 2: Listen and Tap What You Hear (`listen_tap`)**:
   - Target German sentence and distractor tokens.
   - Isolated stage audio uploaded to MySQL `karaoke_audios` table (`/api/notes/upload-audio`).
-  - **Word-Level Timestamps JSON & Template Download**: Admins can download a pre-filled timestamp template (`listen_tap_word_timestamps_template.json`) based on target sentence words, and upload JSON mapping each word to `start` and `end` seconds for tap-to-pronounce audio playback on mobile.
+  - **Word-Level Timestamps JSON & Template Download**: Admins can download a pre-filled timestamp template (`listen_tap_word_timestamps_template.json`) including both target sentence words and distractor tokens (e.g. `Milch`, `Kaffee`), and upload JSON mapping each word to `start` and `end` seconds for tap-to-pronounce audio playback on mobile.
+  - **Optional Words Bank Audio Track**: Allows uploading a dedicated audio track of comma-separated words with natural pauses, or specifying custom `wordsAudioUrl` and `sentenceRange` directly in JSON.
 - **Stage 3: Sentence Builder (`sentence_builder`)**:
   - English prompt, scrambled token bank, and target sentence structure.
 - **Stage 4: Sprechen Pronunciation (`sprechen`)**:

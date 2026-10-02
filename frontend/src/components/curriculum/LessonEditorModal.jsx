@@ -44,6 +44,12 @@ export default function LessonEditorModal({
   const [listenTimestampsFileName, setListenTimestampsFileName] = useState('');
   const listenTimestampsInputRef = useRef(null);
 
+  // Dedicated Word Bank Audio (Optional for separate comma-separated words track)
+  const [listenWordsAudioUrl, setListenWordsAudioUrl] = useState('');
+  const [uploadingListenWordsAudio, setUploadingListenWordsAudio] = useState(false);
+  const listenWordsAudioInputRef = useRef(null);
+  const [listenSentenceRange, setListenSentenceRange] = useState(null);
+
   // Karaoke Alignment JSON state (.json with sentence/word timestamps)
   const [karaokeJsonData, setKaraokeJsonData] = useState(null);
   const [karaokeJsonFileName, setKaraokeJsonFileName] = useState('');
@@ -141,6 +147,14 @@ export default function LessonEditorModal({
         const raw = JSON.parse(event.target.result);
         if (raw.words && Array.isArray(raw.words)) {
           setListenWordTimestamps(raw.words);
+          if (raw.wordsAudioUrl) {
+            setListenWordsAudioUrl(raw.wordsAudioUrl);
+          } else if (raw.audioUrl && !listenAudioUrl) {
+            setListenAudioUrl(raw.audioUrl);
+          }
+          if (raw.sentenceRange) {
+            setListenSentenceRange(raw.sentenceRange);
+          }
           toast.success(`Word timestamps loaded: ${raw.words.length} words`);
         } else if (Array.isArray(raw)) {
           setListenWordTimestamps(raw);
@@ -158,23 +172,38 @@ export default function LessonEditorModal({
   // Helper: Download word timestamps template JSON
   const downloadListenTimestampsTemplate = () => {
     const targetWords = listenTarget
+      .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '')
       .split(/\s+/)
+      .map(w => w.trim())
       .filter(Boolean);
+    const distractorWords = listenDistractors
+      .split(/[,;\s]+/)
+      .map(w => w.trim())
+      .filter(Boolean);
+    const allUniqueWords = Array.from(new Set([...targetWords, ...distractorWords]));
+
     const template = {
-      _comment: 'Word-level timestamps for the Listen & Tap audio. Each word maps to its start/end time (in seconds) within the audio file.',
+      _comment: 'Word-level timestamps for Listen & Tap. Includes target sentence words and distractor words. Each word maps to its start and end time (in seconds).',
       audioUrl: listenAudioUrl || '/api/notes/audio/db/YOUR_ID',
-      words: targetWords.length > 0
-        ? targetWords.map((w, i) => ({
+      wordsAudioUrl: listenWordsAudioUrl || '',
+      sentenceRange: {
+        start: 0.0,
+        end: parseFloat((targetWords.length * 0.6).toFixed(2)),
+      },
+      words: allUniqueWords.length > 0
+        ? allUniqueWords.map((w, i) => ({
             word: w,
-            start: parseFloat((i * 0.5).toFixed(2)),
-            end: parseFloat(((i + 1) * 0.5).toFixed(2)),
+            start: parseFloat((i * 0.8).toFixed(2)),
+            end: parseFloat(((i * 0.8) + 0.6).toFixed(2)),
           }))
         : [
-            { word: 'Guten', start: 0.0, end: 0.45 },
-            { word: 'Tag,', start: 0.45, end: 0.85 },
-            { word: 'ich', start: 0.90, end: 1.05 },
-            { word: 'bin', start: 1.05, end: 1.25 },
-            { word: 'Anna', start: 1.25, end: 1.70 },
+            { word: 'Guten', start: 0.0, end: 0.60 },
+            { word: 'Tag', start: 0.80, end: 1.40 },
+            { word: 'ich', start: 1.60, end: 2.00 },
+            { word: 'bin', start: 2.20, end: 2.60 },
+            { word: 'Anna', start: 2.80, end: 3.40 },
+            { word: 'Milch', start: 3.60, end: 4.20 },
+            { word: 'Kaffee', start: 4.40, end: 5.00 },
           ],
     };
     const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
@@ -184,7 +213,7 @@ export default function LessonEditorModal({
     a.download = 'listen_tap_word_timestamps_template.json';
     a.click();
     URL.revokeObjectURL(url);
-    toast.success('Template downloaded! Fill in the correct start/end times for each word.');
+    toast.success(`Template downloaded with ${allUniqueWords.length} words (including distractors)!`);
   };
 
   // Helper: Read and parse Word Match Pairs JSON file
@@ -327,8 +356,20 @@ export default function LessonEditorModal({
       setEnableListenTap(Boolean(listenStage));
       if (listenStage?.targetSentence) setListenTarget(listenStage.targetSentence);
       setListenAudioUrl(listenStage?.audioUrl || '');
+      setListenWordsAudioUrl(listenStage?.wordsAudioUrl || '');
+      setListenSentenceRange(listenStage?.sentenceRange || null);
       if (listenStage?.wordTimestamps) {
-        setListenWordTimestamps(listenStage.wordTimestamps);
+        if (Array.isArray(listenStage.wordTimestamps)) {
+          setListenWordTimestamps(listenStage.wordTimestamps);
+        } else if (listenStage.wordTimestamps.words) {
+          setListenWordTimestamps(listenStage.wordTimestamps.words);
+          if (listenStage.wordTimestamps.wordsAudioUrl && !listenStage.wordsAudioUrl) {
+            setListenWordsAudioUrl(listenStage.wordTimestamps.wordsAudioUrl);
+          }
+          if (listenStage.wordTimestamps.sentenceRange && !listenStage.sentenceRange) {
+            setListenSentenceRange(listenStage.wordTimestamps.sentenceRange);
+          }
+        }
         setListenTimestampsFileName('Attached Word Timestamps');
       } else {
         setListenWordTimestamps(null);
@@ -381,6 +422,8 @@ export default function LessonEditorModal({
       setPearlsReward(5);
       setIsLive(false); // DEFAULT OFF
       setListenAudioUrl('');
+      setListenWordsAudioUrl('');
+      setListenSentenceRange(null);
       setListenWordTimestamps(null);
       setListenTimestampsFileName('');
       setKaraokeAudioUrl('');
@@ -497,6 +540,8 @@ export default function LessonEditorModal({
         targetSentence: listenTarget.trim(),
         tokens: allTokens,
         audioUrl: listenAudioUrl.trim() || null,
+        wordsAudioUrl: listenWordsAudioUrl.trim() || null,
+        sentenceRange: listenSentenceRange || null,
         wordTimestamps: listenWordTimestamps || null,
       });
     }
@@ -936,6 +981,84 @@ export default function LessonEditorModal({
                           value={listenAudioUrl}
                           onChange={e => setListenAudioUrl(e.target.value)}
                           placeholder="Or paste audio URL (/api/notes/audio/db/... or https://...)"
+                          className="input-field text-xs py-1 font-mono text-[11px] flex-1 bg-black/30"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Words Bank Dedicated Audio Voice Track Upload (Optional) */}
+                  <div className="pt-2 border-t border-white/5">
+                    <label className="text-xs font-semibold text-gray-300 block mb-1.5 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <Volume2 className="w-3.5 h-3.5 text-amber-400" />
+                        Words Bank Audio Track (Optional — Comma-Separated Words & Distractors)
+                      </span>
+                      {listenWordsAudioUrl && (
+                        <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
+                          <Check className="w-3 h-3" /> Words Audio Attached
+                        </span>
+                      )}
+                    </label>
+
+                    <div className="space-y-2">
+                      <div
+                        onClick={() => listenWordsAudioInputRef.current?.click()}
+                        className={`flex flex-col items-center justify-center p-3 border-2 border-dashed rounded-xl transition-all cursor-pointer group ${
+                          listenWordsAudioUrl
+                            ? 'border-emerald-500/40 bg-emerald-500/5 hover:bg-emerald-500/10'
+                            : 'border-white/15 hover:border-amber-500/50 bg-white/[0.02] hover:bg-white/[0.04]'
+                        }`}
+                      >
+                        <input
+                          ref={listenWordsAudioInputRef}
+                          type="file"
+                          accept="audio/*"
+                          className="hidden"
+                          onChange={e => {
+                            const file = e.target.files?.[0];
+                            if (file) handleAudioFileUpload(file, setListenWordsAudioUrl, setUploadingListenWordsAudio);
+                          }}
+                        />
+                        {uploadingListenWordsAudio ? (
+                          <div className="flex items-center gap-2 py-1 text-amber-400 text-xs font-medium">
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span>Uploading words voice track...</span>
+                          </div>
+                        ) : (
+                          <>
+                            <Upload className="w-4 h-4 text-gray-400 group-hover:text-amber-400 transition-colors mb-1" />
+                            <span className="text-xs text-gray-300 font-medium text-center">
+                              {listenWordsAudioUrl ? 'Click to replace words audio file' : 'Click to select separate words audio file (.mp3, .wav, .m4a)'}
+                            </span>
+                            <span className="text-[10px] text-gray-500 mt-0.5">
+                              If omitted, tap-to-pronounce will slice from the Stage Audio Track above
+                            </span>
+                          </>
+                        )}
+                      </div>
+
+                      {listenWordsAudioUrl && (
+                        <div className="flex flex-col sm:flex-row items-center gap-2 p-2 rounded-xl bg-slate-900/60 border border-white/10">
+                          <audio controls src={resolveAudioUrl(listenWordsAudioUrl)} className="w-full sm:flex-1 h-8" />
+                          <button
+                            type="button"
+                            onClick={() => setListenWordsAudioUrl('')}
+                            className="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded-lg hover:bg-red-500/10 flex items-center gap-1 transition-colors cursor-pointer"
+                            title="Remove words audio"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" /> Remove
+                          </button>
+                        </div>
+                      )}
+
+                      <div className="flex items-center gap-2 text-[11px] text-gray-400">
+                        <Link2 className="w-3 h-3 text-gray-500 flex-shrink-0" />
+                        <input
+                          type="text"
+                          value={listenWordsAudioUrl}
+                          onChange={e => setListenWordsAudioUrl(e.target.value)}
+                          placeholder="Or paste words audio URL (/api/notes/audio/db/... or https://...)"
                           className="input-field text-xs py-1 font-mono text-[11px] flex-1 bg-black/30"
                         />
                       </div>
