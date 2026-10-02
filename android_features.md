@@ -376,14 +376,13 @@
     * 2-column vocabulary matching tiles (Target language left, Native right) with tactile pairing and green success dissolution.
   * **Stage 1: Listen and Tap What You Hear (`listen_tap`)**:
     * **Animated Mascot (`AnimatedDolphinMascot`)**: Echo the Dolphin wearing headphones, pulsing when audio plays.
-    * **Dual Audio Player Architecture**: Dedicated `_sentenceAudioPlayer` for listening comprehension and `_wordAudioPlayer` for tap-to-pronounce word chips, preventing audio state collisions.
-    * **Native Audio Streaming**: Integrated `AudioPlayer` streaming high-quality audio directly from `/api/notes/audio/db/:id` (resolved via `dolphincoder.com`).
+    * **Clean Sentence Audio Engine**: Dedicated `_audioPlayer` streaming the full teacher audio track directly from `/api/notes/audio/db/:id` (resolved via `dolphincoder.com`).
     * **Tactile Speaker Button**:
-      * Plays/re-plays full sentence audio track (or authored `sentenceRange`) on tap.
+      * Plays/re-plays full sentence audio track on every tap.
       * Always maintains `volume_up_rounded` iconography to provide intuitive repeat listening without confusing pause toggles.
-    * **Tap-to-Pronounce Word Chips**:
-      * When learners tap any word token in the word bank (target words or distractors), the app resolves timestamps from `wordTimestamps` (supporting comma-separated audio files and custom `wordsAudioUrl`).
-      * Uses pre-buffered audio and native in-memory seek with clean boundary clamping, ensuring full, uncut consonant pronunciation and smooth resonance.
+    * **Pure Sequencing Word Chips**:
+      * Word chips function purely as responsive tactile selection tiles without individual word sound playback, allowing learners to focus cleanly on arranging the sequence.
+      * Tapping bank tokens moves them to the sentence assembly box; tapping assembled tokens returns them to the bank.
     * **Interactive Assembly Box**: Selected word tokens assemble into the sentence box; tapping removes tokens back to the word bank.
     * **Word Bank**: Tappable word chips derived dynamically from `stages[listen_tap].tokens`.
     * **Tolerant Sequence Verification**: Punctuation-insensitive and whitespace-normalized verification.
