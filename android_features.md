@@ -378,11 +378,11 @@
     * **Animated Mascot (`AnimatedDolphinMascot`)**: Echo the Dolphin wearing headphones, pulsing when audio plays.
     * **Native Audio Streaming**: Integrated `AudioPlayer` streaming high-quality audio directly from `/api/notes/audio/db/:id` (resolved via `dolphincoder.com`).
     * **Tactile Speaker Button**:
-      * Plays/pauses full sentence audio track.
-      * Toggles icon between `volume_up_rounded` and `pause_rounded` based on playback state.
+      * Plays/re-plays full sentence audio track on tap.
+      * Always maintains `volume_up_rounded` iconography to provide intuitive repeat listening without confusing pause toggles.
     * **Tap-to-Pronounce Word Chips**:
       * When learners tap any word token in the word bank or assembly box, the app resolves timestamps from `wordTimestamps` or falls back to lesson `karaokeData.words`.
-      * Uses pre-buffered audio and native in-memory seek to `start` with boundary position monitoring to `end`, ensuring instant, loud pronunciation without network latency.
+      * Uses pre-buffered audio and native seek with +220ms natural phonetic buffer, ensuring full, uncut consonant pronunciation and smooth resonance.
     * **Interactive Assembly Box**: Selected word tokens assemble into the sentence box; tapping removes tokens back to the word bank.
     * **Word Bank**: Tappable word chips derived dynamically from `stages[listen_tap].tokens`.
     * **Tolerant Sequence Verification**: Punctuation-insensitive and whitespace-normalized verification.

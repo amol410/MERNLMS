@@ -228,7 +228,7 @@ The Duolingo-grade gamified language path and interactive multi-stage lesson cha
     1. **Stage 0: Match the Word Pairs (`word_match` / `match_pairs`)**: Dynamic vocabulary pairing loaded directly from lesson stage data (supporting `target`/`native` and `german`/`english` structures) with tactile pairing and green success dissolution.
     2. **Stage 1: Listen and Tap What You Hear (`listen_tap`)**:
        - **Native `audioplayers` Streaming**: High-fidelity streaming directly from `/api/notes/audio/db/:id` resolved to `https://dolphincoder.com/api/notes/audio/db/:id`.
-       - **Interactive Speaker Button**: Toggles between `volume_up_rounded` and `pause_rounded` reflecting active playback state.
+       - **Interactive Speaker Button**: Tactile speaker button with continuous `volume_up_rounded` iconography (triggers fresh playback on tap without confusing pause states).
        - **Mascot Listening Reaction**: Vector dolphin mascot (`AnimatedDolphinMascot`) wears headphones (`hasHeadphones: true`) and reacts with attentive listening animation (`isListening: true`).
        - **Dynamic Word Bank & Tap-to-Pronounce**: Tappable word chips derived from `stages[listen_tap].tokens`. When learners tap any word chip, the app checks `stages[listen_tap].wordTimestamps` (with automatic fallback to `karaokeData.words`), pre-buffers the audio source on screen initialization, and executes an instant in-memory seek to `start` with position-monitored clamping to `end`, guaranteeing crisp word pronunciation without network reconnection latency.
        - **Interactive Assembly Canvas**: Tapping tokens moves them into the target assembly box; tapping assembled tokens returns them to the bank.
