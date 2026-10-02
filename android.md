@@ -230,7 +230,7 @@ The Duolingo-grade gamified language path and interactive multi-stage lesson cha
        - **Native `audioplayers` Streaming**: High-fidelity streaming directly from `/api/notes/audio/db/:id` resolved to `https://dolphincoder.com/api/notes/audio/db/:id`.
        - **Interactive Speaker Button**: Toggles between `volume_up_rounded` and `pause_rounded` reflecting active playback state.
        - **Mascot Listening Reaction**: Vector dolphin mascot (`AnimatedDolphinMascot`) wears headphones (`hasHeadphones: true`) and reacts with attentive listening animation (`isListening: true`).
-       - **Dynamic Word Bank & Tap-to-Pronounce**: Tappable word chips derived from `stages[listen_tap].tokens`. When learners tap any word chip, the app checks `stages[listen_tap].wordTimestamps` and plays that specific word's audio segment (seeking to `start` for `end - start` duration).
+       - **Dynamic Word Bank & Tap-to-Pronounce**: Tappable word chips derived from `stages[listen_tap].tokens`. When learners tap any word chip, the app checks `stages[listen_tap].wordTimestamps` (with automatic fallback to `karaokeData.words`), pre-buffers the audio source on screen initialization, and executes an instant in-memory seek to `start` with position-monitored clamping to `end`, guaranteeing crisp word pronunciation without network reconnection latency.
        - **Interactive Assembly Canvas**: Tapping tokens moves them into the target assembly box; tapping assembled tokens returns them to the bank.
        - **Tolerant Verification**: Whitespace-normalized, punctuation-insensitive sequence validation.
     3. **Stage 2: Sentence Builder (`sentence_builder`)**: English prompt card, scrambled German token bank, and grammar syntax check.

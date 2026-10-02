@@ -381,8 +381,8 @@
       * Plays/pauses full sentence audio track.
       * Toggles icon between `volume_up_rounded` and `pause_rounded` based on playback state.
     * **Tap-to-Pronounce Word Chips**:
-      * When learners tap any word token in the word bank, the app checks for `wordTimestamps` in the stage definition.
-      * If timestamps exist for that word, it seeks to the exact `start` second and plays the word segment for `end - start` duration.
+      * When learners tap any word token in the word bank or assembly box, the app resolves timestamps from `wordTimestamps` or falls back to lesson `karaokeData.words`.
+      * Uses pre-buffered audio and native in-memory seek to `start` with boundary position monitoring to `end`, ensuring instant, loud pronunciation without network latency.
     * **Interactive Assembly Box**: Selected word tokens assemble into the sentence box; tapping removes tokens back to the word bank.
     * **Word Bank**: Tappable word chips derived dynamically from `stages[listen_tap].tokens`.
     * **Tolerant Sequence Verification**: Punctuation-insensitive and whitespace-normalized verification.
