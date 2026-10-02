@@ -168,8 +168,10 @@ frontend/
   - **Optional Words Bank Audio Track**: Allows uploading a dedicated audio track of comma-separated words with natural pauses, or specifying custom `wordsAudioUrl` and `sentenceRange` directly in JSON.
 - **Stage 3: Sentence Builder (`sentence_builder`)**:
   - English prompt, scrambled token bank, and target sentence structure.
-- **Stage 4: Sprechen Pronunciation (`sprechen`)**:
-  - Challenge phrase, English translation, and accuracy passing threshold.
+- **Stage 4: Sprechen Lip-Sync Pronunciation (`sprechen`)**:
+  - Challenge German phrase, parallel English translation reference, and accuracy passing threshold (> 75%).
+  - **Audio Voice Track Upload**: Dedicated audio upload (`audioUrl`) for mascot pronunciation demonstration.
+  - **Karaoke JSON Upload & Template Download**: Admins can download a pre-filled JSON template based on prompt words and upload word-level timestamps (`karaokeData`) for real-time lip-sync word highlighting.
 
 ---
 

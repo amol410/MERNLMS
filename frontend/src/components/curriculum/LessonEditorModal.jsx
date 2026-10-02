@@ -279,6 +279,77 @@ export default function LessonEditorModal({
     toast.success('Word pairs template downloaded!');
   };
 
+  // Helper: Read and parse Sprechen Lip-Sync Karaoke JSON file
+  const handleSprechenKaraokeSelect = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setSprechenKaraokeFileName(file.name);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const raw = JSON.parse(event.target.result);
+        if (raw.words && Array.isArray(raw.words)) {
+          setSprechenKaraokeData(raw);
+          if (raw.audioUrl && !sprechenAudioUrl) {
+            setSprechenAudioUrl(raw.audioUrl);
+          }
+          toast.success(`Sprechen karaoke timing loaded: ${raw.words.length} words`);
+        } else if (Array.isArray(raw)) {
+          setSprechenKaraokeData({ words: raw });
+          toast.success(`Sprechen karaoke timing loaded: ${raw.length} words`);
+        } else if (raw.sentences && Array.isArray(raw.sentences) && raw.sentences[0]?.words) {
+          setSprechenKaraokeData({ words: raw.sentences[0].words });
+          if (raw.audioUrl && !sprechenAudioUrl) {
+            setSprechenAudioUrl(raw.audioUrl);
+          }
+          toast.success(`Sprechen karaoke timing loaded: ${raw.sentences[0].words.length} words`);
+        } else {
+          toast.error('Invalid format — expected { "words": [{ "word", "start", "end" }] }');
+        }
+      } catch (err) {
+        toast.error(`Invalid JSON file: ${err.message}`);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  // Helper: Download Sprechen Lip-Sync template JSON
+  const downloadSprechenTemplate = () => {
+    const promptWords = (sprechenPrompt || '')
+      .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '')
+      .split(/\s+/)
+      .map(w => w.trim())
+      .filter(Boolean);
+
+    const template = {
+      _comment: 'Word-level timing for Stage: Sprechen Lip-Sync. Words illuminate in real-time as reference audio plays.',
+      audioUrl: sprechenAudioUrl || '/api/notes/audio/db/YOUR_ID',
+      words: promptWords.length > 0
+        ? promptWords.map((w, i) => ({
+            word: w,
+            start: parseFloat((i * 0.5).toFixed(2)),
+            end: parseFloat(((i * 0.5) + 0.45).toFixed(2)),
+          }))
+        : [
+            { word: 'Guten', start: 0.0, end: 0.45 },
+            { word: 'Tag!', start: 0.45, end: 0.95 },
+            { word: 'Wie', start: 1.10, end: 1.35 },
+            { word: 'geht', start: 1.35, end: 1.65 },
+            { word: 'es', start: 1.65, end: 1.85 },
+            { word: 'dir?', start: 1.85, end: 2.30 },
+          ],
+    };
+    const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sprechen_lipsync_template.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success(`Sprechen template downloaded with ${promptWords.length || 6} words!`);
+  };
+
   // Modular Challenge Stage Toggles
   const [enableWordMatch, setEnableWordMatch] = useState(true);
   const [enableListenTap, setEnableListenTap] = useState(true);
@@ -303,10 +374,16 @@ export default function LessonEditorModal({
   const [builderTarget, setBuilderTarget] = useState('Guten Morgen, wie geht es dir?');
   const [builderDistractors, setBuilderDistractors] = useState('schlafe, Kalt, Brot');
 
-  // Stage 4: Sprechen Voice
+  // Stage 4: Sprechen Voice & Lip-Sync Karaoke
   const [sprechenPrompt, setSprechenPrompt] = useState('Guten Tag! Wie geht es dir?');
   const [sprechenTranslation, setSprechenTranslation] = useState('Hello! How are you?');
   const [sprechenAccuracy, setSprechenAccuracy] = useState(75);
+  const [sprechenAudioUrl, setSprechenAudioUrl] = useState('');
+  const [uploadingSprechenAudio, setUploadingSprechenAudio] = useState(false);
+  const sprechenAudioInputRef = useRef(null);
+  const [sprechenKaraokeData, setSprechenKaraokeData] = useState(null);
+  const [sprechenKaraokeFileName, setSprechenKaraokeFileName] = useState('');
+  const sprechenKaraokeInputRef = useRef(null);
 
   // Stage 5: Karaoke Story
   const [karaokeStory, setKaraokeStory] = useState('');
@@ -396,6 +473,15 @@ export default function LessonEditorModal({
       if (sprechenStage?.prompt) setSprechenPrompt(sprechenStage.prompt);
       if (sprechenStage?.translation) setSprechenTranslation(sprechenStage.translation);
       if (sprechenStage?.minAccuracy) setSprechenAccuracy(sprechenStage.minAccuracy);
+      setSprechenAudioUrl(sprechenStage?.audioUrl || '');
+      if (sprechenStage?.karaokeData) {
+        const skd = typeof sprechenStage.karaokeData === 'string' ? JSON.parse(sprechenStage.karaokeData) : sprechenStage.karaokeData;
+        setSprechenKaraokeData(skd);
+        setSprechenKaraokeFileName('Attached Karaoke Timing');
+      } else {
+        setSprechenKaraokeData(null);
+        setSprechenKaraokeFileName('');
+      }
 
       setEnableKaraoke(Boolean(karaokeStage) || initialData.nodeType === 'karaoke');
       if (karaokeStage?.storyText) setKaraokeStory(karaokeStage.storyText);
@@ -426,6 +512,9 @@ export default function LessonEditorModal({
       setListenSentenceRange(null);
       setListenWordTimestamps(null);
       setListenTimestampsFileName('');
+      setSprechenAudioUrl('');
+      setSprechenKaraokeData(null);
+      setSprechenKaraokeFileName('');
       setKaraokeAudioUrl('');
       setKaraokeJsonData(null);
       setKaraokeJsonFileName('');
@@ -573,6 +662,8 @@ export default function LessonEditorModal({
         prompt: sprechenPrompt.trim(),
         translation: sprechenTranslation.trim(),
         minAccuracy: parseInt(sprechenAccuracy, 10) || 75,
+        audioUrl: sprechenAudioUrl.trim() || null,
+        karaokeData: sprechenKaraokeData || null,
       });
     }
 
@@ -1228,44 +1319,208 @@ export default function LessonEditorModal({
               </div>
 
               {enableSprechen && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-2">
-                  <div className="md:col-span-2">
-                    <label className="text-xs text-gray-400 block mb-1">
-                      Spoken German Prompt (Learner must speak aloud)
-                    </label>
-                    <input
-                      type="text"
-                      value={sprechenPrompt}
-                      onChange={e => setSprechenPrompt(e.target.value)}
-                      placeholder="e.g. Guten Tag! Wie geht es dir?"
-                      className="input-field text-sm"
-                    />
+                <div className="space-y-4 mt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div className="md:col-span-2">
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Spoken German Prompt (Learner must speak aloud)
+                      </label>
+                      <input
+                        type="text"
+                        value={sprechenPrompt}
+                        onChange={e => setSprechenPrompt(e.target.value)}
+                        placeholder="e.g. Guten Tag! Wie geht es dir?"
+                        className="input-field text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Minimum Match Accuracy: {sprechenAccuracy}%
+                      </label>
+                      <input
+                        type="range"
+                        min="50"
+                        max="95"
+                        step="5"
+                        value={sprechenAccuracy}
+                        onChange={e => setSprechenAccuracy(e.target.value)}
+                        className="w-full mt-2 accent-cyan-400"
+                      />
+                    </div>
+                    <div className="md:col-span-3">
+                      <label className="text-xs text-gray-400 block mb-1">
+                        English Meaning / Translation
+                      </label>
+                      <input
+                        type="text"
+                        value={sprechenTranslation}
+                        onChange={e => setSprechenTranslation(e.target.value)}
+                        placeholder="e.g. Hello! How are you?"
+                        className="input-field text-xs"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-xs text-gray-400 block mb-1">
-                      Minimum Match Accuracy: {sprechenAccuracy}%
+
+                  {/* Reference Voice Track (Auto-Plays Once on Stage 3 with 1s Delay) */}
+                  <div className="pt-3 border-t border-white/10 space-y-2">
+                    <label className="text-xs font-semibold text-gray-300 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <Headphones className="w-3.5 h-3.5 text-cyan-400" />
+                        Teacher Reference Audio Track (.mp3, .wav, .m4a)
+                      </span>
+                      {sprechenAudioUrl && (
+                        <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
+                          <Check className="w-3 h-3" /> Audio Attached
+                        </span>
+                      )}
                     </label>
-                    <input
-                      type="range"
-                      min="50"
-                      max="95"
-                      step="5"
-                      value={sprechenAccuracy}
-                      onChange={e => setSprechenAccuracy(e.target.value)}
-                      className="w-full mt-2 accent-cyan-400"
-                    />
+
+                    <div className="space-y-2">
+                      <div
+                        onClick={() => sprechenAudioInputRef.current?.click()}
+                        className={`flex flex-col items-center justify-center p-3.5 border-2 border-dashed rounded-xl transition-all cursor-pointer group ${
+                          sprechenAudioUrl
+                            ? 'border-emerald-500/40 bg-emerald-500/5 hover:bg-emerald-500/10'
+                            : 'border-white/15 hover:border-cyan-500/50 bg-white/[0.02] hover:bg-white/[0.04]'
+                        }`}
+                      >
+                        <input
+                          ref={sprechenAudioInputRef}
+                          type="file"
+                          accept="audio/*"
+                          className="hidden"
+                          onChange={e => {
+                            const file = e.target.files?.[0];
+                            if (file) handleAudioFileUpload(file, setSprechenAudioUrl, setUploadingSprechenAudio);
+                          }}
+                        />
+                        {uploadingSprechenAudio ? (
+                          <div className="flex items-center gap-2 py-1 text-cyan-400 text-xs font-medium">
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span>Uploading voice track to database...</span>
+                          </div>
+                        ) : (
+                          <>
+                            <Upload className="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors mb-1" />
+                            <span className="text-xs text-gray-300 font-medium text-center">
+                              {sprechenAudioUrl ? 'Click to replace audio file' : 'Click to select reference audio file (.mp3, .wav, .m4a)'}
+                            </span>
+                            <span className="text-[10px] text-gray-500 mt-0.5 text-center">
+                              Echo plays this once (1s after screen entry) with lip-sync highlighting. No replay button is displayed.
+                            </span>
+                          </>
+                        )}
+                      </div>
+
+                      {sprechenAudioUrl && (
+                        <div className="flex flex-col sm:flex-row items-center gap-2 p-2 rounded-xl bg-slate-900/60 border border-white/10">
+                          <audio controls src={resolveAudioUrl(sprechenAudioUrl)} className="w-full sm:flex-1 h-8" />
+                          <button
+                            type="button"
+                            onClick={() => setSprechenAudioUrl('')}
+                            className="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded-lg hover:bg-red-500/10 flex items-center gap-1 transition-colors cursor-pointer"
+                            title="Remove audio"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" /> Remove
+                          </button>
+                        </div>
+                      )}
+
+                      <input
+                        type="text"
+                        value={sprechenAudioUrl}
+                        onChange={e => setSprechenAudioUrl(e.target.value)}
+                        placeholder="Direct audio URL: /api/notes/audio/db/... or https://..."
+                        className="input-field text-[11px] py-1.5 font-mono text-gray-400"
+                      />
+                    </div>
                   </div>
-                  <div className="md:col-span-3">
-                    <label className="text-xs text-gray-400 block mb-1">
-                      English Meaning / Translation
-                    </label>
+
+                  {/* Karaoke Lip-Sync Word Timestamps JSON */}
+                  <div className="pt-3 border-t border-white/10 space-y-2">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <div className="flex items-center gap-1.5">
+                        <FileCode className="w-4 h-4 text-violet-400" />
+                        <span className="text-xs font-bold text-white">
+                          Lip-Sync Word Timestamps (.json) — Real-Time Highlighting
+                        </span>
+                        {sprechenKaraokeData?.words && (
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30 flex items-center gap-1">
+                            <Check className="w-3 h-3" /> {sprechenKaraokeData.words.length} words loaded
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={downloadSprechenTemplate}
+                          className="btn-secondary text-xs px-2.5 py-1 flex items-center gap-1.5 cursor-pointer hover:border-violet-400"
+                          title="Download pre-filled JSON template with prompt words"
+                        >
+                          <Download className="w-3.5 h-3.5 text-violet-400" />
+                          <span>Download Template</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => sprechenKaraokeInputRef.current?.click()}
+                          className="btn-secondary text-xs px-2.5 py-1 flex items-center gap-1.5 cursor-pointer hover:border-cyan-400"
+                        >
+                          <Upload className="w-3.5 h-3.5 text-cyan-400" />
+                          <span>{sprechenKaraokeData ? 'Replace JSON' : 'Upload Timing JSON'}</span>
+                        </button>
+                        {sprechenKaraokeData && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSprechenKaraokeData(null);
+                              setSprechenKaraokeFileName('');
+                            }}
+                            className="text-xs text-red-400 hover:text-red-300 p-1 rounded hover:bg-red-500/10 cursor-pointer"
+                            title="Clear karaoke timing"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="text-[11px] text-gray-400 leading-snug">
+                      Upload word-level <code className="text-violet-300 bg-violet-500/10 px-1 rounded">start</code> and <code className="text-violet-300 bg-violet-500/10 px-1 rounded">end</code> timestamps (seconds). Words illuminate in sync inside Echo&apos;s speech bubble during the one-time audio demonstration.
+                    </p>
+
                     <input
-                      type="text"
-                      value={sprechenTranslation}
-                      onChange={e => setSprechenTranslation(e.target.value)}
-                      placeholder="e.g. Hello! How are you?"
-                      className="input-field text-xs"
+                      ref={sprechenKaraokeInputRef}
+                      type="file"
+                      accept=".json,application/json"
+                      className="hidden"
+                      onChange={handleSprechenKaraokeSelect}
                     />
+
+                    {/* Word timing preview pills */}
+                    {sprechenKaraokeData?.words && Array.isArray(sprechenKaraokeData.words) && (
+                      <div className="p-2.5 rounded-xl bg-slate-900/60 border border-violet-500/20 space-y-1.5">
+                        <div className="flex items-center justify-between text-[11px] text-violet-300 font-medium">
+                          <span>Karaoke Timing Sequence ({sprechenKaraokeData.words.length} words):</span>
+                          {sprechenKaraokeFileName && (
+                            <span className="text-gray-400 truncate max-w-[200px]">{sprechenKaraokeFileName}</span>
+                          )}
+                        </div>
+                        <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto pr-1">
+                          {sprechenKaraokeData.words.map((w, idx) => (
+                            <div
+                              key={idx}
+                              className="px-2 py-0.5 rounded-lg bg-violet-500/10 border border-violet-500/30 text-violet-200 text-[11px] flex items-center gap-1 font-mono"
+                            >
+                              <span className="font-sans font-bold text-white">{w.word || w.clean}</span>
+                              <span className="text-gray-400 text-[10px]">
+                                ({typeof w.start === 'number' ? w.start.toFixed(2) : w.start}s - {typeof w.end === 'number' ? w.end.toFixed(2) : w.end}s)
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

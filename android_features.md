@@ -391,10 +391,12 @@
     * English translation prompt bubble.
     * Word bank token selector with animated tile transitions.
     * Tolerant grammar verification against German target sentence.
-  * **Stage 3: Sprechen Pronunciation (`sprechen`)**:
-    * German target phrase with English parallel translation.
-    * Large microphone button with animated ripple effect during active dictation.
-    * Speech recognition simulation / speech evaluation feedback.
+  * **Stage 3: Sprechen Lip-Sync (`sprechen`)**:
+    * **One-Time Auto-Play Demonstration (1-Second Delay)**: Exactly 1 second after entering the stage, the mascot automatically plays the phrase audio once as a pronunciation reference.
+    * **No Replay Button**: Deliberately omits a replay button to reinforce incremental learning (learner has already heard and sequenced the phrase in earlier stages).
+    * **Synchronized Karaoke Highlighting**: Words in the speech bubble illuminate in real-time (`karaokeData.words`) in sync with audio playback using the established Karaoke timing engine.
+    * **Voice Pronunciation & >75% Passing Threshold**: Student taps the microphone button to pronounce the phrase aloud, requiring a speech match strictly > 75% to pass.
+    * **Mascot Audio Reactions**: Echo the Dolphin transitions between talking pose during demonstration, listening pose during student recording, and celebratory pose upon passing.
   * **Stage 4: Celebration & Rewards Screen**:
     * Animated celebratory mascot doing flips.
     * XP Reward, Accuracy %, and Pearls earned metric cards.

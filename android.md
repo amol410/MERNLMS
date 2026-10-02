@@ -235,7 +235,10 @@ The Duolingo-grade gamified language path and interactive multi-stage lesson cha
        - **Interactive Assembly Canvas**: Tapping tokens moves them into the target assembly box; tapping assembled tokens returns them to the bank.
        - **Tolerant Verification**: Whitespace-normalized, punctuation-insensitive sequence validation.
     3. **Stage 2: Sentence Builder (`sentence_builder`)**: English prompt card, scrambled German token bank, and grammar syntax check.
-    4. **Stage 3: Sprechen Pronunciation (`sprechen`)**: German challenge phrase, parallel English translation reference, and microphone dictation.
+    4. **Stage 3: Sprechen Lip-Sync (`sprechen`)**:
+       - **One-Time Auto-Play Demonstration (1-Second Delay)**: 1 second after entering the stage, the mascot automatically plays the phrase audio once without a replay button.
+       - **Synchronized Karaoke Highlighting**: Reuses existing Notes karaoke engine to illuminate words in real-time (`karaokeData.words`) in sync with the audio.
+       - **Voice Pronunciation & >75% Passing Threshold**: Student taps the microphone button to pronounce the phrase aloud, requiring a strictly > 75% accuracy score to pass.
     5. **Stage 4: Celebration & Rewards**: Flip animation, XP earnings, accuracy percentage, pearls reward, and progress submission to `/api/gamification/complete-node`.
 - **Duolingo-Style Feedback Sheets (`DuoFeedbackSheet`)**:
   - **Success**: Emerald green card (`#D7FFB8`) with checkmark and full-width green "CONTINUE →" button.
