@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
@@ -7,6 +7,66 @@ import { useAuth } from '../contexts/AuthContext';
 import { PageLoader } from '../components/common/Loader';
 import KaraokeNoteReader from './KaraokeNoteReader';
 import clsx from 'clsx';
+
+const prepareHtmlContent = (html) => {
+  if (!html || typeof html !== 'string') return '';
+
+  const interceptScript = `
+<script>
+(function() {
+  function scrollToHash(hash) {
+    if (!hash) return;
+    try {
+      var targetId = decodeURIComponent(hash.replace(/^#/, ''));
+      var targetEl = document.getElementById(targetId) || document.getElementsByName(targetId)[0];
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } catch (err) {
+      var fallbackEl = document.getElementById(hash.replace(/^#/, ''));
+      if (fallbackEl) fallbackEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Intercept anchor clicks targeting in-page fragment hashes (#id)
+  // Prevents browsers from navigating about:srcdoc#hash, which unloads the document into about:blank.
+  document.addEventListener('click', function(e) {
+    var a = e.target && e.target.closest ? e.target.closest('a') : null;
+    if (!a) return;
+
+    var href = a.getAttribute('href') || a.hash || '';
+    if (!href) return;
+
+    var hashIndex = href.indexOf('#');
+    if (hashIndex !== -1 && (hashIndex === 0 || href.startsWith('./#') || href.startsWith('about:srcdoc#'))) {
+      e.preventDefault();
+      var hash = href.substring(hashIndex + 1);
+      if (hash) {
+        scrollToHash(hash);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  }, true);
+
+  window.addEventListener('hashchange', function() {
+    if (location.hash) {
+      scrollToHash(location.hash);
+    }
+  });
+})();
+</script>
+`;
+
+  const headCloseRegex = /<\/head>/i;
+  const bodyCloseRegex = /<\/body>/i;
+  if (headCloseRegex.test(html)) {
+    return html.replace(headCloseRegex, interceptScript + '</head>');
+  } else if (bodyCloseRegex.test(html)) {
+    return html.replace(bodyCloseRegex, interceptScript + '</body>');
+  }
+  return interceptScript + html;
+};
 
 const colorAccent = {
   default: 'border-gray-600/40',
@@ -25,6 +85,11 @@ export default function NoteDetailPage() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const slideRef = useRef(null);
   const { user } = useAuth();
+
+  const processedHtmlContent = useMemo(() => {
+    if (!note?.content || note?.contentType !== 'html') return '';
+    return prepareHtmlContent(note.content);
+  }, [note?.content, note?.contentType]);
 
   // ── Engagement tracking ──────────────────────────────────────────────────
   const startRef = useRef(null);        // when current active segment began
@@ -205,8 +270,8 @@ export default function NoteDetailPage() {
             style={{ aspectRatio: '16/9' }}
           >
             <iframe
-              srcDoc={note.content}
-              sandbox="allow-scripts"
+              srcDoc={processedHtmlContent}
+              sandbox="allow-scripts allow-same-origin allow-popups"
               className="w-full h-full border-0"
               title={note.title}
             />
