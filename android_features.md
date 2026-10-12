@@ -348,7 +348,7 @@
     * **API Base URL Configuration**:
       * Displays active server endpoint (e.g. `https://dolphincoder.com/api`).
       * Tapping opens an editable modal dialog allowing students/developers to point the mobile app to a custom backend IP or local development server (`http://10.0.2.2:5000/api`).
-  * **Application Info**: App version (`v1.2.5+10`), copyright notice.
+  * **Application Info**: App version (`v1.2.6+11`), copyright notice.
   * **Logout Action**: Full-width button clearing secure token storage and navigating back to `/login`.
 
 ---
@@ -378,15 +378,14 @@
   * **Stage 0: Word Match (`word_match` / `match_pairs`)**:
     * Dynamic vocabulary matching pairs loaded directly from lesson stage data (supports `target`/`native` and `german`/`english` schemas).
     * 2-column vocabulary matching tiles (Target language left, Native right) with tactile pairing and green success dissolution.
+    * **Real-Time Female German TTS (`TtsService`)**: Tapping any German word card immediately articulates the word in a natural German lady's voice (`de-DE`, 0.48 speech rate, 1.10 pitch).
   * **Stage 1: Listen and Tap What You Hear (`listen_tap`)**:
     * **Animated Mascot (`AnimatedDolphinMascot`)**: Echo the Dolphin wearing headphones, pulsing when audio plays.
     * **Clean Sentence Audio Engine**: Dedicated `_audioPlayer` streaming the full teacher audio track directly from `/api/notes/audio/db/:id` (resolved via `dolphincoder.com`).
     * **Tactile Speaker Button**:
       * Plays/re-plays full sentence audio track from 0:00 on every tap.
       * Always maintains `volume_up_rounded` iconography to provide intuitive repeat listening without confusing pause toggles.
-    * **Pure Sequencing Word Chips**:
-      * Word chips function purely as responsive tactile selection tiles without individual word sound playback, allowing learners to focus cleanly on arranging the sequence.
-      * Tapping bank tokens moves them to the sentence assembly box; tapping assembled tokens returns them to the bank.
+    * **Real-Time Word Tile Pronunciation**: Tapping/selecting word chips from the bank immediately pronounces each word in the German lady's voice via `TtsService`.
     * **Interactive Assembly Box**: Selected word tokens assemble into the sentence box; tapping removes tokens back to the word bank.
     * **Word Bank**: Tappable word chips derived dynamically from `stages[listen_tap].tokens` (including target words and distractors).
     * **Tolerant Sequence Verification**: Punctuation-insensitive and whitespace-normalized verification.
@@ -394,6 +393,7 @@
   * **Stage 2: Sentence Builder (`sentence_builder`)**:
     * English translation prompt bubble.
     * Word bank token selector with animated tile transitions.
+    * **Real-Time Word Selection Pronunciation**: Picking words from the token bank (e.g., *"Wie"*, *"geht's"*) articulates each word on tap as it is placed in the sentence assembly box.
     * Tolerant grammar verification against German target sentence.
   * **Stage 3: Sprechen Lip-Sync (`sprechen`)**:
     * **One-Time Auto-Play Demonstration (1-Second Delay)**: Exactly 1 second after entering the stage, the mascot automatically plays the phrase audio once as a pronunciation reference.

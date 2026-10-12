@@ -154,7 +154,7 @@ A comprehensive engagement tracking suite connecting student study habits to act
 ---
 
 ## 📱 9. Mobile Application (Flutter Companion)
-- **Codebase**: Located in `app/dolphincoder/` (`version: 1.2.5+10`).
+- **Codebase**: Located in `app/dolphincoder/` (`version: 1.2.6+11`).
 - **Architecture**: Flutter 3, Dart, Riverpod 2 (`StateNotifier`), GoRouter navigation, Dio HTTP client with JWT interceptor.
 - **Theme**: Dark Material 3 theme with Google Fonts (*Plus Jakarta Sans* & *Inter*).
 - **Gamified 5-Tab Shell (`bottom_nav.dart`)**:
@@ -164,6 +164,7 @@ A comprehensive engagement tracking suite connecting student study habits to act
   - **Shop** (`/shop` -> `ShopScreen`)
   - **Profile** (`/profile` -> `GamifiedProfileScreen`)
 - **Full Parity & Robustness**:
+  - **Real-Time German Lady Voice TTS (`TtsService`)**: Built-in speech synthesis (`flutter_tts`) configured with native German (`de-DE`) female voice, `0.48` speech rate, and `1.10` pitch. Pronounces German words on card tap in Word Match, on word token selection in Listen & Tap, and upon word chip picking in Sentence Builder.
   - **Karaoke & Sprechen Mode**: Mobile word-level highlight synchronized with audio, continuous speech recognition (`ListenMode.dictation`), true 3-second silence timer, and static English meaning display.
   - **Native German Speech Recognition (`de_DE`)**: Configured strictly for native German pronunciation assessment.
   - **Dynamic Stage Filtering**: Session automatically runs only enabled curriculum stages via `_activeStageTypes`.

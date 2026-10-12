@@ -16,7 +16,7 @@
 
 ## 1. What This Is
 
-**DolphinCoder Mobile Client** (`pubspec` package: `dolphincoder`, v1.2.5+10) — A native, dark-themed Material 3 mobile application for Android (SDK 23+) and iOS, serving as the student companion for [dolphincoder.com](https://dolphincoder.com).
+**DolphinCoder Mobile Client** (`pubspec` package: `dolphincoder`, v1.2.6+11) — A native, dark-themed Material 3 mobile application for Android (SDK 23+) and iOS, serving as the student companion for [dolphincoder.com](https://dolphincoder.com).
 
 ### Feature Comparison Matrix (Web vs Mobile Status)
 
@@ -226,16 +226,16 @@ The Duolingo-grade gamified language path and interactive multi-stage lesson cha
   - **Dynamic Stage Filtering (`_activeStageTypes`)**: Only authored and enabled stages run during a session (`word_match`, `listen_tap`, `sentence_builder`, `sprechen`). If a stage is disabled in the curriculum, it is cleanly omitted from the challenge pipeline.
   - Dynamically parses stages from `node.stages` JSON via `_initStagesData()`.
   - Seamlessly runs through all authored challenges:
-    1. **Stage 0: Match the Word Pairs (`word_match` / `match_pairs`)**: Dynamic vocabulary pairing loaded directly from lesson stage data (supporting `target`/`native` and `german`/`english` structures) with tactile pairing and green success dissolution.
+    1. **Stage 0: Match the Word Pairs (`word_match` / `match_pairs`)**: Dynamic vocabulary pairing loaded directly from lesson stage data. Tapping any German word card immediately pronounces it in a natural German female voice (`TtsService`). Green success dissolution on correct match.
     2. **Stage 1: Listen and Tap What You Hear (`listen_tap`)**:
        - **Clean Full-Sentence Audio Architecture**: Dedicated `_audioPlayer` streaming the full spoken sentence on demand with pre-warming for zero-latency replay.
+       - **Real-Time Word Tile Pronunciation**: Whenever a learner selects/picks a word tile from `_listenBank`, `TtsService` pronounces the word in the German lady's voice on tap.
        - **Native `audioplayers` Streaming**: High-fidelity streaming directly from `/api/notes/audio/db/:id` resolved to `https://dolphincoder.com/api/notes/audio/db/:id`.
        - **Interactive Speaker Button**: Tactile speaker button with continuous `volume_up_rounded` iconography (always re-plays the full sentence from 0:00 every time it is tapped, allowing unlimited re-listening).
        - **Mascot Listening Reaction**: Vector dolphin mascot (`AnimatedDolphinMascot`) wears headphones (`hasHeadphones: true`) and reacts with attentive listening animation (`isListening: true`).
-       - **Pure Sequencing Word Bank**: Tappable word chips derived from `stages[listen_tap].tokens` (including target words and distractors like `Milch`, `Kaffee`). Chips function purely as responsive tactile selection tiles without individual word audio playback, letting learners focus cleanly on arranging the correct sentence order based on the mascot's spoken sentence.
        - **Interactive Assembly Canvas**: Tapping tokens moves them into the target assembly box; tapping assembled tokens returns them to the bank.
        - **Tolerant Verification**: Whitespace-normalized, punctuation-insensitive sequence validation.
-    3. **Stage 2: Sentence Builder (`sentence_builder`)**: English prompt card, scrambled German token bank, and grammar syntax check.
+    3. **Stage 2: Sentence Builder (`sentence_builder`)**: English prompt card, scrambled German token bank, and grammar syntax check. Tapping/picking tokens from `_builderBank` pronounces each word on tap in the lady's German voice as it enters the sentence tray.
     4. **Stage 3: Sprechen Lip-Sync (`sprechen`)**:
        - **One-Time Auto-Play Demonstration (1-Second Delay)**: 1 second after entering the stage, the mascot automatically plays the phrase audio once without a replay button.
        - **Synchronized Karaoke Highlighting**: Reuses existing Notes karaoke engine to illuminate words in real-time (`karaokeData.words`) in sync with the audio.
