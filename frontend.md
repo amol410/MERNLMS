@@ -154,7 +154,7 @@ frontend/
 ### 4.4 Pagination Engine (`Pagination.jsx`)
 - Standardized 6-item pagination deployed across Notes, Quizzes, and Flashcards directories, ensuring rapid initial rendering and organized browsing.
 
-### 4.5 Curriculum Studio & Multi-Stage Lesson Editor (`CurriculumStudioPage.jsx`, `LessonEditorModal.jsx`)
+### 4.5 Curriculum Studio & Multi-Stage Lesson Editor (`CurriculumPage.jsx`, `LessonEditorModal.jsx`)
 - **Unit & Lesson Architecture**:
   - Author curriculum lessons with language pairing (e.g. `de` -> `en`), CEFR level (`A1-B2`), and units.
   - Safe default status: `isLive = false` (Draft) to prevent incomplete lessons from appearing on student archipelago maps until explicitly toggled.
@@ -165,13 +165,22 @@ frontend/
   - Target German sentence and distractor tokens.
   - Isolated stage audio uploaded to MySQL `karaoke_audios` table (`/api/notes/upload-audio`).
   - **Word-Level Timestamps JSON & Template Download**: Admins can download a pre-filled timestamp template (`listen_tap_word_timestamps_template.json`) including both target sentence words and distractor tokens (e.g. `Milch`, `Kaffee`), and upload JSON mapping each word to `start` and `end` seconds for tap-to-pronounce audio playback on mobile.
-  - **Optional Words Bank Audio Track**: Allows uploading a dedicated audio track of comma-separated words with natural pauses, or specifying custom `wordsAudioUrl` and `sentenceRange` directly in JSON.
+  - **Optional Words Bank Audio Track & Sentence Range**: Allows uploading a dedicated audio track of comma-separated words with natural pauses (`wordsAudioUrl`), or specifying custom `sentenceRange: { start, end }` directly in JSON.
 - **Stage 3: Sentence Builder (`sentence_builder`)**:
   - English prompt, scrambled token bank, and target sentence structure.
 - **Stage 4: Sprechen Lip-Sync Pronunciation (`sprechen`)**:
   - Challenge German phrase, parallel English translation reference, and accuracy passing threshold (> 75%).
   - **Audio Voice Track Upload**: Dedicated audio upload (`audioUrl`) for mascot pronunciation demonstration.
-  - **Karaoke JSON Upload & Template Download**: Admins can download a pre-filled JSON template based on prompt words and upload word-level timestamps (`karaokeData`) for real-time lip-sync word highlighting.
+  - **Karaoke JSON Upload & Template Download**: Admins can download a pre-filled JSON template based on prompt words and upload word-level timestamps (`karaokeData.words`) for real-time lip-sync word highlighting.
+- **Stage 5: Audio Karaoke Synced Story (`karaoke`)**:
+  - Full-length story audio upload and word-level alignment JSON import (`sentences` array with word timestamps).
+
+### 4.6 HTML Slide Presentation & In-Page Anchor Navigation (`NoteDetailPage.jsx`)
+- **16:9 Slide Presentation Sandboxing**: HTML slide notes render inside an isolated `iframe` using `srcdoc`.
+- **Anchor Click Interception Script**:
+  - Modern web browsers treat in-iframe hash navigation on `about:srcdoc` (e.g., `<a href="#slide2">`) as navigating to a new URL `about:srcdoc#slide2`, which unloads the document into `about:blank`, rendering a completely blank screen.
+  - `NoteDetailPage.jsx` runs `prepareHtmlContent(html)` to inject a client-side interceptor script before `</head>` or `</body>`.
+  - The script intercepts all in-document anchor clicks (`href.indexOf('#') !== -1`), cancels standard browser navigation via `e.preventDefault()`, and smoothly scrolls the targeted DOM element (`targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })`) or window, ensuring seamless in-presentation navigation without iframe unload.
 
 ---
 

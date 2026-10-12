@@ -59,7 +59,7 @@ backend/
 │   └── upload.js                  # Multer memory storage for notes, docx, and audio uploads
 ├── models/
 │   ├── User.js                    # bcrypt hooks, getSignedJwtToken(), roles: student/trainer/admin
-│   ├── Note.js                    # contentType: richtext/docx/html/karaoke, karaokeData JSON TEXT, color, pin
+│   ├── Note.js                    # contentType: richtext/docx/html, isKaraoke BOOLEAN, karaokeData JSON TEXT, color, isPinned
 │   ├── KaraokeAudio.js            # noteId, filename, mimeType, audioData (LONGBLOB), fileSize
 │   ├── UserActivity.js            # userId, activityType (quiz/note/flashcard), metadata JSON, activityDate
 │   ├── Quiz.js                    # questions JSON TEXT (MCQ, code-mcq, match_pairs), attemptLimit, timeLimit
@@ -68,7 +68,9 @@ backend/
 │   ├── FlashcardProgress.js       # studentId, flashcardId, cardResults JSON, masteredCount
 │   ├── Subject.js                 # name, description, icon, topics JSON TEXT
 │   ├── Video.js                   # youtubeVideoId, viewCount, isPublic, tags
-│   └── CurriculumLesson.js        # unitNumber, lessonIndex, title, nodeType, stages JSON, audioUrl, isLive
+│   ├── CurriculumLesson.js        # unitNumber, lessonIndex, title, nodeType, stages JSON, audioUrl, isLive
+│   ├── UserNodeProgress.js        # userId, nodeIndex, status (locked/available/completed), stars, scorePct, completedAt
+│   └── UserQuest.js               # userId, questTitle, questType, targetAmount, currentAmount, rewardPearls, rewardXp, isClaimed, questDate
 ├── models/associations.js         # BelongsTo aliases (ownerUser, subject, addedByUser, student, quiz, sourceNote)
 ├── controllers/
 │   ├── activityController.js      # getSummary (countsOnly, single day, ISO week with timezone awareness)
@@ -166,6 +168,9 @@ In `controllers/activityController.js` and `utils/dateHelper.js`:
 | `/api/notes/audio/db/:id` | GET | **Public** | Streams audio from MySQL with HTTP 206 Range seeking |
 | `/api/notes/audio/:filename`| GET | **Public** | Fallback streaming for local/disk audio files |
 | `/api/notes/:id` | GET | `protect` | Returns note detail with karaoke data |
+| `/api/notes/:id` | PUT | `protect`, `trainer/admin` | Updates note content & metadata |
+| `/api/notes/:id` | DELETE | `protect`, `trainer/admin` | Deletes note record |
+| `/api/notes/:id/pin` | PATCH | `protect`, `trainer/admin` | Toggles note isPinned status (pinned to top) |
 | `/api/notes/:id/track` | POST | `protect` | Logs note reading & karaoke engagement time |
 | `/api/quizzes` | GET | `protect` | Lists quizzes with pagination & filters |
 | `/api/quizzes` | POST | `protect`, `trainer/admin` | Creates quiz (supports MCQ, code-mcq, match_pairs) |
@@ -195,10 +200,16 @@ In `controllers/activityController.js` and `utils/dateHelper.js`:
 | `/api/gamification/quests` | GET | `protect` | Lists daily & monthly quests with progress |
 | `/api/gamification/claim-quest` | POST | `protect` | Claims quest pearl reward |
 
-### 5.1 Decoupled Stage Audio Architecture
+### 5.1 Decoupled Stage Audio Architecture & Stage Payloads
 - **Stage Audio Upload**: Audio files for multi-stage curriculum lessons are uploaded via `POST /api/notes/upload-audio` (leveraging the existing `karaoke_audios` table).
 - **Public Range Streaming**: Streamed via `GET /api/notes/audio/db/:id` with complete HTTP 206 byte-range seeking.
-- **Strict Stage Isolation**: Audio attachments belong exclusively to their respective stage (`stages[listen_tap].audioUrl` or `stages[karaoke].audioUrl`). The top-level lesson row `audioUrl` is intentionally set to `null` to prevent cross-stage audio bleeding.
+- **Strict Stage Isolation**: Audio attachments belong exclusively to their respective stage (`stages[listen_tap].audioUrl`, `stages[listen_tap].wordsAudioUrl`, or `stages[sprechen].audioUrl`). The top-level lesson row `audioUrl` is intentionally set to `null` to prevent cross-stage audio bleeding.
+- **Curriculum Stage Payloads**:
+  - `word_match`: `{ type: 'word_match', pairs: [{ target: 'Guten Tag', native: 'Hello' }] }`
+  - `listen_tap`: `{ type: 'listen_tap', target: '...', tokens: [...], audioUrl: '...', wordsAudioUrl: '...', sentenceRange: { start, end }, words: [{ word: '...', start: 0.0, end: 0.6 }] }`
+  - `sentence_builder`: `{ type: 'sentence_builder', prompt: '...', target: '...', distractors: '...', tokens: [...] }`
+  - `sprechen`: `{ type: 'sprechen', prompt: '...', translation: '...', accuracy: 75, audioUrl: '...', karaokeData: { words: [{ word: '...', start: 0.0, end: 0.45 }] } }`
+  - `karaoke`: `{ type: 'karaoke', storyText: '...', translationText: '...', audioUrl: '...', karaokeData: { sentences: [...], words: [...] } }`
 
 ---
 

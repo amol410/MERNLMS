@@ -30,7 +30,7 @@ FLUSH PRIVILEGES;
 ```
 
 ### 1.2 Critical MySQL Setting: `max_allowed_packet`
-Because DolphinCoder stores uploaded MP3 audio buffers directly in the MySQL `karaoke_audios` table (`LONGBLOB`), you **must** configure MySQL's maximum packet size to at least **64M** (default is often 16M).
+Because DolphinCoder stores uploaded MP3 audio buffers directly in the MySQL `karaoke_audios` table (`LONGBLOB`) for both **Karaoke Notes** and **Multi-Stage Curriculum Lessons** (dedicated word tracks and reference speech audio), you **must** configure MySQL's maximum packet size to at least **64M** (default is often 16M).
 In `/etc/mysql/my.cnf` or `/etc/mysql/mysql.conf.d/mysqld.cnf`:
 ```ini
 [mysqld]

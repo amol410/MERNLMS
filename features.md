@@ -65,6 +65,7 @@ An immersive language-learning and audio-reading engine located at `/notes/karao
   - Upload self-contained HTML/CSS/JS slide files.
   - Embedded in an isolated sandboxed iframe (`allow-scripts`).
   - Fullscreen toggle button for full-screen classroom presentation.
+  - **In-Page Anchor Navigation Fix**: Injects client-side smooth-scroll interceptor script inside iframe `srcdoc`, intercepting `#hash` anchor clicks and preventing `about:srcdoc` blank screen navigation.
 - **Categorization & Filtering**:
   - Color accents: Default, Blue, Green, Yellow, Pink, Purple.
   - Pinning / unpinning important notes to the top of the list.
@@ -153,12 +154,20 @@ A comprehensive engagement tracking suite connecting student study habits to act
 ---
 
 ## 📱 9. Mobile Application (Flutter Companion)
-- **Codebase**: Located in `app/dolphincoder/`.
+- **Codebase**: Located in `app/dolphincoder/` (`version: 1.2.5+10`).
 - **Architecture**: Flutter 3, Dart, Riverpod 2 (`StateNotifier`), GoRouter navigation, Dio HTTP client with JWT interceptor.
 - **Theme**: Dark Material 3 theme with Google Fonts (*Plus Jakarta Sans* & *Inter*).
-- **Core Screens**: Authentication (Splash, Login, Register, Profile), Dashboard with greeting and quick links, Notes list/detail, Quiz list/taker, and Flashcard study.
-- **Full Parity Achieved**:
+- **Gamified 5-Tab Shell (`bottom_nav.dart`)**:
+  - **Learn** (`/home` -> `ArchipelagoMapScreen`)
+  - **Leagues** (`/leagues` -> `LeaguesScreen`)
+  - **Quests** (`/quests` -> `QuestsScreen`)
+  - **Shop** (`/shop` -> `ShopScreen`)
+  - **Profile** (`/profile` -> `GamifiedProfileScreen`)
+- **Full Parity & Robustness**:
   - **Karaoke & Sprechen Mode**: Mobile word-level highlight synchronized with audio, continuous speech recognition (`ListenMode.dictation`), true 3-second silence timer, and static English meaning display.
+  - **Native German Speech Recognition (`de_DE`)**: Configured strictly for native German pronunciation assessment.
+  - **Dynamic Stage Filtering**: Session automatically runs only enabled curriculum stages via `_activeStageTypes`.
+  - **Mounted Guards & Offline Safety Nets**: Protects against asynchronous unmounted setState errors and supplies offline fallback audio/word data.
   - **Quizzes**: Support for Multiple Choice, Code Snippets, **Match the Pairs (`MatchPairsWidget`)**, and **Dedicated Quiz Review Screen (`QuizReviewScreen`)**.
   - **Dual Subject & Topic Filtering**: Dynamic horizontal topic chips row in `quizzes_screen.dart` with "All Topics" toggle.
   - **Activity History**: Localized daily tracking of study hours, categories, and weekly totals (`ActivityHistoryScreen`).
@@ -171,24 +180,33 @@ A Duolingo-grade interactive curriculum management and mobile learning progressi
 ### Web Curriculum Studio (`/curriculum`)
 - **Unit & Lesson Architecture**: Organize language curriculum into structured Units (e.g. Unit 1 Coral Reef) with sequential interactive nodes.
 - **Multi-Stage Lesson Builder (`LessonEditorModal`)**:
-  - **Stage 1: Match the German Words (`match_pairs`)**: Interactive vocabulary pairs (German + English).
+  - **Stage 1: Match the German Words (`match_pairs`)**:
+    - Interactive vocabulary pairs (German + English).
+    - **JSON Upload & Template Download**: Download pre-filled JSON template (`word_match_pairs_template.json`) and upload pair files (`{ "pairs": [{ "target": "...", "native": "..." }] }`).
   - **Stage 2: Listen and Tap What You Hear (`listen_tap`)**:
-    - Dedicated audio upload directly stored in MySQL (`karaoke_audios` table via `/api/notes/upload-audio`) and streamed via `/api/notes/audio/db/:id`.
+    - Dedicated audio upload stored directly in MySQL (`karaoke_audios` table via `/api/notes/upload-audio`) and streamed via `/api/notes/audio/db/:id`.
     - Target German sentence and distractor tokens.
+    - **Word-Level Timestamps JSON & Template Download**: Download pre-filled timestamp template (`listen_tap_word_timestamps_template.json`) and upload word timestamps for mobile tap-to-pronounce audio playback.
+    - **Optional Words Audio Track & Sentence Range**: Dedicated audio track for comma-separated word bank audio (`wordsAudioUrl`) with customizable `sentenceRange: { start, end }`.
     - **Strict Isolation**: Audio uploaded here is strictly stage-bound and never pollutes other stages or the lesson overview.
   - **Stage 3: Sentence Builder (`sentence_builder`)**: English prompt, German target sentence, and draggable/tappable word bank tokens.
-  - **Stage 4: Sprechen Pronunciation (`sprechen`)**: Speaking prompt, parallel translation, and minimum pronunciation accuracy.
+  - **Stage 4: Sprechen Lip-Sync Pronunciation (`sprechen`)**:
+    - German pronunciation prompt, parallel English translation, and minimum accuracy passing threshold (default 75%).
+    - **Reference Audio Upload**: Voice track upload (`audioUrl`) for mascot pronunciation demonstration.
+    - **Karaoke Timestamps JSON Upload & Template Download**: Real-time lip-sync word timestamps upload (`karaokeData.words`) and template download (`sprechen_lipsync_template.json`).
   - **Stage 5: Audio Karaoke Synced Story (`karaoke`)**:
     - Dedicated story audio upload.
-    - Word-level alignment JSON (`.json`) parser that extracts sentences, translations, and timestamps.
+    - Word-level alignment JSON (`.json`) parser extracting sentences, translations, and word timestamps.
 - **Draft vs. Live Mode**: Default draft toggle protecting students from unpublished lesson changes.
 
 ### Mobile Gamified Archipelago (`app/dolphincoder`)
 - **Visual Zigzag Path (`ArchipelagoMapScreen`)**: 3D elevated island nodes with status indicators (Locked, Available, Completed with 1-3 Stars), animated dolphin mascot, and dopamine feedback.
 - **Interactive Multi-Stage Challenge (`LessonSessionScreen`)**:
-  - Dynamic stage initialization from `PathNodeModel.stages`.
+  - Dynamic active stage filtering ensuring only configured stages are run.
   - **Real-Time Audio Streaming**: Integrated `AudioPlayer` streaming high-fidelity audio from `dolphincoder.com/api/notes/audio/db/:id`.
-  - Interactive speaker button with play/pause state toggling and animated listening mascot.
+  - **Continuous Mascot Replay**: Interactive speaker button with continuous `volume_up_rounded` iconography re-playing the sentence from 0:00 on every tap.
+  - **Pure Sequencing Word Bank**: Word chips operate as tactile sequence arrangers without sound distraction, while the mascot plays the full sentence.
+  - **Stage 3 Sprechen Lip-Sync**: 1-second auto-play pronunciation demonstration, synchronized word illumination, native German `de_DE` speech recognition, and >75% passing threshold.
   - Punctuation-tolerant token matching for listening comprehension and sentence building.
   - Dopamine rewards: XP, Pearls, streak increments, and victory celebration screens.
 

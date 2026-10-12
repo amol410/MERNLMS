@@ -16,7 +16,7 @@
 
 ## 1. What This Is
 
-**DolphinCoder Mobile Client** (`pubspec` package: `dolphincoder`, v1.0.0+2) — A native, dark-themed Material 3 mobile application for Android (SDK 23+) and iOS, serving as the student companion for [dolphincoder.com](https://dolphincoder.com).
+**DolphinCoder Mobile Client** (`pubspec` package: `dolphincoder`, v1.2.5+10) — A native, dark-themed Material 3 mobile application for Android (SDK 23+) and iOS, serving as the student companion for [dolphincoder.com](https://dolphincoder.com).
 
 ### Feature Comparison Matrix (Web vs Mobile Status)
 
@@ -55,7 +55,7 @@ flutter build appbundle        # Production Google Play App Bundle
 
 ```
 app/dolphincoder/
-├── pubspec.yaml
+├── pubspec.yaml                       # package: dolphincoder, version: 1.2.5+10
 ├── lib/
 │   ├── main.dart                      # ProviderScope initialization & runApp
 │   ├── app.dart                       # MaterialApp.router with AppTheme.dark
@@ -67,7 +67,7 @@ app/dolphincoder/
 │   │   │   ├── dio_client.dart        # Dio singleton with JWT Bearer interceptor & error handling
 │   │   │   └── api_exception.dart     # Custom exception mapping status codes to UI messages
 │   │   ├── router/
-│   │   │   └── app_router.dart        # GoRouter: ShellRoute for bottom navigation tabs & auth redirects
+│   │   │   └── app_router.dart        # GoRouter: ShellRoute for 5-tab gamified bottom nav & auth redirects
 │   │   ├── theme/
 │   │   │   ├── app_colors.dart        # Deep ocean `#0A0F1E`, gradient accents, note & deck colors
 │   │   │   └── app_theme.dart         # Material 3 dark theme, Google Fonts (Plus Jakarta Sans + Inter)
@@ -78,14 +78,14 @@ app/dolphincoder/
 │   │   ├── dashboard/                 # Dashboard screen with greetings, stats, and quick links
 │   │   ├── notes/                     # NoteModel, NotesRepository, NotesProvider, NotesScreen, NoteDetailScreen
 │   │   ├── videos/                    # VideoModel, VideosRepository, VideosScreen, VideoDetailScreen (WebView)
-│   │   ├── quizzes/                   # QuizModel, QuizTakeScreen, QuizResultScreen, providers & repo
-│   │   ├── flashcards/                # FlashcardModel, DecksScreen, StudyScreen, providers & repo
+│   │   ├── quizzes/                   # QuizModel, QuizTakeScreen, QuizResultScreen, QuizReviewScreen, providers & repo
+│   │   ├── flashcards/                # FlashcardModel, FlashcardsScreen, StudyScreen, providers & repo
 │   │   ├── profile/                   # ProfileScreen, EditProfileScreen, ChangePasswordScreen, SettingsScreen
-│   │   └── gamification/              # ArchipelagoMapScreen, LessonSessionScreen, AnimatedDolphinMascot, economy
+│   │   └── gamification/              # ArchipelagoMapScreen, LessonSessionScreen, LeaguesScreen, QuestsScreen, ShopScreen, GamifiedProfileScreen
 │   └── shared/
 │       └── widgets/
 │           ├── app_text_field.dart    # Styled input with prefix icon and validator
-│           ├── bottom_nav.dart        # Custom 5-tab floating bottom navigation bar
+│           ├── bottom_nav.dart        # 5-tab gamified floating bottom navigation pill (Learn, Leagues, Quests, Shop, Profile)
 │           ├── empty_state.dart       # Empty list placeholders with emojis and action buttons
 │           ├── glass_card.dart        # Frosted glass container with border gradients
 │           ├── gradient_button.dart   # Primary button with loading indicator
@@ -223,6 +223,7 @@ The Duolingo-grade gamified language path and interactive multi-stage lesson cha
 
 ### 7.2 Multi-Stage Interactive Lesson Session (`lesson_session_screen.dart`)
 - **Stage Orchestration Engine**:
+  - **Dynamic Stage Filtering (`_activeStageTypes`)**: Only authored and enabled stages run during a session (`word_match`, `listen_tap`, `sentence_builder`, `sprechen`). If a stage is disabled in the curriculum, it is cleanly omitted from the challenge pipeline.
   - Dynamically parses stages from `node.stages` JSON via `_initStagesData()`.
   - Seamlessly runs through all authored challenges:
     1. **Stage 0: Match the Word Pairs (`word_match` / `match_pairs`)**: Dynamic vocabulary pairing loaded directly from lesson stage data (supporting `target`/`native` and `german`/`english` structures) with tactile pairing and green success dissolution.
@@ -238,8 +239,12 @@ The Duolingo-grade gamified language path and interactive multi-stage lesson cha
     4. **Stage 3: Sprechen Lip-Sync (`sprechen`)**:
        - **One-Time Auto-Play Demonstration (1-Second Delay)**: 1 second after entering the stage, the mascot automatically plays the phrase audio once without a replay button.
        - **Synchronized Karaoke Highlighting**: Reuses existing Notes karaoke engine to illuminate words in real-time (`karaokeData.words`) in sync with the audio.
+       - **Native German Speech Recognition (`de_DE`)**: Configured with `speech_to_text` strictly for native German dictation, avoiding premature cutoffs.
        - **Voice Pronunciation & >75% Passing Threshold**: Student taps the microphone button to pronounce the phrase aloud, requiring a strictly > 75% accuracy score to pass.
     5. **Stage 4: Celebration & Rewards**: Flip animation, XP earnings, accuracy percentage, pearls reward, and progress submission to `/api/gamification/complete-node`.
+- **Audio & Offline Robustness**:
+  - **Mounted Guards**: All audio playback and pause callbacks verify widget mounted state (`if (!mounted) return;`) to eliminate asynchronous `setState` exceptions.
+  - **Offline Safety Nets**: Ensures fallback audio and default word bank data are always populated so the app functions even when disconnected.
 - **Duolingo-Style Feedback Sheets (`DuoFeedbackSheet`)**:
   - **Success**: Emerald green card (`#D7FFB8`) with checkmark and full-width green "CONTINUE →" button.
   - **Correction**: Warm rose card (`#FFDFE0`) displaying correct translation with retry action.

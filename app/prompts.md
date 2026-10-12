@@ -1104,3 +1104,149 @@ ThemeData(
 
 Also define AppColors class with all color constants.
 ```
+
+---
+
+## SCREEN 21 — ArchipelagoMapScreen (`archipelago_map_screen.dart`)
+
+```
+Create a Flutter ArchipelagoMapScreen widget for the DolphinCoder LMS gamified learning path.
+
+Design requirements:
+- Scaffold background: soft slate ivory Color(0xFFF1F5F9).
+- Top Ocean Status Bar:
+  - Language selector chip: "🇩🇪 German (A1)" with rounded border.
+  - Oxygen Energy counter: "🫧 5/5" displaying health with 30-minute auto-replenishment indicator.
+  - Pearls balance: "💎 100" (or live balance from gamificationProvider).
+  - Streak flame: "🔥 7" with flame glow.
+- Unit Header Banner:
+  - "Unit 1 • Coral Reef: Introductions & Daily Greetings" with progress bar and unit guide button.
+- 3D Sinusoidal Island Path:
+  - Vertical scrollable ListView rendering circular island stepping stone nodes oscillating left/right based on mathematical horizontal offset list: [0, 45, -40, 20, -45, 35, 0].
+  - Node types: lesson, karaoke, speech, chest (treasure bonus), match, builder, boss (exam).
+  - Visual states:
+    - locked: muted stone with padlock icon (🔒).
+    - available: vibrant circular button with animated pulsating halo and crown.
+    - completed: emerald green with gold stars (⭐ 1-3).
+- Tapping an available/completed node navigates to /lesson/:nodeIndex passing PathNodeModel.
+- Integrate with Riverpod gamificationProvider (fetches /api/gamification/path).
+```
+
+---
+
+## SCREEN 22 — LessonSessionScreen (`lesson_session_screen.dart`)
+
+```
+Create a Flutter LessonSessionScreen widget for DolphinCoder LMS multi-stage interactive challenge sessions.
+
+Requirements:
+- Parameters: nodeIndex (int), node (PathNodeModel?).
+- Dynamic active stage filtering (_activeStageTypes):
+  - Evaluates widget.node.stages JSON and only queues configured challenge stages (word_match, listen_tap, sentence_builder, sprechen).
+- Top Progress Bar:
+  - Close (X) button with confirmation exit dialog.
+  - Linear smooth animated progress bar tracking _currentStage / _totalStages.
+  - Lives indicator: ❤️ 5.
+- Stage 0: Word Match:
+  - Dynamic vocabulary pairs loaded from stage data (supporting target/native or german/english).
+  - 2-column vocabulary matching tiles with tactile pairing and green success dissolution.
+- Stage 1: Listen & Tap:
+  - Animated dolphin mascot (AnimatedDolphinMascot) wearing headphones.
+  - Dedicated AudioPlayer streaming full teacher audio from /api/notes/audio/db/:id.
+  - Interactive speaker button that always retains volume_up_rounded and re-plays the full sentence from 0:00 on every tap.
+  - Pure sequencing word chips: tiles act purely as tactile sequence arrangers without sound distraction.
+  - Tolerant whitespace and punctuation sequence validation against target sentence.
+- Stage 2: Sentence Builder:
+  - English prompt card, scrambled token bank, and syntax validation.
+- Stage 3: Sprechen Lip-Sync:
+  - 1-second auto-play teacher pronunciation demonstration upon entering stage (no replay button).
+  - Real-time word illumination in speech bubble matching karaokeData.words.
+  - Native German speech recognition (speech_to_text with localeId: 'de_DE').
+  - Pronunciation passing threshold: strictly accuracy > 75%.
+- Stage 4: Celebration:
+  - Mascot flip animation, XP and Pearls earned cards, audio chimes.
+  - Submits completion to /api/gamification/complete-node.
+- DuoFeedbackSheet:
+  - Green success banner (#D7FFB8) with "CONTINUE →".
+  - Red retry banner (#FFDFE0) with correct translation and "TRY AGAIN".
+- Audio robustness:
+  - Mounted lifecycle guards (if (!mounted) return;) on all audio listeners.
+  - Offline fallback audio and dummy words bank.
+```
+
+---
+
+## SCREEN 23 — LeaguesScreen (`leagues_screen.dart`)
+
+```
+Create a Flutter LeaguesScreen widget for DolphinCoder LMS weekly leaderboard rankings.
+
+Design requirements:
+- App bar: "Oceanic Leagues" with current tier emblem (e.g. Coral Reef League).
+- Weekly countdown timer card: "Resets in 2d 14h".
+- Promotion / Demotion zone dividers:
+  - Top 5: Promotion zone (green accent glow).
+  - Middle: Safe zone.
+  - Bottom 5: Demotion zone (amber accent).
+- Leaderboard List:
+  - Ranked user cards showing rank number (#1, #2...), user avatar with initials, full name, and weekly XP total.
+  - Active user row highlighted with vibrant border and auto-scrolled into view.
+- Consume gamificationProvider.getLeaderboard().
+```
+
+---
+
+## SCREEN 24 — QuestsScreen (`quests_screen.dart`)
+
+```
+Create a Flutter QuestsScreen widget for daily and monthly achievement tracking.
+
+Design requirements:
+- App bar: "Daily & Monthly Quests".
+- Top tab switcher: "Daily Quests" vs "Monthly Badges".
+- Daily Quests list:
+  - Quest cards: title (e.g. "Complete 2 Lessons", "Earn 50 XP"), progress bar (currentAmount / targetAmount).
+  - Rewards badge: "💎 15 Pearls • ⚡ 20 XP".
+  - Action button: "Claim" button enabled only when currentAmount >= targetAmount and !isClaimed.
+  - Tapping Claim invokes /api/gamification/claim-quest with celebratory particle effect.
+- Monthly Badge showcase:
+  - Grid of circular oceanic badges with unlock criteria.
+```
+
+---
+
+## SCREEN 25 — ShopScreen (`shop_screen.dart`)
+
+```
+Create a Flutter ShopScreen widget for the pearls virtual economy.
+
+Design requirements:
+- Top balance card: large pearl icon (💎) with active pearl count.
+- Shop Items:
+  1. "Refill Oxygen": Refills oxygen gauge to 5/5 instantly for 100 Pearls. Invokes /api/gamification/shop/refill-oxygen.
+  2. "Streak Freeze": Protects daily streak if learner misses a day. Cost: 200 Pearls.
+  3. "Double XP Boost": 15-minute 2x XP multiplier. Cost: 150 Pearls.
+- Tactile purchase buttons with confirmation dialog and insufficient pearls warning.
+```
+
+---
+
+## SCREEN 26 — GamifiedProfileScreen (`gamified_profile_screen.dart`)
+
+```
+Create a Flutter GamifiedProfileScreen widget combining learner identity and gamification achievements.
+
+Design requirements:
+- Top profile card: user avatar, full name, email, member since date, and current level badge (A1 German).
+- Gamification statistics grid (2x2):
+  - Current League tier (e.g. "Coral Reef").
+  - Current & Longest Streak ("🔥 7 Days").
+  - Total XP earned ("⚡ 1,240 XP").
+  - Total Pearls ("💎 450").
+- Quick Action buttons:
+  - "Edit Profile" (routes to /profile/edit).
+  - "Change Password" (routes to /profile/password).
+  - "Settings" (routes to /settings).
+  - "Sign Out" with full session cleanup and navigation to /login.
+```
+

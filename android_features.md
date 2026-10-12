@@ -8,11 +8,13 @@
 * **Platform Target:** Android (SDK 23+, Android 14 tested) & iOS.
 * **Core Navigation Architecture:**
   * Root navigation managed via declarative routing (`GoRouter`).
-  * **Bottom Navigation Bar**: Persistent 4-tab shell navigation displayed across primary authenticated views:
-    1. **Tab 1: Dashboard / Home** (icon: Home, route: `/dashboard`).
-    2. **Tab 2: Notes & Karaoke** (icon: Menu Book, route: `/notes`).
-    3. **Tab 3: Quizzes** (icon: Psychology / Quiz, route: `/quizzes`).
-    4. **Tab 4: Profile & Settings** (icon: Person, route: `/profile`).
+  * **Bottom Navigation Bar**: Persistent 5-tab floating pill shell navigation (`AppShell` in `bottom_nav.dart`):
+    1. **Tab 1: Learn** (icon: Explore `Icons.explore_rounded`, route: `/home` -> `ArchipelagoMapScreen`).
+    2. **Tab 2: Leagues** (icon: Shield `Icons.shield_rounded`, route: `/leagues` -> `LeaguesScreen`).
+    3. **Tab 3: Quests** (icon: Flag `Icons.flag_rounded`, route: `/quests` -> `QuestsScreen`).
+    4. **Tab 4: Shop** (icon: Storefront `Icons.storefront_rounded`, route: `/shop` -> `ShopScreen`).
+    5. **Tab 5: Profile** (icon: Person `Icons.person_rounded`, route: `/profile` -> `GamifiedProfileScreen`).
+  * **Nested LMS Routes**: Notes (`/notes`), Quizzes (`/quizzes`), Flashcards (`/flashcards`), Videos (`/videos`), and Activity (`/activity`) remain accessible via direct routes and dashboard shortcuts.
   * **Authentication Guard**: Unauthenticated requests redirect automatically to `/login`. Active session tokens stored securely in native keystore (`flutter_secure_storage`).
 
 ---
@@ -346,7 +348,7 @@
     * **API Base URL Configuration**:
       * Displays active server endpoint (e.g. `https://dolphincoder.com/api`).
       * Tapping opens an editable modal dialog allowing students/developers to point the mobile app to a custom backend IP or local development server (`http://10.0.2.2:5000/api`).
-  * **Application Info**: App version (`v1.0.0+2`), copyright notice.
+  * **Application Info**: App version (`v1.2.5+10`), copyright notice.
   * **Logout Action**: Full-width button clearing secure token storage and navigating back to `/login`.
 
 ---
@@ -358,7 +360,7 @@
   * **Top Status Bar**:
     * Language Flag selector (German flag).
     * Streak flame counter with daily status.
-    * Oxygen gauge (`5/5`) showing remaining health for challenges.
+    * Oxygen gauge (`5/5`) showing remaining health for challenges with 30-minute auto-replenishment.
     * Pearls wallet counter with gemstone icon.
   * **Unit Banner**: "Unit 1 • Coral Reef: Introductions & Daily Greetings" with chapter progress indicator.
   * **Zigzag Island Nodes**:
@@ -367,6 +369,8 @@
     * Statuses: `locked` (dimmed with padlock), `available` (vibrant with pulsating crown), `completed` (check icon with 1-3 earned stars).
     * Tapping a playable node routes to `/lesson/:nodeIndex` passing `PathNodeModel`.
 * **Interactive Lesson Session Screen (`LessonSessionScreen`)**:
+  * **Dynamic Active Stage Filtering (`_activeStageTypes`)**:
+    * Dynamically filters challenge stages according to curriculum configuration; disabled stages are seamlessly omitted.
   * **Top Progress Bar**:
     * Close button `(X)` with exit confirmation.
     * Multi-stage linear progress bar advancing with each task.
@@ -378,13 +382,13 @@
     * **Animated Mascot (`AnimatedDolphinMascot`)**: Echo the Dolphin wearing headphones, pulsing when audio plays.
     * **Clean Sentence Audio Engine**: Dedicated `_audioPlayer` streaming the full teacher audio track directly from `/api/notes/audio/db/:id` (resolved via `dolphincoder.com`).
     * **Tactile Speaker Button**:
-      * Plays/re-plays full sentence audio track on every tap.
+      * Plays/re-plays full sentence audio track from 0:00 on every tap.
       * Always maintains `volume_up_rounded` iconography to provide intuitive repeat listening without confusing pause toggles.
     * **Pure Sequencing Word Chips**:
       * Word chips function purely as responsive tactile selection tiles without individual word sound playback, allowing learners to focus cleanly on arranging the sequence.
       * Tapping bank tokens moves them to the sentence assembly box; tapping assembled tokens returns them to the bank.
     * **Interactive Assembly Box**: Selected word tokens assemble into the sentence box; tapping removes tokens back to the word bank.
-    * **Word Bank**: Tappable word chips derived dynamically from `stages[listen_tap].tokens`.
+    * **Word Bank**: Tappable word chips derived dynamically from `stages[listen_tap].tokens` (including target words and distractors).
     * **Tolerant Sequence Verification**: Punctuation-insensitive and whitespace-normalized verification.
     * **Feedback Bottom Sheet (`DuoFeedbackSheet`)**: Displays success or target sentence with "NEXT TASK →".
   * **Stage 2: Sentence Builder (`sentence_builder`)**:
@@ -393,8 +397,9 @@
     * Tolerant grammar verification against German target sentence.
   * **Stage 3: Sprechen Lip-Sync (`sprechen`)**:
     * **One-Time Auto-Play Demonstration (1-Second Delay)**: Exactly 1 second after entering the stage, the mascot automatically plays the phrase audio once as a pronunciation reference.
-    * **No Replay Button**: Deliberately omits a replay button to reinforce incremental learning (learner has already heard and sequenced the phrase in earlier stages).
+    * **No Replay Button**: Deliberately omits a replay button to reinforce incremental learning.
     * **Synchronized Karaoke Highlighting**: Words in the speech bubble illuminate in real-time (`karaokeData.words`) in sync with audio playback using the established Karaoke timing engine.
+    * **Native German Speech Recognition (`de_DE`)**: Configured with `speech_to_text` strictly for native German dictation, avoiding premature cutoff.
     * **Voice Pronunciation & >75% Passing Threshold**: Student taps the microphone button to pronounce the phrase aloud, requiring a speech match strictly > 75% to pass.
     * **Mascot Audio Reactions**: Echo the Dolphin transitions between talking pose during demonstration, listening pose during student recording, and celebratory pose upon passing.
   * **Stage 4: Celebration & Rewards Screen**:
@@ -402,3 +407,46 @@
     * XP Reward, Accuracy %, and Pearls earned metric cards.
     * Confetti and audio chimes on lesson completion.
     * Saves node progress to `/api/gamification/complete-node` and returns to the Archipelago Map.
+  * **Audio & Offline Robustness**:
+    * Mounted guards (`if (!mounted) return;`) protect all audio playback callbacks.
+    * Offline safety nets populate fallback audio and word bank data when disconnected.
+
+---
+
+## 15. Gamification Shell Screens
+
+### 15.1 Leagues & Leaderboard Screen (`LeaguesScreen`)
+* **Route:** `/leagues` (Bottom Tab 2)
+* **Screen Purpose:** Competitive weekly leagues and rankings based on accumulated study XP.
+* **Structural Elements:**
+  * Top League Tier banner (e.g. Coral Reef League, Lagoon, Trench) with promotion / demotion zone cutoffs.
+  * Weekly countdown timer for league reset.
+  * Ranked leaderboard cards showing student rank, avatar, user name, and weekly XP total.
+  * Active student's highlighted ranking row with auto-scroll focus.
+
+### 15.2 Quests & Milestones Screen (`QuestsScreen`)
+* **Route:** `/quests` (Bottom Tab 3)
+* **Screen Purpose:** Daily and monthly achievement quests rewarding Pearls and XP.
+* **Structural Elements:**
+  * Daily Quest cards: e.g. "Complete 2 Lessons", "Earn 50 XP", "Score 80% on a Quiz".
+  * Visual progress bars (`currentAmount / targetAmount`).
+  * "Claim" reward button with instant animation and pearl balance increment.
+  * Monthly Badge showcase for long-term consistency.
+
+### 15.3 Shop & Pearl Economy Screen (`ShopScreen`)
+* **Route:** `/shop` (Bottom Tab 4)
+* **Screen Purpose:** Spend earned Pearls to maintain streak momentum and replenish health.
+* **Structural Elements:**
+  * Pearl balance header display (`💎`).
+  * Oxygen Refill card: Instantly refill 5/5 Oxygen for 100 Pearls (`/api/gamification/shop/refill-oxygen`).
+  * Streak Freeze item: Protects daily streak against missed days.
+  * Power-ups and cosmetic badge unlocking.
+
+### 15.4 Gamified Profile Screen (`GamifiedProfileScreen`)
+* **Route:** `/profile` (Bottom Tab 5)
+* **Screen Purpose:** Gamified learner overview combining academic stats, streak, badges, and league history.
+* **Structural Elements:**
+  * Profile banner with avatar, level badge, and join date.
+  * Gamification Economy stats: Current League tier, Longest Streak, Total XP, Total Pearls.
+  * Quick links to Edit Profile, Change Password, and Settings.
+  * Logout action clearing native session keystore.

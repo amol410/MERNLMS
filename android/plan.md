@@ -1,8 +1,12 @@
 # DolphinCoder LMS — Native Android App (Kotlin)
 
+> [!NOTE]
+> **Implementation Reference**: The active production mobile application for DolphinCoder LMS is built with Flutter and located in [app/dolphincoder/](file:///Users/cms/Desktop/Code/mern/lms_speedup/MERNLMS/app/dolphincoder) (`v1.2.5+10`).
+> This document specifies the standalone **native Android (Kotlin + Jetpack Compose)** architecture blueprint, retained for platform-specific Android native development. For the cross-platform production mobile codebase, refer to [android.md](file:///Users/cms/Desktop/Code/mern/lms_speedup/MERNLMS/android.md) and [app/dolphincoder/README.md](file:///Users/cms/Desktop/Code/mern/lms_speedup/MERNLMS/app/dolphincoder/README.md).
+
 ## Overview
 
-A native Android app for the DolphinCoder LMS platform, replicating all features of the Flutter app and adding more polished, platform-native UI patterns. Built with **Kotlin**, **Jetpack Compose**, and the existing **REST API** backend (same endpoints, Bearer token auth).
+A native Android app blueprint for the DolphinCoder LMS platform, designed to replicate and extend features of the LMS platform using platform-native UI patterns. Built with **Kotlin**, **Jetpack Compose**, and the existing **REST API** backend (same endpoints, Bearer token auth).
 
 ---
 

@@ -568,31 +568,40 @@ Floating access:
 
 ## 13. Development Phases
 
-### Phase 1 — Foundation (Week 1)
-- [ ] Flutter project setup (`flutter create dolphincoder`)
-- [ ] Theme, colors, typography
-- [ ] Dio client + auth interceptor
-- [ ] go_router with guards
-- [ ] Shared widgets (GlassCard, GradientButton, AppTextField)
-- [ ] Splash + Login + Register screens
+### Phase 1 — Foundation (Week 1) [COMPLETED ✅]
+- [x] Flutter project setup (`flutter create dolphincoder`)
+- [x] Theme, colors, typography
+- [x] Dio client + auth interceptor
+- [x] go_router with guards
+- [x] Shared widgets (GlassCard, GradientButton, AppTextField)
+- [x] Splash + Login + Register screens
 
-### Phase 2 — Core Content (Week 2)
-- [ ] Dashboard screen
-- [ ] Notes list + detail
-- [ ] Videos list + detail (YouTube player)
-- [ ] Bottom navigation shell
+### Phase 2 — Core Content (Week 2) [COMPLETED ✅]
+- [x] Dashboard screen
+- [x] Notes list + detail
+- [x] Videos list + detail (YouTube player)
+- [x] Bottom navigation shell
 
-### Phase 3 — Learning Features (Week 3)
-- [ ] Quizzes list + detail + take + results
-- [ ] Flashcards list + study mode
+### Phase 3 — Learning Features (Week 3) [COMPLETED ✅]
+- [x] Quizzes list + detail + take + results
+- [x] Flashcards list + study mode
 
-### Phase 4 — Polish (Week 4)
-- [ ] Profile + edit + change password
-- [ ] Empty states, error handling, shimmer loaders
-- [ ] Pull-to-refresh, infinite scroll
-- [ ] Animations (flutter_animate)
-- [ ] App icon + splash screen
-- [ ] Android build + iOS build testing
+### Phase 4 — Polish (Week 4) [COMPLETED ✅]
+- [x] Profile + edit + change password
+- [x] Empty states, error handling, shimmer loaders
+- [x] Pull-to-refresh, infinite scroll
+- [x] Animations (flutter_animate)
+- [x] App icon + splash screen
+- [x] Android build + iOS build testing
+
+### Phase 5 — Gamified Coral Reef Archipelago & Multi-Stage Lessons (v1.2.5) [COMPLETED ✅]
+- [x] 5-Tab Floating Shell: Learn (`/home`), Leagues (`/leagues`), Quests (`/quests`), Shop (`/shop`), Profile (`/profile`)
+- [x] Sinusoidal 3D Island Path (`ArchipelagoMapScreen`) with live oxygen, streak, and pearls
+- [x] Multi-Stage Challenge Runner (`LessonSessionScreen`): Word Match, Listen & Tap, Sentence Builder, Sprechen Lip-Sync
+- [x] Dynamic active stage filtering (`_activeStageTypes`)
+- [x] Continuous repeat full-sentence speaker button & Echo the Dolphin vector mascot
+- [x] Native German `de_DE` speech recognition & >75% pronunciation accuracy threshold
+- [x] Mounted audio guards and offline safety nets
 
 ---
 

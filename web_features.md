@@ -252,11 +252,16 @@
 * **Route:** `/notes/:id` (when `note.isKaraoke === false`)
 * **Structural Elements:**
   * Note Title and Subject/Topic metadata header.
-  * Mode Switcher (if note contains slide headers):
+  * Color theme accent border (default, blue, green, yellow, pink, purple).
+  * Engagement time tracker logging active reading seconds to `/api/notes/:id/track`.
+  * Mode Switcher (if note contains slide headers or `contentType === 'html'`):
     * **Article Mode**: Continuous scrolling document with formatted headings, lists, tables, and code snippets.
-    * **Presentation Mode**: 16:9 widescreen HTML slide carousel with slide navigation controls, slide counter (`Slide 1 of 12`), and full-screen button.
-  * Text-to-Speech (TTS) Reader toolbar for standard text notes (Play, Pause, Speed).
-  * Author details and view count.
+    * **Presentation Mode**: 16:9 widescreen HTML slide sandbox with fullscreen toggle button (`Maximize2` / `Minimize2`).
+  * **In-Page Anchor Navigation & Blank Screen Prevention**:
+    * HTML slide decks render in a sandboxed iframe via `srcdoc`.
+    * Client runs `prepareHtmlContent` injecting an anchor-interception script.
+    * Intercepts fragment clicks (`href="#hash"`), calls `e.preventDefault()`, and smoothly scrolls the targeted element (`scrollIntoView({ behavior: 'smooth' })`), preventing `about:srcdoc#hash` browser navigation that unloads the document into `about:blank`.
+  * Pin/unpin note action, Edit note, Delete note actions for trainers/admins.
 
 ---
 
@@ -438,16 +443,21 @@
       * *Architecture Note:* Does **not** include top-level audio upload; all audio is decoupled and stage-specific.
     * **Stage 1: Match the German Words (`match_pairs`)**:
       * Pair rows mapping German terms to English meanings.
+      * **JSON Upload & Template Download**: Admins can download a pre-filled JSON template (`word_match_pairs_template.json`) and upload pair JSON files (`{ "pairs": [{ "target": "...", "native": "..." }] }`).
     * **Stage 2: Listen and Tap What You Hear (`listen_tap`)**:
       * Target German sentence input.
       * Distractor words input (comma-separated).
       * **Dedicated Audio Upload**: File picker uploading `.mp3`, `.wav`, `.m4a` to MySQL `karaoke_audios` table via `/api/notes/upload-audio`.
+      * **Word-Level Timestamps JSON & Template Download**: Admins can download a pre-filled timestamp template (`listen_tap_word_timestamps_template.json`) including both target sentence words and distractor tokens (e.g. `Milch`, `Kaffee`), and upload JSON mapping each word to `start` and `end` seconds for tap-to-pronounce audio playback on mobile.
+      * **Optional Words Bank Audio Track & Sentence Range**: Allows uploading a dedicated audio track of comma-separated words with natural pauses (`wordsAudioUrl`), or specifying custom `sentenceRange: { start, end }` directly in JSON.
       * In-browser audio player with instant preview and removal button.
       * **Audio Isolation**: Completely decoupled from all other stages and top-level lesson records.
     * **Stage 3: Sentence Builder (`sentence_builder`)**:
       * English translation prompt, German target sentence, and distractor tokens.
-    * **Stage 4: Sprechen Pronunciation (`sprechen`)**:
+    * **Stage 4: Sprechen Lip-Sync Pronunciation (`sprechen`)**:
       * German pronunciation prompt, English translation, and minimum pass accuracy percentage (default 75%).
+      * **Dedicated Reference Audio Track**: File picker uploading voice track (`audioUrl`) for mascot pronunciation demonstration.
+      * **Karaoke Timestamps JSON Upload & Template Download**: Admins can download a pre-filled JSON template based on prompt words (`sprechen_lipsync_template.json`) and upload word-level timestamps (`karaokeData.words`) for real-time lip-sync word highlighting.
     * **Stage 5: Audio Karaoke Synced Story (`karaoke`)**:
       * Story German sentences and English parallel translations.
       * **Dedicated Karaoke Audio Upload**: Separate audio file attachment for story reading.

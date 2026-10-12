@@ -118,3 +118,35 @@ This was enabled to automatically apply schema additions across deployment envir
 - **Symptom**: Notes, Quizzes, and Flashcards only displayed the first page of results with no mechanism to access older records.
 - **Fix**: Standardized 6-item pagination across Notes, Quizzes, and Flashcard lists with dynamic page controls.
 - **Files Modified**: `frontend/src/pages/NotesPage.jsx`, `frontend/src/pages/QuizzesPage.jsx`, `frontend/src/pages/FlashcardsPage.jsx`.
+
+---
+
+### 2.10 Blank Screen on HTML Note In-Page Anchor Navigation
+- **Symptom**: In Presentation / Slide mode for HTML notes (`/notes/:id`), clicking anchor links with internal fragment hashes (e.g. `<a href="#slide3">`) caused the iframe to navigate to `about:srcdoc#slide3`, which in modern web browsers destroys the active document and renders an unrecoverable blank screen (`about:blank`).
+- **Root Cause**: The sandboxed iframe loaded via `srcdoc` does not have a real HTTP origin. Default browser navigation on hash links attempts to navigate the iframe's URL rather than scrolling within the existing document.
+- **Fix**:
+  - Implemented `prepareHtmlContent` in `frontend/src/pages/NoteDetailPage.jsx` using `useMemo`.
+  - Injects a script into `<head>` or `<body>` that attaches a capturing click event listener to all `<a>` tags.
+  - If the link contains `#hash`, the script invokes `e.preventDefault()`, extracts the target element ID, and executes smooth scrolling (`scrollIntoView({ behavior: 'smooth', block: 'start' })`), completely preventing browser navigation. Also listens to `hashchange` events as fallback.
+- **Files Modified**: `frontend/src/pages/NoteDetailPage.jsx`.
+
+---
+
+### 2.11 Mounted Audio Guards and Memory Leak Prevention
+- **Symptom**: Rapidly exiting or skipping a lesson session during active audio playback threw unhandled `setState() called after dispose()` exceptions on Android.
+- **Root Cause**: Asynchronous `AudioPlayer.onPositionChanged` stream subscriptions, completion handlers, and word audio seek callbacks triggered state updates after the widget was unmounted.
+- **Fix**:
+  - Added strict `if (!mounted) return;` lifecycle guards to all audio callbacks in `_playWordAudio` and position listeners.
+  - Ensured all `StreamSubscription` instances (`_playerCompleteSub`, `_playerStateSub`, `_positionSub`) and timers are explicitly cancelled in `dispose()`.
+- **Files Modified**: `app/dolphincoder/lib/features/gamification/screens/lesson_session_screen.dart`.
+
+---
+
+### 2.12 Dynamic Active Stage Filtering & Isolated Stage Audio
+- **Symptom**: In the mobile app, lesson challenges attempted to load all 4 stages in a hard-coded sequence even when a lesson only had 1 or 2 stages enabled, causing blank screens or unexpected skips. Additionally, top-level audio tracks clashed with stage-specific audio.
+- **Root Cause**: `LessonSessionScreen` initialized a fixed stage list (`0..3`) rather than checking `node.stages` from the backend, and backend lessons stored audio at the root level rather than isolating it per stage.
+- **Fix**:
+  - Filtered active stages dynamically via `_activeStageTypes` in `LessonSessionScreenState._initStagesData()`.
+  - Decoupled stage audio so `audioUrl` belongs strictly to its respective stage (`stages[listen_tap].audioUrl`, `stages[sprechen].audioUrl`), setting top-level `audioUrl = null`.
+  - Populated offline fallback audio URLs and word timestamps so sessions never crash when offline.
+- **Files Modified**: `app/dolphincoder/lib/features/gamification/screens/lesson_session_screen.dart`, `backend/controllers/curriculumController.js`, `frontend/src/components/curriculum/LessonEditorModal.jsx`.

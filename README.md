@@ -9,6 +9,7 @@ A comprehensive, state-of-the-art Learning Management System powering [dolphinco
 ### 📝 Notes & Interactive Karaoke Reader
 - **Rich Text Notes (Tiptap)**: Bold, italic, underline, headings, lists, blockquotes, code blocks, dividers, tags, color-coded themes, and pin/unpin.
 - **DOCX & HTML Import**: Automatic Word file conversion to HTML (`mammoth`) and self-contained 16:9 interactive presentation slide viewer with fullscreen support.
+- **In-Page Anchor Navigation Fix**: Smooth-scroll script injected into HTML presentation `srcdoc` preventing `about:srcdoc#hash` blank screen unload.
 - **🎤 Interactive Karaoke Reader & Sprechen (Speaking Practice)**:
   - Synchronized word-by-word highlighted text and audio playback.
   - Native German fable demo (*"Die Schildkröte und der Hase"*).
@@ -50,13 +51,21 @@ A comprehensive, state-of-the-art Learning Management System powering [dolphinco
 ### 🏝️ Curriculum Studio & Interactive Lessons (`/curriculum`)
 - Multi-stage interactive lesson authoring: Match German Words, Listen and Tap What You Hear, Sentence Builder, Sprechen Pronunciation, and Audio Karaoke Story.
 - **Isolated Stage Audio Upload**: Dedicated direct-to-MySQL audio storage per stage; voice clips in Listen & Tap do not bleed into Karaoke or Lesson Overview.
-- Word-level alignment JSON parser (`.json`) for synchronized syllable reading.
+- **Word Match & Timestamp JSON Tools**: Pre-filled template downloads (`word_match_pairs_template.json`, `listen_tap_word_timestamps_template.json`, `sprechen_lipsync_template.json`) and JSON uploads for per-token timestamps and vocabulary pairing.
+- **Dedicated Words Audio Track & Sentence Range**: Dedicated audio track for word bank tokens with customizable sentence audio bounds.
 - Live / Draft publishing toggle protecting in-progress courses.
 
-### 📱 Flutter Mobile App (Android & iOS)
+### 📱 Flutter Mobile App (Android & iOS — v1.2.5+10)
 - Dark-themed Material 3 mobile companion located in `app/dolphincoder/`.
-- **Gamified Coral Reef Archipelago**: Sinusoidal 3D island progression path with oxygen, streak, and pearls economy.
-- **Interactive Multi-Stage Challenge**: Live audio streaming via `audioplayers` from `https://dolphincoder.com/api/notes/audio/db/:id`, interactive speaker button with play/pause toggling, animated listening dolphin mascot, and dopamine feedback chimes.
+- **Gamified 5-Tab Shell (`bottom_nav.dart`)**: Learn (`/home`), Leagues (`/leagues`), Quests (`/quests`), Shop (`/shop`), and Profile (`/profile`).
+- **Gamified Coral Reef Archipelago**: Sinusoidal 3D island progression path with oxygen energy, streak counter, and pearls economy.
+- **Interactive Multi-Stage Challenge**:
+  - Dynamic active stage filtering executing only configured challenges.
+  - Live audio streaming via `audioplayers` from `https://dolphincoder.com/api/notes/audio/db/:id`.
+  - Continuous repeat speaker button replaying full sentence from 0:00 on every tap.
+  - Native German `de_DE` speech recognition with continuous dictation.
+  - Stage 3 Sprechen Lip-Sync auto-play demonstration (1-second delay), real-time word illumination, and >75% accuracy passing threshold.
+  - Animated dolphin mascot (`AnimatedDolphinMascot`) with vector emotion poses and headphones.
 
 ---
 
