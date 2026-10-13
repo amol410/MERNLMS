@@ -203,22 +203,26 @@ A Duolingo-grade interactive curriculum management and mobile learning progressi
 ### Mobile Gamified Archipelago (`app/dolphincoder`)
 - **Visual Zigzag Path (`ArchipelagoMapScreen`)**: 3D elevated island nodes with status indicators (Locked, Available, Completed with 1-3 Stars), animated dolphin mascot, and dopamine feedback.
 - **Interactive Multi-Stage Challenge (`LessonSessionScreen`)**:
-  - Dynamic active stage filtering ensuring only configured stages are run.
-  - **Real-Time Audio Streaming**: Integrated `AudioPlayer` streaming high-fidelity audio from `dolphincoder.com/api/notes/audio/db/:id`.
-  - **Continuous Mascot Replay**: Interactive speaker button with continuous `volume_up_rounded` iconography re-playing the sentence from 0:00 on every tap.
-  - **Pure Sequencing Word Bank**: Word chips operate as tactile sequence arrangers without sound distraction, while the mascot plays the full sentence.
-  - **Stage 3 Sprechen Lip-Sync**: 1-second auto-play pronunciation demonstration, synchronized word illumination, native German `de_DE` speech recognition, and >75% passing threshold.
-  - Punctuation-tolerant token matching for listening comprehension and sentence building.
+  - Dynamic active stage filtering ensuring only configured curriculum stages are run, with graceful fallbacks.
+  - **Full Suite of 8 Interactive Curriculum Stage Types**:
+    1. **Stage 1: Match Word Pairs (`word_match`)**: Rapid vocabulary card matching between German terms and English translations with instant tactile pronunciation audio.
+    2. **Stage 2: Listen & Tap (`listen_tap`)**: Mascot audio prompt listening practice with token sequencer bank and stage audio isolation.
+    3. **Stage 3: Cloze Test (`cloze_test`)**: Sentence comprehension card with an underlined gap, dynamic inline word placement, and 3 option chips with instant tap pronunciation.
+    4. **Stage 4: Sentence Builder (`sentence_builder`)**: Grammar structure puzzle with draggable/tappable German tokens and prompt card.
+    5. **Stage 5: Type Word (`type_word`)**: German spelling and typing input box equipped with a dedicated row of quick-tap German Umlaut buttons (`ä`, `ö`, `ü`, `ß`, `Ä`, `Ö`, `Ü`) and digraph tolerance (`ae`, `ss`).
+    6. **Stage 6: Dialogue Bubble (`dialogue_bubble`)**: Chat messenger interface between the conversational partner (e.g. Florian or Echo) and the student, featuring speech bubbles, audio replay, and conversational reply options.
+    7. **Stage 7: Listen & Select (`listen_select`)**: Audio comprehension MCQ card with normal (1.0x) and turtle (0.75x) speed selectors, and multiple-choice cards.
+    8. **Stage 8: Sprechen Lip-Sync (`sprechen`)**: Mascot Echo pronunciation demonstration, synchronized word illumination, continuous German `de_DE` speech recognition, and >75% passing threshold.
   - **Smart Hybrid Audio & Real-Time Karaoke Architecture**:
     - **Dual Audio Sources**: High-fidelity studio MP3 files streamed via CDN/backend when available; instant zero-asset fallback to native Flutter `TtsService` (`de-DE`, female pitch 1.10, clear 0.48 speech rate) when no audio URL is configured.
-    - **Stage Audio Isolation**: `listen_tap` strictly reads the stage's specific prompt sentence, preventing generic lesson audio contamination.
+    - **Stage Audio Isolation**: `listen_tap` and `listen_select` strictly read the stage's specific prompt sentence, preventing generic lesson audio contamination.
     - **Real-Time Sprechen Lip-Sync Karaoke**:
       - Word-by-word synchronized highlighting in Dolphin Blue (`#0284C7`) during Echo mascot demonstration (powered by millisecond JSON timestamps for studio audio or calibrated rhythmic highlight timer for TTS).
       - Live acoustic speech recognition matches recognized words as the student speaks into the microphone, instantly turning correct words Emerald Green (`#10B981`) with white checkmark badges (`✓`).
       - Interactive tap-to-pronounce on individual words and tap-to-replay mascot demonstration.
     - **Zero-Latency Engine Pre-Warming & Vocabulary Pre-Caching**:
-      - **Silent Warm-Up**: Pre-warms the native Android/iOS TTS service and `AudioTrack` pipeline on session start and stage transitions, completely eliminating the cold-start delay.
-      - **Background Pre-Synthesis**: Pre-caches all vocabulary words across all stages (`word_match`, `listen_tap`, `sentence_builder`, `sprechen`) via `synthesizeToFile` as soon as the lesson opens, delivering instantaneous (<30ms) tactile audio feedback on every word click.
+      - **Genuine German Warm-Up**: Pre-warms the native Android/iOS TTS service and `AudioTrack` pipeline on session start and stage transitions using a silent German token with `awaitSpeakCompletion(true)`, completely eliminating the cold-start delay for all subsequent word taps.
+      - **Safe Background Pre-Synthesis**: Pre-caches all vocabulary words across all 8 stages via non-interrupting `synthesizeToFile` as soon as the lesson opens, delivering instantaneous (<20ms) tactile audio feedback on every word click.
   - Dopamine rewards: XP, Pearls, streak increments, and victory celebration screens.
 
 ---
