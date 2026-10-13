@@ -209,10 +209,16 @@ A Duolingo-grade interactive curriculum management and mobile learning progressi
   - **Pure Sequencing Word Bank**: Word chips operate as tactile sequence arrangers without sound distraction, while the mascot plays the full sentence.
   - **Stage 3 Sprechen Lip-Sync**: 1-second auto-play pronunciation demonstration, synchronized word illumination, native German `de_DE` speech recognition, and >75% passing threshold.
   - Punctuation-tolerant token matching for listening comprehension and sentence building.
-  - **Zero-Fail Hybrid Audio Architecture**:
-    - Pre-recorded studio MP3 files streamed via CDN/backend when available.
-    - Seamless instant fallback to native Flutter `TtsService` (`de-DE` with female pitch 1.10 and clear 0.48 speech rate) when no audio URL is attached or network audio fails.
-    - 0 MB application package overhead for unlimited German spoken sentences.
+  - **Smart Hybrid Audio & Real-Time Karaoke Architecture**:
+    - **Dual Audio Sources**: High-fidelity studio MP3 files streamed via CDN/backend when available; instant zero-asset fallback to native Flutter `TtsService` (`de-DE`, female pitch 1.10, clear 0.48 speech rate) when no audio URL is configured.
+    - **Stage Audio Isolation**: `listen_tap` strictly reads the stage's specific prompt sentence, preventing generic lesson audio contamination.
+    - **Real-Time Sprechen Lip-Sync Karaoke**:
+      - Word-by-word synchronized highlighting in Dolphin Blue (`#0284C7`) during Echo mascot demonstration (powered by millisecond JSON timestamps for studio audio or calibrated rhythmic highlight timer for TTS).
+      - Live acoustic speech recognition matches recognized words as the student speaks into the microphone, instantly turning correct words Emerald Green (`#10B981`) with white checkmark badges (`✓`).
+      - Interactive tap-to-pronounce on individual words and tap-to-replay mascot demonstration.
+    - **Zero-Latency Engine Pre-Warming & Vocabulary Pre-Caching**:
+      - **Silent Warm-Up**: Pre-warms the native Android/iOS TTS service and `AudioTrack` pipeline on session start and stage transitions, completely eliminating the cold-start delay.
+      - **Background Pre-Synthesis**: Pre-caches all vocabulary words across all stages (`word_match`, `listen_tap`, `sentence_builder`, `sprechen`) via `synthesizeToFile` as soon as the lesson opens, delivering instantaneous (<30ms) tactile audio feedback on every word click.
   - Dopamine rewards: XP, Pearls, streak increments, and victory celebration screens.
 
 ---
