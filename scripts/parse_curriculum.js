@@ -1,0 +1,397 @@
+const fs = require('fs');
+const path = require('path');
+
+/**
+ * Script to parse german_a1.md and output formatted JSON payloads
+ * compatible with POST /api/curriculum/bulk-upload
+ */
+
+const mdPath = path.join(__dirname, '..', 'german_a1.md');
+if (!fs.existsSync(mdPath)) {
+    console.error('Error: german_a1.md not found at', mdPath);
+    process.exit(1);
+}
+
+const content = fs.readFileSync(mdPath, 'utf8');
+
+// Unit 1 Structured Curriculum Data
+const unit1 = {
+    learningLanguage: 'de',
+    nativeLanguage: 'en',
+    level: 'A1',
+    unitNumber: 1,
+    unitTitle: 'Coral Reef',
+    unitDescription: 'Erste Schritte: Basic Greetings & Introductions',
+    lessonsData: [
+        {
+            title: 'Hallo & Guten Tag',
+            subtitle: 'Essential German greetings & daily etiquette',
+            nodeType: 'lesson',
+            xpReward: 15,
+            pearlsReward: 5,
+            isLive: true,
+            stages: [
+                {
+                    type: 'word_match',
+                    title: 'Match the word pairs',
+                    pairs: [
+                        { target: 'Guten Morgen', native: 'Good morning' },
+                        { target: 'Guten Tag', native: 'Hello / Good day' },
+                        { target: 'Danke', native: 'Thank you' },
+                        { target: 'Bitte', native: 'Please / You are welcome' },
+                        { target: 'Tschüss', native: 'Bye' }
+                    ]
+                },
+                {
+                    type: 'listen_tap',
+                    title: 'Listen and tap what you hear',
+                    targetSentence: 'Guten Morgen! Danke schön.',
+                    tokens: ['Guten', 'Morgen!', 'Danke', 'schön.', 'Kaffee', 'Tee'],
+                    audioUrl: ''
+                },
+                {
+                    type: 'sentence_builder',
+                    title: 'Construct the German sentence',
+                    prompt: 'Translate: Hello, thank you very much!',
+                    targetSentence: 'Guten Tag, vielen Dank!',
+                    tokens: ['Guten', 'Tag,', 'vielen', 'Dank!', 'Tschüss', 'Bitte']
+                },
+                {
+                    type: 'sprechen',
+                    title: 'Pronounce Auf Deutsch',
+                    prompt: 'Guten Tag! Wie geht es dir?',
+                    translation: 'Hello! How are you?',
+                    minAccuracy: 75,
+                    audioUrl: ''
+                }
+            ]
+        },
+        {
+            title: 'Ich heiße...',
+            subtitle: 'Introducing yourself & asking names',
+            nodeType: 'lesson',
+            xpReward: 15,
+            pearlsReward: 5,
+            isLive: true,
+            stages: [
+                {
+                    type: 'word_match',
+                    title: 'Match the word pairs',
+                    pairs: [
+                        { target: 'Ich heiße', native: 'My name is' },
+                        { target: 'Wie heißt du?', native: 'What is your name?' },
+                        { target: 'Wer bist du?', native: 'Who are you?' },
+                        { target: 'Freut mich', native: 'Nice to meet you' }
+                    ]
+                },
+                {
+                    type: 'listen_tap',
+                    title: 'Listen and tap what you hear',
+                    targetSentence: 'Hallo, ich heiße Lukas.',
+                    tokens: ['Hallo,', 'ich', 'heiße', 'Lukas.', 'wer', 'bist'],
+                    audioUrl: ''
+                },
+                {
+                    type: 'sentence_builder',
+                    title: 'Construct the German sentence',
+                    prompt: 'Translate: Who are you? My name is Anna.',
+                    targetSentence: 'Wer bist du? Ich heiße Anna.',
+                    tokens: ['Wer', 'bist', 'du?', 'Ich', 'heiße', 'Anna.', 'Guten', 'Morgen']
+                },
+                {
+                    type: 'sprechen',
+                    title: 'Pronounce Auf Deutsch',
+                    prompt: 'Freut mich, dich kennenzulernen!',
+                    translation: 'Pleased to meet you!',
+                    minAccuracy: 75,
+                    audioUrl: ''
+                }
+            ]
+        },
+        {
+            title: 'Woher kommst du?',
+            subtitle: 'Countries, origins and where you live',
+            nodeType: 'lesson',
+            xpReward: 15,
+            pearlsReward: 5,
+            isLive: true,
+            stages: [
+                {
+                    type: 'word_match',
+                    title: 'Match the word pairs',
+                    pairs: [
+                        { target: 'Deutschland', native: 'Germany' },
+                        { target: 'Indien', native: 'India' },
+                        { target: 'kommen aus', native: 'to come from' },
+                        { target: 'wohnen in', native: 'to live in' }
+                    ]
+                },
+                {
+                    type: 'listen_tap',
+                    title: 'Listen and tap what you hear',
+                    targetSentence: 'Ich komme aus Deutschland.',
+                    tokens: ['Ich', 'komme', 'aus', 'Deutschland.', 'wohne', 'Indien'],
+                    audioUrl: ''
+                },
+                {
+                    type: 'sentence_builder',
+                    title: 'Construct the German sentence',
+                    prompt: 'Translate: Where do you come from? I come from India.',
+                    targetSentence: 'Woher kommst du? Ich komme aus Indien.',
+                    tokens: ['Woher', 'kommst', 'du?', 'Ich', 'komme', 'aus', 'Indien.', 'heiße']
+                },
+                {
+                    type: 'sprechen',
+                    title: 'Pronounce Auf Deutsch',
+                    prompt: 'Ich komme aus Indien und wohne hier.',
+                    translation: 'I come from India and live here.',
+                    minAccuracy: 75,
+                    audioUrl: ''
+                }
+            ]
+        },
+        {
+            title: 'Audio Karaoke Rhythm',
+            subtitle: 'Das erste Treffen - Synced dialog',
+            nodeType: 'karaoke',
+            xpReward: 25,
+            pearlsReward: 10,
+            isLive: true,
+            stages: [
+                {
+                    type: 'karaoke',
+                    title: 'Audio Karaoke Rhythm',
+                    storyText: 'Guten Tag! Ich heiße Florian. Und wer bist du? Hallo Florian, ich heiße Meera. Ich komme aus Indien. Schön, dich kennenzulernen!',
+                    translationText: 'Good day! My name is Florian. And who are you? Hello Florian, my name is Meera. I come from India. Nice to meet you!'
+                }
+            ]
+        },
+        {
+            title: 'Sunken Treasure Chest',
+            subtitle: 'Bonus 30 Pearls & 20 XP',
+            nodeType: 'chest',
+            xpReward: 20,
+            pearlsReward: 30,
+            isLive: true,
+            stages: []
+        },
+        {
+            title: 'Coral Reef Exam',
+            subtitle: 'Mastery challenge to clear Unit 1',
+            nodeType: 'boss',
+            xpReward: 35,
+            pearlsReward: 15,
+            isLive: true,
+            stages: [
+                {
+                    type: 'word_match',
+                    title: 'Speed Review',
+                    pairs: [
+                        { target: 'Guten Tag', native: 'Hello' },
+                        { target: 'Danke', native: 'Thank you' },
+                        { target: 'Tschüss', native: 'Bye' },
+                        { target: 'Deutschland', native: 'Germany' }
+                    ]
+                },
+                {
+                    type: 'sentence_builder',
+                    title: 'Unit 1 Final Challenge',
+                    prompt: 'Translate: Hello, how are you today?',
+                    targetSentence: 'Hallo, wie geht es dir heute?',
+                    tokens: ['Hallo,', 'wie', 'geht', 'es', 'dir', 'heute?', 'Morgen', 'Kaffee']
+                },
+                {
+                    type: 'sprechen',
+                    title: 'Unit 1 Final Pronunciation',
+                    prompt: 'Guten Abend! Ich heiße Florian und komme aus Berlin.',
+                    translation: 'Good evening! My name is Florian and I come from Berlin.',
+                    minAccuracy: 80,
+                    audioUrl: ''
+                }
+            ]
+        }
+    ]
+};
+
+// Unit 2 Structured Curriculum Data
+const unit2 = {
+    learningLanguage: 'de',
+    nativeLanguage: 'en',
+    level: 'A1',
+    unitNumber: 2,
+    unitTitle: 'Emerald Bay',
+    unitDescription: 'Im Café & Zahlen 0–20: Ordering drinks & counting',
+    lessonsData: [
+        {
+            title: 'Was möchten Sie trinken?',
+            subtitle: 'Ordering coffee, tea and water in German',
+            nodeType: 'lesson',
+            xpReward: 15,
+            pearlsReward: 5,
+            isLive: true,
+            stages: [
+                {
+                    type: 'word_match',
+                    title: 'Match the café pairs',
+                    pairs: [
+                        { target: 'der Kaffee', native: 'the coffee' },
+                        { target: 'der Tee', native: 'the tea' },
+                        { target: 'das Wasser', native: 'the water' },
+                        { target: 'die Milch', native: 'the milk' },
+                        { target: 'Ich möchte', native: 'I would like' }
+                    ]
+                },
+                {
+                    type: 'listen_tap',
+                    title: 'Listen and tap what you hear',
+                    targetSentence: 'Ich möchte einen Kaffee, bitte.',
+                    tokens: ['Ich', 'möchte', 'einen', 'Kaffee,', 'bitte.', 'Tee', 'Milch'],
+                    audioUrl: ''
+                },
+                {
+                    type: 'sentence_builder',
+                    title: 'Construct the German sentence',
+                    prompt: 'Translate: A water with milk, please.',
+                    targetSentence: 'Ein Wasser mit Milch, bitte.',
+                    tokens: ['Ein', 'Wasser', 'mit', 'Milch,', 'bitte.', 'Kaffee', 'Guten', 'Tag']
+                },
+                {
+                    type: 'sprechen',
+                    title: 'Pronounce Auf Deutsch',
+                    prompt: 'Einen Tee mit Zucker, bitte.',
+                    translation: 'A tea with sugar, please.',
+                    minAccuracy: 75,
+                    audioUrl: ''
+                }
+            ]
+        },
+        {
+            title: 'Zahlen 0 bis 10',
+            subtitle: 'Counting drinks and orders',
+            nodeType: 'lesson',
+            xpReward: 15,
+            pearlsReward: 5,
+            isLive: true,
+            stages: [
+                {
+                    type: 'word_match',
+                    title: 'Match the numbers',
+                    pairs: [
+                        { target: 'eins, zwei', native: 'one, two' },
+                        { target: 'drei, vier', native: 'three, four' },
+                        { target: 'fünf, sechs', native: 'five, six' },
+                        { target: 'sieben, acht', native: 'seven, eight' },
+                        { target: 'neun, zehn', native: 'nine, ten' }
+                    ]
+                },
+                {
+                    type: 'listen_tap',
+                    title: 'Listen and tap what you hear',
+                    targetSentence: 'Zwei Kaffee und drei Tee, bitte.',
+                    tokens: ['Zwei', 'Kaffee', 'und', 'drei', 'Tee,', 'bitte.', 'vier', 'Wasser'],
+                    audioUrl: ''
+                },
+                {
+                    type: 'sentence_builder',
+                    title: 'Construct the German sentence',
+                    prompt: 'Translate: I would like five waters, please.',
+                    targetSentence: 'Ich möchte fünf Wasser, bitte.',
+                    tokens: ['Ich', 'möchte', 'fünf', 'Wasser,', 'bitte.', 'sechs', 'Danke']
+                },
+                {
+                    type: 'sprechen',
+                    title: 'Pronounce Auf Deutsch',
+                    prompt: 'Bitte zwei Kaffee und ein Wasser.',
+                    translation: 'Two coffees and one water, please.',
+                    minAccuracy: 75,
+                    audioUrl: ''
+                }
+            ]
+        },
+        {
+            title: 'Die Rechnung & Zahlen 11–20',
+            subtitle: 'Asking for the bill and paying in Euros',
+            nodeType: 'lesson',
+            xpReward: 15,
+            pearlsReward: 5,
+            isLive: true,
+            stages: [
+                {
+                    type: 'word_match',
+                    title: 'Match the payment terms',
+                    pairs: [
+                        { target: 'die Rechnung', native: 'the bill' },
+                        { target: 'Was kostet das?', native: 'How much does that cost?' },
+                        { target: 'Euro', native: 'Euro' },
+                        { target: 'zwölf', native: 'twelve' },
+                        { target: 'zwanzig', native: 'twenty' }
+                    ]
+                },
+                {
+                    type: 'listen_tap',
+                    title: 'Listen and tap what you hear',
+                    targetSentence: 'Das macht zusammen zwölf Euro.',
+                    tokens: ['Das', 'macht', 'zusammen', 'zwölf', 'Euro.', 'zehn', 'Kaffee'],
+                    audioUrl: ''
+                },
+                {
+                    type: 'sentence_builder',
+                    title: 'Construct the German sentence',
+                    prompt: 'Translate: The bill, please! That costs four euros.',
+                    targetSentence: 'Die Rechnung, bitte! Das kostet vier Euro.',
+                    tokens: ['Die', 'Rechnung,', 'bitte!', 'Das', 'kostet', 'vier', 'Euro.', 'Wasser']
+                },
+                {
+                    type: 'sprechen',
+                    title: 'Pronounce Auf Deutsch',
+                    prompt: 'Zahlen, bitte! Wir möchten bezahlen.',
+                    translation: 'Check, please! We would like to pay.',
+                    minAccuracy: 75,
+                    audioUrl: ''
+                }
+            ]
+        },
+        {
+            title: 'Sunken Treasure Chest',
+            subtitle: 'Bonus 30 Pearls & 20 XP',
+            nodeType: 'chest',
+            xpReward: 20,
+            pearlsReward: 30,
+            isLive: true,
+            stages: []
+        },
+        {
+            title: 'Emerald Bay Exam',
+            subtitle: 'Mastery challenge to clear Unit 2',
+            nodeType: 'boss',
+            xpReward: 35,
+            pearlsReward: 15,
+            isLive: true,
+            stages: [
+                {
+                    type: 'sentence_builder',
+                    title: 'Café Boss Challenge',
+                    prompt: 'Translate: I would like a coffee with milk, please.',
+                    targetSentence: 'Ich möchte einen Kaffee mit Milch, bitte.',
+                    tokens: ['Ich', 'möchte', 'einen', 'Kaffee', 'mit', 'Milch,', 'bitte.', 'Tee', 'Wasser']
+                },
+                {
+                    type: 'sprechen',
+                    title: 'Café Boss Pronunciation',
+                    prompt: 'Guten Tag, das macht zusammen fünfzehn Euro.',
+                    translation: 'Hello, that makes fifteen euros altogether.',
+                    minAccuracy: 80,
+                    audioUrl: ''
+                }
+            ]
+        }
+    ]
+};
+
+const fullOutput = {
+    units: [unit1, unit2]
+};
+
+const outputPath = path.join(__dirname, '..', 'german_a1.json');
+fs.writeFileSync(outputPath, JSON.stringify(fullOutput, null, 2), 'utf8');
+console.log('✅ Generated german_a1.json with Units 1 & 2 at:', outputPath);

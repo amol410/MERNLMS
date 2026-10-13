@@ -409,6 +409,9 @@
     * Saves node progress to `/api/gamification/complete-node` and returns to the Archipelago Map.
   * **Audio & Offline Robustness**:
     * Mounted guards (`if (!mounted) return;`) protect all audio playback callbacks.
+    * **Zero-Fail Hybrid TTS Audio Fallback**:
+      * Primary: Plays pre-recorded studio audio stream from `/api/notes/audio/db/:id` or CDN when configured.
+      * Automatic Fallback: If `audioUrl` is empty or stream encounters a network error, dynamically falls back to native Flutter `TtsService` (`de-DE` female voice, speech rate 0.48). Zero audio gaps for any lesson or sentence.
     * Offline safety nets populate fallback audio and word bank data when disconnected.
 
 ---

@@ -209,5 +209,30 @@ A Duolingo-grade interactive curriculum management and mobile learning progressi
   - **Pure Sequencing Word Bank**: Word chips operate as tactile sequence arrangers without sound distraction, while the mascot plays the full sentence.
   - **Stage 3 Sprechen Lip-Sync**: 1-second auto-play pronunciation demonstration, synchronized word illumination, native German `de_DE` speech recognition, and >75% passing threshold.
   - Punctuation-tolerant token matching for listening comprehension and sentence building.
+  - **Zero-Fail Hybrid Audio Architecture**:
+    - Pre-recorded studio MP3 files streamed via CDN/backend when available.
+    - Seamless instant fallback to native Flutter `TtsService` (`de-DE` with female pitch 1.10 and clear 0.48 speech rate) when no audio URL is attached or network audio fails.
+    - 0 MB application package overhead for unlimited German spoken sentences.
   - Dopamine rewards: XP, Pearls, streak increments, and victory celebration screens.
+
+---
+
+## 🗺️ 8. German CEFR A1 Master Curriculum (`german_a1.md`)
+- **12 Island Progression**:
+  1. *Erste Schritte* (Greetings, names, introductions)
+  2. *Im Café & Zahlen* (Café orders, numbers 0–20, *möchten*)
+  3. *Familie & Freunde* (Family, possessives *mein/dein*)
+  4. *Essen & Markt* (Groceries, accusative direct objects)
+  5. *Mein Tag & Uhrzeit* (Daily routine, separable verbs, time)
+  6. *Kleidung & Farben* (Shopping, colors, prices)
+  7. *Zuhause & Wohnen* (Rooms, furniture, prepositions)
+  8. *Weg & Stadtverkehr* (Directions, transport, modal *können*)
+  9. *Freizeit & Hobbys* (Sports, music, preferences *gern*)
+  10. *Wetter & Jahreszeiten* (Weather expressions, seasons)
+  11. *Beim Arzt & Körper* (Body parts, health, doctor appointments)
+  12. *Reise & Finale* (Hotel, travel, perfect tense intro & A1 Grand Exam)
+- **Automated Ingestion Pipeline**:
+  - `scripts/parse_curriculum.js`: Generates structured `german_a1.json` payloads.
+  - Ingestion via `/api/curriculum/bulk-upload` to seed lessons as draft or live nodes.
+
 
