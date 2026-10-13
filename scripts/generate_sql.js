@@ -6,14 +6,17 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 
 let sql = `-- ==============================================================
 -- DolphinCoder LMS: German A1 Curriculum Database Seed
--- Target Table: CurriculumLessons
--- Compatible with phpMyAdmin (MySQL / MariaDB)
+-- Target Table: curriculum_lessons (lowercase snake_case)
+-- Compatible with Hostinger phpMyAdmin (MySQL / MariaDB)
 -- ==============================================================
 
+-- Drop the unused PascalCase duplicate table created earlier
+DROP TABLE IF EXISTS \`CurriculumLessons\`;
+
 -- 1. Ensure Table Exists (Safe CREATE TABLE IF NOT EXISTS)
-CREATE TABLE IF NOT EXISTS \`CurriculumLessons\` (
+CREATE TABLE IF NOT EXISTS \`curriculum_lessons\` (
   \`id\` int(11) NOT NULL AUTO_INCREMENT,
-  \`owner\` int(11) NOT NULL DEFAULT 1,
+  \`owner\` int(11) NOT NULL DEFAULT 3,
   \`learningLanguage\` varchar(10) NOT NULL DEFAULT 'de',
   \`nativeLanguage\` varchar(10) NOT NULL DEFAULT 'en',
   \`level\` enum('A1','A2','B1','B2','C1','C2') NOT NULL DEFAULT 'A1',
@@ -23,7 +26,7 @@ CREATE TABLE IF NOT EXISTS \`CurriculumLessons\` (
   \`lessonIndex\` int(11) NOT NULL DEFAULT 0,
   \`title\` varchar(200) NOT NULL,
   \`subtitle\` varchar(300) DEFAULT '',
-  \`nodeType\` enum('lesson','karaoke','speech','chest','match','quiz','boss') NOT NULL DEFAULT 'lesson',
+  \`nodeType\` enum('lesson','karaoke','speech','chest','match','quiz') NOT NULL DEFAULT 'lesson',
   \`xpReward\` int(11) DEFAULT 15,
   \`pearlsReward\` int(11) DEFAULT 5,
   \`isLive\` tinyint(1) NOT NULL DEFAULT 1,
@@ -36,8 +39,8 @@ CREATE TABLE IF NOT EXISTS \`CurriculumLessons\` (
   PRIMARY KEY (\`id\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 2. Clean existing seed if re-running (optional safeguard)
--- DELETE FROM \`CurriculumLessons\` WHERE \`learningLanguage\` = 'de' AND \`level\` = 'A1';
+-- 2. Clear existing test lesson in unit 1 to prevent duplicates (optional)
+DELETE FROM \`curriculum_lessons\` WHERE \`learningLanguage\` = 'de' AND \`level\` = 'A1';
 
 -- 3. Insert German A1 Lessons (Units 1 & 2)
 `;
