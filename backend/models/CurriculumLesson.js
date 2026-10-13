@@ -103,7 +103,7 @@ const CurriculumLesson = sequelize.define('CurriculumLesson', {
         allowNull: true,
     },
 }, {
-    tableName: 'curriculum_lessons',
+    tableName: 'CurriculumLessons',
     timestamps: true,
     indexes: [
         { fields: ['learningLanguage', 'nativeLanguage', 'level', 'unitNumber'] },
