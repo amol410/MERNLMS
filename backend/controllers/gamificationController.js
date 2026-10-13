@@ -153,22 +153,39 @@ exports.getPath = async (req, res, next) => {
 
         const zigzagOffsets = [0.0, 45.0, -40.0, 20.0, -45.0, 35.0, 0.0, -35.0, 40.0];
 
+        const unitColors = ['#1CB0F6', '#58CC02', '#FF9600', '#CE82FF', '#FF4B4B', '#00CD9C', '#FFC800'];
+
         let targetNodesList = defaultNodes;
         if (liveCurriculum && liveCurriculum.length > 0) {
-            targetNodesList = liveCurriculum.map((l, idx) => ({
-                id: l.id,
-                index: idx,
-                title: l.title,
-                subtitle: l.subtitle || '',
-                type: l.nodeType || 'lesson',
-                xpReward: l.xpReward || 15,
-                pearlsReward: l.pearlsReward || (l.nodeType === 'chest' ? 30 : 5),
-                sourceType: l.nodeType === 'karaoke' ? 'note' : 'lesson',
-                sourceId: l.sourceNoteId || l.id,
-                stages: l.stages,
-                audioUrl: l.audioUrl,
-                offset: zigzagOffsets[idx % zigzagOffsets.length],
-            }));
+            targetNodesList = liveCurriculum.map((l, idx) => {
+                const uNum = l.unitNumber || 1;
+                const secNum = uNum <= 35 ? 1 : (uNum <= 70 ? 2 : 3);
+                const secTitle = secNum === 1 ? 'Rookie' : (secNum === 2 ? 'Explorer' : 'Traveler');
+                const secUnitNum = secNum === 1 ? uNum : (secNum === 2 ? uNum - 35 : uNum - 70);
+                const colorHex = unitColors[(uNum - 1) % unitColors.length];
+
+                return {
+                    id: l.id,
+                    index: idx,
+                    unitNumber: uNum,
+                    unitTitle: l.unitTitle || 'Erste Schritte',
+                    unitDescription: l.unitDescription || '',
+                    sectionNumber: secNum,
+                    sectionTitle: secTitle,
+                    sectionUnitNumber: secUnitNum,
+                    colorHex: colorHex,
+                    title: l.title,
+                    subtitle: l.subtitle || '',
+                    type: l.nodeType || 'lesson',
+                    xpReward: l.xpReward || 15,
+                    pearlsReward: l.pearlsReward || (l.nodeType === 'chest' ? 30 : 5),
+                    sourceType: l.nodeType === 'karaoke' ? 'note' : 'lesson',
+                    sourceId: l.sourceNoteId || l.id,
+                    stages: l.stages,
+                    audioUrl: l.audioUrl,
+                    offset: zigzagOffsets[idx % zigzagOffsets.length],
+                };
+            });
         }
 
         // Enrich nodes with user completion status

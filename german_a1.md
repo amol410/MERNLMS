@@ -1,503 +1,268 @@
-# 🇩🇪 DolphinCoder German A1 — Complete CEFR Curriculum (12 Units / Islands)
+# 🇩🇪 DolphinCoder German A1 — Complete CEFR Curriculum Architecture
 
-> **Curriculum Standard**: Common European Framework of Reference for Languages (CEFR A1 / Goethe-Zertifikat A1: Start Deutsch 1).  
-> **Course Architecture**: 12 Units (Archipelago Islands) • 84 Interactive Lessons • 350+ Core Vocabulary Items • Real-world Communicative Competence.
-
----
-
-## 🗺️ Archipelago Island Overview
-
-| Unit # | Island Theme (German / English) | Core Grammar Concept | Key Vocabulary Targets |
-|:---:|---|---|---|
-| **1** | **Erste Schritte** *(First Steps & Greetings)* | Verb conjugation (*sein, heißen, kommen*), W-Questions | *Hallo, Guten Morgen, Danke, Bitte, Tschüss, Name, Land* |
-| **2** | **Im Café & Zahlen** *(At the Café & Numbers 0–20)* | Verb *möchten*, Numbers 0–20, Articles Intro (*der/die/das*) | *Kaffee, Tee, Wasser, Milch, Zucker, Euro, Zahlen* |
-| **3** | **Familie & Freunde** *(Family & People)* | Possessive pronouns (*mein/meine, dein/deine*), Plurals | *Vater, Mutter, Bruder, Schwester, Kind, Eltern, Freund* |
-| **4** | **Essen & Markt** *(Food & Groceries)* | Accusative Case Intro (*den Apfel, das Brot, die Tomate*) | *Brot, Käse, Obst, Gemüse, Fleisch, Ei, lecker, schmecken* |
-| **5** | **Mein Tag & Uhrzeit** *(Daily Routine & Time)* | Separable Verbs (*aufstehen, fernsehen*), Time expressions | *Uhr, Minute, Morgen, Abend, Montag–Sonntag, arbeiten, schlafen* |
-| **6** | **Kleidung & Farben** *(Shopping & Colors)* | Adjectives & Colors, Accusative pronouns (*mich, dich, ihn*) | *Hemd, Hose, Kleid, Jacke, Schuhe, rot, blau, schwarz, teuer, billig* |
-| **7** | **Zuhause & Wohnen** *(Home & Living)* | Prepositions (*in, auf, neben*), Two-way prepositions intro | *Haus, Wohnung, Zimmer, Küche, Bad, Tisch, Stuhl, Bett, Balkon* |
-| **8** | **Weg & Stadtverkehr** *(City & Transport)* | Modal verb *können*, Directions, Imperative (*Gehen Sie...*) | *Bahnhof, Bus, Zug, Straße, links, rechts, geradeaus, Ticket* |
-| **9** | **Freizeit & Hobbys** *(Hobbies & Interests)* | Adverb *gern/nicht gern*, Verbs (*spielen, lesen, schwimmen*) | *Sport, Musik, Buch, Fußball, Gitarre, Kino, Freunde treffen* |
-| **10** | **Wetter & Jahreszeiten** *(Weather & Seasons)* | Impersonal *Es gibt / Es ist*, Seasons & Months | *Sonne, Regen, Schnee, Wind, Sommer, Winter, kalt, warm, heiß* |
-| **11** | **Beim Arzt & Körper** *(Health & The Body)* | Modal verb *müssen / sollen*, Body parts, Ailments | *Kopf, Bauch, Hand, Bein, Schmerz, krank, Arzt, Apotheke, Termin* |
-| **12** | **Reise & A1 Finale** *(Travel & Grand A1 Exam)* | Perfect Tense Intro (*haben/sein + Partizip II*), Synthesis | *Hotel, Koffer, Urlaub, Strand, Meer, Pass, gereist, gelernt* |
+> **Curriculum Standard**: Common European Framework of Reference for Languages (**CEFR A1** / **Goethe-Zertifikat A1: Start Deutsch 1**).  
+> **Course Architecture**: 
+> * **3 Distinct Sections**: Section 1 (Rookie), Section 2 (Explorer), Section 3 (Traveler)
+> * **105 Thematic Units** (35 Units per Section)
+> * **16 Pedagogical Lesson Nodes per Unit** (1,680 Total Path Nodes)
+> * **8 Interactive Stage Types**: `word_match`, `listen_tap`, `sentence_builder`, `sprechen`, `cloze_test`, `type_word` (with Umlauts), `dialogue_bubble`, and `listen_select`.
 
 ---
 
-# 🏝️ UNIT 1: Erste Schritte (First Steps & Greetings)
-**Island 1 • Coral Reef**  
-*Grammar Focus*: Present tense conjugation of *sein* (to be), *heißen* (to be called), and *kommen* (to come). Question words: *Wer* (who), *Wie* (how), *Woher* (from where).
+## 🏛️ Pedagogical Structure & Goethe A1 Alignment
+
+To guarantee genuine conversational fluency and exam readiness (*Goethe-Zertifikat A1: Start Deutsch 1*), the curriculum is structured into three progressive macro-sections that take learners from zero prior knowledge through complete elementary independence:
+
+```
+                    GERMAN A1 CURRICULUM HIERARCHY
+                    
+  ┌─────────────────────────────────────────────────────────────┐
+  │ SECTION 1: ROOKIE (Erste Schritte & Grundlagen)             │
+  │ 35 Units • 560 Lesson Nodes • Present Tense, Sein/Haben, W-Q│
+  └──────────────────────────────┬──────────────────────────────┘
+                                 ▼
+  ┌─────────────────────────────────────────────────────────────┐
+  │ SECTION 2: EXPLORER (Alltag, Stadt & Unterwegs)             │
+  │ 35 Units • 560 Lesson Nodes • Accusative, Modals, Separable │
+  └──────────────────────────────┬──────────────────────────────┘
+                                 ▼
+  ┌─────────────────────────────────────────────────────────────┐
+  │ SECTION 3: TRAVELER (Reisen, Dialoge & Meisterschaft)       │
+  │ 35 Units • 560 Lesson Nodes • Dative, Perfekt Intro, Goethe │
+  └─────────────────────────────────────────────────────────────┘
+  
+  Total: 3 Sections • 105 Units • 1,680 Interactive Nodes
+```
 
 ---
 
-### Node 0: Hallo & Guten Tag (Basic Greetings)
-* **Type**: `lesson`
-* **XP**: 15 | **Pearls**: 5
+## 🔄 The 16-Lesson Rhythm Inside Every Unit
 
-#### Stages:
-1. **`word_match`** (Vocabulary Introduction)
-   * `Guten Morgen` ↔ `Good morning`
-   * `Guten Tag` ↔ `Hello / Good day`
-   * `Danke` ↔ `Thank you`
-   * `Bitte` ↔ `Please / You're welcome`
-   * `Tschüss` ↔ `Bye`
+Each of the 105 units contains **16 distinct stepping stones**, balancing vocabulary acquisition, conversational dialogues, ear training, writing with German umlauts, and milestone rewards:
 
-2. **`listen_tap`** (Ear Training)
-   * Target: `"Guten Morgen! Danke schön."`
-   * Tokens: `["Guten", "Morgen!", "Danke", "schön.", "Kaffee", "Tee"]` *(Distractors: Kaffee, Tee)*
-
-3. **`sentence_builder`** (Active Assembly)
-   * Prompt: `"Translate: Hello, thank you very much!"`
-   * Target: `"Guten Tag, vielen Dank!"`
-   * Tokens: `["Guten", "Tag,", "vielen", "Dank!", "Tschüss", "Bitte"]` *(Distractors: Tschüss, Bitte)*
-
-4. **`sprechen`** (Pronunciation Evaluation)
-   * Prompt: `"Guten Tag! Wie geht es dir?"`
-   * Translation: `"Hello! How are you?"`
-   * Min Accuracy: `75%`
+| Node Index | Node Type | Title / Focus | Interactive Stages & Pedagogical Goal |
+|:---:|:---:|:---|:---|
+| **0** | `lesson` | **Wortschatz-Entdeckung 1** | `word_match` + `listen_tap` + `sentence_builder`. First contact with 5 core words. |
+| **1** | `lesson` | **Satzkontext & Verstehen** | `cloze_test` + `listen_select` + `sprechen`. Comprehending words in full phrases. |
+| **2** | `lesson` | **Satzbau-Architekt** | `sentence_builder` + `word_match`. Internalizing German V2 (Verb position 2). |
+| **3** | `lesson` | **Chat-Dialog 1** 💬 | `dialogue_bubble` + `cloze_test`. Interactive messenger story with visual partner. |
+| **4** | `lesson` | **Grammatik-Fokus 1** | `cloze_test` + `type_word`. Direct drills on target verb conjugations/articles. |
+| **5** | `lesson` | **Hörverständnis (Audio)** | `listen_select` (1.0x & 0.75x turtle) + `listen_tap`. Ear training and phonetics. |
+| **6** | `lesson` | **Sprechtraining (Aussprache)** | `sprechen` (Google Speech STT evaluation) + `word_match`. Tactile vocalization. |
+| **7** | `chest` | **Versunkene Schatzkiste 1** 🎁 | Milestone milestone chest: **25 Pearls** + **15 XP** + instant review. |
+| **8** | `lesson` | **Wortschatz-Erweiterung 2** | `word_match` + `sentence_builder`. Introducing 5 secondary/enriching vocabulary terms. |
+| **9** | `lesson` | **Grammatik-Fokus 2** | `cloze_test` + `type_word`. Complex word forms, plurals, or negation (*nicht/kein*). |
+| **10** | `lesson` | **Tempo-Übersetzung** | `sentence_builder` + `listen_tap`. Rapid recall under fluid interactive pacing. |
+| **11** | `lesson` | **Chat-Dialog 2** 💬 | `dialogue_bubble` + `sentence_builder`. Real-life conversational roleplay. |
+| **12** | `lesson` | **Rechtschreibung & Umlaute** | `type_word` (with Umlaut toolbar `ä, ö, ü, ß`) + `cloze_test`. Accurate orthography. |
+| **13** | `lesson` | **Fluency-Sprint** | `listen_select` + `sprechen` + `sentence_builder`. Combining listening and speaking. |
+| **14** | `chest` | **Versunkene Schatzkiste 2** 🎁 | Streak booster chest: **35 Pearls** + **20 XP** + oxygen refill bonus. |
+| **15** | `lesson` | **Einheits-Meisterprüfung** 🏆 | Unit Boss Exam: 4 comprehensive stages covering all vocabulary with zero hints. |
 
 ---
 
-### Node 1: Ich heiße... (Introductions & Names)
-* **Type**: `lesson`
-* **XP**: 15 | **Pearls**: 5
+# 🧭 SECTION 1: ROOKIE (Erste Schritte & Grundlagen)
+*Focus: Phonetics, Greetings, Personal Identity, Numbers, Café, Essential Questions, and Present Tense.*  
+*Target CEFR Grammar: Present tense regular verb endings (`-e, -st, -t, -en`), `sein` & `haben`, Nominative articles (`der, die, das, ein, eine`), Question words (`Wer, Wie, Wo, Woher, Was`), Negation (`nicht, kein`).*
 
-#### Stages:
-1. **`word_match`**
-   * `Ich heiße` ↔ `My name is`
-   * `Wie heißt du?` ↔ `What is your name?`
-   * `Wer bist du?` ↔ `Who are you?`
-   * `Freut mich` ↔ `Nice to meet you`
+### Master Index of Section 1 Units (Units 1 to 35)
 
-2. **`listen_tap`**
-   * Target: `"Hallo, ich heiße Lukas."`
-   * Tokens: `["Hallo,", "ich", "heiße", "Lukas.", "wer", "bist"]`
-
-3. **`sentence_builder`**
-   * Prompt: `"Translate: Who are you? My name is Anna."`
-   * Target: `"Wer bist du? Ich heiße Anna."`
-   * Tokens: `["Wer", "bist", "du?", "Ich", "heiße", "Anna.", "Guten", "Morgen"]`
-
-4. **`sprechen`**
-   * Prompt: `"Freut mich, dich kennenzulernen!"`
-   * Translation: `"Pleased to meet you!"`
-   * Min Accuracy: `75%`
-
----
-
-### Node 2: Woher kommst du? (Origins & Countries)
-* **Type**: `lesson`
-* **XP**: 15 | **Pearls**: 5
-
-#### Stages:
-1. **`word_match`**
-   * `Deutschland` ↔ `Germany`
-   * `Indien` ↔ `India`
-   * `kommen aus` ↔ `to come from`
-   * `wohnen in` ↔ `to live in`
-   * `Ja / Nein` ↔ `Yes / No`
-
-2. **`listen_tap`**
-   * Target: `"Ich komme aus Deutschland."`
-   * Tokens: `["Ich", "komme", "aus", "Deutschland.", "wohne", "Indien"]`
-
-3. **`sentence_builder`**
-   * Prompt: `"Translate: Where do you come from? I come from India."`
-   * Target: `"Woher kommst du? Ich komme aus Indien."`
-   * Tokens: `["Woher", "kommst", "du?", "Ich", "komme", "aus", "Indien.", "heiße"]`
-
-4. **`sprechen`**
-   * Prompt: `"Ich komme aus Indien und wohne hier."`
-   * Translation: `"I come from India and live here."`
-   * Min Accuracy: `75%`
+| Unit # | German Title | English Subtitle | Color Theme | Core Grammar Target | Key Vocabulary Targets (5-10 words) |
+|:---:|---|---|:---:|---|---|
+| **1** | **Erste Begrüßungen** | Greet and introduce yourself | `#1CB0F6` (Sky Blue) | *sein* (ich bin, du bist), *heißen* | *Hallo, Guten Morgen, Guten Tag, Tschüss, Name* |
+| **2** | **Im Café bestellen** | Order at a café | `#58CC02` (Lime Green) | Verb *möchten*, Polite *bitte* | *Kaffee, Tee, Wasser, Milch, bitte, danke* |
+| **3** | **Zahlen 1 bis 10** | Count from 1 to 10 | `#FF9600` (Orange) | Cardinal numbers, Questions with *wie viel* | *eins, zwei, drei, vier, fünf, sechs, sieben, acht, neun, zehn* |
+| **4** | **Woher kommst du?** | Talk about origins & countries | `#CE82FF` (Purple) | *kommen aus* + Country names | *Deutschland, Österreich, Schweiz, kommen, aus, Land* |
+| **5** | **Höflichkeit im Alltag** | Everyday etiquette | `#FF4B4B` (Coral) | Question *Wie geht's?*, Responses | *Guten Abend, Auf Wiedersehen, Bitte, Danke, Entschuldigung* |
+| **6** | **Persönliche Daten** | Share personal info | `#00CD9C` (Teal) | Verbs *wohnen, sprechen* | *wohnen, Stadt, Sprache, Deutsch, Englisch, Adresse* |
+| **7** | **Zahlen 11 bis 20 & Preise** | Numbers 11–20 and prices | `#FFC800` (Gold) | Numbers 11–20, Currency *Euro/Cent* | *elf, zwölf, dreizehn, zwanzig, Euro, Cent, kosten* |
+| **8** | **Meine Familie** | Introduce your family | `#1CB0F6` (Sky Blue) | Possessive *mein/meine, dein/deine* | *Mutter, Vater, Eltern, Bruder, Schwester, Sohn, Tochter* |
+| **9** | **W-Fragen meistern** | Master German W-questions | `#58CC02` (Lime Green) | Question syntax (Verb in position 2) | *Wer, Wie, Wo, Woher, Was, Wann, Warum* |
+| **10** | **Ja/Nein-Fragen** | Ask yes or no questions | `#FF9600` (Orange) | Verb-first question inversion | *Ja, Nein, Doch, verstehen, wissen, glauben* |
+| **11** | **Farben der Welt** | Describe colors | `#CE82FF` (Purple) | Predicative adjectives (no declension) | *rot, blau, grün, gelb, schwarz, weiß, bunt* |
+| **12** | **Im Supermarkt: Obst** | Buy fresh fruit | `#FF4B4B` (Coral) | Plural nouns intro (*die Äpfel*) | *Apfel, Banane, Orange, Zitrone, frisch, lecker* |
+| **13** | **Tage der Woche** | Days of the week | `#00CD9C` (Teal) | Preposition *am* + Day of the week | *Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Wochenende* |
+| **14** | **Mein Lieblingstag** | Talk about daily routine basics | `#FFC800` (Gold) | Adverb *heute, morgen, gestern* | *heute, morgen, Tag, Woche, Zeit, frei* |
+| **15** | **Einfache Hobbys** | Talk about basic hobbies | `#1CB0F6` (Sky Blue) | Verb *spielen* + Sports/Games | *Fußball, Tennis, Musik, spielen, hören, schwimmen* |
+| **16** | **Gern oder nicht gern?** | Express likes and dislikes | `#58CC02` (Lime Green) | Adverb *gern / nicht gern* placement | *gern, lieber, mögen, Spaß, Sport, Buch* |
+| **17** | **Klassenzimmer & Lernen** | Classroom and study items | `#FF9600` (Orange) | Articles *der Stift, das Buch, die Tafel* | *Buch, Stift, Papier, Tisch, Lehrer, lernen* |
+| **18** | **Negation mit 'nicht'** | Negate actions and adjectives | `#CE82FF` (Purple) | Sentence negation with *nicht* | *nicht, gar nicht, schwer, leicht, richtig, falsch* |
+| **19** | **Negation mit 'kein'** | Negate nouns with 'kein' | `#FF4B4B` (Coral) | Negative article *kein / keine* | *kein, keine, Zeit, Geld, Problem, Hunger, Durst* |
+| **20** | **Frühstückszeit** | Talk about breakfast | `#00CD9C` (Teal) | Verbs *essen* (du isst) & *trinken* | *Brot, Brötchen, Butter, Käse, Ei, Marmelade, Kaffee* |
+| **21** | **Zahlen bis 100** | Count up to 100 | `#FFC800` (Gold) | Inverted numbers (*einundzwanzig*) | *dreißig, vierzig, fünfzig, hundert, Zahl, zählen* |
+| **22** | **Tageszeiten & Begrüßung** | Times of day | `#1CB0F6` (Sky Blue) | Preposition *am Morgen, am Abend* | *Morgen, Vormittag, Mittag, Nachmittag, Abend, Nacht* |
+| **23** | **Uhrzeit: Offiziell** | Tell formal time | `#58CC02` (Lime Green) | Formula: *Es ist ... Uhr ...* | *Uhr, Minute, Stunde, spät, wie spät, pünktlich* |
+| **24** | **Uhrzeit: Alltagssprache** | Tell casual time | `#FF9600` (Orange) | *viertel vor / viertel nach / halb* | *halb, viertel, vor, nach, kurz vor, gleich* |
+| **25** | **Mein Beruf** | Describe professions | `#CE82FF` (Purple) | Feminine suffix *-in* (*Lehrerin*) | *Arzt, Ärztin, Ingenieur, Student, Kellner, Beruf* |
+| **26** | **Wo arbeitest du?** | Describe workplaces | `#FF4B4B` (Coral) | Prepositions *bei* (company) & *in* | *Büro, Schule, Krankenhaus, Firma, arbeiten, Kollege* |
+| **27** | **Tiere im Alltag** | Domestic animals & pets | `#00CD9C` (Teal) | Noun genders (*der Hund, die Katze*) | *Hund, Katze, Vogel, Pferd, Tier, süß* |
+| **28** | **Einfache Gefühle** | Express basic emotions | `#FFC800` (Gold) | *sein* + adjective (*Ich bin müde*) | *glücklich, traurig, müde, fit, gestresst, gut* |
+| **29** | **Getränke & Durst** | Drinks and thirst | `#1CB0F6` (Sky Blue) | Idiom *Durst haben* | *Saft, Apfelsaft, Bier, Wein, Glas, trinken* |
+| **30** | **Körper & Wohlbefinden** | Body parts basics | `#58CC02` (Lime Green) | Plurals of body parts | *Kopf, Auge, Ohr, Hand, Fuß, Rücken* |
+| **31** | **Einfache Kleidung** | Basic clothing items | `#FF9600` (Orange) | Verb *tragen* (er trägt) | *Hemd, Hose, T-Shirt, Jacke, Schuhe, tragen* |
+| **32** | **Wetter heute** | Talk about basic weather | `#CE82FF` (Purple) | Impersonal *Es ist warm / kalt* | *Sonne, Regen, warm, kalt, schön, Wetter* |
+| **33** | **Monate & Geburtstag** | Months and birthdays | `#FF4B4B` (Coral) | Preposition *im* + Month | *Januar, Mai, August, Dezember, Monat, Geburtstag* |
+| **34** | **Jahreszeiten** | The four seasons | `#00CD9C` (Teal) | Preposition *im Frühling/Sommer* | *Frühling, Sommer, Herbst, Winter, Jahr, Jahreszeit* |
+| **35** | **Sektion 1 Finale: Rückblick** | Section 1 Grand Review | `#FFC800` (Gold) | Synthesis of all Section 1 grammar | *alles, zusammen, Test, fertig, super, Goethe A1* |
 
 ---
 
-### Node 3: Karaoke Story: Das erste Treffen (The First Meeting)
-* **Type**: `karaoke`
-* **XP**: 25 | **Pearls**: 10
-* **Story German**:
-  `"Guten Tag! Ich heiße Florian. Und wer bist du? Hallo Florian, ich heiße Meera. Ich komme aus Indien. Schön, dich kennenzulernen!"`
-* **Story English**:
-  `"Good day! My name is Florian. And who are you? Hello Florian, my name is Meera. I come from India. Nice to meet you!"`
+# 🧭 SECTION 2: EXPLORER (Alltag, Stadt & Unterwegs)
+*Focus: Daily Life, City Navigation, Shopping, Housing, Public Transit, Train Station, Booking Rooms, and Accusative Case.*  
+*Target CEFR Grammar: Accusative Case (`den / einen / keinen`), Accusative Personal Pronouns (`mich, dich, ihn, sie, uns`), Modal Verbs (`können, müssen, möchten, wollen`), Separable Verbs (`aufstehen, einsteigen, mitkommen`), Direction Prepositions (`nach, zu, in`).*
+
+### Master Index of Section 2 Units (Units 36 to 70 / Section 2 Units 1 to 35)
+
+| Unit # | German Title | English Subtitle | Color Theme | Core Grammar Target | Key Vocabulary Targets (5-10 words) |
+|:---:|---|---|:---:|---|---|
+| **36 (2.1)** | **Fragen stellen** | Ask questions | `#1CB0F6` (Sky Blue) | Advanced question intonation & syntax | *Frage, Antwort, fragen, antworten, genau, warum* |
+| **37 (2.2)** | **Familienleben im Detail** | Discuss family details | `#58CC02` (Lime Green) | Extended family & possessives | *Großmutter, Großvater, Tante, Onkel, Cousin, ledig, verheiratet* |
+| **38 (2.3)** | **Meine Wohnung** | Describe your home | `#FF9600` (Orange) | Rooms & Articles (*die Küche, das Bad*) | *Wohnung, Zimmer, Küche, Bad, Wohnzimmer, Schlafzimmer, Balkon* |
+| **39 (2.4)** | **Möbel & Einrichtung** | Furniture and household items | `#CE82FF` (Purple) | Accusative Intro (*den Tisch kaufen*) | *Tisch, Stuhl, Bett, Sofa, Schrank, Lampe, bequem* |
+| **40 (2.5)** | **Gesundheit & Beschwerden** | Discuss health issues | `#FF4B4B` (Coral) | *weh tun* + Dative pronoun (*tut mir weh*) | *Schmerz, Fieber, Husten, wehtun, krank, Apotheke* |
+| **41 (2.6)** | **Am Flughafen** | Navigate the airport | `#00CD9C` (Teal) | Direction *nach* + City/Country | *Flughafen, Flugzeug, Flug, Abflug, Pass, Gepäck, fliegen* |
+| **42 (2.7)** | **Im Restaurant speisen** | Order food and drink | `#FFC800` (Gold) | Accusative food orders (*einen Salat*) | *Speisekarte, Suppe, Fleisch, Fisch, Rechnung, bestellen, zahlen* |
+| **43 (2.8)** | **Beim Einkaufen bewerten** | Evaluate items while shopping | `#1CB0F6` (Sky Blue) | Adjectives of evaluation (*zu teuer*) | *teuer, billig, modern, schön, alt, Qualität, gefallen* |
+| **44 (2.9)** | **Schule & Unterricht** | Navigate school life | `#58CC02` (Lime Green) | Modal verb *müssen* (ich muss lernen) | *Schule, Kurs, Aufgabe, Prüfung, Hausaufgabe, verstehen, üben* |
+| **45 (2.10)** | **Haushalt & Pflichten** | Help with chores | `#FF9600` (Orange) | Separable verbs (*aufräumen, putzen*) | *aufräumen, putzen, waschen, kochen, sauber, schmutzig* |
+| **46 (2.11)** | **Wochenendplanung** | Plan weekend activities | `#CE82FF` (Purple) | Future meaning with Präsens + *am Samstag* | *Samstag, Sonntag, Ausflug, planen, treffen, mitkommen* |
+| **47 (2.12)** | **Vorlieben ausdrücken** | Use verbs to express preferences | `#FF4B4B` (Coral) | Comparative adverb *lieber als* | *lieber, am liebsten, mögen, vorziehen, interessant* |
+| **48 (2.13)** | **Hobbys vertiefen** | Talk about hobbies in detail | `#00CD9C` (Teal) | Verbs + Nouns (*Gitarre spielen*) | *fotografieren, malen, wandern, tanzen, kochen, Hobby* |
+| **49 (2.14)** | **Party & Feiern** | Enjoy a dance party | `#FFC800` (Gold) | Conjunction *und / aber / oder* | *Party, Fest, Musik, tanzen, Freunde, Spaß, feiern* |
+| **50 (2.15)** | **Gefühle & Befinden** | Check in on feelings | `#FF4B4B` (Coral) | Modal *fühlen* & adjectives (*glücklich*) | *fühlen, glücklich, traurig, wütend, nervös, erleichtert* |
+| **51 (2.16)** | **Am Bahnhof** | Navigate a train station | `#58CC02` (Lime Green) | Separable verbs (*einsteigen, abfahren*) | *Bahnhof, Zug, Gleis, Fahrkarte, abfahren, ankommen, umsteigen* |
+| **52 (2.17)** | **Hotelzimmer buchen** | Book a hotel room | `#1CB0F6` (Sky Blue) | Politeness *Ich hätte gern ein Einzelzimmer* | *Hotel, Zimmer, Einzelzimmer, Doppelzimmer, Nacht, reservieren* |
+| **53 (2.18)** | **Die Stadt erkunden** | Explore the city | `#00CD9C` (Teal) | Locative *in der Stadt / ins Zentrum* | *Zentrum, Platz, Park, Museum, Kirche, besichtigen* |
+| **54 (2.19)** | **Arbeitsalltag & Büro** | Interact and help out at work | `#CE82FF` (Purple) | Modal *können* (Können Sie mir helfen?) | *Chef, Kollege, Büro, Computer, E-Mail, helfen, drucken* |
+| **55 (2.20)** | **Tagesablauf schildern** | Discuss activities throughout day | `#FF9600` (Orange) | Separable *aufstehen, frühstücken* | *aufstehen, duschen, anziehen, losgehen, einschlafen* |
+| **56 (2.21)** | **Teamarbeit im Büro** | Collaborate at work | `#1CB0F6` (Sky Blue) | Modal verb *wollen* (Wir wollen anfangen) | *Projekt, Termin, Meeting, Pause, besprechen, zusammen* |
+| **57 (2.22)** | **Grillen & Picknick** | Shop for a BBQ | `#58CC02` (Lime Green) | Partitive quantities (*ein Kilo Fleisch*) | *Grill, Wurst, Steak, Salat, Kohle, Flasche, Kilo, Gramm* |
+| **58 (2.23)** | **Uni & Studium** | Discuss university life | `#FFC800` (Gold) | Verbs *studieren, besuchen* | *Universität, Student, Vorlesung, Mensa, Semester, studieren* |
+| **59 (2.24)** | **Auf der Autobahn** | Navigate a road trip | `#FF4B4B` (Coral) | Prepositions *mit dem Auto, auf der Straße* | *Auto, Autobahn, fahren, Stau, Benzin, Tankstelle, anhalten* |
+| **60 (2.25)** | **Feste Tagesroutinen** | Manage daily routines | `#00CD9C` (Teal) | Time sequence words (*zuerst, dann, danach*) | *zuerst, dann, danach, schließlich, Routine, pünktlich* |
+| **61 (2.26)** | **Besitz & Eigentum** | Indicate ownership | `#CE82FF` (Purple) | Possessive pronouns (*sein, ihr, unser, euer*) | *gehören, mein, dein, sein, ihr, unser, Tasche, Schlüssel* |
+| **62 (2.27)** | **Nachbarschaft** | Talk about your neighbors | `#FF9600` (Orange) | Adjectives for people (*freundlich, laut*) | *Nachbar, Nachbarin, Haus, Garten, freundlich, laut, ruhig* |
+| **63 (2.28)** | **Orientierung in der Stadt** | Navigate a city & directions | `#58CC02` (Lime Green) | Imperative directions (*Gehen Sie geradeaus*) | *geradeaus, links, rechts, Kreuzung, Ampel, Ecke, biegen* |
+| **64 (2.29)** | **Wetterbericht** | Discuss the weather forecast | `#1CB0F6` (Sky Blue) | Weather verbs (*regnen, schneien, scheinen*) | *Wolke, Wind, Schnee, Regen, scheinen, Grad, Wetterbericht* |
+| **65 (2.30)** | **Geschenke kaufen** | Shop for gifts | `#FF4B4B` (Coral) | Dative object intro (*Ich schenke dir...*) | *Geschenk, Geburtstag, schenken, Blumen, Schokolade, Einpacken* |
+| **66 (2.31)** | **Heimatstadt beschreiben** | Talk about your city | `#00CD9C` (Teal) | *Es gibt* + Accusative (*Es gibt einen Fluss*) | *Fluss, Brücke, Gebäude, Geschichte, Einwohner, berühmt* |
+| **67 (2.32)** | **Kleidung anprobieren** | Clothes shopping & fitting | `#CE82FF` (Purple) | Demonstrative pronouns (*dieser, diese, dieses*) | *Größe, anprobieren, Umkleidekabine, passen, Farbe, Pullover* |
+| **68 (2.33)** | **Post & Bank** | Post office and bank services | `#FFC800` (Gold) | Modal verb *dürfen* (Darf ich hier...?) | *Brief, Marke, Paket, Geldautomat, Konto, überweisen, schicken* |
+| **69 (2.34)** | **Termine vereinbaren** | Schedule appointments | `#58CC02` (Lime Green) | Preposition *am / um* + *passen* | *Termin, vereinbaren, verschieben, absagen, Zeit haben, passen* |
+| **70 (2.35)** | **Sektion 2 Finale: Rückblick** | Section 2 Grand Review | `#FFC800` (Gold) | Comprehensive Accusative & Modals Exam | *alles, Alltag, Prüfung, Gespräch, Zertifikat, Erfolg* |
 
 ---
 
-### Node 4: Sunken Treasure Chest (Unit 1 Milestone)
-* **Type**: `chest`
-* **XP**: 20 | **Pearls**: 30
+# 🧭 SECTION 3: TRAVELER (Reisen, Dialoge & Meisterschaft)
+*Focus: Deepening Foundations, Dative Case, Two-Way Prepositions, Polite Requests, Perfekt Tense Intro, and Goethe-Zertifikat A1 Simulation.*  
+*Target CEFR Grammar: Dative Case (`dem / der / dem / einem / einer`), Dative Personal Pronouns (`mir, dir, ihm, ihr, uns, Ihnen`), Two-way prepositions (`in, an, auf, unter, vor, hinter`), Comparative Adjectives (`schneller als, besser`), Past Tense Perfekt with `haben` & `sein`, Formal letter/email writing.*
+
+### Master Index of Section 3 Units (Units 71 to 105 / Section 3 Units 1 to 35)
+
+| Unit # | German Title | English Subtitle | Color Theme | Core Grammar Target | Key Vocabulary Targets (5-10 words) |
+|:---:|---|---|:---:|---|---|
+| **71 (3.1)** | **Neue Stelle antreten** | Discuss a new job | `#1CB0F6` (Sky Blue) | Verbs *beginnen, anfangen* + Dative *mit* | *Stelle, Vertrag, Gehalt, Kollegium, anfangen, Beginn, Chef* |
+| **72 (3.2)** | **Gewohnheiten & Alltag** | Talk about your habits | `#58CC02` (Lime Green) | Frequency adverbs (*immer, meistens, selten*) | *Gewohnheit, immer, oft, manchmal, selten, nie, regelmäßig* |
+| **73 (3.3)** | **Urlaubskoffer packen** | Pack for a vacation | `#FF9600` (Orange) | Accusative objects list (*Ich packe ein...*) | *Koffer, Tasche, Sonnenbrille, Pass, Handtuch, packen, vergessen* |
+| **74 (3.4)** | **Abendessen mit Gästen** | Plan a dinner party | `#CE82FF` (Purple) | Modal verb *sollen* (Was soll ich mitbringen?) | *Gäste, Einladung, vorbereiten, kochen, Tisch decken, Dessert* |
+| **75 (3.5)** | **Komplexe Verben** | Use complex prefix verbs | `#FF4B4B` (Coral) | Inseparable prefixes (*verstehen, bezahlen*) | *bezahlen, verstehen, bekommen, gefallen, erklären, wiederholen* |
+| **76 (3.6)** | **WG-Leben & Regeln** | Live with flatmates | `#00CD9C` (Teal) | Modal verb *dürfen / nicht dürfen* (Regeln) | *WG, Mitbewohner, Ordnung, Regel, Küche putzen, Müll, leise* |
+| **77 (3.7)** | **Dativ: Grundlagen** | Introduction to the Dative case | `#FFC800` (Gold) | Definite articles Dativ (*dem Mann, der Frau*) | *Dativ, dem, der, den, helfen, antworten, danken, gefallen* |
+| **78 (3.8)** | **Grillfest organisieren** | Plan a community barbecue | `#1CB0F6` (Sky Blue) | Preposition *mit* + Dative (*mit den Freunden*) | *Grillfest, Nachbarn, mitbringen, Einladung, draußen, Wetter* |
+| **79 (3.9)** | **Akkusativ vs. Dativ** | Differentiate Accusative & Dative | `#58CC02` (Lime Green) | Object contrast (*Ich gebe dem Mann den Apfel*) | *geben, schenken, zeigen, senden, Unterschied, Fall* |
+| **80 (3.10)** | **Zusammengesetzte Nomen** | Form compound words | `#FF9600` (Orange) | Compound noun gender takes last noun | *Hauptbahnhof, Wörterbuch, Haustür, Fahrkarte, Apfelsaft* |
+| **81 (3.11)** | **Einladungen schreiben** | Invite someone to a party | `#CE82FF` (Purple) | Formal/Informal invitations (*Liebe/Lieber*) | *Einladung, feiern, herzlich, antworten, Zusage, Absage, Fest* |
+| **82 (3.12)** | **Geschmack & Stil** | Describe style preferences | `#FF4B4B` (Coral) | Verb *gefallen* + Dative (*Das gefällt mir*) | *gefallen, Geschmack, Stil, elegant, modern, passen, Kleidung* |
+| **83 (3.13)** | **Dativ-Pronomen** | Master dative pronouns | `#00CD9C` (Teal) | Pronouns *mir, dir, ihm, ihr, uns, euch, Ihnen* | *mir, dir, ihm, ihr, uns, euch, Ihnen, schmecken, passen* |
+| **84 (3.14)** | **Vergleiche ziehen** | Form comparative adjectives | `#FFC800` (Gold) | Suffix *-er* + *als* (*besser als, schneller*) | *schneller, billiger, größer, kleiner, besser, mehr, als, wie* |
+| **85 (3.15)** | **Ausreden & Entschuldigungen** | Make polite excuses | `#1CB0F6` (Sky Blue) | Politeness *Es tut mir leid, aber...* | *Ausrede, Entschuldigung, leider, Verspätung, Stau, verpassen* |
+| **86 (3.16)** | **Um Hilfe bitten** | Ask for assistance politely | `#58CC02` (Lime Green) | Subjunctive *Könnten Sie / Würden Sie bitte...* | *Hilfe, helfen, unterstützen, Problem, bitte, Moment, dringend* |
+| **87 (3.17)** | **Wo oder Wohin?** | Location vs. Motion prepositions | `#FF9600` (Orange) | Two-way prepositions (*in, an, auf*) | *liegen, stehen, hängen, legen, stellen, hängen, wo, wohin* |
+| **88 (3.18)** | **In den Urlaub fahren** | Travel destinations & transport | `#CE82FF` (Purple) | Preposition *nach* (cities) vs. *in die* (countries) | *Urlaub, Meer, Berge, Strand, See, reisen, buchen, Ticket* |
+| **89 (3.19)** | **Beim Arzt: Der Termin** | Doctor's visit & symptoms | `#FF4B4B` (Coral) | Describing health conditions | *Arztpraxis, Sprechstunde, Untersuchung, Rezept, Medikament, Bett* |
+| **90 (3.20)** | **Medikamente & Apotheke** | At the pharmacy | `#00CD9C` (Teal) | Dosage instructions (*zweimal am Tag*) | *Apotheke, Tablette, Tropfen, Salbe, einnehmen, vor dem Essen* |
+| **91 (3.21)** | **Kulturelle Ereignisse** | Theater, Cinema & Concerts | `#FFC800` (Gold) | Preposition *im Kino / ins Konzert* | *Kino, Film, Theater, Konzert, Eintrittskarte, Vorstellung, Anfang* |
+| **92 (3.22)** | **Im Hotel: Reklamation** | Report a hotel room issue | `#1CB0F6` (Sky Blue) | Polite complaints (*Die Heizung funktioniert nicht*) | *Rezeption, Problem, Lärm, kalt, Handtuch, funktioniert nicht, Schlüssel* |
+| **93 (3.23)** | **Vergangenheit: Haben** | Past Perfekt with 'haben' | `#58CC02` (Lime Green) | Regular Partizip II (*Ich habe gemacht / gelernt*) | *gemacht, gelernt, gekauft, gekocht, gehört, gesagt, gestern* |
+| **94 (3.24)** | **Vergangenheit: Sein** | Past Perfekt with 'sein' | `#FF9600` (Orange) | Motion Partizip II (*Ich bin gefahren / gegangen*) | *gegangen, gefahren, geflogen, gekommen, geblieben, passiert* |
+| **95 (3.25)** | **Mein letzter Urlaub** | Describe your last vacation | `#CE82FF` (Purple) | Narrative Perfekt sentences | *Erlebnis, Wetter war super, besichtigt, gewandert, Foto, Spaß* |
+| **96 (3.26)** | **Formulare ausfüllen** | Complete official forms | `#FF4B4B` (Coral) | Goethe A1 Form-filling (*Schreiben Teil 1*) | *Formular, Vorname, Familienname, Geburtsdatum, Unterschrift* |
+| **97 (3.27)** | **Kurze E-Mails schreiben** | Write short messages & emails | `#00CD9C` (Teal) | Goethe A1 Letter/Email (*Schreiben Teil 2*) | *Sehr geehrte Damen und Herren, Viele Grüße, Anrede, Grußformel* |
+| **98 (3.28)** | **Ansagen verstehen** | Understand public announcements | `#FFC800` (Gold) | Public loudspeaker audio (*Hören Teil 2*) | *Durchsage, Gleiswechsel, Verspätung, Ausstieg, Achtung, Bahnsteig* |
+| **99 (3.29)** | **Telefonieren im Alltag** | Everyday phone calls | `#1CB0F6` (Sky Blue) | Phone idioms (*Kann ich Herrn Müller sprechen?*) | *anrufen, zurückrufen, Nachricht, Nummer, verbinden, Auf Wiederhören* |
+| **100 (3.30)** | **Ein Gespräch führen** | Carry out social conversations | `#58CC02` (Lime Green) | Natural conversational flow & fillers | *stimmt, natürlich, echt, übrigens, auf jeden Fall, genau* |
+| **101 (3.31)** | **Meinungen begründen** | Give opinions with 'weil' | `#FF9600` (Orange) | Subordinating conjunction *weil* (Verb at end) | *Meinung, finden, denken, weil, wichtig, richtig, interessant* |
+| **102 (3.32)** | **Zukunftspläne** | Express plans and wishes | `#CE82FF` (Purple) | Verb *wollen* & *hoffen* | *Plan, Traum, hoffen, möchten, nächste Woche, nächstes Jahr* |
+| **103 (3.33)** | **Goethe A1 Simulation: Hören** | Exam Simulation: Listening | `#FF4B4B` (Coral) | Authentic exam question format | *Prüfung, Aufgabe, Kreuz, Dialog, richtig/falsch, Text* |
+| **104 (3.34)** | **Goethe A1 Simulation: Sprechen** | Exam Simulation: Speaking | `#00CD9C` (Teal) | Prompt cards & questioning partner | *Vorstellung, Karte, Bitte formulieren, Frage stellen, Antwort* |
+| **105 (3.35)** | **Das Große A1-Finale** | Grand A1 Mastery Exam | `#FFC800` (Gold) | Comprehensive Start Deutsch 1 Certification | *Zertifikat, A1 abgeschlossen, Erfolg, Gratulation, Meisterschaft* |
 
 ---
 
-### Node 5: Unit 1 Boss Exam (Coral Reef Mastery)
-* **Type**: `boss`
-* **XP**: 35 | **Pearls**: 15
+## 🎯 Concrete Lesson Specification Example (Section 2, Unit 16: Hotelzimmer buchen)
 
-#### Stages:
-1. **`word_match`** (Speed Review of all 8 core words)
-2. **`listen_tap`**: `"Auf Wiedersehen und schönen Tag!"`
-3. **`sentence_builder`**: `"Hallo, wie geht es dir heute?"`
-4. **`sprechen`**: `"Guten Abend! Ich heiße Florian und komme aus Berlin."`
+Here is the exact interactive blueprint for **Unit 52 (Section 2, Unit 16)**, which is directly featured in the reference screenshots:
 
----
+### Node 0 (Lesson 1): Wortschatz Hotel (Core Vocabulary)
+* **Type**: `lesson` | **XP**: 15 | **Pearls**: 5
+* **Stages**:
+  1. `word_match`:
+     * `das Hotel` ↔ `hotel`
+     * `das Zimmer` ↔ `room`
+     * `das Einzelzimmer` ↔ `single room`
+     * `das Doppelzimmer` ↔ `double room`
+     * `die Nacht` ↔ `night`
+  2. `listen_tap`:
+     * Target: `"Ich brauche ein Zimmer für zwei Nächte."`
+     * Tokens: `["Ich", "brauche", "ein", "Zimmer", "für", "zwei", "Nächte.", "Hotel", "bitte"]`
+  3. `sentence_builder`:
+     * Prompt: `"Translate: A single room with breakfast, please."`
+     * Target: `"Ein Einzelzimmer mit Frühstück, bitte."`
+     * Tokens: `["Ein", "Einzelzimmer", "mit", "Frühstück,", "bitte.", "Doppelzimmer", "Kaffee"]`
 
-# ☕ UNIT 2: Im Café & Zahlen 0–20 (At the Café & Numbers)
-**Island 2 • Emerald Bay**  
-*Grammar Focus*: The polite modal verb *möchten* (*ich möchte, du möchtest*), grammatical gender introduction (*der Kaffee, der Tee, das Wasser, die Milch*), numbers 0–20.
+### Node 3 (Lesson 4): Chat-Dialog an der Rezeption 💬
+* **Type**: `lesson` | **XP**: 20 | **Pearls**: 5
+* **Stages**:
+  1. `dialogue_bubble`:
+     * Speaker: Receptionist (*Frau Meyer*)
+     * German: `"Guten Tag! Haben Sie eine Reservierung bei uns?"`
+     * Translation: `"Good day! Do you have a reservation with us?"`
+     * User Choices:
+       * ✅ `"Ja, auf den Namen Weber für zwei Nächte."`
+       * ❌ `"Nein, ich möchte ein Kilo Äpfel."`
+  2. `cloze_test`:
+     * German Prompt: `"Hier ist Ihr Zimmerschlüssel. Ihr Zimmer ist im dritten _______."`
+     * English: `"Here is your room key. Your room is on the third floor."`
+     * Missing word options: `["Stock", "Bett", "Gleis"]` (Correct: `Stock`)
 
----
+### Node 4 (Lesson 5): Grammatik & Umlaute
+* **Type**: `lesson` | **XP**: 20 | **Pearls**: 5
+* **Stages**:
+  1. `type_word`:
+     * Prompt: `"Type the German word for 'nights' (plural of Nacht with Umlaut):"`
+     * Target: `"Nächte"`
+     * Umlaut Toolbar: `[ä, ö, ü, ß, Ä, Ö, Ü]` enabled.
+  2. `cloze_test`:
+     * Prompt: `"Haben Sie noch ein freies Doppelzimmer für _______?"`
+     * Target: `"heute"`
+     * Options: `["heute", "gestern", "morgen"]`
 
-### Node 0: Was möchten Sie trinken? (Ordering Drinks)
-* **Type**: `lesson`
-* **XP**: 15 | **Pearls**: 5
-
-#### Stages:
-1. **`word_match`**
-   * `der Kaffee` ↔ `the coffee (masculine)`
-   * `der Tee` ↔ `the tea (masculine)`
-   * `das Wasser` ↔ `the water (neuter)`
-   * `die Milch` ↔ `the milk (feminine)`
-   * `Ich möchte` ↔ `I would like`
-
-2. **`listen_tap`**
-   * Target: `"Ich möchte einen Kaffee, bitte."`
-   * Tokens: `["Ich", "möchte", "einen", "Kaffee,", "bitte.", "Tee", "Milch"]` *(Distractors: Tee, Milch)*
-
-3. **`sentence_builder`**
-   * Prompt: `"Translate: A water with milk, please."`
-   * Target: `"Ein Wasser mit Milch, bitte."`
-   * Tokens: `["Ein", "Wasser", "mit", "Milch,", "bitte.", "Kaffee", "Guten", "Tag"]` *(Recycled Unit 1 distractors)*
-
-4. **`sprechen`**
-   * Prompt: `"Einen Tee mit Zucker, bitte."`
-   * Translation: `"A tea with sugar, please."`
-   * Min Accuracy: `75%`
-
----
-
-### Node 1: Zahlen 0 bis 10 (Counting Drinks)
-* **Type**: `lesson`
-* **XP**: 15 | **Pearls**: 5
-
-#### Stages:
-1. **`word_match`**
-   * `eins, zwei, drei` ↔ `one, two, three`
-   * `vier, fünf, sechs` ↔ `four, five, six`
-   * `sieben, acht, neun, zehn` ↔ `seven, eight, nine, ten`
-   * `zwei Kaffee` ↔ `two coffees`
-
-2. **`listen_tap`**
-   * Target: `"Zwei Kaffee und drei Tee, bitte."`
-   * Tokens: `["Zwei", "Kaffee", "und", "drei", "Tee,", "bitte.", "vier", "Wasser"]`
-
-3. **`sentence_builder`**
-   * Prompt: `"Translate: I would like five waters, please."`
-   * Target: `"Ich möchte fünf Wasser, bitte."`
-   * Tokens: `["Ich", "möchte", "fünf", "Wasser,", "bitte.", "sechs", "Danke"]`
-
-4. **`sprechen`**
-   * Prompt: `"Bitte zwei Kaffee und ein Wasser."`
-   * Translation: `"Two coffees and one water, please."`
-   * Min Accuracy: `75%`
+### Node 15 (Lesson 16): Unit 16 Boss Challenge 🏆
+* **Type**: `lesson` (Boss Trophy) | **XP**: 35 | **Pearls**: 15
+* **Stages**:
+  1. `sentence_builder`: `"Guten Tag, wir möchten ein Doppelzimmer mit Dusche und Balkon reservieren."`
+  2. `sprechen`: `"Ist das Frühstück im Preis inklusive?"` (Min accuracy: 80%)
+  3. `listen_select`: Receptionist audio at normal speed (1.0x) and turtle speed (0.75x) with 3 comprehension options.
+  4. `cloze_test`: `"Ich bezahle die Rechnung gerne mit _______."` (`["Kreditkarte", "Fahrkarte", "Speisekarte"]`)
 
 ---
 
-### Node 2: Zahlen 11 bis 20 & Die Rechnung (Paying the Bill)
-* **Type**: `lesson`
-* **XP**: 15 | **Pearls**: 5
-
-#### Stages:
-1. **`word_match`**
-   * `elf, zwölf` ↔ `eleven, twelve`
-   * `fünfzehn, zwanzig` ↔ `fifteen, twenty`
-   * `die Rechnung` ↔ `the bill`
-   * `Was kostet das?` ↔ `How much does that cost?`
-   * `Euro` ↔ `Euro`
-
-2. **`listen_tap`**
-   * Target: `"Das macht zusammen zwölf Euro."`
-   * Tokens: `["Das", "macht", "zusammen", "zwölf", "Euro.", "zehn", "Kaffee"]`
-
-3. **`sentence_builder`**
-   * Prompt: `"Translate: The bill, please! That costs four euros."`
-   * Target: `"Die Rechnung, bitte! Das kostet vier Euro."`
-   * Tokens: `["Die", "Rechnung,", "bitte!", "Das", "kostet", "vier", "Euro.", "Wasser"]`
-
-4. **`sprechen`**
-   * Prompt: `"Zahlen, bitte! Wir möchten bezahlen."`
-   * Translation: `"Check, please! We would like to pay."`
-   * Min Accuracy: `75%`
-
----
-
-### Node 3: Karaoke Story: Im Wiener Café
-* **Type**: `karaoke`
-* **XP**: 25 | **Pearls**: 10
-* **Story German**:
-  `"Guten Tag! Was möchten Sie trinken? Ich möchte einen Kaffee mit Milch und einen Tee mit Zucker. Das macht sieben Euro, bitte. Vielen Dank!"`
-* **Story English**:
-  `"Good day! What would you like to drink? I would like a coffee with milk and a tea with sugar. That comes to seven euros, please. Thank you very much!"`
-
----
-
-### Node 4: Sunken Treasure Chest (Unit 2 Milestone)
-* **Type**: `chest`
-* **XP**: 20 | **Pearls**: 30
-
----
-
-### Node 5: Unit 2 Boss Challenge
-* **Type**: `boss`
-* **XP**: 35 | **Pearls**: 15
-
----
-
-# 👨‍👩‍👧 UNIT 3: Familie & Freunde (Family & People)
-**Island 3 • Palm Grove**  
-*Grammar Focus*: Possessive pronouns in nominative (*mein / meine, dein / deine*), verb *haben* (to have), plural forms (*die Kinder, die Eltern*).
-
----
-
-### Node 0: Meine Familie (Core Family Members)
-* **Type**: `lesson`
-* **XP**: 15 | **Pearls**: 5
-
-#### Stages:
-1. **`word_match`**
-   * `der Vater` ↔ `the father`
-   * `die Mutter` ↔ `the mother`
-   * `die Eltern` ↔ `the parents`
-   * `das Kind / die Kinder` ↔ `the child / children`
-   * `mein / meine` ↔ `my (masc/fem)`
-
-2. **`listen_tap`**
-   * Target: `"Das ist mein Vater und meine Mutter."`
-   * Tokens: `["Das", "ist", "mein", "Vater", "und", "meine", "Mutter.", "dein", "Kaffee"]`
-
-3. **`sentence_builder`**
-   * Prompt: `"Translate: My parents live in Berlin."`
-   * Target: `"Meine Eltern wohnen in Berlin."`
-   * Tokens: `["Meine", "Eltern", "wohnen", "in", "Berlin.", "Vater", "kommen"]`
-
-4. **`sprechen`**
-   * Prompt: `"Das ist meine Familie. Wir haben zwei Kinder."`
-   * Translation: `"This is my family. We have two children."`
-   * Min Accuracy: `75%`
-
----
-
-### Node 1: Geschwister & Freunde (Siblings & Friends)
-* **Type**: `lesson`
-* **XP**: 15 | **Pearls**: 5
-
-#### Stages:
-1. **`word_match`**
-   * `der Bruder` ↔ `the brother`
-   * `die Schwester` ↔ `the sister`
-   * `der Freund` ↔ `the (male) friend`
-   * `die Freundin` ↔ `the (female) friend`
-   * `Hast du...?` ↔ `Do you have...?`
-
-2. **`listen_tap`**
-   * Target: `"Ich habe einen Bruder und eine Schwester."`
-   * Tokens: `["Ich", "habe", "einen", "Bruder", "und", "eine", "Schwester.", "Mutter", "Tee"]`
-
-3. **`sentence_builder`**
-   * Prompt: `"Translate: Is that your friend? Yes, that is David."`
-   * Target: `"Ist das dein Freund? Ja, das ist David."`
-   * Tokens: `["Ist", "das", "dein", "Freund?", "Ja,", "das", "ist", "David.", "mein"]`
-
-4. **`sprechen`**
-   * Prompt: `"Mein Bruder heißt Max und ist zwanzig Jahre alt."`
-   * Translation: `"My brother is called Max and is twenty years old."`
-   * Min Accuracy: `75%`
-
----
-
-### Node 2: Karaoke Story: Ein Foto von der Familie
-* **Type**: `karaoke`
-* **XP**: 25 | **Pearls**: 10
-* **Story German**:
-  `"Schau mal, das ist meine Familie! Das sind meine Eltern und das ist meine Schwester Lisa. Hast du auch Geschwister? Ja, ich habe zwei Brüder."`
-* **Story English**:
-  `"Look, this is my family! Those are my parents and that is my sister Lisa. Do you also have siblings? Yes, I have two brothers."`
-
----
-
-### Node 3: Chest & Boss Challenge
-* **Chest**: 30 Pearls, 20 XP
-* **Boss Exam**: Mixed Family, Greetings, and Café vocabulary.
-
----
-
-# 🥖 UNIT 4: Essen & Markt (Food & Groceries)
-**Island 4 • Market Square**  
-*Grammar Focus*: Accusative Case Direct Objects (*den Apfel [masc changes to den/einen], das Brot, die Banane*), verbs *essen* (irregular: *du isst, er isst*), *schmecken*.
-
----
-
-### Node 0: Auf dem Markt (Bread, Cheese, Fruit)
-* **Type**: `lesson`
-* **XP**: 15 | **Pearls**: 5
-
-#### Stages:
-1. **`word_match`**
-   * `das Brot` ↔ `the bread`
-   * `der Käse` ↔ `the cheese`
-   * `der Apfel` ↔ `the apple`
-   * `die Banane` ↔ `the banana`
-   * `das Obst & Gemüse` ↔ `fruit & vegetables`
-
-2. **`listen_tap`**
-   * Target: `"Ich esse gern Brot mit Käse."`
-   * Tokens: `["Ich", "esse", "gern", "Brot", "mit", "Käse.", "Wasser", "trinke"]`
-
-3. **`sentence_builder`**
-   * Prompt: `"Translate: I would like an apple and three bananas, please."`
-   * Target: `"Ich möchte einen Apfel und drei Bananen, bitte."`
-   * Tokens: `["Ich", "möchte", "einen", "Apfel", "und", "drei", "Bananen,", "bitte.", "Kaffee"]`
-
-4. **`sprechen`**
-   * Prompt: `"Der Käse schmeckt sehr lecker!"`
-   * Translation: `"The cheese tastes very delicious!"`
-   * Min Accuracy: `75%`
-
----
-
-### Node 1: Im Supermarkt (Meat, Eggs, Milk)
-* **Type**: `lesson`
-* **XP**: 15 | **Pearls**: 5
-
-#### Stages:
-1. **`word_match`**
-   * `das Fleisch` ↔ `the meat`
-   * `der Fisch` ↔ `the fish`
-   * `das Ei / die Eier` ↔ `the egg / eggs`
-   * `die Tomate` ↔ `the tomato`
-   * `frisch` ↔ `fresh`
-
-2. **`listen_tap`**
-   * Target: `"Wir brauchen sechs Eier und frische Milch."`
-   * Tokens: `["Wir", "brauchen", "sechs", "Eier", "und", "frische", "Milch.", "Brot"]`
-
-3. **`sentence_builder`**
-   * Prompt: `"Translate: Do you eat fish? No, I do not eat meat or fish."`
-   * Target: `"Isst du Fisch? Nein, ich esse kein Fleisch."`
-   * Tokens: `["Isst", "du", "Fisch?", "Nein,", "ich", "esse", "kein", "Fleisch.", "gern"]`
-
-4. **`sprechen`**
-   * Prompt: `"Das Obst und Gemüse hier ist sehr frisch."`
-   * Translation: `"The fruit and vegetables here are very fresh."`
-   * Min Accuracy: `75%`
-
----
-
-### Node 2: Karaoke Story & Boss Exam (Market Square)
-* **Story**: Shopping at the farmer's market (*"Was kostet ein Kilo Äpfel? Zwei Euro."*)
-* **Chest**: 30 Pearls
-* **Boss Exam**: Comprehensive Food + Accusative evaluation.
-
----
-
-# ⏰ UNIT 5: Mein Tag & Uhrzeit (Daily Routine & Time)
-**Island 5 • Clocktower Haven**  
-*Grammar Focus*: Telling the time (*Wie spät ist es?*), Days of the week (*am Montag, am Dienstag*), Separable verbs (*aufstehen, anrufen, fernsehen*).
-
----
-
-### Core Vocabulary Bank:
-* `die Uhrzeit` (time), `Wie spät ist es?` (What time is it?), `Es ist acht Uhr` (It is eight o'clock).
-* `Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag`.
-* `aufstehen` (to wake up: *Ich stehe um sieben Uhr auf*).
-* `frühstücken` (to have breakfast), `arbeiten` (to work), `schlafen` (to sleep).
-
----
-
-# 👕 UNIT 6: Kleidung & Farben (Shopping & Colors)
-**Island 6 • Rainbow Bazaar**  
-*Grammar Focus*: Color adjectives, Accusative direct object practice (*Ich trage einen blauen Pullover*), Prices and shopping dialogues.
-
----
-
-### Core Vocabulary Bank:
-* `das Hemd` (shirt), `die Hose` (pants), `das Kleid` (dress), `die Jacke` (jacket), `die Schuhe` (shoes), `der Pullover` (sweater).
-* Colors: `rot, blau, grün, gelb, schwarz, weiß, grau, braun`.
-* `Wie gefällt dir...?` (How do you like...?), `Das steht dir gut!` (That suits you well!), `teuer / billig` (expensive / cheap).
-
----
-
-# 🏡 UNIT 7: Zuhause & Wohnen (Home & Living)
-**Island 7 • Lighthouse Bay**  
-*Grammar Focus*: Rooms of the house, furniture, prepositions of location (*in der Küche, im Wohnzimmer, auf dem Tisch*).
-
----
-
-### Core Vocabulary Bank:
-* `das Haus` (house), `die Wohnung` (apartment), `das Zimmer` (room), `die Küche` (kitchen), `das Bad` (bathroom), `das Schlafzimmer` (bedroom), `der Balkon` (balcony).
-* `der Tisch` (table), `der Stuhl` (chair), `das Bett` (bed), `der Schrank` (wardrobe), `das Sofa` (couch).
-* `groß, klein, hell, dunkel, gemütlich` (large, small, bright, dark, cozy).
-
----
-
-# 🚆 UNIT 8: Weg & Stadtverkehr (City & Transport)
-**Island 8 • Transit Junction**  
-*Grammar Focus*: Modal verb *können* (can), asking directions (*Wo ist der Bahnhof?*), transport prepositions (*mit dem Bus, mit dem Zug*), imperative directions (*Gehen Sie geradeaus*).
-
----
-
-### Core Vocabulary Bank:
-* `der Bahnhof` (train station), `die Haltestelle` (bus stop), `der Bus` (bus), `der Zug` (train), `die U-Bahn` (subway), `das Fahrrad` (bicycle), `das Ticket / die Fahrkarte` (ticket).
-* `links` (left), `rechts` (right), `geradeaus` (straight ahead), `an der Ecke` (at the corner), `in der Nähe` (nearby).
-* `Entschuldigung, wie komme ich zum Bahnhof?` (Excuse me, how do I get to the train station?).
-
----
-
-# ⚽ UNIT 9: Freizeit & Hobbys (Hobbies & Interests)
-**Island 9 • Coral Arena**  
-*Grammar Focus*: Expressing preference with *gern / lieber / am liebsten*, verb *spielen* with games and instruments, leisure time expressions.
-
----
-
-### Core Vocabulary Bank:
-* `der Sport` (sports), `der Fußball` (soccer), `die Musik` (music), `die Gitarre` (guitar), `das Buch / lesen` (book / to read), `das Kino` (cinema), `schwimmen` (to swim), `tanzen` (to dance).
-* `Was machst du in deiner Freizeit?` (What do you do in your free time?).
-* `Ich spiele gern Fußball und höre Musik.` (I like playing soccer and listening to music).
-
----
-
-# ⛅ UNIT 10: Wetter & Jahreszeiten (Weather & Seasons)
-**Island 10 • Monsoon Atoll**  
-*Grammar Focus*: Weather verbs and impersonal phrases (*Es regnet, Es schneit, Die Sonne scheint, Es ist windig*), seasons and calendar months.
-
----
-
-### Core Vocabulary Bank:
-* `die Sonne` (sun), `der Regen` (rain), `der Schnee` (snow), `der Wind` (wind), `die Wolke` (cloud), `das Wetter` (weather).
-* `der Frühling` (spring), `der Sommer` (summer), `der Herbst` (autumn), `der Winter` (winter).
-* `Wie ist das Wetter heute?` (How is the weather today?), `Es ist sonnig und warm.` (It is sunny and warm).
-
----
-
-# 🩺 UNIT 11: Beim Arzt & Körper (Health & The Body)
-**Island 11 • Healing Spring**  
-*Grammar Focus*: Modal verbs *müssen* (must) and *sollen* (should), parts of the body, expressing pain (*Mein Kopf tut weh*), booking a doctor's appointment (*einen Termin vereinbaren*).
-
----
-
-### Core Vocabulary Bank:
-* `der Kopf` (head), `das Auge` (eye), `das Ohr` (ear), `der Mund` (mouth), `der Hals` (throat), `der Bauch` (stomach), `der Rücken` (back), `der Arm` (arm), `das Bein` (leg), `die Hand` (hand), `der Fuß` (foot).
-* `der Arzt / die Ärztin` (doctor), `das Krankenhaus` (hospital), `die Apotheke` (pharmacy), `das Medikament` (medicine), `Fieber` (fever).
-* `Ich habe Kopfschmerzen.` (I have a headache), `Gute Besserung!` (Get well soon!).
-
----
-
-# ✈️ UNIT 12: Reise & Ferien (Travel & Grand A1 Exam)
-**Island 12 • Pinnacle Island (Grand Finale)**  
-*Grammar Focus*: Perfect Tense Intro (*Ich bin nach Berlin gereist / Ich habe Deutsch gelernt*), checking into a hotel, comprehensive A1 synthesis.
-
----
-
-### Core Vocabulary Bank:
-* `das Hotel` (hotel), `der Koffer` (suitcase), `der Urlaub` (vacation), `der Strand` (beach), `das Meer` (sea), `die Berge` (mountains), `der Reisepass` (passport).
-* `Ich habe ein Zimmer reserviert.` (I have booked a room).
-* `Wir haben viel Deutsch gelernt und die A1 Stufe geschafft!` (We have learned a lot of German and completed the A1 level!).
+## 🛠️ Data Seeding & Database Integration
+
+To seed the database with all 105 units and 1,680 lessons cleanly:
+1. `CurriculumLessons` MySQL schema handles `unitNumber` (1 to 105), `unitTitle`, `unitDescription`, `lessonIndex` (0 to 15), `nodeType`, and `stages` JSON.
+2. The Node script `scripts/generate_curriculum_a1.js` systematically generates `german_a1.json` and the corresponding `seed_german_a1.sql` for phpMyAdmin.
+3. The mobile app's `ArchipelagoMapScreen` dynamically computes section headers:
+   * **Section 1**: Units `1` to `35`
+   * **Section 2**: Units `36` to `70` (displayed as `SECTION 2, UNIT 1` through `SECTION 2, UNIT 35`)
+   * **Section 3**: Units `71` to `105` (displayed as `SECTION 3, UNIT 1` through `SECTION 3, UNIT 35`)
