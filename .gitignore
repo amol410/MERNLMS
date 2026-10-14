@@ -12,3 +12,5 @@ sync_your_audio/
 prompt.md
 HyperFrames/
 ViRemotion/
+__pycache__/
+*.pyc

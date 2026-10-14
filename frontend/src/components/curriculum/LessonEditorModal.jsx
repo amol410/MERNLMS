@@ -363,60 +363,55 @@ export default function LessonEditorModal({
   const [enableKaraoke, setEnableKaraoke] = useState(false);
 
   // Stage 1: Word Match Pairs
-  const [wordPairs, setWordPairs] = useState([
-    { target: 'Guten Tag', native: 'Hello' },
-    { target: 'Danke', native: 'Thank you' },
-    { target: 'Bitte', native: 'Please' },
-    { target: 'Tschüss', native: 'Bye' },
-  ]);
+  const [wordPairs, setWordPairs] = useState([]);
 
   // Stage 2: Listen & Tap
-  const [listenTarget, setListenTarget] = useState('Guten Tag, ich bin Anna');
-  const [listenDistractors, setListenDistractors] = useState('Kaffee, Milch');
+  const [listenTarget, setListenTarget] = useState('');
+  const [listenDistractors, setListenDistractors] = useState('');
 
   // Stage 3: Cloze Test (Fill-in-the-Blank with instant audio)
-  const [clozePrompt, setClozePrompt] = useState('Guten Tag, wie _______ es Ihnen?');
-  const [clozeTranslation, setClozeTranslation] = useState('Hello, how are you?');
-  const [clozeBlank, setClozeBlank] = useState('geht');
-  const [clozeOptions, setClozeOptions] = useState(['geht', 'heißt', 'bist']);
+  const [clozePrompt, setClozePrompt] = useState('');
+  const [clozeTranslation, setClozeTranslation] = useState('');
+  const [clozeBlank, setClozeBlank] = useState('');
+  const [clozeOptions, setClozeOptions] = useState(['', '', '']);
   const [clozeAudioUrl, setClozeAudioUrl] = useState('');
 
   // Stage 4: Sentence Builder (Syntax Puzzle)
-  const [builderPrompt, setBuilderPrompt] = useState('Good morning, how are you?');
-  const [builderTarget, setBuilderTarget] = useState('Guten Morgen, wie geht es dir?');
-  const [builderDistractors, setBuilderDistractors] = useState('schlafe, Kalt, Brot');
+  const [builderPrompt, setBuilderPrompt] = useState('');
+  const [builderTarget, setBuilderTarget] = useState('');
+  const [builderDistractors, setBuilderDistractors] = useState('');
 
   // Stage 5: Type Word (German Spelling Entry with Umlaut Toolbar)
-  const [typePrompt, setTypePrompt] = useState("Type the German word for 'Goodbye' (casual):");
-  const [typeTarget, setTypeTarget] = useState('Tschüss');
-  const [typeTranslation, setTypeTranslation] = useState('Goodbye');
-  const [typeHint, setTypeHint] = useState('Common informal German farewell');
+  const [typePrompt, setTypePrompt] = useState('');
+  const [typeTarget, setTypeTarget] = useState('');
+  const [typeTranslation, setTypeTranslation] = useState('');
+  const [typeHint, setTypeHint] = useState('');
   const [typeAudioUrl, setTypeAudioUrl] = useState('');
 
   // Stage 6: Dialogue Bubble (Chat Messenger Flow)
   const [dialoguePartnerName, setDialoguePartnerName] = useState('Anna');
   const [dialoguePartnerAvatar, setDialoguePartnerAvatar] = useState('dolphina');
-  const [dialoguePartnerMessage, setDialoguePartnerMessage] = useState('Hallo! Ich bin Anna. Und wer bist du?');
-  const [dialogueTranslation, setDialogueTranslation] = useState('Hello! I am Anna. And who are you?');
+  const [dialoguePartnerMessage, setDialoguePartnerMessage] = useState('');
+  const [dialogueTranslation, setDialogueTranslation] = useState('');
   const [dialogueOptions, setDialogueOptions] = useState([
-    { text: 'Ich heiße David, freut mich!', isCorrect: true },
-    { text: 'Nein, danke schön.', isCorrect: false },
+    { text: '', isCorrect: true },
+    { text: '', isCorrect: false },
   ]);
   const [dialogueAudioUrl, setDialogueAudioUrl] = useState('');
 
   // Stage 7: Listen & Select (Audio Comprehension with 1.0x & 0.75x turtle)
-  const [listenSelectSentence, setListenSelectSentence] = useState('Guten Morgen! Wie geht es dir?');
-  const [listenSelectQuestion, setListenSelectQuestion] = useState('What does the speaker ask?');
+  const [listenSelectSentence, setListenSelectSentence] = useState('');
+  const [listenSelectQuestion, setListenSelectQuestion] = useState('');
   const [listenSelectOptions, setListenSelectOptions] = useState([
-    { text: 'Good morning! How are you?', isCorrect: true },
-    { text: 'What is your favorite food?', isCorrect: false },
-    { text: 'Where is the train station?', isCorrect: false },
+    { text: '', isCorrect: true },
+    { text: '', isCorrect: false },
+    { text: '', isCorrect: false },
   ]);
   const [listenSelectAudioUrl, setListenSelectAudioUrl] = useState('');
 
   // Stage 8: Sprechen Voice & Lip-Sync Karaoke
-  const [sprechenPrompt, setSprechenPrompt] = useState('Guten Tag! Wie geht es dir?');
-  const [sprechenTranslation, setSprechenTranslation] = useState('Hello! How are you?');
+  const [sprechenPrompt, setSprechenPrompt] = useState('');
+  const [sprechenTranslation, setSprechenTranslation] = useState('');
   const [sprechenAccuracy, setSprechenAccuracy] = useState(75);
   const [sprechenAudioUrl, setSprechenAudioUrl] = useState('');
   const [uploadingSprechenAudio, setUploadingSprechenAudio] = useState(false);
@@ -483,7 +478,17 @@ export default function LessonEditorModal({
       setIsLive(Boolean(initialData.isLive));
       setSourceNoteId(initialData.sourceNoteId || '');
 
-      const stages = Array.isArray(initialData.stages) ? initialData.stages : [];
+      let stages = [];
+      if (Array.isArray(initialData.stages)) {
+        stages = initialData.stages;
+      } else if (typeof initialData.stages === 'string' && initialData.stages.trim()) {
+        try {
+          stages = JSON.parse(initialData.stages);
+        } catch (_) {
+          stages = [];
+        }
+      }
+
       const matchStage = stages.find(s => s.type === 'word_match' || s.type === 'match_pairs');
       const listenStage = stages.find(s => s.type === 'listen_tap');
       const clozeStage = stages.find(s => s.type === 'cloze_test' || s.type === 'cloze');
@@ -494,93 +499,132 @@ export default function LessonEditorModal({
       const sprechenStage = stages.find(s => s.type === 'sprechen');
       const karaokeStage = stages.find(s => s.type === 'karaoke');
 
+      // Stage 1: Word Match
       setEnableWordMatch(Boolean(matchStage));
       if (matchStage?.pairs && Array.isArray(matchStage.pairs) && matchStage.pairs.length > 0) {
         setWordPairs(matchStage.pairs.map(p => ({
           target: p.target || p.german || p.word || '',
           native: p.native || p.english || p.translation || '',
         })));
+      } else {
+        setWordPairs([]);
       }
 
+      // Stage 2: Listen & Tap
       setEnableListenTap(Boolean(listenStage));
-      if (listenStage?.targetSentence) setListenTarget(listenStage.targetSentence);
-      setListenAudioUrl(listenStage?.audioUrl || '');
-      setListenWordsAudioUrl(listenStage?.wordsAudioUrl || '');
-      setListenSentenceRange(listenStage?.sentenceRange || null);
-      if (listenStage?.wordTimestamps) {
-        if (Array.isArray(listenStage.wordTimestamps)) {
-          setListenWordTimestamps(listenStage.wordTimestamps);
-        } else if (listenStage.wordTimestamps.words) {
-          setListenWordTimestamps(listenStage.wordTimestamps.words);
-          if (listenStage.wordTimestamps.wordsAudioUrl && !listenStage.wordsAudioUrl) {
-            setListenWordsAudioUrl(listenStage.wordTimestamps.wordsAudioUrl);
+      if (listenStage) {
+        setListenTarget(listenStage.targetSentence || '');
+        setListenAudioUrl(listenStage.audioUrl || '');
+        setListenWordsAudioUrl(listenStage.wordsAudioUrl || '');
+        setListenSentenceRange(listenStage.sentenceRange || null);
+        if (listenStage.wordTimestamps) {
+          if (Array.isArray(listenStage.wordTimestamps)) {
+            setListenWordTimestamps(listenStage.wordTimestamps);
+          } else if (listenStage.wordTimestamps.words) {
+            setListenWordTimestamps(listenStage.wordTimestamps.words);
+            if (listenStage.wordTimestamps.wordsAudioUrl && !listenStage.wordsAudioUrl) {
+              setListenWordsAudioUrl(listenStage.wordTimestamps.wordsAudioUrl);
+            }
+            if (listenStage.wordTimestamps.sentenceRange && !listenStage.sentenceRange) {
+              setListenSentenceRange(listenStage.wordTimestamps.sentenceRange);
+            }
           }
-          if (listenStage.wordTimestamps.sentenceRange && !listenStage.sentenceRange) {
-            setListenSentenceRange(listenStage.wordTimestamps.sentenceRange);
-          }
+          setListenTimestampsFileName('Attached Word Timestamps');
+        } else {
+          setListenWordTimestamps(null);
+          setListenTimestampsFileName('');
         }
-        setListenTimestampsFileName('Attached Word Timestamps');
+        // Distractor tokens
+        if (listenStage.tokens && listenStage.targetSentence) {
+          const targetTokens = new Set(listenStage.targetSentence
+            .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '')
+            .split(/\s+/)
+            .filter(Boolean)
+            .map(w => w.toLowerCase()));
+          const distractors = listenStage.tokens
+            .filter(t => !targetTokens.has(t.replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '').toLowerCase()))
+            .join(', ');
+          setListenDistractors(distractors);
+        } else {
+          setListenDistractors('');
+        }
       } else {
+        setListenTarget('');
+        setListenDistractors('');
+        setListenAudioUrl('');
+        setListenWordsAudioUrl('');
+        setListenSentenceRange(null);
         setListenWordTimestamps(null);
         setListenTimestampsFileName('');
       }
-      // Restore distractor tokens
-      if (listenStage?.tokens && listenStage?.targetSentence) {
-        const targetTokens = new Set(listenStage.targetSentence
-          .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '')
-          .split(/\s+/)
-          .filter(Boolean)
-          .map(w => w.toLowerCase()));
-        const distractors = listenStage.tokens
-          .filter(t => !targetTokens.has(t.toLowerCase()))
-          .join(', ');
-        if (distractors) setListenDistractors(distractors);
-      }
 
-      // Cloze Test
+      // Stage 3: Cloze Test
       setEnableClozeTest(Boolean(clozeStage));
       if (clozeStage) {
-        if (clozeStage.prompt || clozeStage.sentence) setClozePrompt(clozeStage.prompt || clozeStage.sentence);
-        if (clozeStage.translation) setClozeTranslation(clozeStage.translation);
-        if (clozeStage.blank || clozeStage.target || clozeStage.correctOption || clozeStage.correctAnswer) {
-          setClozeBlank(clozeStage.blank || clozeStage.target || clozeStage.correctOption || clozeStage.correctAnswer);
-        }
+        setClozePrompt(clozeStage.prompt || clozeStage.sentence || '');
+        setClozeTranslation(clozeStage.translation || '');
+        setClozeBlank(clozeStage.blank || clozeStage.target || clozeStage.correctOption || clozeStage.correctAnswer || '');
         if (Array.isArray(clozeStage.options) && clozeStage.options.length > 0) {
           setClozeOptions(clozeStage.options.map(o => (typeof o === 'string' ? o : (o.text || ''))));
+        } else {
+          setClozeOptions(['', '', '']);
         }
         setClozeAudioUrl(clozeStage.audioUrl || '');
+      } else {
+        setClozePrompt('');
+        setClozeTranslation('');
+        setClozeBlank('');
+        setClozeOptions(['', '', '']);
+        setClozeAudioUrl('');
       }
 
-      // Sentence Builder
+      // Stage 4: Sentence Builder
       setEnableSentenceBuilder(Boolean(builderStage));
-      if (builderStage?.prompt) setBuilderPrompt(builderStage.prompt.replace(/^Translate:\s*"?|"?$/gi, ''));
-      if (builderStage?.targetSentence) setBuilderTarget(builderStage.targetSentence);
+      if (builderStage) {
+        setBuilderPrompt(builderStage.prompt ? builderStage.prompt.replace(/^Translate:\s*"?|"?$/gi, '') : '');
+        setBuilderTarget(builderStage.targetSentence || '');
+        if (builderStage.tokens && builderStage.targetSentence) {
+          const targetTokens = new Set(builderStage.targetSentence
+            .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '')
+            .split(/\s+/)
+            .filter(Boolean)
+            .map(w => w.toLowerCase()));
+          const distractors = builderStage.tokens
+            .filter(t => !targetTokens.has(t.replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '').toLowerCase()))
+            .join(', ');
+          setBuilderDistractors(distractors);
+        } else {
+          setBuilderDistractors('');
+        }
+      } else {
+        setBuilderPrompt('');
+        setBuilderTarget('');
+        setBuilderDistractors('');
+      }
 
-      // Type Word
+      // Stage 5: Type Word
       setEnableTypeWord(Boolean(typeStage));
       if (typeStage) {
-        if (typeStage.prompt || typeStage.sentence) setTypePrompt(typeStage.prompt || typeStage.sentence);
-        if (typeStage.target || typeStage.targetWord || typeStage.word || typeStage.correctAnswer) {
-          setTypeTarget(typeStage.target || typeStage.targetWord || typeStage.word || typeStage.correctAnswer);
-        }
-        if (typeStage.translation || typeStage.nativeMeaning) {
-          setTypeTranslation(typeStage.translation || typeStage.nativeMeaning);
-        }
-        if (typeStage.hint) setTypeHint(typeStage.hint);
+        setTypePrompt(typeStage.prompt || typeStage.sentence || '');
+        setTypeTarget(typeStage.target || typeStage.targetWord || typeStage.word || typeStage.correctAnswer || '');
+        setTypeTranslation(typeStage.translation || typeStage.nativeMeaning || '');
+        setTypeHint(typeStage.hint || '');
         setTypeAudioUrl(typeStage.audioUrl || '');
+      } else {
+        setTypePrompt('');
+        setTypeTarget('');
+        setTypeTranslation('');
+        setTypeHint('');
+        setTypeAudioUrl('');
       }
 
-      // Dialogue Bubble
+      // Stage 6: Dialogue Bubble
       setEnableDialogueBubble(Boolean(dialogueStage));
       if (dialogueStage) {
-        if (dialogueStage.partnerName || dialogueStage.speaker) {
-          setDialoguePartnerName(dialogueStage.partnerName || dialogueStage.speaker);
-        }
-        if (dialogueStage.partnerAvatar) setDialoguePartnerAvatar(dialogueStage.partnerAvatar);
-        if (dialogueStage.partnerMessage || dialogueStage.prompt || dialogueStage.message) {
-          setDialoguePartnerMessage(dialogueStage.partnerMessage || dialogueStage.prompt || dialogueStage.message);
-        }
-        if (dialogueStage.translation) setDialogueTranslation(dialogueStage.translation);
+        setDialoguePartnerName(dialogueStage.partnerName || dialogueStage.speaker || 'Anna');
+        setDialoguePartnerAvatar(dialogueStage.partnerAvatar || 'dolphina');
+        setDialoguePartnerMessage(dialogueStage.partnerMessage || dialogueStage.prompt || dialogueStage.message || '');
+        setDialogueTranslation(dialogueStage.translation || '');
         if (Array.isArray(dialogueStage.options) && dialogueStage.options.length > 0) {
           const correct = (dialogueStage.correctOption || dialogueStage.correctAnswer || '').toString().trim();
           setDialogueOptions(dialogueStage.options.map((opt, i) => {
@@ -590,19 +634,30 @@ export default function LessonEditorModal({
             const txt = String(opt);
             return { text: txt, isCorrect: correct ? txt.toLowerCase() === correct.toLowerCase() : (i === 0) };
           }));
+        } else {
+          setDialogueOptions([
+            { text: '', isCorrect: true },
+            { text: '', isCorrect: false },
+          ]);
         }
         setDialogueAudioUrl(dialogueStage.audioUrl || '');
+      } else {
+        setDialoguePartnerName('Anna');
+        setDialoguePartnerAvatar('dolphina');
+        setDialoguePartnerMessage('');
+        setDialogueTranslation('');
+        setDialogueOptions([
+          { text: '', isCorrect: true },
+          { text: '', isCorrect: false },
+        ]);
+        setDialogueAudioUrl('');
       }
 
-      // Listen & Select
+      // Stage 7: Listen & Select
       setEnableListenSelect(Boolean(listenSelectStage));
       if (listenSelectStage) {
-        if (listenSelectStage.spokenGerman || listenSelectStage.sentence || listenSelectStage.targetSentence) {
-          setListenSelectSentence(listenSelectStage.spokenGerman || listenSelectStage.sentence || listenSelectStage.targetSentence);
-        }
-        if (listenSelectStage.question || listenSelectStage.prompt) {
-          setListenSelectQuestion(listenSelectStage.question || listenSelectStage.prompt);
-        }
+        setListenSelectSentence(listenSelectStage.spokenGerman || listenSelectStage.sentence || listenSelectStage.targetSentence || '');
+        setListenSelectQuestion(listenSelectStage.question || listenSelectStage.prompt || '');
         if (Array.isArray(listenSelectStage.options) && listenSelectStage.options.length > 0) {
           const correct = (listenSelectStage.correctOption || listenSelectStage.correctAnswer || '').toString().trim();
           setListenSelectOptions(listenSelectStage.options.map((opt, i) => {
@@ -612,30 +667,60 @@ export default function LessonEditorModal({
             const txt = String(opt);
             return { text: txt, isCorrect: correct ? txt.toLowerCase() === correct.toLowerCase() : (i === 0) };
           }));
+        } else {
+          setListenSelectOptions([
+            { text: '', isCorrect: true },
+            { text: '', isCorrect: false },
+            { text: '', isCorrect: false },
+          ]);
         }
         setListenSelectAudioUrl(listenSelectStage.audioUrl || '');
+      } else {
+        setListenSelectSentence('');
+        setListenSelectQuestion('');
+        setListenSelectOptions([
+          { text: '', isCorrect: true },
+          { text: '', isCorrect: false },
+          { text: '', isCorrect: false },
+        ]);
+        setListenSelectAudioUrl('');
       }
 
-      // Sprechen
+      // Stage 8: Sprechen
       setEnableSprechen(Boolean(sprechenStage));
-      if (sprechenStage?.prompt) setSprechenPrompt(sprechenStage.prompt);
-      if (sprechenStage?.translation) setSprechenTranslation(sprechenStage.translation);
-      if (sprechenStage?.minAccuracy) setSprechenAccuracy(sprechenStage.minAccuracy);
-      setSprechenAudioUrl(sprechenStage?.audioUrl || '');
-      if (sprechenStage?.karaokeData) {
-        const skd = typeof sprechenStage.karaokeData === 'string' ? JSON.parse(sprechenStage.karaokeData) : sprechenStage.karaokeData;
-        setSprechenKaraokeData(skd);
-        setSprechenKaraokeFileName('Attached Karaoke Timing');
+      if (sprechenStage) {
+        setSprechenPrompt(sprechenStage.prompt || '');
+        setSprechenTranslation(sprechenStage.translation || '');
+        setSprechenAccuracy(sprechenStage.minAccuracy || 75);
+        setSprechenAudioUrl(sprechenStage.audioUrl || '');
+        if (sprechenStage.karaokeData) {
+          const skd = typeof sprechenStage.karaokeData === 'string' ? JSON.parse(sprechenStage.karaokeData) : sprechenStage.karaokeData;
+          setSprechenKaraokeData(skd);
+          setSprechenKaraokeFileName('Attached Karaoke Timing');
+        } else {
+          setSprechenKaraokeData(null);
+          setSprechenKaraokeFileName('');
+        }
       } else {
+        setSprechenPrompt('');
+        setSprechenTranslation('');
+        setSprechenAccuracy(75);
+        setSprechenAudioUrl('');
         setSprechenKaraokeData(null);
         setSprechenKaraokeFileName('');
       }
 
-      // Karaoke
+      // Stage 9: Karaoke
       setEnableKaraoke(Boolean(karaokeStage) || initialData.nodeType === 'karaoke');
-      if (karaokeStage?.storyText) setKaraokeStory(karaokeStage.storyText);
-      if (karaokeStage?.translationText) setKaraokeTranslation(karaokeStage.translationText);
-      setKaraokeAudioUrl(karaokeStage?.audioUrl || '');
+      if (karaokeStage) {
+        setKaraokeStory(karaokeStage.storyText || '');
+        setKaraokeTranslation(karaokeStage.translationText || '');
+        setKaraokeAudioUrl(karaokeStage.audioUrl || '');
+      } else {
+        setKaraokeStory('');
+        setKaraokeTranslation('');
+        setKaraokeAudioUrl('');
+      }
 
       if (initialData.karaokeData) {
         const kd = typeof initialData.karaokeData === 'string' ? JSON.parse(initialData.karaokeData) : initialData.karaokeData;
@@ -649,66 +734,84 @@ export default function LessonEditorModal({
         setKaraokeJsonFileName('');
       }
     } else {
-      // New lesson defaults
+      // New lesson defaults — clean, empty slate ready for input
       setTitle('');
       setSubtitle('');
       setNodeType('lesson');
       setXpReward(15);
       setPearlsReward(5);
       setIsLive(false); // DEFAULT OFF
+      setSourceNoteId('');
+
       setListenAudioUrl('');
       setListenWordsAudioUrl('');
       setListenSentenceRange(null);
       setListenWordTimestamps(null);
       setListenTimestampsFileName('');
+
       setSprechenAudioUrl('');
       setSprechenKaraokeData(null);
       setSprechenKaraokeFileName('');
+
       setKaraokeAudioUrl('');
       setKaraokeJsonData(null);
       setKaraokeJsonFileName('');
-      setSourceNoteId('');
-      setEnableWordMatch(true);
-      setEnableListenTap(true);
-      setEnableSentenceBuilder(true);
-      setEnableSprechen(true);
-      setEnableKaraoke(false);
 
-      // New stage defaults
+      setEnableWordMatch(true);
+      setWordPairs([]);
+
+      setEnableListenTap(true);
+      setListenTarget('');
+      setListenDistractors('');
+
+      setEnableSentenceBuilder(true);
+      setBuilderPrompt('');
+      setBuilderTarget('');
+      setBuilderDistractors('');
+
+      setEnableSprechen(true);
+      setSprechenPrompt('');
+      setSprechenTranslation('');
+      setSprechenAccuracy(75);
+
       setEnableClozeTest(false);
-      setClozePrompt('Guten Tag, wie _______ es Ihnen?');
-      setClozeTranslation('Hello, how are you?');
-      setClozeBlank('geht');
-      setClozeOptions(['geht', 'heißt', 'bist']);
+      setClozePrompt('');
+      setClozeTranslation('');
+      setClozeBlank('');
+      setClozeOptions(['', '', '']);
       setClozeAudioUrl('');
 
       setEnableTypeWord(false);
-      setTypePrompt("Type the German word for 'Goodbye' (casual):");
-      setTypeTarget('Tschüss');
-      setTypeTranslation('Goodbye');
-      setTypeHint('Common informal German farewell');
+      setTypePrompt('');
+      setTypeTarget('');
+      setTypeTranslation('');
+      setTypeHint('');
       setTypeAudioUrl('');
 
       setEnableDialogueBubble(false);
       setDialoguePartnerName('Anna');
       setDialoguePartnerAvatar('dolphina');
-      setDialoguePartnerMessage('Hallo! Ich bin Anna. Und wer bist du?');
-      setDialogueTranslation('Hello! I am Anna. And who are you?');
+      setDialoguePartnerMessage('');
+      setDialogueTranslation('');
       setDialogueOptions([
-        { text: 'Ich heiße David, freut mich!', isCorrect: true },
-        { text: 'Nein, danke schön.', isCorrect: false },
+        { text: '', isCorrect: true },
+        { text: '', isCorrect: false },
       ]);
       setDialogueAudioUrl('');
 
       setEnableListenSelect(false);
-      setListenSelectSentence('Guten Morgen! Wie geht es dir?');
-      setListenSelectQuestion('What does the speaker ask?');
+      setListenSelectSentence('');
+      setListenSelectQuestion('');
       setListenSelectOptions([
-        { text: 'Good morning! How are you?', isCorrect: true },
-        { text: 'What is your favorite food?', isCorrect: false },
-        { text: 'Where is the train station?', isCorrect: false },
+        { text: '', isCorrect: true },
+        { text: '', isCorrect: false },
+        { text: '', isCorrect: false },
       ]);
       setListenSelectAudioUrl('');
+
+      setEnableKaraoke(false);
+      setKaraokeStory('');
+      setKaraokeTranslation('');
     }
   }, [isOpen, initialData]);
 
@@ -1890,7 +1993,7 @@ export default function LessonEditorModal({
                         rows={2}
                         value={dialoguePartnerMessage}
                         onChange={e => setDialoguePartnerMessage(e.target.value)}
-                        placeholder="e.g. Hallo! Ich bin Anna. Und wer bist du?"
+                        placeholder="e.g. Hallo! Ich bin Anna."
                         className="input-field"
                       />
                     </div>
@@ -1903,7 +2006,7 @@ export default function LessonEditorModal({
                         rows={2}
                         value={dialogueTranslation}
                         onChange={e => setDialogueTranslation(e.target.value)}
-                        placeholder="e.g. Hello! I am Anna. And who are you?"
+                        placeholder="e.g. Hello! I am Anna."
                         className="input-field"
                       />
                     </div>
