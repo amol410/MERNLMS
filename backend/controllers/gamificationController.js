@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const User = require('../models/User');
 const UserNodeProgress = require('../models/UserNodeProgress');
 const UserQuest = require('../models/UserQuest');
@@ -147,14 +148,42 @@ exports.getPath = async (req, res, next) => {
         }
         const level = req.query.level || req.user.currentLevel || 'A1';
 
+        // Section & Unit pagination support
+        const whereClause = {
+            isLive: true,
+            learningLanguage: targetLang,
+            nativeLanguage: nativeLang,
+            level: level,
+        };
+
+        const section = req.query.section ? parseInt(req.query.section) : null;
+        const unit = req.query.unit ? parseInt(req.query.unit) : null;
+        if (unit) {
+            whereClause.unitNumber = unit;
+        } else if (section) {
+            const startUnit = (section - 1) * 35 + 1;
+            const endUnit = section * 35;
+            whereClause.unitNumber = { [Op.between]: [startUnit, endUnit] };
+        }
+
         // Fetch live published lessons created by admin/trainers for this language/level
+        // CRITICAL PERFORMANCE: Only select map navigation attributes. Omit heavy `stages` & `karaokeData`!
         const liveCurriculum = await CurriculumLesson.findAll({
-            where: {
-                isLive: true,
-                learningLanguage: targetLang,
-                nativeLanguage: nativeLang,
-                level: level,
-            },
+            where: whereClause,
+            attributes: [
+                'id',
+                'unitNumber',
+                'unitTitle',
+                'unitDescription',
+                'lessonIndex',
+                'title',
+                'subtitle',
+                'nodeType',
+                'xpReward',
+                'pearlsReward',
+                'audioUrl',
+                'sourceNoteId',
+            ],
             order: [
                 ['unitNumber', 'ASC'],
                 ['lessonIndex', 'ASC'],
@@ -180,7 +209,7 @@ exports.getPath = async (req, res, next) => {
                     index: idx,
                     unitNumber: uNum,
                     unitTitle: l.unitTitle || 'First Steps',
-                    unitDescription: l.unitDescription || 'Erste Schritte',
+                    unitDescription: l.unitDescription || '',
                     sectionNumber: secNum,
                     sectionTitle: secTitle,
                     sectionUnitNumber: secUnitNum,
@@ -192,7 +221,7 @@ exports.getPath = async (req, res, next) => {
                     pearlsReward: l.pearlsReward || (l.nodeType === 'chest' ? 30 : 5),
                     sourceType: l.nodeType === 'karaoke' ? 'note' : 'lesson',
                     sourceId: l.sourceNoteId || l.id,
-                    stages: l.stages,
+                    stages: null, // Stages loaded on demand via /api/gamification/lesson/:id
                     audioUrl: l.audioUrl,
                     offset: zigzagOffsets[idx % zigzagOffsets.length],
                 };
@@ -499,6 +528,39 @@ exports.switchCourse = async (req, res, next) => {
                 targetLanguage: user.targetLanguage,
                 nativeLanguage: user.nativeLanguage,
                 currentLevel: user.currentLevel || 'A1',
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// 9. Get full interactive stage data for a single lesson on demand
+exports.getLessonDetails = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const lesson = await CurriculumLesson.findByPk(id);
+        if (!lesson) {
+            return res.status(404).json({ success: false, message: 'Lesson not found' });
+        }
+
+        res.status(200).json({
+            success: true,
+            lesson: {
+                id: lesson.id,
+                unitNumber: lesson.unitNumber,
+                unitTitle: lesson.unitTitle,
+                unitDescription: lesson.unitDescription,
+                lessonIndex: lesson.lessonIndex,
+                title: lesson.title,
+                subtitle: lesson.subtitle,
+                nodeType: lesson.nodeType,
+                xpReward: lesson.xpReward,
+                pearlsReward: lesson.pearlsReward,
+                stages: lesson.stages,
+                karaokeData: lesson.karaokeData,
+                audioUrl: lesson.audioUrl,
+                sourceNoteId: lesson.sourceNoteId,
             }
         });
     } catch (error) {

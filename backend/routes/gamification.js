@@ -10,12 +10,14 @@ const {
     getQuests,
     claimQuest,
     switchCourse,
+    getLessonDetails,
 } = require('../controllers/gamificationController');
 
 router.use(protect);
 
 router.get('/status', getStatus);
 router.get('/path', getPath);
+router.get('/lesson/:id', getLessonDetails);
 router.post('/complete-node', completeNode);
 router.get('/leaderboard', getLeaderboard);
 router.post('/shop/refill-oxygen', refillOxygen);
