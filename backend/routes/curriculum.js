@@ -11,6 +11,8 @@ const {
     batchCreateHeadings,
     bulkUpload,
     getUnitsSummary,
+    toggleUnitLiveStatus,
+    deleteUnit,
     seedDefaultUnit,
 } = require('../controllers/curriculumController');
 
@@ -27,6 +29,10 @@ router.post('/lessons', authorize('admin', 'trainer'), createLesson);
 router.put('/lessons/:id', authorize('admin', 'trainer'), updateLesson);
 router.patch('/lessons/:id/live', authorize('admin', 'trainer'), toggleLiveStatus);
 router.delete('/lessons/:id', authorize('admin', 'trainer'), deleteLesson);
+
+// Unit management endpoints
+router.patch('/units/:unitNumber/live', authorize('admin', 'trainer'), toggleUnitLiveStatus);
+router.delete('/units/:unitNumber', authorize('admin', 'trainer'), deleteUnit);
 
 // Rapid batch outline of lesson headings for an entire unit (Default: isLive = false)
 router.post('/units/headings', authorize('admin', 'trainer'), batchCreateHeadings);

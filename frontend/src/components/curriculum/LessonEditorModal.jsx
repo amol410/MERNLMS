@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import {
   X, Check, Plus, Trash2, Headphones, Mic, Sparkles, Layers,
-  Volume2, Music, Link2, BookOpen, AlertCircle, Eye, EyeOff, Upload, Loader2, FileCode, Download
+  Volume2, Music, Link2, BookOpen, AlertCircle, Eye, EyeOff, Upload, Loader2, FileCode, Download,
+  MessageSquare, Type, HelpCircle, CheckCircle2, Radio
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api/axios';
@@ -350,10 +351,14 @@ export default function LessonEditorModal({
     toast.success(`Sprechen template downloaded with ${promptWords.length || 6} words!`);
   };
 
-  // Modular Challenge Stage Toggles
+  // Modular Challenge Stage Toggles (All 9 interactive stage formats)
   const [enableWordMatch, setEnableWordMatch] = useState(true);
   const [enableListenTap, setEnableListenTap] = useState(true);
+  const [enableClozeTest, setEnableClozeTest] = useState(false);
   const [enableSentenceBuilder, setEnableSentenceBuilder] = useState(true);
+  const [enableTypeWord, setEnableTypeWord] = useState(false);
+  const [enableDialogueBubble, setEnableDialogueBubble] = useState(false);
+  const [enableListenSelect, setEnableListenSelect] = useState(false);
   const [enableSprechen, setEnableSprechen] = useState(true);
   const [enableKaraoke, setEnableKaraoke] = useState(false);
 
@@ -369,12 +374,47 @@ export default function LessonEditorModal({
   const [listenTarget, setListenTarget] = useState('Guten Tag, ich bin Anna');
   const [listenDistractors, setListenDistractors] = useState('Kaffee, Milch');
 
-  // Stage 3: Sentence Builder
+  // Stage 3: Cloze Test (Fill-in-the-Blank with instant audio)
+  const [clozePrompt, setClozePrompt] = useState('Guten Tag, wie _______ es Ihnen?');
+  const [clozeTranslation, setClozeTranslation] = useState('Hello, how are you?');
+  const [clozeBlank, setClozeBlank] = useState('geht');
+  const [clozeOptions, setClozeOptions] = useState(['geht', 'heißt', 'bist']);
+  const [clozeAudioUrl, setClozeAudioUrl] = useState('');
+
+  // Stage 4: Sentence Builder (Syntax Puzzle)
   const [builderPrompt, setBuilderPrompt] = useState('Good morning, how are you?');
   const [builderTarget, setBuilderTarget] = useState('Guten Morgen, wie geht es dir?');
   const [builderDistractors, setBuilderDistractors] = useState('schlafe, Kalt, Brot');
 
-  // Stage 4: Sprechen Voice & Lip-Sync Karaoke
+  // Stage 5: Type Word (German Spelling Entry with Umlaut Toolbar)
+  const [typePrompt, setTypePrompt] = useState("Type the German word for 'Goodbye' (casual):");
+  const [typeTarget, setTypeTarget] = useState('Tschüss');
+  const [typeTranslation, setTypeTranslation] = useState('Goodbye');
+  const [typeHint, setTypeHint] = useState('Common informal German farewell');
+  const [typeAudioUrl, setTypeAudioUrl] = useState('');
+
+  // Stage 6: Dialogue Bubble (Chat Messenger Flow)
+  const [dialoguePartnerName, setDialoguePartnerName] = useState('Anna');
+  const [dialoguePartnerAvatar, setDialoguePartnerAvatar] = useState('dolphina');
+  const [dialoguePartnerMessage, setDialoguePartnerMessage] = useState('Hallo! Ich bin Anna. Und wer bist du?');
+  const [dialogueTranslation, setDialogueTranslation] = useState('Hello! I am Anna. And who are you?');
+  const [dialogueOptions, setDialogueOptions] = useState([
+    { text: 'Ich heiße David, freut mich!', isCorrect: true },
+    { text: 'Nein, danke schön.', isCorrect: false },
+  ]);
+  const [dialogueAudioUrl, setDialogueAudioUrl] = useState('');
+
+  // Stage 7: Listen & Select (Audio Comprehension with 1.0x & 0.75x turtle)
+  const [listenSelectSentence, setListenSelectSentence] = useState('Guten Morgen! Wie geht es dir?');
+  const [listenSelectQuestion, setListenSelectQuestion] = useState('What does the speaker ask?');
+  const [listenSelectOptions, setListenSelectOptions] = useState([
+    { text: 'Good morning! How are you?', isCorrect: true },
+    { text: 'What is your favorite food?', isCorrect: false },
+    { text: 'Where is the train station?', isCorrect: false },
+  ]);
+  const [listenSelectAudioUrl, setListenSelectAudioUrl] = useState('');
+
+  // Stage 8: Sprechen Voice & Lip-Sync Karaoke
   const [sprechenPrompt, setSprechenPrompt] = useState('Guten Tag! Wie geht es dir?');
   const [sprechenTranslation, setSprechenTranslation] = useState('Hello! How are you?');
   const [sprechenAccuracy, setSprechenAccuracy] = useState(75);
@@ -385,9 +425,37 @@ export default function LessonEditorModal({
   const [sprechenKaraokeFileName, setSprechenKaraokeFileName] = useState('');
   const sprechenKaraokeInputRef = useRef(null);
 
-  // Stage 5: Karaoke Story
+  // Stage 9: Karaoke Story
   const [karaokeStory, setKaraokeStory] = useState('');
   const [karaokeTranslation, setKaraokeTranslation] = useState('');
+
+  // Helper methods for Cloze Test options
+  const addClozeOption = () => setClozeOptions(prev => [...prev, '']);
+  const updateClozeOption = (idx, val) => setClozeOptions(prev => prev.map((o, i) => i === idx ? val : o));
+  const removeClozeOption = (idx) => setClozeOptions(prev => prev.filter((_, i) => i !== idx));
+  const insertClozeBlankToken = () => {
+    setClozePrompt(prev => {
+      const p = prev || '';
+      return p.includes('_______') ? p : `${p.trim()} _______`;
+    });
+  };
+
+  // Helper method for Umlaut quick-tap
+  const insertUmlaut = (char) => {
+    setTypeTarget(prev => (prev || '') + char);
+  };
+
+  // Helper methods for Dialogue Bubble options
+  const addDialogueOption = () => setDialogueOptions(prev => [...prev, { text: '', isCorrect: false }]);
+  const updateDialogueOptionText = (idx, text) => setDialogueOptions(prev => prev.map((o, i) => i === idx ? { ...o, text } : o));
+  const setCorrectDialogueOption = (idx) => setDialogueOptions(prev => prev.map((o, i) => ({ ...o, isCorrect: i === idx })));
+  const removeDialogueOption = (idx) => setDialogueOptions(prev => prev.filter((_, i) => i !== idx));
+
+  // Helper methods for Listen & Select options
+  const addListenSelectOption = () => setListenSelectOptions(prev => [...prev, { text: '', isCorrect: false }]);
+  const updateListenSelectOptionText = (idx, text) => setListenSelectOptions(prev => prev.map((o, i) => i === idx ? { ...o, text } : o));
+  const setCorrectListenSelectOption = (idx) => setListenSelectOptions(prev => prev.map((o, i) => ({ ...o, isCorrect: i === idx })));
+  const removeListenSelectOption = (idx) => setListenSelectOptions(prev => prev.filter((_, i) => i !== idx));
 
   // Fetch available notes for 1-click import
   useEffect(() => {
@@ -418,7 +486,11 @@ export default function LessonEditorModal({
       const stages = Array.isArray(initialData.stages) ? initialData.stages : [];
       const matchStage = stages.find(s => s.type === 'word_match' || s.type === 'match_pairs');
       const listenStage = stages.find(s => s.type === 'listen_tap');
+      const clozeStage = stages.find(s => s.type === 'cloze_test' || s.type === 'cloze');
       const builderStage = stages.find(s => s.type === 'sentence_builder');
+      const typeStage = stages.find(s => s.type === 'type_word' || s.type === 'type_input');
+      const dialogueStage = stages.find(s => s.type === 'dialogue_bubble' || s.type === 'dialogue');
+      const listenSelectStage = stages.find(s => s.type === 'listen_select' || s.type === 'listen_comprehension');
       const sprechenStage = stages.find(s => s.type === 'sprechen');
       const karaokeStage = stages.find(s => s.type === 'karaoke');
 
@@ -465,10 +537,86 @@ export default function LessonEditorModal({
         if (distractors) setListenDistractors(distractors);
       }
 
+      // Cloze Test
+      setEnableClozeTest(Boolean(clozeStage));
+      if (clozeStage) {
+        if (clozeStage.prompt || clozeStage.sentence) setClozePrompt(clozeStage.prompt || clozeStage.sentence);
+        if (clozeStage.translation) setClozeTranslation(clozeStage.translation);
+        if (clozeStage.blank || clozeStage.target || clozeStage.correctOption || clozeStage.correctAnswer) {
+          setClozeBlank(clozeStage.blank || clozeStage.target || clozeStage.correctOption || clozeStage.correctAnswer);
+        }
+        if (Array.isArray(clozeStage.options) && clozeStage.options.length > 0) {
+          setClozeOptions(clozeStage.options.map(o => (typeof o === 'string' ? o : (o.text || ''))));
+        }
+        setClozeAudioUrl(clozeStage.audioUrl || '');
+      }
+
+      // Sentence Builder
       setEnableSentenceBuilder(Boolean(builderStage));
       if (builderStage?.prompt) setBuilderPrompt(builderStage.prompt.replace(/^Translate:\s*"?|"?$/gi, ''));
       if (builderStage?.targetSentence) setBuilderTarget(builderStage.targetSentence);
 
+      // Type Word
+      setEnableTypeWord(Boolean(typeStage));
+      if (typeStage) {
+        if (typeStage.prompt || typeStage.sentence) setTypePrompt(typeStage.prompt || typeStage.sentence);
+        if (typeStage.target || typeStage.targetWord || typeStage.word || typeStage.correctAnswer) {
+          setTypeTarget(typeStage.target || typeStage.targetWord || typeStage.word || typeStage.correctAnswer);
+        }
+        if (typeStage.translation || typeStage.nativeMeaning) {
+          setTypeTranslation(typeStage.translation || typeStage.nativeMeaning);
+        }
+        if (typeStage.hint) setTypeHint(typeStage.hint);
+        setTypeAudioUrl(typeStage.audioUrl || '');
+      }
+
+      // Dialogue Bubble
+      setEnableDialogueBubble(Boolean(dialogueStage));
+      if (dialogueStage) {
+        if (dialogueStage.partnerName || dialogueStage.speaker) {
+          setDialoguePartnerName(dialogueStage.partnerName || dialogueStage.speaker);
+        }
+        if (dialogueStage.partnerAvatar) setDialoguePartnerAvatar(dialogueStage.partnerAvatar);
+        if (dialogueStage.partnerMessage || dialogueStage.prompt || dialogueStage.message) {
+          setDialoguePartnerMessage(dialogueStage.partnerMessage || dialogueStage.prompt || dialogueStage.message);
+        }
+        if (dialogueStage.translation) setDialogueTranslation(dialogueStage.translation);
+        if (Array.isArray(dialogueStage.options) && dialogueStage.options.length > 0) {
+          const correct = (dialogueStage.correctOption || dialogueStage.correctAnswer || '').toString().trim();
+          setDialogueOptions(dialogueStage.options.map((opt, i) => {
+            if (typeof opt === 'object' && opt !== null) {
+              return { text: opt.text || '', isCorrect: opt.isCorrect !== undefined ? Boolean(opt.isCorrect) : (i === 0) };
+            }
+            const txt = String(opt);
+            return { text: txt, isCorrect: correct ? txt.toLowerCase() === correct.toLowerCase() : (i === 0) };
+          }));
+        }
+        setDialogueAudioUrl(dialogueStage.audioUrl || '');
+      }
+
+      // Listen & Select
+      setEnableListenSelect(Boolean(listenSelectStage));
+      if (listenSelectStage) {
+        if (listenSelectStage.spokenGerman || listenSelectStage.sentence || listenSelectStage.targetSentence) {
+          setListenSelectSentence(listenSelectStage.spokenGerman || listenSelectStage.sentence || listenSelectStage.targetSentence);
+        }
+        if (listenSelectStage.question || listenSelectStage.prompt) {
+          setListenSelectQuestion(listenSelectStage.question || listenSelectStage.prompt);
+        }
+        if (Array.isArray(listenSelectStage.options) && listenSelectStage.options.length > 0) {
+          const correct = (listenSelectStage.correctOption || listenSelectStage.correctAnswer || '').toString().trim();
+          setListenSelectOptions(listenSelectStage.options.map((opt, i) => {
+            if (typeof opt === 'object' && opt !== null) {
+              return { text: opt.text || '', isCorrect: opt.isCorrect !== undefined ? Boolean(opt.isCorrect) : (i === 0) };
+            }
+            const txt = String(opt);
+            return { text: txt, isCorrect: correct ? txt.toLowerCase() === correct.toLowerCase() : (i === 0) };
+          }));
+        }
+        setListenSelectAudioUrl(listenSelectStage.audioUrl || '');
+      }
+
+      // Sprechen
       setEnableSprechen(Boolean(sprechenStage));
       if (sprechenStage?.prompt) setSprechenPrompt(sprechenStage.prompt);
       if (sprechenStage?.translation) setSprechenTranslation(sprechenStage.translation);
@@ -483,6 +631,7 @@ export default function LessonEditorModal({
         setSprechenKaraokeFileName('');
       }
 
+      // Karaoke
       setEnableKaraoke(Boolean(karaokeStage) || initialData.nodeType === 'karaoke');
       if (karaokeStage?.storyText) setKaraokeStory(karaokeStage.storyText);
       if (karaokeStage?.translationText) setKaraokeTranslation(karaokeStage.translationText);
@@ -524,6 +673,42 @@ export default function LessonEditorModal({
       setEnableSentenceBuilder(true);
       setEnableSprechen(true);
       setEnableKaraoke(false);
+
+      // New stage defaults
+      setEnableClozeTest(false);
+      setClozePrompt('Guten Tag, wie _______ es Ihnen?');
+      setClozeTranslation('Hello, how are you?');
+      setClozeBlank('geht');
+      setClozeOptions(['geht', 'heißt', 'bist']);
+      setClozeAudioUrl('');
+
+      setEnableTypeWord(false);
+      setTypePrompt("Type the German word for 'Goodbye' (casual):");
+      setTypeTarget('Tschüss');
+      setTypeTranslation('Goodbye');
+      setTypeHint('Common informal German farewell');
+      setTypeAudioUrl('');
+
+      setEnableDialogueBubble(false);
+      setDialoguePartnerName('Anna');
+      setDialoguePartnerAvatar('dolphina');
+      setDialoguePartnerMessage('Hallo! Ich bin Anna. Und wer bist du?');
+      setDialogueTranslation('Hello! I am Anna. And who are you?');
+      setDialogueOptions([
+        { text: 'Ich heiße David, freut mich!', isCorrect: true },
+        { text: 'Nein, danke schön.', isCorrect: false },
+      ]);
+      setDialogueAudioUrl('');
+
+      setEnableListenSelect(false);
+      setListenSelectSentence('Guten Morgen! Wie geht es dir?');
+      setListenSelectQuestion('What does the speaker ask?');
+      setListenSelectOptions([
+        { text: 'Good morning! How are you?', isCorrect: true },
+        { text: 'What is your favorite food?', isCorrect: false },
+        { text: 'Where is the train station?', isCorrect: false },
+      ]);
+      setListenSelectAudioUrl('');
     }
   }, [isOpen, initialData]);
 
@@ -635,6 +820,23 @@ export default function LessonEditorModal({
       });
     }
 
+    if (enableClozeTest && clozePrompt.trim()) {
+      const validOptions = clozeOptions.map(o => o.trim()).filter(Boolean);
+      stages.push({
+        type: 'cloze_test',
+        title: 'Fill in the blank',
+        prompt: clozePrompt.trim(),
+        sentence: clozePrompt.trim(),
+        translation: clozeTranslation.trim(),
+        blank: clozeBlank.trim(),
+        target: clozeBlank.trim(),
+        correctOption: clozeBlank.trim(),
+        correctAnswer: clozeBlank.trim(),
+        options: validOptions.length > 0 ? validOptions : [clozeBlank.trim()],
+        audioUrl: clozeAudioUrl.trim() || null,
+      });
+    }
+
     if (enableSentenceBuilder && builderTarget.trim()) {
       const targetTokens = builderTarget
         .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '')
@@ -652,6 +854,58 @@ export default function LessonEditorModal({
         prompt: `Translate: "${builderPrompt.trim()}"`,
         targetSentence: builderTarget.trim(),
         tokens: allTokens,
+      });
+    }
+
+    if (enableTypeWord && (typeTarget.trim() || typePrompt.trim())) {
+      stages.push({
+        type: 'type_word',
+        title: 'Type in German',
+        prompt: typePrompt.trim(),
+        target: typeTarget.trim(),
+        targetWord: typeTarget.trim(),
+        word: typeTarget.trim(),
+        correctAnswer: typeTarget.trim(),
+        translation: typeTranslation.trim(),
+        nativeMeaning: typeTranslation.trim(),
+        hint: typeHint.trim() || null,
+        audioUrl: typeAudioUrl.trim() || null,
+      });
+    }
+
+    if (enableDialogueBubble && dialoguePartnerMessage.trim()) {
+      const validDialogueOpts = dialogueOptions.filter(o => o.text && o.text.trim());
+      const correctChoice = validDialogueOpts.find(o => o.isCorrect)?.text || validDialogueOpts[0]?.text || '';
+      stages.push({
+        type: 'dialogue_bubble',
+        title: 'Complete the Chat',
+        partnerName: dialoguePartnerName.trim() || 'Anna',
+        partnerAvatar: dialoguePartnerAvatar || 'dolphina',
+        prompt: dialoguePartnerMessage.trim(),
+        partnerMessage: dialoguePartnerMessage.trim(),
+        translation: dialogueTranslation.trim(),
+        options: validDialogueOpts.map(o => ({ text: o.text.trim(), isCorrect: Boolean(o.isCorrect) })),
+        correctOption: correctChoice,
+        correctAnswer: correctChoice,
+        audioUrl: dialogueAudioUrl.trim() || null,
+      });
+    }
+
+    if (enableListenSelect && listenSelectSentence.trim()) {
+      const validSelectOpts = listenSelectOptions.filter(o => o.text && o.text.trim());
+      const correctSelectChoice = validSelectOpts.find(o => o.isCorrect)?.text || validSelectOpts[0]?.text || '';
+      stages.push({
+        type: 'listen_select',
+        title: 'Listen and choose the meaning',
+        spokenGerman: listenSelectSentence.trim(),
+        sentence: listenSelectSentence.trim(),
+        targetSentence: listenSelectSentence.trim(),
+        question: listenSelectQuestion.trim(),
+        prompt: listenSelectQuestion.trim(),
+        options: validSelectOpts.map(o => ({ text: o.text.trim(), isCorrect: Boolean(o.isCorrect) })),
+        correctOption: correctSelectChoice,
+        correctAnswer: correctSelectChoice,
+        audioUrl: listenSelectAudioUrl.trim() || null,
       });
     }
 
@@ -677,6 +931,22 @@ export default function LessonEditorModal({
         karaokeData: karaokeJsonData || null,
       });
     }
+
+    // Retain any unmanaged custom stages from initialData
+    const managedTypes = new Set([
+      'word_match', 'match_pairs',
+      'listen_tap',
+      'cloze_test', 'cloze',
+      'sentence_builder',
+      'type_word', 'type_input',
+      'dialogue_bubble', 'dialogue',
+      'listen_select', 'listen_comprehension',
+      'sprechen',
+      'karaoke'
+    ]);
+    const existingStages = Array.isArray(initialData?.stages) ? initialData.stages : [];
+    const otherStages = existingStages.filter(s => !managedTypes.has(s.type));
+    stages.push(...otherStages);
 
     const payload = {
       learningLanguage: currentLanguage,
@@ -1240,6 +1510,137 @@ export default function LessonEditorModal({
               )}
             </div>
 
+            {/* Stage: Cloze Test (Fill-in-the-Blank) */}
+            <div className={`p-4 rounded-2xl border transition-all ${
+              enableClozeTest ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
+            }`}>
+              <div className="flex items-center justify-between mb-3">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={enableClozeTest}
+                    onChange={e => setEnableClozeTest(e.target.checked)}
+                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
+                  />
+                  <span className="font-bold text-white text-sm flex items-center gap-2">
+                    📝 Stage: Sentence Fill-in-the-Blank (Cloze Test)
+                  </span>
+                </label>
+                {enableClozeTest && (
+                  <span className="text-[10px] text-cyan-400 uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+                    Instant Audio & Gap Challenge
+                  </span>
+                )}
+              </div>
+
+              {enableClozeTest && (
+                <div className="space-y-4 mt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-xs text-gray-400">
+                          German Sentence with Gap (use <code className="text-cyan-400">_______</code>)
+                        </label>
+                        <button
+                          type="button"
+                          onClick={insertClozeBlankToken}
+                          className="text-[10px] px-2 py-0.5 rounded-md bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/25 cursor-pointer font-mono"
+                        >
+                          + Insert Blank
+                        </button>
+                      </div>
+                      <input
+                        type="text"
+                        value={clozePrompt}
+                        onChange={e => setClozePrompt(e.target.value)}
+                        placeholder="e.g. Guten Tag, wie _______ es Ihnen?"
+                        className="input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        English Translation Context
+                      </label>
+                      <input
+                        type="text"
+                        value={clozeTranslation}
+                        onChange={e => setClozeTranslation(e.target.value)}
+                        placeholder="e.g. Hello, how are you?"
+                        className="input-field"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs text-emerald-400 font-semibold block mb-1 flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                        Correct Missing Word (Answer)
+                      </label>
+                      <input
+                        type="text"
+                        value={clozeBlank}
+                        onChange={e => setClozeBlank(e.target.value)}
+                        placeholder="e.g. geht"
+                        className="input-field border-emerald-500/40 bg-emerald-950/20"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Optional Audio Clip URL (Uses TTS if blank)
+                      </label>
+                      <input
+                        type="text"
+                        value={clozeAudioUrl}
+                        onChange={e => setClozeAudioUrl(e.target.value)}
+                        placeholder="/api/notes/audio/... or empty for auto TTS"
+                        className="input-field text-xs font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Multiple Choice Options Bank */}
+                  <div className="pt-2 border-t border-white/5 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-semibold text-gray-300">
+                        Multiple-Choice Tap Options
+                      </label>
+                      <button
+                        type="button"
+                        onClick={addClozeOption}
+                        className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold cursor-pointer"
+                      >
+                        <Plus className="w-3.5 h-3.5" /> Add Option
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                      {clozeOptions.map((opt, oIdx) => (
+                        <div key={oIdx} className="flex items-center gap-1 p-1 rounded-xl bg-slate-900/60 border border-white/10">
+                          <input
+                            type="text"
+                            value={opt}
+                            onChange={e => updateClozeOption(oIdx, e.target.value)}
+                            placeholder={`Option ${oIdx + 1}`}
+                            className="input-field py-1 text-xs border-0 bg-transparent flex-1"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeClozeOption(oIdx)}
+                            className="p-1 text-gray-500 hover:text-red-400 cursor-pointer"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Stage C: Sentence Builder */}
             <div className={`p-4 rounded-2xl border transition-all ${
               enableSentenceBuilder ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
@@ -1295,6 +1696,404 @@ export default function LessonEditorModal({
                       placeholder="e.g. schlafe, Kalt, schön"
                       className="input-field text-xs"
                     />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Stage: Type Word (German Spelling Entry) */}
+            <div className={`p-4 rounded-2xl border transition-all ${
+              enableTypeWord ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
+            }`}>
+              <div className="flex items-center justify-between mb-3">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={enableTypeWord}
+                    onChange={e => setEnableTypeWord(e.target.checked)}
+                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
+                  />
+                  <span className="font-bold text-white text-sm flex items-center gap-2">
+                    ⌨️ Stage: German Spelling Entry (Type Word & Umlaut Toolbar)
+                  </span>
+                </label>
+                {enableTypeWord && (
+                  <span className="text-[10px] text-amber-400 uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">
+                    Spelling & Umlaut Precision
+                  </span>
+                )}
+              </div>
+
+              {enableTypeWord && (
+                <div className="space-y-4 mt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Instruction Prompt
+                      </label>
+                      <input
+                        type="text"
+                        value={typePrompt}
+                        onChange={e => setTypePrompt(e.target.value)}
+                        placeholder="e.g. Type the German word for 'Goodbye':"
+                        className="input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        English Meaning / Definition
+                      </label>
+                      <input
+                        type="text"
+                        value={typeTranslation}
+                        onChange={e => setTypeTranslation(e.target.value)}
+                        placeholder="e.g. Goodbye (casual)"
+                        className="input-field"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                        Target German Word (Learner must type this)
+                      </label>
+                      <div className="flex items-center gap-1 flex-wrap">
+                        <span className="text-[10px] text-gray-400 font-medium mr-1">Quick Umlaut:</span>
+                        {['ä', 'ö', 'ü', 'ß', 'Ä', 'Ö', 'Ü', 'ẞ'].map(ch => (
+                          <button
+                            key={ch}
+                            type="button"
+                            onClick={() => insertUmlaut(ch)}
+                            className="px-2 py-0.5 text-xs font-bold rounded-md bg-white/10 hover:bg-cyan-500 hover:text-white text-gray-200 transition-colors border border-white/10 cursor-pointer shadow-sm"
+                          >
+                            {ch}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      value={typeTarget}
+                      onChange={e => setTypeTarget(e.target.value)}
+                      placeholder="e.g. Tschüss or Österreich"
+                      className="input-field border-emerald-500/40 bg-emerald-950/20 text-lg font-bold"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Optional Hint
+                      </label>
+                      <input
+                        type="text"
+                        value={typeHint}
+                        onChange={e => setTypeHint(e.target.value)}
+                        placeholder="e.g. Starts with 'T' and ends with double 's'"
+                        className="input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Optional Audio URL
+                      </label>
+                      <input
+                        type="text"
+                        value={typeAudioUrl}
+                        onChange={e => setTypeAudioUrl(e.target.value)}
+                        placeholder="/api/notes/audio/... or empty"
+                        className="input-field text-xs font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Stage: Dialogue Bubble (Chat Messenger) */}
+            <div className={`p-4 rounded-2xl border transition-all ${
+              enableDialogueBubble ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
+            }`}>
+              <div className="flex items-center justify-between mb-3">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={enableDialogueBubble}
+                    onChange={e => setEnableDialogueBubble(e.target.checked)}
+                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
+                  />
+                  <span className="font-bold text-white text-sm flex items-center gap-2">
+                    💬 Stage: Dialogue Bubble (Chat Messenger Flow)
+                  </span>
+                </label>
+                {enableDialogueBubble && (
+                  <span className="text-[10px] text-purple-400 uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20">
+                    Conversational Roleplay
+                  </span>
+                )}
+              </div>
+
+              {enableDialogueBubble && (
+                <div className="space-y-4 mt-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Partner Name
+                      </label>
+                      <input
+                        type="text"
+                        value={dialoguePartnerName}
+                        onChange={e => setDialoguePartnerName(e.target.value)}
+                        placeholder="e.g. Anna, Florian, Kellner"
+                        className="input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Partner Avatar
+                      </label>
+                      <select
+                        value={dialoguePartnerAvatar}
+                        onChange={e => setDialoguePartnerAvatar(e.target.value)}
+                        className="input-field bg-slate-800"
+                      >
+                        <option value="dolphina">🐬 Dolphina (Female Avatar)</option>
+                        <option value="dolphino">🐬 Dolphino (Male Avatar)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Optional Audio Track URL
+                      </label>
+                      <input
+                        type="text"
+                        value={dialogueAudioUrl}
+                        onChange={e => setDialogueAudioUrl(e.target.value)}
+                        placeholder="/api/notes/audio/... or empty"
+                        className="input-field text-xs font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Partner Speech Bubble (German Message)
+                      </label>
+                      <textarea
+                        rows={2}
+                        value={dialoguePartnerMessage}
+                        onChange={e => setDialoguePartnerMessage(e.target.value)}
+                        placeholder="e.g. Hallo! Ich bin Anna. Und wer bist du?"
+                        className="input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        English Translation (Shown in Messenger)
+                      </label>
+                      <textarea
+                        rows={2}
+                        value={dialogueTranslation}
+                        onChange={e => setDialogueTranslation(e.target.value)}
+                        placeholder="e.g. Hello! I am Anna. And who are you?"
+                        className="input-field"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Multiple Choice User Replies */}
+                  <div className="pt-2 border-t border-white/5 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-semibold text-gray-300 flex items-center gap-1.5">
+                        <MessageSquare className="w-3.5 h-3.5 text-purple-400" />
+                        Learner Reply Options (Select radio for the correct answer)
+                      </label>
+                      <button
+                        type="button"
+                        onClick={addDialogueOption}
+                        className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold cursor-pointer"
+                      >
+                        <Plus className="w-3.5 h-3.5" /> Add Reply Option
+                      </button>
+                    </div>
+
+                    <div className="space-y-2">
+                      {dialogueOptions.map((opt, dIdx) => (
+                        <div
+                          key={dIdx}
+                          className={`flex items-center gap-3 p-2.5 rounded-2xl border transition-all ${
+                            opt.isCorrect
+                              ? 'bg-emerald-500/10 border-emerald-500/40 shadow-sm'
+                              : 'bg-slate-900/60 border-white/10'
+                          }`}
+                        >
+                          <label className="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-gray-300 shrink-0">
+                            <input
+                              type="radio"
+                              name="dialogue_correct_radio"
+                              checked={Boolean(opt.isCorrect)}
+                              onChange={() => setCorrectDialogueOption(dIdx)}
+                              className="w-4 h-4 text-emerald-500 focus:ring-emerald-400"
+                            />
+                            <span className={opt.isCorrect ? 'text-emerald-400' : 'text-gray-400'}>
+                              {opt.isCorrect ? 'Correct ✅' : 'Distractor'}
+                            </span>
+                          </label>
+
+                          <input
+                            type="text"
+                            value={opt.text}
+                            onChange={e => updateDialogueOptionText(dIdx, e.target.value)}
+                            placeholder={`Reply choice ${dIdx + 1} Auf Deutsch`}
+                            className="input-field py-1 text-xs flex-1 bg-transparent border-0 focus:ring-0"
+                          />
+
+                          <button
+                            type="button"
+                            onClick={() => removeDialogueOption(dIdx)}
+                            className="p-1 text-gray-500 hover:text-red-400 cursor-pointer"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Stage: Listen & Select (Audio Comprehension Challenge) */}
+            <div className={`p-4 rounded-2xl border transition-all ${
+              enableListenSelect ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
+            }`}>
+              <div className="flex items-center justify-between mb-3">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={enableListenSelect}
+                    onChange={e => setEnableListenSelect(e.target.checked)}
+                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
+                  />
+                  <span className="font-bold text-white text-sm flex items-center gap-2">
+                    👂 Stage: Listen & Select (Audio Comprehension Challenge)
+                  </span>
+                </label>
+                {enableListenSelect && (
+                  <span className="text-[10px] text-cyan-300 uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+                    🐢 0.75x Turtle & 1.0x Normal Audio
+                  </span>
+                )}
+              </div>
+
+              {enableListenSelect && (
+                <div className="space-y-4 mt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Spoken German Phrase / Sentence (Spoken to learner)
+                      </label>
+                      <input
+                        type="text"
+                        value={listenSelectSentence}
+                        onChange={e => setListenSelectSentence(e.target.value)}
+                        placeholder="e.g. Guten Morgen! Wie geht es dir?"
+                        className="input-field"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-gray-400 block mb-1">
+                        Comprehension Question in English
+                      </label>
+                      <input
+                        type="text"
+                        value={listenSelectQuestion}
+                        onChange={e => setListenSelectQuestion(e.target.value)}
+                        placeholder="e.g. What does the speaker ask?"
+                        className="input-field"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-xs text-gray-400 block mb-1">
+                      Optional Audio URL (If left blank, mobile app will use high-quality German TTS)
+                    </label>
+                    <input
+                      type="text"
+                      value={listenSelectAudioUrl}
+                      onChange={e => setListenSelectAudioUrl(e.target.value)}
+                      placeholder="/api/notes/audio/... or empty"
+                      className="input-field text-xs font-mono"
+                    />
+                  </div>
+
+                  {/* Multiple Choice Comprehension Options */}
+                  <div className="pt-2 border-t border-white/5 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-semibold text-gray-300 flex items-center gap-1.5">
+                        <Headphones className="w-3.5 h-3.5 text-cyan-400" />
+                        Comprehension Choices (Select radio for correct answer)
+                      </label>
+                      <button
+                        type="button"
+                        onClick={addListenSelectOption}
+                        className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold cursor-pointer"
+                      >
+                        <Plus className="w-3.5 h-3.5" /> Add Choice
+                      </button>
+                    </div>
+
+                    <div className="space-y-2">
+                      {listenSelectOptions.map((opt, sIdx) => (
+                        <div
+                          key={sIdx}
+                          className={`flex items-center gap-3 p-2.5 rounded-2xl border transition-all ${
+                            opt.isCorrect
+                              ? 'bg-emerald-500/10 border-emerald-500/40 shadow-sm'
+                              : 'bg-slate-900/60 border-white/10'
+                          }`}
+                        >
+                          <label className="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-gray-300 shrink-0">
+                            <input
+                              type="radio"
+                              name="listen_select_correct_radio"
+                              checked={Boolean(opt.isCorrect)}
+                              onChange={() => setCorrectListenSelectOption(sIdx)}
+                              className="w-4 h-4 text-emerald-500 focus:ring-emerald-400"
+                            />
+                            <span className={opt.isCorrect ? 'text-emerald-400' : 'text-gray-400'}>
+                              {opt.isCorrect ? 'Correct ✅' : 'Distractor'}
+                            </span>
+                          </label>
+
+                          <input
+                            type="text"
+                            value={opt.text}
+                            onChange={e => updateListenSelectOptionText(sIdx, e.target.value)}
+                            placeholder={`Choice ${sIdx + 1} (English meaning)`}
+                            className="input-field py-1 text-xs flex-1 bg-transparent border-0 focus:ring-0"
+                          />
+
+                          <button
+                            type="button"
+                            onClick={() => removeListenSelectOption(sIdx)}
+                            className="p-1 text-gray-500 hover:text-red-400 cursor-pointer"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}

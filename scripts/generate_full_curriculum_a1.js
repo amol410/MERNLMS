@@ -328,18 +328,24 @@ for (const unit of unitsMaster) {
           partnerName: unit.dialogue.partner,
           partnerAvatar: "dolphina",
           prompt: unit.dialogue.prompt,
+          partnerMessage: unit.dialogue.prompt,
           translation: unit.dialogue.translation,
-          options: unit.dialogue.options,
+          options: unit.dialogue.options.map((opt, i) => ({ text: opt, isCorrect: i === 0 })),
           correctOption: unit.dialogue.options[0],
+          correctAnswer: unit.dialogue.options[0],
           audioUrl: ""
         },
         {
           type: "cloze_test",
           title: "Fill in the blank",
           prompt: unit.cloze.prompt,
+          sentence: unit.cloze.prompt,
           translation: unit.cloze.en,
-          options: unit.cloze.options,
+          blank: unit.cloze.answer,
+          target: unit.cloze.answer,
           correctOption: unit.cloze.answer,
+          correctAnswer: unit.cloze.answer,
+          options: unit.cloze.options,
           audioUrl: ""
         }
       ];
@@ -355,9 +361,14 @@ for (const unit of unitsMaster) {
           partnerName: "Alex",
           partnerAvatar: "dolphino",
           prompt: unit.chatPrompt,
+          partnerMessage: unit.chatPrompt,
           translation: "Everyday conversation prompt",
-          options: [unit.chatReply, "Nein, leider nicht."],
+          options: [
+            { text: unit.chatReply, isCorrect: true },
+            { text: "Nein, leider nicht.", isCorrect: false }
+          ],
           correctOption: unit.chatReply,
+          correctAnswer: unit.chatReply,
           audioUrl: ""
         },
         {
@@ -378,17 +389,26 @@ for (const unit of unitsMaster) {
           type: "type_word",
           title: "Type in German",
           prompt: unit.typeWord.prompt,
+          target: unit.typeWord.target,
           targetWord: unit.typeWord.target,
+          word: unit.typeWord.target,
+          correctAnswer: unit.typeWord.target,
+          translation: primaryVocab.en,
           nativeMeaning: primaryVocab.en,
+          hint: `Meaning: ${primaryVocab.en}`,
           audioUrl: ""
         },
         {
           type: "cloze_test",
           title: "Fill in the blank",
           prompt: unit.cloze.prompt,
+          sentence: unit.cloze.prompt,
           translation: unit.cloze.en,
-          options: unit.cloze.options,
+          blank: unit.cloze.answer,
+          target: unit.cloze.answer,
           correctOption: unit.cloze.answer,
+          correctAnswer: unit.cloze.answer,
+          options: unit.cloze.options,
           audioUrl: ""
         }
       ];
@@ -402,8 +422,17 @@ for (const unit of unitsMaster) {
           type: "listen_select",
           title: "Listen and choose the meaning",
           spokenGerman: sampleSent.de,
-          options: [sampleSent.en, "A different unrelated topic", "Negative response"],
+          sentence: sampleSent.de,
+          targetSentence: sampleSent.de,
+          question: `What does "${sampleSent.de}" mean in English?`,
+          prompt: `What does "${sampleSent.de}" mean in English?`,
+          options: [
+            { text: sampleSent.en, isCorrect: true },
+            { text: "A different unrelated topic", isCorrect: false },
+            { text: "Negative response", isCorrect: false }
+          ],
           correctOption: sampleSent.en,
+          correctAnswer: sampleSent.en,
           audioUrl: ""
         },
         {
@@ -460,17 +489,30 @@ for (const unit of unitsMaster) {
           type: "cloze_test",
           title: "Boss Challenge: Syntax Mastery",
           prompt: unit.cloze.prompt,
+          sentence: unit.cloze.prompt,
           translation: unit.cloze.en,
-          options: unit.cloze.options,
+          blank: unit.cloze.answer,
+          target: unit.cloze.answer,
           correctOption: unit.cloze.answer,
+          correctAnswer: unit.cloze.answer,
+          options: unit.cloze.options,
           audioUrl: ""
         },
         {
           type: "listen_select",
           title: "Boss Challenge: Audio Perception",
           spokenGerman: sampleSent.de,
-          options: [sampleSent.en, "Another choice", "Wrong meaning"],
+          sentence: sampleSent.de,
+          targetSentence: sampleSent.de,
+          question: `What does "${sampleSent.de}" mean in English?`,
+          prompt: `What does "${sampleSent.de}" mean in English?`,
+          options: [
+            { text: sampleSent.en, isCorrect: true },
+            { text: "Another choice", isCorrect: false },
+            { text: "Wrong meaning", isCorrect: false }
+          ],
           correctOption: sampleSent.en,
+          correctAnswer: sampleSent.en,
           audioUrl: ""
         }
       ];
@@ -541,42 +583,82 @@ const jsonPath = path.join(__dirname, '..', 'german_a1.json');
 fs.writeFileSync(jsonPath, JSON.stringify(jsonOutput, null, 2), 'utf8');
 console.log(`✅ Written complete JSON to: ${jsonPath}`);
 
-// 4. Generate optimized seed_german_a1.sql for phpMyAdmin
-let sql = `-- ==============================================================
--- DolphinCoder LMS: German A1 Master Curriculum Database Seed
--- 3 Sections • 105 Units • 1,680 Lessons
+// 4. Helper function to generate SQL for a list of units
+function generateSql(units, title, deleteWhere) {
+  let header = `-- ==============================================================
+-- DolphinCoder LMS: ${title}
 -- Compatible with Hostinger phpMyAdmin (MySQL / MariaDB)
+-- Table: \`CurriculumLessons\`
 -- ==============================================================
 
-DELETE FROM \`CurriculumLessons\` WHERE \`learningLanguage\` = 'de' AND \`level\` = 'A1';
+${deleteWhere}
 
 `;
+  const batchSize = 50;
+  let currentValues = [];
+  let insertBatches = [];
 
-const batchSize = 100;
-let currentValues = [];
-let insertBatches = [];
+  for (const unit of units) {
+    for (const l of unit.lessonsData) {
+      const escapeStr = (str) => str ? "'" + str.replace(/'/g, "''") + "'" : "NULL";
+      const stagesJson = escapeStr(JSON.stringify(l.stages || []));
+      const nodeTypeVal = l.nodeType === 'boss' ? 'lesson' : (l.nodeType || 'lesson');
 
-for (const unit of fullUnitsData) {
-  for (const l of unit.lessonsData) {
-    const escapeStr = (str) => str ? "'" + str.replace(/'/g, "''") + "'" : "NULL";
-    const stagesJson = escapeStr(JSON.stringify(l.stages || []));
-    const nodeTypeVal = l.nodeType === 'boss' ? 'lesson' : (l.nodeType || 'lesson');
+      currentValues.push(`(1, 'de', 'en', 'A1', ${unit.unitNumber}, ${escapeStr(unit.unitTitle)}, ${escapeStr(unit.unitDescription)}, ${l.lessonIndex}, ${escapeStr(l.title)}, ${escapeStr(l.subtitle)}, '${nodeTypeVal}', ${l.xpReward || 15}, ${l.pearlsReward || 5}, 1, ${stagesJson}, NULL, NULL, NOW(), NOW())`);
 
-    currentValues.push(`(1, 'de', 'en', 'A1', ${unit.unitNumber}, ${escapeStr(unit.unitTitle)}, ${escapeStr(unit.unitDescription)}, ${l.lessonIndex}, ${escapeStr(l.title)}, ${escapeStr(l.subtitle)}, '${nodeTypeVal}', ${l.xpReward || 15}, ${l.pearlsReward || 5}, 1, ${stagesJson}, NULL, NULL, NOW(), NOW())`);
-
-    if (currentValues.length >= batchSize) {
-      insertBatches.push(`INSERT INTO \`CurriculumLessons\` (\`owner\`, \`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`unitNumber\`, \`unitTitle\`, \`unitDescription\`, \`lessonIndex\`, \`title\`, \`subtitle\`, \`nodeType\`, \`xpReward\`, \`pearlsReward\`, \`isLive\`, \`stages\`, \`karaokeData\`, \`audioUrl\`, \`createdAt\`, \`updatedAt\`) VALUES\n` + currentValues.join(',\n') + ';');
-      currentValues = [];
+      if (currentValues.length >= batchSize) {
+        insertBatches.push(`INSERT INTO \`CurriculumLessons\` (\`owner\`, \`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`unitNumber\`, \`unitTitle\`, \`unitDescription\`, \`lessonIndex\`, \`title\`, \`subtitle\`, \`nodeType\`, \`xpReward\`, \`pearlsReward\`, \`isLive\`, \`stages\`, \`karaokeData\`, \`audioUrl\`, \`createdAt\`, \`updatedAt\`) VALUES\n` + currentValues.join(',\n') + ';');
+        currentValues = [];
+      }
     }
   }
+
+  if (currentValues.length > 0) {
+    insertBatches.push(`INSERT INTO \`CurriculumLessons\` (\`owner\`, \`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`unitNumber\`, \`unitTitle\`, \`unitDescription\`, \`lessonIndex\`, \`title\`, \`subtitle\`, \`nodeType\`, \`xpReward\`, \`pearlsReward\`, \`isLive\`, \`stages\`, \`karaokeData\`, \`audioUrl\`, \`createdAt\`, \`updatedAt\`) VALUES\n` + currentValues.join(',\n') + ';');
+  }
+
+  return header + insertBatches.join('\n\n') + '\n';
 }
 
-if (currentValues.length > 0) {
-  insertBatches.push(`INSERT INTO \`CurriculumLessons\` (\`owner\`, \`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`unitNumber\`, \`unitTitle\`, \`unitDescription\`, \`lessonIndex\`, \`title\`, \`subtitle\`, \`nodeType\`, \`xpReward\`, \`pearlsReward\`, \`isLive\`, \`stages\`, \`karaokeData\`, \`audioUrl\`, \`createdAt\`, \`updatedAt\`) VALUES\n` + currentValues.join(',\n') + ';');
-}
+// Master file
+const masterSql = generateSql(
+  fullUnitsData,
+  "German A1 Master Curriculum Database Seed (Units 1 to 105)",
+  "DELETE FROM `CurriculumLessons` WHERE `learningLanguage` = 'de' AND `level` = 'A1';"
+);
+const masterSqlPath = path.join(__dirname, '..', 'seed_german_a1.sql');
+fs.writeFileSync(masterSqlPath, masterSql, 'utf8');
+console.log(`✅ Written batch master SQL seed to: ${masterSqlPath}`);
 
-sql += insertBatches.join('\n\n') + '\n';
+// Section 1 (Units 1 to 35)
+const sec1Units = fullUnitsData.filter(u => u.unitNumber >= 1 && u.unitNumber <= 35);
+const sec1Sql = generateSql(
+  sec1Units,
+  "German A1 Section 1: Rookie Seed (Units 1 to 35, 560 Lessons)",
+  "DELETE FROM `CurriculumLessons` WHERE `learningLanguage` = 'de' AND `level` = 'A1' AND `unitNumber` BETWEEN 1 AND 35;"
+);
+const sec1Path = path.join(__dirname, '..', 'seed_section1.sql');
+fs.writeFileSync(sec1Path, sec1Sql, 'utf8');
+console.log(`✅ Written Section 1 SQL seed to: ${sec1Path}`);
 
-const sqlPath = path.join(__dirname, '..', 'seed_german_a1.sql');
-fs.writeFileSync(sqlPath, sql, 'utf8');
-console.log(`✅ Written batch SQL seed to: ${sqlPath}`);
+// Section 2 (Units 36 to 70)
+const sec2Units = fullUnitsData.filter(u => u.unitNumber >= 36 && u.unitNumber <= 70);
+const sec2Sql = generateSql(
+  sec2Units,
+  "German A1 Section 2: Explorer Seed (Units 36 to 70, 560 Lessons)",
+  "DELETE FROM `CurriculumLessons` WHERE `learningLanguage` = 'de' AND `level` = 'A1' AND `unitNumber` BETWEEN 36 AND 70;"
+);
+const sec2Path = path.join(__dirname, '..', 'seed_section2.sql');
+fs.writeFileSync(sec2Path, sec2Sql, 'utf8');
+console.log(`✅ Written Section 2 SQL seed to: ${sec2Path}`);
+
+// Section 3 (Units 71 to 105)
+const sec3Units = fullUnitsData.filter(u => u.unitNumber >= 71 && u.unitNumber <= 105);
+const sec3Sql = generateSql(
+  sec3Units,
+  "German A1 Section 3: Traveler Seed (Units 71 to 105, 560 Lessons)",
+  "DELETE FROM `CurriculumLessons` WHERE `learningLanguage` = 'de' AND `level` = 'A1' AND `unitNumber` BETWEEN 71 AND 105;"
+);
+const sec3Path = path.join(__dirname, '..', 'seed_section3.sql');
+fs.writeFileSync(sec3Path, sec3Sql, 'utf8');
+console.log(`✅ Written Section 3 SQL seed to: ${sec3Path}`);

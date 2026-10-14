@@ -13,6 +13,7 @@ exports.getLessons = async (req, res, next) => {
             nativeLanguage = 'en',
             level = 'A1',
             unitNumber,
+            sectionNumber,
             isLive,
         } = req.query;
 
@@ -24,6 +25,11 @@ exports.getLessons = async (req, res, next) => {
 
         if (unitNumber !== undefined && unitNumber !== '') {
             where.unitNumber = parseInt(unitNumber, 10);
+        } else if (sectionNumber !== undefined && sectionNumber !== '') {
+            const sec = parseInt(sectionNumber, 10);
+            const minUnit = sec === 1 ? 1 : (sec === 2 ? 36 : 71);
+            const maxUnit = sec === 1 ? 35 : (sec === 2 ? 70 : 105);
+            where.unitNumber = { [Op.between]: [minUnit, maxUnit] };
         }
 
         // If user is a student (not staff), enforce isLive: true
@@ -450,10 +456,18 @@ exports.getUnitsSummary = async (req, res, next) => {
         const unitsMap = {};
         lessons.forEach(l => {
             if (!unitsMap[l.unitNumber]) {
+                const uNum = l.unitNumber || 1;
+                const secNum = uNum <= 35 ? 1 : (uNum <= 70 ? 2 : 3);
+                const secTitle = secNum === 1 ? 'Rookie' : (secNum === 2 ? 'Explorer' : 'Traveler');
+                const secUnitNum = secNum === 1 ? uNum : (secNum === 2 ? uNum - 35 : uNum - 70);
+
                 unitsMap[l.unitNumber] = {
                     unitNumber: l.unitNumber,
                     unitTitle: l.unitTitle || `Unit ${l.unitNumber}`,
                     unitDescription: l.unitDescription || '',
+                    sectionNumber: secNum,
+                    sectionTitle: secTitle,
+                    sectionUnitNumber: secUnitNum,
                     totalLessons: 0,
                     liveLessons: 0,
                     draftLessons: 0,
@@ -478,6 +492,55 @@ exports.getUnitsSummary = async (req, res, next) => {
             level,
             totalUnits: units.length,
             units,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// 10. Toggle all lessons in a unit live or draft
+exports.toggleUnitLiveStatus = async (req, res, next) => {
+    try {
+        const { unitNumber } = req.params;
+        const { isLive, learningLanguage = 'de', level = 'A1' } = req.body;
+
+        await CurriculumLesson.update(
+            { isLive: Boolean(isLive) },
+            {
+                where: {
+                    unitNumber: parseInt(unitNumber, 10),
+                    learningLanguage,
+                    level,
+                },
+            }
+        );
+
+        res.json({
+            success: true,
+            message: `All lessons in Unit ${unitNumber} updated to ${isLive ? 'LIVE 🟢' : 'DRAFT 🔒'}`,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// 11. Delete all lessons in a unit
+exports.deleteUnit = async (req, res, next) => {
+    try {
+        const { unitNumber } = req.params;
+        const { learningLanguage = 'de', level = 'A1' } = req.query;
+
+        const count = await CurriculumLesson.destroy({
+            where: {
+                unitNumber: parseInt(unitNumber, 10),
+                learningLanguage,
+                level,
+            },
+        });
+
+        res.json({
+            success: true,
+            message: `Deleted ${count} lessons from Unit ${unitNumber}`,
         });
     } catch (error) {
         next(error);
