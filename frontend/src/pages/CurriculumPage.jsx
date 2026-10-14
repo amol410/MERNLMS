@@ -14,6 +14,7 @@ import BulkUploadModal from '../components/curriculum/BulkUploadModal';
 
 const LEARNING_LANGUAGES = [
   { code: 'de', name: 'German', flag: '🇩🇪' },
+  { code: 'en', name: 'English', flag: '🇬🇧' },
   { code: 'es', name: 'Spanish', flag: '🇪🇸' },
   { code: 'fr', name: 'French', flag: '🇫🇷' },
   { code: 'ja', name: 'Japanese', flag: '🇯🇵' },
@@ -23,6 +24,7 @@ const LEARNING_LANGUAGES = [
 const NATIVE_LANGUAGES = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
   { code: 'hi', name: 'Hindi', flag: '🇮🇳' },
+  { code: 'mr', name: 'Marathi', flag: '🇮🇳' },
   { code: 'es', name: 'Spanish', flag: '🇪🇸' },
 ];
 
