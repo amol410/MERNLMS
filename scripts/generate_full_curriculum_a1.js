@@ -305,20 +305,20 @@ for (const unit of unitsMaster) {
     if (lIdx === 7) {
       // Milestone Chest 1
       nodeType = "chest";
-      title = `${unit.de} Schatzkiste 1`;
+      title = `${unit.en} • Treasure Chest 1`;
       subtitle = "Bonus 25 Pearls & 15 XP";
       xpReward = 15;
       pearlsReward = 25;
     } else if (lIdx === 14) {
       // Streak Booster Chest 2
       nodeType = "chest";
-      title = `${unit.de} Schatzkiste 2`;
+      title = `${unit.en} • Treasure Chest 2`;
       subtitle = "Bonus 35 Pearls & 20 XP";
       xpReward = 20;
       pearlsReward = 35;
     } else if (lIdx === 3) {
       // Chat Dialogue 1
-      title = `Chat-Dialog 1: ${unit.dialogue.partner}`;
+      title = `Chat Story 1: ${unit.dialogue.partner}`;
       subtitle = "Interactive conversation partner";
       xpReward = 20;
       stages = [
@@ -345,7 +345,7 @@ for (const unit of unitsMaster) {
       ];
     } else if (lIdx === 11) {
       // Chat Dialogue 2
-      title = `Chat-Dialog 2: Alltagssituation`;
+      title = `Chat Story 2: Daily Conversation`;
       subtitle = "Real-life conversational roleplay";
       xpReward = 20;
       stages = [
@@ -370,7 +370,7 @@ for (const unit of unitsMaster) {
       ];
     } else if (lIdx === 4 || lIdx === 9) {
       // Grammar & Umlaut typing
-      title = `Grammatik & Rechtschreibung (${lIdx === 4 ? "Teil 1" : "Teil 2"})`;
+      title = `Grammar & Spelling (${lIdx === 4 ? "Part 1" : "Part 2"})`;
       subtitle = "Umlaut precision & case rules";
       xpReward = 20;
       stages = [
@@ -394,7 +394,7 @@ for (const unit of unitsMaster) {
       ];
     } else if (lIdx === 5) {
       // Listening Ear Training
-      title = `Hörverständnis: Audio Focus`;
+      title = `Listening: Audio Focus`;
       subtitle = "Ear training & speech perception";
       xpReward = 20;
       stages = [
@@ -416,7 +416,7 @@ for (const unit of unitsMaster) {
       ];
     } else if (lIdx === 6 || lIdx === 13) {
       // Speech & Fluency
-      title = `Aussprache & Sprechen (${lIdx === 6 ? "Basis" : "Sprint"})`;
+      title = `Pronunciation & Speech (${lIdx === 6 ? "Foundation" : "Sprint"})`;
       subtitle = "Voice recording & pronunciation feedback";
       xpReward = 25;
       stages = [
@@ -436,8 +436,8 @@ for (const unit of unitsMaster) {
       ];
     } else if (lIdx === 15) {
       // Unit Boss Challenge
-      title = `🏆 Meisterprüfung: ${unit.de}`;
-      subtitle = "Grand Unit Trophy Exam";
+      title = `🏆 Unit Trophy Exam: ${unit.en}`;
+      subtitle = `Grand mastery challenge to clear Unit ${unit.num}`;
       xpReward = 35;
       pearlsReward = 15;
       stages = [
@@ -476,8 +476,8 @@ for (const unit of unitsMaster) {
       ];
     } else {
       // Standard stepping stone lessons (0, 1, 2, 8, 10, 12)
-      title = `${unit.de} • Lektion ${lIdx + 1}`;
-      subtitle = `Stepping stone ${lIdx + 1} of 16`;
+      title = `${unit.en} • Lesson ${lIdx + 1}`;
+      subtitle = `Stepping stone ${lIdx + 1} of 16 • ${unit.de}`;
       stages = [
         {
           type: "word_match",
@@ -518,8 +518,8 @@ for (const unit of unitsMaster) {
     sectionTitle: secTitle,
     unitNumber: unit.num,
     sectionUnitNumber: secUnitNum,
-    unitTitle: unit.de,
-    unitDescription: unit.en,
+    unitTitle: unit.en,          // ENGLISH MAIN HEADING
+    unitDescription: unit.de,    // GERMAN SUBHEADING
     colorHex: unit.color,
     lessonsCount: lessonsData.length,
     lessonsData
@@ -548,34 +548,7 @@ let sql = `-- ==============================================================
 -- Compatible with Hostinger phpMyAdmin (MySQL / MariaDB)
 -- ==============================================================
 
-DROP TABLE IF EXISTS \`CurriculumLessons\`;
-
-CREATE TABLE IF NOT EXISTS \`curriculum_lessons\` (
-  \`id\` int(11) NOT NULL AUTO_INCREMENT,
-  \`owner\` int(11) NOT NULL DEFAULT 1,
-  \`learningLanguage\` varchar(10) NOT NULL DEFAULT 'de',
-  \`nativeLanguage\` varchar(10) NOT NULL DEFAULT 'en',
-  \`level\` enum('A1','A2','B1','B2','C1','C2') NOT NULL DEFAULT 'A1',
-  \`unitNumber\` int(11) NOT NULL DEFAULT 1,
-  \`unitTitle\` varchar(200) NOT NULL DEFAULT 'Erste Schritte',
-  \`unitDescription\` varchar(300) DEFAULT '',
-  \`lessonIndex\` int(11) NOT NULL DEFAULT 0,
-  \`title\` varchar(200) NOT NULL,
-  \`subtitle\` varchar(300) DEFAULT '',
-  \`nodeType\` enum('lesson','karaoke','speech','chest','match','quiz') NOT NULL DEFAULT 'lesson',
-  \`xpReward\` int(11) DEFAULT 15,
-  \`pearlsReward\` int(11) DEFAULT 5,
-  \`isLive\` tinyint(1) NOT NULL DEFAULT 1,
-  \`stages\` longtext,
-  \`karaokeData\` longtext,
-  \`audioUrl\` varchar(500) DEFAULT NULL,
-  \`sourceNoteId\` int(11) DEFAULT NULL,
-  \`createdAt\` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  \`updatedAt\` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (\`id\`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-DELETE FROM \`curriculum_lessons\` WHERE \`learningLanguage\` = 'de' AND \`level\` = 'A1';
+DELETE FROM \`CurriculumLessons\` WHERE \`learningLanguage\` = 'de' AND \`level\` = 'A1';
 
 `;
 
@@ -592,14 +565,14 @@ for (const unit of fullUnitsData) {
     currentValues.push(`(1, 'de', 'en', 'A1', ${unit.unitNumber}, ${escapeStr(unit.unitTitle)}, ${escapeStr(unit.unitDescription)}, ${l.lessonIndex}, ${escapeStr(l.title)}, ${escapeStr(l.subtitle)}, '${nodeTypeVal}', ${l.xpReward || 15}, ${l.pearlsReward || 5}, 1, ${stagesJson}, NULL, NULL, NOW(), NOW())`);
 
     if (currentValues.length >= batchSize) {
-      insertBatches.push(`INSERT INTO \`curriculum_lessons\` (\`owner\`, \`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`unitNumber\`, \`unitTitle\`, \`unitDescription\`, \`lessonIndex\`, \`title\`, \`subtitle\`, \`nodeType\`, \`xpReward\`, \`pearlsReward\`, \`isLive\`, \`stages\`, \`karaokeData\`, \`audioUrl\`, \`createdAt\`, \`updatedAt\`) VALUES\n` + currentValues.join(',\n') + ';');
+      insertBatches.push(`INSERT INTO \`CurriculumLessons\` (\`owner\`, \`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`unitNumber\`, \`unitTitle\`, \`unitDescription\`, \`lessonIndex\`, \`title\`, \`subtitle\`, \`nodeType\`, \`xpReward\`, \`pearlsReward\`, \`isLive\`, \`stages\`, \`karaokeData\`, \`audioUrl\`, \`createdAt\`, \`updatedAt\`) VALUES\n` + currentValues.join(',\n') + ';');
       currentValues = [];
     }
   }
 }
 
 if (currentValues.length > 0) {
-  insertBatches.push(`INSERT INTO \`curriculum_lessons\` (\`owner\`, \`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`unitNumber\`, \`unitTitle\`, \`unitDescription\`, \`lessonIndex\`, \`title\`, \`subtitle\`, \`nodeType\`, \`xpReward\`, \`pearlsReward\`, \`isLive\`, \`stages\`, \`karaokeData\`, \`audioUrl\`, \`createdAt\`, \`updatedAt\`) VALUES\n` + currentValues.join(',\n') + ';');
+  insertBatches.push(`INSERT INTO \`CurriculumLessons\` (\`owner\`, \`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`unitNumber\`, \`unitTitle\`, \`unitDescription\`, \`lessonIndex\`, \`title\`, \`subtitle\`, \`nodeType\`, \`xpReward\`, \`pearlsReward\`, \`isLive\`, \`stages\`, \`karaokeData\`, \`audioUrl\`, \`createdAt\`, \`updatedAt\`) VALUES\n` + currentValues.join(',\n') + ';');
 }
 
 sql += insertBatches.join('\n\n') + '\n';
