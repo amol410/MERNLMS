@@ -4,13 +4,14 @@ import { useAuth } from '../contexts/AuthContext';
 import api from '../api/axios';
 import {
   BookOpen, Video, Brain, Layers, ArrowRight, TrendingUp,
-  Clock, Plus, Zap, Flame,
+  Clock, Plus, Zap, Flame, Globe,
 } from 'lucide-react';
 import TodayPerformance from '../components/dashboard/TodayPerformance';
 
 export default function Dashboard() {
   const { user } = useAuth();
   const [stats, setStats] = useState({ notes: 0, videos: 0, quizzes: 0, flashcards: 0 });
+  const [langStats, setLangStats] = useState(null);
   const [recentNotes, setRecentNotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,6 +31,15 @@ export default function Dashboard() {
         if (videosRes.status === 'fulfilled') setStats(prev => ({ ...prev, videos: videosRes.value.data.pagination?.total || 0 }));
         if (quizzesRes.status === 'fulfilled') setStats(prev => ({ ...prev, quizzes: quizzesRes.value.data.pagination?.total || 0 }));
         if (flashcardsRes.status === 'fulfilled') setStats(prev => ({ ...prev, flashcards: flashcardsRes.value.data.pagination?.total || 0 }));
+
+        if (user?.role === 'student') {
+          try {
+            const gRes = await api.get('/gamification/status');
+            if (gRes.data?.success && gRes.data?.status) {
+              setLangStats(gRes.data.status);
+            }
+          } catch (_) {}
+        }
       } catch (err) {
         console.error(err);
       } finally {
@@ -37,18 +47,30 @@ export default function Dashboard() {
       }
     };
     fetchStats();
-  }, []);
+  }, [user]);
 
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
   const isStaff = user?.role === 'trainer' || user?.role === 'admin';
+  const isStudent = user?.role === 'student';
 
   const statCards = [
     { to: '/notes', icon: BookOpen, label: 'Notes', value: stats.notes, gradient: 'from-blue-500 to-cyan-500', shadow: 'shadow-blue-900/30', border: 'border-blue-500/15', action: isStaff ? '/notes/new' : null },
     { to: '/videos', icon: Video, label: 'Videos', value: stats.videos, gradient: 'from-red-500 to-orange-500', shadow: 'shadow-red-900/30', border: 'border-red-500/15', action: isStaff ? '/videos/new' : null },
     { to: '/quizzes', icon: Brain, label: 'Quizzes', value: stats.quizzes, gradient: 'from-purple-500 to-pink-500', shadow: 'shadow-purple-900/30', border: 'border-purple-500/15', action: isStaff ? '/quizzes/new' : null },
     { to: '/flashcards', icon: Layers, label: 'Flashcard Decks', value: stats.flashcards, gradient: 'from-green-500 to-emerald-500', shadow: 'shadow-green-900/30', border: 'border-green-500/15', action: isStaff ? '/flashcards/new' : null },
+    ...(isStudent ? [{
+      to: '/lingodolphy',
+      icon: Globe,
+      label: 'LingoDolphy',
+      value: langStats ? `${langStats.totalXp || 0} XP` : 'Learn',
+      subtitle: langStats?.streakCount ? `${langStats.streakCount}🔥 streak` : 'Language Path',
+      gradient: 'from-cyan-500 to-blue-600',
+      shadow: 'shadow-cyan-900/30',
+      border: 'border-cyan-500/20',
+      action: null,
+    }] : []),
   ];
 
   const quickActions = isStaff
@@ -60,8 +82,9 @@ export default function Dashboard() {
       ]
     : [
         { to: '/quizzes', icon: Brain, label: 'Take a Quiz', desc: 'Test yourself', color: 'text-purple-400', bg: 'bg-purple-500/10' },
-        { to: '/videos', icon: Video, label: 'Watch Videos', desc: 'Learn from videos', color: 'text-red-400', bg: 'bg-red-500/10' },
         { to: '/flashcards', icon: Layers, label: 'Study Flashcards', desc: 'Spaced repetition', color: 'text-green-400', bg: 'bg-green-500/10' },
+        { to: '/lingodolphy', icon: Globe, label: 'LingoDolphy', desc: 'Learn languages & challenges', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
+        { to: '/videos', icon: Video, label: 'Watch Videos', desc: 'Learn from videos', color: 'text-red-400', bg: 'bg-red-500/10' },
         { to: '/notes', icon: BookOpen, label: 'Read Notes', desc: 'Study materials', color: 'text-blue-400', bg: 'bg-blue-500/10' },
       ];
 
@@ -94,8 +117,8 @@ export default function Dashboard() {
       <TodayPerformance />
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {statCards.map(({ to, icon: Icon, label, value, gradient, shadow, border, action }) => (
+      <div className={`grid grid-cols-2 ${isStudent ? 'sm:grid-cols-3 lg:grid-cols-5' : 'lg:grid-cols-4'} gap-4 mb-8`}>
+        {statCards.map(({ to, icon: Icon, label, value, subtitle, gradient, shadow, border, action }) => (
           <div key={to} className={`glass-card p-5 border ${border} hover:scale-[1.03] transition-all duration-300 group`}>
             <div className="flex items-center justify-between mb-4">
               <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center shadow-lg ${shadow}`}>
@@ -109,7 +132,10 @@ export default function Dashboard() {
             </div>
             <Link to={to}>
               <div className="text-3xl font-black text-white mb-0.5">{loading ? '—' : value}</div>
-              <div className="text-gray-500 text-sm group-hover:text-gray-400 transition-colors">{label}</div>
+              <div className="text-gray-500 text-sm group-hover:text-gray-400 transition-colors flex items-center justify-between">
+                <span>{label}</span>
+                {subtitle && <span className="text-[11px] text-cyan-400 font-semibold">{subtitle}</span>}
+              </div>
             </Link>
           </div>
         ))}
