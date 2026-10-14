@@ -34,6 +34,8 @@ exports.getStatus = async (req, res, next) => {
                 lastActiveDate: user.lastActiveDate,
                 dailyTargetXp: user.dailyTargetXp || 20,
                 targetLanguage: user.targetLanguage || 'de',
+                nativeLanguage: user.nativeLanguage || (user.targetLanguage === 'en' ? 'mr' : 'en'),
+                currentLevel: user.currentLevel || 'A1',
                 pearls: user.pearls ?? 100,
                 oxygen: user.oxygen ?? 5,
                 totalXp: user.totalXp || 0,
@@ -137,12 +139,21 @@ exports.getPath = async (req, res, next) => {
             },
         ];
 
+        // Determine learning language, native instruction language, and CEFR level
+        const targetLang = req.query.learningLanguage || req.query.targetLanguage || req.user.targetLanguage || 'de';
+        let nativeLang = req.query.nativeLanguage || req.user.nativeLanguage;
+        if (!nativeLang) {
+            nativeLang = (targetLang === 'en') ? 'mr' : 'en';
+        }
+        const level = req.query.level || req.user.currentLevel || 'A1';
+
         // Fetch live published lessons created by admin/trainers for this language/level
         const liveCurriculum = await CurriculumLesson.findAll({
             where: {
                 isLive: true,
-                learningLanguage: req.user.targetLanguage || 'de',
-                level: req.user.currentLevel || 'A1',
+                learningLanguage: targetLang,
+                nativeLanguage: nativeLang,
+                level: level,
             },
             order: [
                 ['unitNumber', 'ASC'],
@@ -463,6 +474,32 @@ exports.claimQuest = async (req, res, next) => {
             totalXp: user.totalXp,
             rewardPearls: quest.rewardPearls,
             rewardXp: quest.rewardXp,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// 8. Switch Active Course Track (Target Language, Native Instruction, Level)
+exports.switchCourse = async (req, res, next) => {
+    try {
+        const { targetLanguage, nativeLanguage, level } = req.body;
+        const user = await User.findByPk(req.user.id);
+        if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+
+        if (targetLanguage) user.targetLanguage = targetLanguage;
+        if (nativeLanguage) user.nativeLanguage = nativeLanguage;
+        if (level) user.currentLevel = level;
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Course track updated successfully',
+            status: {
+                targetLanguage: user.targetLanguage,
+                nativeLanguage: user.nativeLanguage,
+                currentLevel: user.currentLevel || 'A1',
+            }
         });
     } catch (error) {
         next(error);

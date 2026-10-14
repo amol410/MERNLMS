@@ -9,6 +9,7 @@ const {
     refillOxygen,
     getQuests,
     claimQuest,
+    switchCourse,
 } = require('../controllers/gamificationController');
 
 router.use(protect);
@@ -20,6 +21,7 @@ router.get('/leaderboard', getLeaderboard);
 router.post('/shop/refill-oxygen', refillOxygen);
 router.get('/quests', getQuests);
 router.post('/claim-quest', claimQuest);
+router.post('/switch-course', switchCourse);
 
 module.exports = router;
 

@@ -57,15 +57,28 @@ exports.getMe = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
   try {
-    const { name, bio, avatar } = req.body;
+    const { name, bio, avatar, targetLanguage, nativeLanguage, currentLevel } = req.body;
     const user = await User.findByPk(req.user.id);
     if (name !== undefined) user.name = name;
     if (bio !== undefined) user.bio = bio;
     if (avatar !== undefined) user.avatar = avatar;
+    if (targetLanguage !== undefined) user.targetLanguage = targetLanguage;
+    if (nativeLanguage !== undefined) user.nativeLanguage = nativeLanguage;
+    if (currentLevel !== undefined) user.currentLevel = currentLevel;
     await user.save();
     res.status(200).json({
       success: true,
-      user: { _id: user.id, name: user.name, email: user.email, role: user.role, avatar: user.avatar, bio: user.bio },
+      user: {
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        avatar: user.avatar,
+        bio: user.bio,
+        targetLanguage: user.targetLanguage,
+        nativeLanguage: user.nativeLanguage,
+        currentLevel: user.currentLevel,
+      },
     });
   } catch (error) {
     next(error);

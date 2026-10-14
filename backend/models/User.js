@@ -20,6 +20,8 @@ const User = sequelize.define('User', {
     lastActiveDate: { type: DataTypes.DATEONLY, defaultValue: null, field: 'last_active_date' },
     dailyTargetXp: { type: DataTypes.INTEGER, defaultValue: 20, field: 'daily_target_xp' },
     targetLanguage: { type: DataTypes.STRING(10), defaultValue: 'de', field: 'target_language' },
+    nativeLanguage: { type: DataTypes.STRING(10), defaultValue: 'en', field: 'native_language' },
+    currentLevel: { type: DataTypes.STRING(10), defaultValue: 'A1', field: 'current_level' },
     pearls: { type: DataTypes.INTEGER, defaultValue: 100, field: 'pearls' },
     oxygen: { type: DataTypes.INTEGER, defaultValue: 5, field: 'oxygen' },
     lastOxygenRefill: { type: DataTypes.DATE, defaultValue: DataTypes.NOW, field: 'last_oxygen_refill' },
