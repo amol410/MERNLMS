@@ -46,14 +46,99 @@ function playChime(isCorrect) {
   } catch (_) {}
 }
 
-// ─── Browser Text-to-Speech ────────────────────────────────────────────────
+// ─── Browser Text-to-Speech with High-Quality Voice Selection ───────────────
+const NOVELTY_VOICE_NAMES = [
+  'albert', 'bad news', 'bahh', 'bells', 'boing', 'bubbles', 'cellos',
+  'deranged', 'fred', 'good news', 'hysterical', 'junior', 'organ',
+  'pipe organ', 'trinoids', 'whisper', 'wobble', 'zarvox', 'jester'
+];
+
+function getBestVoiceForLanguage(lang = 'de') {
+  if (!('speechSynthesis' in window)) return null;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices || voices.length === 0) return null;
+
+  const targetCode = lang === 'de' ? 'de' : (lang === 'hi' ? 'hi' : (lang === 'mr' ? 'mr' : 'en'));
+
+  // Filter out novelty / joke / eerie synthesizer voices
+  const naturalVoices = voices.filter(v => {
+    const nameLower = (v.name || '').toLowerCase();
+    return !NOVELTY_VOICE_NAMES.some(nv => nameLower.includes(nv));
+  });
+
+  const matchingVoices = naturalVoices.filter(v => {
+    const locale = (v.lang || '').toLowerCase().replace('_', '-');
+    return locale.startsWith(targetCode);
+  });
+
+  if (targetCode === 'en') {
+    // English priority list: Clear natural voices (Apple Samantha, Google Neural, Karen, Serena, Daniel)
+    const preferredEnglishNames = [
+      'samantha',
+      'google us english',
+      'google uk english female',
+      'karen',
+      'serena',
+      'daniel',
+      'fiona',
+      'moira',
+      'victoria',
+      'allison',
+      'ava',
+      'susan',
+      'jenny',
+      'zira',
+      'david'
+    ];
+
+    for (const pref of preferredEnglishNames) {
+      const found = matchingVoices.find(v => (v.name || '').toLowerCase().includes(pref));
+      if (found) return found;
+    }
+    const naturalPref = matchingVoices.find(v => (v.name || '').toLowerCase().includes('natural') || (v.name || '').toLowerCase().includes('premium'));
+    if (naturalPref) return naturalPref;
+  } else if (targetCode === 'de') {
+    // German priority list: Clear natural female/male voices
+    const preferredGermanNames = [
+      'anna',
+      'google deutsch',
+      'marlene',
+      'vicki',
+      'katja',
+      'petra',
+      'eddy',
+      'flo'
+    ];
+    for (const pref of preferredGermanNames) {
+      const found = matchingVoices.find(v => (v.name || '').toLowerCase().includes(pref));
+      if (found) return found;
+    }
+  } else if (targetCode === 'hi' || targetCode === 'mr') {
+    const preferredIndianNames = ['lekha', 'neerja', 'kalpana', 'swara', 'google हिन्दी', 'google'];
+    for (const pref of preferredIndianNames) {
+      const found = matchingVoices.find(v => (v.name || '').toLowerCase().includes(pref));
+      if (found) return found;
+    }
+  }
+
+  return matchingVoices[0] || naturalVoices.find(v => (v.lang || '').toLowerCase().startsWith(targetCode)) || null;
+}
+
 function speakText(text, lang = 'de') {
   if (!('speechSynthesis' in window) || !text) return;
   try {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang === 'de' ? 'de-DE' : (lang === 'hi' ? 'hi-IN' : 'en-US');
-    utterance.rate = 0.9;
+    const targetCode = lang === 'de' ? 'de-DE' : (lang === 'hi' ? 'hi-IN' : (lang === 'mr' ? 'mr-IN' : 'en-US'));
+    utterance.lang = targetCode;
+    utterance.rate = 0.92;
+    utterance.pitch = 1.0;
+
+    const bestVoice = getBestVoiceForLanguage(lang);
+    if (bestVoice) {
+      utterance.voice = bestVoice;
+    }
+
     window.speechSynthesis.speak(utterance);
   } catch (_) {}
 }
