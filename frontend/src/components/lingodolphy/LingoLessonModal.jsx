@@ -57,6 +57,30 @@ function speakText(text, lang = 'de') {
   } catch (_) {}
 }
 
+// ─── Speech Word Sanitization & Fuzzy Comparison Helpers ────────────────────
+function cleanSpeechWords(text) {
+  return (text || '')
+    .toLowerCase()
+    .replace(/[.,/#!$%^&*;:{}=\-_`~()?"«»„“]/g, '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
+function isFuzzyWordMatch(w1, w2) {
+  if (!w1 || !w2) return false;
+  if (w1 === w2) return true;
+  if (Math.abs(w1.length - w2.length) <= 1) {
+    let diff = 0;
+    const minLen = Math.min(w1.length, w2.length);
+    for (let i = 0; i < minLen; i++) {
+      if (w1[i] !== w2[i]) diff++;
+    }
+    return diff <= 1;
+  }
+  return false;
+}
+
 export default function LingoLessonModal({ node, targetLanguage = 'de', onClose, onComplete }) {
   const [loading, setLoading] = useState(true);
   const [stages, setStages] = useState([]);
@@ -267,6 +291,11 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       return;
     }
 
+    if (status === 'wrong') {
+      setStatus('idle');
+      setFeedbackMessage('');
+    }
+
     if (isListening && recognitionRef.current) {
       try {
         recognitionRef.current.stop();
@@ -296,14 +325,17 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
         // Evaluate pronunciation against prompt
         const currentStage = stages[currentStageIdx];
         const prompt = currentStage?.prompt || '';
-        const cleanPrompt = prompt.toLowerCase().replace(/[.,!?:;]/g, '').trim();
-        const cleanSpoken = transcript.toLowerCase().replace(/[.,!?:;]/g, '').trim();
+        const promptWords = cleanSpeechWords(prompt);
+        const spokenWords = cleanSpeechWords(transcript);
+        const matchedCount = promptWords.filter(pw => spokenWords.some(sw => isFuzzyWordMatch(pw, sw))).length;
+        const accuracyPct = promptWords.length > 0 ? (matchedCount / promptWords.length) * 100 : 0;
 
-        const promptWords = cleanPrompt.split(/\s+/).filter(Boolean);
-        const spokenWords = cleanSpoken.split(/\s+/).filter(Boolean);
-        const matchedCount = promptWords.filter(pw => spokenWords.some(sw => sw.includes(pw) || pw.includes(sw))).length;
+        // Auto-complete ONLY when the complete phrase is pronounced
+        const isFullPhrase = promptWords.length <= 4
+          ? matchedCount === promptWords.length
+          : accuracyPct >= 80;
 
-        if (promptWords.length > 0 && (matchedCount / promptWords.length >= 0.5 || cleanSpoken.includes(cleanPrompt))) {
+        if (promptWords.length > 0 && isFullPhrase) {
           setTimeout(() => {
             if (recognitionRef.current) {
               try { recognitionRef.current.stop(); } catch (_) {}
@@ -371,31 +403,36 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       }
     } else if (currentStage.type === 'sprechen') {
       const prompt = currentStage.prompt || '';
-      const cleanPrompt = prompt.toLowerCase().replace(/[.,!?:;]/g, '').trim();
-      const cleanSpoken = (spokenTranscript || '').toLowerCase().replace(/[.,!?:;]/g, '').trim();
+      const promptWords = cleanSpeechWords(prompt);
+      const spokenWords = cleanSpeechWords(spokenTranscript);
+      const matchedCount = promptWords.filter(pw => spokenWords.some(sw => isFuzzyWordMatch(pw, sw))).length;
+      const accuracyPct = promptWords.length > 0 ? Math.round((matchedCount / promptWords.length) * 100) : 0;
 
-      const promptWords = cleanPrompt.split(/\s+/).filter(Boolean);
-      const spokenWords = cleanSpoken.split(/\s+/).filter(Boolean);
-      const matchedCount = promptWords.filter(pw => spokenWords.some(sw => sw.includes(pw) || pw.includes(sw))).length;
+      const isFullPhrase = promptWords.length <= 4
+        ? matchedCount === promptWords.length
+        : accuracyPct >= 80;
 
-      if (spokenTranscript && promptWords.length > 0) {
-        isCorrect = (matchedCount / promptWords.length) >= 0.4 || cleanSpoken.includes(cleanPrompt);
-        expected = prompt;
-      } else {
-        // If user didn't speak into mic yet, allow passing or practicing
+      if (spokenTranscript && isFullPhrase) {
         isCorrect = true;
+      } else {
+        isCorrect = false;
+        expected = prompt;
       }
     }
 
     if (isCorrect) {
       playChime(true);
       setStatus('correct');
-      setFeedbackMessage('Excellent job! You nailed it.');
+      setFeedbackMessage(currentStage.type === 'sprechen' ? 'Wunderbar! Great pronunciation.' : 'Excellent job! You nailed it.');
     } else {
       playChime(false);
       setStatus('wrong');
       setHearts(h => Math.max(0, h - 1));
-      setFeedbackMessage('Not quite correct.');
+      if (currentStage.type === 'sprechen') {
+        setFeedbackMessage(spokenTranscript ? 'Incomplete pronunciation. Speak the full phrase.' : 'Tap "Pronounce Aloud" and speak into your mic.');
+      } else {
+        setFeedbackMessage('Not quite correct.');
+      }
       setCorrectAnswerText(expected || 'Check punctuation or correct spelling.');
     }
   }
@@ -740,9 +777,9 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                   <div className="p-6 rounded-3xl bg-[#1A262C] border border-white/10 w-full">
                     <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
                       {(currentStage.prompt || '').split(' ').map((word, wIdx) => {
-                        const cleanW = word.toLowerCase().replace(/[.,!?:;]/g, '').trim();
-                        const spokenWords = (spokenTranscript || '').toLowerCase().replace(/[.,!?:;]/g, '').split(/\s+/);
-                        const isWordHeard = spokenWords.some(sw => sw.includes(cleanW) || cleanW.includes(sw));
+                        const cleanW = word.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()?"«»„“]/g, '').trim();
+                        const spokenWords = cleanSpeechWords(spokenTranscript);
+                        const isWordHeard = spokenWords.some(sw => isFuzzyWordMatch(cleanW, sw));
                         return (
                           <span
                             key={wIdx}
@@ -793,6 +830,25 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                     <div className="w-full max-w-md p-3.5 rounded-2xl bg-[#202F36] border border-cyan-500/20 text-center animate-fade-in">
                       <span className="text-xs text-gray-400 uppercase font-bold tracking-wider block mb-0.5">We Heard:</span>
                       <p className="text-sm font-semibold text-cyan-300">"{spokenTranscript}"</p>
+                      {!isListening && status === 'idle' && (
+                        <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-center gap-1.5 text-xs">
+                          {(() => {
+                            const promptWords = cleanSpeechWords(currentStage.prompt);
+                            const spokenWords = cleanSpeechWords(spokenTranscript);
+                            const matchedCount = promptWords.filter(pw => spokenWords.some(sw => isFuzzyWordMatch(pw, sw))).length;
+                            const isFull = promptWords.length <= 4 ? matchedCount === promptWords.length : (matchedCount / promptWords.length) >= 0.8;
+                            return isFull ? (
+                              <span className="text-emerald-400 font-bold flex items-center gap-1">
+                                <CheckCircle2 className="w-4 h-4" /> Complete sentence heard! Click Check to continue.
+                              </span>
+                            ) : (
+                              <span className="text-amber-400 font-medium">
+                                ⚠️ Heard {matchedCount} of {promptWords.length} words. Tap &ldquo;Pronounce Aloud&rdquo; to complete or click Check.
+                              </span>
+                            );
+                          })()}
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -824,7 +880,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
               {status === 'idle' ? (
                 <>
                   <div className="text-gray-400 text-xs sm:text-sm font-medium">
-                    Select or assemble your answer above
+                    {currentStage?.type === 'sprechen' ? 'Pronounce the full phrase aloud, then click Check' : 'Select or assemble your answer above'}
                   </div>
                   <button
                     onClick={handleCheckAnswer}
@@ -857,17 +913,32 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                     </div>
                   </div>
 
-                  <button
-                    onClick={handleContinue}
-                    className={clsx(
-                      'px-8 py-3.5 rounded-2xl text-white font-black text-base shadow-lg transition-all',
-                      status === 'correct'
-                        ? 'bg-emerald-500 hover:bg-emerald-400 shadow-emerald-900/40'
-                        : 'bg-rose-500 hover:bg-rose-400 shadow-rose-900/40'
+                  <div className="flex items-center gap-2">
+                    {status === 'wrong' && currentStage?.type === 'sprechen' && (
+                      <button
+                        onClick={() => {
+                          setStatus('idle');
+                          setFeedbackMessage('');
+                          setTimeout(() => toggleSpeechRecognition(), 100);
+                        }}
+                        className="px-5 py-3.5 rounded-2xl bg-[#202F36] hover:bg-white/10 text-white font-bold text-sm border border-white/10 transition-all flex items-center gap-1.5"
+                      >
+                        <RotateCcw className="w-4 h-4 text-cyan-400" />
+                        <span>Try Again</span>
+                      </button>
                     )}
-                  >
-                    Continue
-                  </button>
+                    <button
+                      onClick={handleContinue}
+                      className={clsx(
+                        'px-8 py-3.5 rounded-2xl text-white font-black text-base shadow-lg transition-all',
+                        status === 'correct'
+                          ? 'bg-emerald-500 hover:bg-emerald-400 shadow-emerald-900/40'
+                          : 'bg-rose-500 hover:bg-rose-400 shadow-rose-900/40'
+                      )}
+                    >
+                      Continue
+                    </button>
+                  </div>
                 </>
               )}
             </div>
