@@ -99,6 +99,61 @@ export default function CurriculumPage() {
   const [lessonSearch, setLessonSearch] = useState('');
   const [expandedLessonId, setExpandedLessonId] = useState(null);
 
+  // English Voice Persona State (Default: female - Samantha)
+  const [voicePersona, setVoicePersona] = useState(() => {
+    try {
+      return localStorage.getItem('lingo_voice_persona') || 'female';
+    } catch (_) {
+      return 'female';
+    }
+  });
+
+  const handleVoicePersonaChange = (persona) => {
+    setVoicePersona(persona);
+    try {
+      localStorage.setItem('lingo_voice_persona', persona);
+    } catch (_) {}
+    toast.success(`Voice set to ${persona === 'female' ? 'Female (Samantha)' : 'Male (Daniel)'}`);
+
+    if ('speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+        const text = persona === 'female'
+          ? 'Hello! I am your female English voice.'
+          : 'Hello! I am your male English voice.';
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.95;
+
+        const voices = window.speechSynthesis.getVoices();
+        const NOVELTY = [
+          'albert', 'bad news', 'bahh', 'bells', 'boing', 'bubbles', 'cellos',
+          'deranged', 'fred', 'good news', 'hysterical', 'junior', 'organ',
+          'pipe organ', 'trinoids', 'whisper', 'wobble', 'zarvox', 'jester'
+        ];
+        const cleanVoices = (voices || []).filter(v => {
+          const n = (v.name || '').toLowerCase();
+          const l = (v.lang || '').toLowerCase().replace('_', '-');
+          return !NOVELTY.some(x => n.includes(x)) && l.startsWith('en');
+        });
+
+        const preferred = persona === 'female'
+          ? ['samantha', 'google us english', 'google uk english female', 'karen', 'serena', 'jenny', 'zira', 'fiona', 'moira', 'victoria', 'allison', 'ava', 'susan']
+          : ['daniel', 'google us english male', 'google uk english male', 'david', 'oliver', 'george', 'guy', 'reed', 'rocko', 'eddy'];
+
+        let chosen = null;
+        for (const pref of preferred) {
+          chosen = cleanVoices.find(v => (v.name || '').toLowerCase().includes(pref));
+          if (chosen) break;
+        }
+        if (!chosen && cleanVoices.length > 0) chosen = cleanVoices[0];
+        if (chosen) utterance.voice = chosen;
+
+        window.speechSynthesis.speak(utterance);
+      } catch (_) {}
+    }
+  };
+
   // Lessons Data
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -400,7 +455,7 @@ export default function CurriculumPage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className={`grid grid-cols-1 sm:grid-cols-2 ${learningLanguage === 'en' ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-4`}>
           {/* Target / Learning Language */}
           <div>
             <label className="text-xs text-gray-400 font-semibold block mb-1.5">
@@ -459,6 +514,42 @@ export default function CurriculumPage() {
               ))}
             </div>
           </div>
+
+          {/* English Voice Persona Selector (Only visible when English is selected) */}
+          {learningLanguage === 'en' && (
+            <div>
+              <label className="text-xs text-gray-400 font-semibold block mb-1.5 flex items-center justify-between">
+                <span>English Voice</span>
+                <span className="text-[10px] text-cyan-400 font-normal">Tap to preview</span>
+              </label>
+              <div className="grid grid-cols-2 gap-1 p-1 rounded-xl bg-slate-800/80 border border-white/10">
+                <button
+                  type="button"
+                  onClick={() => handleVoicePersonaChange('female')}
+                  className={`py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                    voicePersona === 'female'
+                      ? 'bg-cyan-500 text-white shadow-md'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                  title="Female Voice (Default: Samantha on Mac, Google Female, Jenny)"
+                >
+                  <span>👩</span> Female
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleVoicePersonaChange('male')}
+                  className={`py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                    voicePersona === 'male'
+                      ? 'bg-cyan-500 text-white shadow-md'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                  title="Male Voice (Daniel on Mac, Google Male, David)"
+                >
+                  <span>👨</span> Male
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

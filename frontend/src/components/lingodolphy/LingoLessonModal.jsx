@@ -72,26 +72,49 @@ function getBestVoiceForLanguage(lang = 'de') {
   });
 
   if (targetCode === 'en') {
-    // English priority list: Clear natural voices (Apple Samantha, Google Neural, Karen, Serena, Daniel)
-    const preferredEnglishNames = [
+    // English persona check: 'female' (Default: Samantha / Google Female / Jenny) vs 'male' (Daniel / Google Male / David)
+    let persona = 'female';
+    try {
+      persona = localStorage.getItem('lingo_voice_persona') || 'female';
+    } catch (_) {}
+
+    const preferredFemaleNames = [
       'samantha',
       'google us english',
       'google uk english female',
       'karen',
       'serena',
-      'daniel',
+      'jenny',
+      'zira',
       'fiona',
       'moira',
       'victoria',
       'allison',
       'ava',
-      'susan',
-      'jenny',
-      'zira',
-      'david'
+      'susan'
     ];
 
-    for (const pref of preferredEnglishNames) {
+    const preferredMaleNames = [
+      'daniel',
+      'google us english male',
+      'google uk english male',
+      'david',
+      'oliver',
+      'george',
+      'guy',
+      'reed',
+      'rocko',
+      'eddy'
+    ];
+
+    const primaryList = persona === 'male' ? preferredMaleNames : preferredFemaleNames;
+    const fallbackList = persona === 'male' ? preferredFemaleNames : preferredMaleNames;
+
+    for (const pref of primaryList) {
+      const found = matchingVoices.find(v => (v.name || '').toLowerCase().includes(pref));
+      if (found) return found;
+    }
+    for (const pref of fallbackList) {
       const found = matchingVoices.find(v => (v.name || '').toLowerCase().includes(pref));
       if (found) return found;
     }
@@ -266,6 +289,13 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
   const [hearts, setHearts] = useState(5);
   const [isCompleted, setIsCompleted] = useState(false);
   const [savingProgress, setSavingProgress] = useState(false);
+  const [voicePersona, setVoicePersona] = useState(() => {
+    try {
+      return localStorage.getItem('lingo_voice_persona') || 'female';
+    } catch (_) {
+      return 'female';
+    }
+  });
 
   // Active Stage State
   const [status, setStatus] = useState('idle'); // 'idle' | 'correct' | 'wrong'
@@ -761,10 +791,30 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
             </div>
           </div>
 
-          {/* Hearts counter */}
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 font-bold text-sm">
-            <Heart className="w-4 h-4 fill-current text-red-500" />
-            <span>{hearts}</span>
+          {/* Controls: Persona toggle for English + Hearts counter */}
+          <div className="flex items-center gap-2">
+            {targetLanguage === 'en' && (
+              <button
+                type="button"
+                onClick={() => {
+                  const nextPersona = voicePersona === 'female' ? 'male' : 'female';
+                  setVoicePersona(nextPersona);
+                  try {
+                    localStorage.setItem('lingo_voice_persona', nextPersona);
+                  } catch (_) {}
+                  speakText(nextPersona === 'female' ? 'Female voice selected' : 'Male voice selected', 'en');
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 font-bold text-xs hover:bg-cyan-500/25 transition-all cursor-pointer"
+                title="Toggle English voice persona: Female (Samantha) / Male (Daniel)"
+              >
+                <span>{voicePersona === 'female' ? '👩 Female' : '👨 Male'}</span>
+              </button>
+            )}
+
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 font-bold text-sm">
+              <Heart className="w-4 h-4 fill-current text-red-500" />
+              <span>{hearts}</span>
+            </div>
           </div>
         </div>
 
