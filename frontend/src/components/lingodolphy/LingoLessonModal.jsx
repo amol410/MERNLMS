@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import clsx from 'clsx';
 import api from '../../api/axios';
+import toast from 'react-hot-toast';
 
 // ─── Native Web Audio Chimes ────────────────────────────────────────────────
 function playChime(isCorrect) {
@@ -89,6 +90,16 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
   // Sprechen
   const [isListening, setIsListening] = useState(false);
   const [spokenTranscript, setSpokenTranscript] = useState('');
+  const recognitionRef = useRef(null);
+
+  // Stop speech recognition on unmount
+  useEffect(() => {
+    return () => {
+      if (recognitionRef.current) {
+        try { recognitionRef.current.stop(); } catch (_) {}
+      }
+    };
+  }, []);
 
   // Fetch full stage details JIT
   useEffect(() => {
@@ -154,6 +165,9 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
     setTypedInput('');
     setSpokenTranscript('');
     setIsListening(false);
+    if (recognitionRef.current) {
+      try { recognitionRef.current.stop(); } catch (_) {}
+    }
 
     if (stage.type === 'word_match' && Array.isArray(stage.pairs)) {
       const targets = [];
@@ -245,6 +259,84 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
     setAvailableTokens(prev => [...prev, token]);
   }
 
+  // Handle Speech Recognition for Sprechen Stage
+  function toggleSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      toast.error('Voice input is not supported in this browser. Please use Chrome, Edge, or Safari.');
+      return;
+    }
+
+    if (isListening && recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch (_) {}
+      setIsListening(false);
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.lang = targetLanguage === 'de' ? 'de-DE' : (targetLanguage === 'hi' ? 'hi-IN' : 'en-US');
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event) => {
+        let transcript = '';
+        for (let i = 0; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        setSpokenTranscript(transcript);
+
+        // Evaluate pronunciation against prompt
+        const currentStage = stages[currentStageIdx];
+        const prompt = currentStage?.prompt || '';
+        const cleanPrompt = prompt.toLowerCase().replace(/[.,!?:;]/g, '').trim();
+        const cleanSpoken = transcript.toLowerCase().replace(/[.,!?:;]/g, '').trim();
+
+        const promptWords = cleanPrompt.split(/\s+/).filter(Boolean);
+        const spokenWords = cleanSpoken.split(/\s+/).filter(Boolean);
+        const matchedCount = promptWords.filter(pw => spokenWords.some(sw => sw.includes(pw) || pw.includes(sw))).length;
+
+        if (promptWords.length > 0 && (matchedCount / promptWords.length >= 0.5 || cleanSpoken.includes(cleanPrompt))) {
+          setTimeout(() => {
+            if (recognitionRef.current) {
+              try { recognitionRef.current.stop(); } catch (_) {}
+            }
+            setIsListening(false);
+            playChime(true);
+            setStatus('correct');
+            setFeedbackMessage('Wunderbar! Great pronunciation.');
+          }, 500);
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.warn('Speech recognition error:', event.error);
+        setIsListening(false);
+        if (event.error === 'not-allowed') {
+          toast.error('Microphone access was denied. Please allow microphone permissions in your browser.');
+        }
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch (err) {
+      console.error('Failed to start speech recognition:', err);
+      setIsListening(false);
+      toast.error('Could not activate microphone.');
+    }
+  }
+
   // Submit Answer
   function handleCheckAnswer() {
     if (status !== 'idle') return;
@@ -278,8 +370,21 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
         isCorrect = selectedOption === expected;
       }
     } else if (currentStage.type === 'sprechen') {
-      // Speech accuracy or self-verify
-      isCorrect = true;
+      const prompt = currentStage.prompt || '';
+      const cleanPrompt = prompt.toLowerCase().replace(/[.,!?:;]/g, '').trim();
+      const cleanSpoken = (spokenTranscript || '').toLowerCase().replace(/[.,!?:;]/g, '').trim();
+
+      const promptWords = cleanPrompt.split(/\s+/).filter(Boolean);
+      const spokenWords = cleanSpoken.split(/\s+/).filter(Boolean);
+      const matchedCount = promptWords.filter(pw => spokenWords.some(sw => sw.includes(pw) || pw.includes(sw))).length;
+
+      if (spokenTranscript && promptWords.length > 0) {
+        isCorrect = (matchedCount / promptWords.length) >= 0.4 || cleanSpoken.includes(cleanPrompt);
+        expected = prompt;
+      } else {
+        // If user didn't speak into mic yet, allow passing or practicing
+        isCorrect = true;
+      }
     }
 
     if (isCorrect) {
@@ -631,29 +736,72 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
               {/* 6. SPRECHEN (SPEECH PRACTICE) */}
               {currentStage.type === 'sprechen' && (
                 <div className="flex flex-col items-center text-center gap-6 py-4">
+                  {/* German prompt with real-time word match highlighting */}
                   <div className="p-6 rounded-3xl bg-[#1A262C] border border-white/10 w-full">
-                    <p className="text-2xl font-black text-white mb-2">{currentStage.prompt}</p>
+                    <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
+                      {(currentStage.prompt || '').split(' ').map((word, wIdx) => {
+                        const cleanW = word.toLowerCase().replace(/[.,!?:;]/g, '').trim();
+                        const spokenWords = (spokenTranscript || '').toLowerCase().replace(/[.,!?:;]/g, '').split(/\s+/);
+                        const isWordHeard = spokenWords.some(sw => sw.includes(cleanW) || cleanW.includes(sw));
+                        return (
+                          <span
+                            key={wIdx}
+                            className={clsx(
+                              'text-2xl sm:text-3xl font-black px-2 py-0.5 rounded-xl transition-all duration-300',
+                              isWordHeard
+                                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm'
+                                : 'text-white'
+                            )}
+                          >
+                            {word}
+                          </span>
+                        );
+                      })}
+                    </div>
                     {currentStage.translation && (
-                      <p className="text-sm text-gray-400">{currentStage.translation}</p>
+                      <p className="text-sm text-gray-400 italic">{currentStage.translation}</p>
                     )}
                   </div>
 
-                  <div className="flex gap-4">
+                  {/* Audio Controls: Listen & Pronounce Aloud (Microphone) */}
+                  <div className="flex items-center gap-4">
                     <button
                       onClick={() => speakText(currentStage.prompt, targetLanguage)}
-                      className="px-5 py-3 rounded-2xl bg-[#202F36] border border-white/10 text-white font-bold flex items-center gap-2 hover:bg-white/10"
+                      className="px-5 py-3 rounded-2xl bg-[#202F36] border border-white/10 text-white font-bold flex items-center gap-2 hover:bg-white/10 transition-colors"
+                      title="Listen to native pronunciation"
                     >
                       <Volume2 className="w-5 h-5 text-cyan-400" />
                       Listen
                     </button>
+
                     <button
-                      onClick={() => speakText(currentStage.prompt, targetLanguage)}
-                      className="px-6 py-3 rounded-2xl bg-cyan-500 text-white font-bold flex items-center gap-2 shadow-lg shadow-cyan-500/30 hover:scale-105"
+                      onClick={toggleSpeechRecognition}
+                      className={clsx(
+                        'px-6 py-3 rounded-2xl text-white font-bold flex items-center gap-2.5 transition-all shadow-lg',
+                        isListening
+                          ? 'bg-rose-500 shadow-rose-500/40 animate-pulse scale-105'
+                          : 'bg-cyan-500 hover:bg-cyan-400 shadow-cyan-500/30 hover:scale-105'
+                      )}
                     >
-                      <Mic className="w-5 h-5" />
-                      Pronounce Aloud
+                      <Mic className={clsx('w-5 h-5', isListening && 'animate-bounce')} />
+                      <span>{isListening ? 'Listening... Speak Now' : 'Pronounce Aloud'}</span>
                     </button>
                   </div>
+
+                  {/* Real-time speech transcript feedback */}
+                  {spokenTranscript && (
+                    <div className="w-full max-w-md p-3.5 rounded-2xl bg-[#202F36] border border-cyan-500/20 text-center animate-fade-in">
+                      <span className="text-xs text-gray-400 uppercase font-bold tracking-wider block mb-0.5">We Heard:</span>
+                      <p className="text-sm font-semibold text-cyan-300">"{spokenTranscript}"</p>
+                    </div>
+                  )}
+
+                  {isListening && (
+                    <div className="flex items-center gap-2 text-xs font-semibold text-cyan-400 animate-pulse">
+                      <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                      Speak clearly into your microphone in German...
+                    </div>
+                  )}
                 </div>
               )}
             </div>
