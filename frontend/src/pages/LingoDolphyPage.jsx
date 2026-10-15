@@ -527,6 +527,7 @@ export default function LingoDolphyPage() {
         <LingoLessonModal
           node={activeLessonNode}
           targetLanguage={targetLanguage}
+          nativeLanguage={nativeLanguage}
           onClose={() => {
             setActiveLessonNode(null);
             fetchPath(targetLanguage, nativeLanguage, level, selectedSection);

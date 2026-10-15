@@ -86,7 +86,31 @@ function isFuzzyWordMatch(w1, w2) {
   return false;
 }
 
-export default function LingoLessonModal({ node, targetLanguage = 'de', onClose, onComplete }) {
+// ─── Fisher-Yates Array Shuffle with Guaranteed Scramble ────────────────────
+function shuffleArray(arr) {
+  if (!Array.isArray(arr) || arr.length <= 1) return arr ? [...arr] : [];
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  // If result accidentally remained in identical sequence and has > 1 items, rotate
+  if (result.length > 1) {
+    const isIdentical = result.every((val, idx) => {
+      if (typeof val === 'object' && val !== null && val.id) {
+        return val.id === arr[idx]?.id;
+      }
+      return val === arr[idx];
+    });
+    if (isIdentical) {
+      const first = result.shift();
+      result.push(first);
+    }
+  }
+  return result;
+}
+
+export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLanguage = 'en', onClose, onComplete }) {
   const [loading, setLoading] = useState(true);
   const [stages, setStages] = useState([]);
   const [currentStageIdx, setCurrentStageIdx] = useState(0);
@@ -153,16 +177,62 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
 
       // Offline / default stages fallback
       if (isMounted) {
+        let fallbackPairs = [];
+        if (targetLanguage === 'de') {
+          if (nativeLanguage === 'mr') {
+            fallbackPairs = [
+              { target: 'Hallo', native: 'नमस्कार' },
+              { target: 'Danke', native: 'धन्यवाद' },
+              { target: 'Bitte', native: 'कृपया' },
+              { target: 'Guten Morgen', native: 'शुभ सकाळ' },
+            ];
+          } else if (nativeLanguage === 'hi') {
+            fallbackPairs = [
+              { target: 'Hallo', native: 'नमस्ते' },
+              { target: 'Danke', native: 'धन्यवाद' },
+              { target: 'Bitte', native: 'कृपया' },
+              { target: 'Guten Morgen', native: 'शुभ प्रभात' },
+            ];
+          } else {
+            // Pure English native
+            fallbackPairs = [
+              { target: 'Hallo', native: 'Hello' },
+              { target: 'Danke', native: 'Thank you' },
+              { target: 'Bitte', native: 'Please' },
+              { target: 'Guten Morgen', native: 'Good Morning' },
+            ];
+          }
+        } else {
+          // targetLanguage === 'en'
+          if (nativeLanguage === 'mr') {
+            fallbackPairs = [
+              { target: 'Hello', native: 'नमस्कार' },
+              { target: 'Thank you', native: 'धन्यवाद' },
+              { target: 'Please', native: 'कृपया' },
+              { target: 'Good Morning', native: 'शुभ सकाळ' },
+            ];
+          } else if (nativeLanguage === 'hi') {
+            fallbackPairs = [
+              { target: 'Hello', native: 'नमस्ते' },
+              { target: 'Thank you', native: 'धन्यवाद' },
+              { target: 'Please', native: 'कृपया' },
+              { target: 'Good Morning', native: 'शुभ प्रभात' },
+            ];
+          } else {
+            fallbackPairs = [
+              { target: 'Hello', native: 'Hello' },
+              { target: 'Thank you', native: 'Thank you' },
+              { target: 'Please', native: 'Please' },
+              { target: 'Good Morning', native: 'Good Morning' },
+            ];
+          }
+        }
+
         const fallbacks = [
           {
             type: 'word_match',
             title: 'Match the word pairs',
-            pairs: [
-              { target: targetLanguage === 'de' ? 'Hallo' : 'Hello', native: 'Hello / नमस्ते' },
-              { target: targetLanguage === 'de' ? 'Danke' : 'Thank you', native: 'Thank you / धन्यवाद' },
-              { target: targetLanguage === 'de' ? 'Bitte' : 'Please', native: 'Please / कृपया' },
-              { target: targetLanguage === 'de' ? 'Guten Morgen' : 'Good Morning', native: 'Good Morning / शुभ प्रभात' },
-            ]
+            pairs: fallbackPairs,
           },
           {
             type: 'sentence_builder',
@@ -213,22 +283,41 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       const natives = [];
       stage.pairs.forEach((p, idx) => {
         const targetText = (p.target || p.german || p.word || '').trim();
-        const nativeText = (p.native || p.english || p.translation || '').trim();
+        let nativeText = (p.native || p.english || p.translation || '').trim();
+
+        // If native language is English, strip any Devanagari or extraneous slash translations
+        if (nativeLanguage === 'en') {
+          if (nativeText.includes('/')) {
+            const parts = nativeText.split('/').map(s => s.trim());
+            const englishPart = parts.find(s => /[A-Za-z]/.test(s) && !/[\u0900-\u097F]/.test(s));
+            if (englishPart) {
+              nativeText = englishPart;
+            } else {
+              nativeText = parts[0];
+            }
+          }
+          // Remove any stray Devanagari characters
+          nativeText = nativeText.replace(/[\u0900-\u097F]/g, '').trim();
+        }
+
         if (targetText && nativeText) {
           targets.push({ id: `t_${idx}`, pairId: idx, text: targetText, isTarget: true });
           natives.push({ id: `n_${idx}`, pairId: idx, text: nativeText, isTarget: false });
         }
       });
       // Shuffle each column independently
-      setLeftWords([...targets].sort(() => Math.random() - 0.5));
-      setRightWords([...natives].sort(() => Math.random() - 0.5));
+      setLeftWords(shuffleArray(targets));
+      setRightWords(shuffleArray(natives));
       setSelectedWord(null);
       setSolvedWordIds(new Set());
       setWrongWordIds(new Set());
     } else if (stage.type === 'listen_tap' || stage.type === 'sentence_builder') {
-      const tokens = Array.isArray(stage.tokens) ? [...stage.tokens] : (stage.targetSentence?.split(' ') || []);
+      const rawTokens = Array.isArray(stage.tokens) && stage.tokens.length > 0
+        ? [...stage.tokens]
+        : (stage.targetSentence?.split(/\s+/) || []);
+      const shuffled = shuffleArray(rawTokens);
       setPlacedTokens([]);
-      setAvailableTokens(tokens.map((t, i) => ({ id: `${t}_${i}`, text: t })));
+      setAvailableTokens(shuffled.map((t, i) => ({ id: `${t}_${i}_${Math.random().toString(36).substring(2, 7)}`, text: t })));
       if (stage.type === 'listen_tap' && stage.targetSentence) {
         setTimeout(() => speakText(stage.targetSentence, targetLanguage), 400);
       }
