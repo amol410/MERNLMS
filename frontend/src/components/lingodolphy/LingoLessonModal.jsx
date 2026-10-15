@@ -71,7 +71,8 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
 
   // Stage specific state:
   // Word match
-  const [matchPairs, setMatchPairs] = useState([]);
+  const [leftWords, setLeftWords] = useState([]);
+  const [rightWords, setRightWords] = useState([]);
   const [selectedWord, setSelectedWord] = useState(null);
   const [solvedWordIds, setSolvedWordIds] = useState(new Set());
 
@@ -155,13 +156,19 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
     setIsListening(false);
 
     if (stage.type === 'word_match' && Array.isArray(stage.pairs)) {
-      const items = [];
+      const targets = [];
+      const natives = [];
       stage.pairs.forEach((p, idx) => {
-        items.push({ id: `t_${idx}`, pairId: idx, text: p.target, isTarget: true });
-        items.push({ id: `n_${idx}`, pairId: idx, text: p.native, isTarget: false });
+        const targetText = (p.target || p.german || p.word || '').trim();
+        const nativeText = (p.native || p.english || p.translation || '').trim();
+        if (targetText && nativeText) {
+          targets.push({ id: `t_${idx}`, pairId: idx, text: targetText, isTarget: true });
+          natives.push({ id: `n_${idx}`, pairId: idx, text: nativeText, isTarget: false });
+        }
       });
-      // Shuffle items
-      setMatchPairs(items.sort(() => Math.random() - 0.5));
+      // Shuffle each column independently
+      setLeftWords([...targets].sort(() => Math.random() - 0.5));
+      setRightWords([...natives].sort(() => Math.random() - 0.5));
       setSelectedWord(null);
       setSolvedWordIds(new Set());
     } else if (stage.type === 'listen_tap' || stage.type === 'sentence_builder') {
@@ -197,8 +204,14 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       return;
     }
 
-    // Check if matching pair
-    if (selectedWord.pairId === item.pairId && selectedWord.isTarget !== item.isTarget) {
+    // If clicking another word in the same column, simply switch selection
+    if (selectedWord.isTarget === item.isTarget) {
+      setSelectedWord(item);
+      return;
+    }
+
+    // Tapping across columns (one target, one native): evaluate match!
+    if (selectedWord.pairId === item.pairId) {
       playChime(true);
       const nextSolved = new Set(solvedWordIds);
       nextSolved.add(selectedWord.id);
@@ -207,7 +220,8 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       setSelectedWord(null);
 
       // Check if all pairs solved
-      if (nextSolved.size === matchPairs.length) {
+      const totalCount = leftWords.length + rightWords.length;
+      if (nextSolved.size === totalCount && totalCount > 0) {
         setStatus('correct');
         setFeedbackMessage('Fantastic! All pairs matched perfectly.');
       }
@@ -239,7 +253,8 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
     let expected = '';
 
     if (currentStage.type === 'word_match') {
-      isCorrect = solvedWordIds.size === matchPairs.length;
+      const totalCount = leftWords.length + rightWords.length;
+      isCorrect = totalCount > 0 && solvedWordIds.size === totalCount;
     } else if (currentStage.type === 'listen_tap' || currentStage.type === 'sentence_builder') {
       const built = placedTokens.map(t => t.text).join(' ').trim().toLowerCase();
       expected = (currentStage.targetSentence || '').trim().toLowerCase();
@@ -395,28 +410,56 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
 
               {/* 1. WORD MATCH STAGE */}
               {currentStage.type === 'word_match' && (
-                <div className="grid grid-cols-2 gap-3">
-                  {matchPairs.map(item => {
-                    const isSelected = selectedWord?.id === item.id;
-                    const isSolved = solvedWordIds.has(item.id);
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() => handleWordClick(item)}
-                        disabled={isSolved}
-                        className={clsx(
-                          'p-4 rounded-2xl font-bold text-base border-2 transition-all duration-200 text-center flex items-center justify-center min-h-[64px]',
-                          isSolved
-                            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 opacity-60'
-                            : isSelected
-                              ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 scale-105 shadow-lg shadow-cyan-500/20'
-                              : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/40'
-                        )}
-                      >
-                        {item.text}
-                      </button>
-                    );
-                  })}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Left Column: Target Language */}
+                  <div className="flex flex-col gap-3">
+                    {leftWords.map(item => {
+                      const isSelected = selectedWord?.id === item.id;
+                      const isSolved = solvedWordIds.has(item.id);
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => handleWordClick(item)}
+                          disabled={isSolved}
+                          className={clsx(
+                            'p-4 rounded-2xl font-bold text-base border-2 transition-all duration-200 text-center flex items-center justify-center min-h-[64px]',
+                            isSolved
+                              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 opacity-60'
+                              : isSelected
+                                ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 scale-105 shadow-lg shadow-cyan-500/20'
+                                : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/40'
+                          )}
+                        >
+                          {item.text}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Right Column: Native Language */}
+                  <div className="flex flex-col gap-3">
+                    {rightWords.map(item => {
+                      const isSelected = selectedWord?.id === item.id;
+                      const isSolved = solvedWordIds.has(item.id);
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => handleWordClick(item)}
+                          disabled={isSolved}
+                          className={clsx(
+                            'p-4 rounded-2xl font-bold text-base border-2 transition-all duration-200 text-center flex items-center justify-center min-h-[64px]',
+                            isSolved
+                              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 opacity-60'
+                              : isSelected
+                                ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 scale-105 shadow-lg shadow-cyan-500/20'
+                                : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/40'
+                          )}
+                        >
+                          {item.text}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 
