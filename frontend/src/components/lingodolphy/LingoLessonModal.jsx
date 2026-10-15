@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import {
   X, Heart, Volume2, Sparkles, CheckCircle2, XCircle, ArrowRight,
-  RotateCcw, Trophy, Award, Zap, HelpCircle, Check, Send, Mic, RefreshCw
+  RotateCcw, Trophy, Award, Zap, HelpCircle, Check, Send, Mic, RefreshCw,
+  MessageSquare
 } from 'lucide-react';
 import clsx from 'clsx';
 import api from '../../api/axios';
@@ -70,11 +71,15 @@ function cleanSpeechWords(text) {
 function isFuzzyWordMatch(w1, w2) {
   if (!w1 || !w2) return false;
   if (w1 === w2) return true;
-  if (Math.abs(w1.length - w2.length) <= 1) {
+  // German umlaut normalization (matching Flutter _isFuzzyMatch)
+  const norm1 = w1.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
+  const norm2 = w2.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
+  if (norm1 === norm2) return true;
+  if (Math.abs(norm1.length - norm2.length) <= 1) {
     let diff = 0;
-    const minLen = Math.min(w1.length, w2.length);
+    const minLen = Math.min(norm1.length, norm2.length);
     for (let i = 0; i < minLen; i++) {
-      if (w1[i] !== w2[i]) diff++;
+      if (norm1[i] !== norm2[i]) diff++;
     }
     return diff <= 1;
   }
@@ -100,6 +105,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
   const [rightWords, setRightWords] = useState([]);
   const [selectedWord, setSelectedWord] = useState(null);
   const [solvedWordIds, setSolvedWordIds] = useState(new Set());
+  const [wrongWordIds, setWrongWordIds] = useState(new Set());
 
   // Listen tap / Sentence builder
   const [placedTokens, setPlacedTokens] = useState([]);
@@ -114,6 +120,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
   // Sprechen
   const [isListening, setIsListening] = useState(false);
   const [spokenTranscript, setSpokenTranscript] = useState('');
+  const [speechAccuracy, setSpeechAccuracy] = useState(0);
   const recognitionRef = useRef(null);
   const speechTimeoutRef = useRef(null);
 
@@ -159,8 +166,8 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
           },
           {
             type: 'sentence_builder',
-            title: 'Construct the sentence',
-            prompt: 'Translate into target language:',
+            title: targetLanguage === 'de' ? 'Construct the German sentence' : 'Construct the sentence',
+            prompt: targetLanguage === 'de' ? 'Translate: "Hello, how are you?"' : 'Translate: "Hallo, wie geht es dir?"',
             targetSentence: targetLanguage === 'de' ? 'Hallo, wie geht es dir?' : 'Hello, how are you?',
             tokens: targetLanguage === 'de' ? ['Hallo,', 'wie', 'geht', 'es', 'dir?', 'Danke', 'gut'] : ['Hello,', 'how', 'are', 'you?', 'fine', 'today']
           },
@@ -190,6 +197,8 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
     setSelectedOption(null);
     setTypedInput('');
     setSpokenTranscript('');
+    setSpeechAccuracy(0);
+    setWrongWordIds(new Set());
     setIsListening(false);
     if (speechTimeoutRef.current) {
       clearTimeout(speechTimeoutRef.current);
@@ -215,6 +224,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       setRightWords([...natives].sort(() => Math.random() - 0.5));
       setSelectedWord(null);
       setSolvedWordIds(new Set());
+      setWrongWordIds(new Set());
     } else if (stage.type === 'listen_tap' || stage.type === 'sentence_builder') {
       const tokens = Array.isArray(stage.tokens) ? [...stage.tokens] : (stage.targetSentence?.split(' ') || []);
       setPlacedTokens([]);
@@ -262,6 +272,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       nextSolved.add(item.id);
       setSolvedWordIds(nextSolved);
       setSelectedWord(null);
+      setWrongWordIds(new Set());
 
       // Check if all pairs solved
       const totalCount = leftWords.length + rightWords.length;
@@ -271,7 +282,12 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       }
     } else {
       playChime(false);
+      const mismatches = new Set([selectedWord.id, item.id]);
+      setWrongWordIds(mismatches);
       setSelectedWord(null);
+      setTimeout(() => {
+        setWrongWordIds(new Set());
+      }, 700);
     }
   }
 
@@ -315,6 +331,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
     setFeedbackMessage('');
     setCorrectAnswerText('');
     setSpokenTranscript('');
+    setSpeechAccuracy(0);
 
     try {
       const recognition = new SpeechRecognition();
@@ -340,7 +357,8 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
         const promptWords = cleanSpeechWords(prompt);
         const spokenWords = cleanSpeechWords(transcript);
         const matchedCount = promptWords.filter(pw => spokenWords.some(sw => isFuzzyWordMatch(pw, sw))).length;
-        const accuracyPct = promptWords.length > 0 ? (matchedCount / promptWords.length) * 100 : 0;
+        const accuracyPct = promptWords.length > 0 ? Math.round((matchedCount / promptWords.length) * 100) : 0;
+        setSpeechAccuracy(accuracyPct);
 
         // Auto-complete ONLY when the complete phrase is pronounced
         const isFullPhrase = promptWords.length <= 4
@@ -521,10 +539,18 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
               <p className="text-gray-400 text-sm">Loading interactive exercises</p>
             </div>
           ) : isCompleted ? (
-            /* Celebration Victory View */
-            <div className="py-12 flex flex-col items-center justify-center text-center animate-scale-up">
-              <div className="w-24 h-24 rounded-3xl bg-gradient-to-tr from-amber-400 to-yellow-300 flex items-center justify-center text-5xl shadow-xl shadow-amber-500/30 mb-6">
-                🏆
+            /* Celebration Victory View with 3 Animated Stars */
+            <div className="py-10 flex flex-col items-center justify-center text-center animate-scale-up">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                {[1, 2, 3].map(starNum => (
+                  <div
+                    key={starNum}
+                    className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-400 to-yellow-300 flex items-center justify-center text-3xl shadow-xl shadow-amber-500/30 animate-bounce"
+                    style={{ animationDelay: `${starNum * 150}ms` }}
+                  >
+                    ⭐
+                  </div>
+                ))}
               </div>
               <h2 className="text-3xl font-black text-white mb-2">Lesson Completed!</h2>
               <p className="text-gray-400 text-base mb-8 max-w-sm">
@@ -551,7 +577,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                   onClose();
                 }}
                 disabled={savingProgress}
-                className="w-full max-w-xs py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-base shadow-lg shadow-emerald-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="w-full max-w-xs py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-base shadow-lg shadow-emerald-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 {savingProgress ? 'Saving...' : 'Continue Learning'}
               </button>
@@ -563,7 +589,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                 <h3 className="text-xl sm:text-2xl font-black text-white mb-1">
                   {currentStage.title || 'Complete the Challenge'}
                 </h3>
-                {currentStage.prompt && (
+                {currentStage.prompt && currentStage.type !== 'sentence_builder' && (
                   <p className="text-gray-400 text-sm font-medium">{currentStage.prompt}</p>
                 )}
               </div>
@@ -576,18 +602,21 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                     {leftWords.map(item => {
                       const isSelected = selectedWord?.id === item.id;
                       const isSolved = solvedWordIds.has(item.id);
+                      const isWrong = wrongWordIds.has(item.id);
                       return (
                         <button
                           key={item.id}
                           onClick={() => handleWordClick(item)}
                           disabled={isSolved}
                           className={clsx(
-                            'p-4 rounded-2xl font-bold text-base border-2 transition-all duration-200 text-center flex items-center justify-center min-h-[64px]',
+                            'p-4 rounded-2xl font-bold text-base border-2 border-b-4 transition-all duration-200 text-center flex items-center justify-center min-h-[64px]',
                             isSolved
                               ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 opacity-60'
-                              : isSelected
-                                ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 scale-105 shadow-lg shadow-cyan-500/20'
-                                : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/40'
+                              : isWrong
+                                ? 'bg-rose-500/20 border-rose-500 text-rose-300 animate-pulse scale-95 shadow-lg shadow-rose-500/20'
+                                : isSelected
+                                  ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 scale-105 shadow-lg shadow-cyan-500/20'
+                                  : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/40 active:border-b-2 active:translate-y-0.5'
                           )}
                         >
                           {item.text}
@@ -601,18 +630,21 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                     {rightWords.map(item => {
                       const isSelected = selectedWord?.id === item.id;
                       const isSolved = solvedWordIds.has(item.id);
+                      const isWrong = wrongWordIds.has(item.id);
                       return (
                         <button
                           key={item.id}
                           onClick={() => handleWordClick(item)}
                           disabled={isSolved}
                           className={clsx(
-                            'p-4 rounded-2xl font-bold text-base border-2 transition-all duration-200 text-center flex items-center justify-center min-h-[64px]',
+                            'p-4 rounded-2xl font-bold text-base border-2 border-b-4 transition-all duration-200 text-center flex items-center justify-center min-h-[64px]',
                             isSolved
                               ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 opacity-60'
-                              : isSelected
-                                ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 scale-105 shadow-lg shadow-cyan-500/20'
-                                : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/40'
+                              : isWrong
+                                ? 'bg-rose-500/20 border-rose-500 text-rose-300 animate-pulse scale-95 shadow-lg shadow-rose-500/20'
+                                : isSelected
+                                  ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 scale-105 shadow-lg shadow-cyan-500/20'
+                                  : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/40 active:border-b-2 active:translate-y-0.5'
                           )}
                         >
                           {item.text}
@@ -626,20 +658,55 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
               {/* 2. LISTEN TAP & SENTENCE BUILDER */}
               {(currentStage.type === 'listen_tap' || currentStage.type === 'sentence_builder') && (
                 <div className="flex flex-col gap-5">
+                  {/* English Prompt Card for Sentence Builder */}
+                  {currentStage.type === 'sentence_builder' && (
+                    <div className="w-full p-4 rounded-2xl bg-[#1E2B31] border border-cyan-500/30 shadow-lg flex items-center gap-3.5 animate-fade-in text-left">
+                      <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center flex-shrink-0">
+                        <MessageSquare className="w-5 h-5" />
+                      </div>
+                      <div className="flex-1">
+                        <span className="text-[11px] font-black text-cyan-400 uppercase tracking-wider block mb-0.5">
+                          {targetLanguage === 'de' ? 'Translate to German' : 'Translate to Target Language'}
+                        </span>
+                        <p className="text-lg font-bold text-white">
+                          {(() => {
+                            let p = currentStage.prompt || '';
+                            if (!p || p === 'Translate into target language:' || p === 'Construct the sentence' || p === 'Construct the German sentence') {
+                              if (currentStage.translation) return `"${currentStage.translation}"`;
+                              if (currentStage.targetSentence === 'Hallo, wie geht es dir?') return '"Hello, how are you?"';
+                              if (currentStage.targetSentence === 'Guten Morgen, wie geht es dir?') return '"Good morning, how are you?"';
+                              if (currentStage.targetSentence === 'Guten Tag, ich bin Anna') return '"Good day, I am Anna"';
+                              return `"${currentStage.targetSentence}"`;
+                            }
+                            return p;
+                          })()}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Audio Card for Listen Tap */}
                   {currentStage.type === 'listen_tap' && (
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#1E2B31] border border-white/5 animate-fade-in text-left">
                       <button
                         onClick={() => speakText(currentStage.targetSentence, targetLanguage)}
-                        className="w-14 h-14 rounded-2xl bg-cyan-500 text-white flex items-center justify-center shadow-lg shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all"
+                        className="w-14 h-14 rounded-2xl bg-cyan-500 text-white flex items-center justify-center shadow-lg shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all flex-shrink-0"
                       >
                         <Volume2 className="w-7 h-7" />
                       </button>
-                      <span className="text-gray-400 text-sm">Tap to hear audio</span>
+                      <div>
+                        <span className="text-[11px] font-black text-cyan-400 uppercase tracking-wider block mb-0.5">
+                          Listening Comprehension
+                        </span>
+                        <p className="text-white font-bold text-sm">
+                          Tap the speaker to listen, then arrange the words in order
+                        </p>
+                      </div>
                     </div>
                   )}
 
                   {/* Assembled Tokens Line */}
-                  <div className="min-h-[72px] p-4 rounded-2xl bg-[#1A262C] border-2 border-dashed border-[#2F414B] flex flex-wrap gap-2 items-center">
+                  <div className="min-h-[76px] p-4 rounded-2xl bg-[#1A262C] border-2 border-dashed border-[#2F414B] flex flex-wrap gap-2 items-center">
                     {placedTokens.length === 0 ? (
                       <span className="text-gray-500 text-sm italic">Tap word bubbles below to build sentence</span>
                     ) : (
@@ -647,7 +714,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                         <button
                           key={token.id}
                           onClick={() => handleRemoveToken(token)}
-                          className="px-3.5 py-2 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 font-bold text-sm shadow hover:scale-105 transition-all"
+                          className="px-4 py-2.5 rounded-xl bg-cyan-500/20 border-2 border-b-4 border-cyan-400 text-cyan-200 font-bold text-base shadow hover:scale-105 active:scale-95 transition-all"
                         >
                           {token.text}
                         </button>
@@ -656,12 +723,12 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                   </div>
 
                   {/* Available Token Bank */}
-                  <div className="flex flex-wrap gap-2 justify-center pt-2">
+                  <div className="flex flex-wrap gap-2.5 justify-center pt-2">
                     {availableTokens.map(token => (
                       <button
                         key={token.id}
                         onClick={() => handleAddToken(token)}
-                        className="px-4 py-2.5 rounded-xl bg-[#202F36] border-b-4 border-[#162329] text-white font-bold text-sm hover:border-[#1CB0F6] hover:bg-[#273840] active:translate-y-1 transition-all"
+                        className="px-4 py-2.5 rounded-xl bg-[#202F36] border-2 border-b-4 border-[#2C3E47] active:border-b-2 active:translate-y-0.5 text-white font-bold text-base shadow hover:border-cyan-400 hover:text-cyan-200 transition-all"
                       >
                         {token.text}
                       </button>
@@ -673,28 +740,38 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
               {/* 3. CLOZE TEST */}
               {currentStage.type === 'cloze_test' && (
                 <div className="flex flex-col gap-6">
-                  <div className="p-6 rounded-2xl bg-[#1A262C] border border-white/5 text-center">
+                  <div className="p-6 rounded-2xl bg-[#1A262C] border border-white/5 text-center shadow-md">
                     <p className="text-2xl font-bold text-white mb-2">{currentStage.sentence}</p>
                     {currentStage.translation && (
-                      <p className="text-sm text-gray-400">{currentStage.translation}</p>
+                      <p className="text-sm text-gray-400 italic">{currentStage.translation}</p>
                     )}
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {currentStage.options?.map((opt, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setSelectedOption(opt)}
-                        className={clsx(
-                          'p-4 rounded-2xl font-bold text-base border-2 transition-all',
-                          selectedOption === opt
-                            ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 shadow-lg'
-                            : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/30'
-                        )}
-                      >
-                        {opt}
-                      </button>
-                    ))}
+                    {currentStage.options?.map((opt, i) => {
+                      const letter = String.fromCharCode(65 + i);
+                      const isChosen = selectedOption === opt;
+                      return (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedOption(opt)}
+                          className={clsx(
+                            'p-4 rounded-2xl font-bold text-base border-2 border-b-4 transition-all flex items-center justify-between group active:border-b-2 active:translate-y-0.5',
+                            isChosen
+                              ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 shadow-lg shadow-cyan-500/20'
+                              : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/40 hover:bg-[#25363F]'
+                          )}
+                        >
+                          <span className={clsx(
+                            "w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black transition-colors",
+                            isChosen ? "bg-cyan-400 text-slate-900" : "bg-[#2A3D47] text-gray-400 group-hover:text-white"
+                          )}>
+                            {letter}
+                          </span>
+                          <span className="flex-1 text-center font-bold text-lg">{opt}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -702,18 +779,30 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
               {/* 4. TYPE WORD */}
               {currentStage.type === 'type_word' && (
                 <div className="flex flex-col gap-4">
-                  {currentStage.translation && (
-                    <div className="p-4 rounded-2xl bg-[#1A262C] text-center text-gray-300 font-medium">
-                      {currentStage.translation}
-                    </div>
-                  )}
+                  <div className="p-5 rounded-2xl bg-[#1A262C] border border-white/5 text-center shadow-md">
+                    <p className="text-2xl font-bold text-white mb-2">
+                      {currentStage.prompt || currentStage.sentence || 'Fill in the missing word'}
+                    </p>
+                    {currentStage.translation && (
+                      <p className="text-sm text-gray-400 italic">{currentStage.translation}</p>
+                    )}
+                    {currentStage.hint && (
+                      <p className="text-xs text-cyan-400/80 mt-1 font-semibold">Hint: {currentStage.hint}</p>
+                    )}
+                  </div>
 
                   <input
                     type="text"
                     value={typedInput}
                     onChange={e => setTypedInput(e.target.value)}
-                    placeholder="Type the word..."
-                    className="w-full p-4 rounded-2xl bg-[#1A262C] border-2 border-[#2C3E47] focus:border-cyan-400 text-white font-bold text-lg outline-none transition-all text-center"
+                    onKeyDown={e => {
+                      if (e.key === 'Enter' && typedInput.trim() && status === 'idle') {
+                        handleCheckAnswer();
+                      }
+                    }}
+                    autoFocus
+                    placeholder="Type the German word..."
+                    className="w-full p-4 rounded-2xl bg-[#1A262C] border-2 border-[#2C3E47] focus:border-cyan-400 text-white font-bold text-xl outline-none transition-all text-center tracking-wide shadow-inner"
                   />
 
                   {/* German Umlaut Quick Buttons */}
@@ -723,7 +812,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                         <button
                           key={char}
                           onClick={() => setTypedInput(prev => prev + char)}
-                          className="w-10 h-10 rounded-xl bg-[#202F36] border border-white/10 text-white font-bold hover:bg-white/10"
+                          className="w-12 h-12 rounded-xl bg-[#202F36] border-2 border-b-4 border-[#2C3E47] active:border-b-2 active:translate-y-0.5 text-white font-bold text-lg hover:border-cyan-400 hover:text-cyan-200 transition-all"
                         >
                           {char}
                         </button>
@@ -736,24 +825,30 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
               {/* 5. DIALOGUE BUBBLE & LISTEN SELECT */}
               {(currentStage.type === 'dialogue_bubble' || currentStage.type === 'listen_select') && (
                 <div className="flex flex-col gap-5">
-                  <div className="p-5 rounded-2xl bg-[#1A262C] border border-white/10 flex items-start gap-4">
-                    <button
-                      onClick={() => speakText(currentStage.partnerMessage || currentStage.sentence, targetLanguage)}
-                      className="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center flex-shrink-0 hover:scale-105"
-                    >
-                      <Volume2 className="w-6 h-6" />
-                    </button>
-                    <div>
-                      {currentStage.partnerName && (
-                        <span className="text-xs font-black text-cyan-400 uppercase tracking-wider block mb-1">
-                          {currentStage.partnerName}
+                  <div className="flex items-start gap-4">
+                    {/* Dolphin Character Avatar */}
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-2xl shadow-lg shadow-cyan-500/20 flex-shrink-0 border border-white/20">
+                      🐬
+                    </div>
+                    {/* Comic Speech Bubble */}
+                    <div className="flex-1 p-5 rounded-3xl rounded-tl-sm bg-[#1A262C] border border-white/10 relative shadow-md text-left">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-xs font-black text-cyan-400 uppercase tracking-wider">
+                          {currentStage.partnerName || currentStage.speaker || (currentStage.type === 'listen_select' ? 'Listening Comprehension' : 'Florian')}
                         </span>
-                      )}
+                        <button
+                          onClick={() => speakText(currentStage.partnerMessage || currentStage.sentence || currentStage.question, targetLanguage)}
+                          className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30 transition-colors"
+                          title="Listen again"
+                        >
+                          <Volume2 className="w-4 h-4" />
+                        </button>
+                      </div>
                       <p className="text-lg font-bold text-white">
                         {currentStage.partnerMessage || currentStage.sentence || currentStage.question}
                       </p>
                       {currentStage.translation && (
-                        <p className="text-xs text-gray-400 mt-1">{currentStage.translation}</p>
+                        <p className="text-xs text-gray-400 mt-1 italic">{currentStage.translation}</p>
                       )}
                     </div>
                   </div>
@@ -763,18 +858,27 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                     {currentStage.options?.map((opt, i) => {
                       const optText = typeof opt === 'object' ? opt.text : opt;
                       const isChosen = selectedOption === opt;
+                      const letter = String.fromCharCode(65 + i);
                       return (
                         <button
                           key={i}
                           onClick={() => setSelectedOption(opt)}
                           className={clsx(
-                            'p-4 rounded-2xl font-bold text-left border-2 transition-all flex items-center justify-between',
+                            'p-4 rounded-2xl font-bold text-left border-2 border-b-4 transition-all flex items-center justify-between group active:border-b-2 active:translate-y-0.5',
                             isChosen
-                              ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200'
-                              : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/30'
+                              ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 shadow-lg shadow-cyan-500/20'
+                              : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/40 hover:bg-[#25363F]'
                           )}
                         >
-                          <span>{optText}</span>
+                          <div className="flex items-center gap-3">
+                            <span className={clsx(
+                              "w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black transition-colors",
+                              isChosen ? "bg-cyan-400 text-slate-900" : "bg-[#2A3D47] text-gray-400 group-hover:text-white"
+                            )}>
+                              {letter}
+                            </span>
+                            <span className="text-base">{optText}</span>
+                          </div>
                           {isChosen && <Check className="w-5 h-5 text-cyan-400" />}
                         </button>
                       );
@@ -838,25 +942,33 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
                     </button>
                   </div>
 
-                  {/* Real-time speech transcript feedback */}
+                  {/* Real-time speech transcript feedback with live accuracy score */}
                   {spokenTranscript && (
-                    <div className="w-full max-w-md p-3.5 rounded-2xl bg-[#202F36] border border-cyan-500/20 text-center animate-fade-in">
-                      <span className="text-xs text-gray-400 uppercase font-bold tracking-wider block mb-0.5">We Heard:</span>
-                      <p className="text-sm font-semibold text-cyan-300">"{spokenTranscript}"</p>
+                    <div className="w-full max-w-md p-4 rounded-2xl bg-[#202F36] border border-cyan-500/20 text-center animate-fade-in shadow-lg">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-xs text-gray-400 uppercase font-bold tracking-wider">We Heard:</span>
+                        <span className={clsx(
+                          "text-xs font-black px-2.5 py-0.5 rounded-full border",
+                          speechAccuracy >= 75
+                            ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/40"
+                            : "bg-amber-500/20 text-amber-400 border-amber-500/40"
+                        )}>
+                          {speechAccuracy}% Accuracy
+                        </span>
+                      </div>
+                      <p className="text-base font-semibold text-cyan-300">"{spokenTranscript}"</p>
                       {!isListening && status === 'idle' && (
                         <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-center gap-1.5 text-xs">
                           {(() => {
                             const promptWords = cleanSpeechWords(currentStage.prompt);
-                            const spokenWords = cleanSpeechWords(spokenTranscript);
-                            const matchedCount = promptWords.filter(pw => spokenWords.some(sw => isFuzzyWordMatch(pw, sw))).length;
-                            const isFull = promptWords.length <= 4 ? matchedCount === promptWords.length : (matchedCount / promptWords.length) >= 0.8;
+                            const isFull = promptWords.length <= 4 ? speechAccuracy === 100 : speechAccuracy >= 80;
                             return isFull ? (
                               <span className="text-emerald-400 font-bold flex items-center gap-1">
                                 <CheckCircle2 className="w-4 h-4" /> Complete sentence heard! Click Check to continue.
                               </span>
                             ) : (
                               <span className="text-amber-400 font-medium">
-                                ⚠️ Heard {matchedCount} of {promptWords.length} words. Tap &ldquo;Pronounce Aloud&rdquo; to complete or click Check.
+                                ⚠️ Heard {speechAccuracy}%. Tap &ldquo;Pronounce Aloud&rdquo; to complete or click Check.
                               </span>
                             );
                           })()}
