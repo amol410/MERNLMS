@@ -115,10 +115,12 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
   const [isListening, setIsListening] = useState(false);
   const [spokenTranscript, setSpokenTranscript] = useState('');
   const recognitionRef = useRef(null);
+  const speechTimeoutRef = useRef(null);
 
-  // Stop speech recognition on unmount
+  // Stop speech recognition and clear timeouts on unmount
   useEffect(() => {
     return () => {
+      if (speechTimeoutRef.current) clearTimeout(speechTimeoutRef.current);
       if (recognitionRef.current) {
         try { recognitionRef.current.stop(); } catch (_) {}
       }
@@ -189,6 +191,10 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
     setTypedInput('');
     setSpokenTranscript('');
     setIsListening(false);
+    if (speechTimeoutRef.current) {
+      clearTimeout(speechTimeoutRef.current);
+      speechTimeoutRef.current = null;
+    }
     if (recognitionRef.current) {
       try { recognitionRef.current.stop(); } catch (_) {}
     }
@@ -291,9 +297,9 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       return;
     }
 
-    if (status === 'wrong') {
-      setStatus('idle');
-      setFeedbackMessage('');
+    if (speechTimeoutRef.current) {
+      clearTimeout(speechTimeoutRef.current);
+      speechTimeoutRef.current = null;
     }
 
     if (isListening && recognitionRef.current) {
@@ -303,6 +309,12 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       setIsListening(false);
       return;
     }
+
+    // Always reset status, feedback messages, and spoken transcript when starting a new attempt
+    setStatus('idle');
+    setFeedbackMessage('');
+    setCorrectAnswerText('');
+    setSpokenTranscript('');
 
     try {
       const recognition = new SpeechRecognition();
@@ -336,7 +348,8 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
           : accuracyPct >= 80;
 
         if (promptWords.length > 0 && isFullPhrase) {
-          setTimeout(() => {
+          if (speechTimeoutRef.current) clearTimeout(speechTimeoutRef.current);
+          speechTimeoutRef.current = setTimeout(() => {
             if (recognitionRef.current) {
               try { recognitionRef.current.stop(); } catch (_) {}
             }
