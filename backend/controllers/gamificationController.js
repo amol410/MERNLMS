@@ -5,7 +5,7 @@ const UserQuest = require('../models/UserQuest');
 const Note = require('../models/Note');
 const Quiz = require('../models/Quiz');
 const CurriculumLesson = require('../models/CurriculumLesson');
-const { getTodayLocalYMD } = require('../utils/dateHelper');
+const { getTodayLocalYMD, getClientDate } = require('../utils/dateHelper');
 
 // 1. Get current user gamification economy status (with oxygen auto-refill)
 exports.getStatus = async (req, res, next) => {
@@ -308,7 +308,7 @@ exports.completeNode = async (req, res, next) => {
         user.totalXp = (user.totalXp || 0) + parseInt(xpEarned, 10);
         user.pearls = (user.pearls || 0) + parseInt(pearlsEarned, 10);
 
-        const todayYMD = getTodayLocalYMD(req.headers['x-timezone-offset']);
+        const todayYMD = getClientDate(req) || getTodayLocalYMD(req.headers['x-timezone-offset']);
         if (!user.lastActiveDate) {
             user.streakCount = 1;
             user.lastActiveDate = todayYMD;
@@ -409,7 +409,7 @@ exports.refillOxygen = async (req, res, next) => {
 exports.getQuests = async (req, res, next) => {
     try {
         const userId = req.user.id;
-        const todayYMD = getTodayLocalYMD(req.headers['x-timezone-offset']);
+        const todayYMD = getClientDate(req) || getTodayLocalYMD(req.headers['x-timezone-offset']);
 
         let quests = await UserQuest.findAll({
             where: { userId, questDate: todayYMD },

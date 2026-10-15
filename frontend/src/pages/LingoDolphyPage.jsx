@@ -527,11 +527,31 @@ export default function LingoDolphyPage() {
         <LingoLessonModal
           node={activeLessonNode}
           targetLanguage={targetLanguage}
-          onClose={() => setActiveLessonNode(null)}
-          onComplete={(completedNode) => {
-            // Update node status in list locally
-            setNodes(prev => prev.map(n => n.id === completedNode.id ? { ...n, status: 'completed', stars: 3 } : n));
+          onClose={() => {
+            setActiveLessonNode(null);
+            fetchPath(targetLanguage, nativeLanguage, level, selectedSection);
             fetchStatus();
+          }}
+          onComplete={async (completedNode, resultData) => {
+            // Optimistic instant unlock: mark current completed and next available
+            const completedIdx = completedNode?.index;
+            setNodes(prev => prev.map(n => {
+              const isThisNode = (completedIdx !== undefined && n.index === completedIdx) ||
+                                 (completedNode?.id && String(n.id) === String(completedNode.id));
+              if (isThisNode) {
+                return { ...n, status: 'completed', stars: 3 };
+              }
+              if (completedIdx !== undefined && n.index === completedIdx + 1) {
+                return { ...n, status: 'available' };
+              }
+              return n;
+            }));
+
+            // Refresh economy stats and fetch fresh canonical path
+            fetchStatus();
+            try {
+              await fetchPath(targetLanguage, nativeLanguage, level, selectedSection);
+            } catch (_) {}
           }}
         />
       )}

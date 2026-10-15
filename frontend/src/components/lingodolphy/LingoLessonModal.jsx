@@ -307,16 +307,18 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
       playChime(true);
       try {
         setSavingProgress(true);
-        await api.post('/gamification/complete-node', {
+        const res = await api.post('/gamification/complete-node', {
           nodeIndex: node.index ?? 0,
           stars: 3,
           scorePct: 100,
           xpEarned: node.xpReward || 15,
           pearlsEarned: node.pearlsReward || 5,
         });
-        if (onComplete) onComplete(node);
+        if (onComplete) onComplete(node, res.data);
       } catch (err) {
         console.error('Error recording completion:', err);
+        // Fallback optimistic unlock even if API errors
+        if (onComplete) onComplete(node);
       } finally {
         setSavingProgress(false);
       }
@@ -389,7 +391,10 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', onClose,
               </div>
 
               <button
-                onClick={onClose}
+                onClick={() => {
+                  if (onComplete) onComplete(node);
+                  onClose();
+                }}
                 disabled={savingProgress}
                 className="w-full max-w-xs py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-base shadow-lg shadow-emerald-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >

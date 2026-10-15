@@ -78,8 +78,25 @@ function getClientDayUtcBounds(targetDateStr, req) {
     };
 }
 
+/**
+ * Returns today's local date (YYYY-MM-DD) based on timezone offset in minutes or fallback.
+ */
+function getTodayLocalYMD(tzOffset, req) {
+    if (req) {
+        return getClientDate(req);
+    }
+    const d = new Date();
+    if (tzOffset !== undefined && tzOffset !== null && !isNaN(Number(tzOffset))) {
+        const offsetMin = Number(tzOffset);
+        const clientTime = new Date(d.getTime() - offsetMin * 60 * 1000);
+        return clientTime.toISOString().split('T')[0];
+    }
+    return toClientLocalDate(d);
+}
+
 module.exports = {
     getClientDate,
     toClientLocalDate,
     getClientDayUtcBounds,
+    getTodayLocalYMD,
 };
