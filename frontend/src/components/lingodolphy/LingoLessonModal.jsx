@@ -58,11 +58,73 @@ function speakText(text, lang = 'de') {
   } catch (_) {}
 }
 
+// ─── Number & Currency Equivalents for Speech Recognition ───────────────────
+const NUMBER_EQUIVALENTS = {
+  '0': ['null', 'zero'],
+  '1': ['eins', 'ein', 'eine', 'einen', 'einem', 'einer', 'one'],
+  '2': ['zwei', 'zwo', 'two'],
+  '3': ['drei', 'three'],
+  '4': ['vier', 'four'],
+  '5': ['fünf', 'fuenf', 'five'],
+  '6': ['sechs', 'six'],
+  '7': ['sieben', 'seven'],
+  '8': ['acht', 'eight'],
+  '9': ['neun', 'nine'],
+  '10': ['zehn', 'ten'],
+  '11': ['elf', 'eleven'],
+  '12': ['zwölf', 'zwoelf', 'twelve'],
+  '13': ['dreizehn', 'thirteen'],
+  '14': ['vierzehn', 'fourteen'],
+  '15': ['fünfzehn', 'fuenfzehn', 'fifteen'],
+  '16': ['sechzehn', 'sixteen'],
+  '17': ['siebzehn', 'seventeen'],
+  '18': ['achtzehn', 'eighteen'],
+  '19': ['neunzehn', 'nineteen'],
+  '20': ['zwanzig', 'twenty'],
+  '21': ['einundzwanzig', 'twentyone'],
+  '22': ['zweiundzwanzig', 'twentytwo'],
+  '23': ['dreiundzwanzig', 'twentythree'],
+  '24': ['vierundzwanzig', 'twentyfour'],
+  '25': ['fünfundzwanzig', 'fuenfundzwanzig', 'twentyfive'],
+  '30': ['dreißig', 'dreissig', 'thirty'],
+  '40': ['vierzig', 'forty'],
+  '50': ['fünfzig', 'fuenfzig', 'fifty'],
+  '60': ['sechzig', 'sixty'],
+  '70': ['siebzig', 'seventy'],
+  '80': ['achtzig', 'eighty'],
+  '90': ['neunzig', 'ninety'],
+  '100': ['hundert', 'hundred'],
+  '€': ['euro', 'eur', 'euros'],
+  '$': ['dollar', 'dollars', 'usd'],
+  '£': ['pfund', 'pound', 'pounds', 'gbp'],
+  '%': ['prozent', 'percent'],
+  '+': ['plus'],
+  '-': ['minus'],
+  '=': ['macht', 'ist', 'equals']
+};
+
+function isNumberOrSymbolEquivalent(w1, w2) {
+  if (!w1 || !w2) return false;
+  if (NUMBER_EQUIVALENTS[w1] && NUMBER_EQUIVALENTS[w1].includes(w2)) return true;
+  if (NUMBER_EQUIVALENTS[w2] && NUMBER_EQUIVALENTS[w2].includes(w1)) return true;
+  for (const list of Object.values(NUMBER_EQUIVALENTS)) {
+    if (list.includes(w1) && list.includes(w2)) return true;
+  }
+  return false;
+}
+
 // ─── Speech Word Sanitization & Fuzzy Comparison Helpers ────────────────────
 function cleanSpeechWords(text) {
   return (text || '')
     .toLowerCase()
-    .replace(/[.,/#!$%^&*;:{}=\-_`~()?"«»„“]/g, '')
+    .replace(/(\d+)\s*([€$£%])/g, '$1 $2')
+    .replace(/([€$£%])\s*(\d+)/g, '$1 $2')
+    .replace(/€/g, ' euro ')
+    .replace(/\$/g, ' dollar ')
+    .replace(/£/g, ' pfund ')
+    .replace(/%/g, ' prozent ')
+    .replace(/\+/g, ' plus ')
+    .replace(/[.,/#!$%^&*;:{}=\-_`~()?'«»„“”’]/g, ' ')
     .trim()
     .split(/\s+/)
     .filter(Boolean);
@@ -71,10 +133,12 @@ function cleanSpeechWords(text) {
 function isFuzzyWordMatch(w1, w2) {
   if (!w1 || !w2) return false;
   if (w1 === w2) return true;
+  if (isNumberOrSymbolEquivalent(w1, w2)) return true;
   // German umlaut normalization (matching Flutter _isFuzzyMatch)
   const norm1 = w1.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
   const norm2 = w2.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
   if (norm1 === norm2) return true;
+  if (isNumberOrSymbolEquivalent(norm1, norm2)) return true;
   if (Math.abs(norm1.length - norm2.length) <= 1) {
     let diff = 0;
     const minLen = Math.min(norm1.length, norm2.length);
@@ -983,7 +1047,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
                   <div className="p-6 rounded-3xl bg-[#1A262C] border border-white/10 w-full">
                     <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
                       {(currentStage.prompt || '').split(' ').map((word, wIdx) => {
-                        const cleanW = word.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()?"«»„“]/g, '').trim();
+                        const cleanW = (cleanSpeechWords(word)[0] || word.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()?"«»„“]/g, '')).trim();
                         const spokenWords = cleanSpeechWords(spokenTranscript);
                         const isWordHeard = spokenWords.some(sw => isFuzzyWordMatch(cleanW, sw));
                         return (
