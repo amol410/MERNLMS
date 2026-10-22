@@ -68,19 +68,37 @@ const Page = require('./models/Page');
 const User = require('./models/User');
 
 // 1. Dynamic XML Sitemap for Google, Bing & AI Bots
-app.get('/sitemap.xml', async (req, res, next) => {
+app.get('/sitemap.xml', async (req, res) => {
+    const siteUrl = getSiteUrl();
     try {
-        const pages = await Page.findAll({
-            where: { status: 'published' },
-            attributes: ['slug', 'updatedAt', 'createdAt'],
-            order: [['updatedAt', 'DESC']],
-        });
-        const siteUrl = getSiteUrl();
-        const sitemapXml = generateSitemap(pages, siteUrl);
+        let pages = [];
+        try {
+            pages = await Page.findAll({
+                where: { status: 'published' },
+                attributes: ['slug', 'updatedAt', 'createdAt'],
+                order: [['updatedAt', 'DESC']],
+            });
+        } catch (dbErr) {
+            console.warn('Page table not initialized yet, attempting sync...', dbErr.message);
+            try {
+                await Page.sync({ alter: true });
+                pages = await Page.findAll({
+                    where: { status: 'published' },
+                    attributes: ['slug', 'updatedAt', 'createdAt'],
+                    order: [['updatedAt', 'DESC']],
+                });
+            } catch (syncErr) {
+                console.error('Page sync fallback notice:', syncErr.message);
+            }
+        }
+        const sitemapXml = generateSitemap(pages || [], siteUrl);
         res.header('Content-Type', 'application/xml');
-        res.send(sitemapXml);
+        res.status(200).send(sitemapXml);
     } catch (err) {
-        next(err);
+        // Safe fallback: always deliver a valid sitemap to Google and search engines
+        const fallbackXml = generateSitemap([], siteUrl);
+        res.header('Content-Type', 'application/xml');
+        res.status(200).send(fallbackXml);
     }
 });
 
