@@ -36,6 +36,71 @@ export default function PublicPageView() {
     };
   }, [slug]);
 
+  // Dynamic document title, meta description & Schema.org JSON-LD structured data
+  useEffect(() => {
+    if (!page) return;
+
+    const previousTitle = document.title;
+    document.title = `${page.title} | DolphinCoder`;
+
+    // Dynamic Meta Description
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.name = 'description';
+      document.head.appendChild(metaDesc);
+    }
+    const cleanExcerpt = page.summary || (page.content ? page.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 180) : '');
+    metaDesc.content = cleanExcerpt;
+
+    // Dynamic Canonical Link
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = window.location.href;
+
+    // Dynamic Schema.org JSON-LD
+    let scriptTag = document.getElementById('page-jsonld-schema');
+    if (!scriptTag) {
+      scriptTag = document.createElement('script');
+      scriptTag.id = 'page-jsonld-schema';
+      scriptTag.type = 'application/ld+json';
+      document.head.appendChild(scriptTag);
+    }
+
+    const schemaData = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: page.title,
+      description: cleanExcerpt,
+      datePublished: page.publishedAt || page.createdAt,
+      dateModified: page.updatedAt,
+      author: {
+        '@type': 'Person',
+        name: page.author?.name || 'DolphinCoder Team',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'DolphinCoder',
+        url: window.location.origin,
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': window.location.href,
+      },
+    };
+    scriptTag.textContent = JSON.stringify(schemaData);
+
+    return () => {
+      document.title = previousTitle;
+      const el = document.getElementById('page-jsonld-schema');
+      if (el) el.remove();
+    };
+  }, [page]);
+
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">

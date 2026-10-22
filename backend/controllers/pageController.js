@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const Page = require('../models/Page');
 const User = require('../models/User');
+const { pingIndexNow } = require('../utils/seoHelper');
 
 const RESERVED_SLUGS = new Set([
     'dashboard',
@@ -156,6 +157,10 @@ exports.createPage = async (req, res, next) => {
             authorId: req.user ? req.user.id : null,
         });
 
+        if (isPublished) {
+            pingIndexNow(cleanSlug);
+        }
+
         res.status(201).json({
             success: true,
             message: 'Page created successfully',
@@ -237,6 +242,10 @@ exports.updatePage = async (req, res, next) => {
         }
 
         await page.save();
+
+        if (page.status === 'published') {
+            pingIndexNow(page.slug);
+        }
 
         res.json({
             success: true,

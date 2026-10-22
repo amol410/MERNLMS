@@ -57,10 +57,79 @@ if (!fs.existsSync(pagesUploadDir)) {
 }
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+const {
+    INDEXNOW_KEY,
+    getSiteUrl,
+    injectSeoTags,
+    generateSitemap,
+    generateRobotsTxt,
+} = require('./utils/seoHelper');
+const Page = require('./models/Page');
+const User = require('./models/User');
+
+// 1. Dynamic XML Sitemap for Google, Bing & AI Bots
+app.get('/sitemap.xml', async (req, res, next) => {
+    try {
+        const pages = await Page.findAll({
+            where: { status: 'published' },
+            attributes: ['slug', 'updatedAt', 'createdAt'],
+            order: [['updatedAt', 'DESC']],
+        });
+        const siteUrl = getSiteUrl();
+        const sitemapXml = generateSitemap(pages, siteUrl);
+        res.header('Content-Type', 'application/xml');
+        res.send(sitemapXml);
+    } catch (err) {
+        next(err);
+    }
+});
+
+// 2. AI & Search Engine robots.txt
+app.get('/robots.txt', (req, res) => {
+    const siteUrl = getSiteUrl();
+    res.header('Content-Type', 'text/plain');
+    res.send(generateRobotsTxt(siteUrl));
+});
+
+// 3. IndexNow Key verification endpoint for instant crawling verification
+app.get(`/${INDEXNOW_KEY}.txt`, (req, res) => {
+    res.header('Content-Type', 'text/plain');
+    res.send(INDEXNOW_KEY);
+});
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'dist')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+
+    const indexPath = path.resolve(__dirname, 'dist', 'index.html');
+
+    app.get('*', async (req, res) => {
+        const reqPath = req.path.replace(/^\/+|\/+$/g, '');
+
+        // If this is a dynamic single-level path (e.g. /my-blog-post)
+        if (
+            reqPath &&
+            !reqPath.includes('.') &&
+            !reqPath.startsWith('api/') &&
+            !reqPath.startsWith('uploads/')
+        ) {
+            try {
+                const page = await Page.findOne({
+                    where: { slug: reqPath, status: 'published' },
+                    include: [{ model: User, as: 'author', attributes: ['name'] }],
+                });
+
+                if (page && fs.existsSync(indexPath)) {
+                    const htmlTemplate = fs.readFileSync(indexPath, 'utf8');
+                    const siteUrl = getSiteUrl();
+                    const seoHtml = injectSeoTags(htmlTemplate, page, siteUrl);
+                    return res.send(seoHtml);
+                }
+            } catch (err) {
+                console.error('Error injecting dynamic SEO tags:', err.message);
+            }
+        }
+
+        res.sendFile(indexPath);
     });
 } else {
     app.use(notFound);
