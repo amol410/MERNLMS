@@ -147,7 +147,7 @@ export default function AdminPagesPage() {
         </div>
       ) : pages.length === 0 ? (
         <EmptyState
-          icon={FileText}
+          icon={<FileText className="w-9 h-9 text-dolphin-400" />}
           title="No pages found"
           description={
             search || statusFilter !== 'all'
