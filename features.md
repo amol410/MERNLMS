@@ -178,71 +178,109 @@ A comprehensive engagement tracking suite connecting student study habits to act
 ## 🏝️ 10. Curriculum Studio & Gamified Island Archipelago
 A Duolingo-grade interactive curriculum management and mobile learning progression engine.
 
-### Web Curriculum Studio (`/curriculum`)
-- **Unit & Lesson Architecture**: Organize language curriculum into structured Units (e.g. Unit 1 Coral Reef) with sequential interactive nodes.
-- **Multi-Stage Lesson Builder (`LessonEditorModal`)**:
-  - **Stage 1: Match the German Words (`match_pairs`)**:
-    - Interactive vocabulary pairs (German + English).
-    - **JSON Upload & Template Download**: Download pre-filled JSON template (`word_match_pairs_template.json`) and upload pair files (`{ "pairs": [{ "target": "...", "native": "..." }] }`).
-  - **Stage 2: Listen and Tap What You Hear (`listen_tap`)**:
-    - Dedicated audio upload stored directly in MySQL (`karaoke_audios` table via `/api/notes/upload-audio`) and streamed via `/api/notes/audio/db/:id`.
-    - Target German sentence and distractor tokens.
-    - **Word-Level Timestamps JSON & Template Download**: Download pre-filled timestamp template (`listen_tap_word_timestamps_template.json`) and upload word timestamps for mobile tap-to-pronounce audio playback.
-    - **Optional Words Audio Track & Sentence Range**: Dedicated audio track for comma-separated word bank audio (`wordsAudioUrl`) with customizable `sentenceRange: { start, end }`.
-    - **Strict Isolation**: Audio uploaded here is strictly stage-bound and never pollutes other stages or the lesson overview.
-  - **Stage 3: Sentence Builder (`sentence_builder`)**: English prompt, German target sentence, and draggable/tappable word bank tokens.
-  - **Stage 4: Sprechen Lip-Sync Pronunciation (`sprechen`)**:
-    - German pronunciation prompt, parallel English translation, and minimum accuracy passing threshold (default 75%).
-    - **Reference Audio Upload**: Voice track upload (`audioUrl`) for mascot pronunciation demonstration.
-    - **Karaoke Timestamps JSON Upload & Template Download**: Real-time lip-sync word timestamps upload (`karaokeData.words`) and template download (`sprechen_lipsync_template.json`).
-  - **Stage 5: Audio Karaoke Synced Story (`karaoke`)**:
-    - Dedicated story audio upload.
-    - Word-level alignment JSON (`.json`) parser extracting sentences, translations, and word timestamps.
-- **Draft vs. Live Mode**: Default draft toggle protecting students from unpublished lesson changes.
+### 🐬 7. LingoDolphy Language Learning Platform & Gamified Archipelago
 
-### Mobile Gamified Archipelago (`app/dolphincoder`)
-- **Visual Zigzag Path (`ArchipelagoMapScreen`)**: 3D elevated island nodes with status indicators (Locked, Available, Completed with 1-3 Stars), animated dolphin mascot, and dopamine feedback.
-- **Interactive Multi-Stage Challenge (`LessonSessionScreen`)**:
-  - Dynamic active stage filtering ensuring only configured curriculum stages are run, with graceful fallbacks.
-  - **Full Suite of 8 Interactive Curriculum Stage Types**:
-    1. **Stage 1: Match Word Pairs (`word_match`)**: Rapid vocabulary card matching between German terms and English translations with instant tactile pronunciation audio.
-    2. **Stage 2: Listen & Tap (`listen_tap`)**: Mascot audio prompt listening practice with token sequencer bank and stage audio isolation.
-    3. **Stage 3: Cloze Test (`cloze_test`)**: Sentence comprehension card with an underlined gap, dynamic inline word placement, and 3 option chips with instant tap pronunciation.
-    4. **Stage 4: Sentence Builder (`sentence_builder`)**: Grammar structure puzzle with draggable/tappable German tokens and prompt card.
-    5. **Stage 5: Type Word (`type_word`)**: German spelling and typing input box equipped with a dedicated row of quick-tap German Umlaut buttons (`ä`, `ö`, `ü`, `ß`, `Ä`, `Ö`, `Ü`) and digraph tolerance (`ae`, `ss`).
-    6. **Stage 6: Dialogue Bubble (`dialogue_bubble`)**: Chat messenger interface between the conversational partner (e.g. Florian or Echo) and the student, featuring speech bubbles, audio replay, and conversational reply options.
-    7. **Stage 7: Listen & Select (`listen_select`)**: Audio comprehension MCQ card with normal (1.0x) and turtle (0.75x) speed selectors, and multiple-choice cards.
-    8. **Stage 8: Sprechen Lip-Sync (`sprechen`)**: Mascot Echo pronunciation demonstration, synchronized word illumination, continuous German `de_DE` speech recognition, and >75% passing threshold.
-  - **Smart Hybrid Audio & Real-Time Karaoke Architecture**:
-    - **Dual Audio Sources**: High-fidelity studio MP3 files streamed via CDN/backend when available; instant zero-asset fallback to native Flutter `TtsService` (`de-DE`, female pitch 1.10, clear 0.48 speech rate) when no audio URL is configured.
-    - **Stage Audio Isolation**: `listen_tap` and `listen_select` strictly read the stage's specific prompt sentence, preventing generic lesson audio contamination.
-    - **Real-Time Sprechen Lip-Sync Karaoke**:
-      - Word-by-word synchronized highlighting in Dolphin Blue (`#0284C7`) during Echo mascot demonstration (powered by millisecond JSON timestamps for studio audio or calibrated rhythmic highlight timer for TTS).
-      - Live acoustic speech recognition matches recognized words as the student speaks into the microphone, instantly turning correct words Emerald Green (`#10B981`) with white checkmark badges (`✓`).
-      - Interactive tap-to-pronounce on individual words and tap-to-replay mascot demonstration.
-    - **Zero-Latency Engine Pre-Warming & Vocabulary Pre-Caching**:
-      - **Genuine German Warm-Up**: Pre-warms the native Android/iOS TTS service and `AudioTrack` pipeline on session start and stage transitions using a silent German token with `awaitSpeakCompletion(true)`, completely eliminating the cold-start delay for all subsequent word taps.
-      - **Safe Background Pre-Synthesis**: Pre-caches all vocabulary words across all 8 stages via non-interrupting `synthesizeToFile` as soon as the lesson opens, delivering instantaneous (<20ms) tactile audio feedback on every word click.
-  - Dopamine rewards: XP, Pearls, streak increments, and victory celebration screens.
+The flagship language acquisition system powering [dolphincoder.com/lingodolphy](https://dolphincoder.com/lingodolphy) on web and `app/dolphincoder` on Android and iOS.
+
+#### Dual Language Tracks & Global Catalog
+- **German A1 (CEFR / Goethe-Zertifikat A1: Start Deutsch 1)**:
+  - 105 Thematic Units across 3 Sections:
+    - **Section 1: Rookie** (Units 1–35, 560 lesson nodes): Foundations, Present Tense, *sein/haben*, W-Fragen.
+    - **Section 2: Explorer** (Units 36–70, 560 lesson nodes): Daily life, Accusative, Modals, Separable verbs.
+    - **Section 3: Traveler** (Units 71–105, 560 lesson nodes): Dative case, Prepositions, Perfekt tense, Goethe exam prep.
+  - Total: 105 Units • 1,680 Interactive Path Nodes.
+- **English A1 (Dual Native Indian Instruction)**:
+  - **Hindi Medium Track (`en_hi`)**: 35 Units • 560 lesson nodes (Section 1 Rookie), instructed in natural conversational Hindi.
+  - **Marathi Medium Track (`en_mr`)**: 35 Units • 560 lesson nodes (Section 1 Rookie), instructed in Marathi.
+- **2-Step Onboarding Language Selection Flow**:
+  - Automatically triggered upon first-time user login or registration (`/language-select` in mobile, modal flow on web).
+  - Progressive disclosure matching industry-standard language apps (Duolingo/Babbel):
+    - **Step 1: Learning Language**: Choice between **German 🇩🇪** or **English 🇬🇧**.
+    - **Step 2: Native Language**:
+      - If German selected: Native instruction defaults to **English 🇬🇧**.
+      - If English selected: Native instruction options for Indian learners: **Hindi 🇮🇳 (हिन्दी)** or **Marathi 🇮🇳 (मराठी)**.
+  - Interactive tactile cards with animated dolphin mascot Echo, step dots, and back button.
+- **Clean Archipelago Screen & Decoupled Course Management**:
+  - Direct paired text is completely removed from the active learning map header. The top status bar displays only the clean single target language flag emoji (🇩🇪 or 🇬🇧).
+  - Tapping the flag navigates directly to Settings & Profile.
+  - Course switching is maintained inside **Settings** and **Gamified Profile** (`_buildActiveCourseCard`), opening the tactile 2-step course selection modal (`LanguageSelectionScreen(isModal: true)`).
+- **Instant Course Switcher (`POST /api/gamification/switch-course`)**:
+  - Learners switch active courses with background audio setup, quiet voice engine re-initialization, and shimmer skeleton loading.
+
+#### Full Suite of 8 Interactive Curriculum Stages
+1. **Stage 1: Word Match (`word_match`)**:
+   - Clean column separation: Target language words on the left column, native translations on the right column.
+   - Tactile selection with color transitions: selected (cyan), correct (emerald dissolution), wrong (pulsing rose).
+   - Instant speech audio articulation on word tap.
+2. **Stage 2: Listen & Tap (`listen_tap`)**:
+   - Audio prompt with scrambled token bubbles for sentence arrangement.
+   - Tactile speaker button always retaining `volume_up_rounded` iconography, replaying full sentence from 0:00 on every tap.
+   - Stage-isolated audio track preventing cross-stage audio pollution.
+3. **Stage 3: Sentence Builder (`sentence_builder`)**:
+   - Grammar structure puzzle with dedicated prompt card (`"Translate to German"` or `"Translate to Target Language"`).
+   - Draggable/tappable tokens assembled into dashed target tray, with tap-to-remove.
+4. **Stage 4: Sprechen Pronunciation (`sprechen`)**:
+   - Real-time speech recognition (Web Speech API on web; `speech_to_text` with dictation mode on mobile).
+   - Real-time word-by-word visual illumination in Emerald Green (`#10B981`) as words are detected.
+   - **Live Accuracy Meter**: Displays real-time accuracy percentage (`0%` to `100%`) with color-coded feedback chips.
+   - **Complete Sentence Validation**: Enforces full sentence coverage (>=75% word match) to prevent premature passing on 1–2 words.
+   - **Per-Attempt State Reset**: Starting a new pronunciation attempt resets prior win/loss status and clears stale transcripts.
+   - **Digit & Currency Normalization**: Normalizes numbers and currency symbols (e.g. `"3€"` ↔ `"drei Euro"`, `"1"` ↔ `"eins"`).
+5. **Stage 5: Cloze Test (`cloze_test`)**:
+   - Sentence comprehension card with an underlined gap, parallel native translation, and multiple-choice option chips (A, B, C).
+6. **Stage 6: Type Word (`type_word`)**:
+   - Direct spelling and keyboard entry drill with hint support.
+   - Quick German Umlaut buttons (`ä`, `ö`, `ü`, `ß`) for easy input on physical or mobile keyboards.
+7. **Stage 7: Dialogue Bubble (`dialogue_bubble`)**:
+   - Messenger-style conversational chat story with character avatar (Echo the Dolphin or Florian), audio replay button, and interactive reply options.
+8. **Stage 8: Listen & Select (`listen_select`)**:
+   - Audio comprehension question card with normal (1.0x) and turtle slow (0.75x) playback toggles, followed by multiple-choice selection.
+
+#### Web Audio & Speech Synthesis Architecture
+- **Browser Text-to-Speech Engine**:
+  - German Voice: Automatically detects and prioritizes natural female German voices (`Anna`, `Google Deutsch`, `Marlene`).
+  - English Voice Persona Selector: Persistent user choice between `👩 Female Voice (Samantha)` and `👨 Male Voice (Daniel)`.
+  - Novelty Synthesizer Filter: Automatically rejects joke, robotic, or eerie system voices (e.g., Bells, Cellos, Zarvox, Trinoids).
+- **Web Audio API Synth Chimes**:
+  - Major chord arpeggio (`C5 → E5 → G5 → C6`) synthesized dynamically on pass.
+  - Soft dual-tone buzz synthesized on retry.
+
+#### High-Performance Decoupled JIT Architecture
+- **Solving the 60-Second Mobile Lag**:
+  - **Payload Decoupling**: Map queries (`GET /api/gamification/path`) return lightweight metadata projections only, trimming payload size from 28.5 MB to 35 KB (99.88% reduction).
+  - **Just-In-Time (JIT) Lesson Fetching**: Lesson stage details load on-demand (`GET /api/gamification/lesson/:id`) in <50ms only when a student taps a path node.
+  - **Section-Windowed Pagination**: Map data partitioned into natural macro-sections (Section 1, 2, 3).
+  - **Composite Indexes**: Composite index on MySQL `CurriculumLesson` table (`targetLanguage, nativeLanguage, level, sectionNumber, isLive, orderIndex`) for sub-millisecond lookups.
+
+#### Curriculum Studio (`/lessons`)
+- Administrative studio for Trainers and Admins:
+  - Section -> Unit -> Lesson hierarchy navigation.
+  - Multi-stage authoring tools for all 8 interactive challenge types.
+  - Stage-isolated audio uploads directly into MySQL `LONGBLOB` storage.
+  - Pre-filled JSON template download and upload tools for word pairs, timestamps, and alignments.
+  - Live / Draft toggle protecting in-development units from student visibility.
 
 ---
 
-## 🗺️ 8. German CEFR A1 Master Curriculum (`german_a1.md`)
-- **12 Island Progression**:
-  1. *Erste Schritte* (Greetings, names, introductions)
-  2. *Im Café & Zahlen* (Café orders, numbers 0–20, *möchten*)
-  3. *Familie & Freunde* (Family, possessives *mein/dein*)
-  4. *Essen & Markt* (Groceries, accusative direct objects)
-  5. *Mein Tag & Uhrzeit* (Daily routine, separable verbs, time)
-  6. *Kleidung & Farben* (Shopping, colors, prices)
-  7. *Zuhause & Wohnen* (Rooms, furniture, prepositions)
-  8. *Weg & Stadtverkehr* (Directions, transport, modal *können*)
-  9. *Freizeit & Hobbys* (Sports, music, preferences *gern*)
-  10. *Wetter & Jahreszeiten* (Weather expressions, seasons)
-  11. *Beim Arzt & Körper* (Body parts, health, doctor appointments)
-  12. *Reise & Finale* (Hotel, travel, perfect tense intro & A1 Grand Exam)
-- **Automated Ingestion Pipeline**:
-  - `scripts/parse_curriculum.js`: Generates structured `german_a1.json` payloads.
-  - Ingestion via `/api/curriculum/bulk-upload` to seed lessons as draft or live nodes.
+## 🗺️ 8. Pedagogical Curriculum Design & Spaced Repetition (`planlesson.md`)
+- **16-Lesson Rhythm per Unit**:
+  - Micro-stepping: 1-to-2 word greetings -> Simple Subject + Verb -> Social etiquette -> Micro chat story -> Mid-unit expansion -> Trophy Boss Exam.
+  - Spaced Repetition (The 1-4-8-13-16 Cycle): Concept introduced in Lesson $L$, reinforced in Lesson $L+3$, synthesized in Lesson $L+6$, recalled in review Lesson 13, and evaluated without hints in Lesson 16 (Trophy Boss Exam).
+  - Zero consecutive redundancy: Minimum of 3 distinct vocabulary slices (A, B, C) and 5 distinct sentence structures per unit.
+
+---
+
+## 📜 9. Complete Version Release Log
+
+| Release Version | Date | Highlights & Core Changes |
+|---|:---:|---|
+| **`v29.1.0-stable`** | 2026-10-15 | **English Voice Persona Selector**: Added persistent persona selector on web (`👩 Female / Samantha` vs `👨 Male / Daniel`), kept German as Anna, and enhanced curriculum preview. |
+| **`v29.0.1`** | 2026-10-15 | **TTS Voice Hygiene**: Blocked novelty, joke, and ghost synthesizer voices (Bells, Cellos, Zarvox) for English pronunciation across browsers. |
+| **`v29.0.0-stable`** | 2026-10-15 | **Speech Digit Normalization**: Added bidirectional number and currency symbol normalization for German and English speech recognition (`3€` ↔ `"drei Euro"`). |
+| **`v28.0.0-stable`** | 2026-10-15 | **Lingo Quality & Shuffling**: Native text sanitization for German-English tracks, shuffled sentence builder tokens, and accuracy meter polishing. |
+| **`v27.0.0-stable`** | 2026-10-14 | **Course Switcher & Shimmer**: Parallel course switching with background voice initialization, archipelago shimmer skeleton, and snap-back scroll fixes. |
+| **`v26.0.0`** | 2026-10-14 | **JIT Performance & English A1**: Scaled curriculum to dual Indian languages (Hindi & Marathi), decoupled 28.5 MB payload to 35 KB via JIT fetching, composite indexing, and added system design study. |
+| **`v25.1.0`** | 2026-10-12 | **German Lady Voice TTS**: Integrated real-time German lady voice TTS in mobile multi-stage lessons with engine pre-warming. |
+| **`v25.0.0`** | 2026-10-12 | **Gamified Archipelago**: Duolingo-grade 5-tab mobile shell, serpentine island path, and 8 interactive curriculum stage types. |
 
 

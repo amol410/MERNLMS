@@ -79,6 +79,7 @@ frontend/
     │   ├── Landing.jsx                # Public home page with animated orbs and feature previews
     │   ├── Login.jsx / Register.jsx   # Authentication forms
     │   ├── Dashboard.jsx              # Main student/trainer dashboard with study stats & quick links
+    │   ├── LingoDolphyPage.jsx        # LingoDolphy gamified language learning path & section navigator
     │   ├── CurriculumPage.jsx         # Curriculum & Lesson Studio with Unit tabs, Live/Draft toggling, sequencing
     │   ├── NotesPage.jsx              # Notes directory with 6-item pagination & search/tag filters
     │   ├── NoteEditorPage.jsx         # Tiptap rich-text editor & DOCX/HTML slide upload
@@ -181,6 +182,30 @@ frontend/
   - Modern web browsers treat in-iframe hash navigation on `about:srcdoc` (e.g., `<a href="#slide2">`) as navigating to a new URL `about:srcdoc#slide2`, which unloads the document into `about:blank`, rendering a completely blank screen.
   - `NoteDetailPage.jsx` runs `prepareHtmlContent(html)` to inject a client-side interceptor script before `</head>` or `</body>`.
   - The script intercepts all in-document anchor clicks (`href.indexOf('#') !== -1`), cancels standard browser navigation via `e.preventDefault()`, and smoothly scrolls the targeted DOM element (`targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })`) or window, ensuring seamless in-presentation navigation without iframe unload.
+
+### 4.7 LingoDolphy Gamified Platform & Interactive Engine (`LingoDolphyPage.jsx`, `LingoLessonModal.jsx`)
+- **Archipelago Map & Progression Path**:
+  - `LingoDolphyPage.jsx` renders a 3D serpentine island path with section pagination (Section 1 Rookie, Section 2 Explorer, Section 3 Traveler).
+  - Integrates oxygen energy gauge (`❤️ 5`), streak flame counter (`🔥`), and pearls economy (`💎`).
+  - Active course selector allows seamless switching between German A1, English A1 (Hindi), and English A1 (Marathi) via `POST /api/gamification/switch-course`.
+- **Interactive Lesson Modal (`LingoLessonModal.jsx`)**:
+  - Fullscreen gamified modal running 8 stage types:
+    1. `word_match`: Target and native vocabulary cards arranged in opposite columns; tactile click selection with color-coded pairing and emerald dissolution.
+    2. `listen_tap`: Full-sentence audio playback button, scrambled token bank, and dashed assembly line.
+    3. `sentence_builder`: Prompt card (`"Translate to German"` or `"Translate to Target Language"`), shuffled tokens, and sentence building tray.
+    4. `sprechen`: Web Speech API recognition (`webkitSpeechRecognition`), continuous dictation, real-time word-by-word emerald illumination (`#10B981`), live accuracy meter (`0–100%`), complete sentence validation, and state reset per attempt.
+    5. `cloze_test`: Sentence gap comprehension with multiple-choice options.
+    6. `type_word`: Spelling input with German Umlaut buttons (`ä`, `ö`, `ü`, `ß`).
+    7. `dialogue_bubble`: Messenger chat story with partner avatar, audio replay, and answer options.
+    8. `listen_select`: Audio comprehension with normal (1.0x) and turtle slow (0.75x) speeds and multiple-choice cards.
+- **Voice Synthesis & Persona Management**:
+  - German: Prioritizes natural female voice (`Anna`, `Google Deutsch`, `Marlene`).
+  - English: Persona-based universal voice selector (`👩 Female Voice / Samantha` vs `👨 Male Voice / Daniel`), stored in `localStorage.lingo_voice_persona`.
+  - Blocks novelty/joke synthesizer voices (Bells, Cellos, Zarvox).
+  - Speech normalization maps numbers and currency symbols (e.g. `3€` ↔ `drei Euro`).
+- **Web Audio API Sound Effects**:
+  - Celebratory major chord arpeggio on correct answer (`C5 → E5 → G5 → C6`).
+  - Soft dual-frequency sawtooth buzz on wrong answer.
 
 ---
 

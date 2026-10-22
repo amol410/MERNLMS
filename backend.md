@@ -193,14 +193,30 @@ In `controllers/activityController.js` and `utils/dateHelper.js`:
 | `/api/curriculum/bulk-upload` | POST | `protect`, `trainer/admin` | Imports curriculum lessons in bulk via JSON/CSV |
 | `/api/curriculum/seed-default` | POST | `protect`, `trainer/admin` | Seeds default Unit 1 with initial curriculum nodes |
 | `/api/gamification/status` | GET | `protect` | Returns user economy: oxygen (`🫧 5/5`), pearls (`💎`), streak (`🔥`) with auto-refill |
-| `/api/gamification/path` | GET | `protect` | Returns live learning path nodes with completion & star status |
+| `/api/gamification/path` | GET | `protect` | Returns live learning path nodes with completion & star status (Supports `?section=1&targetLanguage=de&nativeLanguage=en`) |
+| `/api/gamification/lesson/:id` | GET | `protect` | **JIT Lesson Details**: Returns full 8-stage challenge payload on demand when learner opens a node |
+| `/api/gamification/switch-course` | POST | `protect` | Switches active learning track (`targetLanguage`, `nativeLanguage`, `level`) in user profile |
 | `/api/gamification/complete-node` | POST | `protect` | Records lesson completion, awards XP/Pearls, increments streak |
 | `/api/gamification/leaderboard` | GET | `protect` | Returns weekly leaderboard rankings & league tiers |
 | `/api/gamification/shop/refill-oxygen` | POST | `protect` | Refills oxygen to 5/5 using pearls |
 | `/api/gamification/quests` | GET | `protect` | Lists daily & monthly quests with progress |
 | `/api/gamification/claim-quest` | POST | `protect` | Claims quest pearl reward |
 
-### 5.1 Decoupled Stage Audio Architecture & Stage Payloads
+### 5.1 Decoupled JIT Architecture & Payload Optimization
+- **Problem**: Querying all 1,680 lessons across 105 units with raw `stages` and `karaokeData` blobs resulted in a **28.5 MB JSON payload**, crashing mobile devices with a 60-second main thread freeze.
+- **Solution (Three-Tier Optimization)**:
+  1. **Projection Trimming (`GET /api/gamification/path`)**:
+     The path endpoint projects only essential lightweight map metadata:
+     `attributes: ['id', 'unitNumber', 'lessonIndex', 'title', 'subtitle', 'nodeType', 'xpReward', 'pearlsReward', 'unitTitle', 'isLive']`.
+     Eliminates all `TEXT('long')` blobs, reducing network transfer to **35 KB** (99.88% smaller, 82ms response).
+  2. **Just-In-Time Lesson Detail Fetching (`GET /api/gamification/lesson/:id`)**:
+     Loads the full 8-stage interactive payload on demand only when the learner taps a node. Latency is <50ms.
+  3. **Section Windowing & Pagination**:
+     Curriculum partitioned into Sections (Section 1: Units 1–35, Section 2: Units 36–70, Section 3: Units 71–105).
+  4. **Composite Indexes (`CurriculumLessons` table)**:
+     `indexes: [{ fields: ['isLive', 'learningLanguage', 'nativeLanguage', 'level', 'unitNumber', 'lessonIndex'] }]`.
+
+### 5.2 Decoupled Stage Audio Architecture & Stage Payloads
 - **Stage Audio Upload**: Audio files for multi-stage curriculum lessons are uploaded via `POST /api/notes/upload-audio` (leveraging the existing `karaoke_audios` table).
 - **Public Range Streaming**: Streamed via `GET /api/notes/audio/db/:id` with complete HTTP 206 byte-range seeking.
 - **Strict Stage Isolation**: Audio attachments belong exclusively to their respective stage (`stages[listen_tap].audioUrl`, `stages[listen_tap].wordsAudioUrl`, or `stages[sprechen].audioUrl`). The top-level lesson row `audioUrl` is intentionally set to `null` to prevent cross-stage audio bleeding.
@@ -209,6 +225,10 @@ In `controllers/activityController.js` and `utils/dateHelper.js`:
   - `listen_tap`: `{ type: 'listen_tap', target: '...', tokens: [...], audioUrl: '...', wordsAudioUrl: '...', sentenceRange: { start, end }, words: [{ word: '...', start: 0.0, end: 0.6 }] }`
   - `sentence_builder`: `{ type: 'sentence_builder', prompt: '...', target: '...', distractors: '...', tokens: [...] }`
   - `sprechen`: `{ type: 'sprechen', prompt: '...', translation: '...', accuracy: 75, audioUrl: '...', karaokeData: { words: [{ word: '...', start: 0.0, end: 0.45 }] } }`
+  - `cloze_test`: `{ type: 'cloze_test', sentence: '...', translation: '...', options: ['optA', 'optB', 'optC'], answer: 'optA' }`
+  - `type_word`: `{ type: 'type_word', prompt: '...', sentence: '...', translation: '...', answer: '...', hint: '...' }`
+  - `dialogue_bubble`: `{ type: 'dialogue_bubble', speaker: 'Florian', sentence: '...', translation: '...', options: [...] }`
+  - `listen_select`: `{ type: 'listen_select', question: '...', audioUrl: '...', options: [...] }`
   - `karaoke`: `{ type: 'karaoke', storyText: '...', translationText: '...', audioUrl: '...', karaokeData: { sentences: [...], words: [...] } }`
 
 ---

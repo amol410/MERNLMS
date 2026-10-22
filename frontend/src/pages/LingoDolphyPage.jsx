@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   Globe, Heart, Sparkles, Flame, Trophy, Award, ChevronDown, Check,
-  BookOpen, HelpCircle, ArrowRight, Zap, RefreshCw, Compass, Lock,
+  BookOpen, HelpCircle, ArrowRight, ArrowLeft, Zap, RefreshCw, Compass, Lock,
   ChevronRight, Volume2
 } from 'lucide-react';
 import clsx from 'clsx';
@@ -58,6 +58,8 @@ export default function LingoDolphyPage() {
 
   // Modals
   const [showCourseModal, setShowCourseModal] = useState(false);
+  const [courseStep, setCourseStep] = useState(0); // 0 = Target Lang, 1 = Native Lang
+  const [pendingTarget, setPendingTarget] = useState('de');
   const [showSectionModal, setShowSectionModal] = useState(false);
   const [showGuidebook, setShowGuidebook] = useState(false);
   const [activeLessonNode, setActiveLessonNode] = useState(null);
@@ -392,40 +394,189 @@ export default function LingoDolphyPage() {
         )}
       </div>
 
-      {/* Course Switcher Modal */}
+      {/* Course Switcher Modal (Clean 2-Step Flow) */}
       {showCourseModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
           <div className="w-full max-w-md bg-[#131F24] border border-white/10 rounded-3xl p-6 shadow-2xl">
-            <h3 className="text-xl font-black text-white mb-1">Switch Language Course</h3>
-            <p className="text-gray-400 text-sm mb-6">Choose which course track and native language to learn with:</p>
+            {/* Header with Step Indicator & Back button */}
+            <div className="flex items-center justify-between mb-4">
+              {courseStep === 1 ? (
+                <button
+                  onClick={() => setCourseStep(0)}
+                  className="flex items-center gap-1.5 text-xs font-bold text-gray-400 hover:text-white transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Back</span>
+                </button>
+              ) : (
+                <div />
+              )}
+              <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider">
+                Step {courseStep + 1} of 2
+              </span>
+            </div>
 
-            <div className="space-y-3">
-              {AVAILABLE_COURSES.map(course => {
-                const isSelected = course.targetLanguage === targetLanguage && course.nativeLanguage === nativeLanguage;
-                return (
+            {courseStep === 0 ? (
+              <>
+                <h3 className="text-xl font-black text-white mb-1">What would you like to learn?</h3>
+                <p className="text-gray-400 text-sm mb-6">Choose your target language course:</p>
+
+                <div className="space-y-3">
+                  {/* German */}
                   <button
-                    key={`${course.targetLanguage}_${course.nativeLanguage}`}
-                    onClick={() => handleSwitchCourse(course)}
+                    onClick={() => {
+                      setPendingTarget('de');
+                      setCourseStep(1);
+                    }}
                     className={clsx(
                       'w-full p-4 rounded-2xl border-2 text-left flex items-center gap-4 transition-all',
-                      isSelected
+                      targetLanguage === 'de'
                         ? 'bg-cyan-500/15 border-cyan-400 shadow-lg shadow-cyan-500/20'
                         : 'bg-[#1E2B31] border-[#2C3E47] hover:border-cyan-500/40'
                     )}
                   >
-                    <span className="text-3xl leading-none">{course.flag}</span>
+                    <span className="text-3xl leading-none">🇩🇪</span>
                     <div className="flex-1">
-                      <p className="text-base font-black text-white">{course.title}</p>
-                      <p className="text-xs text-gray-400">{course.subtitle}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-base font-black text-white">German</p>
+                        <span className="text-xs text-gray-400 font-semibold">(Deutsch)</span>
+                      </div>
+                      <p className="text-xs text-gray-400">Complete Goethe A1 • 105 Units</p>
                     </div>
-                    {isSelected && <Check className="w-5 h-5 text-cyan-400" />}
+                    {targetLanguage === 'de' && <Check className="w-5 h-5 text-cyan-400" />}
                   </button>
-                );
-              })}
-            </div>
+
+                  {/* English */}
+                  <button
+                    onClick={() => {
+                      setPendingTarget('en');
+                      setCourseStep(1);
+                    }}
+                    className={clsx(
+                      'w-full p-4 rounded-2xl border-2 text-left flex items-center gap-4 transition-all',
+                      targetLanguage === 'en'
+                        ? 'bg-cyan-500/15 border-cyan-400 shadow-lg shadow-cyan-500/20'
+                        : 'bg-[#1E2B31] border-[#2C3E47] hover:border-cyan-500/40'
+                    )}
+                  >
+                    <span className="text-3xl leading-none">🇬🇧</span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="text-base font-black text-white">English</p>
+                        <span className="text-xs text-gray-400 font-semibold">(English)</span>
+                      </div>
+                      <p className="text-xs text-gray-400">Spoken & Fluent English • 35 Units</p>
+                    </div>
+                    {targetLanguage === 'en' && <Check className="w-5 h-5 text-cyan-400" />}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3 className="text-xl font-black text-white mb-1">What is your comfortable language?</h3>
+                <p className="text-gray-400 text-sm mb-6">
+                  {pendingTarget === 'de'
+                    ? 'German A1 is currently instructed through English:'
+                    : 'We will tailor your English lessons in this language:'}
+                </p>
+
+                <div className="space-y-3">
+                  {pendingTarget === 'de' ? (
+                    <button
+                      onClick={() => {
+                        handleSwitchCourse({
+                          targetLanguage: 'de',
+                          nativeLanguage: 'en',
+                          level: 'A1',
+                          title: 'German A1',
+                          flag: '🇩🇪',
+                        });
+                        setCourseStep(0);
+                      }}
+                      className={clsx(
+                        'w-full p-4 rounded-2xl border-2 text-left flex items-center gap-4 transition-all',
+                        targetLanguage === 'de' && nativeLanguage === 'en'
+                          ? 'bg-cyan-500/15 border-cyan-400 shadow-lg shadow-cyan-500/20'
+                          : 'bg-[#1E2B31] border-[#2C3E47] hover:border-cyan-500/40'
+                      )}
+                    >
+                      <span className="text-3xl leading-none">🇬🇧</span>
+                      <div className="flex-1">
+                        <p className="text-base font-black text-white">English</p>
+                        <p className="text-xs text-gray-400">English instruction • 105 Units</p>
+                      </div>
+                      {targetLanguage === 'de' && nativeLanguage === 'en' && <Check className="w-5 h-5 text-cyan-400" />}
+                    </button>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => {
+                          handleSwitchCourse({
+                            targetLanguage: 'en',
+                            nativeLanguage: 'hi',
+                            level: 'A1',
+                            title: 'English A1 (हिन्दी)',
+                            flag: '🇬🇧',
+                          });
+                          setCourseStep(0);
+                        }}
+                        className={clsx(
+                          'w-full p-4 rounded-2xl border-2 text-left flex items-center gap-4 transition-all',
+                          targetLanguage === 'en' && nativeLanguage === 'hi'
+                            ? 'bg-cyan-500/15 border-cyan-400 shadow-lg shadow-cyan-500/20'
+                            : 'bg-[#1E2B31] border-[#2C3E47] hover:border-cyan-500/40'
+                        )}
+                      >
+                        <span className="text-3xl leading-none">🇮🇳</span>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <p className="text-base font-black text-white">Hindi</p>
+                            <span className="text-xs text-orange-400 font-bold">(हिन्दी)</span>
+                          </div>
+                          <p className="text-xs text-gray-400">हिन्दी माध्यम से सीखें • 35 Units</p>
+                        </div>
+                        {targetLanguage === 'en' && nativeLanguage === 'hi' && <Check className="w-5 h-5 text-cyan-400" />}
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          handleSwitchCourse({
+                            targetLanguage: 'en',
+                            nativeLanguage: 'mr',
+                            level: 'A1',
+                            title: 'English A1 (मराठी)',
+                            flag: '🇬🇧',
+                          });
+                          setCourseStep(0);
+                        }}
+                        className={clsx(
+                          'w-full p-4 rounded-2xl border-2 text-left flex items-center gap-4 transition-all',
+                          targetLanguage === 'en' && nativeLanguage === 'mr'
+                            ? 'bg-cyan-500/15 border-cyan-400 shadow-lg shadow-cyan-500/20'
+                            : 'bg-[#1E2B31] border-[#2C3E47] hover:border-cyan-500/40'
+                        )}
+                      >
+                        <span className="text-3xl leading-none">🇮🇳</span>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <p className="text-base font-black text-white">Marathi</p>
+                            <span className="text-xs text-emerald-400 font-bold">(मराठी)</span>
+                          </div>
+                          <p className="text-xs text-gray-400">मराठी माध्यमातून शिका • 35 Units</p>
+                        </div>
+                        {targetLanguage === 'en' && nativeLanguage === 'mr' && <Check className="w-5 h-5 text-cyan-400" />}
+                      </button>
+                    </>
+                  )}
+                </div>
+              </>
+            )}
 
             <button
-              onClick={() => setShowCourseModal(false)}
+              onClick={() => {
+                setShowCourseModal(false);
+                setCourseStep(0);
+              }}
               className="w-full mt-6 py-3 rounded-2xl bg-white/10 text-white font-bold hover:bg-white/15 transition-colors"
             >
               Cancel

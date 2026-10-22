@@ -163,6 +163,7 @@
   .ProseMirror blockquote { @apply border-l-4 border-dolphin-500 pl-4 italic text-gray-400 my-3; }
   .ProseMirror hr { @apply border-white/10 my-4; }
   .ProseMirror a { @apply text-dolphin-400 underline hover:text-dolphin-300; }
+  .ProseMirror img { @apply rounded-xl max-w-full my-4 border border-white/10 shadow-lg object-contain; }
 
   /* Flip card */
   .flip-card { perspective: 1000px; }

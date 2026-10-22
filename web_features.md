@@ -10,12 +10,14 @@
   * **Brand Logo & Title Link**: Clicking redirects to `/dashboard` (or `/` if unauthenticated).
   * **Primary Navigation Links**:
     * **Dashboard**: Link to `/dashboard`.
+    * **LingoDolphy**: Link to `/lingodolphy` (Gamified language learning path).
     * **Notes**: Link to `/notes`.
     * **Quizzes**: Link to `/quizzes`.
     * **Flashcards**: Link to `/flashcards`.
     * **Videos**: Link to `/videos`.
     * **Activity**: Link to `/activity` (Student study tracker).
   * **Trainer / Admin Conditional Controls**:
+    * **Curriculum Studio**: Link to `/lessons` (Language track and stage authoring).
     * **Create Note** button: Opens the multi-tab Note Creation Modal directly from the header.
     * **Admin Panel**: Link to `/admin/users` (visible only for `admin` role).
   * **User Profile & Session Dropdown**:
@@ -425,12 +427,12 @@
 ---
 
 ## 17. Curriculum & Lesson Studio
-* **Route:** `/curriculum` (Trainer / Admin Role)
-* **Page Purpose:** Author and manage structured language curriculum, learning units, and gamified multi-stage interactive lessons.
+* **Route:** `/lessons` (Trainer / Admin Role)
+* **Page Purpose:** Author and manage structured language curriculum, learning units, and gamified multi-stage interactive lessons across macro-sections (Section 1 Rookie, Section 2 Explorer, Section 3 Traveler).
 * **Structural Elements:**
   * **Top Action Bar**:
     * Language & Level Pickers (`learningLanguage`, `nativeLanguage`, `level` A1–C2).
-    * Unit Switcher tab bar with Unit creation modal (`UnitOutlineModal`).
+    * Section & Unit Switcher tab bar with Unit creation modal (`UnitOutlineModal`).
     * "New Lesson" button opening `LessonEditorModal`.
     * "Bulk Upload" button (`BulkUploadModal`) for rapid curriculum import.
     * "Seed Unit 1" default template initializer.
@@ -438,28 +440,59 @@
     * Sequential lesson nodes with index pills, XP rewards, pearls rewards, live status badges (`LIVE` vs `DRAFT`).
     * Quick actions: Toggle Live status, Edit Lesson, Delete Lesson, Move Order.
   * **Multi-Stage Lesson Builder (`LessonEditorModal`)**:
-    * **Section 1: Lesson Overview**:
-      * Metadata fields: Title, Node Type (Interactive Lesson, Audio Karaoke, Boss Exam, Treasure Chest), Subtitle, XP Reward, Pearls Reward, Link from Notes.
-      * *Architecture Note:* Does **not** include top-level audio upload; all audio is decoupled and stage-specific.
-    * **Stage 1: Match the German Words (`match_pairs`)**:
-      * Pair rows mapping German terms to English meanings.
-      * **JSON Upload & Template Download**: Admins can download a pre-filled JSON template (`word_match_pairs_template.json`) and upload pair JSON files (`{ "pairs": [{ "target": "...", "native": "..." }] }`).
-    * **Stage 2: Listen and Tap What You Hear (`listen_tap`)**:
-      * Target German sentence input.
-      * Distractor words input (comma-separated).
-      * **Dedicated Audio Upload**: File picker uploading `.mp3`, `.wav`, `.m4a` to MySQL `karaoke_audios` table via `/api/notes/upload-audio`.
-      * **Word-Level Timestamps JSON & Template Download**: Admins can download a pre-filled timestamp template (`listen_tap_word_timestamps_template.json`) including both target sentence words and distractor tokens (e.g. `Milch`, `Kaffee`), and upload JSON mapping each word to `start` and `end` seconds for tap-to-pronounce audio playback on mobile.
-      * **Optional Words Bank Audio Track & Sentence Range**: Allows uploading a dedicated audio track of comma-separated words with natural pauses (`wordsAudioUrl`), or specifying custom `sentenceRange: { start, end }` directly in JSON.
-      * In-browser audio player with instant preview and removal button.
-      * **Audio Isolation**: Completely decoupled from all other stages and top-level lesson records.
-    * **Stage 3: Sentence Builder (`sentence_builder`)**:
-      * English translation prompt, German target sentence, and distractor tokens.
-    * **Stage 4: Sprechen Lip-Sync Pronunciation (`sprechen`)**:
-      * German pronunciation prompt, English translation, and minimum pass accuracy percentage (default 75%).
-      * **Dedicated Reference Audio Track**: File picker uploading voice track (`audioUrl`) for mascot pronunciation demonstration.
-      * **Karaoke Timestamps JSON Upload & Template Download**: Admins can download a pre-filled JSON template based on prompt words (`sprechen_lipsync_template.json`) and upload word-level timestamps (`karaokeData.words`) for real-time lip-sync word highlighting.
-    * **Stage 5: Audio Karaoke Synced Story (`karaoke`)**:
-      * Story German sentences and English parallel translations.
-      * **Dedicated Karaoke Audio Upload**: Separate audio file attachment for story reading.
-      * **Word-Level Alignment JSON (.json) Upload**: Uploads timestamps for syllable-by-syllable synchronized karaoke highlighting.
+    * **Lesson Overview**: Metadata fields: Title, Node Type (Interactive Lesson, Boss Exam, Treasure Chest), Subtitle, XP Reward, Pearls Reward.
+    * **Stage 1: Match Words (`word_match`)**: Target language terms and native meanings, JSON template download and upload.
+    * **Stage 2: Listen & Tap (`listen_tap`)**: Sentence audio upload (MySQL `LONGBLOB`), word-level timestamp JSON tools, dedicated words bank audio.
+    * **Stage 3: Sentence Builder (`sentence_builder`)**: Prompt cards, target sentence, and distractor tokens.
+    * **Stage 4: Sprechen Pronunciation (`sprechen`)**: Pronunciation prompt, accuracy threshold (default 75%), voice track upload, and karaoke lip-sync JSON timestamps.
+    * **Stage 5: Cloze Test (`cloze_test`)**: Sentence with gap, translation, and options.
+    * **Stage 6: Type Word (`type_word`)**: Word prompt, hint, and accepted spellings.
+    * **Stage 7: Dialogue Bubble (`dialogue_bubble`)**: Partner name, avatar, message, and choice replies.
+    * **Stage 8: Listen & Select (`listen_select`)**: Audio question with normal (1.0x) and turtle (0.75x) speeds.
+    * **Stage 9: Audio Karaoke Synced Story (`karaoke`)**: Longform story audio with syllable alignment.
     * **Save & Publish Actions**: "Save Changes" submits structured JSON payload to `/api/curriculum/lessons/:id`.
+
+---
+
+## 18. LingoDolphy Gamified Language Platform
+* **Route:** `/lingodolphy` (Student Role)
+* **Page Purpose:** Interactive language learning path featuring gamified island progression, lives economy, streak tracking, and multi-stage challenge sessions.
+* **Structural Elements:**
+  * **Top Gamification Header Bar**:
+    * Active Course Badge: Clean target language indicator (`🇩🇪` or `🇬🇧`). Clicking opens the **Two-Step Course Selection Modal**.
+    * Section Selector Pill: Displays active macro-section (Section 1: Rookie, Section 2: Explorer, Section 3: Traveler). Clicking opens the **Section Navigation Modal**.
+    * Oxygen / Hearts Counter: `❤️ 5` lives counter with recovery countdown.
+    * Streak Flame Counter: `🔥` streak with daily check state.
+    * Pearls Balance: `💎` virtual pearls counter.
+    * English Voice Persona Selector: Persistent dropdown (`👩 Female / Samantha` vs `👨 Male / Daniel`) for English tracks.
+  * **Two-Step Course Selection Modal (`Course Switcher`)**:
+    * **Step 1 (Target Language)**: "What language do you want to learn?" with large interactive cards for **German 🇩🇪** (105 Units) and **English 🇬🇧** (35 Units).
+    * **Step 2 (Native Language)**: "What is your native / instruction language?" with back navigation button:
+      - If German selected: **English 🇬🇧** (Default instruction).
+      - If English selected: **Hindi 🇮🇳 (हिन्दी माध्यम)** or **Marathi 🇮🇳 (मराठी माध्यम)**.
+    * Invokes `POST /api/gamification/switch-course` with background audio pre-warming and path reload.
+  * **Serpentine Archipelago Learning Path**:
+    * Sinusoidal zigzag island stepping stones:
+      - Locked nodes with padlock icon.
+      - Active playable nodes with pulsating animated glow and crown.
+      - Completed nodes with checkmark and 1–3 gold stars.
+      - Treasure chest milestone nodes rewarding Pearls and XP.
+      - Unit Boss Exam nodes at Node 15 testing full unit vocabulary with zero hints.
+    * Unit Header Banners: Unit number, title, English subtitle, and progress bar.
+  * **Interactive Lesson Modal (`LingoLessonModal.jsx`)**:
+    * **Top Progress Bar**: Exit `(X)` button with abandon confirmation, multi-stage progress meter, and heart indicator.
+    * **Active Stage Views**:
+      1. *Word Match*: Target words in left column, native translations in right column; tactile tap pairing with color state feedback.
+      2. *Listen & Tap*: Full-sentence audio playback button, scrambled word bank bubbles, and dashed assembly tray.
+      3. *Sentence Builder*: Prompt translation card, word bubbles, and sentence builder tray.
+      4. *Sprechen Pronunciation*: Pronounce aloud microphone button, real-time Web Speech recognition, word-by-word emerald illumination, live accuracy score meter (0–100%), and complete sentence validation.
+      5. *Cloze Test*: Sentence gap fill with A/B/C option chips.
+      6. *Type Word*: Text input with on-screen German Umlaut quick buttons (`ä`, `ö`, `ü`, `ß`).
+      7. *Dialogue Bubble*: Messenger chat dialogue with Echo the Dolphin avatar, audio playback, and reply options.
+      8. *Listen & Select*: Normal (1.0x) and turtle slow (0.75x) audio buttons with multiple choice questions.
+    * **Bottom Feedback & Verification Drawer**:
+      - Idle state: "Check" button.
+      - Success state: Emerald green drawer with celebratory arpeggio chime and "CONTINUE" button.
+      - Retry state: Rose drawer with explanation, error chime, and retry prompt.
+    * **Victory Celebration Screen**:
+      - Mascot celebration, earned XP, accuracy score percentage, pearls awarded, and progress submission to `/api/gamification/complete-node`.

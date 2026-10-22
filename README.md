@@ -1,10 +1,39 @@
 # DolphinCoder LMS 🐬
 
-A comprehensive, state-of-the-art Learning Management System powering [dolphincoder.com](https://dolphincoder.com), formerly known as **SpeedUpExam**. (The root repository folder is named `MERNLMS` for historical reasons; the production database is **MySQL**, not MongoDB.)
+A comprehensive, state-of-the-art Learning Management System and Gamified Language Learning Platform powering [dolphincoder.com](https://dolphincoder.com), formerly known as **SpeedUpExam**. (The root repository folder is named `MERNLMS` for historical reasons; the production database is **MySQL 8 + Sequelize 6**, not MongoDB.)
+
+> **Current Production Release**: `v29.1.0-stable` | **Mobile App**: `v1.2.6+11` (Flutter 3 / Riverpod 2)
 
 ---
 
 ## 🌟 Key Features
+
+### 🐬 LingoDolphy Gamified Language Learning Platform (`/lingodolphy`)
+- **Duolingo-Grade Archipelago Path**: Serpentine nautical island progression path with oxygen energy (`🫧 5/5`), streak flame counter (`🔥`), and pearls economy (`💎`).
+- **Dual Language Tracks**:
+  - 🇩🇪 **German A1 (CEFR / Goethe-Zertifikat A1: Start Deutsch 1)**: Complete 105 Units across 3 macro-sections (Rookie, Explorer, Traveler) totaling 1,680 interactive lessons.
+  - 🇬🇧 **English A1 (Dual Native Instruction)**: Native Hindi (`en_hi`) and Marathi (`en_mr`) medium instruction across Section 1 (35 Units, 560 lessons).
+- **2-Step Onboarding Language Selection**: First-time login / registration prompts a 2-step progressive picker: Step 1 (Target language: German 🇩🇪 / English 🇬🇧) -> Step 2 (Native language: English 🇬🇧 for German; Hindi 🇮🇳 / Marathi 🇮🇳 for English).
+- **Clean Map Status Bar (Duolingo UX Standard)**: Direct pair text removed from the active map header; displays only the clean single target flag emoji. Course switching is centralized in Settings & Profile with a 2-step interactive modal.
+- **Instant Course Switcher (`POST /api/gamification/switch-course`)**: Smoothly toggles between German and English tracks with background audio initialization and shimmer loading states.
+- **Full Suite of 8 Interactive Curriculum Stages**:
+  1. **Word Match (`word_match`)**: Dynamic card pairing separated into distinct target and native columns with instant pronunciation and green success dissolution.
+  2. **Listen & Tap (`listen_tap`)**: Audio prompt with scrambled token bubbles for sentence arrangement, featuring complete sentence replay.
+  3. **Sentence Builder (`sentence_builder`)**: Grammar structure puzzle with prompt cards, shuffled tokens, and syntax verification.
+  4. **Sprechen Pronunciation (`sprechen`)**: Real-time microphone practice (Web Speech API / Google Speech STT) with live accuracy score meter (≥75% pass mark), real-time word-by-word illumination, complete sentence validation, and state reset per attempt.
+  5. **Cloze Test (`cloze_test`)**: Sentence comprehension gap fills with multiple-choice chips.
+  6. **Type Word (`type_word`)**: Accurate spelling drills featuring on-screen German Umlaut quick buttons (`ä`, `ö`, `ü`, `ß`).
+  7. **Dialogue Bubble (`dialogue_bubble`)**: Messenger-style conversational chat story with character avatar audio prompts.
+  8. **Listen & Select (`listen_select`)**: Audio comprehension with normal (1.0x) and turtle slow (0.75x) playback toggles.
+- **Smart Voice Engine & Persona Selector**:
+  - German: Prioritizes clear natural female voice (`Anna`).
+  - English: Persona-based universal voice selector (`👩 Female Voice / Samantha` vs `👨 Male Voice / Daniel`), stored in user preferences.
+  - Novelty Voice Filter: Automatically blocks novelty and joke synthesizer voices (e.g. Bells, Cellos, Zarvox).
+  - Speech Normalization: Bidirectional digit and currency symbol normalization (`3€` ↔ `"drei Euro"`).
+- **High-Performance Decoupled JIT Architecture**:
+  - Lightweight map projection queries (`GET /api/gamification/path`) reducing payload from 28.5 MB to 35 KB (99.88% reduction, 82ms response).
+  - Just-In-Time on-demand lesson fetching (`GET /api/gamification/lesson/:id`) loading full 8 stages in <50ms.
+  - Section-windowed pagination (Sections 1, 2, 3) across 105 units.
 
 ### 📝 Notes & Interactive Karaoke Reader
 - **Rich Text Notes (Tiptap)**: Bold, italic, underline, headings, lists, blockquotes, code blocks, dividers, tags, color-coded themes, and pin/unpin.
@@ -48,23 +77,24 @@ A comprehensive, state-of-the-art Learning Management System powering [dolphinco
 - JWT-based authentication (7-day validity) with bcrypt password hashing.
 - Admin dashboard for user role management, account toggling, and trainer creation.
 
-### 🏝️ Curriculum Studio & Interactive Lessons (`/curriculum`)
-- Multi-stage interactive lesson authoring: Match German Words, Listen and Tap What You Hear, Sentence Builder, Sprechen Pronunciation, and Audio Karaoke Story.
+### 🏝️ Curriculum Studio & Interactive Lessons (`/lessons`)
+- Hierarchical Section -> Unit -> Lesson administrative studio.
+- Multi-stage interactive lesson authoring: Match Words, Listen and Tap, Sentence Builder, Sprechen Pronunciation, Cloze Test, Type Word, Dialogue Bubble, and Audio Karaoke Story.
 - **Isolated Stage Audio Upload**: Dedicated direct-to-MySQL audio storage per stage; voice clips in Listen & Tap do not bleed into Karaoke or Lesson Overview.
 - **Word Match & Timestamp JSON Tools**: Pre-filled template downloads (`word_match_pairs_template.json`, `listen_tap_word_timestamps_template.json`, `sprechen_lipsync_template.json`) and JSON uploads for per-token timestamps and vocabulary pairing.
 - **Dedicated Words Audio Track & Sentence Range**: Dedicated audio track for word bank tokens with customizable sentence audio bounds.
 - Live / Draft publishing toggle protecting in-progress courses.
 
-### 📱 Flutter Mobile App (Android & iOS — v1.2.5+10)
+### 📱 Flutter Mobile App (Android & iOS — v1.2.6+11)
 - Dark-themed Material 3 mobile companion located in `app/dolphincoder/`.
 - **Gamified 5-Tab Shell (`bottom_nav.dart`)**: Learn (`/home`), Leagues (`/leagues`), Quests (`/quests`), Shop (`/shop`), and Profile (`/profile`).
 - **Gamified Coral Reef Archipelago**: Sinusoidal 3D island progression path with oxygen energy, streak counter, and pearls economy.
+- **Decoupled JIT Architecture**: Fast map loading via metadata projections, section windowing, and on-demand lesson fetching.
 - **Interactive Multi-Stage Challenge**:
-  - Dynamic active stage filtering executing only configured challenges.
+  - Dynamic active stage filtering executing configured challenges.
   - Live audio streaming via `audioplayers` from `https://dolphincoder.com/api/notes/audio/db/:id`.
-  - Continuous repeat speaker button replaying full sentence from 0:00 on every tap.
-  - Native German `de_DE` speech recognition with continuous dictation.
-  - Stage 3 Sprechen Lip-Sync auto-play demonstration (1-second delay), real-time word illumination, and >75% accuracy passing threshold.
+  - Zero-latency native TTS fallback (`flutter_tts`) with engine pre-warming.
+  - Native German `de_DE` and British/US English speech recognition with continuous dictation.
   - Animated dolphin mascot (`AnimatedDolphinMascot`) with vector emotion poses and headphones.
 
 ---
@@ -75,7 +105,7 @@ A comprehensive, state-of-the-art Learning Management System powering [dolphinco
 |---|---|
 | **Backend API** | Node.js, Express.js 4, Sequelize ORM 6, MySQL 8 |
 | **Frontend Web** | React 18, Vite 5, React Router 6, Tailwind CSS 3, Tiptap, Lucide Icons, Web Speech API, Web Audio API |
-| **Mobile App** | Flutter 3, Dart, Riverpod 2, GoRouter, Dio |
+| **Mobile App** | Flutter 3, Dart, Riverpod 2, GoRouter, Dio, AudioPlayers, SpeechToText, FlutterTTS |
 | **Audio & Media** | MySQL `LONGBLOB` streaming, HTTP 206 Range seeking, YouTube IFrame API |
 | **Document Processing** | Mammoth (DOCX to HTML parser), Custom DOCX quiz/flashcard generators |
 | **Hosting & Ops** | Hostinger VPS, PM2 Process Manager, Nginx Reverse Proxy, Let's Encrypt SSL |
@@ -88,27 +118,34 @@ A comprehensive, state-of-the-art Learning Management System powering [dolphinco
 MERNLMS/
 ├── backend/                   # Express API + Sequelize models + MySQL streaming (port 5000)
 │   ├── config/database.js     # Sequelize MySQL connection pool
-│   ├── controllers/           # API controllers (auth, notes, quizzes, flashcards, activity, etc.)
-│   ├── models/                # Sequelize models (User, Note, KaraokeAudio, UserActivity, Quiz, etc.)
-│   ├── routes/                # Express REST routes
+│   ├── controllers/           # API controllers (gamification, curriculum, notes, quizzes, etc.)
+│   ├── models/                # Sequelize models (CurriculumLesson, UserNodeProgress, UserQuest, etc.)
+│   ├── routes/                # Express REST routes (gamification, curriculum, notes, auth, etc.)
 │   ├── middleware/            # JWT auth, role guard, Multer file upload
 │   └── uploads/               # Temporary/fallback file storage
 ├── frontend/                  # React SPA (Vite builds into backend/dist)
-│   ├── src/pages/             # Route views (Dashboard, KaraokeNoteReader, ActivityHistoryPage, etc.)
-│   ├── src/components/        # UI components (KaraokeNoteModal, MatchPairsQuestion, etc.)
+│   ├── src/pages/             # Route views (LingoDolphyPage, Dashboard, CurriculumPage, etc.)
+│   ├── src/components/        # UI components (LingoLessonModal, KaraokeNoteModal, etc.)
 │   ├── src/contexts/          # AuthContext & global state
 │   └── src/styles/            # Tailwind CSS and glassmorphism styling
 ├── app/dolphincoder/          # Flutter mobile application (Dart)
-│   ├── lib/core/              # Constants, network Dio client, routing, theme
-│   ├── lib/features/          # Auth, Dashboard, Notes, Quizzes, Flashcards, Profile
-│   └── lib/shared/            # Reusable mobile widgets
-├── sync_your_audio/           # Standalone Python/Django Aeneas forced alignment audio tool
-├── DEPLOYMENT.md              # Production VPS deployment guide
-├── features.md                # Comprehensive feature inventory & history
+│   ├── lib/core/              # Constants, network Dio client, routing, theme, services (TtsService)
+│   ├── lib/features/          # Gamification, Notes, Quizzes, Flashcards, Profile
+│   └── lib/shared/            # Reusable mobile widgets (bottom_nav, glass_card)
+├── seed_german_a1.sql         # Complete 105-Unit German A1 SQL seed
+├── seed_english_a1_hindi.sql  # 35-Unit English A1 (Hindi) SQL seed
+├── seed_english_a1_marathi.sql# 35-Unit English A1 (Marathi) SQL seed
+├── DEPLOYMENT.md              # Production VPS deployment & SQL import guide
+├── features.md                # Comprehensive feature inventory & release log
+├── web_features.md            # Web application structural & functional blueprint
+├── android_features.md        # Mobile application structural & functional blueprint
 ├── backend.md                 # Detailed backend architecture & API reference
 ├── frontend.md                # Detailed frontend architecture & component guide
-├── android.md                 # Mobile app architecture & synchronization plan
-└── fix.md                     # Migration logs & resolved critical bug catalog
+├── android.md                 # Mobile app architecture & synchronization guide
+├── systemdesign.md            # RCA & design study: Solving the 60s Mobile Lag (Payload Decoupling)
+├── planlesson.md              # Non-redundant spaced repetition curriculum design plan
+├── scaleup.md                 # Scale-up blueprint, business operations & multi-track growth
+└── fix.md                     # Catalog of resolved critical bugs & architectural migrations
 ```
 
 ---
@@ -117,7 +154,7 @@ MERNLMS/
 
 ### Prerequisites
 - Node.js 18+
-- MySQL 8+ running locally or remotely (e.g., `lms_dev` database)
+- MySQL 8+ running locally or remotely (e.g., `dolphincoder_lms` database)
 
 ### 1. Backend Setup
 ```bash
@@ -171,9 +208,14 @@ CLIENT_URL=https://dolphincoder.com
 
 | Documentation File | Scope & Target Audience |
 |---|---|
-| [backend.md](backend.md) | Express API, Sequelize models, BLOB streaming, activity tracking, route tables |
-| [frontend.md](frontend.md) | React SPA, Karaoke Reader, Speech Recognition, Quiz engine, state flow |
-| [features.md](features.md) | Complete chronological feature log & capability inventory |
+| [features.md](features.md) | Complete chronological feature log & capability inventory (v29.1.0-stable) |
+| [web_features.md](web_features.md) | Screen-by-screen web application blueprint & functional specs |
+| [android_features.md](android_features.md) | Mobile app screen blueprint & native interaction specifications |
+| [backend.md](backend.md) | Express API, Sequelize models, BLOB streaming, JIT endpoints, route matrix |
+| [frontend.md](frontend.md) | React SPA, LingoDolphy platform, Karaoke Reader, Speech Recognition, state flow |
 | [android.md](android.md) | Flutter architecture, Riverpod providers, Android alignment roadmap |
-| [DEPLOYMENT.md](DEPLOYMENT.md) | Hostinger VPS deployment, PM2 clustering, Nginx range proxy, SSL |
+| [systemdesign.md](systemdesign.md) | System design case study: Solving the 60s Lag (Payload Decoupling & JIT Pagination) |
+| [planlesson.md](planlesson.md) | Pedagogical curriculum plan: Spaced repetition & non-redundant lesson structure |
+| [scaleup.md](scaleup.md) | Master scale-up blueprint: 2-track anchor strategy, economics, and operations |
+| [DEPLOYMENT.md](DEPLOYMENT.md) | Hostinger VPS deployment, PM2 clustering, Nginx range proxy, SSL & SQL seeds |
 | [fix.md](fix.md) | Catalog of resolved bugs, race conditions, and database migration notes |

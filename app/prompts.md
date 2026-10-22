@@ -1115,21 +1115,25 @@ Create a Flutter ArchipelagoMapScreen widget for the DolphinCoder LMS gamified l
 Design requirements:
 - Scaffold background: soft slate ivory Color(0xFFF1F5F9).
 - Top Ocean Status Bar:
-  - Language selector chip: "🇩🇪 German (A1)" with rounded border.
+  - Language selector chip: "🇩🇪 German (A1)" or "🇬🇧 English A1 (Hindi/Marathi)" with flag badge.
+  - Tapping opens course selection dialog triggering POST /api/gamification/switch-course.
+  - Parallel background audio pre-initialization with animated shimmer skeleton during switch.
   - Oxygen Energy counter: "🫧 5/5" displaying health with 30-minute auto-replenishment indicator.
   - Pearls balance: "💎 100" (or live balance from gamificationProvider).
   - Streak flame: "🔥 7" with flame glow.
 - Unit Header Banner:
-  - "Unit 1 • Coral Reef: Introductions & Daily Greetings" with progress bar and unit guide button.
+  - Macro-section badge ("Section 1: Rookie"), Unit number, and title with progress indicator.
 - 3D Sinusoidal Island Path:
   - Vertical scrollable ListView rendering circular island stepping stone nodes oscillating left/right based on mathematical horizontal offset list: [0, 45, -40, 20, -45, 35, 0].
-  - Node types: lesson, karaoke, speech, chest (treasure bonus), match, builder, boss (exam).
+  - Snap-back scroll fix: keeps map scroll position stable across updates.
+  - Node types: lesson, chest (treasure bonus), boss (exam).
   - Visual states:
     - locked: muted stone with padlock icon (🔒).
     - available: vibrant circular button with animated pulsating halo and crown.
     - completed: emerald green with gold stars (⭐ 1-3).
-- Tapping an available/completed node navigates to /lesson/:nodeIndex passing PathNodeModel.
-- Integrate with Riverpod gamificationProvider (fetches /api/gamification/path).
+- Just-In-Time (JIT) Node Execution:
+  - Path map loads lightweight metadata projection via GET /api/gamification/path?section=1 (35 KB).
+  - Tapping an available/completed node executes JIT on-demand lesson detail fetch via GET /api/gamification/lesson/:id (<50ms) and navigates to /lesson/:nodeIndex passing the complete 8-stage payload.
 ```
 
 ---
@@ -1140,37 +1144,30 @@ Design requirements:
 Create a Flutter LessonSessionScreen widget for DolphinCoder LMS multi-stage interactive challenge sessions.
 
 Requirements:
-- Parameters: nodeIndex (int), node (PathNodeModel?).
+- Parameters: nodeIndex (int), lessonId (int?), node (PathNodeModel?).
 - Dynamic active stage filtering (_activeStageTypes):
-  - Evaluates widget.node.stages JSON and only queues configured challenge stages (word_match, listen_tap, sentence_builder, sprechen).
+  - Evaluates widget.node.stages JSON and queues configured challenge stages across all 8 interactive types:
+    1. word_match: 2-column vocabulary card matching with tactile pairing, native lady voice TTS, and green success dissolution.
+    2. listen_tap: Mascot audio playback, dedicated AudioPlayer with volume_up_rounded button replaying from 0:00 on every tap, and scrambled word token tray.
+    3. sentence_builder: Prompt card, scrambled token bank, and syntax validation.
+    4. sprechen: 1-second auto-play teacher demonstration, real-time karaoke illumination, speech_to_text dictation, live accuracy score meter, and >75% passing threshold.
+    5. cloze_test: Sentence gap comprehension card with multiple-choice chips.
+    6. type_word: Spelling input box equipped with quick German Umlaut buttons (ä, ö, ü, ß).
+    7. dialogue_bubble: Messenger chat dialogue with Echo avatar, audio replay, and answer reply chips.
+    8. listen_select: Audio comprehension MCQ card with normal (1.0x) and turtle slow (0.75x) speed selectors.
 - Top Progress Bar:
   - Close (X) button with confirmation exit dialog.
   - Linear smooth animated progress bar tracking _currentStage / _totalStages.
   - Lives indicator: ❤️ 5.
-- Stage 0: Word Match:
-  - Dynamic vocabulary pairs loaded from stage data (supporting target/native or german/english).
-  - 2-column vocabulary matching tiles with tactile pairing and green success dissolution.
-- Stage 1: Listen & Tap:
-  - Animated dolphin mascot (AnimatedDolphinMascot) wearing headphones.
-  - Dedicated AudioPlayer streaming full teacher audio from /api/notes/audio/db/:id.
-  - Interactive speaker button that always retains volume_up_rounded and re-plays the full sentence from 0:00 on every tap.
-  - Pure sequencing word chips: tiles act purely as tactile sequence arrangers without sound distraction.
-  - Tolerant whitespace and punctuation sequence validation against target sentence.
-- Stage 2: Sentence Builder:
-  - English prompt card, scrambled token bank, and syntax validation.
-- Stage 3: Sprechen Lip-Sync:
-  - 1-second auto-play teacher pronunciation demonstration upon entering stage (no replay button).
-  - Real-time word illumination in speech bubble matching karaokeData.words.
-  - Native German speech recognition (speech_to_text with localeId: 'de_DE').
-  - Pronunciation passing threshold: strictly accuracy > 75%.
-- Stage 4: Celebration:
+- Stage 9: Celebration:
   - Mascot flip animation, XP and Pearls earned cards, audio chimes.
-  - Submits completion to /api/gamification/complete-node.
+  - Submits completion to POST /api/gamification/complete-node.
 - DuoFeedbackSheet:
   - Green success banner (#D7FFB8) with "CONTINUE →".
   - Red retry banner (#FFDFE0) with correct translation and "TRY AGAIN".
 - Audio robustness:
   - Mounted lifecycle guards (if (!mounted) return;) on all audio listeners.
+  - Native TtsService with pre-warming (German lady voice de-DE, English Daniel/Samantha).
   - Offline fallback audio and dummy words bank.
 ```
 

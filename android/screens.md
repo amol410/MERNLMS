@@ -1,7 +1,7 @@
 # DolphinCoder LMS — Screen Design & Theme Guide
 
 > [!NOTE]
-> **Implementation Reference**: The active production mobile application for DolphinCoder LMS is built with Flutter and located in [app/dolphincoder/](file:///Users/cms/Desktop/Code/mern/lms_speedup/MERNLMS/app/dolphincoder) (`v1.2.5+10`).
+> **Implementation Reference**: The active production mobile application for DolphinCoder LMS is built with Flutter and located in [app/dolphincoder/](file:///Users/cms/Desktop/Code/mern/lms_speedup/MERNLMS/app/dolphincoder) (`v1.2.6+11` / release `v29.1.0-stable`).
 > This document specifies the UI styling and Jetpack Compose component design specifications for the standalone **native Android Kotlin** application. For active Flutter screens and theme systems, see [app/dolphincoder/README.md](file:///Users/cms/Desktop/Code/mern/lms_speedup/MERNLMS/app/dolphincoder/README.md) and [app/prompts.md](file:///Users/cms/Desktop/Code/mern/lms_speedup/MERNLMS/app/prompts.md).
 
 This document describes how every screen should look and feel for the native Android Kotlin app. Use these prompts when building each screen with Jetpack Compose.

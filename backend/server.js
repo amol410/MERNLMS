@@ -44,11 +44,16 @@ app.use('/api/admin', require('./routes/admin'));
 app.use('/api/subjects', require('./routes/subjects'));
 app.use('/api/gamification', require('./routes/gamification'));
 app.use('/api/curriculum', require('./routes/curriculum'));
+app.use('/api/pages', require('./routes/pages'));
 
 const fs = require('fs');
 const audioUploadDir = path.join(__dirname, 'uploads/audio');
 if (!fs.existsSync(audioUploadDir)) {
     fs.mkdirSync(audioUploadDir, { recursive: true });
+}
+const pagesUploadDir = path.join(__dirname, 'uploads/pages');
+if (!fs.existsSync(pagesUploadDir)) {
+    fs.mkdirSync(pagesUploadDir, { recursive: true });
 }
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

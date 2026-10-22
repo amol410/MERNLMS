@@ -14,3 +14,6 @@ HyperFrames/
 ViRemotion/
 __pycache__/
 *.pyc
+*.apk
+*.apkm
+app/appit/

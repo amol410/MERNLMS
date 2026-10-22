@@ -19,20 +19,21 @@ The high-performance React Single Page Application (SPA) powering [dolphincoder.
 - **German Web Speech Recognition (`de-DE`)**: Continuous dictation recognition with dual submission: automatic evaluation after 3 seconds of continuous silence OR instant evaluation via **"Done Speaking (Check Now ✓)"**.
 - **Web Audio API Synth Chimes**: Harmonious celebratory arpeggio on pass (≥75% accuracy) and low retry chime with a 3-chance counter.
 
-### 3. Comprehensive Quiz & Assessment Engine
+### 3. LingoDolphy Language Learning Platform (`/lingodolphy`)
+- **Duolingo-Grade Archipelago Path**: 3D alternating sinusoidal island progression path with section pagination (Rookie, Explorer, Traveler).
+- **Dual Language Tracks**: German A1 (105 units) and English A1 with native Hindi & Marathi medium instruction (Section 1, 35 units).
+- **Full Suite of 8 Interactive Stages**: `word_match`, `listen_tap`, `sentence_builder`, `sprechen` (Google Speech STT, accuracy meter, complete sentence validation), `cloze_test`, `type_word` (with Umlauts), `dialogue_bubble`, and `listen_select` (1.0x & 0.75x slow speeds).
+- **Voice Persona Selector**: Persistent selector for English (`👩 Female / Samantha` vs `👨 Male / Daniel`), `Anna` for German, filtering out novelty voices.
+
+### 4. Comprehensive Quiz & Assessment Engine
 - Multiple Choice (MCQ), True/False, syntax-highlighted code snippets, and **Match the Pairs (`match_pairs`)** interactive column matching.
 - Timed examination engine with sticky sidebar question navigator and session-preserved state.
 - **Dedicated Quiz Review (`/quizzes/:id/review`)**: Post-exam review showing chosen answers, correct answers, and instructor explanations.
 
-### 4. Curriculum Studio & Interactive Lessons (`/curriculum`)
-- Multi-stage lesson builder (`LessonEditorModal.jsx`):
-  - **Stage 1 (Word Match)**: JSON template download (`word_match_pairs_template.json`) and pair upload.
-  - **Stage 2 (Listen & Tap)**: Word-level timestamps JSON template download (`listen_tap_word_timestamps_template.json`), upload, dedicated words audio track (`wordsAudioUrl`), and sentence range boundaries (`sentenceRange`).
-  - **Stage 3 (Sentence Builder)**: Draggable/tappable word token assembly.
-  - **Stage 4 (Sprechen Lip-Sync)**: Mascot reference audio upload (`audioUrl`), JSON timestamps upload and template download (`sprechen_lipsync_template.json`), and passing accuracy threshold (>75%).
-  - **Stage 5 (Karaoke Story)**: Full-length story audio upload and word-level alignment JSON parser.
+### 5. Curriculum Studio & Interactive Lessons (`/lessons`)
+- Hierarchical Section -> Unit -> Lesson administrative studio with stage authoring for all 8 challenge types, template downloads, and isolated MySQL audio storage.
 
-### 5. Activity Analytics & Study Tracking
+### 6. Activity Analytics & Study Tracking
 - High-performance counts-only query for dashboard metrics.
 - Grouped weekly activity log with localized day categories (**Today**, **Yesterday**, **Day Before Yesterday**) and total daily study hours.
 
@@ -66,13 +67,15 @@ frontend/
 │   ├── components/
 │   │   ├── common/              # Navbar, Footer, ProtectedRoute, ConfirmModal, Pagination
 │   │   ├── notes/               # KaraokeNoteModal, note list cards
+│   │   ├── lingodolphy/         # LingoLessonModal (8-stage challenge runner, voice synthesizer)
 │   │   ├── curriculum/          # LessonEditorModal, UnitOutlineModal, BulkUploadModal
 │   │   ├── quiz/                # MatchPairsQuestion, CodeSnippetQuestion, MatchPairsForm, MatchPairsDisplay
 │   │   └── dashboard/           # TodayPerformance, WeeklyPerformance
 │   ├── pages/
 │   │   ├── Landing.jsx          # Public showcase & demo landing page
 │   │   ├── Dashboard.jsx        # Student & trainer central cockpit
-│   │   ├── CurriculumPage.jsx   # Curriculum Studio & Lesson Management
+│   │   ├── LingoDolphyPage.jsx  # Student language learning path & course switcher
+│   │   ├── CurriculumPage.jsx   # Curriculum Studio & Lesson Management (/lessons)
 │   │   ├── NotesPage.jsx        # 6-item paginated notes catalog with search & filters
 │   │   ├── NoteDetailPage.jsx   # Article / Slide presentation viewer with anchor navigation fix
 │   │   ├── NoteEditorPage.jsx   # Tiptap rich-text editor & file upload

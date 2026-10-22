@@ -27,6 +27,9 @@ import QuizReviewPage from './pages/QuizReviewPage';
 import KaraokeNoteReader from './pages/KaraokeNoteReader';
 import CurriculumPage from './pages/CurriculumPage';
 import LingoDolphyPage from './pages/LingoDolphyPage';
+import AdminPagesPage from './pages/AdminPagesPage';
+import PageEditorPage from './pages/PageEditorPage';
+import PublicPageView from './pages/PublicPageView';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -77,11 +80,17 @@ function AppRoutes() {
       <Route path="/lessons" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><CurriculumPage /></Layout></ProtectedRoute>} />
 
       <Route path="/admin" element={<ProtectedRoute roles={['admin']}><Layout><AdminPage /></Layout></ProtectedRoute>} />
+      <Route path="/admin/pages" element={<ProtectedRoute roles={['admin']}><Layout><AdminPagesPage /></Layout></ProtectedRoute>} />
+      <Route path="/admin/pages/new" element={<ProtectedRoute roles={['admin']}><Layout><PageEditorPage /></Layout></ProtectedRoute>} />
+      <Route path="/admin/pages/:id/edit" element={<ProtectedRoute roles={['admin']}><Layout><PageEditorPage /></Layout></ProtectedRoute>} />
 
       <Route path="/profile" element={<ProtectedRoute><Layout><ProfilePage /></Layout></ProtectedRoute>} />
 
       <Route path="/activity" element={<ProtectedRoute><Layout><ActivityHistoryPage /></Layout></ProtectedRoute>} />
       <Route path="/history" element={<Navigate to="/activity" replace />} />
+
+      {/* Public Custom Dynamic Page URL (accessible to everyone) */}
+      <Route path="/:slug" element={<Layout><PublicPageView /></Layout>} />
 
       <Route path="*" element={
         <div className="min-h-screen flex items-center justify-center text-center">

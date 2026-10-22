@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   BookOpen, Video, Brain, Layers, Home, LogOut, User,
-  Menu, X, ChevronDown, Zap, ShieldCheck, BarChart2, Compass, Globe,
+  Menu, X, ChevronDown, Zap, ShieldCheck, BarChart2, Compass, Globe, FileText,
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -21,6 +21,7 @@ export default function Navbar() {
     { to: '/notes', icon: BookOpen, label: 'Notes' },
     { to: '/videos', icon: Video, label: 'Videos' },
     { to: '/quizzes', icon: Brain, label: 'Quizzes' },
+    ...(user?.role === 'admin' ? [{ to: '/admin/pages', icon: FileText, label: 'Pages' }] : []),
     { to: '/flashcards', icon: Layers, label: 'Flashcards' },
     ...(isStudent ? [{ to: '/lingodolphy', icon: Globe, label: 'LingoDolphy' }] : []),
     ...(isStaff ? [{ to: '/lessons', icon: Compass, label: 'Lessons' }] : []),
@@ -87,60 +88,77 @@ export default function Navbar() {
 
             {/* Profile */}
             <div className="hidden md:flex items-center gap-3">
-              <div className="relative">
-                <button
-                  onClick={() => setProfileOpen(!profileOpen)}
-                  className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-white/8 transition-all duration-200 group"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-dolphin-500 to-ocean-500 flex items-center justify-center text-white text-sm font-bold shadow-md">
-                    {user?.name?.charAt(0).toUpperCase()}
-                  </div>
-                  <div className="text-left">
-                    <p className="text-white text-sm font-medium leading-none">{user?.name?.split(' ')[0]}</p>
-                    <p className="text-gray-500 text-xs capitalize">{user?.role}</p>
-                  </div>
-                  <ChevronDown className={clsx('w-4 h-4 text-gray-500 transition-transform duration-200', profileOpen && 'rotate-180')} />
-                </button>
+              {user ? (
+                <div className="relative">
+                  <button
+                    onClick={() => setProfileOpen(!profileOpen)}
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-white/8 transition-all duration-200 group"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-dolphin-500 to-ocean-500 flex items-center justify-center text-white text-sm font-bold shadow-md">
+                      {user?.name?.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="text-left">
+                      <p className="text-white text-sm font-medium leading-none">{user?.name?.split(' ')[0]}</p>
+                      <p className="text-gray-500 text-xs capitalize">{user?.role}</p>
+                    </div>
+                    <ChevronDown className={clsx('w-4 h-4 text-gray-500 transition-transform duration-200', profileOpen && 'rotate-180')} />
+                  </button>
 
-                {profileOpen && (
-                  <div className="absolute right-0 mt-2 w-52 glass-card border border-white/15 rounded-xl shadow-2xl overflow-hidden animate-fade-in">
-                    <Link
-                      to="/profile"
-                      className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/8 transition-colors text-sm"
-                      onClick={() => setProfileOpen(false)}
-                    >
-                      <User className="w-4 h-4" />
-                      Profile Settings
-                    </Link>
-                    <Link
-                      to="/activity"
-                      className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/8 transition-colors text-sm"
-                      onClick={() => setProfileOpen(false)}
-                    >
-                      <BarChart2 className="w-4 h-4 text-dolphin-400" />
-                      Activity History
-                    </Link>
-                    {user?.role === 'admin' && (
+                  {profileOpen && (
+                    <div className="absolute right-0 mt-2 w-52 glass-card border border-white/15 rounded-xl shadow-2xl overflow-hidden animate-fade-in">
                       <Link
-                        to="/admin"
-                        className="flex items-center gap-3 px-4 py-3 text-orange-400 hover:text-orange-300 hover:bg-orange-500/10 transition-colors text-sm"
+                        to="/profile"
+                        className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/8 transition-colors text-sm"
                         onClick={() => setProfileOpen(false)}
                       >
-                        <ShieldCheck className="w-4 h-4" />
-                        Admin Panel
+                        <User className="w-4 h-4" />
+                        Profile Settings
                       </Link>
-                    )}
-                    <div className="border-t border-white/10" />
-                    <button
-                      onClick={handleLogout}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors text-sm"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      Sign Out
-                    </button>
-                  </div>
-                )}
-              </div>
+                      <Link
+                        to="/activity"
+                        className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/8 transition-colors text-sm"
+                        onClick={() => setProfileOpen(false)}
+                      >
+                        <BarChart2 className="w-4 h-4 text-dolphin-400" />
+                        Activity History
+                      </Link>
+                      {user?.role === 'admin' && (
+                        <Link
+                          to="/admin"
+                          className="flex items-center gap-3 px-4 py-3 text-orange-400 hover:text-orange-300 hover:bg-orange-500/10 transition-colors text-sm"
+                          onClick={() => setProfileOpen(false)}
+                        >
+                          <ShieldCheck className="w-4 h-4" />
+                          Admin Panel
+                        </Link>
+                      )}
+                      <div className="border-t border-white/10" />
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors text-sm"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sign Out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <Link
+                    to="/login"
+                    className="btn-secondary py-1.5 px-3 text-xs"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="btn-primary py-1.5 px-3 text-xs"
+                  >
+                    Register
+                  </Link>
+                </div>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -204,24 +222,43 @@ export default function Navbar() {
                 Admin Panel
               </NavLink>
             )}
-            <div className="border-t border-white/10 pt-3 mt-3">
-              <div className="flex items-center gap-3 px-3 py-2 mb-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-dolphin-500 to-ocean-500 flex items-center justify-center text-white text-sm font-bold">
-                  {user?.name?.charAt(0).toUpperCase()}
+            {user ? (
+              <div className="border-t border-white/10 pt-3 mt-3">
+                <div className="flex items-center gap-3 px-3 py-2 mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-dolphin-500 to-ocean-500 flex items-center justify-center text-white text-sm font-bold">
+                    {user?.name?.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-medium">{user?.name}</p>
+                    <p className="text-gray-500 text-xs capitalize">{user?.role}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-white text-sm font-medium">{user?.name}</p>
-                  <p className="text-gray-500 text-xs capitalize">{user?.role}</p>
-                </div>
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-400 hover:bg-red-500/10 text-sm font-medium transition-colors"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Sign Out
+                </button>
               </div>
-              <button
-                onClick={handleLogout}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-400 hover:bg-red-500/10 text-sm font-medium transition-colors"
-              >
-                <LogOut className="w-4 h-4" />
-                Sign Out
-              </button>
-            </div>
+            ) : (
+              <div className="border-t border-white/10 pt-3 mt-3 flex items-center gap-2">
+                <Link
+                  to="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="btn-secondary flex-1 text-center py-2 text-xs"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setMobileOpen(false)}
+                  className="btn-primary flex-1 text-center py-2 text-xs"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -16,7 +16,7 @@
 
 ## 1. What This Is
 
-**DolphinCoder Mobile Client** (`pubspec` package: `dolphincoder`, v1.2.6+11) — A native, dark-themed Material 3 mobile application for Android (SDK 23+) and iOS, serving as the student companion for [dolphincoder.com](https://dolphincoder.com).
+**DolphinCoder Mobile Client** (`pubspec` package: `dolphincoder`, v1.2.6+11 / production release: `v29.1.0-stable`) — A native, dark-themed Material 3 mobile application for Android (SDK 23+) and iOS, serving as the student companion for [dolphincoder.com](https://dolphincoder.com).
 
 ### Feature Comparison Matrix (Web vs Mobile Status)
 
@@ -30,7 +30,7 @@
 | **Videos** | YouTube embeds, view count, tags | YouTube player in WebView | ✅ Parity achieved |
 | **Activity History**| `/activity` with localized Day categories & Daily hours | `ActivityHistoryScreen` with Daily hours & Categories | ✅ Parity achieved (`/activity`) |
 | **Pagination** | 6-item pagination across lists | 6-item pagination across Notes & Quizzes | ✅ Parity achieved |
-| **Curriculum & Archipelago** | `/curriculum` studio, Units, multi-stage lessons | `ArchipelagoMapScreen`, `LessonSessionScreen`, `audioplayers` | ✅ Parity achieved (`/api/gamification/*`) |
+| **Lingo Archipelago** | `/lingodolphy` with 8 stages, 105 units, English A1 (Hindi/Marathi) | Archipelago map, 8 stages, JIT loading, Course switcher | ✅ Parity achieved (`/api/gamification/*`) |
 
 ---
 
@@ -207,9 +207,11 @@ The Duolingo-grade gamified language path and interactive multi-stage lesson cha
 
 ### 7.1 Archipelago Map Screen (`archipelago_map_screen.dart`)
 - **Top Ocean Status Bar**:
-  - Flag switcher: `🇩🇪 German (A1)`.
+  - **Multi-Track Course Selector**: Tapping the language badge opens a modal to switch between German A1, English A1 (Hindi medium), and English A1 (Marathi medium) via `POST /api/gamification/switch-course`.
+  - **Parallel Course Switch & Shimmer Skeleton**: Switches courses with parallel background TTS pre-initialization, displaying an animated shimmer skeleton while switching to eliminate UI freezes.
+  - **Snap-Back Scroll Fix**: Preserves user scroll position across map updates.
   - Oxygen Energy counter (`🫧 5/5`) with automatic time-based replenishment.
-  - Pearls virtual currency (`💎 420`) and streak flame counter (`🔥 7`).
+  - Pearls virtual currency (`💎`) and streak flame counter (`🔥`).
 - **3D Sinusoidal Island Path**:
   - Curved serpentine stepping stones oscillating across horizontal offsets.
   - Interactive node states:
@@ -217,34 +219,35 @@ The Duolingo-grade gamified language path and interactive multi-stage lesson cha
     - **Active**: Elevated vibrant circular button with animated pulsing halo and mascot icon.
     - **Locked**: Subtly muted stone with lock padlock icon (`🔒`).
     - **Bonus**: Sunken treasure chests and checkpoint lighthouses.
-- **Dynamic Curriculum Integration**:
-  - Fetches live learning nodes from `/api/gamification/path`.
-  - Automatically loads authored curriculum units and lessons from MySQL backend.
+- **High-Performance JIT Integration**:
+  - Map queries (`GET /api/gamification/path?section=1`) load lightweight metadata projections in 82ms (35 KB).
+  - Tapping a playable node triggers Just-In-Time on-demand lesson fetching (`GET /api/gamification/lesson/:id`), loading the full 8-stage interactive payload in <50ms without UI freezing.
 
 ### 7.2 Multi-Stage Interactive Lesson Session (`lesson_session_screen.dart`)
-- **Stage Orchestration Engine**:
-  - **Dynamic Stage Filtering (`_activeStageTypes`)**: Only authored and enabled stages run during a session (`word_match`, `listen_tap`, `sentence_builder`, `sprechen`). If a stage is disabled in the curriculum, it is cleanly omitted from the challenge pipeline.
-  - Dynamically parses stages from `node.stages` JSON via `_initStagesData()`.
-  - Seamlessly runs through all authored challenges:
-    1. **Stage 0: Match the Word Pairs (`word_match` / `match_pairs`)**: Dynamic vocabulary pairing loaded directly from lesson stage data. Tapping any German word card immediately pronounces it in a natural German female voice (`TtsService`). Green success dissolution on correct match.
-    2. **Stage 1: Listen and Tap What You Hear (`listen_tap`)**:
-       - **Clean Full-Sentence Audio Architecture**: Dedicated `_audioPlayer` streaming the full spoken sentence on demand with pre-warming for zero-latency replay.
-       - **Real-Time Word Tile Pronunciation**: Whenever a learner selects/picks a word tile from `_listenBank`, `TtsService` pronounces the word in the German lady's voice on tap.
-       - **Native `audioplayers` Streaming**: High-fidelity streaming directly from `/api/notes/audio/db/:id` resolved to `https://dolphincoder.com/api/notes/audio/db/:id`.
-       - **Interactive Speaker Button**: Tactile speaker button with continuous `volume_up_rounded` iconography (always re-plays the full sentence from 0:00 every time it is tapped, allowing unlimited re-listening).
-       - **Mascot Listening Reaction**: Vector dolphin mascot (`AnimatedDolphinMascot`) wears headphones (`hasHeadphones: true`) and reacts with attentive listening animation (`isListening: true`).
-       - **Interactive Assembly Canvas**: Tapping tokens moves them into the target assembly box; tapping assembled tokens returns them to the bank.
-       - **Tolerant Verification**: Whitespace-normalized, punctuation-insensitive sequence validation.
-    3. **Stage 2: Sentence Builder (`sentence_builder`)**: English prompt card, scrambled German token bank, and grammar syntax check. Tapping/picking tokens from `_builderBank` pronounces each word on tap in the lady's German voice as it enters the sentence tray.
-    4. **Stage 3: Sprechen Lip-Sync (`sprechen`)**:
-       - **One-Time Auto-Play Demonstration (1-Second Delay)**: 1 second after entering the stage, the mascot automatically plays the phrase audio once without a replay button.
-       - **Synchronized Karaoke Highlighting**: Reuses existing Notes karaoke engine to illuminate words in real-time (`karaokeData.words`) in sync with the audio.
-       - **Native German Speech Recognition (`de_DE`)**: Configured with `speech_to_text` strictly for native German dictation, avoiding premature cutoffs.
-       - **Voice Pronunciation & >75% Passing Threshold**: Student taps the microphone button to pronounce the phrase aloud, requiring a strictly > 75% accuracy score to pass.
-    5. **Stage 4: Celebration & Rewards**: Flip animation, XP earnings, accuracy percentage, pearls reward, and progress submission to `/api/gamification/complete-node`.
+- **Full Suite of 8 Interactive Curriculum Stages**:
+  1. **Stage 1: Word Match (`word_match` / `match_pairs`)**: Dynamic vocabulary pairing separated into target and native columns. Tapping target words pronounces them via `TtsService`. Green success dissolution on correct match.
+  2. **Stage 2: Listen and Tap (`listen_tap`)**:
+     - Dedicated sentence audio engine streaming from `/api/notes/audio/db/:id` with zero-fail fallback to native `TtsService`.
+     - Tactile speaker button retaining permanent `volume_up_rounded` iconography, replaying full sentence from 0:00 on every tap.
+     - Animated dolphin mascot (`AnimatedDolphinMascot`) wearing headphones, pulsing to audio.
+     - Interactive assembly canvas with token bank.
+  3. **Stage 3: Sentence Builder (`sentence_builder`)**: English translation prompt card, scrambled token bank, and syntax validation. Picking tokens articulates words as they enter the tray.
+  4. **Stage 4: Sprechen Lip-Sync (`sprechen`)**:
+     - Auto-play teacher pronunciation demonstration after a 1-second delay upon entering stage.
+     - Real-time word illumination in speech bubble matching `karaokeData.words`.
+     - Target language speech recognition (`speech_to_text`) with continuous dictation mode.
+     - Complete sentence validation requiring strictly >75% accuracy.
+  5. **Stage 5: Cloze Test (`cloze_test`)**: Sentence gap comprehension with multiple-choice chips and instant audio playback.
+  6. **Stage 6: Type Word (`type_word`)**: Target word spelling drill with on-screen quick German Umlaut buttons (`ä`, `ö`, `ü`, `ß`).
+  7. **Stage 7: Dialogue Bubble (`dialogue_bubble`)**: Messenger chat exchange with Echo the Dolphin, audio replay, and answer reply chips.
+  8. **Stage 8: Listen & Select (`listen_select`)**: Audio comprehension MCQ card with normal (1.0x) and turtle slow (0.75x) speeds.
+- **Celebration & Rewards**:
+  - Mascot flip animation, XP and Pearls earned cards, audio chimes.
+  - Submits completion to `POST /api/gamification/complete-node`.
 - **Audio & Offline Robustness**:
-  - **Mounted Guards**: All audio playback and pause callbacks verify widget mounted state (`if (!mounted) return;`) to eliminate asynchronous `setState` exceptions.
-  - **Offline Safety Nets**: Ensures fallback audio and default word bank data are always populated so the app functions even when disconnected.
+  - Mounted lifecycle guards (`if (!mounted) return;`) protect all audio listeners.
+  - Multi-language `TtsService`: German lady voice (`de-DE`) and British/US English voices with engine pre-warming and safe background pre-synthesis.
+  - Offline safety nets ensure fallback audio and default word bank data are always populated.
 - **Duolingo-Style Feedback Sheets (`DuoFeedbackSheet`)**:
   - **Success**: Emerald green card (`#D7FFB8`) with checkmark and full-width green "CONTINUE →" button.
   - **Correction**: Warm rose card (`#FFDFE0`) displaying correct translation with retry action.

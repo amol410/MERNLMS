@@ -57,7 +57,7 @@ graph TD
    * **Step 2**: *"What do you want to master?"*
      * Options: 🇩🇪 German, 🇬🇧 English, 🇫🇷 French (Coming Soon badge), 🇪🇸 Spanish (Coming Soon).
 3. **Persisted in User Profile**:
-   * Saved in MongoDB `User.learningProfile = { nativeLanguage: "hi", targetLanguage: "en", level: "A1" }`.
+   * Saved in MySQL `Users.learning_profile` / `Users.course_id` (e.g. `de_a1`, `en_hi`, `en_mr`) via Sequelize 6.
 
 ---
 
@@ -179,10 +179,10 @@ graph LR
 
 | Component | Provider & Tier | Monthly Cost | Capacity |
 |---|---|:---:|---|
-| **App & Backend Server** | **DigitalOcean Droplet** (2 vCPU, 4GB RAM, 80GB NVMe SSD) | **$18 (₹1,500)** | Handles 20,000+ Daily Active Users easily |
-| **Database** | **MongoDB Atlas** (Free M0 ➔ M2 Tier) | **$0 – $9 (₹0 – ₹750)** | Up to 20,000 user profiles & progress |
-| **Audio & Media** | **DigitalOcean Spaces** or **Cloudinary Free Tier** | **$0 – $5 (₹0 – ₹420)** | High-speed CDN for pre-recorded audio |
-| **Speech & Audio** | **Flutter Native TTS** | **₹0 (Free)** | 0 MB overhead, uses phone's local voice engine |
+| **App & Backend Server** | **Hostinger VPS / DigitalOcean** (2 vCPU, 4GB RAM, 80GB NVMe SSD) | **$12 – $18 (₹1,000 – ₹1,500)** | Handles 20,000+ Daily Active Users easily with PM2 cluster mode |
+| **Database** | **MySQL 8 + Sequelize 6** (Local VPS or Hostinger Managed MySQL) | **Included / $0 – $10** | Composite indexed for sub-10ms queries, handles millions of progress rows & curriculum nodes |
+| **Audio & Media** | **MySQL `karaoke_audios` (LONGBLOB) + Cloudflare CDN** | **$0 – $5 (₹0 – ₹420)** | High-speed 206 Partial Content Range streaming directly from database |
+| **Speech & Audio** | **Flutter Native TTS & Web Speech API** | **₹0 (Free)** | 0 MB overhead, uses client's native speech synthesis & recognition engines |
 | **Total Cloud Bill** | | **~₹1,500 – ₹2,500 / month** | Predictable, fixed cost with zero surprises |
 
 ---
@@ -190,11 +190,13 @@ graph LR
 ## 🗓️ 12-Month Execution Roadmap
 
 ```
-Month 1-2: Foundation
-  ├── Complete A1 German (12 Units) & A1 English (12 Units)
-  ├── Hook up hybrid Audio (pre-recorded URL with automatic Flutter TTS fallback)
-  ├── Deploy backend to DigitalOcean ($18/mo)
-  └── Publish on Google Play Store & Apple App Store
+Month 1-2: Foundation (ACHIEVED ✅)
+  ├── Complete A1 German (105 Units, 1,680 Lessons across 3 Sections)
+  ├── Complete A1 English (Section 1: 35 Units, 560 Lessons in Hindi & Marathi)
+  ├── Hook up hybrid Audio (pre-recorded URL with automatic TTS fallback)
+  ├── Deploy backend to Hostinger VPS (Node.js + MySQL 8 + PM2)
+  ├── Release v29.1.0-stable with JIT lesson fetching & Course Switcher
+  └── Mobile companion v1.2.6+11 built on Flutter 3 / Riverpod
 
 Month 3-5: The Paid Spark & Funnel Optimization
   ├── Launch Instagram Reels ads at ₹1,000/day (Pune, Bangalore, Kochi, Indore)

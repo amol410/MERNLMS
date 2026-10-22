@@ -41,6 +41,34 @@ Then restart MySQL:
 sudo systemctl restart mysql
 ```
 
+### 1.3 Curriculum Seeding & Performance Indexes
+To seed the LingoDolphy language tracks into `CurriculumLessons`, import the curriculum seed SQL files:
+```bash
+# German A1 (105 Units, 1,680 Lessons across 3 Sections)
+mysql -u lms_user -p dolphincoder_lms < /var/www/lms/seed_german_a1.sql
+# Or section-wise:
+# mysql -u lms_user -p dolphincoder_lms < /var/www/lms/seed_german_a1_sec1.sql
+# mysql -u lms_user -p dolphincoder_lms < /var/www/lms/seed_german_a1_sec2.sql
+# mysql -u lms_user -p dolphincoder_lms < /var/www/lms/seed_german_a1_sec3.sql
+
+# English A1 — Hindi Medium (35 Units, 560 Lessons)
+mysql -u lms_user -p dolphincoder_lms < /var/www/lms/seed_english_a1_hindi.sql
+
+# English A1 — Marathi Medium (35 Units, 560 Lessons)
+mysql -u lms_user -p dolphincoder_lms < /var/www/lms/seed_english_a1_marathi.sql
+```
+
+Ensure the following composite indexes are active for sub-10ms JIT lesson lookups and archipelago path projections:
+```sql
+-- Curriculum lesson order lookup by course and unit
+CREATE INDEX IF NOT EXISTS idx_curriculum_course_unit_order 
+ON CurriculumLessons (course_id, unit_number, lesson_order);
+
+-- User progress indexing for fast path status resolution
+CREATE INDEX IF NOT EXISTS idx_user_node_progress_user_course 
+ON UserNodeProgress (user_id, course_id, node_id);
+```
+
 ---
 
 ## 🚀 Step 2: Deploy Backend & React SPA
@@ -85,6 +113,23 @@ CLIENT_URL=https://dolphincoder.com
 ```
 
 ### 2.2 Start Application with PM2
+Ensure `ecosystem.config.js` sets `--max-old-space-size=2048` to allocate sufficient memory for large curriculum queries and binary streams:
+```javascript
+module.exports = {
+  apps: [{
+    name: 'dolphincoder-backend',
+    script: 'server.js',
+    node_args: '--max-old-space-size=2048',
+    instances: 'max',
+    exec_mode: 'cluster',
+    env_production: {
+      NODE_ENV: 'production',
+      PORT: 5000
+    }
+  }]
+};
+```
+Start and persist the PM2 daemon:
 ```bash
 cd /var/www/lms/backend
 pm2 start ecosystem.config.js --env production

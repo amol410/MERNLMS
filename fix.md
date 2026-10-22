@@ -150,3 +150,68 @@ This was enabled to automatically apply schema additions across deployment envir
   - Decoupled stage audio so `audioUrl` belongs strictly to its respective stage (`stages[listen_tap].audioUrl`, `stages[sprechen].audioUrl`), setting top-level `audioUrl = null`.
   - Populated offline fallback audio URLs and word timestamps so sessions never crash when offline.
 - **Files Modified**: `app/dolphincoder/lib/features/gamification/screens/lesson_session_screen.dart`, `backend/controllers/curriculumController.js`, `frontend/src/components/curriculum/LessonEditorModal.jsx`.
+
+---
+
+### 2.13 60-Second Mobile Course Switch Lag: Payload Decoupling & JIT Lesson Details
+- **Symptom**: When switching courses (e.g. from English A1 to German A1 with 1,680 lessons across 105 units), the mobile application froze for up to 60 seconds with heavy thread thrashing and memory spikes.
+- **Root Cause**: `GET /api/gamification/path` was returning the entire multi-stage lesson JSON blob for every lesson in the curriculum. For 1,680 lessons, this generated a 28.5 MB JSON payload that blocked network transfer, overloaded mobile JSON deserialization, and exhausted memory.
+- **Fix**:
+  1. Decoupled the path endpoint: `GET /api/gamification/path` now projects only lightweight node metadata (`id`, `title`, `unit`, `order`, `stars`, `status`, `stageCount`) producing a tiny ~35 KB payload.
+  2. Implemented Just-In-Time (JIT) lesson fetching: `GET /api/gamification/lesson/:id` fetches the complete multi-stage lesson payload on-demand only when a learner taps a node.
+  3. Added an animated island shimmer skeleton (`_IslandMapSkeleton`) in Flutter to ensure instant visual transition during course switching without freezing the main thread.
+- **Files Modified**: `backend/controllers/gamificationController.js`, `app/dolphincoder/lib/features/gamification/screens/archipelago_map_screen.dart`, `app/dolphincoder/lib/features/gamification/data/gamification_repository.dart`, `frontend/src/pages/LingoDolphyPage.jsx`.
+
+---
+
+### 2.14 Gamification Progression Unlock & Streak Exception on Node Completion
+- **Symptom**: Completing a lesson node occasionally crashed with a 500 error or failed to unlock the subsequent island node in the path, leaving learners stranded at their current progression.
+- **Root Cause**: In `gamificationController.completeNode`, the streak calculation logic invoked `dateHelper` methods that assumed timezone offset query parameters existed on all requests. When missing, `dateHelper` threw a `TypeError`. Furthermore, the node unlock query searched strictly by sequential integer IDs rather than curriculum `unit_number` and `lesson_order`, failing when lesson IDs were non-contiguous.
+- **Fix**:
+  1. Guarded `dateHelper` with default UTC / server local fallbacks if client timezone headers are absent.
+  2. Updated the next node unlock algorithm to query the next logical lesson ordered by `(unit_number ASC, lesson_order ASC)` within the same `course_id`.
+  3. Transactionally committed `UserNodeProgress` updates before responding to prevent read-after-write race conditions.
+- **Files Modified**: `backend/controllers/gamificationController.js`, `backend/utils/dateHelper.js`.
+
+---
+
+### 2.15 Web Speech Recognition State Reset on Consecutive Pronunciation Attempts
+- **Symptom**: During Sprechen / speaking practice, if a user made an initial failed attempt and tapped the microphone to try again, the previous attempt's interim transcript bled into the new recording or the microphone immediately aborted with a "no speech detected" error.
+- **Root Cause**: The Web Speech API `SpeechRecognition` instance was reused without fully resetting previous event buffers, and React state (`transcript`, `isListening`, `accuracy`) was not cleared before invoking `recognition.start()`.
+- **Fix**:
+  1. Aborted and recreated or completely reset event handlers and transcript variables on new recording sessions.
+  2. Cleared all evaluation states (`errorMsg`, `accuracy`, `interimTranscript`) synchronously before requesting microphone access.
+  3. Added a cleanup callback on stage unmount to stop active audio recognition streams and release the browser microphone.
+- **Files Modified**: `frontend/src/components/lingo/LingoLessonModal.jsx`, `frontend/src/pages/KaraokeNoteReader.jsx`.
+
+---
+
+### 2.16 Speech Recognition Punctuation, Digit & Currency Normalization
+- **Symptom**: Learners speaking numbers or prices (e.g. "3 Euro" or "10 dollars") failed pronunciation checks because the speech engine transcribed digits (e.g., `"3€"` or `"$10"`), while the target lesson text had written words (`"drei Euro"`, `"ten dollars"`).
+- **Root Cause**: Token-matching algorithms performed strict string comparison after basic lowercase conversion, without accounting for numeric words, currency symbols, and diacritical marks.
+- **Fix**:
+  1. Implemented a bidirectional text normalizer mapping digits `0-9` to word equivalents in German (`eins`, `zwei`, `drei`...) and English (`one`, `two`, `three`...).
+  2. Replaced currency symbols (`€` -> `Euro`, `$` -> `Dollar`, `₹` -> `Rupee`) before tokenizing sentences.
+  3. Stripped commas, periods, question marks, and exclamation marks prior to calculating fuzzy Levenshtein and token-coverage accuracy.
+- **Files Modified**: `frontend/src/components/lingo/LingoLessonModal.jsx`, `app/dolphincoder/lib/features/gamification/screens/lesson_session_screen.dart`.
+
+---
+
+### 2.17 English TTS Voice Persona Selection & Novelty Voice Filtering
+- **Symptom**: In the English curriculum on macOS and Windows, Web Speech synthesis randomly selected novelty robotic or musical synthesizer voices (e.g. "Bells", "Cellos", "Zarvox", "Bad News"), producing jarring, unintelligible pronunciation.
+- **Root Cause**: `window.speechSynthesis.getVoices()` returns all system synthesizer voices. When matching `lang.startsWith('en')`, the first matching index in the system array was often an OS novelty sound effect rather than a natural language persona.
+- **Fix**:
+  1. Filtered out known novelty and sound effect voice names via a blacklist regex (`/(Bells|Cellos|Bad News|Bahh|Boing|Bubbles|Deranged|Good News|Hysterical|Pipe Organ|Trinoids|Whisper|Zarvox)/i`).
+  2. Implemented a persistent voice persona selector in the LingoDolphy header allowing users to choose between `Samantha` (natural female voice) and `Daniel` (natural male voice), persisting preference in `localStorage.lingo_voice_persona`.
+- **Files Modified**: `frontend/src/components/lingo/LingoLessonModal.jsx`, `frontend/src/pages/LingoDolphyPage.jsx`.
+
+---
+
+### 2.18 Mobile Archipelago Scroll Snap-Back on Course Switch
+- **Symptom**: In the Flutter mobile app, switching courses via the Course Switcher modal caused the archipelago map scroll position to jump erratically to the bottom or top of the previous course's scroll extent.
+- **Root Cause**: The `ListView.builder` inside `ArchipelagoMapScreen` retained its old `ScrollController` offset when the course dataset swapped out, attempting to apply a 1,680-item scroll offset to a 560-item course.
+- **Fix**:
+  - Bound `ValueKey(currentCourseId)` to the root `Scaffold` / `CustomScrollView` in `ArchipelagoMapScreen`.
+  - Switching `courseId` forces Flutter to remount the widget cleanly with a freshly initialized `ScrollController` scrolled to the active progression node.
+- **Files Modified**: `app/dolphincoder/lib/features/gamification/screens/archipelago_map_screen.dart`.
+

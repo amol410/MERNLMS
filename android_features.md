@@ -51,8 +51,29 @@
     * Password text field (minimum 6 characters, visibility toggle).
     * Confirm Password text field (validation matching password).
   * **Actions**:
-    * Primary "Sign Up" button.
+    * Primary "Sign Up" button (navigates to `/language-select` upon success).
     * Link returning to `/login`.
+
+### 2.4 Two-Step Onboarding Language Selection Screen (`LanguageSelectionScreen`)
+* **Route:** `/language-select` (and modal bottom sheet via `showCourseSelectionSheet`)
+* **Screen Purpose:** Progressive disclosure 2-step onboarding presented immediately following login or registration, asking the learner for target and native languages.
+* **Structural Elements:**
+  * **Header Bar**: Optional back button (when in step 2), title ("Choose Your Path"), and step indicator dots (`Step 1 of 2`).
+  * **Mascot Speech Prompt**: Attentive animated dolphin mascot (`Echo`) with contextual speech bubble:
+    * Step 1: *"What language do you want to learn?"*
+    * Step 2: *"What is your native language?"*
+  * **Interactive Selection Cards**:
+    * **Step 1 (Target Language)**:
+      * 🇩🇪 German (`de`): Subtitle "105 Units • Rookie to Traveler", accent color indicator.
+      * 🇬🇧 English (`en`): Subtitle "35 Units • Beginner to Fluent", accent color indicator.
+    * **Step 2 (Native Language)**:
+      * If German chosen: 🇬🇧 English (`en`) — "English • Learn German via English explanations".
+      * If English chosen:
+        * 🇮🇳 Hindi (`hi`) — "हिन्दी • हिन्दी माध्यम से अंग्रेज़ी सीखें".
+        * 🇮🇳 Marathi (`mr`) — "मराठी • मराठी माध्यमातून इंग्रजी शिका".
+  * **Behavior & Parity**:
+    * Fullscreen mode: Automatically routes to `/home` upon selection completion.
+    * Modal mode: Dismisses modal, updates active course via `POST /api/gamification/switch-course`, re-initializes TTS voices (`TtsService().setLanguage`), and reloads path nodes.
 
 ---
 
@@ -355,19 +376,22 @@
 
 ## 14. Gamified Coral Reef Archipelago & Interactive Lesson Session Screen
 * **Route:** `/home` (Archipelago Map) and `/lesson/:nodeIndex` (Interactive Session Screen)
-* **Screen Purpose:** Duolingo-style gamified language learning path with interactive multi-stage challenges, mascot reactions, and native audio streaming.
+* **Screen Purpose:** Duolingo-style gamified language learning path with interactive multi-stage challenges, mascot reactions, native audio streaming, and high-performance Just-In-Time (JIT) pagination.
 * **Archipelago Map Screen (`ArchipelagoMapScreen`)**:
   * **Top Status Bar**:
-    * Language Flag selector (German flag).
-    * Streak flame counter with daily status.
-    * Oxygen gauge (`5/5`) showing remaining health for challenges with 30-minute auto-replenishment.
-    * Pearls wallet counter with gemstone icon.
-  * **Unit Banner**: "Unit 1 • Coral Reef: Introductions & Daily Greetings" with chapter progress indicator.
+    * **Clean Single Flag Badge (Duolingo UX Standard)**:
+      * Displays only the clean single target language flag emoji (e.g. 🇩🇪 or 🇬🇧) without cluttering the learning screen with paired text or instruction language strings.
+      * Tapping the flag routes smoothly to Profile & Settings (`/profile/settings`).
+    * Streak flame counter with daily streak check.
+    * Oxygen gauge (`🫧 5/5`) showing remaining challenge energy with 30-minute auto-replenishment.
+    * Pearls wallet counter with gemstone icon (`💎`).
+  * **Unit Header Banner**: Shows macro-section (Section 1 Rookie, Section 2 Explorer, Section 3 Traveler), Unit number, and title with progress indicator.
   * **Zigzag Island Nodes**:
     * 3D tactile circular island buttons positioned in an alternating sinusoidal pattern.
-    * Node types: `lesson`, `karaoke`, `speech`, `chest` (Treasure), `match`, `builder`, `boss` (Exam).
-    * Statuses: `locked` (dimmed with padlock), `available` (vibrant with pulsating crown), `completed` (check icon with 1-3 earned stars).
-    * Tapping a playable node routes to `/lesson/:nodeIndex` passing `PathNodeModel`.
+    * **Snap-back Scroll Fix**: Preserves stable scroll position during map browsing and state rebuilds.
+    * Node types: `lesson`, `chest` (Treasure Milestone), `boss` (Exam).
+    * Statuses: `locked` (dimmed with padlock), `available` (vibrant with pulsating crown), `completed` (emerald check icon with 1-3 earned stars).
+    * Tapping a playable node routes to `/lesson/:nodeIndex` via **Just-In-Time (JIT) on-demand lesson fetching** (`GET /api/gamification/lesson/:id`), retrieving the complete 8-stage payload in <50ms.
 * **Interactive Lesson Session Screen (`LessonSessionScreen`)**:
   * **Dynamic Active Stage Filtering (`_activeStageTypes`)**:
     * Dynamically filters challenge stages according to curriculum configuration; disabled stages are seamlessly omitted.
@@ -375,44 +399,43 @@
     * Close button `(X)` with exit confirmation.
     * Multi-stage linear progress bar advancing with each task.
     * Lives / Hearts indicator (`❤️ 5`).
-  * **Stage 0: Word Match (`word_match` / `match_pairs`)**:
-    * Dynamic vocabulary matching pairs loaded directly from lesson stage data (supports `target`/`native` and `german`/`english` schemas).
-    * 2-column vocabulary matching tiles (Target language left, Native right) with tactile pairing and green success dissolution.
-    * **Real-Time Female German TTS (`TtsService`)**: Tapping any German word card immediately articulates the word in a natural German lady's voice (`de-DE`, 0.48 speech rate, 1.10 pitch).
-  * **Stage 1: Listen and Tap What You Hear (`listen_tap`)**:
-    * **Animated Mascot (`AnimatedDolphinMascot`)**: Echo the Dolphin wearing headphones, pulsing when audio plays.
-    * **Clean Sentence Audio Engine**: Dedicated `_audioPlayer` streaming the full teacher audio track directly from `/api/notes/audio/db/:id` (resolved via `dolphincoder.com`).
-    * **Tactile Speaker Button**:
-      * Plays/re-plays full sentence audio track from 0:00 on every tap.
-      * Always maintains `volume_up_rounded` iconography to provide intuitive repeat listening without confusing pause toggles.
-    * **Real-Time Word Tile Pronunciation**: Tapping/selecting word chips from the bank immediately pronounces each word in the German lady's voice via `TtsService`.
-    * **Interactive Assembly Box**: Selected word tokens assemble into the sentence box; tapping removes tokens back to the word bank.
-    * **Word Bank**: Tappable word chips derived dynamically from `stages[listen_tap].tokens` (including target words and distractors).
-    * **Tolerant Sequence Verification**: Punctuation-insensitive and whitespace-normalized verification.
-    * **Feedback Bottom Sheet (`DuoFeedbackSheet`)**: Displays success or target sentence with "NEXT TASK →".
-  * **Stage 2: Sentence Builder (`sentence_builder`)**:
-    * English translation prompt bubble.
-    * Word bank token selector with animated tile transitions.
-    * **Real-Time Word Selection Pronunciation**: Picking words from the token bank (e.g., *"Wie"*, *"geht's"*) articulates each word on tap as it is placed in the sentence assembly box.
-    * Tolerant grammar verification against German target sentence.
-  * **Stage 3: Sprechen Lip-Sync (`sprechen`)**:
-    * **One-Time Auto-Play Demonstration (1-Second Delay)**: Exactly 1 second after entering the stage, the mascot automatically plays the phrase audio once as a pronunciation reference.
-    * **No Replay Button**: Deliberately omits a replay button to reinforce incremental learning.
-    * **Synchronized Karaoke Highlighting**: Words in the speech bubble illuminate in real-time (`karaokeData.words`) in sync with audio playback using the established Karaoke timing engine.
-    * **Native German Speech Recognition (`de_DE`)**: Configured with `speech_to_text` strictly for native German dictation, avoiding premature cutoff.
-    * **Voice Pronunciation & >75% Passing Threshold**: Student taps the microphone button to pronounce the phrase aloud, requiring a speech match strictly > 75% to pass.
-    * **Mascot Audio Reactions**: Echo the Dolphin transitions between talking pose during demonstration, listening pose during student recording, and celebratory pose upon passing.
-  * **Stage 4: Celebration & Rewards Screen**:
-    * Animated celebratory mascot doing flips.
-    * XP Reward, Accuracy %, and Pearls earned metric cards.
-    * Confetti and audio chimes on lesson completion.
-    * Saves node progress to `/api/gamification/complete-node` and returns to the Archipelago Map.
+  * **Full Suite of 8 Interactive Challenge Stages**:
+    1. **Stage 1: Word Match (`word_match`)**:
+       - 2-column vocabulary matching tiles (Target language left, Native right) with tactile pairing and green success dissolution.
+       - Tapping target word cards articulates them immediately via `TtsService`.
+    2. **Stage 2: Listen and Tap What You Hear (`listen_tap`)**:
+       - **Animated Mascot (`AnimatedDolphinMascot`)**: Echo the Dolphin wearing headphones, pulsing when audio plays.
+       - **Clean Sentence Audio Engine**: Dedicated `_audioPlayer` streaming the teacher audio track directly from `/api/notes/audio/db/:id` with zero-fail fallback to native `TtsService`.
+       - **Tactile Speaker Button**: Re-plays full sentence audio from 0:00 on every tap, retaining permanent `volume_up_rounded` iconography.
+       - **Word Bank Assembly**: Tappable word chips derived from tokens.
+    3. **Stage 3: Sentence Builder (`sentence_builder`)**:
+       - Translation prompt card and scrambled token bank.
+       - Assembling tokens into the sentence tray articulates words on tap.
+    4. **Stage 4: Sprechen Lip-Sync (`sprechen`)**:
+       - One-time auto-play teacher demonstration (1-second delay upon entering stage).
+       - Synchronized real-time karaoke highlighting (`karaokeData.words`) in the speech bubble.
+       - Native speech recognition (`speech_to_text`) strictly configured for target language (German `de_DE` or English `en_GB`/`en_US`).
+       - Complete sentence coverage validation requiring strictly >75% accuracy.
+    5. **Stage 5: Cloze Test (`cloze_test`)**:
+       - Sentence comprehension card with an underlined gap and 3 multiple-choice options with instant audio articulation.
+    6. **Stage 6: Type Word (`type_word`)**:
+       - Target word spelling drill with on-screen quick German Umlaut buttons (`ä`, `ö`, `ü`, `ß`).
+    7. **Stage 7: Dialogue Bubble (`dialogue_bubble`)**:
+       - Conversational messenger exchange with Echo the Dolphin or Florian, speech bubble audio replay, and answer reply chips.
+    8. **Stage 8: Listen & Select (`listen_select`)**:
+       - Audio comprehension MCQ card with normal (1.0x) and turtle slow (0.75x) speed selectors.
+  * **Celebration & Rewards Screen**:
+    - Animated celebratory mascot doing flips.
+    - XP Reward, Accuracy %, and Pearls earned metric cards.
+    - Confetti and audio chimes on lesson completion.
+    - Saves node progress to `/api/gamification/complete-node` and returns to the Archipelago Map.
   * **Audio & Offline Robustness**:
-    * Mounted guards (`if (!mounted) return;`) protect all audio playback callbacks.
-    * **Zero-Fail Hybrid TTS Audio Fallback**:
-      * Primary: Plays pre-recorded studio audio stream from `/api/notes/audio/db/:id` or CDN when configured.
-      * Automatic Fallback: If `audioUrl` is empty or stream encounters a network error, dynamically falls back to native Flutter `TtsService` (`de-DE` female voice, speech rate 0.48). Zero audio gaps for any lesson or sentence.
-    * Offline safety nets populate fallback audio and word bank data when disconnected.
+    - Mounted guards (`if (!mounted) return;`) protect all audio playback callbacks.
+    - **Smart Hybrid Audio & Real-Time TTS Engine (`TtsService`)**:
+      - German: Native German lady voice (`de-DE`, female voice, 0.48 speech rate, 1.10 pitch).
+      - English: British/US English voice selection with engine pre-warming.
+      - Safe background pre-synthesis caches vocabulary across stages on lesson load for instant tactile audio feedback.
+    - Offline safety nets populate fallback audio and word bank data when disconnected.
 
 ---
 
@@ -447,9 +470,12 @@
 
 ### 15.4 Gamified Profile Screen (`GamifiedProfileScreen`)
 * **Route:** `/profile` (Bottom Tab 5)
-* **Screen Purpose:** Gamified learner overview combining academic stats, streak, badges, and league history.
+* **Screen Purpose:** Gamified learner overview combining academic stats, streak, badges, active course card, and league history.
 * **Structural Elements:**
-  * Profile banner with avatar, level badge, and join date.
+  * Profile banner with avatar, level badge, dynamic language learner subtitle (e.g. `🇩🇪 German Learner` vs `🇬🇧 English Learner`), and join date.
+  * **Active Course Card (`_buildActiveCourseCard`)**:
+    * Prominently displays the active course flag, title (e.g. `German A1` or `English A1`), and native instruction medium details.
+    * Tactile **"Switch"** button opening the 2-step `LanguageSelectionScreen(isModal: true)` bottom sheet.
   * Gamification Economy stats: Current League tier, Longest Streak, Total XP, Total Pearls.
   * Quick links to Edit Profile, Change Password, and Settings.
   * Logout action clearing native session keystore.

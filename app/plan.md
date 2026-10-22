@@ -237,13 +237,14 @@ lib/
 
 ## 5. Screens Inventory (20 screens)
 
-### Auth Flow (4 screens)
+### Auth Flow (5 screens)
 | # | Screen | Route | Auth Required |
 |---|--------|-------|---------------|
 | 1 | Splash | `/` | No |
 | 2 | Onboarding | `/onboarding` | No |
 | 3 | Login | `/login` | No |
 | 4 | Register | `/register` | No |
+| 5 | Language Selection (2-Step) | `/language-select` | Yes |
 
 ### Main App — Bottom Nav (5 tabs)
 | Tab | Screen | Route |
@@ -602,6 +603,16 @@ Floating access:
 - [x] Continuous repeat full-sentence speaker button & Echo the Dolphin vector mascot
 - [x] Native German `de_DE` speech recognition & >75% pronunciation accuracy threshold
 - [x] Mounted audio guards and offline safety nets
+
+### Phase 6 — Scaled Curriculum, Dual Tracks & JIT Performance (v1.2.6+11 / v29.1.0-stable) [COMPLETED ✅]
+- [x] Multi-track Course Switcher (German A1, English A1 Hindi medium, English A1 Marathi medium)
+- [x] Parallel course switching with quiet background voice initialization and archipelago shimmer skeleton
+- [x] Map scroll snap-back fix preserving user scroll position across map updates
+- [x] Decoupled lightweight map metadata projection (35 KB payload, 82ms response time)
+- [x] Just-In-Time (JIT) on-demand lesson detail fetching (`GET /api/gamification/lesson/:id`)
+- [x] Full suite of 8 interactive curriculum stages (`word_match`, `listen_tap`, `sentence_builder`, `sprechen`, `cloze_test`, `type_word`, `dialogue_bubble`, `listen_select`)
+- [x] Multi-language `TtsService` with engine pre-warming: German female lady voice (`de-DE`) and British/US English voices
+- [x] Verified on physical Android test devices (Realme 9 Pro 5G and Vivo V2168)
 
 ---
 
