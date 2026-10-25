@@ -65,6 +65,26 @@ async function migrateUserNodeProgress(sequelize) {
         } catch (e) {
             // Index already exists
         }
+
+        // Ensure user_activities supports 'lesson' in activityType ENUM
+        try {
+            await sequelize.query(`
+                ALTER TABLE user_activities 
+                MODIFY COLUMN activityType ENUM('quiz', 'note', 'flashcard', 'lesson') NOT NULL
+            `);
+            console.log('✅ Updated user_activities activityType ENUM to include lesson');
+        } catch (e) {
+            // Already updated or column has correct enum
+        }
+
+        // Ensure users pearls default is 10
+        try {
+            await sequelize.query(`
+                ALTER TABLE users ALTER COLUMN pearls SET DEFAULT 10
+            `);
+        } catch (e) {
+            // Already set or syntax variation
+        }
     } catch (err) {
         console.warn('⚠️ user_node_progress auto-migration notice:', err.message);
     }

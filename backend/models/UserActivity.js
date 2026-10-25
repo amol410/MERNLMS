@@ -5,7 +5,7 @@ const UserActivity = sequelize.define('UserActivity', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     userId: { type: DataTypes.INTEGER, allowNull: false },
     activityType: {
-        type: DataTypes.ENUM('quiz', 'note', 'flashcard'),
+        type: DataTypes.ENUM('quiz', 'note', 'flashcard', 'lesson'),
         allowNull: false,
     },
     resourceId: { type: DataTypes.INTEGER, allowNull: false },

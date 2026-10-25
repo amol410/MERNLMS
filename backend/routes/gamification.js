@@ -11,6 +11,7 @@ const {
     claimQuest,
     switchCourse,
     getLessonDetails,
+    claimAdReward,
 } = require('../controllers/gamificationController');
 
 router.use(protect);
@@ -24,6 +25,7 @@ router.post('/shop/refill-oxygen', refillOxygen);
 router.get('/quests', getQuests);
 router.post('/claim-quest', claimQuest);
 router.post('/switch-course', switchCourse);
+router.post('/claim-ad-reward', claimAdReward);
 
 module.exports = router;
 

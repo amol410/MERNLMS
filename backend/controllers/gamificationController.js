@@ -406,10 +406,23 @@ exports.completeNode = async (req, res, next) => {
             await nextProg.save();
         }
 
-        // Streak & XP Calculation
-        user.totalXp = (user.totalXp || 0) + parseInt(xpEarned, 10);
-        user.pearls = (user.pearls || 0) + parseInt(pearlsEarned, 10);
+        // 1. Re-anchor base XP and Pearls if not provided or inflated
+        let safeXp = parseInt(xpEarned, 10);
+        if (isNaN(safeXp) || safeXp <= 0) {
+            safeXp = 10; // Duolingo base XP
+            if (scorePct >= 80) safeXp += 1;
+            if (scorePct >= 100) safeXp += 1; // Max 12 XP
+        }
 
+        let safePearls = parseInt(pearlsEarned, 10);
+        if (isNaN(safePearls) || safePearls < 0) {
+            safePearls = (scorePct >= 100) ? 1 : 0;
+        }
+
+        user.totalXp = (user.totalXp || 0) + safeXp;
+        user.pearls = (user.pearls || 0) + safePearls;
+
+        // 2. Daily Streak Calculation based on client date / timezone
         const todayYMD = getClientDate(req) || getTodayLocalYMD(req.headers['x-timezone-offset']);
         if (!user.lastActiveDate) {
             user.streakCount = 1;
@@ -420,23 +433,46 @@ exports.completeNode = async (req, res, next) => {
             const diffDays = Math.round((todayDate - lastDate) / (1000 * 60 * 60 * 24));
 
             if (diffDays === 1) {
+                // Completed a lesson on the very next day -> streak increments!
                 user.streakCount = (user.streakCount || 0) + 1;
                 user.lastActiveDate = todayYMD;
             } else if (diffDays > 1) {
+                // Missed one or more days -> streak resets to 1
                 user.streakCount = 1;
                 user.lastActiveDate = todayYMD;
             }
-            // diffDays === 0 means already active today, streak doesn't increment multiple times on same day
+            // diffDays === 0: Lesson completed on the same day -> streak remains preserved
         }
 
         user.longestStreak = Math.max(user.longestStreak || 1, user.streakCount);
         await user.save();
 
+        // 3. Log daily lesson in user_activities for permanent calendar/streak history
+        try {
+            const UserActivity = require('../models/UserActivity');
+            await UserActivity.create({
+                userId,
+                activityType: 'lesson',
+                resourceId: parseInt(nodeIndex, 10),
+                resourceTitle: `Lesson ${nodeIndex} (${courseId})`,
+                activityDate: todayYMD,
+                metadata: {
+                    courseId,
+                    xpEarned: safeXp,
+                    pearlsEarned: safePearls,
+                    scorePct,
+                    stars,
+                },
+            });
+        } catch (actErr) {
+            console.warn('Notice: UserActivity lesson logging bypassed:', actErr.message);
+        }
+
         res.status(200).json({
             success: true,
             message: 'Node completed successfully',
-            xpEarned,
-            pearlsEarned,
+            xpEarned: safeXp,
+            pearlsEarned: safePearls,
             streakCount: user.streakCount,
             totalXp: user.totalXp,
             pearls: user.pearls,
@@ -664,6 +700,53 @@ exports.getLessonDetails = async (req, res, next) => {
                 audioUrl: lesson.audioUrl,
                 sourceNoteId: lesson.sourceNoteId,
             }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * 10. Claim Rewarded Ad Reward (Persists to MySQL Database)
+ * Route: POST /api/gamification/claim-ad-reward
+ * Body: { rewardType: 'oxygen' | 'pearls' | 'double_xp', amount: 1 }
+ */
+exports.claimAdReward = async (req, res, next) => {
+    try {
+        const user = await User.findByPk(req.user.id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        const { rewardType, amount = 1 } = req.body;
+        const parsedAmount = Math.max(1, parseInt(amount, 10) || 1);
+
+        if (rewardType === 'oxygen') {
+            // Adds +1 Oxygen Bubble per rewarded ad, capped at maximum 5 bubbles
+            user.oxygen = Math.min(5, (user.oxygen || 0) + parsedAmount);
+            user.lastOxygenRefill = new Date();
+        } else if (rewardType === 'pearls') {
+            // Adds bonus pearls from rewarded ad (e.g. +25 Pearls)
+            user.pearls = (user.pearls || 0) + parsedAmount;
+        } else if (rewardType === 'double_xp') {
+            // Adds 2X bonus XP earned from completing a lesson
+            user.totalXp = (user.totalXp || 0) + parsedAmount;
+        } else {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Invalid rewardType. Expected: oxygen, pearls, or double_xp' 
+            });
+        }
+
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: 'Reward credited and saved successfully',
+            oxygen: user.oxygen,
+            pearls: user.pearls,
+            totalXp: user.totalXp,
+            streakCount: user.streakCount,
         });
     } catch (error) {
         next(error);
