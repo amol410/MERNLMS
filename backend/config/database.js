@@ -38,6 +38,19 @@ const connectDB = async () => {
         console.log('✅ MySQL Connected:', process.env.DB_HOST);
         await sequelize.sync({ alter: true });
         console.log('✅ All tables synced');
+
+        // Safe auto-migration for user_node_progress course_id and English curriculum seeding
+        try {
+            const { migrateUserNodeProgress, seedEnglishCurriculumIfMissing } = require('../utils/curriculumSeeder');
+            await migrateUserNodeProgress(sequelize);
+
+            const CurriculumLesson = require('../models/CurriculumLesson');
+            seedEnglishCurriculumIfMissing(CurriculumLesson).catch(err => {
+                console.warn('Notice on background curriculum seeding:', err.message);
+            });
+        } catch (mErr) {
+            console.warn('Notice on auto-migration/seeding:', mErr.message);
+        }
     } catch (error) {
         console.error('❌ MySQL Error:', error.message);
         // Removed process.exit(1) — app will keep running even if DB fails

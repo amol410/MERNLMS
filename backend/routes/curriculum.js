@@ -14,6 +14,7 @@ const {
     toggleUnitLiveStatus,
     deleteUnit,
     seedDefaultUnit,
+    seedEnglish,
 } = require('../controllers/curriculumController');
 
 // All curriculum endpoints require a valid user session
@@ -40,7 +41,8 @@ router.post('/units/headings', authorize('admin', 'trainer'), batchCreateHeading
 // Bulk upload (CSV or JSON)
 router.post('/bulk-upload', authorize('admin', 'trainer'), bulkUpload);
 
-// Initial seeding helper
+// Initial seeding helpers
 router.post('/seed-default', authorize('admin', 'trainer'), seedDefaultUnit);
+router.post('/seed-english', authorize('admin', 'trainer'), seedEnglish);
 
 module.exports = router;

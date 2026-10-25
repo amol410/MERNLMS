@@ -669,3 +669,23 @@ exports.seedDefaultUnit = async (req, res, next) => {
         next(error);
     }
 };
+
+// 11. Trigger or verify English A1 Curriculum (Hindi & Marathi) seeding
+exports.seedEnglish = async (req, res, next) => {
+    try {
+        const { seedEnglishCurriculumIfMissing } = require('../utils/curriculumSeeder');
+        await seedEnglishCurriculumIfMissing(CurriculumLesson);
+        const countHindi = await CurriculumLesson.count({ where: { learningLanguage: 'en', nativeLanguage: 'hi', level: 'A1' } });
+        const countMarathi = await CurriculumLesson.count({ where: { learningLanguage: 'en', nativeLanguage: 'mr', level: 'A1' } });
+        res.json({
+            success: true,
+            message: 'English A1 curriculum status checked and seeded',
+            counts: {
+                english_hindi_a1: countHindi,
+                english_marathi_a1: countMarathi,
+            },
+        });
+    } catch (error) {
+        next(error);
+    }
+};

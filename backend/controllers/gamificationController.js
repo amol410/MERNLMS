@@ -48,55 +48,110 @@ exports.getStatus = async (req, res, next) => {
     }
 };
 
-// 2. Get Archipelago Map Nodes with User Progression
-exports.getPath = async (req, res, next) => {
-    try {
-        const userId = req.user.id;
-        const progressList = await UserNodeProgress.findAll({ where: { userId } });
-        const progressMap = {};
-        progressList.forEach(p => {
-            progressMap[p.nodeIndex] = p;
-        });
-
-        // Fetch latest published Karaoke Note and Quiz to bind real content
-        const sampleNote = await Note.findOne({
-            where: { contentType: 'karaoke' },
-            order: [['createdAt', 'DESC']],
-        });
-        const sampleQuiz = await Quiz.findOne({
-            order: [['createdAt', 'DESC']],
-        });
-
-        // 7-Node Island Archipelago (Fallback)
-        const defaultNodes = [
+function getDefaultNodesForCourse(targetLang, sampleNoteId, sampleQuizId) {
+    if (targetLang === 'de') {
+        return [
             {
                 index: 0,
-                title: 'Basics & Greetings',
-                subtitle: 'Essential German greetings & etiquette',
+                title: 'Grundlagen & Begrüßung',
+                subtitle: 'Wichtige deutsche Begrüßungen & Etikette',
                 type: 'lesson',
                 xpReward: 15,
                 sourceType: 'note',
-                sourceId: sampleNote ? sampleNote.id : null,
+                sourceId: sampleNoteId,
+                offset: 0.0,
+            },
+            {
+                index: 1,
+                title: 'Audio-Karaoke Rhythmus',
+                subtitle: 'Wort-für-Wort synchronisiertes Hören',
+                type: 'karaoke',
+                xpReward: 20,
+                sourceType: 'note',
+                sourceId: sampleNoteId,
+                offset: 45.0,
+            },
+            {
+                index: 2,
+                title: 'Sprechen & Aussprache',
+                subtitle: 'Sprachaufnahme & Aussprache-Training',
+                type: 'speech',
+                xpReward: 25,
+                sourceType: 'note',
+                sourceId: sampleNoteId,
+                offset: -40.0,
+            },
+            {
+                index: 3,
+                title: 'Versunkene Schatztruhe',
+                subtitle: 'Bonus 30 Perlen & 20 XP',
+                type: 'chest',
+                xpReward: 20,
+                pearlsReward: 30,
+                offset: 20.0,
+            },
+            {
+                index: 4,
+                title: 'Wortpaare finden',
+                subtitle: 'Schnelles Wortschatz-Zuordnungsspiel',
+                type: 'match',
+                xpReward: 20,
+                sourceType: 'quiz',
+                sourceId: sampleQuizId,
+                offset: -45.0,
+            },
+            {
+                index: 5,
+                title: 'Satzbaumeister',
+                subtitle: 'Grammatik-Struktur-Rätsel',
+                type: 'builder',
+                xpReward: 20,
+                sourceType: 'quiz',
+                sourceId: sampleQuizId,
+                offset: 35.0,
+            },
+            {
+                index: 6,
+                title: 'Korallenriff-Prüfung',
+                subtitle: 'Abschluss-Meisterprüfung für das Riff',
+                type: 'boss',
+                xpReward: 35,
+                sourceType: 'quiz',
+                sourceId: sampleQuizId,
+                offset: 0.0,
+            },
+        ];
+    } else {
+        // English course fallback nodes
+        return [
+            {
+                index: 0,
+                title: 'Basics & Greetings',
+                subtitle: 'Essential English greetings & daily dialogue',
+                type: 'lesson',
+                xpReward: 15,
+                sourceType: 'note',
+                sourceId: sampleNoteId,
                 offset: 0.0,
             },
             {
                 index: 1,
                 title: 'Audio Karaoke Rhythm',
-                subtitle: 'Word-by-word synced listening',
+                subtitle: 'Word-by-word synced listening practice',
                 type: 'karaoke',
                 xpReward: 20,
                 sourceType: 'note',
-                sourceId: sampleNote ? sampleNote.id : null,
+                sourceId: sampleNoteId,
                 offset: 45.0,
             },
             {
                 index: 2,
-                title: 'Sprechen Lip-Sync',
-                subtitle: 'Voice dictation & pronunciation',
+                title: 'Speak Aloud Practice',
+                subtitle: 'Voice dictation & pronunciation training',
                 type: 'speech',
                 xpReward: 25,
                 sourceType: 'note',
-                sourceId: sampleNote ? sampleNote.id : null,
+                sourceId: sampleNoteId,
                 offset: -40.0,
             },
             {
@@ -111,34 +166,41 @@ exports.getPath = async (req, res, next) => {
             {
                 index: 4,
                 title: 'Match the Pairs',
-                subtitle: 'Rapid vocabulary tile match',
+                subtitle: 'Rapid vocabulary matching drill',
                 type: 'match',
                 xpReward: 20,
                 sourceType: 'quiz',
-                sourceId: sampleQuiz ? sampleQuiz.id : null,
+                sourceId: sampleQuizId,
                 offset: -45.0,
             },
             {
                 index: 5,
                 title: 'Sentence Architect',
-                subtitle: 'Grammar structure puzzle',
+                subtitle: 'Grammar structure puzzle drill',
                 type: 'builder',
                 xpReward: 20,
                 sourceType: 'quiz',
-                sourceId: sampleQuiz ? sampleQuiz.id : null,
+                sourceId: sampleQuizId,
                 offset: 35.0,
             },
             {
                 index: 6,
                 title: 'Coral Reef Exam',
-                subtitle: 'Mastery challenge to promote',
+                subtitle: 'Milestone mastery test to promote',
                 type: 'boss',
                 xpReward: 35,
                 sourceType: 'quiz',
-                sourceId: sampleQuiz ? sampleQuiz.id : null,
+                sourceId: sampleQuizId,
                 offset: 0.0,
             },
         ];
+    }
+}
+
+// 2. Get Archipelago Map Nodes with User Progression
+exports.getPath = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
 
         // Determine learning language, native instruction language, and CEFR level
         const targetLang = req.query.learningLanguage || req.query.targetLanguage || req.user.targetLanguage || 'de';
@@ -147,6 +209,35 @@ exports.getPath = async (req, res, next) => {
             nativeLang = (targetLang === 'en') ? 'mr' : 'en';
         }
         const level = req.query.level || req.user.currentLevel || 'A1';
+        const courseId = `${targetLang}_${nativeLang}_${level}`.toLowerCase();
+
+        // Query user progress strictly scoped to this course
+        const progressList = await UserNodeProgress.findAll({
+            where: {
+                userId,
+                courseId,
+            },
+        });
+        const progressMap = {};
+        progressList.forEach(p => {
+            progressMap[p.nodeIndex] = p;
+        });
+
+        // Fetch latest published Karaoke Note and Quiz to bind real content
+        const sampleNote = await Note.findOne({
+            where: { contentType: 'karaoke' },
+            order: [['createdAt', 'DESC']],
+        });
+        const sampleQuiz = await Quiz.findOne({
+            order: [['createdAt', 'DESC']],
+        });
+
+        // Localized Fallback Nodes for this language
+        const defaultNodes = getDefaultNodesForCourse(
+            targetLang,
+            sampleNote ? sampleNote.id : null,
+            sampleQuiz ? sampleQuiz.id : null
+        );
 
         // Section & Unit pagination support
         const whereClause = {
@@ -271,11 +362,21 @@ exports.completeNode = async (req, res, next) => {
         const user = await User.findByPk(userId);
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
-        // Upsert node progress
-        let progress = await UserNodeProgress.findOne({ where: { userId, nodeIndex } });
+        // Resolve courseId from body or user defaults
+        const targetLang = req.body.learningLanguage || req.body.targetLanguage || user.targetLanguage || 'de';
+        let nativeLang = req.body.nativeLanguage || user.nativeLanguage;
+        if (!nativeLang) {
+            nativeLang = (targetLang === 'en') ? 'mr' : 'en';
+        }
+        const level = req.body.level || user.currentLevel || 'A1';
+        const courseId = (req.body.courseId || `${targetLang}_${nativeLang}_${level}`).toLowerCase();
+
+        // Upsert node progress scoped to courseId
+        let progress = await UserNodeProgress.findOne({ where: { userId, courseId, nodeIndex } });
         if (!progress) {
             progress = await UserNodeProgress.create({
                 userId,
+                courseId,
                 nodeIndex,
                 status: 'completed',
                 stars: Math.max(1, Math.min(3, stars)),
@@ -290,12 +391,13 @@ exports.completeNode = async (req, res, next) => {
             await progress.save();
         }
 
-        // Auto unlock next node
+        // Auto unlock next node for this specific course
         const nextNodeIndex = parseInt(nodeIndex, 10) + 1;
-        let nextProg = await UserNodeProgress.findOne({ where: { userId, nodeIndex: nextNodeIndex } });
+        let nextProg = await UserNodeProgress.findOne({ where: { userId, courseId, nodeIndex: nextNodeIndex } });
         if (!nextProg) {
             await UserNodeProgress.create({
                 userId,
+                courseId,
                 nodeIndex: nextNodeIndex,
                 status: 'available',
             });
