@@ -954,7 +954,9 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
                       </div>
                       <div className="flex-1">
                         <span className="text-[11px] font-black text-cyan-400 uppercase tracking-wider block mb-0.5">
-                          {targetLanguage === 'de' ? 'Translate to German' : 'Translate to Target Language'}
+                          {targetLanguage === 'de'
+                            ? (nativeLanguage === 'hi' ? 'जर्मन में अनुवाद करें' : (nativeLanguage === 'mr' ? 'जर्मनमध्ये भाषांतर करा' : 'Translate to German'))
+                            : (nativeLanguage === 'hi' ? 'अंग्रेजी में अनुवाद करें' : (nativeLanguage === 'mr' ? 'इंग्रजीत भाषांतर करा' : 'Translate to English'))}
                         </span>
                         <p className="text-lg font-bold text-white">
                           {(() => {
@@ -1089,7 +1091,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
                       }
                     }}
                     autoFocus
-                    placeholder="Type the German word..."
+                    placeholder={targetLanguage === 'de' ? (nativeLanguage === 'hi' ? 'जर्मन शब्द टाइप करें...' : (nativeLanguage === 'mr' ? 'जर्मन शब्द टाइप करा...' : 'Type the German word...')) : (nativeLanguage === 'hi' ? 'अंग्रेजी शब्द टाइप करें...' : (nativeLanguage === 'mr' ? 'इंग्रजी शब्द टाइप करा...' : 'Type the English word...'))}
                     className="w-full p-4 rounded-2xl bg-[#1A262C] border-2 border-[#2C3E47] focus:border-cyan-400 text-white font-bold text-xl outline-none transition-all text-center tracking-wide shadow-inner"
                   />
 
@@ -1268,7 +1270,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
                   {isListening && (
                     <div className="flex items-center gap-2 text-xs font-semibold text-cyan-400 animate-pulse">
                       <span className="w-2 h-2 rounded-full bg-cyan-400" />
-                      Speak clearly into your microphone in German...
+                      Speak clearly into your microphone in {targetLanguage === 'de' ? 'German' : 'English'}...
                     </div>
                   )}
                 </div>
