@@ -53,8 +53,10 @@ const Page = sequelize.define('Page', {
 });
 
 // Auto-sync table if not yet present in production database
-Page.sync({ alter: true }).catch((err) => {
-    console.log('Notice: Page table auto-sync:', err.message);
-});
+if (process.env.NODE_ENV !== 'test') {
+    Page.sync({ alter: true }).catch((err) => {
+        console.log('Notice: Page table auto-sync:', err.message);
+    });
+}
 
 module.exports = Page;

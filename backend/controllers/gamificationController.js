@@ -29,6 +29,8 @@ exports.getStatus = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
+            oxygen: user.oxygen ?? 5,
+            pearls: user.pearls ?? 100,
             status: {
                 streakCount: user.streakCount || 1,
                 longestStreak: user.longestStreak || 1,

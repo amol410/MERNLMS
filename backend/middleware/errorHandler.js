@@ -15,9 +15,22 @@ const errorHandler = (err, req, res, next) => {
     statusCode = 400;
   }
 
+  // Sequelize unique constraint error
+  if (err.name === 'SequelizeUniqueConstraintError') {
+    const field = err.errors && err.errors[0] ? err.errors[0].path : 'Field';
+    message = `${field ? field.charAt(0).toUpperCase() + field.slice(1) : 'User'} already exists`;
+    statusCode = 400;
+  }
+
   // Mongoose validation error
   if (err.name === 'ValidationError') {
     message = Object.values(err.errors).map(val => val.message).join(', ');
+    statusCode = 400;
+  }
+
+  // Sequelize validation error
+  if (err.name === 'SequelizeValidationError') {
+    message = err.errors.map(val => val.message).join(', ');
     statusCode = 400;
   }
 

@@ -21,6 +21,7 @@ router.get('/path', getPath);
 router.get('/lesson/:id', getLessonDetails);
 router.post('/complete-node', completeNode);
 router.get('/leaderboard', getLeaderboard);
+router.post('/refill-oxygen', refillOxygen);
 router.post('/shop/refill-oxygen', refillOxygen);
 router.get('/quests', getQuests);
 router.post('/claim-quest', claimQuest);
