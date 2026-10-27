@@ -709,7 +709,7 @@ exports.getLessonDetails = async (req, res, next) => {
 /**
  * 10. Claim Rewarded Ad Reward (Persists to MySQL Database)
  * Route: POST /api/gamification/claim-ad-reward
- * Body: { rewardType: 'oxygen' | 'pearls' | 'double_xp', amount: 1 }
+ * Body: { rewardType: 'oxygen' | 'pearls' | 'double_xp', amount: 2 }
  */
 exports.claimAdReward = async (req, res, next) => {
     try {
@@ -718,11 +718,11 @@ exports.claimAdReward = async (req, res, next) => {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
 
-        const { rewardType, amount = 1 } = req.body;
-        const parsedAmount = Math.max(1, parseInt(amount, 10) || 1);
+        const { rewardType, amount = 2 } = req.body;
+        const parsedAmount = Math.max(1, parseInt(amount, 10) || 2);
 
         if (rewardType === 'oxygen') {
-            // Adds +1 Oxygen Bubble per rewarded ad, capped at maximum 5 bubbles
+            // Adds +2 Oxygen Bubbles per rewarded ad, capped at maximum 5 bubbles
             user.oxygen = Math.min(5, (user.oxygen || 0) + parsedAmount);
             user.lastOxygenRefill = new Date();
         } else if (rewardType === 'pearls') {
