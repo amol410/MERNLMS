@@ -274,6 +274,10 @@ The flagship language acquisition system powering [dolphincoder.com/lingodolphy]
 
 | Release Version | Date | Highlights & Core Changes |
 |---|:---:|---|
+| **`v33.0.0-stable`** | 2026-10-28 | **5-Phase Speech Lifecycle, Confetti Shower & Live Hostinger Benchmarks**: Synced mobile client to `889662b` (Mobile `v1.2.12+18`); implemented 5-phase speech lifecycle, double-tap gating, sound wave ripples, celebratory confetti shower (`ConfettiWidget`), 3-tier speech engine fallback in `MainActivity.kt`, Bluetooth SCO routing, audio becoming noisy listener, tactile audio-haptics (`SoundEffectsService`), 3D word matching, turtle speed audio (0.75x), backend Jest lesson mechanics test suite, and live Hostinger VPS latency benchmarking script (`benchmark_hostinger.js`). |
+| **`v32.0.0-stable`** | 2026-10-27 | **Production AdMob Monetization & Backend Test Suite**: Integrated verified Google Play AdMob IDs, interstitial ads every 3 lessons, rewarded video ad awarding +2 Oxygen with a 6 claims/day cap, automated Jest & Supertest test suite (21 tests), calculations architecture documentation, and `/app-ads.txt` crawler verification. |
+| **`v31.0.0-stable`** | 2026-10-27 | **Play Store Release & Leak-Proof Speech Recognizer**: Bumped mobile client to `v1.2.10+15`; implemented native Android reflective teardown in `MainActivity.kt` to prevent `AudioRecord` leaks and Binder death; added natural male TTS narrator. |
+| **`v30.0.0-stable`** | 2026-10-26 | **Submodule Alignment**: Synchronized DolphinFlutter submodule to `v1.2.9+14` with localized lesson modal headings. |
 | **`v29.1.0-stable`** | 2026-10-15 | **English Voice Persona Selector**: Added persistent persona selector on web (`👩 Female / Samantha` vs `👨 Male / Daniel`), kept German as Anna, and enhanced curriculum preview. |
 | **`v29.0.1`** | 2026-10-15 | **TTS Voice Hygiene**: Blocked novelty, joke, and ghost synthesizer voices (Bells, Cellos, Zarvox) for English pronunciation across browsers. |
 | **`v29.0.0-stable`** | 2026-10-15 | **Speech Digit Normalization**: Added bidirectional number and currency symbol normalization for German and English speech recognition (`3€` ↔ `"drei Euro"`). |

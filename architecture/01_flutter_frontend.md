@@ -1,8 +1,8 @@
 # DolphinCoder LMS: Flutter Frontend Architectural Specification
 
-**Document Version:** 1.0.0  
+**Document Version:** 1.1.0  
 **Target Codebase:** `app/dolphincoder/`  
-**Application Version:** 1.2.10+15 (DolphinCoder 2.0 / LingoDolphy Engine)  
+**Application Version:** 1.2.12+18 (DolphinCoder 2.0 / LingoDolphy Engine — Git Submodule 889662b)  
 **Author:** Agent 1 — Flutter Frontend Architecture Specialist  
 **Status:** Production Reference & Engineering Specification  
 
@@ -82,7 +82,8 @@ app/dolphincoder/lib/
 │   │   └── app_constants.dart                  # App name, build number, version check URLs, AdMob IDs, legal links
 │   ├── network/
 │   │   ├── api_exception.dart                  # Custom domain exception wrapping error messages and HTTP status codes
-│   │   └── dio_client.dart                     # Singleton Dio engine, O(1) in-memory JWT cache, logger, 401 interceptor
+│   │   ├── dio_client.dart                     # Singleton Dio engine, O(1) in-memory JWT cache, logger, 401 interceptor
+│   │   └── latency_interceptor.dart            # Real-time network latency tracker and response telemetry
 │   ├── providers/
 │   │   └── speech_preferences_provider.dart    # Riverpod StateNotifier managing speaking exercise toggle & snooze timers
 │   ├── router/
@@ -92,8 +93,9 @@ app/dolphincoder/lib/
 │   │   ├── cache_service.dart                  # Tier-2 SharedPreferences & disk persistence for paths, lessons, and audio
 │   │   ├── prefetch_service.dart               # Predictive background lesson fetcher and remote audio disk pre-downloader
 │   │   ├── pronunciation_evaluator.dart        # Levenshtein distance, Soundex phonetic matcher, umlaut normalizer
+│   │   ├── sound_effects_service.dart          # Audio-haptic feedback, fanfare synthesizers & synchronized click cues
 │   │   ├── speech_lifecycle_bridge.dart        # Android MethodChannel bridge to forcefully nullify SpeechRecognizer
-│   │   ├── speech_recognition_service.dart     # SpeechToText wrapper, acoustic settling guard, RMS dB listener
+│   │   ├── speech_recognition_service.dart     # 5-phase speech state machine, acoustic settling guard, RMS dB listener
 │   │   ├── tts_service.dart                    # Low-latency TTS, natural male narrator voice selection, disk pre-synthesis
 │   │   └── version_check_service.dart          # Remote version verification gate against app_version.json
 │   ├── theme/
@@ -626,18 +628,17 @@ The lesson session runner is the most complex component in the mobile app, spann
 - **Validation:** Normalized string comparison against `_builderTargetSentence`.
 
 ##### Stage 4: Sprechen Lip-Sync & Pronunciation Test (`sprechen`)
-- **UI:** Target German phrase displayed in prominent typography, companion character avatar with lip-sync mouth movement, audio replay button, and large pulsing microphone button (`SpeakingMicButton`).
-- **Lifecycle & Execution:**
-  1. On stage enter, pre-recorded audio or TTS demo plays automatically; cartoon avatar moves mouth in sync with audio timestamps.
-  2. Learner taps the microphone button. `TtsService().stop()` is called and the system pauses for $200\text{ms}$ (hardware settling guard).
-  3. `SpeechRecognitionService().startListening()` activates native ASR with target locale (`de_DE` or `en_US`).
-  4. Real-time decibel RMS stream animates the outer ripple rings of the microphone button.
-  5. Upon silence detection or native `finalResult`, audio recording stops and input is dispatched to `PronunciationEvaluator.evaluate()`.
-  6. Individual word tokens render with color-coded status badges:
+- **UI:** Target German phrase displayed in prominent typography, companion character avatar with lip-sync mouth movement, audio replay button (with 1.0x normal and 0.75x turtle speed toggles), and large pulsing microphone button (`SpeakingMicButton`) with animated RMS sound ripples.
+- **5-Phase Lifecycle & Execution:**
+  1. **Phase 1 (Idle):** On stage enter, pre-recorded audio or TTS demo plays automatically; avatar moves mouth in sync with audio timestamps. Microphone is dormant.
+  2. **Phase 2 (Armed):** Learner taps the microphone button. `TtsService().stop()` halts ongoing audio; 400ms acoustic settling guard prevents hardware audio feedback; 3-tier speech engine fallback resolves optimal recognizer.
+  3. **Phase 3 (Listening):** `SpeechRecognitionService().startListening()` activates native ASR with target locale (`de_DE` or `en_US`). Real-time decibel RMS stream animates outer ripple rings of the microphone button.
+  4. **Phase 4 (Processing):** Double-tap gating disables repeated tap requests. Speech input stream terminates and dispatches to `PronunciationEvaluator.evaluate()`.
+  5. **Phase 5 (Evaluated):** Word-level evaluation scorecard rendered:
      - **Green (`accepted`):** Accurately pronounced ($\ge 80\%$ similarity).
      - **Amber (`typo`):** Minor pronunciation deviation ($65\% - 79\%$ similarity).
      - **Red (`wrongWord` / `missed`):** Unrecognized or skipped word.
-  7. If overall weighted accuracy $\ge 70\%$, exercise is marked passed.
+  6. If overall weighted accuracy $\ge 75\%$, exercise is marked passed with celebratory fanfare and sound effects.
 
 ##### Stage 5: Cloze Test (`cloze`)
 - **UI:** Sentence presented with a missing word blank (e.g. *"Ich _____ aus Indien."*), accompanied by native translation and multiple-choice grammatical option chips (e.g. `['komme', 'kommst', 'wohne']`).
@@ -660,6 +661,7 @@ The lesson session runner is the most complex component in the mobile app, spann
 #### Final Lesson Celebration Stage (`_buildCelebrationStage`)
 - **Triggered:** When all active stages (including any re-enqueued mistakes) are completed.
 - **UI Components:**
+  - **Full-Screen Confetti Shower:** High-density celebratory confetti particles (`ConfettiWidget`) showered over the view on entry.
   - 3D Mascot in victory celebration pose with animated sparkle particles.
   - Headline: *"Lesson Complete!"*
   - Stats Row: Accuracy percentage (`_calculatedAccuracy`), XP gained (`_earnedXp`), and Pearls awarded (`_earnedPearls`).

@@ -1,245 +1,167 @@
-# backend.md — Agent Context for the Express API
+# backend.md — Agent Context for the Express API & Database Service
 
 > **Purpose:** Comprehensive onboarding context for coding agents and engineers working in `backend/`.
 > Documents architecture, data models, audio streaming pipelines, activity analytics, routing conventions,
-> and verified system characteristics.
-> Verified against active source on 2026-09-26.
+> gamification engines, crawler routes, automated tests, and verified system characteristics.
+> Verified against active source on 2026-10-28.
 >
 > **Rules of engagement for agents:**
 > 1. This backend uses **MySQL 8 + Sequelize 6**, NOT MongoDB / Mongoose.
 > 2. Every model exposes a virtual `_id` alongside the primary integer `id` for client compatibility. Always preserve this pattern in new models.
-> 3. Audio files for Karaoke notes are stored directly in MySQL (`karaoke_audios` table as `LONGBLOB`) and streamed via HTTP 206 Partial Content. Do NOT save uploaded media solely to local disk.
+> 3. Audio files for Karaoke notes and lesson reference audio are stored directly in MySQL (`karaoke_audios` table as `LONGBLOB`) and streamed via HTTP 206 Partial Content. Do NOT save uploaded media solely to local disk.
 > 4. Activity timestamps and daily groupings MUST account for client local timezones via `utils/dateHelper.js`. Never assume pure server UTC dates for client study days.
+> 5. Automated test suites (`backend/tests/`) must be run via `npm test` before committing any API changes.
 
 ---
 
 ## 1. What This Is
 
 **DolphinCoder LMS REST API** — Express 4 + Sequelize 6 + MySQL 8.
-Serves all `/api/*` REST endpoints and serves the built React SPA from `backend/dist`.
+Serves all `/api/*` REST endpoints, crawler verification endpoints, and serves the built React SPA from `backend/dist`.
 
 - **User Roles**: `student`, `trainer`, `admin`.
 - **Core Domains**:
   - `auth`: Registration, JWT authentication, user profile, password updates.
+  - `gamification`: 3D sinusoidal Archipelago path (`GET /api/gamification/path`), JIT on-demand lesson payloads (`GET /api/gamification/lesson/:id`), daily streak tracking, oxygen regeneration (30 min / bubble, max 5), pearls economy, and database-backed ad reward claims (`POST /api/gamification/claim-ad-reward`).
+  - `curriculum`: Hierarchical Section $\to$ Unit $\to$ Lesson administration studio with 8 interactive stage configs.
   - `notes`: Rich text notes (Tiptap), DOCX upload, HTML slide decks, and **Interactive Karaoke Notes** with audio streaming.
   - `videos`: YouTube video embeddings, tag filtering, view count increments.
   - `quizzes`: MCQ, True/False, Code-MCQ, **Match the Pairs (`match_pairs`)**, timer tracking, attempt grading, test review (`/quizzes/:id/review`).
   - `flashcards`: Decks, 3D flip card study, progress tracking, DOCX bulk upload.
   - `activity`: User study engagement tracking, today's performance counts, weekly performance history with localized day categorization and daily study hours.
   - `subjects`: Relational Subject and Topic hierarchy across curriculum.
+  - `pages`: Dynamic CMS pages with custom slugs, OpenGraph metadata, and instant IndexNow search engine indexing.
   - `admin`: User activation toggle, trainer creation, user management.
+  - `crawlers`: `/app-ads.txt` (Google AdMob crawler verification), `/sitemap.xml`, `/robots.txt`.
 
 ---
 
-## 2. Run & Deploy
+## 2. Run, Test & Deploy
 
 ```bash
 cd backend
 npm install
 npm run dev        # nodemon, port 5000 (server.js uses process.env.PORT || 5000)
 npm start          # node server.js
+npm test           # runs Jest & Supertest test suite in-band
+npm run test:live  # runs Hostinger VPS live latency test suite
 ```
 
 - **Database Configuration**: Loaded via `dotenv.config()`. Required `.env` keys:
-  `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `JWT_SECRET`, `JWT_EXPIRE`, `BCRYPT_ROUNDS`, `PORT`, `NODE_ENV`, `CLIENT_URL`.
+  `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `JWT_SECRET`, `JWT_EXPIRE`, `BCRYPT_ROUNDS`, `PORT`, `NODE_ENV`, `CLIENT_URL`, `SITE_URL`, `INDEXNOW_KEY`.
 - **Single Process Architecture**: Frontend builds directly into `backend/dist`. Express serves `backend/dist` statically with an SPA catch-all (`*`) for non-`/api` requests.
 - **Production Process Manager**: Managed by PM2 via `ecosystem.config.js`.
 
 ---
 
-## 3. Directory Map
+## 3. Complete Directory Map
 
 ```
 backend/
-├── server.js                      # Express app, helmet, CORS, rate limiters, routes, static SPA serving
-├── config/database.js             # Sequelize instance, connection pool, connectDB()
-├── middleware/
-│   ├── auth.js                    # protect (JWT verification via findByPk), authorize(...roles)
-│   ├── errorHandler.js            # notFound + centralized error handler
-│   └── upload.js                  # Multer memory storage for notes, docx, and audio uploads
-├── models/
-│   ├── User.js                    # bcrypt hooks, getSignedJwtToken(), roles: student/trainer/admin
-│   ├── Note.js                    # contentType: richtext/docx/html, isKaraoke BOOLEAN, karaokeData JSON TEXT, color, isPinned
-│   ├── KaraokeAudio.js            # noteId, filename, mimeType, audioData (LONGBLOB), fileSize
-│   ├── UserActivity.js            # userId, activityType (quiz/note/flashcard), metadata JSON, activityDate
-│   ├── Quiz.js                    # questions JSON TEXT (MCQ, code-mcq, match_pairs), attemptLimit, timeLimit
-│   ├── QuizAttempt.js             # studentId, quizId, answers JSON, score, percentage, passed
-│   ├── Flashcard.js               # cards JSON TEXT, cardCount, color
-│   ├── FlashcardProgress.js       # studentId, flashcardId, cardResults JSON, masteredCount
-│   ├── Subject.js                 # name, description, icon, topics JSON TEXT
-│   ├── Video.js                   # youtubeVideoId, viewCount, isPublic, tags
-│   ├── CurriculumLesson.js        # unitNumber, lessonIndex, title, nodeType, stages JSON, audioUrl, isLive
-│   ├── UserNodeProgress.js        # userId, nodeIndex, status (locked/available/completed), stars, scorePct, completedAt
-│   └── UserQuest.js               # userId, questTitle, questType, targetAmount, currentAmount, rewardPearls, rewardXp, isClaimed, questDate
-├── models/associations.js         # BelongsTo aliases (ownerUser, subject, addedByUser, student, quiz, sourceNote)
+├── config/
+│   └── database.js               # Sequelize instance, connection pooling & dialect configuration
 ├── controllers/
-│   ├── activityController.js      # getSummary (countsOnly, single day, ISO week with timezone awareness)
-│   ├── adminController.js         # getUsers, createTrainer, toggleActive, deleteUser
-│   ├── authController.js          # register, login, getMe, updateProfile, changePassword
-│   ├── curriculumController.js    # getLessons, getLessonById, createLesson, updateLesson, deleteLesson, toggleLive
-│   ├── flashcardController.js     # getDecks, getDeckById, createDeck, updateDeck, deleteDeck, saveProgress
-│   ├── gamificationController.js  # getStatus, getPath (Archipelago island nodes), completeNode, getLeaderboard
-│   ├── noteController.js          # getNotes, getNoteById, createNote, updateNote, deleteNote, uploadAudioFile, streamAudioFromDb, trackView
-│   ├── quizController.js          # getQuizzes, getQuizById, createQuiz, updateQuiz, deleteQuiz, submitAttempt
-│   ├── subjectController.js       # getSubjects, createSubject, updateSubject, deleteSubject
-│   └── videoController.js         # getVideos, getVideoById, createVideo, updateVideo, deleteVideo
-├── routes/
-│   ├── activity.js                # GET /api/activity/summary
-│   ├── admin.js                   # /api/admin/*
-│   ├── auth.js                    # /api/auth/*
-│   ├── curriculum.js              # /api/curriculum/* (units, lessons, draft/live status)
-│   ├── flashcards.js              # /api/flashcards/*
-│   ├── gamification.js            # /api/gamification/* (status, path, complete-node, leaderboard)
-│   ├── notes.js                   # /api/notes/* (includes audio upload & HTTP 206 streaming)
-│   ├── quizzes.js                 # /api/quizzes/*
-│   ├── subjects.js                # /api/subjects/*
-│   └── videos.js                  # /api/videos/*
+│   ├── activityController.js     # Engagement stats, localized day aggregation, dashboard counts
+│   ├── adminController.js        # User role toggles, trainer creation, user management
+│   ├── authController.js         # JWT auth, user profile, registration, password updates
+│   ├── curriculumController.js   # Hierarchical course/unit/lesson curriculum API
+│   ├── flashcardController.js    # Flashcard decks, flip-card study, DOCX bulk parser
+│   ├── gamificationController.js # Archipelago map, JIT lessons, streaks, oxygen & ad rewards
+│   ├── noteController.js         # Tiptap notes, DOCX ingestion, HTTP 206 binary audio streaming
+│   ├── pageController.js         # CMS page creation, editing, publishing, dynamic slugs
+│   ├── quizController.js         # Assessments, question matching, timer evaluation, review
+│   ├── subjectController.js      # Relational Subject and Topic taxonomies
+│   └── videoController.js        # Video management, YouTube embedding, view counts
+├── data/                         # Seed data & curriculum blueprints
+├── dist/                         # Compiled production React frontend bundle (served statically)
+├── middleware/
+│   ├── auth.js                   # JWT token extraction, authentication & RBAC guards
+│   ├── errorHandler.js           # Centralized exception handling, Sequelize error normalization
+│   └── upload.js                 # Multer disk/memory storage for uploads
+├── models/
+│   ├── associations.js           # Relational mappings, 1-to-many, many-to-many, cascade rules
+│   ├── Island.js                 # Curriculum progression chapters
+│   ├── IslandNode.js             # Archipelago path nodes
+│   ├── KaraokeAudio.js           # Binary LONGBLOB audio storage in MySQL
+│   ├── LessonStage.js            # Interactive drill configuration per node
+│   ├── Note.js                   # Rich-text notes and karaoke alignments
+│   ├── Page.js                   # CMS public pages with SEO descriptors
+│   ├── Question.js               # Quiz questions & match pairs
+│   ├── Quiz.js                   # Timed tests & assessment records
+│   ├── QuizAttempt.js            # User exam attempts & itemized scores
+│   ├── Subject.js                # Academic subjects
+│   ├── Topic.js                  # Academic topics
+│   ├── User.js                   # Learner, trainer, and admin accounts
+│   ├── UserActivity.js           # Engagement logs with DATEONLY calendar grouping
+│   └── UserNodeProgress.js       # User course progression indexed by (user_id, course_id, node_index)
+├── routes/                       # Express route registries
+├── scripts/
+│   └── benchmark_hostinger.js    # Automated network & API latency benchmarking tool
+├── tests/
+│   ├── auth.test.js              # Auth & JWT integration tests
+│   ├── curriculum.test.js        # Curriculum hierarchy & JIT tests
+│   ├── gamification.test.js      # Streaks, oxygen & ad reward tests
+│   ├── hostinger_live.test.js    # Live VPS latency benchmark suite
+│   ├── lesson_mechanics.test.js  # Derangement & pronunciation scoring tests
+│   └── setup.js                  # Jest environment test harness
 ├── utils/
-│   ├── dateHelper.js              # Timezone offset calculations, client day UTC bounds, local date formatting
-│   └── extractYouTubeId.js        # Extracts 11-char ID from watch/youtu.be/embed/shorts URLs
-├── ecosystem.config.js            # PM2 cluster configuration
-└── .env.example                   # Environment configuration template
+│   ├── dateHelper.js             # Timezone-safe date conversion & streak aggregation
+│   └── seoHelper.js              # XML sitemap, robots.txt & OpenGraph tag injection
+├── ecosystem.config.js           # PM2 cluster configuration for zero-downtime production
+├── package.json                  # Dependencies, test scripts & metadata
+└── server.js                     # Express app setup, crawler routes & HTTP bootstrap
 ```
 
 ---
 
-## 4. Architecture & Key Patterns
+## 4. Key Models & Schema Specifications
 
-### 4.1 Model Conventions
-1. **Primary Keys & Virtual `_id`**:
-   Every model defines an integer `id` and exposes a virtual `_id`:
-   ```javascript
-   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-   _id: { type: DataTypes.VIRTUAL, get() { return this.id; } },
-   ```
-   Both the React and Flutter clients consume `_id`. Always maintain this convention.
+### `User` (`users` table)
+- `id` (INT PK auto-increment), `name`, `email` (unique), `password` (bcrypt hashed), `role` (`student`, `trainer`, `admin`), `avatar`, `bio`, `isActive`.
+- **Gamification Columns**:
+  - `streakCount` (`streak_count`, INT default 1): Current active daily streak.
+  - `longestStreak` (`longest_streak`, INT default 1): Record streak achieved.
+  - `lastActiveDate` (`last_active_date`, DATEONLY): Client timezone normalized date of last activity.
+  - `dailyTargetXp` (`daily_target_xp`, INT default 20): Target study XP per day.
+  - `targetLanguage` (`target_language`, STRING(10) default 'de'): Learning language code (`de`, `en`).
+  - `nativeLanguage` (`native_language`, STRING(10) default 'en'): Native instruction code (`en`, `hi`, `mr`).
+  - `currentLevel` (`current_level`, STRING(10) default 'A1'): Proficiency stage.
+  - `pearls` (`pearls`, INT default 10): In-game currency balance.
+  - `oxygen` (`oxygen`, INT default 5): Energy gauge (capped at 5).
+  - `lastOxygenRefill` (`last_oxygen_refill`, DATE): Timestamp of last regeneration cycle.
+  - `totalXp` (`total_xp`, INT default 0): Lifetime accumulated experience points.
+  - `currentLeague` (`current_league`, STRING(50) default 'Coral Reef'): Weekly league tier.
 
-2. **JSON in TEXT Columns**:
-   Complex nested structures (e.g., `questions`, `karaokeData`, `metadata`, `topics`, `cards`) use `DataTypes.TEXT('long')` with safe JSON parsing:
-   ```javascript
-   get() {
-     try { return JSON.parse(this.getDataValue('fieldName')); } catch(e) { return null; }
-   },
-   set(val) {
-     this.setDataValue('fieldName', JSON.stringify(val && typeof val === 'object' ? val : {}));
-   }
-   ```
+### `UserNodeProgress` (`user_node_progress` table)
+- `id` (INT PK auto-increment).
+- `userId` (`user_id`, INT): References `User.id`.
+- `courseId` (`course_id`, STRING(32) default 'de_en_a1'): Multi-course partition identifier (`de_en_a1`, `en_hi_a1`, `en_mr_a1`).
+- `nodeIndex` (`node_index`, INT): Index of the island node.
+- `status` (ENUM `'locked'`, `'available'`, `'completed'`).
+- `stars` (INT 0–3).
+- `scorePct` (INT 0–100).
+- **Compound Unique Index**: `['user_id', 'course_id', 'node_index']` — strictly prevents progress in one language from overwriting another.
 
-3. **Database Audio Storage (`KaraokeAudio`)**:
-   Uploaded MP3 audio is stored as `DataTypes.BLOB('long')` (supporting up to 50MB per file). This guarantees audio persists independently of container restarts or shared hosting filesystem purges.
+### `UserActivity` (`user_activities` table)
+- `id` (INT PK auto-increment), `userId`, `activityType` (ENUM `'quiz'`, `'note'`, `'flashcard'`, `'lesson'`), `resourceId`, `resourceTitle`, `subjectName`, `topicName`.
+- `metadata` (LONGTEXT JSON): Stores type-specific metrics (e.g. `attemptCount`, `percentage`, `engagementSecs`, `comboBonus`).
+- `activityDate` (DATEONLY): Client local date resolved via `dateHelper.getLocalDateOnly(new Date(), clientTzOffset)`.
 
-### 4.2 Audio Streaming Pipeline (HTTP 206 Partial Content)
-In `controllers/noteController.js`, `streamAudioFromDb` provides full HTTP Range streaming:
-- Reads the client's `Range: bytes=start-end` header.
-- Calculates chunk boundaries and slices the in-memory `audioData` buffer.
-- Emits headers:
-  - `HTTP/1.1 206 Partial Content`
-  - `Content-Range: bytes ${start}-${end}/${fileSize}`
-  - `Accept-Ranges: bytes`
-  - `Content-Length: ${chunkSize}`
-  - `Content-Type: audio/mpeg`
-- Supports timeline seeking, audio scrubbing, and instant playback across Chrome, Safari, Android, and iOS.
-
-### 4.3 Timezone-Aware Activity Analytics
-In `controllers/activityController.js` and `utils/dateHelper.js`:
-- Client requests pass their local date or timezone offset (`req.headers['x-timezone-offset']` or query `date=YYYY-MM-DD`).
-- `getClientDayUtcBounds` calculates the exact UTC start and end timestamps corresponding to the user's local calendar day.
-- **Fast Dashboard Summary (`countsOnly=true`)**:
-  Performs lightweight count aggregation of completed notes, quizzes, and flashcards for near-instant dashboard rendering.
-- **Weekly History (`weekOf=YYYY-MM-DD`)**:
-  Retrieves full activity rows with extended ±1 day buffers to safely capture activities crossing midnight, returning detailed metadata (time taken, score, engagement seconds, karaoke practice time).
+### `KaraokeAudio` (`karaoke_audios` table)
+- `id` (INT PK auto-increment), `noteId` (INT FK to Note), `fileName` (STRING), `mimeType` (STRING default `'audio/mpeg'`), `fileSize` (BIGINT).
+- `audioData` (LONGBLOB): Binary MP3 payload up to 64MB.
 
 ---
 
-## 5. Route Guard & Endpoint Matrix
+## 5. Automated Testing & Verification Commands
 
-| Endpoint | Method | Access / Guard | Description |
-|---|---|---|---|
-| `/api/auth/register` | POST | Public | Creates student account |
-| `/api/auth/login` | POST | Public | Authenticates user & returns JWT (7d) |
-| `/api/auth/me` | GET | `protect` | Returns current user profile |
-| `/api/auth/profile` | PUT | `protect` | Updates name, email, avatar |
-| `/api/auth/password` | PUT | `protect` | Verifies old password & hashes new password |
-| `/api/activity/summary` | GET | `protect` | Returns study counts (`countsOnly=true`) or weekly history |
-| `/api/notes` | GET | `protect` | Lists published notes with pagination & filters |
-| `/api/notes` | POST | `protect`, `trainer/admin` | Creates rich-text or karaoke note |
-| `/api/notes/upload` | POST | `protect`, `trainer/admin` | Uploads DOCX/HTML note file |
-| `/api/notes/upload-audio` | POST | `protect`, `trainer/admin` | Uploads audio buffer to MySQL `karaoke_audios` |
-| `/api/notes/audio/db/:id` | GET | **Public** | Streams audio from MySQL with HTTP 206 Range seeking |
-| `/api/notes/audio/:filename`| GET | **Public** | Fallback streaming for local/disk audio files |
-| `/api/notes/:id` | GET | `protect` | Returns note detail with karaoke data |
-| `/api/notes/:id` | PUT | `protect`, `trainer/admin` | Updates note content & metadata |
-| `/api/notes/:id` | DELETE | `protect`, `trainer/admin` | Deletes note record |
-| `/api/notes/:id/pin` | PATCH | `protect`, `trainer/admin` | Toggles note isPinned status (pinned to top) |
-| `/api/notes/:id/track` | POST | `protect` | Logs note reading & karaoke engagement time |
-| `/api/quizzes` | GET | `protect` | Lists quizzes with pagination & filters |
-| `/api/quizzes` | POST | `protect`, `trainer/admin` | Creates quiz (supports MCQ, code-mcq, match_pairs) |
-| `/api/quizzes/:id/take` | GET | `protect` | Retrieves quiz questions for student examination |
-| `/api/quizzes/:id/submit` | POST | `protect` | Grades attempt, stores QuizAttempt, logs UserActivity |
-| `/api/flashcards` | GET | `protect` | Lists flashcard decks with card counts |
-| `/api/flashcards/:id/progress` | POST | `protect` | Saves student mastery & review counts |
-| `/api/videos` | GET | **Public** | Lists YouTube videos |
-| `/api/subjects` | GET | **Public** | Lists subjects with embedded topic lists |
-| `/api/admin/users` | GET | `protect`, `admin` | Lists all users with pagination |
-| `/api/admin/users/:id/active` | PATCH | `protect`, `admin` | Toggles user active/inactive status |
-| `/api/curriculum/lessons` | GET | `protect` | Lists curriculum lessons (students see `isLive=true` only; staff see all) |
-| `/api/curriculum/lessons/:id` | GET | `protect` | Retrieves single lesson detail with all configured stages |
-| `/api/curriculum/lessons` | POST | `protect`, `trainer/admin` | Creates new curriculum lesson with multi-stage JSON payload |
-| `/api/curriculum/lessons/:id` | PUT | `protect`, `trainer/admin` | Updates lesson overview and stage definitions |
-| `/api/curriculum/lessons/:id/live` | PATCH | `protect`, `trainer/admin` | Toggles lesson publication status (`isLive: true/false`) |
-| `/api/curriculum/lessons/:id` | DELETE | `protect`, `trainer/admin` | Deletes lesson record |
-| `/api/curriculum/units` | GET | `protect` | Returns summary list of units with lesson counts |
-| `/api/curriculum/units/headings` | POST | `protect`, `trainer/admin` | Batch creates lesson outline nodes for a unit |
-| `/api/curriculum/bulk-upload` | POST | `protect`, `trainer/admin` | Imports curriculum lessons in bulk via JSON/CSV |
-| `/api/curriculum/seed-default` | POST | `protect`, `trainer/admin` | Seeds default Unit 1 with initial curriculum nodes |
-| `/api/gamification/status` | GET | `protect` | Returns user economy: oxygen (`🫧 5/5`), pearls (`💎`), streak (`🔥`) with auto-refill |
-| `/api/gamification/path` | GET | `protect` | Returns live learning path nodes with completion & star status (Supports `?section=1&targetLanguage=de&nativeLanguage=en`) |
-| `/api/gamification/lesson/:id` | GET | `protect` | **JIT Lesson Details**: Returns full 8-stage challenge payload on demand when learner opens a node |
-| `/api/gamification/switch-course` | POST | `protect` | Switches active learning track (`targetLanguage`, `nativeLanguage`, `level`) in user profile |
-| `/api/gamification/complete-node` | POST | `protect` | Records lesson completion, awards XP/Pearls, increments streak |
-| `/api/gamification/leaderboard` | GET | `protect` | Returns weekly leaderboard rankings & league tiers |
-| `/api/gamification/shop/refill-oxygen` | POST | `protect` | Refills oxygen to 5/5 using pearls |
-| `/api/gamification/quests` | GET | `protect` | Lists daily & monthly quests with progress |
-| `/api/gamification/claim-quest` | POST | `protect` | Claims quest pearl reward |
+```bash
+# Run all unit/integration tests
+npm test
 
-### 5.1 Decoupled JIT Architecture & Payload Optimization
-- **Problem**: Querying all 1,680 lessons across 105 units with raw `stages` and `karaokeData` blobs resulted in a **28.5 MB JSON payload**, crashing mobile devices with a 60-second main thread freeze.
-- **Solution (Three-Tier Optimization)**:
-  1. **Projection Trimming (`GET /api/gamification/path`)**:
-     The path endpoint projects only essential lightweight map metadata:
-     `attributes: ['id', 'unitNumber', 'lessonIndex', 'title', 'subtitle', 'nodeType', 'xpReward', 'pearlsReward', 'unitTitle', 'isLive']`.
-     Eliminates all `TEXT('long')` blobs, reducing network transfer to **35 KB** (99.88% smaller, 82ms response).
-  2. **Just-In-Time Lesson Detail Fetching (`GET /api/gamification/lesson/:id`)**:
-     Loads the full 8-stage interactive payload on demand only when the learner taps a node. Latency is <50ms.
-  3. **Section Windowing & Pagination**:
-     Curriculum partitioned into Sections (Section 1: Units 1–35, Section 2: Units 36–70, Section 3: Units 71–105).
-  4. **Composite Indexes (`CurriculumLessons` table)**:
-     `indexes: [{ fields: ['isLive', 'learningLanguage', 'nativeLanguage', 'level', 'unitNumber', 'lessonIndex'] }]`.
+# Run Hostinger VPS live latency benchmark
+npm run test:live
 
-### 5.2 Decoupled Stage Audio Architecture & Stage Payloads
-- **Stage Audio Upload**: Audio files for multi-stage curriculum lessons are uploaded via `POST /api/notes/upload-audio` (leveraging the existing `karaoke_audios` table).
-- **Public Range Streaming**: Streamed via `GET /api/notes/audio/db/:id` with complete HTTP 206 byte-range seeking.
-- **Strict Stage Isolation**: Audio attachments belong exclusively to their respective stage (`stages[listen_tap].audioUrl`, `stages[listen_tap].wordsAudioUrl`, or `stages[sprechen].audioUrl`). The top-level lesson row `audioUrl` is intentionally set to `null` to prevent cross-stage audio bleeding.
-- **Curriculum Stage Payloads**:
-  - `word_match`: `{ type: 'word_match', pairs: [{ target: 'Guten Tag', native: 'Hello' }] }`
-  - `listen_tap`: `{ type: 'listen_tap', target: '...', tokens: [...], audioUrl: '...', wordsAudioUrl: '...', sentenceRange: { start, end }, words: [{ word: '...', start: 0.0, end: 0.6 }] }`
-  - `sentence_builder`: `{ type: 'sentence_builder', prompt: '...', target: '...', distractors: '...', tokens: [...] }`
-  - `sprechen`: `{ type: 'sprechen', prompt: '...', translation: '...', accuracy: 75, audioUrl: '...', karaokeData: { words: [{ word: '...', start: 0.0, end: 0.45 }] } }`
-  - `cloze_test`: `{ type: 'cloze_test', sentence: '...', translation: '...', options: ['optA', 'optB', 'optC'], answer: 'optA' }`
-  - `type_word`: `{ type: 'type_word', prompt: '...', sentence: '...', translation: '...', answer: '...', hint: '...' }`
-  - `dialogue_bubble`: `{ type: 'dialogue_bubble', speaker: 'Florian', sentence: '...', translation: '...', options: [...] }`
-  - `listen_select`: `{ type: 'listen_select', question: '...', audioUrl: '...', options: [...] }`
-  - `karaoke`: `{ type: 'karaoke', storyText: '...', translationText: '...', audioUrl: '...', karaokeData: { sentences: [...], words: [...] } }`
-
----
-
-## 6. Development & Coding Guidelines
-
-1. **Sequelize Associations**:
-   Always declare relations in `models/associations.js` using defined aliases (`ownerUser`, `subject`, `addedByUser`).
-2. **Response Shapes**:
-   Preserve standard response envelopes (`{ success: true, data: ... }` or `{ success: true, [domain]: ... }`).
-3. **Database Blob Streaming**:
-   When working with binary media, use stream chunking. Never buffer entire massive files into single unbounded string variables.
-4. **Reshaped Fields**:
-   Controllers reshape database rows (`ownerUser → owner`) before sending responses. Ensure frontend and mobile expectations are preserved.
+# Run standalone benchmark script with detailed metric percentiles (p50, p90, p99)
+node scripts/benchmark_hostinger.js
+```

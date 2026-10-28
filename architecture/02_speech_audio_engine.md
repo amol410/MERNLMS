@@ -133,7 +133,19 @@ companion object {
 | Method Name | Direction | Parameters | Return Type | Functional Purpose |
 | :--- | :--- | :--- | :--- | :--- |
 | `destroyRecognizer` | Dart $\to$ Kotlin | None | `Boolean` (`true`) | Performs aggressive reflective teardown of the active native recognizer, terminating IPC binders and releasing hardware microphones immediately. |
-| `isRecognitionAvailable` | Dart $\to$ Kotlin | None | `Boolean` | Directly invokes `SpeechRecognizer.isRecognitionAvailable(context)` to verify whether an active ASR engine is registered on the OS. |
+| `ensureOptimalSpeechEngine` | Dart $\to$ Kotlin | None | `Map<String, Any>` | Evaluates 3-tier speech engines (Google $\to$ OEM $\to$ Default platform), pre-caches component, and injects optimal recognizer into `SpeechToTextPlugin`. |
+| `isRecognitionAvailable` | Dart $\to$ Kotlin | None | `Boolean` | Directly invokes 3-tier resolution to verify whether an active ASR engine is registered on the OS. |
+| `isBluetoothHeadsetConnected` | Dart $\to$ Kotlin | None | `Boolean` | Queries `AudioManager.getDevices` for `TYPE_BLUETOOTH_SCO` to detect connected headsets. |
+| `startBluetoothSco` | Dart $\to$ Kotlin | None | `Boolean` | Starts native Bluetooth SCO audio recording mode for high-fidelity microphone input. |
+| `stopBluetoothSco` | Dart $\to$ Kotlin | None | `Boolean` | Tears down Bluetooth SCO audio routing back to standard device microphone. |
+
+#### Native Inbound Broadcasts (Kotlin $\to$ Dart):
+
+| Event Name | Trigger | Action in Flutter |
+| :--- | :--- | :--- |
+| `onAudioBecomingNoisy` | Headphone / Bluetooth disconnect during playback | Auto-pauses active audio player to prevent blaring through loudspeakers. |
+| `onAudioFocusLost` | External app (call, alarm) requests exclusive audio | Pauses speech/audio session cleanly. |
+| `onAudioFocusGained` | Audio focus restored | Restores audio routing readiness. |
 
 ### 2.3 Strict Native Lifecycle Overrides (`onDestroy`, `onPause`, `onStop`)
 
@@ -242,6 +254,34 @@ sequenceDiagram
     Act->>Plugin: field.set(pluginInstance, null)
     Act-->>App: Mic Hardware Unlocked & Available
 ```
+
+### 2.6 The 3-Tier Speech Engine Fallback & Plugin Injection Architecture
+
+To prevent silent recognition timeouts on diverse Android OEM skins (MIUI, ColorOS, OneUI, FuntouchOS), `MainActivity.kt` implements `resolveAndPrepareOptimalSpeechEngine()`:
+
+```mermaid
+graph TD
+    Start([Speech Engine Resolution]) --> Tier1{Check Tier 1:<br/>Google QuickSearchBox?}
+    Tier1 -->|Available| SelectT1["Select com.google.android.googlequicksearchbox<br/>(tier1_google)"]
+    Tier1 -->|Not Found / Blocked| QueryOEM[Query pm.queryIntentServices<br/>ACTION_RECOGNITION_SERVICE]
+    
+    QueryOEM --> Tier2{Check Tier 2:<br/>OEM ASR Available?}
+    Tier2 -->|Found| SelectT2["Select OEM RecognitionService<br/>(tier2_oem)"]
+    Tier2 -->|None Found| Tier3{Check Tier 3:<br/>Default Platform ASR?}
+    
+    Tier3 -->|Available| SelectT3["Select Generic Platform Recognizer<br/>(tier2_default)"]
+    Tier3 -->|Unavailable| FallbackNone["Set tier = 'none'<br/>(Prompt user to install language models)"]
+
+    SelectT1 --> Inject[Inject Optimal SpeechRecognizer into SpeechToTextPlugin]
+    SelectT2 --> Inject
+    SelectT3 --> Inject
+    Inject --> Done([ASR Ready for Flutter])
+```
+
+1. **Tier 1 (Google Voice Search ASR)**: Explicitly tests `com.google.android.googlequicksearchbox`. If installed and active, binds directly to Google ASR, bypassing TTS traps.
+2. **Tier 2 (OEM System Service)**: If Google QuickSearchBox is missing, queries Android Package Manager for all registered `RecognitionService` implementations, excluding known TTS spoofers.
+3. **Tier 3 (Generic Platform Recognizer)**: Falls back to `SpeechRecognizer.createSpeechRecognizer(this)`.
+4. **Reflective Injection**: Once resolved, `injectOptimalRecognizerIntoPlugin()` injects the selected `SpeechRecognizer` directly into `SpeechToTextPlugin.speechRecognizer`, eliminating plugin instantiation ambiguity.
 
 ---
 

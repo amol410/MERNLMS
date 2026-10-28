@@ -1473,5 +1473,24 @@ class SpeechLifecycleBridge {
    - Confirm developer website link in Google Play Console matches `https://dolphincoder.com`.
    - Trigger Google crawler re-crawl in Google AdMob > Apps > View All Apps > app-ads.txt tab.
 
+### Playbook E: Automated Regression Testing & Hostinger Live Latency Benchmarking
+1. **Purpose:** Verify system integrity, database constraints, in-game economy safety, and network latency before or after production deployment.
+2. **Commands:**
+   ```bash
+   cd /var/www/lms/backend
+   
+   # Run all automated unit and integration tests (in-band, SQLite test harness)
+   npm test
+   
+   # Run live Hostinger VPS latency test suite
+   npm run test:live
+   
+   # Run standalone live latency benchmark script (evaluates DNS, TLS, TTFB, p50, p90, p99)
+   node scripts/benchmark_hostinger.js
+   ```
+3. **Pass Criteria:**
+   - All 21+ backend test suites exit with code `0`.
+   - Live API response percentiles on Hostinger VPS remain within $p90 < 100\text{ms}$.
+
 ---
 *End of Architectural Specification ARCH-05-DEVOPS-INFRA-SECURITY.*

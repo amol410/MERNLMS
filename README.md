@@ -2,7 +2,12 @@
 
 A comprehensive, state-of-the-art Learning Management System and Gamified Language Learning Platform powering [dolphincoder.com](https://dolphincoder.com), formerly known as **SpeedUpExam**. (The root repository folder is named `MERNLMS` for historical reasons; the production database is **MySQL 8 + Sequelize 6**, not MongoDB.)
 
-> **Current Production Release**: `v29.1.0-stable` | **Mobile App**: `v1.2.6+11` (Flutter 3 / Riverpod 2)
+> **Current Production Release**: `v33.0.0-stable` | **Mobile App**: `v1.2.12+18` (Flutter 3.22 / Riverpod 2.5 / Submodule `889662b`)  
+> **Core Monorepo Focus Folders:**  
+> - `app/dolphincoder/` — Flutter Mobile Application (Android/iOS)  
+> - `frontend/` — React 18 / Vite 5 Web Client & Admin CMS  
+> - `backend/` — Node.js 20 / Express 4 / Sequelize 6 / MySQL 8 API & Database Service  
+> *(Note: The legacy folder `app/appit/` is strictly quarantined and inactive.)*
 
 ---
 
@@ -208,7 +213,17 @@ CLIENT_URL=https://dolphincoder.com
 
 | Documentation File | Scope & Target Audience |
 |---|---|
-| [features.md](features.md) | Complete chronological feature log & capability inventory (v29.1.0-stable) |
+| [AGENTS.md](AGENTS.md) | **Master Operating Blueprint for the Five Specialized Autonomous Engineering Agents** |
+| [backend/README.md](backend/README.md) | Node.js/Express API, Sequelize ORM 6, MySQL 8 setup, Jest tests & benchmark scripts |
+| [frontend/README.md](frontend/README.md) | React 18, Vite 5, Tiptap, AdMob crawler verification & production build docs |
+| [app/dolphincoder/README.md](app/dolphincoder/README.md) | Flutter 3.22, 5-phase speech lifecycle, native Kotlin bridge & AdMob mobile docs |
+| [architecture/01_flutter_frontend.md](architecture/01_flutter_frontend.md) | Agent 1: Flutter Frontend Architecture Specification |
+| [architecture/02_speech_audio_engine.md](architecture/02_speech_audio_engine.md) | Agent 2: Speech Recognition, Audio Engine & Pronunciation Architecture |
+| [architecture/03_backend_api_and_database.md](architecture/03_backend_api_and_database.md) | Agent 3: Backend API, Database & Business Logic Architecture |
+| [architecture/04_web_frontend_admin.md](architecture/04_web_frontend_admin.md) | Agent 4: Web Frontend & Admin Dashboard Architectural Specification |
+| [architecture/05_devops_infra_security.md](architecture/05_devops_infra_security.md) | Agent 5: DevOps, Infrastructure, Security & Monetization Architecture |
+| [architecture/calculations.md](architecture/calculations.md) | Mathematical verification: Oxygen economy, streaks, and AdMob frequency |
+| [features.md](features.md) | Complete chronological feature log & capability inventory (v33.0.0-stable) |
 | [web_features.md](web_features.md) | Screen-by-screen web application blueprint & functional specs |
 | [android_features.md](android_features.md) | Mobile app screen blueprint & native interaction specifications |
 | [backend.md](backend.md) | Express API, Sequelize models, BLOB streaming, JIT endpoints, route matrix |

@@ -231,5 +231,48 @@ npm run build
 # If backend changed:
 cd ../backend
 npm install --production
+npm test               # Run in-band Jest & Supertest test suite before reloading
 pm2 reload all --update-env
 ```
+
+---
+
+## 🧪 Step 7: Automated Test Verification & Live Hostinger Benchmarking
+
+Run the backend verification test harness on the server or deployment pipeline:
+```bash
+cd /var/www/lms/backend
+
+# 1. Run automated unit & integration test suite (in-band)
+npm test
+
+# 2. Run live Hostinger VPS latency benchmark test suite (30s timeout)
+npm run test:live
+
+# 3. Run standalone benchmark script with p50, p90, p99 latency percentiles
+node scripts/benchmark_hostinger.js
+```
+
+---
+
+## 📱 Step 8: Mobile Google Play Release Pipeline
+
+When releasing an update for the Android mobile application:
+```bash
+cd /var/www/lms/app/dolphincoder # or local workstation
+
+# 1. Fetch dependencies
+flutter pub get
+
+# 2. Run static analysis
+flutter analyze
+
+# 3. Build Google Play Release App Bundle (.aab)
+flutter build appbundle --release
+
+# The signed production bundle is output to:
+# build/app/outputs/bundle/release/app-release.aab
+```
+
+Verify `app_version.json` matches the new build number before uploading to Google Play Console.
+

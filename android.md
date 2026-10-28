@@ -2,252 +2,83 @@
 
 > **Purpose:** Comprehensive onboarding and technical specification for coding agents and engineers working in
 > `app/dolphincoder/` (the Flutter mobile client for Android and iOS).
-> Documents existing architecture, Riverpod state models, navigation, network client, and the roadmap
-> for synchronizing mobile features with the latest web releases.
-> Verified against active source on 2026-09-26.
+> Documents existing architecture, Riverpod state models, navigation, network client, native Android Kotlin bridges,
+> speech recognition lifecycles, and synchronization with web releases.
+> Verified against active source on 2026-10-28.
 >
 > **Rules of engagement for agents:**
 > 1. The mobile app is located in `app/dolphincoder/` (the root `android/` directory contains legacy planning artifacts).
-> 2. State management is **Riverpod 2** using hand-written `StateNotifier`s and `FutureProvider.family`.
-> 3. Navigation is **GoRouter** with token-checking redirects. Session tokens live in `flutter_secure_storage` (`tokenKey`), while user data JSON lives in `SharedPreferences` (`userDataKey`).
+> 2. State management is **Riverpod 2** using hand-written `StateNotifier`s, `AsyncNotifier`s, and `FutureProvider.family`.
+> 3. Navigation is **GoRouter 13.2** with token-checking redirects and a 5-tab shell route. Session tokens live in `flutter_secure_storage` (`tokenKey`), with $O(1)$ in-memory caching in `DioClient`.
 > 4. Do NOT modify any Flutter code until instructed. Update documentation first.
+> 5. Never touch or reference the legacy `app/appit/` folder.
 
 ---
 
 ## 1. What This Is
 
-**DolphinCoder Mobile Client** (`pubspec` package: `dolphincoder`, v1.2.6+11 / production release: `v29.1.0-stable`) — A native, dark-themed Material 3 mobile application for Android (SDK 23+) and iOS, serving as the student companion for [dolphincoder.com](https://dolphincoder.com).
+**DolphinCoder Mobile Client (LingoDolphy)** (`pubspec` package: `dolphincoder`, version: `1.2.12+18` / submodule: `889662b` / production release: `v33.0.0-stable`) — A native, dark-themed Material 3 mobile application for Android (SDK 23+, tested through Android 14 / API 34) and iOS, serving as the high-fidelity student companion for [dolphincoder.com](https://dolphincoder.com).
 
 ### Feature Comparison Matrix (Web vs Mobile Status)
 
-| Feature Domain | Web LMS Status | Flutter Mobile Status | Synchronization Needed |
+| Feature Domain | Web LMS Status | Flutter Mobile Status (`v1.2.12+18`) | Synchronization Status |
 |---|---|---|---|
-| **Authentication** | Login, Register, Profile, Password, Roles | Login, Register, Profile, Password | ✅ Parity achieved |
+| **Authentication** | Login, Register, Profile, Password, Roles | Login, Register, Profile, Password, 2-Step Course Picker | ✅ Parity achieved |
 | **Dashboard** | Stat cards, Today's Performance (countsOnly), Activity history | Stat cards, Today's Performance Card, History link | ✅ Parity achieved (`/api/activity/summary`) |
 | **Notes** | Richtext, DOCX, HTML slides, **Karaoke Audio Reader** | Richtext, DOCX, HTML, **Karaoke Reader & Sprechen Mode** | ✅ Parity achieved (`audioplayers` & `speech_to_text`) |
-| **Quizzes** | MCQ, True/False, Code-MCQ, **Match the Pairs (`match-pairs`)**, **Quiz Review** | MCQ, Code, **MatchPairsWidget**, **QuizReviewScreen** | ✅ Parity achieved (`/quizzes/:id/review`) |
-| **Flashcards** | Decks, 3D flip card study, mastery score | Decks, flip card study, mastery score | ✅ Parity achieved |
+| **Quizzes** | MCQ, True/False, Code-MCQ, **Match Pairs**, **Quiz Review** | MCQ, Code, **3D MatchPairsWidget**, **QuizReviewScreen** | ✅ Parity achieved (`/quizzes/:id/review`) |
+| **Flashcards** | Decks, 3D flip card study, mastery score | Decks, 3D flip card study, mastery score | ✅ Parity achieved |
 | **Videos** | YouTube embeds, view count, tags | YouTube player in WebView | ✅ Parity achieved |
 | **Activity History**| `/activity` with localized Day categories & Daily hours | `ActivityHistoryScreen` with Daily hours & Categories | ✅ Parity achieved (`/activity`) |
 | **Pagination** | 6-item pagination across lists | 6-item pagination across Notes & Quizzes | ✅ Parity achieved |
 | **Lingo Archipelago** | `/lingodolphy` with 8 stages, 105 units, English A1 (Hindi/Marathi) | Archipelago map, 8 stages, JIT loading, Course switcher | ✅ Parity achieved (`/api/gamification/*`) |
+| **Speech Lifecycle** | Continuous Web Speech API with 3s silence detector | **5-Phase Lifecycle** (Idle, Armed, Listening, Processing, Evaluated) | ✅ Parity achieved with native bridge |
+| **Speech Fallback** | Browser engine fallback | **3-Tier Engine Fallback** (Google $\to$ OEM $\to$ Default platform) | ✅ Mobile-native advantage |
+| **Visual Polish** | CSS animations & Web Audio synth chimes | Animated sound ripples & **Celebratory Confetti Shower** | ✅ Mobile-native advantage |
+| **Audio-Haptics** | Web Audio API chimes | System haptics + synchronized sound cues (`SoundEffectsService`) | ✅ Mobile-native advantage |
+| **Monetization** | AdMob crawler verification (`/app-ads.txt`) | Verified Google AdMob SDK (Banner, Interstitial, Rewarded) | ✅ Full production monetization |
 
 ---
 
-## 2. Run & Build
+## 2. Run & Build Commands
 
 ```bash
 cd app/dolphincoder
 flutter pub get
 flutter run                    # Debug mode (defaults to https://dolphincoder.com/api)
 flutter build apk --release    # Production Android APK
-flutter build appbundle        # Production Google Play App Bundle
+flutter build appbundle        # Production Google Play App Bundle (.aab)
 ```
 
 - **API Base URL**: `lib/core/constants/api_constants.dart`.
-  - Default URL is `https://dolphincoder.com/api` (relies on web reverse proxy to backend port 5000).
-  - Production direct URL is `https://api.dolphincoder.com/api`.
-  - For local Android emulator testing, point to `http://10.0.2.2:5000/api`.
+  - Default URL: `https://dolphincoder.com/api` (proxied to backend port 5000).
+  - Dedicated mobile URL: `https://api.dolphincoder.com/api`.
+  - Local Android emulator testing: `http://10.0.2.2:5000/api`.
 
 ---
 
-## 3. Directory Map
+## 3. Key Architecture Implementations
 
-```
-app/dolphincoder/
-├── pubspec.yaml                       # package: dolphincoder, version: 1.2.5+10
-├── lib/
-│   ├── main.dart                      # ProviderScope initialization & runApp
-│   ├── app.dart                       # MaterialApp.router with AppTheme.dark
-│   ├── core/
-│   │   ├── constants/
-│   │   │   ├── api_constants.dart     # Endpoint URLs and base domain configuration
-│   │   │   └── app_constants.dart     # Storage keys (tokenKey, userDataKey)
-│   │   ├── network/
-│   │   │   ├── dio_client.dart        # Dio singleton with JWT Bearer interceptor & error handling
-│   │   │   └── api_exception.dart     # Custom exception mapping status codes to UI messages
-│   │   ├── router/
-│   │   │   └── app_router.dart        # GoRouter: ShellRoute for 5-tab gamified bottom nav & auth redirects
-│   │   ├── theme/
-│   │   │   ├── app_colors.dart        # Deep ocean `#0A0F1E`, gradient accents, note & deck colors
-│   │   │   └── app_theme.dart         # Material 3 dark theme, Google Fonts (Plus Jakarta Sans + Inter)
-│   │   └── utils/
-│   │       └── validators.dart        # Email, password strength, and field validators
-│   ├── features/
-│   │   ├── auth/                      # Splash, Onboarding, Login, Register + AuthProvider & Repository
-│   │   ├── dashboard/                 # Dashboard screen with greetings, stats, and quick links
-│   │   ├── notes/                     # NoteModel, NotesRepository, NotesProvider, NotesScreen, NoteDetailScreen
-│   │   ├── videos/                    # VideoModel, VideosRepository, VideosScreen, VideoDetailScreen (WebView)
-│   │   ├── quizzes/                   # QuizModel, QuizTakeScreen, QuizResultScreen, QuizReviewScreen, providers & repo
-│   │   ├── flashcards/                # FlashcardModel, FlashcardsScreen, StudyScreen, providers & repo
-│   │   ├── profile/                   # ProfileScreen, EditProfileScreen, ChangePasswordScreen, SettingsScreen
-│   │   └── gamification/              # ArchipelagoMapScreen, LessonSessionScreen, LeaguesScreen, QuestsScreen, ShopScreen, GamifiedProfileScreen
-│   └── shared/
-│       └── widgets/
-│           ├── app_text_field.dart    # Styled input with prefix icon and validator
-│           ├── bottom_nav.dart        # 5-tab gamified floating bottom navigation pill (Learn, Leagues, Quests, Shop, Profile)
-│           ├── empty_state.dart       # Empty list placeholders with emojis and action buttons
-│           ├── glass_card.dart        # Frosted glass container with border gradients
-│           ├── gradient_button.dart   # Primary button with loading indicator
-│           ├── shimmer_loader.dart    # Shimmer placeholder animations for loading lists
-│           └── subject_badge.dart     # Color-coded Subject and Topic chips
-```
+### 3.1 Native Android Speech Recognition Bridge (`MainActivity.kt`)
+- **MethodChannel**: `com.dolphincoder.lms/speech_lifecycle`
+- **3-Tier Speech Engine Fallback**:
+  1. `Tier 1`: `com.google.android.googlequicksearchbox` (Google App ASR).
+  2. `Tier 2`: OEM Recognition Service (`com.samsung.android.bixby.agent`, `com.miui.voiceassist`, etc.).
+  3. `Tier 3`: Generic default platform `SpeechRecognizer.createSpeechRecognizer(this)`.
+- **Reflective Teardown**: Nullifies `speechRecognizer` field inside `SpeechToTextPlugin` on `onDestroy`, `onPause`, and `onStop` to eliminate Android Binder death (`DEAD_OBJECT`) and `AudioRecord` leaks.
+- **Audio Becoming Noisy**: Listens for `AudioManager.ACTION_AUDIO_BECOMING_NOISY` to auto-pause audio when headphones are unplugged.
+- **Bluetooth SCO**: Automatically routes speech input to Bluetooth headsets when connected.
 
----
+### 3.2 5-Phase Speech State Machine (`SpeechRecognitionService`)
+- Enforces state progression: `Idle` $\to$ `Armed` $\to$ `Listening` $\to$ `Processing` $\to$ `Evaluated`.
+- Gated double-tap submission preventing race conditions.
+- Broadcasts real-time normalized RMS audio levels for animated sound ripples.
+- Displays celebratory confetti shower (`ConfettiWidget`) upon passing pronunciation challenges ($\ge 75\%$).
 
-## 4. Mobile Architecture & Conventions
-
-### 4.1 Data & State Layering
-Each feature directory adheres strictly to the three-tier pattern:
-1. `data/models/<feature>_model.dart`: Hand-written serialization (`fromJson` and `toJson`). All models extract `_id` defensively:
-   ```dart
-   id: json['_id']?.toString() ?? json['id']?.toString() ?? '',
-   ```
-2. `data/<feature>_repository.dart`: Dio client wrapper. Always initializes via:
-   ```dart
-   final dio = await DioClient.getInstance();
-   ```
-3. `providers/<feature>_provider.dart`:
-   - List providers are `StateNotifier`s that self-fetch on creation.
-   - Detail providers use `FutureProvider.family<T, String>`.
-
-### 4.2 Network & Authentication Pipeline
-- `DioClient` attaches the JWT token from `FlutterSecureStorage` dynamically on every request.
-- Logs are gated with `!kReleaseMode` (`PrettyDioLogger`) to ensure sensitive authentication tokens are never exposed in release APK builds.
-- On HTTP 401, the interceptor purges the local secure token, triggering GoRouter's redirect to `/login` on the next navigation transition.
-
----
-
-## 5. Verified Implementation Features (Full Web Parity)
-
-The Flutter mobile client (`app/dolphincoder/`) has achieved complete parity with the web platform across all core domains:
-
-### 1. Karaoke Audio Reader & Sprechen Speaking Practice (`karaoke_note_reader_screen.dart`)
-- **Audio Playback Engine**: Powered by `audioplayers` with range-seeking from `/api/notes/audio/db/:id` and demo playback.
-- **Word-by-Word Synchronized Transcript**: Word-level highlighting matching native German audio playback timestamps.
-- **Playback & Latency Calibration**:
-  - Configurable tempo speeds (`0.75x` default for Sprechen, `1.0x`, and `1.25x`).
-  - Real-time sync offset buttons (`-0.25s`, `0s`, `+0.25s`) allowing instant recalibration for speaker or Bluetooth latency.
-- **Sprechen Practice Mode**:
-  - Auto-pause audio at sentence boundaries.
-  - Native Android German speech recognition (`de-DE`) using `speech_to_text`.
-  - **Continuous Dictation**: Initialized with `stt.ListenMode.dictation`, `listenFor: const Duration(seconds: 90)`, and `pauseFor: const Duration(seconds: 6)` to eliminate premature cutoffs during natural breathing pauses.
-  - **True 3-Second Silence Timer**: Dedicated 3000ms timer resets on every recognized word and strictly waits for 3 seconds of continuous silence before auto-evaluating.
-  - **Live Visual Countdown**: Status indicator displaying `"Submits in 3s of silence, or tap Done"`.
-  - **Instant Evaluation Action**: Prominent `"Done Speaking (Check Now ✓)"` button bypasses the silence timer for immediate checking.
-  - **Static English Translation Reference**: Displayed as a clean subtitle box (`Meaning: ...`) inside the Sprechen challenge card strictly for comprehension; **never read aloud via audio/TTS** and **never interrupts with popups**.
-  - Word accuracy matching (≥75% pass threshold) and visual feedback.
-
-### 2. Quizzes with Dual Subject & Topic Filtering (`quizzes_screen.dart`)
-- **Subject Chips Carousel**: Horizontally scrollable chip row for fast subject filtering.
-- **Dynamic Topic Chips Carousel**: Automatically renders below the subject row when a subject is active.
-  - Includes **"All Topics"** reset chip alongside granular topic chips (e.g. `Grammar`, `Vocabulary`).
-  - Cyan accent styling distinguishes topic tier from subject tier.
-  - State synchronized with `ref.read(quizzesListProvider.notifier).filterTopic(topic)`.
-
-### 3. Match the Pairs Question Type (`match_pairs_widget.dart`)
-- Integrated within `QuizTakeScreen`:
-  - Left column: Terms.
-  - Right column: Definitions.
-  - Interactive tap-to-connect pairing with dynamic color badges and reset capabilities.
-
-### 4. Dedicated Quiz Review Screen (`quiz_review_screen.dart`)
-- Full post-submission review:
-  - Overall score percentage ring and pass/fail status.
-  - Detailed breakdown of user's selected answers vs correct answers.
-  - Full trainer pedagogical explanations for every question.
-
-### 5. Activity History & Daily Study Hours (`activity_history_screen.dart`)
-- Direct consumption of `/api/activity/summary`:
-  - Today's study milestones card.
-  - Categorized weekly cards (**Today**, **Yesterday**, **Day Before Yesterday**).
-  - Daily study hours chart and activity distribution.
-
-### 6. Standardized 6-Item Pagination
-- Standard 6-item pagination across Notes and Quizzes with pull-to-refresh and infinite scroll.
-
----
-
----
-
-## 6. Verified Implementation: Animated Speaking Character & Duolingo Sprechen Mode
-
-The interactive, animated character companion and single-sentence Duolingo-style Sprechen mode have been fully implemented in `app/dolphincoder/lib/features/notes/`:
-
-### 6.1 Architecture & Components
-1. **`AnimatedKaraokeCharacter` (`widgets/animated_karaoke_character.dart`)**:
-   - Custom 60 FPS vector character drawn with Flutter `CustomPainter`.
-   - **Real-Time Lip-Sync**: Smoothly opens and articulates mouth (`mouthOpen` oscillation) specifically while `currentSeconds >= activeWord.start && currentSeconds <= activeWord.end`. Mouth closes naturally on inter-word pauses.
-   - **Eye Blinking Engine**: Periodic 3.2s cycle with realistic 150ms eye blinks.
-   - **Subtle Breathing**: Sinusoidal floating offset (`sin(t)`) keeping the character lively.
-   - **Dynamic States**:
-     - *Idle*: Calm, friendly expression with glance towards speech bubble.
-     - *Speaking*: Dynamic mouth movements with visible teeth and tongue.
-     - *Listening*: Head tilt (`headTilt: 0.08`) and attentive cupping gesture when student speaks into the microphone.
-     - *Celebration*: Smiling arched closed eyes (`^‿^`), cheerful open laugh, raised arms, and twinkling gold star confetti.
-2. **`KaraokeSpeechBubble` (`widgets/karaoke_speech_bubble.dart`)**:
-   - Comic-style speech bubble with triangular tail pointing to the character's mouth.
-   - Circular speaker replay icon button (`🔊`) allowing immediate audio replay.
-   - Word-by-word highlighted German sentence text.
-3. **Duolingo-Style Sprechen Screen (`karaoke_note_reader_screen.dart`)**:
-   - **Top Navigation Bar**: Exit button (`✕`), Gold/Orange sentence progress bar with star counter (`X OF Y IN A ROW`), and Hearts counter (`❤️ 3`).
-   - **Prompt**: Large bold `"Speak this sentence"` header.
-   - **"TAP TO SPEAK" Card**: Prominent rounded action card (`Color(0xFF1CB0F6)`), switching to active recording canvas with silence countdown and instant `"Done Speaking (Check Now ✓)"` button.
-   - **Duolingo Bottom Feedback Sheet**:
-     - **On Pass (≥75%)**: Pastel green sheet (`#D7FFB8`), `"Excellent! Meaning:"` with English translation, and full-width green **`CONTINUE`** button advancing to the next sentence.
-     - **On Retry**: Pastel red sheet (`#FFDFE0`), `"Not quite! Meaning:"`, with `"Listen (0.75x)"` and `"TRY AGAIN"` action buttons.
-     - **Lesson Complete**: Celebration dialog upon mastering all sentences.
-   - **Mode Preserved**: Continuous full-script reading view remains fully accessible via the top `"Full Script"` toggle pill.
-
----
-
-## 7. Verified Implementation: Gamified Archipelago & Multi-Stage Lesson Session
-
-The Duolingo-grade gamified language path and interactive multi-stage lesson challenge runner are implemented in `app/dolphincoder/lib/features/gamification/`:
-
-### 7.1 Archipelago Map Screen (`archipelago_map_screen.dart`)
-- **Top Ocean Status Bar**:
-  - **Multi-Track Course Selector**: Tapping the language badge opens a modal to switch between German A1, English A1 (Hindi medium), and English A1 (Marathi medium) via `POST /api/gamification/switch-course`.
-  - **Parallel Course Switch & Shimmer Skeleton**: Switches courses with parallel background TTS pre-initialization, displaying an animated shimmer skeleton while switching to eliminate UI freezes.
-  - **Snap-Back Scroll Fix**: Preserves user scroll position across map updates.
-  - Oxygen Energy counter (`🫧 5/5`) with automatic time-based replenishment.
-  - Pearls virtual currency (`💎`) and streak flame counter (`🔥`).
-- **3D Sinusoidal Island Path**:
-  - Curved serpentine stepping stones oscillating across horizontal offsets.
-  - Interactive node states:
-    - **Completed**: Gold star badge (`⭐ 1–3`), glowing emerald ring.
-    - **Active**: Elevated vibrant circular button with animated pulsing halo and mascot icon.
-    - **Locked**: Subtly muted stone with lock padlock icon (`🔒`).
-    - **Bonus**: Sunken treasure chests and checkpoint lighthouses.
-- **High-Performance JIT Integration**:
-  - Map queries (`GET /api/gamification/path?section=1`) load lightweight metadata projections in 82ms (35 KB).
-  - Tapping a playable node triggers Just-In-Time on-demand lesson fetching (`GET /api/gamification/lesson/:id`), loading the full 8-stage interactive payload in <50ms without UI freezing.
-
-### 7.2 Multi-Stage Interactive Lesson Session (`lesson_session_screen.dart`)
-- **Full Suite of 8 Interactive Curriculum Stages**:
-  1. **Stage 1: Word Match (`word_match` / `match_pairs`)**: Dynamic vocabulary pairing separated into target and native columns. Tapping target words pronounces them via `TtsService`. Green success dissolution on correct match.
-  2. **Stage 2: Listen and Tap (`listen_tap`)**:
-     - Dedicated sentence audio engine streaming from `/api/notes/audio/db/:id` with zero-fail fallback to native `TtsService`.
-     - Tactile speaker button retaining permanent `volume_up_rounded` iconography, replaying full sentence from 0:00 on every tap.
-     - Animated dolphin mascot (`AnimatedDolphinMascot`) wearing headphones, pulsing to audio.
-     - Interactive assembly canvas with token bank.
-  3. **Stage 3: Sentence Builder (`sentence_builder`)**: English translation prompt card, scrambled token bank, and syntax validation. Picking tokens articulates words as they enter the tray.
-  4. **Stage 4: Sprechen Lip-Sync (`sprechen`)**:
-     - Auto-play teacher pronunciation demonstration after a 1-second delay upon entering stage.
-     - Real-time word illumination in speech bubble matching `karaokeData.words`.
-     - Target language speech recognition (`speech_to_text`) with continuous dictation mode.
-     - Complete sentence validation requiring strictly >75% accuracy.
-  5. **Stage 5: Cloze Test (`cloze_test`)**: Sentence gap comprehension with multiple-choice chips and instant audio playback.
-  6. **Stage 6: Type Word (`type_word`)**: Target word spelling drill with on-screen quick German Umlaut buttons (`ä`, `ö`, `ü`, `ß`).
-  7. **Stage 7: Dialogue Bubble (`dialogue_bubble`)**: Messenger chat exchange with Echo the Dolphin, audio replay, and answer reply chips.
-  8. **Stage 8: Listen & Select (`listen_select`)**: Audio comprehension MCQ card with normal (1.0x) and turtle slow (0.75x) speeds.
-- **Celebration & Rewards**:
-  - Mascot flip animation, XP and Pearls earned cards, audio chimes.
-  - Submits completion to `POST /api/gamification/complete-node`.
-- **Audio & Offline Robustness**:
-  - Mounted lifecycle guards (`if (!mounted) return;`) protect all audio listeners.
-  - Multi-language `TtsService`: German lady voice (`de-DE`) and British/US English voices with engine pre-warming and safe background pre-synthesis.
-  - Offline safety nets ensure fallback audio and default word bank data are always populated.
-- **Duolingo-Style Feedback Sheets (`DuoFeedbackSheet`)**:
-  - **Success**: Emerald green card (`#D7FFB8`) with checkmark and full-width green "CONTINUE →" button.
-  - **Correction**: Warm rose card (`#FFDFE0`) displaying correct translation with retry action.
+### 3.3 Google AdMob Monetization (`AdService`)
+- Production Ad Units:
+  - App Open: `ca-app-pub-6038618318911032/8348873402`
+  - Banner: `ca-app-pub-6038618318911032/6281729064`
+  - Interstitial: `ca-app-pub-6038618318911032/5691039801` (Triggered every 3 completed lessons)
+  - Rewarded Video: `ca-app-pub-6038618318911032/2144704383` (Awards +2 Oxygen Bubbles, max 6/day)
+- Fully aligned with backend `/api/gamification/claim-ad-reward` and crawler verification `/app-ads.txt`.

@@ -25,6 +25,7 @@ frontend/
 ├── tailwind.config.js                         # Design system tokens, color scales & keyframes
 ├── vite.config.js                             # Vite configuration (proxy & dist outDir)
 ├── public/                                    # Static assets served at root
+│   ├── app-ads.txt                            # Google AdMob crawler verification
 │   ├── favicon.svg                            # Application favicon
 │   └── audio/
 │       └── demo_german_story.mp3              # Demonstration audio for karaoke reader

@@ -496,3 +496,37 @@
       - Retry state: Rose drawer with explanation, error chime, and retry prompt.
     * **Victory Celebration Screen**:
       - Mascot celebration, earned XP, accuracy score percentage, pearls awarded, and progress submission to `/api/gamification/complete-node`.
+
+---
+
+## 10. CMS Pages, Dynamic SEO & Crawler Verification
+
+### 10.1 Admin CMS Page Manager (`/admin/pages`)
+* **Route:** `/admin/pages` (Admin role required)
+* **Structural Elements:**
+  * **Header**: "CMS Pages", page count badge, and "Create New Page" button routing to `/admin/pages/new`.
+  * **Pages Table**: Title, custom URL slug (`/:slug`), status badge (`Draft` vs `Published`), author name, last updated timestamp, and action buttons (Edit, Delete, View Live).
+
+### 10.2 CMS Page Editor (`/admin/pages/new` & `/admin/pages/:id/edit`)
+* **Route:** `/admin/pages/new` or `/admin/pages/:id/edit`
+* **Structural Elements:**
+  * **Page Meta**: Title input, automatic slug generator with manual override, status selector (`Draft`, `Published`).
+  * **SEO & Social Meta**: Meta Description text area, Meta Keywords, and Canonical URL.
+  * **Tiptap Content Canvas**: Rich text editor with formatting toolbar (headings, bold, italic, code blocks, lists, blockquotes, horizontal dividers).
+  * **Action Bar**: "Save Draft" and "Publish Page" buttons with toast notifications.
+
+### 10.3 Dynamic Public Page View (`PublicPageView.jsx`)
+* **Route:** `/:slug` (Catch-all for published CMS pages)
+* **Structural Elements:**
+  * Dynamic metadata injection (Page Title, OpenGraph tags, description).
+  * Rendered HTML body styled with modern prose typography.
+  * Author credit, publication date, and back navigation.
+
+### 10.4 Crawler Verification Endpoints
+* **Google AdMob Crawler Verification (`/app-ads.txt`)**:
+  - Serves Google publisher ID verification from `public/app-ads.txt` and Express route `/app-ads.txt`.
+* **Dynamic Search Engine Sitemap (`/sitemap.xml`)**:
+  - Real-time XML sitemap generated dynamically by the backend, incorporating all published CMS pages and active public routes.
+* **Robots Directives (`/robots.txt`)**:
+  - Directs Googlebot, Bingbot, and AI crawlers with proper allow/disallow paths and sitemap references.
+

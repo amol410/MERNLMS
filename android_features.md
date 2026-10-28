@@ -479,3 +479,32 @@
   * Gamification Economy stats: Current League tier, Longest Streak, Total XP, Total Pearls.
   * Quick links to Edit Profile, Change Password, and Settings.
   * Logout action clearing native session keystore.
+
+---
+
+## 16. Audio-Visual Enhancements, Speech Lifecycle & Monetization
+
+### 16.1 5-Phase Speech Lifecycle Runner
+* **State Progressions:**
+  1. `Idle`: Microphone off, resting state.
+  2. `Armed`: Microphone permission verified, 3-tier speech engine negotiated, 400ms acoustic settling delay.
+  3. `Listening`: Continuous audio capture with live RMS level audio stream.
+  4. `Processing`: Double-tap submission gating prevents repeat requests; Levenshtein & Soundex algorithms compute pronunciation score.
+  5. `Evaluated`: Pronunciation feedback rendered:
+     - On pass ($\ge 75\%$): Vibrantly triggers **Celebratory Confetti Shower** (`ConfettiWidget`) and pass fanfare.
+     - On retry: Gentle encouragement, retry chime, and word-level pass/miss scorecard.
+* **Animated Sound Wave Ripples**: Pulsating radial animated waves expand around the microphone button in response to real-time RMS microphone amplitude.
+
+### 16.2 Tactile Audio-Haptic Feedback & 3D Mechanics
+* **SoundEffectsService**: Real-time tactile haptic feedback synchronized with sound cues for word taps, pair matches, button clicks, and celebrations.
+* **3D MatchPairsWidget**: Interactive matching pairs with 3D elevation, depth shadows, and instantaneous lady/male TTS pronunciation on tile tap.
+* **Turtle Speed Audio (0.75x)**: High-clarity slow speech toggle across all sentence listening and vocabulary drills.
+
+### 16.3 Production Google AdMob Monetization Architecture
+* **Ad Types & Cadence:**
+  * **App Open Ad**: Shown on cold app launches when initialized.
+  * **Sticky Bottom Banner Ad**: Displayed non-intrusively in LMS catalogs and dashboard.
+  * **Interstitial Ad**: Full-screen graphic interstitial automatically presented every 3 completed lessons.
+  * **Rewarded Video Ad**: Optional rewarded ad granting +2 Oxygen Bubbles (capped at 6 claims/day), persisted directly to MySQL via `/api/gamification/claim-ad-reward`.
+* **Crawler Compliance**: Compliant with Google AdMob crawler verification via `https://dolphincoder.com/app-ads.txt`.
+

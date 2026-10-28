@@ -181,6 +181,15 @@ backend/
 │   ├── quizzes.js                # Quiz catalog, attempt submission, review & DOCX bulk import
 │   ├── subjects.js               # Taxonomy & subject category operations
 │   └── videos.js                 # Video resource endpoints
+├── scripts/
+│   └── benchmark_hostinger.js    # Automated network & live API latency benchmarking tool
+├── tests/
+│   ├── auth.test.js              # Auth & JWT integration tests
+│   ├── curriculum.test.js        # Curriculum hierarchy & JIT tests
+│   ├── gamification.test.js      # Streaks, oxygen & ad reward tests
+│   ├── hostinger_live.test.js    # Live VPS latency benchmark suite
+│   ├── lesson_mechanics.test.js  # Derangement & pronunciation scoring tests
+│   └── setup.js                  # Jest test environment & database isolation harness
 ├── utils/
 │   ├── curriculumSeeder.js       # Idempotent database migration & JSON curriculum auto-seeder
 │   ├── dateHelper.js             # Timezone offset math, UTC day bounds & ISO date normalizer
@@ -1240,6 +1249,34 @@ All frequent search patterns are backed by multi-column indexes:
 - Curriculum filtering: `['isLive', 'learningLanguage', 'nativeLanguage', 'level', 'unitNumber', 'lessonIndex']`.
 - User course progress: `['user_id', 'course_id', 'node_index']`.
 - Activity date lookups: `['userId', 'activityDate']`.
+
+---
+
+## 9. Automated Testing & Live Benchmarking Pipeline
+
+### 9.1 Jest & Supertest Test Harness (`backend/tests/`)
+The backend provides automated test coverage executing against an isolated test environment:
+```bash
+# Execute test suite in-band
+npm test
+```
+- **Harness Setup (`tests/setup.js`)**: Configures `NODE_ENV = 'test'`, initializes Sequelize database connection, handles test user fixtures, and performs clean teardowns between test suites.
+- **Authentication Suite (`tests/auth.test.js`)**: Tests user registration, password bcrypt hashing, duplicate email rejection, JWT generation, protected route authorization, and role-based access control.
+- **Curriculum Suite (`tests/curriculum.test.js`)**: Tests multi-language curriculum retrieval (`de_en_a1`, `en_hi_a1`), unit hierarchy, JIT lesson manifests, and stage parsing.
+- **Gamification Suite (`tests/gamification.test.js`)**: Tests oxygen bubble regeneration, daily streak state transitions, pearls economy, and database-persisted ad reward claims (`POST /api/gamification/claim-ad-reward`).
+- **Lesson Mechanics Suite (`tests/lesson_mechanics.test.js`)**: Tests Fisher-Yates derangement algorithms for matching pairs, pronunciation fuzzy scoring validation, and stage-specific constraints.
+
+### 9.2 Hostinger Live Latency Benchmark (`backend/scripts/benchmark_hostinger.js`)
+An automated network latency and API benchmarking tool measuring live server response times across all primary endpoints:
+```bash
+# Run live benchmark test suite
+npm run test:live
+
+# Execute benchmark script
+node scripts/benchmark_hostinger.js
+```
+- Evaluates DNS lookup, TCP connect, TLS handshake, time to first byte (TTFB), and content download times.
+- Reports detailed percentiles ($p50$, $p90$, $p99$), verifying that API latencies remain under the $<100\text{ms}$ threshold on Hostinger Cloud VPS infrastructure.
 
 ---
 
