@@ -7,7 +7,8 @@
         "start": "node server.js",
         "dev": "nodemon server.js",
         "seed": "node seedAdmin.js",
-        "test": "NODE_ENV=test jest --runInBand --forceExit"
+        "test": "NODE_ENV=test jest --runInBand --forceExit",
+        "test:live": "jest tests/hostinger_live.test.js --runInBand --forceExit --timeout 30000"
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
