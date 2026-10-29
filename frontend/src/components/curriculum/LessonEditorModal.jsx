@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import {
   X, Check, Plus, Trash2, Headphones, Mic, Sparkles, Layers,
   Volume2, Music, Link2, BookOpen, AlertCircle, Eye, EyeOff, Upload, Loader2, FileCode, Download,
-  MessageSquare, Type, HelpCircle, CheckCircle2, Radio
+  MessageSquare, Type, HelpCircle, CheckCircle2, Radio, Image as ImageIcon
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api/axios';
@@ -351,9 +351,10 @@ export default function LessonEditorModal({
     toast.success(`Sprechen template downloaded with ${promptWords.length || 6} words!`);
   };
 
-  // Modular Challenge Stage Toggles (All 9 interactive stage formats)
+  // Modular Challenge Stage Toggles (All 10 interactive stage formats)
   const [enableWordMatch, setEnableWordMatch] = useState(true);
   const [enableListenTap, setEnableListenTap] = useState(true);
+  const [enablePictureSelect, setEnablePictureSelect] = useState(false);
   const [enableClozeTest, setEnableClozeTest] = useState(false);
   const [enableSentenceBuilder, setEnableSentenceBuilder] = useState(true);
   const [enableTypeWord, setEnableTypeWord] = useState(false);
@@ -364,6 +365,46 @@ export default function LessonEditorModal({
 
   // Stage 1: Word Match Pairs
   const [wordPairs, setWordPairs] = useState([]);
+
+  // Stage: Picture Vocabulary Cards (WebP auto-compressed)
+  const [picturePrompt, setPicturePrompt] = useState('Choose the correct picture');
+  const [pictureTargetWord, setPictureTargetWord] = useState('');
+  const [pictureTranslation, setPictureTranslation] = useState('');
+  const [pictureOptions, setPictureOptions] = useState([
+    { id: 'opt_1', text: '', imageUrl: '', isCorrect: true, savingsInfo: '' },
+    { id: 'opt_2', text: '', imageUrl: '', isCorrect: false, savingsInfo: '' },
+    { id: 'opt_3', text: '', imageUrl: '', isCorrect: false, savingsInfo: '' },
+    { id: 'opt_4', text: '', imageUrl: '', isCorrect: false, savingsInfo: '' },
+  ]);
+  const [uploadingPictureIdx, setUploadingPictureIdx] = useState(null);
+
+  const handleUploadOptionImage = async (index, file) => {
+    if (!file) return;
+    setUploadingPictureIdx(index);
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      const res = await api.post('/curriculum/upload-image', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      if (res.data?.success && res.data.url) {
+        setPictureOptions(prev => {
+          const next = [...prev];
+          next[index] = {
+            ...next[index],
+            imageUrl: res.data.url,
+            savingsInfo: res.data.message || `WebP (${Math.round((res.data.compressedSizeBytes || 0) / 1024)} KB)`
+          };
+          return next;
+        });
+        toast.success(res.data.message || 'Image optimized to WebP!');
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to upload image');
+    } finally {
+      setUploadingPictureIdx(null);
+    }
+  };
 
   // Stage 2: Listen & Tap
   const [listenTarget, setListenTarget] = useState('');
@@ -491,6 +532,7 @@ export default function LessonEditorModal({
 
       const matchStage = stages.find(s => s.type === 'word_match' || s.type === 'match_pairs');
       const listenStage = stages.find(s => s.type === 'listen_tap');
+      const pictureStage = stages.find(s => s.type === 'picture_select' || s.type === 'picture_cards');
       const clozeStage = stages.find(s => s.type === 'cloze_test' || s.type === 'cloze');
       const builderStage = stages.find(s => s.type === 'sentence_builder');
       const typeStage = stages.find(s => s.type === 'type_word' || s.type === 'type_input');
@@ -556,6 +598,40 @@ export default function LessonEditorModal({
         setListenSentenceRange(null);
         setListenWordTimestamps(null);
         setListenTimestampsFileName('');
+      }
+
+      // Stage: Picture Vocabulary Cards
+      setEnablePictureSelect(Boolean(pictureStage));
+      if (pictureStage) {
+        setPicturePrompt(pictureStage.prompt || 'Choose the correct picture');
+        setPictureTargetWord(pictureStage.targetWord || pictureStage.target || '');
+        setPictureTranslation(pictureStage.translation || '');
+        if (Array.isArray(pictureStage.options) && pictureStage.options.length > 0) {
+          setPictureOptions(pictureStage.options.map((opt, i) => ({
+            id: opt.id || `opt_${i + 1}`,
+            text: opt.text || opt.word || '',
+            imageUrl: opt.imageUrl || opt.image || '',
+            isCorrect: Boolean(opt.isCorrect),
+            savingsInfo: '',
+          })));
+        } else {
+          setPictureOptions([
+            { id: 'opt_1', text: '', imageUrl: '', isCorrect: true, savingsInfo: '' },
+            { id: 'opt_2', text: '', imageUrl: '', isCorrect: false, savingsInfo: '' },
+            { id: 'opt_3', text: '', imageUrl: '', isCorrect: false, savingsInfo: '' },
+            { id: 'opt_4', text: '', imageUrl: '', isCorrect: false, savingsInfo: '' },
+          ]);
+        }
+      } else {
+        setPicturePrompt('Choose the correct picture');
+        setPictureTargetWord('');
+        setPictureTranslation('');
+        setPictureOptions([
+          { id: 'opt_1', text: '', imageUrl: '', isCorrect: true, savingsInfo: '' },
+          { id: 'opt_2', text: '', imageUrl: '', isCorrect: false, savingsInfo: '' },
+          { id: 'opt_3', text: '', imageUrl: '', isCorrect: false, savingsInfo: '' },
+          { id: 'opt_4', text: '', imageUrl: '', isCorrect: false, savingsInfo: '' },
+        ]);
       }
 
       // Stage 3: Cloze Test
@@ -923,6 +999,28 @@ export default function LessonEditorModal({
       });
     }
 
+    if (enablePictureSelect) {
+      const validOptions = pictureOptions
+        .filter(o => o.text.trim() || o.imageUrl.trim())
+        .map(o => ({
+          id: o.id,
+          text: o.text.trim(),
+          imageUrl: o.imageUrl.trim(),
+          isCorrect: Boolean(o.isCorrect),
+        }));
+
+      if (validOptions.length > 0) {
+        stages.push({
+          type: 'picture_select',
+          title: 'Picture Vocabulary Selection',
+          prompt: picturePrompt.trim() || 'Choose the correct picture',
+          targetWord: pictureTargetWord.trim(),
+          translation: pictureTranslation.trim(),
+          options: validOptions,
+        });
+      }
+    }
+
     if (enableClozeTest && clozePrompt.trim()) {
       const validOptions = clozeOptions.map(o => o.trim()).filter(Boolean);
       stages.push({
@@ -1039,6 +1137,7 @@ export default function LessonEditorModal({
     const managedTypes = new Set([
       'word_match', 'match_pairs',
       'listen_tap',
+      'picture_select', 'picture_cards',
       'cloze_test', 'cloze',
       'sentence_builder',
       'type_word', 'type_input',
@@ -1608,6 +1707,205 @@ export default function LessonEditorModal({
                       className="hidden"
                       onChange={handleListenTimestampsSelect}
                     />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Stage: Picture Vocabulary Cards (Visual Selection with WebP) */}
+            <div className={`p-4 rounded-2xl border transition-all ${
+              enablePictureSelect ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
+            }`}>
+              <div className="flex items-center justify-between mb-3">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={enablePictureSelect}
+                    onChange={e => setEnablePictureSelect(e.target.checked)}
+                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
+                  />
+                  <span className="font-bold text-white text-sm flex items-center gap-2">
+                    🖼️ Stage: Picture Vocabulary Cards (WebP Pipeline)
+                  </span>
+                </label>
+                {enablePictureSelect && (
+                  <span className="text-[10px] text-emerald-400 uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                    ⚡ Auto-Compressed WebP (&lt;20 KB)
+                  </span>
+                )}
+              </div>
+
+              {enablePictureSelect && (
+                <div className="space-y-4 mt-3">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div className="md:col-span-1">
+                      <label className="text-xs font-semibold text-gray-300 block mb-1">
+                        Challenge Prompt
+                      </label>
+                      <input
+                        type="text"
+                        value={picturePrompt}
+                        onChange={e => setPicturePrompt(e.target.value)}
+                        placeholder='e.g. Choose the correct picture'
+                        className="input-field text-xs py-2"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-semibold text-gray-300 block mb-1">
+                        Target Word ({currentLanguage.toUpperCase()})
+                      </label>
+                      <input
+                        type="text"
+                        value={pictureTargetWord}
+                        onChange={e => setPictureTargetWord(e.target.value)}
+                        placeholder='e.g. der Apfel'
+                        className="input-field text-xs py-2 font-medium text-cyan-300"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-semibold text-gray-300 block mb-1">
+                        English / Native Translation ({currentNative.toUpperCase()})
+                      </label>
+                      <input
+                        type="text"
+                        value={pictureTranslation}
+                        onChange={e => setPictureTranslation(e.target.value)}
+                        placeholder='e.g. The apple'
+                        className="input-field text-xs py-2"
+                      />
+                    </div>
+                  </div>
+
+                  {/* 4 Picture Option Cards Grid */}
+                  <div>
+                    <label className="text-xs font-semibold text-gray-300 block mb-2">
+                      Picture Option Cards (Choose 1 correct answer &amp; upload images)
+                    </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                      {pictureOptions.map((opt, idx) => (
+                        <div
+                          key={opt.id || idx}
+                          className={`p-3 rounded-xl border transition-all flex flex-col justify-between ${
+                            opt.isCorrect
+                              ? 'bg-emerald-500/10 border-emerald-500/40'
+                              : 'bg-black/30 border-white/10'
+                          }`}
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-[11px] font-bold text-gray-400">Card #{idx + 1}</span>
+                              <label className="flex items-center gap-1.5 cursor-pointer text-[11px] font-semibold text-emerald-400">
+                                <input
+                                  type="radio"
+                                  name="picture_correct_choice"
+                                  checked={Boolean(opt.isCorrect)}
+                                  onChange={() => {
+                                    setPictureOptions(prev => prev.map((o, i) => ({
+                                      ...o,
+                                      isCorrect: i === idx
+                                    })));
+                                  }}
+                                  className="text-emerald-500 focus:ring-emerald-400"
+                                />
+                                {opt.isCorrect ? 'Correct Answer' : 'Mark Correct'}
+                              </label>
+                            </div>
+
+                            {/* Image Preview / Upload Box */}
+                            <div className="mb-2">
+                              {opt.imageUrl ? (
+                                <div className="relative rounded-lg overflow-hidden border border-white/10 bg-black/40 h-28 flex items-center justify-center">
+                                  <img
+                                    src={opt.imageUrl}
+                                    alt={`Option ${idx + 1}`}
+                                    className="h-full w-full object-cover"
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setPictureOptions(prev => {
+                                        const next = [...prev];
+                                        next[idx] = { ...next[idx], imageUrl: '', savingsInfo: '' };
+                                        return next;
+                                      });
+                                    }}
+                                    className="absolute top-1 right-1 p-1 bg-black/70 hover:bg-red-500/80 text-white rounded-md transition-colors"
+                                    title="Remove image"
+                                  >
+                                    <Trash2 className="w-3 h-3" />
+                                  </button>
+                                </div>
+                              ) : (
+                                <label className="h-28 rounded-lg border-2 border-dashed border-white/15 hover:border-cyan-400/50 bg-white/[0.02] hover:bg-white/[0.04] flex flex-col items-center justify-center cursor-pointer transition-colors p-2 text-center group">
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    disabled={uploadingPictureIdx === idx}
+                                    onChange={e => {
+                                      const file = e.target.files?.[0];
+                                      if (file) handleUploadOptionImage(idx, file);
+                                    }}
+                                  />
+                                  {uploadingPictureIdx === idx ? (
+                                    <div className="flex flex-col items-center gap-1 text-cyan-400">
+                                      <Loader2 className="w-5 h-5 animate-spin" />
+                                      <span className="text-[10px]">Optimizing to WebP...</span>
+                                    </div>
+                                  ) : (
+                                    <>
+                                      <Upload className="w-5 h-5 text-gray-500 group-hover:text-cyan-400 mb-1" />
+                                      <span className="text-[11px] text-gray-300 font-medium">Upload Image</span>
+                                      <span className="text-[9px] text-gray-500">Auto-compressed to WebP</span>
+                                    </>
+                                  )}
+                                </label>
+                              )}
+                            </div>
+
+                            {opt.savingsInfo && (
+                              <div className="text-[10px] text-emerald-400 mb-2 truncate font-mono">
+                                {opt.savingsInfo}
+                              </div>
+                            )}
+
+                            {/* Word text */}
+                            <input
+                              type="text"
+                              value={opt.text}
+                              onChange={e => {
+                                const val = e.target.value;
+                                setPictureOptions(prev => {
+                                  const next = [...prev];
+                                  next[idx] = { ...next[idx], text: val };
+                                  return next;
+                                });
+                              }}
+                              placeholder="Word label (e.g. Apfel)"
+                              className="input-field text-xs py-1.5 w-full"
+                            />
+                          </div>
+
+                          {/* Image URL text fallback */}
+                          <div className="mt-2 pt-2 border-t border-white/5">
+                            <input
+                              type="text"
+                              value={opt.imageUrl}
+                              onChange={e => {
+                                const val = e.target.value;
+                                setPictureOptions(prev => {
+                                  const next = [...prev];
+                                  next[idx] = { ...next[idx], imageUrl: val };
+                                  return next;
+                                });
+                              }}
+                              placeholder="Or paste /uploads/... URL"
+                              className="input-field text-[10px] py-1 font-mono w-full bg-black/40 text-gray-400"
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}

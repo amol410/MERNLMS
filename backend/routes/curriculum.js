@@ -1,6 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const { protect, authorize } = require('../middleware/auth');
+
+// Multer in-memory storage for high-speed WebP Sharp compression
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB max upload size
+    fileFilter: (req, file, cb) => {
+        const allowed = /jpeg|jpg|png|webp|gif|svg/;
+        const mimetype = allowed.test(file.mimetype) || allowed.test(file.originalname);
+        if (mimetype) {
+            return cb(null, true);
+        }
+        cb(new Error('Only image files (JPG, PNG, WebP, GIF, SVG) are allowed'));
+    },
+});
+
 const {
     getLessons,
     getLessonById,
@@ -15,6 +31,7 @@ const {
     deleteUnit,
     seedDefaultUnit,
     seedEnglish,
+    uploadCurriculumImage,
 } = require('../controllers/curriculumController');
 
 // All curriculum endpoints require a valid user session
@@ -40,6 +57,9 @@ router.post('/units/headings', authorize('admin', 'trainer'), batchCreateHeading
 
 // Bulk upload (CSV or JSON)
 router.post('/bulk-upload', authorize('admin', 'trainer'), bulkUpload);
+
+// WebP image compression pipeline for Picture Vocabulary stages
+router.post('/upload-image', authorize('admin', 'trainer'), upload.single('image'), uploadCurriculumImage);
 
 // Initial seeding helpers
 router.post('/seed-default', authorize('admin', 'trainer'), seedDefaultUnit);

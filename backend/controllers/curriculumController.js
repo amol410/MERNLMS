@@ -1,6 +1,9 @@
 const CurriculumLesson = require('../models/CurriculumLesson');
 const Note = require('../models/Note');
 const { Op } = require('sequelize');
+const path = require('path');
+const fs = require('fs');
+const sharp = require('sharp');
 
 // Helper to determine if user has trainer or admin role
 const isStaff = (user) => user && (user.role === 'trainer' || user.role === 'admin');
@@ -684,6 +687,57 @@ exports.seedEnglish = async (req, res, next) => {
                 english_hindi_a1: countHindi,
                 english_marathi_a1: countMarathi,
             },
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// 12. Upload and optimize curriculum picture to WebP (400x400, 80% quality)
+exports.uploadCurriculumImage = async (req, res, next) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: 'Please provide an image file' });
+        }
+
+        const uploadDir = path.join(__dirname, '../uploads/curriculum');
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+
+        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+        const outputFilename = `curr-${uniqueSuffix}.webp`;
+        const outputPath = path.join(uploadDir, outputFilename);
+
+        const originalSize = req.file.buffer ? req.file.buffer.length : 0;
+        if (!req.file.buffer) {
+            return res.status(400).json({ success: false, message: 'Image data missing in upload' });
+        }
+
+        // Auto-orient, resize to 400x400 max, convert to WebP at 80% quality
+        const info = await sharp(req.file.buffer)
+            .rotate()
+            .resize(400, 400, { fit: 'inside', withoutEnlargement: true })
+            .webp({ quality: 80 })
+            .toFile(outputPath);
+
+        const compressedSize = info.size;
+        const savingsPct = originalSize > 0 
+            ? Math.round(((originalSize - compressedSize) / originalSize) * 100) 
+            : 0;
+
+        const publicUrl = `/uploads/curriculum/${outputFilename}`;
+
+        res.status(200).json({
+            success: true,
+            url: publicUrl,
+            format: 'webp',
+            width: info.width,
+            height: info.height,
+            originalSizeBytes: originalSize,
+            compressedSizeBytes: compressedSize,
+            savingsPct,
+            message: `Optimized to WebP (${Math.round(compressedSize / 1024)} KB, ${savingsPct}% saved)`,
         });
     } catch (error) {
         next(error);

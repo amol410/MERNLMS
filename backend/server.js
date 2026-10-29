@@ -57,6 +57,10 @@ const pagesUploadDir = path.join(__dirname, 'uploads/pages');
 if (!fs.existsSync(pagesUploadDir)) {
     fs.mkdirSync(pagesUploadDir, { recursive: true });
 }
+const curriculumUploadDir = path.join(__dirname, 'uploads/curriculum');
+if (!fs.existsSync(curriculumUploadDir)) {
+    fs.mkdirSync(curriculumUploadDir, { recursive: true });
+}
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const {

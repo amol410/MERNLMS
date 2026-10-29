@@ -191,4 +191,98 @@ describe('Lesson Interactive Mechanics & Audio Dictation Stages Backend API', ()
             expect(updateRes.status).toBe(403);
         });
     });
+
+    describe('Picture Vocabulary Cards & WebP Sharp Pipeline', () => {
+        it('compresses uploaded image to WebP (400x400 max, 80% quality)', async () => {
+            const { token: adminToken } = await createTestAdmin();
+            const sharp = require('sharp');
+
+            // Generate an in-memory 200x200 PNG test image
+            const testPngBuffer = await sharp({
+                create: {
+                    width: 200,
+                    height: 200,
+                    channels: 4,
+                    background: { r: 52, g: 152, b: 219, alpha: 1 }
+                }
+            }).png().toBuffer();
+
+            const res = await request(app)
+                .post('/api/curriculum/upload-image')
+                .set('Authorization', `Bearer ${adminToken}`)
+                .attach('image', testPngBuffer, 'test_card.png');
+
+            expect(res.status).toBe(200);
+            expect(res.body.success).toBe(true);
+            expect(res.body.format).toBe('webp');
+            expect(res.body.url).toMatch(/^\/uploads\/curriculum\/curr-.*\.webp$/);
+            expect(res.body.width).toBeLessThanOrEqual(400);
+            expect(res.body.height).toBeLessThanOrEqual(400);
+        });
+
+        it('rejects image upload without file with HTTP 400', async () => {
+            const { token: adminToken } = await createTestAdmin();
+
+            const res = await request(app)
+                .post('/api/curriculum/upload-image')
+                .set('Authorization', `Bearer ${adminToken}`);
+
+            expect(res.status).toBe(400);
+            expect(res.body.success).toBe(false);
+        });
+
+        it('students are blocked from uploading curriculum images with HTTP 403', async () => {
+            const { token: studentToken } = await createTestUser();
+
+            const res = await request(app)
+                .post('/api/curriculum/upload-image')
+                .set('Authorization', `Bearer ${studentToken}`);
+
+            expect(res.status).toBe(403);
+        });
+
+        it('persists picture_select visual vocabulary stage in curriculum lesson', async () => {
+            const { token: adminToken } = await createTestAdmin();
+
+            const pictureStage = {
+                type: 'picture_select',
+                prompt: 'Choose the correct picture for "der Apfel"',
+                targetWord: 'der Apfel',
+                translation: 'The apple',
+                options: [
+                    { id: 'opt_1', text: 'der Apfel', imageUrl: '/uploads/curriculum/apple.webp', isCorrect: true },
+                    { id: 'opt_2', text: 'die Banane', imageUrl: '/uploads/curriculum/banana.webp', isCorrect: false },
+                    { id: 'opt_3', text: 'das Brot', imageUrl: '/uploads/curriculum/bread.webp', isCorrect: false },
+                    { id: 'opt_4', text: 'der Kaffee', imageUrl: '/uploads/curriculum/coffee.webp', isCorrect: false }
+                ]
+            };
+
+            const res = await request(app)
+                .post('/api/curriculum/lessons')
+                .set('Authorization', `Bearer ${adminToken}`)
+                .send({
+                    title: 'Fruit Vocabulary Visual Cards',
+                    learningLanguage: 'de',
+                    nativeLanguage: 'en',
+                    stages: [pictureStage],
+                    isLive: true
+                });
+
+            expect(res.status).toBe(201);
+            const lessonId = res.body.lesson.id;
+
+            const { token: studentToken } = await createTestUser();
+            const fetchRes = await request(app)
+                .get(`/api/gamification/lesson/${lessonId}`)
+                .set('Authorization', `Bearer ${studentToken}`);
+
+            expect(fetchRes.status).toBe(200);
+            const stage = fetchRes.body.lesson.stages[0];
+            expect(stage.type).toBe('picture_select');
+            expect(stage.targetWord).toBe('der Apfel');
+            expect(stage.options).toHaveLength(4);
+            expect(stage.options[0].isCorrect).toBe(true);
+            expect(stage.options[0].imageUrl).toBe('/uploads/curriculum/apple.webp');
+        });
+    });
 });

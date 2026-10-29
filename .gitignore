@@ -17,3 +17,7 @@ __pycache__/
 *.apk
 *.apkm
 app/appit/
+backend/uploads/*
+!backend/uploads/audio/.gitkeep
+!backend/uploads/pages/.gitkeep
+!backend/uploads/curriculum/.gitkeep
