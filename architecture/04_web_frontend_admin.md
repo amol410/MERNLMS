@@ -693,7 +693,12 @@ The administrative command center for authoring structured language paths.
 
 ### 6.2 Multi-Stage Lesson Editor (`LessonEditorModal.jsx`)
 
-The lesson editor provides an authoring workspace for all 8 lesson stages.
+The lesson editor provides a modular authoring workspace for all 10 interactive challenge formats (`word_match`, `listen_tap`, `picture_select`, `cloze_test`, `sentence_builder`, `type_word`, `dialogue_bubble`, `listen_select`, `sprechen`, `karaoke`).
+
+#### Modular Opt-In & Blank Stage Exclusion
+- **Strict Opt-In Toggles**: Format toggles default to OFF (`false`) on lesson creation. Admins explicitly check the formats they want to include.
+- **Zero Blank Format Propagation**: When saving, `buildStageByKey` validates that each active format has genuine content (e.g. valid pairs $\ge 1$, target sentence non-empty, tokens non-empty). Formats that are disabled or left blank return `null` and are excluded from the saved `stages` array.
+- **Empty Lesson Guard**: Submitting a lesson without at least one valid, active challenge format is rejected with an explanatory notification toast, preventing empty or broken lessons from reaching production students.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐

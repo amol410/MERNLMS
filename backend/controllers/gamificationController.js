@@ -6,6 +6,7 @@ const Note = require('../models/Note');
 const Quiz = require('../models/Quiz');
 const CurriculumLesson = require('../models/CurriculumLesson');
 const { getTodayLocalYMD, getClientDate } = require('../utils/dateHelper');
+const { sanitizeLessonStages } = require('../utils/stageSanitizer');
 
 // 1. Get current user gamification economy status (with oxygen auto-refill)
 exports.getStatus = async (req, res, next) => {
@@ -697,7 +698,7 @@ exports.getLessonDetails = async (req, res, next) => {
                 nodeType: lesson.nodeType,
                 xpReward: lesson.xpReward,
                 pearlsReward: lesson.pearlsReward,
-                stages: lesson.stages,
+                stages: sanitizeLessonStages(lesson.stages),
                 karaokeData: lesson.karaokeData,
                 audioUrl: lesson.audioUrl,
                 sourceNoteId: lesson.sourceNoteId,

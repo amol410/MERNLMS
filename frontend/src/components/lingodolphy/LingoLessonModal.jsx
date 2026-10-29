@@ -344,9 +344,23 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
       try {
         setLoading(true);
         const res = await api.get(`/gamification/lesson/${node.id || node.sourceId}`);
-        if (isMounted && res.data?.lesson?.stages?.length > 0) {
-          setStages(res.data.lesson.stages);
-          initStage(res.data.lesson.stages[0]);
+        const rawStages = res.data?.lesson?.stages;
+        const validStages = Array.isArray(rawStages) ? rawStages.filter(s => {
+          if (!s || !s.type) return false;
+          if (s.type === 'word_match' || s.type === 'match_pairs') return Array.isArray(s.pairs) && s.pairs.length > 0;
+          if (s.type === 'listen_tap') return Boolean(s.targetSentence?.trim() || (Array.isArray(s.tokens) && s.tokens.length > 0));
+          if (s.type === 'sentence_builder') return Boolean(s.targetSentence?.trim() || (Array.isArray(s.tokens) && s.tokens.length > 0));
+          if (s.type === 'cloze_test' || s.type === 'cloze') return Boolean((s.sentence || s.prompt)?.trim());
+          if (s.type === 'type_word' || s.type === 'type_input') return Boolean((s.target || s.word || s.prompt)?.trim());
+          if (s.type === 'dialogue_bubble' || s.type === 'dialogue') return Boolean((s.partnerMessage || s.message || s.prompt)?.trim());
+          if (s.type === 'listen_select' || s.type === 'listen_comprehension') return Boolean((s.sentence || s.spokenGerman || s.question || s.prompt)?.trim());
+          if (s.type === 'sprechen') return Boolean(s.prompt?.trim());
+          return true;
+        }) : [];
+
+        if (isMounted && validStages.length > 0) {
+          setStages(validStages);
+          initStage(validStages[0]);
           setLoading(false);
           return;
         }

@@ -419,16 +419,16 @@ export default function LessonEditorModal({
     },
   };
 
-  // Modular Challenge Stage Toggles (All 10 interactive stage formats)
-  const [enableWordMatch, setEnableWordMatch] = useState(true);
-  const [enableListenTap, setEnableListenTap] = useState(true);
+  // Modular Challenge Stage Toggles (All 10 interactive stage formats - Strictly Opt-In)
+  const [enableWordMatch, setEnableWordMatch] = useState(false);
+  const [enableListenTap, setEnableListenTap] = useState(false);
   const [enablePictureSelect, setEnablePictureSelect] = useState(false);
   const [enableClozeTest, setEnableClozeTest] = useState(false);
-  const [enableSentenceBuilder, setEnableSentenceBuilder] = useState(true);
+  const [enableSentenceBuilder, setEnableSentenceBuilder] = useState(false);
   const [enableTypeWord, setEnableTypeWord] = useState(false);
   const [enableDialogueBubble, setEnableDialogueBubble] = useState(false);
   const [enableListenSelect, setEnableListenSelect] = useState(false);
-  const [enableSprechen, setEnableSprechen] = useState(true);
+  const [enableSprechen, setEnableSprechen] = useState(false);
   const [enableKaraoke, setEnableKaraoke] = useState(false);
 
   // Dynamic Challenge Solving Sequence (Controlled Reordering)
@@ -978,19 +978,19 @@ export default function LessonEditorModal({
       setKaraokeJsonData(null);
       setKaraokeJsonFileName('');
 
-      setEnableWordMatch(true);
+      setEnableWordMatch(false);
       setWordPairs([]);
 
-      setEnableListenTap(true);
+      setEnableListenTap(false);
       setListenTarget('');
       setListenDistractors('');
 
-      setEnableSentenceBuilder(true);
+      setEnableSentenceBuilder(false);
       setBuilderPrompt('');
       setBuilderTarget('');
       setBuilderDistractors('');
 
-      setEnableSprechen(true);
+      setEnableSprechen(false);
       setSprechenPrompt('');
       setSprechenTranslation('');
       setSprechenAccuracy(75);
@@ -1171,7 +1171,7 @@ export default function LessonEditorModal({
         }
 
         case 'cloze_test': {
-          if (!enableClozeTest || !clozePrompt.trim()) return null;
+          if (!enableClozeTest || !clozePrompt.trim() || !clozeBlank.trim()) return null;
           const validOptions = clozeOptions.map(o => o.trim()).filter(Boolean);
           return {
             type: 'cloze_test',
@@ -1229,6 +1229,7 @@ export default function LessonEditorModal({
         case 'dialogue_bubble': {
           if (!enableDialogueBubble || !dialoguePartnerMessage.trim()) return null;
           const validDialogueOpts = dialogueOptions.filter(o => o.text && o.text.trim());
+          if (validDialogueOpts.length === 0) return null;
           const correctChoice = validDialogueOpts.find(o => o.isCorrect)?.text || validDialogueOpts[0]?.text || '';
           return {
             type: 'dialogue_bubble',
@@ -1246,8 +1247,9 @@ export default function LessonEditorModal({
         }
 
         case 'listen_select': {
-          if (!enableListenSelect || !listenSelectSentence.trim()) return null;
+          if (!enableListenSelect || (!listenSelectSentence.trim() && !listenSelectQuestion.trim())) return null;
           const validSelectOpts = listenSelectOptions.filter(o => o.text && o.text.trim());
+          if (validSelectOpts.length === 0) return null;
           const correctSelectChoice = validSelectOpts.find(o => o.isCorrect)?.text || validSelectOpts[0]?.text || '';
           return {
             type: 'listen_select',
@@ -1278,7 +1280,7 @@ export default function LessonEditorModal({
         }
 
         case 'karaoke': {
-          if (!enableKaraoke) return null;
+          if (!enableKaraoke || (!karaokeStory.trim() && !karaokeJsonData)) return null;
           return {
             type: 'karaoke',
             title: 'Karaoke Synced Rhythm',
@@ -1319,6 +1321,12 @@ export default function LessonEditorModal({
     const existingStages = Array.isArray(initialData?.stages) ? initialData.stages : [];
     const otherStages = existingStages.filter(s => !managedTypes.has(s.type));
     stages.push(...otherStages);
+
+    if (stages.length === 0) {
+      toast.error('Please enable and configure at least one active challenge format for this lesson.');
+      setLoading(false);
+      return;
+    }
 
     const payload = {
       learningLanguage: currentLanguage,

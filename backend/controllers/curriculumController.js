@@ -4,6 +4,7 @@ const { Op } = require('sequelize');
 const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
+const { sanitizeLessonStages } = require('../utils/stageSanitizer');
 
 // Helper to determine if user has trainer or admin role
 const isStaff = (user) => user && (user.role === 'trainer' || user.role === 'admin');
@@ -82,7 +83,10 @@ exports.getLessonById = async (req, res, next) => {
             return res.status(403).json({ success: false, message: 'This lesson is currently in draft mode' });
         }
 
-        res.json({ success: true, lesson });
+        const lessonData = lesson.toJSON ? lesson.toJSON() : { ...lesson };
+        lessonData.stages = sanitizeLessonStages(lessonData.stages);
+
+        res.json({ success: true, lesson: lessonData });
     } catch (error) {
         next(error);
     }
@@ -125,6 +129,8 @@ exports.createLesson = async (req, res, next) => {
             targetIndex = maxLesson ? maxLesson.lessonIndex + 1 : 0;
         }
 
+        const cleanStages = sanitizeLessonStages(stages);
+
         const lesson = await CurriculumLesson.create({
             owner: req.user.id,
             learningLanguage,
@@ -140,7 +146,7 @@ exports.createLesson = async (req, res, next) => {
             xpReward,
             pearlsReward,
             isLive: Boolean(isLive), // Default false
-            stages,
+            stages: cleanStages,
             karaokeData,
             audioUrl,
             sourceNoteId,
@@ -173,7 +179,11 @@ exports.updateLesson = async (req, res, next) => {
 
         fields.forEach(field => {
             if (req.body[field] !== undefined) {
-                lesson[field] = req.body[field];
+                if (field === 'stages') {
+                    lesson.stages = sanitizeLessonStages(req.body.stages);
+                } else {
+                    lesson[field] = req.body[field];
+                }
             }
         });
 

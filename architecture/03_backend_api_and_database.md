@@ -194,7 +194,8 @@ backend/
 │   ├── curriculumSeeder.js       # Idempotent database migration & JSON curriculum auto-seeder
 │   ├── dateHelper.js             # Timezone offset math, UTC day bounds & ISO date normalizer
 │   ├── extractYouTubeId.js       # Robust regex parsing for standard/shortened YouTube URLs
-│   └── seoHelper.js              # XML sitemap generator, robots.txt, JSON-LD builder & IndexNow HTTP ping
+│   ├── seoHelper.js              # XML sitemap generator, robots.txt, JSON-LD builder & IndexNow HTTP ping
+│   └── stageSanitizer.js         # Modular challenge sanitizer: drops blank/incomplete stage formats
 ├── .env                          # Local/Production environment variables
 ├── .env.example                  # Environment variable blueprint template
 ├── ecosystem.config.js           # Production PM2 cluster process management specification

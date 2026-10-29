@@ -581,8 +581,16 @@ The lesson session runner is the most complex component in the mobile app, spann
              Fetch JIT Manifest / Load Cache
                           │
                           ▼
+            Strict Stage Parser & Sanitizer
+   (Skips blank / unclicked / incomplete formats)
+                          │
+                          ▼
             Sequence Active Stage Types Array
      ['_activeStageTypes' = [match, listen_tap, ...]]
+                          │
+                          ▼
+      Targeted TTS Pre-caching (_precacheAllVocab)
+    (Synthesizes only active formats, 75% load drop)
                           │
         ┌─────────────────┴─────────────────┐
         ▼                                   ▼
