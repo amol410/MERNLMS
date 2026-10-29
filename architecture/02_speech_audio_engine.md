@@ -261,11 +261,11 @@ To prevent silent recognition timeouts on diverse Android OEM skins (MIUI, Color
 
 ```mermaid
 graph TD
-    Start([Speech Engine Resolution]) --> Tier1{Check Tier 1:<br/>Google QuickSearchBox?}
-    Tier1 -->|Available| SelectT1["Select com.google.android.googlequicksearchbox<br/>(tier1_google)"]
+    Start([Speech Engine Resolution]) --> Tier1{Check Tier 1:<br/>Google Speech Services / QuickSearchBox?}
+    Tier1 -->|Available| SelectT1["Select com.google.android.tts / QuickSearchBox<br/>(tier1_google)"]
     Tier1 -->|Not Found / Blocked| QueryOEM[Query pm.queryIntentServices<br/>ACTION_RECOGNITION_SERVICE]
     
-    QueryOEM --> Tier2{Check Tier 2:<br/>OEM ASR Available?}
+    QueryOEM --> Tier2{Check Tier 2:<br/>OEM ASR Available?<br/>(Skip ambient com.google.android.as)}
     Tier2 -->|Found| SelectT2["Select OEM RecognitionService<br/>(tier2_oem)"]
     Tier2 -->|None Found| Tier3{Check Tier 3:<br/>Default Platform ASR?}
     
@@ -278,8 +278,8 @@ graph TD
     Inject --> Done([ASR Ready for Flutter])
 ```
 
-1. **Tier 1 (Google Voice Search ASR)**: Explicitly tests `com.google.android.googlequicksearchbox`. If installed and active, binds directly to Google ASR, bypassing TTS traps.
-2. **Tier 2 (OEM System Service)**: If Google QuickSearchBox is missing, queries Android Package Manager for all registered `RecognitionService` implementations, excluding known TTS spoofers.
+1. **Tier 1 (Google Speech Services ASR)**: Prioritizes `com.google.android.tts` (unified Google Speech Services providing offline multilingual models for German, English, etc.) and `com.google.android.googlequicksearchbox`. Excludes ambient recognizer `com.google.android.as` (Android System Intelligence / Soda) which lacks offline packs for non-English locales.
+2. **Tier 2 (OEM System Service)**: If Tier 1 Google engines are missing, queries Android Package Manager for registered OEM `RecognitionService` implementations, safely skipping `com.google.android.as`.
 3. **Tier 3 (Generic Platform Recognizer)**: Falls back to `SpeechRecognizer.createSpeechRecognizer(this)`.
 4. **Reflective Injection**: Once resolved, `injectOptimalRecognizerIntoPlugin()` injects the selected `SpeechRecognizer` directly into `SpeechToTextPlugin.speechRecognizer`, eliminating plugin instantiation ambiguity.
 
