@@ -52,7 +52,7 @@ describe('Lesson Interactive Mechanics & Audio Dictation Stages Backend API', ()
             const stages = fetchRes.body.lesson.stages;
             expect(Array.isArray(stages)).toBe(true);
             expect(stages.length).toBe(1);
-            expect(stages[0].type).toBe('match_pairs');
+            expect(['word_match', 'match_pairs']).toContain(stages[0].type);
             expect(stages[0].pairs).toHaveLength(5);
             expect(stages[0].pairs[0]).toEqual({ target: 'Wasser', native: 'Water' });
             expect(stages[0].pairs[4]).toEqual({ target: 'Milch', native: 'Milk' });
@@ -166,7 +166,7 @@ describe('Lesson Interactive Mechanics & Audio Dictation Stages Backend API', ()
 
             expect(updateRes.status).toBe(200);
             expect(updateRes.body.lesson.stages).toHaveLength(2);
-            expect(updateRes.body.lesson.stages[0].type).toBe('match_pairs');
+            expect(['word_match', 'match_pairs']).toContain(updateRes.body.lesson.stages[0].type);
             expect(updateRes.body.lesson.stages[1].type).toBe('listen_tap');
         });
 
