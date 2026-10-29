@@ -226,23 +226,7 @@ exports.getPath = async (req, res, next) => {
             progressMap[p.nodeIndex] = p;
         });
 
-        // Fetch latest published Karaoke Note and Quiz to bind real content
-        const sampleNote = await Note.findOne({
-            where: { contentType: 'karaoke' },
-            order: [['createdAt', 'DESC']],
-        });
-        const sampleQuiz = await Quiz.findOne({
-            order: [['createdAt', 'DESC']],
-        });
-
-        // Localized Fallback Nodes for this language
-        const defaultNodes = getDefaultNodesForCourse(
-            targetLang,
-            sampleNote ? sampleNote.id : null,
-            sampleQuiz ? sampleQuiz.id : null
-        );
-
-        // Section & Unit pagination support
+        // Section & Unit pagination support (with windowing lookahead)
         const whereClause = {
             isLive: true,
             learningLanguage: targetLang,
@@ -252,12 +236,17 @@ exports.getPath = async (req, res, next) => {
 
         const section = req.query.section ? parseInt(req.query.section) : null;
         const unit = req.query.unit ? parseInt(req.query.unit) : null;
-        if (unit) {
+        const startUnit = req.query.startUnit ? parseInt(req.query.startUnit) : null;
+        const endUnit = req.query.endUnit ? parseInt(req.query.endUnit) : null;
+
+        if (startUnit && endUnit) {
+            whereClause.unitNumber = { [Op.between]: [startUnit, endUnit] };
+        } else if (unit) {
             whereClause.unitNumber = unit;
         } else if (section) {
-            const startUnit = (section - 1) * 35 + 1;
-            const endUnit = section * 35;
-            whereClause.unitNumber = { [Op.between]: [startUnit, endUnit] };
+            const secStartUnit = (section - 1) * 35 + 1;
+            const secEndUnit = section * 35;
+            whereClause.unitNumber = { [Op.between]: [secStartUnit, secEndUnit] };
         }
 
         // Fetch live published lessons created by admin/trainers for this language/level
@@ -289,7 +278,7 @@ exports.getPath = async (req, res, next) => {
 
         const unitColors = ['#1CB0F6', '#58CC02', '#FF9600', '#CE82FF', '#FF4B4B', '#00CD9C', '#FFC800'];
 
-        let targetNodesList = defaultNodes;
+        let targetNodesList = [];
         if (liveCurriculum && liveCurriculum.length > 0) {
             targetNodesList = liveCurriculum.map((l, idx) => {
                 const uNum = l.unitNumber || 1;
@@ -320,6 +309,21 @@ exports.getPath = async (req, res, next) => {
                     offset: zigzagOffsets[idx % zigzagOffsets.length],
                 };
             });
+        } else {
+            // Slipstream Optimization: Ghost queries pruned!
+            // Only query sampleNote & sampleQuiz if no live curriculum lessons are present.
+            const sampleNote = await Note.findOne({
+                where: { contentType: 'karaoke' },
+                order: [['createdAt', 'DESC']],
+            });
+            const sampleQuiz = await Quiz.findOne({
+                order: [['createdAt', 'DESC']],
+            });
+            targetNodesList = getDefaultNodesForCourse(
+                targetLang,
+                sampleNote ? sampleNote.id : null,
+                sampleQuiz ? sampleQuiz.id : null
+            );
         }
 
         // Enrich nodes with user completion status

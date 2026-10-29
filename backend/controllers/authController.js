@@ -43,7 +43,7 @@ exports.login = async (req, res, next) => {
     }
 
     user.lastLogin = new Date();
-    await user.save();
+    user.save().catch(err => console.error('⚠️ [AuthController] lastLogin async save error:', err.message));
 
     sendToken(user, 200, res);
   } catch (error) {

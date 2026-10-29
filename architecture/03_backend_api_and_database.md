@@ -329,6 +329,7 @@ Stores modular curriculum units, lesson nodes, exercise challenge sequences, and
 | `updatedAt` | `DataTypes.DATE` | `DATETIME` | `allowNull: false` | Record update timestamp |
 
 **Indexes on `CurriculumLessons`:**
+- Project Slipstream Compound B-Tree Index: `['learningLanguage', 'nativeLanguage', 'level', 'isLive', 'unitNumber']` (Direct index seek for windowed path queries)
 - Composite Index: `['isLive', 'learningLanguage', 'nativeLanguage', 'level', 'unitNumber', 'lessonIndex']`
 - Composite Index: `['learningLanguage', 'nativeLanguage', 'level', 'unitNumber']`
 - Single Indexes: `['isLive']`, `['owner']`
