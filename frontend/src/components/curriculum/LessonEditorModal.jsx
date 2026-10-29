@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import {
   X, Check, Plus, Trash2, Headphones, Mic, Sparkles, Layers,
   Volume2, Music, Link2, BookOpen, AlertCircle, Eye, EyeOff, Upload, Loader2, FileCode, Download,
-  MessageSquare, Type, HelpCircle, CheckCircle2, Radio, Image as ImageIcon
+  MessageSquare, Type, HelpCircle, CheckCircle2, Radio, Image as ImageIcon,
+  ArrowUp, ArrowDown, ArrowRight
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api/axios';
@@ -351,6 +352,73 @@ export default function LessonEditorModal({
     toast.success(`Sprechen template downloaded with ${promptWords.length || 6} words!`);
   };
 
+  // Default stage sequence and metadata
+  const ALL_STAGE_KEYS = [
+    'word_match',
+    'listen_tap',
+    'picture_select',
+    'cloze_test',
+    'sentence_builder',
+    'type_word',
+    'dialogue_bubble',
+    'listen_select',
+    'sprechen',
+    'karaoke',
+  ];
+
+  const STAGE_META = {
+    word_match: {
+      label: 'Match the Word Pairs',
+      icon: '🧩',
+      color: 'from-amber-500/20 to-orange-500/20 text-amber-300 border-amber-500/30',
+    },
+    listen_tap: {
+      label: 'Listen & Tap (Echo)',
+      icon: '🎧',
+      color: 'from-purple-500/20 to-indigo-500/20 text-purple-300 border-purple-500/30',
+    },
+    picture_select: {
+      label: 'Picture Vocabulary Cards',
+      icon: '🖼️',
+      color: 'from-pink-500/20 to-rose-500/20 text-pink-300 border-pink-500/30',
+    },
+    cloze_test: {
+      label: 'Fill-in-the-Blank (Cloze)',
+      icon: '📝',
+      color: 'from-blue-500/20 to-cyan-500/20 text-blue-300 border-blue-500/30',
+    },
+    sentence_builder: {
+      label: 'Sentence Builder',
+      icon: '✍️',
+      color: 'from-emerald-500/20 to-teal-500/20 text-emerald-300 border-emerald-500/30',
+    },
+    type_word: {
+      label: 'Spelling Entry',
+      icon: '⌨️',
+      color: 'from-violet-500/20 to-fuchsia-500/20 text-violet-300 border-violet-500/30',
+    },
+    dialogue_bubble: {
+      label: 'Dialogue Messenger',
+      icon: '💬',
+      color: 'from-cyan-500/20 to-sky-500/20 text-cyan-300 border-cyan-500/30',
+    },
+    listen_select: {
+      label: 'Listen & Select MCQ',
+      icon: '🔊',
+      color: 'from-yellow-500/20 to-amber-500/20 text-yellow-300 border-yellow-500/30',
+    },
+    sprechen: {
+      label: 'Sprechen Voice & Lip-Sync',
+      icon: '🎙️',
+      color: 'from-red-500/20 to-rose-500/20 text-red-300 border-red-500/30',
+    },
+    karaoke: {
+      label: 'Karaoke Synced Story',
+      icon: '🎵',
+      color: 'from-indigo-500/20 to-blue-500/20 text-indigo-300 border-indigo-500/30',
+    },
+  };
+
   // Modular Challenge Stage Toggles (All 10 interactive stage formats)
   const [enableWordMatch, setEnableWordMatch] = useState(true);
   const [enableListenTap, setEnableListenTap] = useState(true);
@@ -362,6 +430,49 @@ export default function LessonEditorModal({
   const [enableListenSelect, setEnableListenSelect] = useState(false);
   const [enableSprechen, setEnableSprechen] = useState(true);
   const [enableKaraoke, setEnableKaraoke] = useState(false);
+
+  // Dynamic Challenge Solving Sequence (Controlled Reordering)
+  const [stageOrder, setStageOrder] = useState([...ALL_STAGE_KEYS]);
+
+  const moveStageUp = (stageKey) => {
+    setStageOrder(prev => {
+      const idx = prev.indexOf(stageKey);
+      if (idx <= 0) return prev;
+      const next = [...prev];
+      const temp = next[idx - 1];
+      next[idx - 1] = next[idx];
+      next[idx] = temp;
+      return next;
+    });
+  };
+
+  const moveStageDown = (stageKey) => {
+    setStageOrder(prev => {
+      const idx = prev.indexOf(stageKey);
+      if (idx === -1 || idx >= prev.length - 1) return prev;
+      const next = [...prev];
+      const temp = next[idx + 1];
+      next[idx + 1] = next[idx];
+      next[idx] = temp;
+      return next;
+    });
+  };
+
+  // Enabled stage mapping & active learner sequence
+  const stageEnabledMap = {
+    word_match: enableWordMatch,
+    listen_tap: enableListenTap,
+    picture_select: enablePictureSelect,
+    cloze_test: enableClozeTest,
+    sentence_builder: enableSentenceBuilder,
+    type_word: enableTypeWord,
+    dialogue_bubble: enableDialogueBubble,
+    listen_select: enableListenSelect,
+    sprechen: enableSprechen,
+    karaoke: enableKaraoke,
+  };
+
+  const activeStages = stageOrder.filter(key => stageEnabledMap[key]);
 
   // Stage 1: Word Match Pairs
   const [wordPairs, setWordPairs] = useState([]);
@@ -540,6 +651,40 @@ export default function LessonEditorModal({
       const listenSelectStage = stages.find(s => s.type === 'listen_select' || s.type === 'listen_comprehension');
       const sprechenStage = stages.find(s => s.type === 'sprechen');
       const karaokeStage = stages.find(s => s.type === 'karaoke');
+
+      // Detect and preserve custom stage solving order from saved stages
+      const stageTypeMap = {
+        'match_pairs': 'word_match',
+        'word_match': 'word_match',
+        'listen_tap': 'listen_tap',
+        'picture_select': 'picture_select',
+        'picture_cards': 'picture_select',
+        'cloze_test': 'cloze_test',
+        'cloze': 'cloze_test',
+        'sentence_builder': 'sentence_builder',
+        'type_word': 'type_word',
+        'type_input': 'type_word',
+        'dialogue_bubble': 'dialogue_bubble',
+        'dialogue': 'dialogue_bubble',
+        'listen_select': 'listen_select',
+        'listen_comprehension': 'listen_select',
+        'sprechen': 'sprechen',
+        'karaoke': 'karaoke',
+      };
+
+      const detectedOrder = [];
+      stages.forEach(s => {
+        const normKey = stageTypeMap[s.type];
+        if (normKey && !detectedOrder.includes(normKey)) {
+          detectedOrder.push(normKey);
+        }
+      });
+      ALL_STAGE_KEYS.forEach(key => {
+        if (!detectedOrder.includes(key)) {
+          detectedOrder.push(key);
+        }
+      });
+      setStageOrder(detectedOrder);
 
       // Stage 1: Word Match
       setEnableWordMatch(Boolean(matchStage));
@@ -888,6 +1033,9 @@ export default function LessonEditorModal({
       setEnableKaraoke(false);
       setKaraokeStory('');
       setKaraokeTranslation('');
+
+      // Reset stage sequence order to default
+      setStageOrder([...ALL_STAGE_KEYS]);
     }
   }, [isOpen, initialData]);
 
@@ -962,176 +1110,198 @@ export default function LessonEditorModal({
 
     setLoading(true);
 
-    // Assemble modular stages based on toggles
+    // Stage builder dictionary for assembling modular stages in chosen sequence
+    const buildStageByKey = (key) => {
+      switch (key) {
+        case 'word_match': {
+          if (!enableWordMatch) return null;
+          const validPairs = wordPairs.filter(p => p.target.trim() && p.native.trim());
+          if (validPairs.length === 0) return null;
+          return {
+            type: 'word_match',
+            title: 'Match the word pairs',
+            pairs: validPairs,
+          };
+        }
+
+        case 'listen_tap': {
+          if (!enableListenTap || !listenTarget.trim()) return null;
+          const targetTokens = listenTarget
+            .replace(/[.,/#!$%^&*;:{}=\-_'~`()?"'«»]/g, '')
+            .split(/\s+/)
+            .filter(Boolean);
+          const extraTokens = listenDistractors
+            .split(/[,;\s]+/)
+            .map(s => s.trim())
+            .filter(Boolean);
+          const allTokens = [...targetTokens, ...extraTokens];
+
+          return {
+            type: 'listen_tap',
+            title: 'Listen and tap what you hear',
+            targetSentence: listenTarget.trim(),
+            tokens: allTokens,
+            audioUrl: listenAudioUrl.trim() || null,
+            wordsAudioUrl: listenWordsAudioUrl.trim() || null,
+            sentenceRange: listenSentenceRange || null,
+            wordTimestamps: listenWordTimestamps || null,
+          };
+        }
+
+        case 'picture_select': {
+          if (!enablePictureSelect) return null;
+          const validOptions = pictureOptions
+            .filter(o => o.text.trim() || o.imageUrl.trim())
+            .map(o => ({
+              id: o.id,
+              text: o.text.trim(),
+              imageUrl: o.imageUrl.trim(),
+              isCorrect: Boolean(o.isCorrect),
+            }));
+
+          if (validOptions.length === 0) return null;
+          return {
+            type: 'picture_select',
+            title: 'Picture Vocabulary Selection',
+            prompt: picturePrompt.trim() || 'Choose the correct picture',
+            targetWord: pictureTargetWord.trim(),
+            translation: pictureTranslation.trim(),
+            options: validOptions,
+          };
+        }
+
+        case 'cloze_test': {
+          if (!enableClozeTest || !clozePrompt.trim()) return null;
+          const validOptions = clozeOptions.map(o => o.trim()).filter(Boolean);
+          return {
+            type: 'cloze_test',
+            title: 'Fill in the blank',
+            prompt: clozePrompt.trim(),
+            sentence: clozePrompt.trim(),
+            translation: clozeTranslation.trim(),
+            blank: clozeBlank.trim(),
+            target: clozeBlank.trim(),
+            correctOption: clozeBlank.trim(),
+            correctAnswer: clozeBlank.trim(),
+            options: validOptions.length > 0 ? validOptions : [clozeBlank.trim()],
+            audioUrl: clozeAudioUrl.trim() || null,
+          };
+        }
+
+        case 'sentence_builder': {
+          if (!enableSentenceBuilder || !builderTarget.trim()) return null;
+          const targetTokens = builderTarget
+            .replace(/[.,/#!$%^&*;:{}=\-_'~`()?"'«»]/g, '')
+            .split(/\s+/)
+            .filter(Boolean);
+          const extraTokens = builderDistractors
+            .split(/[,;\s]+/)
+            .map(s => s.trim())
+            .filter(Boolean);
+          const allTokens = [...targetTokens, ...extraTokens];
+
+          return {
+            type: 'sentence_builder',
+            title: 'Construct the German sentence',
+            prompt: `Translate: "${builderPrompt.trim()}"`,
+            targetSentence: builderTarget.trim(),
+            tokens: allTokens,
+          };
+        }
+
+        case 'type_word': {
+          if (!enableTypeWord || (!typeTarget.trim() && !typePrompt.trim())) return null;
+          return {
+            type: 'type_word',
+            title: 'Type in German',
+            prompt: typePrompt.trim(),
+            target: typeTarget.trim(),
+            targetWord: typeTarget.trim(),
+            word: typeTarget.trim(),
+            correctAnswer: typeTarget.trim(),
+            translation: typeTranslation.trim(),
+            nativeMeaning: typeTranslation.trim(),
+            hint: typeHint.trim() || null,
+            audioUrl: typeAudioUrl.trim() || null,
+          };
+        }
+
+        case 'dialogue_bubble': {
+          if (!enableDialogueBubble || !dialoguePartnerMessage.trim()) return null;
+          const validDialogueOpts = dialogueOptions.filter(o => o.text && o.text.trim());
+          const correctChoice = validDialogueOpts.find(o => o.isCorrect)?.text || validDialogueOpts[0]?.text || '';
+          return {
+            type: 'dialogue_bubble',
+            title: 'Complete the Chat',
+            partnerName: dialoguePartnerName.trim() || 'Anna',
+            partnerAvatar: dialoguePartnerAvatar || 'dolphina',
+            prompt: dialoguePartnerMessage.trim(),
+            partnerMessage: dialoguePartnerMessage.trim(),
+            translation: dialogueTranslation.trim(),
+            options: validDialogueOpts.map(o => ({ text: o.text.trim(), isCorrect: Boolean(o.isCorrect) })),
+            correctOption: correctChoice,
+            correctAnswer: correctChoice,
+            audioUrl: dialogueAudioUrl.trim() || null,
+          };
+        }
+
+        case 'listen_select': {
+          if (!enableListenSelect || !listenSelectSentence.trim()) return null;
+          const validSelectOpts = listenSelectOptions.filter(o => o.text && o.text.trim());
+          const correctSelectChoice = validSelectOpts.find(o => o.isCorrect)?.text || validSelectOpts[0]?.text || '';
+          return {
+            type: 'listen_select',
+            title: 'Listen and choose the meaning',
+            spokenGerman: listenSelectSentence.trim(),
+            sentence: listenSelectSentence.trim(),
+            targetSentence: listenSelectSentence.trim(),
+            question: listenSelectQuestion.trim(),
+            prompt: listenSelectQuestion.trim(),
+            options: validSelectOpts.map(o => ({ text: o.text.trim(), isCorrect: Boolean(o.isCorrect) })),
+            correctOption: correctSelectChoice,
+            correctAnswer: correctSelectChoice,
+            audioUrl: listenSelectAudioUrl.trim() || null,
+          };
+        }
+
+        case 'sprechen': {
+          if (!enableSprechen || !sprechenPrompt.trim()) return null;
+          return {
+            type: 'sprechen',
+            title: 'Pronounce Auf Deutsch',
+            prompt: sprechenPrompt.trim(),
+            translation: sprechenTranslation.trim(),
+            minAccuracy: parseInt(sprechenAccuracy, 10) || 75,
+            audioUrl: sprechenAudioUrl.trim() || null,
+            karaokeData: sprechenKaraokeData || null,
+          };
+        }
+
+        case 'karaoke': {
+          if (!enableKaraoke) return null;
+          return {
+            type: 'karaoke',
+            title: 'Karaoke Synced Rhythm',
+            storyText: karaokeStory.trim(),
+            translationText: karaokeTranslation.trim(),
+            audioUrl: karaokeAudioUrl.trim() || null,
+            karaokeData: karaokeJsonData || null,
+          };
+        }
+
+        default:
+          return null;
+      }
+    };
+
+    // Assemble modular stages strictly in the user's customized sequence order
     const stages = [];
-
-    if (enableWordMatch) {
-      const validPairs = wordPairs.filter(p => p.target.trim() && p.native.trim());
-      if (validPairs.length > 0) {
-        stages.push({
-          type: 'word_match',
-          title: 'Match the word pairs',
-          pairs: validPairs,
-        });
+    stageOrder.forEach(key => {
+      const built = buildStageByKey(key);
+      if (built) {
+        stages.push(built);
       }
-    }
-
-    if (enableListenTap && listenTarget.trim()) {
-      const targetTokens = listenTarget
-        .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '')
-        .split(/\s+/)
-        .filter(Boolean);
-      const extraTokens = listenDistractors
-        .split(/[,;\s]+/)
-        .map(s => s.trim())
-        .filter(Boolean);
-      const allTokens = [...targetTokens, ...extraTokens];
-
-      stages.push({
-        type: 'listen_tap',
-        title: 'Listen and tap what you hear',
-        targetSentence: listenTarget.trim(),
-        tokens: allTokens,
-        audioUrl: listenAudioUrl.trim() || null,
-        wordsAudioUrl: listenWordsAudioUrl.trim() || null,
-        sentenceRange: listenSentenceRange || null,
-        wordTimestamps: listenWordTimestamps || null,
-      });
-    }
-
-    if (enablePictureSelect) {
-      const validOptions = pictureOptions
-        .filter(o => o.text.trim() || o.imageUrl.trim())
-        .map(o => ({
-          id: o.id,
-          text: o.text.trim(),
-          imageUrl: o.imageUrl.trim(),
-          isCorrect: Boolean(o.isCorrect),
-        }));
-
-      if (validOptions.length > 0) {
-        stages.push({
-          type: 'picture_select',
-          title: 'Picture Vocabulary Selection',
-          prompt: picturePrompt.trim() || 'Choose the correct picture',
-          targetWord: pictureTargetWord.trim(),
-          translation: pictureTranslation.trim(),
-          options: validOptions,
-        });
-      }
-    }
-
-    if (enableClozeTest && clozePrompt.trim()) {
-      const validOptions = clozeOptions.map(o => o.trim()).filter(Boolean);
-      stages.push({
-        type: 'cloze_test',
-        title: 'Fill in the blank',
-        prompt: clozePrompt.trim(),
-        sentence: clozePrompt.trim(),
-        translation: clozeTranslation.trim(),
-        blank: clozeBlank.trim(),
-        target: clozeBlank.trim(),
-        correctOption: clozeBlank.trim(),
-        correctAnswer: clozeBlank.trim(),
-        options: validOptions.length > 0 ? validOptions : [clozeBlank.trim()],
-        audioUrl: clozeAudioUrl.trim() || null,
-      });
-    }
-
-    if (enableSentenceBuilder && builderTarget.trim()) {
-      const targetTokens = builderTarget
-        .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'«»]/g, '')
-        .split(/\s+/)
-        .filter(Boolean);
-      const extraTokens = builderDistractors
-        .split(/[,;\s]+/)
-        .map(s => s.trim())
-        .filter(Boolean);
-      const allTokens = [...targetTokens, ...extraTokens];
-
-      stages.push({
-        type: 'sentence_builder',
-        title: 'Construct the German sentence',
-        prompt: `Translate: "${builderPrompt.trim()}"`,
-        targetSentence: builderTarget.trim(),
-        tokens: allTokens,
-      });
-    }
-
-    if (enableTypeWord && (typeTarget.trim() || typePrompt.trim())) {
-      stages.push({
-        type: 'type_word',
-        title: 'Type in German',
-        prompt: typePrompt.trim(),
-        target: typeTarget.trim(),
-        targetWord: typeTarget.trim(),
-        word: typeTarget.trim(),
-        correctAnswer: typeTarget.trim(),
-        translation: typeTranslation.trim(),
-        nativeMeaning: typeTranslation.trim(),
-        hint: typeHint.trim() || null,
-        audioUrl: typeAudioUrl.trim() || null,
-      });
-    }
-
-    if (enableDialogueBubble && dialoguePartnerMessage.trim()) {
-      const validDialogueOpts = dialogueOptions.filter(o => o.text && o.text.trim());
-      const correctChoice = validDialogueOpts.find(o => o.isCorrect)?.text || validDialogueOpts[0]?.text || '';
-      stages.push({
-        type: 'dialogue_bubble',
-        title: 'Complete the Chat',
-        partnerName: dialoguePartnerName.trim() || 'Anna',
-        partnerAvatar: dialoguePartnerAvatar || 'dolphina',
-        prompt: dialoguePartnerMessage.trim(),
-        partnerMessage: dialoguePartnerMessage.trim(),
-        translation: dialogueTranslation.trim(),
-        options: validDialogueOpts.map(o => ({ text: o.text.trim(), isCorrect: Boolean(o.isCorrect) })),
-        correctOption: correctChoice,
-        correctAnswer: correctChoice,
-        audioUrl: dialogueAudioUrl.trim() || null,
-      });
-    }
-
-    if (enableListenSelect && listenSelectSentence.trim()) {
-      const validSelectOpts = listenSelectOptions.filter(o => o.text && o.text.trim());
-      const correctSelectChoice = validSelectOpts.find(o => o.isCorrect)?.text || validSelectOpts[0]?.text || '';
-      stages.push({
-        type: 'listen_select',
-        title: 'Listen and choose the meaning',
-        spokenGerman: listenSelectSentence.trim(),
-        sentence: listenSelectSentence.trim(),
-        targetSentence: listenSelectSentence.trim(),
-        question: listenSelectQuestion.trim(),
-        prompt: listenSelectQuestion.trim(),
-        options: validSelectOpts.map(o => ({ text: o.text.trim(), isCorrect: Boolean(o.isCorrect) })),
-        correctOption: correctSelectChoice,
-        correctAnswer: correctSelectChoice,
-        audioUrl: listenSelectAudioUrl.trim() || null,
-      });
-    }
-
-    if (enableSprechen && sprechenPrompt.trim()) {
-      stages.push({
-        type: 'sprechen',
-        title: 'Pronounce Auf Deutsch',
-        prompt: sprechenPrompt.trim(),
-        translation: sprechenTranslation.trim(),
-        minAccuracy: parseInt(sprechenAccuracy, 10) || 75,
-        audioUrl: sprechenAudioUrl.trim() || null,
-        karaokeData: sprechenKaraokeData || null,
-      });
-    }
-
-    if (enableKaraoke) {
-      stages.push({
-        type: 'karaoke',
-        title: 'Karaoke Synced Rhythm',
-        storyText: karaokeStory.trim(),
-        translationText: karaokeTranslation.trim(),
-        audioUrl: karaokeAudioUrl.trim() || null,
-        karaokeData: karaokeJsonData || null,
-      });
-    }
+    });
 
     // Retain any unmanaged custom stages from initialData
     const managedTypes = new Set([
@@ -1185,175 +1355,88 @@ export default function LessonEditorModal({
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="glass-card w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
-        {/* Header with Title and LIVE Toggle */}
-        <div className="flex items-center justify-between p-6 border-b border-white/10 bg-slate-900/70">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-dolphin-500 to-ocean-500 flex items-center justify-center shadow-lg shadow-dolphin-900/40">
-              <BookOpen className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-white">
-                {initialData ? `Edit Lesson: ${initialData.title}` : 'Create New Lesson'}
-              </h2>
-              <p className="text-xs text-gray-400">
-                {currentLevel} • Unit {currentUnit} • Modular Interactive Learning Tasks
-              </p>
-            </div>
-          </div>
-
-          {/* Top Right: Live Toggle & Close Button */}
-          <div className="flex items-center gap-4">
-            {/* Live Toggle Pill */}
+  // Helper: Render unified stage header with Move Up / Move Down sequence controls
+  const renderStageHeader = (stageKey, orderIndex, title, icon, isEnabled, setIsEnabled, extraRight) => {
+    const activeIdx = activeStages.indexOf(stageKey);
+    const activeNumber = activeIdx !== -1 ? activeIdx + 1 : null;
+    return (
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 pb-3 border-b border-white/5">
+        <div className="flex items-center gap-3 flex-wrap">
+          {/* Reordering Controls (Move Up / Down) */}
+          <div className="flex items-center gap-0.5 bg-black/50 border border-white/10 rounded-xl p-0.5 shadow-sm">
             <button
               type="button"
-              onClick={() => setIsLive(!isLive)}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold border transition-all ${
-                isLive
-                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-lg shadow-emerald-950/40'
-                  : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
-              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                moveStageUp(stageKey);
+              }}
+              disabled={orderIndex === 0}
+              className="p-1 rounded-lg text-gray-400 hover:text-cyan-300 hover:bg-white/10 disabled:opacity-20 disabled:hover:bg-transparent transition-all cursor-pointer"
+              title="Move earlier in solving order (↑)"
             >
-              {isLive ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
-              <span>{isLive ? 'LIVE (Visible to Learners)' : 'DRAFT (Not Live)'}</span>
+              <ArrowUp className="w-3.5 h-3.5" />
             </button>
-
-            <button onClick={onClose} className="btn-icon">
-              <X className="w-5 h-5" />
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                moveStageDown(stageKey);
+              }}
+              disabled={orderIndex === stageOrder.length - 1}
+              className="p-1 rounded-lg text-gray-400 hover:text-cyan-300 hover:bg-white/10 disabled:opacity-20 disabled:hover:bg-transparent transition-all cursor-pointer"
+              title="Move later in solving order (↓)"
+            >
+              <ArrowDown className="w-3.5 h-3.5" />
             </button>
           </div>
+
+          {/* Checkbox and Title */}
+          <label className="flex items-center gap-2.5 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={isEnabled}
+              onChange={e => setIsEnabled(e.target.checked)}
+              className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
+            />
+            <span className="font-bold text-white text-sm flex items-center gap-2">
+              <span>{icon}</span> {title}
+            </span>
+          </label>
+
+          {/* Active sequence position badge */}
+          {isEnabled ? (
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              Solving Step #{activeNumber} of {activeStages.length}
+            </span>
+          ) : (
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-gray-800/80 text-gray-500 border border-white/5">
+              Skipped (Disabled)
+            </span>
+          )}
         </div>
 
-        {/* Scrollable Form Body */}
-        <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-6 space-y-6">
-          {/* Section 1: General Lesson Metadata */}
-          <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
-              <Sparkles className="w-4 h-4" /> 1. Lesson Overview
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="md:col-span-2">
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
-                  Lesson Title
-                </label>
-                <input
-                  type="text"
-                  value={title}
-                  onChange={e => setTitle(e.target.value)}
-                  placeholder="e.g. Basics & Greetings"
-                  className="input-field"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
-                  Node Type
-                </label>
-                <select
-                  value={nodeType}
-                  onChange={e => setNodeType(e.target.value)}
-                  className="input-field bg-slate-800"
-                >
-                  <option value="lesson">🏝️ Interactive Lesson</option>
-                  <option value="karaoke">🎵 Audio Karaoke Rhythm</option>
-                  <option value="speech">🎙️ Sprechen Lip-Sync</option>
-                  <option value="chest">💎 Treasure Chest</option>
-                  <option value="match">🧩 Word Matching</option>
-                  <option value="quiz">🏆 Checkpoint Exam</option>
-                </select>
-              </div>
-
-              <div className="md:col-span-3">
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
-                  Subtitle / Learning Objective
-                </label>
-                <input
-                  type="text"
-                  value={subtitle}
-                  onChange={e => setSubtitle(e.target.value)}
-                  placeholder="e.g. Essential German greetings & daily etiquette"
-                  className="input-field text-sm"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
-                  XP Reward
-                </label>
-                <input
-                  type="number"
-                  value={xpReward}
-                  onChange={e => setXpReward(e.target.value)}
-                  className="input-field"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
-                  Pearls Reward
-                </label>
-                <input
-                  type="number"
-                  value={pearlsReward}
-                  onChange={e => setPearlsReward(e.target.value)}
-                  className="input-field"
-                />
-              </div>
-
-              {/* Import from Note Dropdown */}
-              <div>
-                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1 flex items-center gap-1">
-                  <Link2 className="w-3.5 h-3.5 text-cyan-400" /> Link From Notes
-                </label>
-                <select
-                  value={sourceNoteId}
-                  onChange={e => handleImportNote(e.target.value)}
-                  className="input-field text-xs bg-slate-800"
-                >
-                  <option value="">-- None / Custom --</option>
-                  {notesList.map(n => (
-                    <option key={n.id || n._id} value={n.id || n._id}>
-                      {n.title} {n.isKaraoke ? '🎵' : '📝'}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+        {/* Extra Action Buttons on Right */}
+        {extraRight && (
+          <div className="flex items-center gap-2 flex-wrap">
+            {extraRight}
           </div>
+        )}
+      </div>
+    );
+  };
 
-          {/* Section 2: Modular Challenge Stages Selection */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
-                <Layers className="w-4 h-4" /> 2. Modular Challenge Stages (Choose which to include)
-              </h3>
-              <span className="text-xs text-gray-500">
-                Unchecked stages are skipped on the learner's phone
-              </span>
-            </div>
-
-            {/* Stage A: Word Match Pairs */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              enableWordMatch ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enableWordMatch}
-                    onChange={e => setEnableWordMatch(e.target.checked)}
-                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
-                  />
-                  <span className="font-bold text-white text-sm flex items-center gap-2">
-                    🧩 Stage: Match the Word Pairs
-                  </span>
-                </label>
-                {enableWordMatch && (
-                  <div className="flex items-center gap-2">
+  // Helper: Render modular challenge stage card according to sequence position
+  const renderStageCard = (stageKey, orderIndex) => {
+    switch (stageKey) {
+      case 'word_match':
+        return (
+          <div className={`p-4 rounded-2xl border transition-all ${
+            enableWordMatch ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
+          }`}>
+            {renderStageHeader('word_match', orderIndex, 'Stage: Match the Word Pairs', '🧩', enableWordMatch, setEnableWordMatch, (
+                enableWordMatch && (
+                  <>
                     <button
                       type="button"
                       onClick={downloadWordMatchTemplate}
@@ -1386,10 +1469,9 @@ export default function LessonEditorModal({
                       className="hidden"
                       onChange={handleWordMatchJsonSelect}
                     />
-                  </div>
-                )}
-              </div>
-
+                  </>
+                )
+              ))}
               {enableWordMatch && (
                 <div className="space-y-2 mt-2">
                   <div className="grid grid-cols-12 gap-2 text-[11px] font-semibold text-gray-400 px-1">
@@ -1425,26 +1507,15 @@ export default function LessonEditorModal({
                   ))}
                 </div>
               )}
-            </div>
+          </div>
+        );
 
-            {/* Stage B: Listen and Tap */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              enableListenTap ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enableListenTap}
-                    onChange={e => setEnableListenTap(e.target.checked)}
-                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
-                  />
-                  <span className="font-bold text-white text-sm flex items-center gap-2">
-                    🎧 Stage: Listen and Tap What You Hear (Echo with Headphones)
-                  </span>
-                </label>
-              </div>
-
+      case 'listen_tap':
+        return (
+          <div className={`p-4 rounded-2xl border transition-all ${
+            enableListenTap ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
+          }`}>
+            {renderStageHeader('listen_tap', orderIndex, 'Stage: Listen and Tap What You Hear (Echo with Headphones)', '🎧', enableListenTap, setEnableListenTap, null)}
               {enableListenTap && (
                 <div className="space-y-3 mt-2">
                   <div>
@@ -1710,31 +1781,21 @@ export default function LessonEditorModal({
                   </div>
                 </div>
               )}
-            </div>
+          </div>
+        );
 
-            {/* Stage: Picture Vocabulary Cards (Visual Selection with WebP) */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              enablePictureSelect ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enablePictureSelect}
-                    onChange={e => setEnablePictureSelect(e.target.checked)}
-                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
-                  />
-                  <span className="font-bold text-white text-sm flex items-center gap-2">
-                    🖼️ Stage: Picture Vocabulary Cards (WebP Pipeline)
-                  </span>
-                </label>
-                {enablePictureSelect && (
+      case 'picture_select':
+        return (
+          <div className={`p-4 rounded-2xl border transition-all ${
+            enablePictureSelect ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
+          }`}>
+            {renderStageHeader('picture_select', orderIndex, 'Stage: Picture Vocabulary Cards (WebP Pipeline)', '🖼️', enablePictureSelect, setEnablePictureSelect, (
+                enablePictureSelect && (
                   <span className="text-[10px] text-emerald-400 uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
                     ⚡ Auto-Compressed WebP (&lt;20 KB)
                   </span>
-                )}
-              </div>
-
+                )
+              ))}
               {enablePictureSelect && (
                 <div className="space-y-4 mt-3">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -1909,31 +1970,21 @@ export default function LessonEditorModal({
                   </div>
                 </div>
               )}
-            </div>
+          </div>
+        );
 
-            {/* Stage: Cloze Test (Fill-in-the-Blank) */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              enableClozeTest ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enableClozeTest}
-                    onChange={e => setEnableClozeTest(e.target.checked)}
-                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
-                  />
-                  <span className="font-bold text-white text-sm flex items-center gap-2">
-                    📝 Stage: Sentence Fill-in-the-Blank (Cloze Test)
-                  </span>
-                </label>
-                {enableClozeTest && (
+      case 'cloze_test':
+        return (
+          <div className={`p-4 rounded-2xl border transition-all ${
+            enableClozeTest ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
+          }`}>
+            {renderStageHeader('cloze_test', orderIndex, 'Stage: Sentence Fill-in-the-Blank (Cloze Test)', '📝', enableClozeTest, setEnableClozeTest, (
+                enableClozeTest && (
                   <span className="text-[10px] text-cyan-400 uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
                     Instant Audio & Gap Challenge
                   </span>
-                )}
-              </div>
-
+                )
+              ))}
               {enableClozeTest && (
                 <div className="space-y-4 mt-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -2040,26 +2091,15 @@ export default function LessonEditorModal({
                   </div>
                 </div>
               )}
-            </div>
+          </div>
+        );
 
-            {/* Stage C: Sentence Builder */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              enableSentenceBuilder ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enableSentenceBuilder}
-                    onChange={e => setEnableSentenceBuilder(e.target.checked)}
-                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
-                  />
-                  <span className="font-bold text-white text-sm flex items-center gap-2">
-                    ✍️ Stage: Construct German Sentence (Syntax Builder)
-                  </span>
-                </label>
-              </div>
-
+      case 'sentence_builder':
+        return (
+          <div className={`p-4 rounded-2xl border transition-all ${
+            enableSentenceBuilder ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
+          }`}>
+            {renderStageHeader('sentence_builder', orderIndex, 'Stage: Construct German Sentence (Syntax Builder)', '✍️', enableSentenceBuilder, setEnableSentenceBuilder, null)}
               {enableSentenceBuilder && (
                 <div className="space-y-3 mt-2">
                   <div>
@@ -2100,31 +2140,21 @@ export default function LessonEditorModal({
                   </div>
                 </div>
               )}
-            </div>
+          </div>
+        );
 
-            {/* Stage: Type Word (German Spelling Entry) */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              enableTypeWord ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enableTypeWord}
-                    onChange={e => setEnableTypeWord(e.target.checked)}
-                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
-                  />
-                  <span className="font-bold text-white text-sm flex items-center gap-2">
-                    ⌨️ Stage: German Spelling Entry (Type Word & Umlaut Toolbar)
-                  </span>
-                </label>
-                {enableTypeWord && (
+      case 'type_word':
+        return (
+          <div className={`p-4 rounded-2xl border transition-all ${
+            enableTypeWord ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
+          }`}>
+            {renderStageHeader('type_word', orderIndex, 'Stage: German Spelling Entry (Type Word & Umlaut Toolbar)', '⌨️', enableTypeWord, setEnableTypeWord, (
+                enableTypeWord && (
                   <span className="text-[10px] text-amber-400 uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">
                     Spelling & Umlaut Precision
                   </span>
-                )}
-              </div>
-
+                )
+              ))}
               {enableTypeWord && (
                 <div className="space-y-4 mt-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -2213,31 +2243,21 @@ export default function LessonEditorModal({
                   </div>
                 </div>
               )}
-            </div>
+          </div>
+        );
 
-            {/* Stage: Dialogue Bubble (Chat Messenger) */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              enableDialogueBubble ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enableDialogueBubble}
-                    onChange={e => setEnableDialogueBubble(e.target.checked)}
-                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
-                  />
-                  <span className="font-bold text-white text-sm flex items-center gap-2">
-                    💬 Stage: Dialogue Bubble (Chat Messenger Flow)
-                  </span>
-                </label>
-                {enableDialogueBubble && (
+      case 'dialogue_bubble':
+        return (
+          <div className={`p-4 rounded-2xl border transition-all ${
+            enableDialogueBubble ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
+          }`}>
+            {renderStageHeader('dialogue_bubble', orderIndex, 'Stage: Dialogue Bubble (Chat Messenger Flow)', '💬', enableDialogueBubble, setEnableDialogueBubble, (
+                enableDialogueBubble && (
                   <span className="text-[10px] text-purple-400 uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20">
-                    Conversational Roleplay
+                    Interactive Chat
                   </span>
-                )}
-              </div>
-
+                )
+              ))}
               {enableDialogueBubble && (
                 <div className="space-y-4 mt-2">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -2370,31 +2390,21 @@ export default function LessonEditorModal({
                   </div>
                 </div>
               )}
-            </div>
+          </div>
+        );
 
-            {/* Stage: Listen & Select (Audio Comprehension Challenge) */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              enableListenSelect ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enableListenSelect}
-                    onChange={e => setEnableListenSelect(e.target.checked)}
-                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
-                  />
-                  <span className="font-bold text-white text-sm flex items-center gap-2">
-                    👂 Stage: Listen & Select (Audio Comprehension Challenge)
-                  </span>
-                </label>
-                {enableListenSelect && (
+      case 'listen_select':
+        return (
+          <div className={`p-4 rounded-2xl border transition-all ${
+            enableListenSelect ? 'bg-white/5 border-white/15 shadow-lg' : 'bg-black/20 border-white/5 opacity-60'
+          }`}>
+            {renderStageHeader('listen_select', orderIndex, 'Stage: Listen & Select (Audio Comprehension Challenge)', '👂', enableListenSelect, setEnableListenSelect, (
+                enableListenSelect && (
                   <span className="text-[10px] text-cyan-300 uppercase font-semibold tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
                     🐢 0.75x Turtle & 1.0x Normal Audio
                   </span>
-                )}
-              </div>
-
+                )
+              ))}
               {enableListenSelect && (
                 <div className="space-y-4 mt-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -2498,26 +2508,15 @@ export default function LessonEditorModal({
                   </div>
                 </div>
               )}
-            </div>
+          </div>
+        );
 
-            {/* Stage D: Sprechen Pronunciation */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              enableSprechen ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enableSprechen}
-                    onChange={e => setEnableSprechen(e.target.checked)}
-                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
-                  />
-                  <span className="font-bold text-white text-sm flex items-center gap-2">
-                    🎙️ Stage: Sprechen Lip-Sync (Voice Pronunciation)
-                  </span>
-                </label>
-              </div>
-
+      case 'sprechen':
+        return (
+          <div className={`p-4 rounded-2xl border transition-all ${
+            enableSprechen ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
+          }`}>
+            {renderStageHeader('sprechen', orderIndex, 'Stage: Sprechen Lip-Sync (Voice Pronunciation)', '🎙️', enableSprechen, setEnableSprechen, null)}
               {enableSprechen && (
                 <div className="space-y-4 mt-2">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -2724,26 +2723,15 @@ export default function LessonEditorModal({
                   </div>
                 </div>
               )}
-            </div>
+          </div>
+        );
 
-            {/* Stage E: Audio Karaoke Synced Reader */}
-            <div className={`p-4 rounded-2xl border transition-all ${
-              enableKaraoke ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={enableKaraoke}
-                    onChange={e => setEnableKaraoke(e.target.checked)}
-                    className="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400"
-                  />
-                  <span className="font-bold text-white text-sm flex items-center gap-2">
-                    🎵 Stage: Audio Karaoke Synced Story
-                  </span>
-                </label>
-              </div>
-
+      case 'karaoke':
+        return (
+          <div className={`p-4 rounded-2xl border transition-all ${
+            enableKaraoke ? 'bg-white/5 border-white/15' : 'bg-black/20 border-white/5 opacity-60'
+          }`}>
+            {renderStageHeader('karaoke', orderIndex, 'Stage: Audio Karaoke Synced Story', '🎵', enableKaraoke, setEnableKaraoke, null)}
               {enableKaraoke && (
                 <div className="space-y-3 mt-2">
                   {/* Karaoke Alignment JSON Upload Option */}
@@ -2909,6 +2897,216 @@ export default function LessonEditorModal({
                   </div>
                 </div>
               )}
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+      <div className="glass-card w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+        {/* Header with Title and LIVE Toggle */}
+        <div className="flex items-center justify-between p-6 border-b border-white/10 bg-slate-900/70">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-dolphin-500 to-ocean-500 flex items-center justify-center shadow-lg shadow-dolphin-900/40">
+              <BookOpen className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-white">
+                {initialData ? `Edit Lesson: ${initialData.title}` : 'Create New Lesson'}
+              </h2>
+              <p className="text-xs text-gray-400">
+                {currentLevel} • Unit {currentUnit} • Modular Interactive Learning Tasks
+              </p>
+            </div>
+          </div>
+
+          {/* Top Right: Live Toggle & Close Button */}
+          <div className="flex items-center gap-4">
+            {/* Live Toggle Pill */}
+            <button
+              type="button"
+              onClick={() => setIsLive(!isLive)}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold border transition-all ${
+                isLive
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-lg shadow-emerald-950/40'
+                  : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+              }`}
+            >
+              {isLive ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+              <span>{isLive ? 'LIVE (Visible to Learners)' : 'DRAFT (Not Live)'}</span>
+            </button>
+
+            <button onClick={onClose} className="btn-icon">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Scrollable Form Body */}
+        <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-6 space-y-6">
+          {/* Section 1: General Lesson Metadata */}
+          <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
+              <Sparkles className="w-4 h-4" /> 1. Lesson Overview
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="md:col-span-2">
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+                  Lesson Title
+                </label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
+                  placeholder="e.g. Basics & Greetings"
+                  className="input-field"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+                  Node Type
+                </label>
+                <select
+                  value={nodeType}
+                  onChange={e => setNodeType(e.target.value)}
+                  className="input-field bg-slate-800"
+                >
+                  <option value="lesson">🏝️ Interactive Lesson</option>
+                  <option value="karaoke">🎵 Audio Karaoke Rhythm</option>
+                  <option value="speech">🎙️ Sprechen Lip-Sync</option>
+                  <option value="chest">💎 Treasure Chest</option>
+                  <option value="match">🧩 Word Matching</option>
+                  <option value="quiz">🏆 Checkpoint Exam</option>
+                </select>
+              </div>
+
+              <div className="md:col-span-3">
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+                  Subtitle / Learning Objective
+                </label>
+                <input
+                  type="text"
+                  value={subtitle}
+                  onChange={e => setSubtitle(e.target.value)}
+                  placeholder="e.g. Essential German greetings & daily etiquette"
+                  className="input-field text-sm"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+                  XP Reward
+                </label>
+                <input
+                  type="number"
+                  value={xpReward}
+                  onChange={e => setXpReward(e.target.value)}
+                  className="input-field"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+                  Pearls Reward
+                </label>
+                <input
+                  type="number"
+                  value={pearlsReward}
+                  onChange={e => setPearlsReward(e.target.value)}
+                  className="input-field"
+                />
+              </div>
+
+              {/* Import from Note Dropdown */}
+              <div>
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1 flex items-center gap-1">
+                  <Link2 className="w-3.5 h-3.5 text-cyan-400" /> Link From Notes
+                </label>
+                <select
+                  value={sourceNoteId}
+                  onChange={e => handleImportNote(e.target.value)}
+                  className="input-field text-xs bg-slate-800"
+                >
+                  <option value="">-- None / Custom --</option>
+                  {notesList.map(n => (
+                    <option key={n.id || n._id} value={n.id || n._id}>
+                      {n.title} {n.isKaraoke ? '🎵' : '📝'}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 2: Modular Challenge Stages Selection & Reordering */}
+          <div className="space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
+                  <Layers className="w-4 h-4" /> 2. Modular Challenge Stages & Solving Sequence
+                </h3>
+                <p className="text-[11px] text-gray-400 mt-0.5">
+                  Reorder stages with ↑ / ↓ buttons. Students solve active stages on the phone in this exact sequence.
+                </p>
+              </div>
+              <span className="text-xs text-gray-500">
+                Unchecked stages are skipped on the learner&apos;s phone
+              </span>
+            </div>
+
+            {/* Active Sequence Flow Preview Bar */}
+            <div className="p-3.5 rounded-2xl bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-slate-900/90 border border-cyan-500/20 shadow-inner">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-cyan-300 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" /> Learner Step Sequence ({activeStages.length} Active {activeStages.length === 1 ? 'Stage' : 'Stages'})
+                </span>
+                {activeStages.length > 0 && (
+                  <span className="text-[10px] text-gray-400 font-medium">
+                    Runs 1 ➔ {activeStages.length} on mobile
+                  </span>
+                )}
+              </div>
+              {activeStages.length === 0 ? (
+                <div className="text-xs text-amber-300/80 italic py-1">
+                  ⚠️ No stages currently enabled. Check at least one stage below to include in this lesson.
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-thin">
+                  {activeStages.map((key, idx) => {
+                    const meta = STAGE_META[key];
+                    return (
+                      <div key={key} className="flex items-center gap-1.5 flex-shrink-0">
+                        <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold border bg-gradient-to-r ${meta?.color || 'bg-white/5 text-white border-white/10'}`}>
+                          <span className="w-4 h-4 rounded-full bg-black/40 flex items-center justify-center text-[10px] font-bold text-white">
+                            {idx + 1}
+                          </span>
+                          <span>{meta?.icon}</span>
+                          <span>{meta?.label}</span>
+                        </div>
+                        {idx < activeStages.length - 1 && (
+                          <ArrowRight className="w-3.5 h-3.5 text-cyan-400/60 flex-shrink-0" />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Dynamically Ordered Stage Cards */}
+            <div className="space-y-4">
+              {stageOrder.map((stageKey, orderIndex) => (
+                <div key={stageKey}>
+                  {renderStageCard(stageKey, orderIndex)}
+                </div>
+              ))}
             </div>
           </div>
 
