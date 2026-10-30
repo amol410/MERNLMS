@@ -49,35 +49,10 @@ const connectDB = async () => {
             return;
         }
         console.log('✅ MySQL Connected:', process.env.DB_HOST);
-        await sequelize.sync({ alter: true });
-        console.log('✅ All tables synced');
 
-        // Safe check for auth columns (resetPasswordOtp, resetPasswordOtpExpires, googleId)
-        try {
-            const queryInterface = sequelize.getQueryInterface();
-            const tableDescription = await queryInterface.describeTable('users');
-            if (!tableDescription.resetPasswordOtp && !tableDescription.reset_password_otp) {
-                await queryInterface.addColumn('users', 'resetPasswordOtp', {
-                    type: Sequelize.STRING(6),
-                    allowNull: true,
-                }).catch(() => {});
-            }
-            if (!tableDescription.resetPasswordOtpExpires && !tableDescription.reset_password_otp_expires) {
-                await queryInterface.addColumn('users', 'resetPasswordOtpExpires', {
-                    type: Sequelize.DATE,
-                    allowNull: true,
-                }).catch(() => {});
-            }
-            if (!tableDescription.googleId && !tableDescription.google_id) {
-                await queryInterface.addColumn('users', 'googleId', {
-                    type: Sequelize.STRING(255),
-                    allowNull: true,
-                    unique: true,
-                }).catch(() => {});
-            }
-        } catch (colErr) {
-            // In case table description fails or columns already present
-        }
+        // Additive-only self-healing database synchronization (prevents 64-key limit and missing column errors)
+        const { selfHealingDatabaseSync } = require('../utils/schemaMigrator');
+        await selfHealingDatabaseSync(sequelize);
 
         // Safe auto-migration for user_node_progress course_id and English curriculum seeding
         try {
