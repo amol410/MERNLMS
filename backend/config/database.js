@@ -52,6 +52,33 @@ const connectDB = async () => {
         await sequelize.sync({ alter: true });
         console.log('✅ All tables synced');
 
+        // Safe check for auth columns (resetPasswordOtp, resetPasswordOtpExpires, googleId)
+        try {
+            const queryInterface = sequelize.getQueryInterface();
+            const tableDescription = await queryInterface.describeTable('users');
+            if (!tableDescription.resetPasswordOtp && !tableDescription.reset_password_otp) {
+                await queryInterface.addColumn('users', 'resetPasswordOtp', {
+                    type: Sequelize.STRING(6),
+                    allowNull: true,
+                }).catch(() => {});
+            }
+            if (!tableDescription.resetPasswordOtpExpires && !tableDescription.reset_password_otp_expires) {
+                await queryInterface.addColumn('users', 'resetPasswordOtpExpires', {
+                    type: Sequelize.DATE,
+                    allowNull: true,
+                }).catch(() => {});
+            }
+            if (!tableDescription.googleId && !tableDescription.google_id) {
+                await queryInterface.addColumn('users', 'googleId', {
+                    type: Sequelize.STRING(255),
+                    allowNull: true,
+                    unique: true,
+                }).catch(() => {});
+            }
+        } catch (colErr) {
+            // In case table description fails or columns already present
+        }
+
         // Safe auto-migration for user_node_progress course_id and English curriculum seeding
         try {
             const { migrateUserNodeProgress, seedEnglishCurriculumIfMissing } = require('../utils/curriculumSeeder');

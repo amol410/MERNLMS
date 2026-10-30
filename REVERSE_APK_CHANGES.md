@@ -9,9 +9,13 @@
 
 | # | File Path | Type | What Was Changed |
 | :- | :--- | :---: | :--- |
-| 1 | `app/dolphincoder/lib/core/services/ad_service.dart` | Modified | `static const bool adsEnabled = false;` (disables all AdMob init, rewarded ads, and interstitials) |
-| 2 | `app/dolphincoder/android/app/build.gradle.kts` | Modified | Set `isMinifyEnabled = true`, `isShrinkResources = true`, and linked `proguard-rules.pro` |
-| 3 | `app/dolphincoder/android/app/proguard-rules.pro` | Created | Added strict keep rules for Speech-to-Text reflection, Audio Manager, Bluetooth SCO, and Flutter engine |
+| 1 | `app/dolphincoder/android/app/build.gradle.kts` | Modified | Set `isMinifyEnabled = true`, `isShrinkResources = true`, and linked `proguard-rules.pro` |
+| 2 | `app/dolphincoder/android/app/proguard-rules.pro` | Created | Added strict keep rules for Speech-to-Text reflection, Audio Manager, Bluetooth SCO, Room, WorkManager, and Flutter engine |
+| 3 | `app/dolphincoder/assets/images/mascot/*.webp` | Added | Converted all 10 mascot poses to WebP format (213 KB total vs 1,962 KB PNGs) |
+| 4 | `app/dolphincoder/lib/shared/widgets/animated_dolphin_mascot.dart` | Modified | Swapped mascot asset paths from `.png` to `.webp` |
+| 5 | `app/dolphincoder/lib/features/auth/screens/login_screen.dart` | Modified | Swapped mascot asset path from `.png` to `.webp` |
+| 6 | `app/dolphincoder/lib/features/auth/screens/register_screen.dart` | Modified | Swapped mascot asset path from `.png` to `.webp` |
+| 7 | `app/dolphincoder/pubspec.yaml` | Modified | Removed unused `- assets/images/` entry (omits 1.25 MB of unreferenced logo PNGs from bundle) |
 
 ---
 
