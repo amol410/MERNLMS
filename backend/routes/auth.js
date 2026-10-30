@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {
   register,
+  verifyRegistrationOtp,
+  resendRegistrationOtp,
   login,
   getMe,
   updateProfile,
@@ -15,6 +17,8 @@ const { protect } = require('../middleware/auth');
 
 // Public auth endpoints
 router.post('/register', register);
+router.post('/verify-registration-otp', verifyRegistrationOtp);
+router.post('/resend-registration-otp', resendRegistrationOtp);
 router.post('/login', login);
 router.post('/forgot-password', forgotPassword);
 router.post('/verify-otp', verifyOtp);

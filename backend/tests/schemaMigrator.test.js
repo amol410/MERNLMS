@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const { autoMigrateColumns, selfHealingDatabaseSync, pruneDuplicateIndexes } = require('../utils/schemaMigrator');
+const { autoMigrateColumns, selfHealingDatabaseSync, pruneDuplicateIndexes, migrateUserVerificationColumns } = require('../utils/schemaMigrator');
 
 describe('Self-Healing Additive Schema Migrator Suite', () => {
     let testSequelize;
@@ -83,5 +83,26 @@ describe('Self-Healing Additive Schema Migrator Suite', () => {
 
     it('pruneDuplicateIndexes handles non-MySQL dialects safely without crashing', async () => {
         await expect(pruneDuplicateIndexes(testSequelize, 'items')).resolves.not.toThrow();
+    });
+
+    it('migrateUserVerificationColumns safely adds verification columns and defaults existing accounts to verified', async () => {
+        const UserMock = testSequelize.define('User', {
+            id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+            email: { type: DataTypes.STRING, allowNull: false },
+        }, { tableName: 'users', timestamps: false });
+
+        await testSequelize.sync();
+        await UserMock.create({ email: 'legacy_user@example.com' });
+
+        await migrateUserVerificationColumns(testSequelize);
+
+        const qi = testSequelize.getQueryInterface();
+        const tableDesc = await qi.describeTable('users');
+        expect(tableDesc.is_email_verified).toBeDefined();
+        expect(tableDesc.verification_otp).toBeDefined();
+        expect(tableDesc.verification_otp_expires).toBeDefined();
+
+        const [rows] = await testSequelize.query('SELECT is_email_verified FROM users WHERE email = "legacy_user@example.com"');
+        expect(rows[0].is_email_verified).toBeTruthy();
     });
 });

@@ -168,10 +168,61 @@ async function selfHealingDatabaseSync(sequelize) {
     } catch (migErr) {
         console.warn('⚠️ [Database] Column auto-migration notice:', migErr.message);
     }
+
+    // 3. Email verification column migration & backfill for existing users
+    try {
+        await migrateUserVerificationColumns(sequelize);
+    } catch (verErr) {
+        console.warn('⚠️ [Database] Verification column migration notice:', verErr.message);
+    }
+}
+
+/**
+ * Safely migrates user email verification columns and defaults existing accounts to verified.
+ */
+async function migrateUserVerificationColumns(sequelize) {
+    const queryInterface = sequelize.getQueryInterface();
+    const { DataTypes } = require('sequelize');
+
+    try {
+        const tableDescription = await queryInterface.describeTable('users');
+        if (!tableDescription.is_email_verified && !tableDescription.isEmailVerified) {
+            await queryInterface.addColumn('users', 'is_email_verified', {
+                type: DataTypes.BOOLEAN,
+                defaultValue: true,
+                allowNull: false,
+            }).catch(() => {});
+        }
+        if (!tableDescription.verification_otp && !tableDescription.verificationOtp) {
+            await queryInterface.addColumn('users', 'verification_otp', {
+                type: DataTypes.STRING(6),
+                allowNull: true,
+            }).catch(() => {});
+        }
+        if (!tableDescription.verification_otp_expires && !tableDescription.verificationOtpExpires) {
+            await queryInterface.addColumn('users', 'verification_otp_expires', {
+                type: DataTypes.DATE,
+                allowNull: true,
+            }).catch(() => {});
+        }
+
+        // Ensure all existing users in the DB are set to is_email_verified = 1 so existing accounts are not locked out
+        await sequelize.query(
+            "UPDATE `users` SET `is_email_verified` = 1 WHERE `is_email_verified` IS NULL OR (`is_email_verified` = 0 AND `verification_otp` IS NULL)"
+        ).catch(async () => {
+            await sequelize.query(
+                "UPDATE users SET is_email_verified = 1 WHERE is_email_verified IS NULL OR (is_email_verified = 0 AND verification_otp IS NULL)"
+            ).catch(() => {});
+        });
+        console.log('✅ [AutoMigrator] User email verification columns and existing accounts verified.');
+    } catch (err) {
+        // Table may not exist yet or clean install
+    }
 }
 
 module.exports = {
     selfHealingDatabaseSync,
     autoMigrateColumns,
     pruneDuplicateIndexes,
+    migrateUserVerificationColumns,
 };

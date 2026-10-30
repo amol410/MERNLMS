@@ -21,6 +21,7 @@ const createTestUser = async (overrides = {}) => {
         name: 'Test User',
         email,
         password: hashedPassword,
+        isEmailVerified: true,
         role: 'student',
         oxygen: 5,
         pearls: 100,
