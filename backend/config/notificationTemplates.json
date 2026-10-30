@@ -1,0 +1,27 @@
+{
+  "streak_reminder": {
+    "title": "🔥 Keep your streak alive!",
+    "body": "Dolphy misses you! Complete today's lesson to maintain your streak.",
+    "route": "/home",
+    "enabled": true,
+    "time": "20:00"
+  },
+  "oxygen_full": {
+    "title": "🫧 Full Oxygen Restored!",
+    "body": "Your oxygen bubbles are full (5/5). Dive back into the archipelago!",
+    "route": "/home",
+    "enabled": true
+  },
+  "league_alert": {
+    "title": "🏆 League Alert!",
+    "body": "Someone just climbed the leaderboard. Check your league standing!",
+    "route": "/leagues",
+    "enabled": true
+  },
+  "inactivity_alert": {
+    "title": "🌊 The ocean awaits!",
+    "body": "Dolphy misses you! Jump back into your lessons to continue your learning journey.",
+    "route": "/home",
+    "enabled": true
+  }
+}

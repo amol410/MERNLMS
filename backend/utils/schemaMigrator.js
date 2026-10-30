@@ -161,7 +161,15 @@ async function selfHealingDatabaseSync(sequelize) {
         console.warn('⚠️ [Database] Base sync notice:', syncErr.message);
     }
 
-    // 2. Additive column migrator & duplicate index pruner
+    // 2. Run all additive migrations
+    await runAllMigrations(sequelize);
+}
+
+/**
+ * Runs all registered additive schema and data migrations safely.
+ */
+async function runAllMigrations(sequelize) {
+    // 1. Additive column migrator & duplicate index pruner
     try {
         await autoMigrateColumns(sequelize);
         console.log('✅ [Database] Additive column verification completed.');
@@ -169,11 +177,45 @@ async function selfHealingDatabaseSync(sequelize) {
         console.warn('⚠️ [Database] Column auto-migration notice:', migErr.message);
     }
 
-    // 3. Email verification column migration & backfill for existing users
+    // 2. Email verification column migration & backfill for existing users
     try {
         await migrateUserVerificationColumns(sequelize);
     } catch (verErr) {
         console.warn('⚠️ [Database] Verification column migration notice:', verErr.message);
+    }
+
+    // 3. User FCM token push notification column migration
+    try {
+        await migrateUserFcmTokenColumn(sequelize);
+    } catch (fcmErr) {
+        console.warn('⚠️ [Database] FCM token column migration notice:', fcmErr.message);
+    }
+}
+
+/**
+ * Safely migrates user fcm_token column for push notifications.
+ * Strictly additive: adds VARCHAR(500) NULL column without data loss.
+ */
+async function migrateUserFcmTokenColumn(sequelize) {
+    const queryInterface = sequelize.getQueryInterface();
+    const { DataTypes } = require('sequelize');
+
+    try {
+        const tableDescription = await queryInterface.describeTable('users');
+        if (!tableDescription.fcm_token && !tableDescription.fcmToken) {
+            await queryInterface.addColumn('users', 'fcm_token', {
+                type: DataTypes.STRING(500),
+                allowNull: true,
+                defaultValue: null,
+            }).catch(async () => {
+                await sequelize.query('ALTER TABLE users ADD COLUMN fcm_token VARCHAR(500) NULL').catch(() => {});
+            });
+            console.log('✅ [AutoMigrator] Added missing fcm_token column to users table.');
+        }
+    } catch (err) {
+        try {
+            await sequelize.query('ALTER TABLE users ADD COLUMN fcm_token VARCHAR(500) NULL').catch(() => {});
+        } catch (_) {}
     }
 }
 
@@ -225,4 +267,6 @@ module.exports = {
     autoMigrateColumns,
     pruneDuplicateIndexes,
     migrateUserVerificationColumns,
+    migrateUserFcmTokenColumn,
+    runAllMigrations,
 };

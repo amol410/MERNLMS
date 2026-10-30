@@ -16,6 +16,9 @@ __pycache__/
 *.pyc
 *.apk
 *.apkm
+*serviceAccount*.json
+*firebase-adminsdk*.json
+backend/config/serviceAccountKey.json
 app/appit/
 backend/uploads/*
 !backend/uploads/audio/.gitkeep

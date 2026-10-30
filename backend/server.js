@@ -47,6 +47,7 @@ app.use('/api/subjects', require('./routes/subjects'));
 app.use('/api/gamification', require('./routes/gamification'));
 app.use('/api/curriculum', require('./routes/curriculum'));
 app.use('/api/pages', require('./routes/pages'));
+app.use('/api/notifications', require('./routes/notification'));
 
 const fs = require('fs');
 const audioUploadDir = path.join(__dirname, 'uploads/audio');

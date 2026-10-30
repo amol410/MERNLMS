@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { ShieldCheck, Plus, Trash2, UserX, UserCheck, Users, X, BookOpen, Tag, ChevronDown, ChevronUp } from 'lucide-react';
+import { ShieldCheck, Plus, Trash2, UserX, UserCheck, Users, X, BookOpen, Tag, ChevronDown, ChevronUp, Bell } from 'lucide-react';
 import { useSubjects } from '../hooks/useSubjects';
 
 export default function AdminPage() {
@@ -136,7 +137,7 @@ export default function AdminPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold text-white flex items-center gap-3">
             <ShieldCheck className="w-8 h-8 text-orange-400" />
@@ -144,12 +145,21 @@ export default function AdminPage() {
           </h1>
           <p className="text-gray-500 mt-1">{users.length} total users • {trainers.length} trainers • {students.length} students</p>
         </div>
-        {tab === 'users' && (
-          <button onClick={() => setShowCreateForm(!showCreateForm)} className="btn-primary flex items-center gap-2">
-            {showCreateForm ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-            {showCreateForm ? 'Cancel' : 'Add Trainer'}
-          </button>
-        )}
+        <div className="flex items-center gap-3 flex-wrap">
+          <Link
+            to="/admin/notifications"
+            className="px-4 py-2.5 rounded-xl bg-dolphin-500/10 hover:bg-dolphin-500/20 text-dolphin-400 hover:text-dolphin-300 border border-dolphin-500/30 flex items-center gap-2 text-sm font-semibold transition-all shadow-sm"
+          >
+            <Bell className="w-4 h-4" />
+            <span>Push Notifications</span>
+          </Link>
+          {tab === 'users' && (
+            <button onClick={() => setShowCreateForm(!showCreateForm)} className="btn-primary flex items-center gap-2">
+              {showCreateForm ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+              {showCreateForm ? 'Cancel' : 'Add Trainer'}
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Create Trainer Form */}

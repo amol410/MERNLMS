@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const { autoMigrateColumns, selfHealingDatabaseSync, pruneDuplicateIndexes, migrateUserVerificationColumns } = require('../utils/schemaMigrator');
+const { autoMigrateColumns, selfHealingDatabaseSync, pruneDuplicateIndexes, migrateUserVerificationColumns, migrateUserFcmTokenColumn, runAllMigrations } = require('../utils/schemaMigrator');
 
 describe('Self-Healing Additive Schema Migrator Suite', () => {
     let testSequelize;
@@ -104,5 +104,30 @@ describe('Self-Healing Additive Schema Migrator Suite', () => {
 
         const [rows] = await testSequelize.query('SELECT is_email_verified FROM users WHERE email = "legacy_user@example.com"');
         expect(rows[0].is_email_verified).toBeTruthy();
+    });
+
+    it('migrateUserFcmTokenColumn safely adds fcm_token column without data loss', async () => {
+        const UserMock = testSequelize.define('User', {
+            id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+            email: { type: DataTypes.STRING, allowNull: false },
+        }, { tableName: 'users', timestamps: false });
+
+        await testSequelize.sync();
+        await UserMock.create({ email: 'fcm_user@example.com' });
+
+        await migrateUserFcmTokenColumn(testSequelize);
+
+        const qi = testSequelize.getQueryInterface();
+        const tableDesc = await qi.describeTable('users');
+        expect(tableDesc.fcm_token).toBeDefined();
+
+        const [rows] = await testSequelize.query('SELECT email, fcm_token FROM users WHERE email = "fcm_user@example.com"');
+        expect(rows).toHaveLength(1);
+        expect(rows[0].email).toBe('fcm_user@example.com');
+        expect(rows[0].fcm_token).toBeNull();
+    });
+
+    it('runAllMigrations runs all migrations cleanly without throwing', async () => {
+        await expect(runAllMigrations(testSequelize)).resolves.not.toThrow();
     });
 });

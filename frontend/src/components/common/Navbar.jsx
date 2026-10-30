@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   BookOpen, Video, Brain, Layers, Home, LogOut, User,
-  Menu, X, ChevronDown, Zap, ShieldCheck, BarChart2, Compass, Globe, FileText,
+  Menu, X, ChevronDown, Zap, ShieldCheck, BarChart2, Compass, Globe, FileText, Bell,
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -21,7 +21,10 @@ export default function Navbar() {
     { to: '/notes', icon: BookOpen, label: 'Notes' },
     { to: '/videos', icon: Video, label: 'Videos' },
     { to: '/quizzes', icon: Brain, label: 'Quizzes' },
-    ...(user?.role === 'admin' ? [{ to: '/admin/pages', icon: FileText, label: 'Pages' }] : []),
+    ...(user?.role === 'admin' ? [
+      { to: '/admin/pages', icon: FileText, label: 'Pages' },
+      { to: '/admin/notifications', icon: Bell, label: 'Notifications' },
+    ] : []),
     { to: '/flashcards', icon: Layers, label: 'Flashcards' },
     ...(isStudent ? [{ to: '/lingodolphy', icon: Globe, label: 'LingoDolphy' }] : []),
     ...(isStaff ? [{ to: '/lessons', icon: Compass, label: 'Lessons' }] : []),
@@ -123,14 +126,24 @@ export default function Navbar() {
                         Activity History
                       </Link>
                       {user?.role === 'admin' && (
-                        <Link
-                          to="/admin"
-                          className="flex items-center gap-3 px-4 py-3 text-orange-400 hover:text-orange-300 hover:bg-orange-500/10 transition-colors text-sm"
-                          onClick={() => setProfileOpen(false)}
-                        >
-                          <ShieldCheck className="w-4 h-4" />
-                          Admin Panel
-                        </Link>
+                        <>
+                          <Link
+                            to="/admin"
+                            className="flex items-center gap-3 px-4 py-3 text-orange-400 hover:text-orange-300 hover:bg-orange-500/10 transition-colors text-sm"
+                            onClick={() => setProfileOpen(false)}
+                          >
+                            <ShieldCheck className="w-4 h-4" />
+                            Admin Panel
+                          </Link>
+                          <Link
+                            to="/admin/notifications"
+                            className="flex items-center gap-3 px-4 py-3 text-dolphin-400 hover:text-dolphin-300 hover:bg-dolphin-500/10 transition-colors text-sm"
+                            onClick={() => setProfileOpen(false)}
+                          >
+                            <Bell className="w-4 h-4" />
+                            Push Notifications
+                          </Link>
+                        </>
                       )}
                       <div className="border-t border-white/10" />
                       <button
@@ -208,19 +221,34 @@ export default function Navbar() {
               Activity History
             </NavLink>
             {user?.role === 'admin' && (
-              <NavLink
-                to="/admin"
-                onClick={() => setMobileOpen(false)}
-                className={({ isActive }) =>
-                  clsx(
-                    'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all',
-                    isActive ? 'bg-orange-600/30 text-orange-300' : 'text-orange-400 hover:bg-orange-500/10'
-                  )
-                }
-              >
-                <ShieldCheck className="w-4 h-4" />
-                Admin Panel
-              </NavLink>
+              <>
+                <NavLink
+                  to="/admin"
+                  onClick={() => setMobileOpen(false)}
+                  className={({ isActive }) =>
+                    clsx(
+                      'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all',
+                      isActive ? 'bg-orange-600/30 text-orange-300' : 'text-orange-400 hover:bg-orange-500/10'
+                    )
+                  }
+                >
+                  <ShieldCheck className="w-4 h-4" />
+                  Admin Panel
+                </NavLink>
+                <NavLink
+                  to="/admin/notifications"
+                  onClick={() => setMobileOpen(false)}
+                  className={({ isActive }) =>
+                    clsx(
+                      'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all',
+                      isActive ? 'bg-dolphin-600/30 text-dolphin-300' : 'text-dolphin-400 hover:bg-dolphin-500/10'
+                    )
+                  }
+                >
+                  <Bell className="w-4 h-4" />
+                  Notifications
+                </NavLink>
+              </>
             )}
             {user ? (
               <div className="border-t border-white/10 pt-3 mt-3">

@@ -28,6 +28,7 @@ import KaraokeNoteReader from './pages/KaraokeNoteReader';
 import CurriculumPage from './pages/CurriculumPage';
 import LingoDolphyPage from './pages/LingoDolphyPage';
 import AdminPagesPage from './pages/AdminPagesPage';
+import AdminNotificationsPage from './pages/AdminNotificationsPage';
 import PageEditorPage from './pages/PageEditorPage';
 import PublicPageView from './pages/PublicPageView';
 
@@ -80,6 +81,7 @@ function AppRoutes() {
       <Route path="/lessons" element={<ProtectedRoute roles={['trainer', 'admin']}><Layout><CurriculumPage /></Layout></ProtectedRoute>} />
 
       <Route path="/admin" element={<ProtectedRoute roles={['admin']}><Layout><AdminPage /></Layout></ProtectedRoute>} />
+      <Route path="/admin/notifications" element={<ProtectedRoute roles={['admin']}><Layout><AdminNotificationsPage /></Layout></ProtectedRoute>} />
       <Route path="/admin/pages" element={<ProtectedRoute roles={['admin']}><Layout><AdminPagesPage /></Layout></ProtectedRoute>} />
       <Route path="/admin/pages/new" element={<ProtectedRoute roles={['admin']}><Layout><PageEditorPage /></Layout></ProtectedRoute>} />
       <Route path="/admin/pages/:id/edit" element={<ProtectedRoute roles={['admin']}><Layout><PageEditorPage /></Layout></ProtectedRoute>} />

@@ -33,6 +33,7 @@ const User = sequelize.define('User', {
     lastOxygenRefill: { type: DataTypes.DATE, defaultValue: DataTypes.NOW, field: 'last_oxygen_refill' },
     totalXp: { type: DataTypes.INTEGER, defaultValue: 0, field: 'total_xp' },
     currentLeague: { type: DataTypes.STRING(50), defaultValue: 'Coral Reef', field: 'current_league' },
+    fcmToken: { type: DataTypes.STRING(500), allowNull: true, field: 'fcm_token' },
 }, { tableName: 'users', timestamps: true });
 
 User.beforeCreate(async (user) => {
