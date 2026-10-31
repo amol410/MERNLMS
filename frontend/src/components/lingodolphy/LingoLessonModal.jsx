@@ -8,12 +8,13 @@ import clsx from 'clsx';
 import api from '../../api/axios';
 import toast from 'react-hot-toast';
 
+import { getSharedAudioContext } from '../../utils/audioHelper';
+
 // ─── Native Web Audio Chimes ────────────────────────────────────────────────
 function playChime(isCorrect) {
   try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return;
-    const ctx = new AudioCtx();
+    const ctx = getSharedAudioContext();
+    if (!ctx) return;
     if (isCorrect) {
       // Major chord arpeggio
       const freqs = [523.25, 659.25, 783.99, 1046.50];
@@ -288,7 +289,13 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
   const [currentStageIdx, setCurrentStageIdx] = useState(0);
   const [hearts, setHearts] = useState(5);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [completionResult, setCompletionResult] = useState(null);
   const [savingProgress, setSavingProgress] = useState(false);
+  const completionAttemptId = useRef(null);
+  if (!completionAttemptId.current) {
+    completionAttemptId.current = globalThis.crypto?.randomUUID?.() ||
+      `web_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+  }
   const [voicePersona, setVoicePersona] = useState(() => {
     try {
       return localStorage.getItem('lingo_voice_persona') || 'female';
@@ -758,22 +765,22 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
       initStage(stages[nextIdx]);
     } else {
       // Completed all stages!
-      setIsCompleted(true);
-      playChime(true);
       try {
         setSavingProgress(true);
+        const mistakes = Math.max(0, 5 - hearts);
+        const scorePct = Math.round((stages.length / Math.max(1, stages.length + mistakes)) * 100);
         const res = await api.post('/gamification/complete-node', {
           nodeIndex: node.index ?? 0,
-          stars: 3,
-          scorePct: 100,
-          xpEarned: node.xpReward || 15,
-          pearlsEarned: node.pearlsReward || 5,
+          attemptId: completionAttemptId.current,
+          scorePct,
         });
+        setCompletionResult(res.data);
+        setIsCompleted(true);
+        playChime(true);
         if (onComplete) onComplete(node, res.data);
       } catch (err) {
         console.error('Error recording completion:', err);
-        // Fallback optimistic unlock even if API errors
-        if (onComplete) onComplete(node);
+        toast.error('Progress could not be saved. Please reconnect and try again.');
       } finally {
         setSavingProgress(false);
       }
@@ -844,7 +851,7 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
             /* Celebration Victory View with 3 Animated Stars */
             <div className="py-10 flex flex-col items-center justify-center text-center animate-scale-up">
               <div className="flex items-center justify-center gap-2 mb-4">
-                {[1, 2, 3].map(starNum => (
+                {Array.from({ length: completionResult?.stars || 1 }, (_, index) => index + 1).map(starNum => (
                   <div
                     key={starNum}
                     className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-400 to-yellow-300 flex items-center justify-center text-3xl shadow-xl shadow-amber-500/30 animate-bounce"
@@ -863,21 +870,18 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
               <div className="grid grid-cols-2 gap-4 w-full max-w-xs mb-8">
                 <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex flex-col items-center">
                   <Zap className="w-6 h-6 text-cyan-400 mb-1" />
-                  <span className="text-2xl font-black text-white">+{node.xpReward || 15}</span>
+                  <span className="text-2xl font-black text-white">+{completionResult?.xpEarned ?? 0}</span>
                   <span className="text-xs text-cyan-300/80 font-bold">XP EARNED</span>
                 </div>
                 <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex flex-col items-center">
                   <Award className="w-6 h-6 text-amber-400 mb-1" />
-                  <span className="text-2xl font-black text-white">+{node.pearlsReward || 5}</span>
+                  <span className="text-2xl font-black text-white">+{completionResult?.pearlsEarned ?? 0}</span>
                   <span className="text-xs text-amber-300/80 font-bold">PEARLS</span>
                 </div>
               </div>
 
               <button
-                onClick={() => {
-                  if (onComplete) onComplete(node);
-                  onClose();
-                }}
+                onClick={onClose}
                 disabled={savingProgress}
                 className="w-full max-w-xs py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-base shadow-lg shadow-emerald-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >

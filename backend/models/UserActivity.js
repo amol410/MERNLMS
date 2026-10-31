@@ -36,6 +36,7 @@ const UserActivity = sequelize.define('UserActivity', {
     timestamps: true,
     indexes: [
         { fields: ['userId', 'activityDate'] },
+        { fields: ['userId', 'createdAt'] },
         { fields: ['activityType'] },
     ],
 });

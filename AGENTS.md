@@ -139,6 +139,16 @@ graph TD
 
 ---
 
+### 6. Agent 6: Quality Assurance & Automated Test Specialist (`agent_6_qa_test`)
+* **Primary Scope:** Cross-stack Automated Test Suites (`backend/tests/`, `app/dolphincoder/test/`, `frontend/src/__tests__/`)
+* **Target Environment:** Jest 29, Supertest 6, Flutter Test / WidgetTester, Vitest 1.
+* **Core Responsibilities:**
+  - **Phase-by-Phase Verification**: Authors and executes automated test cases immediately upon completion of Phase 1, Phase 2, and Phase 3.
+  - **Regression Prevention**: Verifies server-side idempotency, streak edge cases, range audio byte slicing, GoRouter auth transitions, and offline replay recovery.
+  - **Zero Regressions Mandate**: Validates that 100% of existing tests pass alongside newly authored tests before signing off on release builds.
+
+---
+
 ## 📋 Cross-Agent Collaboration & Operating Rules
 
 1. **Strict Folder Boundaries**:
@@ -147,6 +157,7 @@ graph TD
    - Agent 3 operates in `backend/`.
    - Agent 4 operates in `frontend/`.
    - Agent 5 oversees deployment, infrastructure, and release configurations.
+   - Agent 6 authors and runs automated test suites across all domains at the end of each phase.
 2. **Absolute Quarantine on `app/appit/`**:
    - Under NO circumstance should any agent touch, modify, or create files in `app/appit/`.
 3. **Documentation-First Integrity**:

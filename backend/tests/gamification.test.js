@@ -1,9 +1,16 @@
 const request = require('supertest');
+jest.mock('../utils/adMobVerifier', () => ({ verifyAdMobQuery: jest.fn() }));
 const app = require('../server');
 const User = require('../models/User');
+const RewardTransaction = require('../models/RewardTransaction');
+const { verifyAdMobQuery } = require('../utils/adMobVerifier');
 const { createTestUser } = require('./setup');
 
 describe('Gamification & In-Game Economy API Tests', () => {
+    beforeEach(() => {
+        verifyAdMobQuery.mockReset();
+        verifyAdMobQuery.mockResolvedValue(true);
+    });
     describe('GET /api/gamification/status', () => {
         it('returns user gamification status', async () => {
             const { user, token } = await createTestUser({
@@ -59,9 +66,11 @@ describe('Gamification & In-Game Economy API Tests', () => {
                 .set('Authorization', `Bearer ${token}`)
                 .send({
                     nodeIndex: 0,
+                    attemptId: 'lesson-perfect-001',
                     scorePct: 100,
-                    xpEarned: 12,
-                    pearlsEarned: 1,
+                    stars: 1,
+                    xpEarned: 99999,
+                    pearlsEarned: 99999,
                 });
 
             expect(res.status).toBe(200);
@@ -85,9 +94,10 @@ describe('Gamification & In-Game Economy API Tests', () => {
                 .set('Authorization', `Bearer ${token}`)
                 .send({
                     nodeIndex: 0,
+                    attemptId: 'lesson-partial-001',
                     scorePct: 75,
-                    xpEarned: 10,
-                    pearlsEarned: 0,
+                    xpEarned: 99999,
+                    pearlsEarned: 99999,
                 });
 
             expect(res.status).toBe(200);
@@ -98,6 +108,51 @@ describe('Gamification & In-Game Economy API Tests', () => {
             const updatedUser = await User.findByPk(user.id);
             expect(updatedUser.pearls).toBe(100);
             expect(updatedUser.totalXp).toBe(10);
+        });
+
+        it('rejects missing attempt IDs and invalid scores', async () => {
+            const { token } = await createTestUser();
+
+            const missingAttempt = await request(app)
+                .post('/api/gamification/complete-node')
+                .set('Authorization', `Bearer ${token}`)
+                .send({ nodeIndex: 0, scorePct: 100 });
+            expect(missingAttempt.status).toBe(400);
+
+            const invalidScore = await request(app)
+                .post('/api/gamification/complete-node')
+                .set('Authorization', `Bearer ${token}`)
+                .send({ nodeIndex: 0, attemptId: 'lesson-invalid-001', scorePct: 101 });
+            expect(invalidScore.status).toBe(400);
+        });
+
+        it('returns the original receipt without awarding a replayed attempt twice', async () => {
+            const { user, token } = await createTestUser({ pearls: 100, totalXp: 0 });
+            const payload = {
+                nodeIndex: 0,
+                attemptId: 'lesson-replay-001',
+                scorePct: 100,
+            };
+
+            const first = await request(app)
+                .post('/api/gamification/complete-node')
+                .set('Authorization', `Bearer ${token}`)
+                .send(payload);
+            const replay = await request(app)
+                .post('/api/gamification/complete-node')
+                .set('Authorization', `Bearer ${token}`)
+                .send(payload);
+
+            expect(first.status).toBe(200);
+            expect(replay.status).toBe(200);
+            expect(replay.body.idempotentReplay).toBe(true);
+            expect(replay.body.totalXp).toBe(first.body.totalXp);
+            expect(replay.body.pearls).toBe(first.body.pearls);
+
+            const updatedUser = await User.findByPk(user.id);
+            expect(updatedUser.totalXp).toBe(12);
+            expect(updatedUser.pearls).toBe(101);
+            expect(await RewardTransaction.count({ where: { userId: user.id, kind: 'lesson' } })).toBe(1);
         });
     });
 
@@ -142,62 +197,81 @@ describe('Gamification & In-Game Economy API Tests', () => {
         });
     });
 
-    describe('POST /api/gamification/claim-ad-reward', () => {
-        it('grants +2 oxygen bubbles (capped at 5)', async () => {
-            const { user, token } = await createTestUser({
-                oxygen: 2,
-            });
+    describe('Rewarded ad verification', () => {
+        it('rejects direct client reward claims', async () => {
+            const { user, token } = await createTestUser({ pearls: 100 });
 
             const res = await request(app)
                 .post('/api/gamification/claim-ad-reward')
                 .set('Authorization', `Bearer ${token}`)
-                .send({
-                    rewardType: 'oxygen',
-                    amount: 2,
-                });
+                .send({ rewardType: 'pearls', amount: 99999 });
 
-            expect(res.status).toBe(200);
-            expect(res.body.success).toBe(true);
-            expect(res.body.oxygen).toBe(4);
-
-            const updatedUser = await User.findByPk(user.id);
-            expect(updatedUser.oxygen).toBe(4);
+            expect(res.status).toBe(410);
+            expect((await User.findByPk(user.id)).pearls).toBe(100);
         });
 
-        it('grants +25 pearls', async () => {
-            const { user, token } = await createTestUser({
-                pearls: 100,
-            });
+        it('rejects an invalid AdMob signature', async () => {
+            verifyAdMobQuery.mockResolvedValue(false);
+            const { user } = await createTestUser({ pearls: 100 });
 
             const res = await request(app)
-                .post('/api/gamification/claim-ad-reward')
-                .set('Authorization', `Bearer ${token}`)
-                .send({
-                    rewardType: 'pearls',
-                    amount: 25,
-                });
-
-            expect(res.status).toBe(200);
-            expect(res.body.success).toBe(true);
-            expect(res.body.pearls).toBe(125);
-
-            const updatedUser = await User.findByPk(user.id);
-            expect(updatedUser.pearls).toBe(125);
-        });
-
-        it('rejects invalid rewardType', async () => {
-            const { token } = await createTestUser();
-
-            const res = await request(app)
-                .post('/api/gamification/claim-ad-reward')
-                .set('Authorization', `Bearer ${token}`)
-                .send({
-                    rewardType: 'unlimited_gold',
-                    amount: 100,
+                .get('/api/gamification/admob/ssv')
+                .query({
+                    user_id: user.id,
+                    transaction_id: 'admob-invalid-001',
+                    timestamp: Math.floor(Date.now() / 1000),
+                    custom_data: JSON.stringify({ rewardType: 'pearls' }),
+                    signature: 'invalid',
+                    key_id: '1',
                 });
 
             expect(res.status).toBe(400);
-            expect(res.body.success).toBe(false);
+            expect((await User.findByPk(user.id)).pearls).toBe(100);
+        });
+
+        it('credits a verified pearl reward once across callback retries', async () => {
+            const { user } = await createTestUser({ pearls: 100 });
+            const query = {
+                user_id: user.id,
+                transaction_id: 'admob-pearls-001',
+                timestamp: Math.floor(Date.now() / 1000),
+                custom_data: JSON.stringify({ rewardType: 'pearls' }),
+                reward_amount: 99999,
+                signature: 'valid',
+                key_id: '1',
+            };
+
+            const first = await request(app).get('/api/gamification/admob/ssv').query(query);
+            const replay = await request(app).get('/api/gamification/admob/ssv').query(query);
+
+            expect(first.status).toBe(200);
+            expect(first.body.pearlsEarned).toBe(25);
+            expect(replay.body.idempotentReplay).toBe(true);
+            expect((await User.findByPk(user.id)).pearls).toBe(125);
+        });
+
+        it('doubles XP from the server lesson receipt instead of a client amount', async () => {
+            const { user, token } = await createTestUser({ totalXp: 0 });
+            await request(app)
+                .post('/api/gamification/complete-node')
+                .set('Authorization', `Bearer ${token}`)
+                .send({ nodeIndex: 0, attemptId: 'lesson-double-001', scorePct: 100 });
+
+            const res = await request(app)
+                .get('/api/gamification/admob/ssv')
+                .query({
+                    user_id: user.id,
+                    transaction_id: 'admob-double-001',
+                    timestamp: Math.floor(Date.now() / 1000),
+                    custom_data: JSON.stringify({ rewardType: 'double_xp', attemptId: 'lesson-double-001' }),
+                    reward_amount: 99999,
+                    signature: 'valid',
+                    key_id: '1',
+                });
+
+            expect(res.status).toBe(200);
+            expect(res.body.xpEarned).toBe(12);
+            expect((await User.findByPk(user.id)).totalXp).toBe(24);
         });
     });
 });

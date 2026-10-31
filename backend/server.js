@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -22,6 +23,15 @@ app.set('trust proxy', 1);
 
 app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
 app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173', credentials: true }));
+app.use(compression({
+    filter: (req, res) => {
+        if (req.headers['x-no-compression']) {
+            return false;
+        }
+        return compression.filter(req, res);
+    },
+    threshold: 1024,
+}));
 
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 400, message: { success: false, message: 'Too many requests, please try again later.' } });
 const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100, message: { success: false, message: 'Too many auth requests, please try again later.' } });
@@ -88,7 +98,7 @@ app.get('/sitemap.xml', async (req, res) => {
         } catch (dbErr) {
             console.warn('Page table not initialized yet, attempting sync...', dbErr.message);
             try {
-                await Page.sync({ alter: true });
+                await Page.sync();
                 pages = await Page.findAll({
                     where: { status: 'published' },
                     attributes: ['slug', 'updatedAt', 'createdAt'],

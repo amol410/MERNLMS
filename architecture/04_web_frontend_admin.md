@@ -512,6 +512,11 @@ When an available or completed stepping stone is tapped, `LingoLessonModal.jsx` 
 8. **Listen & Select (`listen_select`)**:
    - Listening comprehension challenge offering normal speed playback and turtle slow playback (0.75x) to aid beginner ear training.
 
+#### Server-Confirmed Completion
+- A stable `completionAttemptId` is generated once per mounted lesson attempt and reused for retries.
+- Completion submits only `{ nodeIndex, attemptId, scorePct }`; the score is derived from completed stages and mistakes. Stars, XP, and Pearls are calculated by the backend.
+- The celebration screen and path refresh occur only after a successful response. Reward totals and stars come from that response, while failed saves keep rewards unconfirmed and allow retry with the same attempt ID.
+
 #### Web Audio API Sound Chime Synthesis
 Audio feedback is synthesized natively via the browser's `AudioContext` without requiring external sound files:
 - **Correct Chime**: Major chord arpeggio playing staggered triangle waves at C5 (523.25 Hz), E5 (659.25 Hz), G5 (783.99 Hz), and C6 (1046.50 Hz) with an exponential gain decay of 0.3s.

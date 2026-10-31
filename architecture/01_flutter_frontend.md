@@ -260,33 +260,26 @@ DolphinCoder uses `flutter_riverpod: ^2.5.1` with a strict separation between sy
 
 1. **`GamificationStatusNotifier` (`StateNotifier<AsyncValue<GamificationStatusModel>>`):**
    - Manages the user's primary economy: `streakCount`, `oxygen` (bubbles/hearts, max 5), `pearls`, `totalXp`, and active language pairing (`targetLanguage`, `nativeLanguage`, `currentLevel`).
-   - Supports **Optimistic Local Mutations**:
-     - `optimisticAddRewards(int xp, int pearls)`: Instantly increments local XP and pearl balances in 0ms without waiting for backend acknowledgement.
-     - `deductOxygen()`: Decrements oxygen bubbles locally upon exercise error and writes to `CacheService`.
-     - `optimisticRefillOxygen()`: Immediately resets oxygen to 5 upon rewarded ad completion or pearl purchase.
+   - Applies XP, Pearl, and Oxygen balances returned by the server through `applyServerStatus`; rewarded-ad views do not directly mutate authoritative balances.
+   - `deductOxygen()` decrements oxygen bubbles locally upon exercise error and writes to `CacheService`.
 
 2. **`PathNodesNotifier` (`StateNotifier<AsyncValue<List<PathNodeModel>>>`):**
    - Holds the ordered list of curriculum stepping stone nodes for the current active course track.
-   - Implements **Zero-Latency Client Node Progression (`completeNode`)**:
+   - Implements **Server-Confirmed Node Progression (`completeNode`)**:
      ```dart
-     Future<bool> completeNode(int nodeIndex, {int stars = 3, int scorePct = 100, int xp = 20, int pearls = 10}) async {
-       // 1. Instant 0ms Optimistic Unlock
-       state.whenData((currentNodes) {
-         final updated = List<PathNodeModel>.from(currentNodes);
-         updated[nodeIndex] = updated[nodeIndex].copyWith(status: 'completed', stars: stars, scorePct: scorePct);
-         if (nodeIndex + 1 < updated.length && updated[nodeIndex + 1].status == 'locked') {
-           updated[nodeIndex + 1] = updated[nodeIndex + 1].copyWith(status: 'available');
-         }
-         state = AsyncValue.data(updated);
-         CacheService().savePathNodes(..., nodes: updated);
-       });
-       // 2. Add rewards optimistically
-       _ref.read(gamificationStatusProvider.notifier).optimisticAddRewards(xp, pearls);
-       // 3. Dispatch background HTTP sync
-       _repo.completeNode(...);
-       return true;
+     Future<Map<String, dynamic>> completeNode(
+       int nodeIndex, {
+       int scorePct = 100,
+       String? attemptId,
+     }) async {
+       final result = await _repo.completeNode(...);
+       if (result['success'] == true) {
+         // Apply server-returned stars, rewards, and unlocked progression.
+       }
+       return result;
      }
      ```
+   - The request contains only the measured score, course identity, and stable attempt ID. Client-supplied XP, Pearl, and star awards are not sent; failed or offline requests do not display confirmed rewards.
 
 3. **`NotesListNotifier`, `QuizzesListNotifier`, `VideosListNotifier`:**
    - Manage paginated catalog feeds with state properties: `items`, `isLoading`, `hasMore`, and `page`.
@@ -557,7 +550,7 @@ The primary home screen of the application, rendering the interactive learning p
    - **Completed:** Emerald green (`#58CC02`) with white checkmark icon and 3D depth lip.
    - **Available (Active):** Colored with unit accent, surrounded by a glowing radial pulse ring, topped with the animated 3D dolphin mascot wearing an adventure backpack.
    - **Locked:** Slate dark (`#273840`) with a lock icon.
-   - **Sunken Treasure Chest (`type == 'chest'`):** Golden amber container (`#FF9600`) displaying a gift box. Tapping claims $+30$ Pearls and $+20$ XP, triggering a celebratory modal and optimistic path completion.
+   - **Sunken Treasure Chest (`type == 'chest'`):** Golden amber container (`#FF9600`) displaying a gift box. Tapping submits a completion attempt without reward amounts; the celebratory modal and path completion appear only after the server confirms its calculated rewards.
 
 4. **Oxygen Gate & Out of Oxygen Modal:**
    - If a learner taps an available node with $0$ oxygen bubbles, navigation is halted and `OutOfOxygenSheet` is presented, offering a rewarded video ad to earn $+1$ bubble or pearl purchase.
@@ -673,8 +666,8 @@ The lesson session runner is the most complex component in the mobile app, spann
   - 3D Mascot in victory celebration pose with animated sparkle particles.
   - Headline: *"Lesson Complete!"*
   - Stats Row: Accuracy percentage (`_calculatedAccuracy`), XP gained (`_earnedXp`), and Pearls awarded (`_earnedPearls`).
-  - **Rewarded Ad Double XP Button:** *"Claim Double XP (2x 🔥)"*. Tapping invokes `AdService().showRewardedAd()`. Upon video completion, XP is doubled locally and credited to the backend via `claimAdReward()`.
-  - **Continue Button:** Dispatches `pathNodesProvider.notifier.completeNode()`, records study activity in `ActivityRepository`, checks interstitial ad cadence (`AdService().showInterstitialIfEligible()`), and pops back to the Archipelago map.
+  - **Rewarded Ad Double XP Button:** *"Claim Double XP (2x 🔥)"*. The lesson completion is synchronized first, then `AdService().showRewardedAd()` attaches the user ID, reward type, and lesson attempt ID as AdMob server-side verification metadata. The bonus is credited only by the signed backend callback and confirmed by refreshed server balances.
+  - **Continue Button:** Dispatches `pathNodesProvider.notifier.completeNode()` with the measured score and stable attempt ID, records study activity in `ActivityRepository`, checks interstitial ad cadence (`AdService().showInterstitialIfEligible()`), and pops back to the Archipelago map after confirmation.
 
 ---
 
@@ -1096,7 +1089,7 @@ Located in `core/services/tts_service.dart`:
 
 Located in `core/services/ad_service.dart`:
 - **Dual Ad Format Architecture:**
-  - **Rewarded Ads:** Opt-in rewards granting $+1$ Oxygen Bubble when depleted or Double XP ($2\times$) upon completing a lesson session.
+  - **Rewarded Ads:** Opt-in Oxygen, Pearl, or Double XP rewards. `setServerSideOptions()` attaches `userId` and signed custom reward metadata; clients never credit these rewards directly. The backend's signed AdMob callback awards fixed amounts, with Double XP derived from the original lesson receipt.
   - **Interstitial Ads:** Full-screen interstitial ads shown every 2 completed lessons (`_kLessonsPerAd = 2`).
 - **Cadence Logic:**
   `incrementLessonCount()` records completions in `SharedPreferences`. `showInterstitialIfEligible()` presents the ad if eligible and preloaded, then resets the counter.

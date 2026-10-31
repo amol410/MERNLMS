@@ -52,10 +52,10 @@ const Page = sequelize.define('Page', {
     ],
 });
 
-// Auto-sync table if not yet present in production database
+// Safe non-destructive table initialization if not yet present
 if (process.env.NODE_ENV !== 'test') {
-    Page.sync({ alter: true }).catch((err) => {
-        console.log('Notice: Page table auto-sync:', err.message);
+    Page.sync().catch((err) => {
+        console.log('Notice: Page table initialization:', err.message);
     });
 }
 

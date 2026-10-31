@@ -163,6 +163,7 @@ backend/
 │   ├── Page.js                   # Dynamic CMS articles, SEO summaries & publication state
 │   ├── Quiz.js                   # Assessment definition, questions JSON & passing benchmarks
 │   ├── QuizAttempt.js            # Historical & latest quiz submissions, graded answers & timings
+│   ├── RewardTransaction.js      # Idempotent lesson and signed AdMob reward receipts
 │   ├── Subject.js                # Curriculum academic taxonomy & topic nodes
 │   ├── User.js                   # Learner/Staff accounts, credentials & in-game gamification wallet
 │   ├── UserActivity.js           # Granular study session logs indexed by DATEONLY
@@ -358,6 +359,27 @@ Tracks a student's individual progress, stars, and completion state along an arc
 
 ---
 
+#### 3A. Table: `reward_transactions` (Model: `RewardTransaction`)
+Stores authoritative lesson-completion and AdMob reward receipts. The unique `(user_id, kind, reference)` index makes each lesson `attemptId` or AdMob `transaction_id` idempotent, while `response_body` preserves the original response for safe retries.
+
+| Column Name | Sequelize Type | Constraints / Defaults | Description |
+|:---|:---|:---|:---|
+| `id` | `DataTypes.INTEGER` | Primary Key, Auto Increment | Unique receipt ID |
+| `user_id` | `DataTypes.INTEGER` | `allowNull: false`, FK -> `users.id` | Reward recipient |
+| `kind` | `DataTypes.STRING(32)` | `allowNull: false` | `lesson` or `admob` |
+| `reference` | `DataTypes.STRING(128)` | `allowNull: false` | Lesson attempt or AdMob transaction identity |
+| `xp_earned` | `DataTypes.INTEGER` | Default: `0` | Server-calculated XP credited by this receipt |
+| `pearls_earned` | `DataTypes.INTEGER` | Default: `0` | Server-calculated Pearls credited by this receipt |
+| `oxygen_earned` | `DataTypes.INTEGER` | Default: `0` | Server-calculated Oxygen credited by this receipt |
+| `response_body` | `DataTypes.TEXT` | JSON serialized | Original API response returned on idempotent replay |
+| `created_at` / `updated_at` | `DataTypes.DATE` | `allowNull: false` | Receipt timestamps |
+
+**Indexes on `reward_transactions`:**
+- Unique Composite Index (`unique_user_reward_reference`): `['user_id', 'kind', 'reference']`
+- Daily-limit Lookup Index (`idx_user_reward_created`): `['user_id', 'kind', 'created_at']`
+
+---
+
 #### 4. Table: `karaoke_audios` (Model: `KaraokeAudio`)
 Stores high-fidelity MP3/AAC audio files directly in the MySQL database as `LONGBLOB`s for zero-disk, horizontally scalable HTTP 206 streaming.
 
@@ -534,6 +556,7 @@ erDiagram
     User ||--o{ UserActivity : "generates"
     User ||--o{ UserNodeProgress : "advances"
     User ||--o{ UserQuest : "receives"
+    User ||--o{ RewardTransaction : "receives receipts"
     User ||--o{ CurriculumLesson : "authors"
     User ||--o{ Page : "writes"
 
@@ -580,6 +603,17 @@ erDiagram
         int node_index
         string status
         int stars
+    }
+
+    RewardTransaction {
+        int id PK
+        int user_id FK
+        string kind
+        string reference
+        int xp_earned
+        int pearls_earned
+        int oxygen_earned
+        text response_body
     }
 
     KaraokeAudio {
@@ -649,6 +683,9 @@ UserNodeProgress.belongsTo(User,{ foreignKey: 'userId',   as: 'user' });
 User.hasMany(UserQuest,     { foreignKey: 'userId',       as: 'quests', onDelete: 'CASCADE' });
 UserQuest.belongsTo(User,   { foreignKey: 'userId',       as: 'user' });
 
+User.hasMany(RewardTransaction, { foreignKey: 'userId',   as: 'rewardTransactions' });
+RewardTransaction.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
 // Curriculum Lessons
 User.hasMany(CurriculumLesson, { foreignKey: 'owner',     as: 'curriculumLessons' });
 CurriculumLesson.belongsTo(User, { foreignKey: 'owner',   as: 'author' });
@@ -701,8 +738,8 @@ Oxygen represents learner stamina. A maximum of 5 oxygen bubbles can be held:
    - Endpoint: `POST /api/gamification/shop/refill-oxygen`.
    - Cost: $50 \text{ Pearls}$. Restores Oxygen immediately to 5.
 3. **Rewarded Video Ad Replenishment:**
-   - Endpoint: `POST /api/gamification/claim-ad-reward` with `{ rewardType: 'oxygen', amount: 1 }`.
-   - Awards $+1 \text{ Oxygen}$, capped at 5.
+   - AdMob calls the public signed `GET /api/gamification/admob/ssv` callback after a verified rewarded view.
+   - Signed metadata selects the reward; Oxygen awards $+2$ bubbles, capped at 5. Direct client balance claims are disabled.
 
 ---
 
@@ -964,7 +1001,7 @@ Mounted at `server.js:46`. All endpoints require `protect`.
 
 ### 5.3 Gamification, Archipelago Map & Economy (`/api/gamification`)
 
-Mounted at `server.js:45`. All endpoints require `protect`.
+Mounted at `server.js:45`. All endpoints require `protect` except the signed AdMob server-to-server callback.
 
 #### Endpoints:
 1. `GET /api/gamification/status`
@@ -975,8 +1012,9 @@ Mounted at `server.js:45`. All endpoints require `protect`.
 3. `GET /api/gamification/lesson/:id`
    - **Behavior:** On-demand JIT fetching of full challenge stages array and karaoke data for interactive playback.
 4. `POST /api/gamification/complete-node`
-   - **Body:** `{ nodeIndex, stars, scorePct, xpEarned, pearlsEarned, courseId }`
-   - **Behavior:** Upserts `user_node_progress`, unlocks next node index (`nodeIndex + 1`), recalculates streak based on client timezone date, credits XP/Pearls, logs activity to `user_activities`.
+   - **Body:** `{ nodeIndex, scorePct, attemptId, learningLanguage?, nativeLanguage?, level? }`. An `Idempotency-Key` header can replace `attemptId`.
+   - **Validation:** Requires a non-negative integer node index, an integer score from 0 to 100, and an 8–128 character attempt identity. Client-supplied stars, XP, and Pearls are ignored.
+   - **Behavior:** Resolves the course node and calculates stars, XP, and Pearls on the server. One transaction locks the user row, upserts progress, unlocks the next node, updates balances and streak, logs activity, and stores a `reward_transactions` receipt. Replaying the same attempt returns the stored response with `idempotentReplay: true` and never credits rewards twice.
 5. `GET /api/gamification/leaderboard`
    - **Query Params:** `league` (default: `'Coral Reef'`).
    - **Behavior:** Returns top 30 active learners ranked by `totalXp DESC`.
@@ -990,9 +1028,11 @@ Mounted at `server.js:45`. All endpoints require `protect`.
 9. `POST /api/gamification/switch-course`
    - **Body:** `{ targetLanguage, nativeLanguage, level }`
    - **Behavior:** Updates user course track.
-10. `POST /api/gamification/claim-ad-reward`
-    - **Body:** `{ rewardType: 'oxygen' | 'pearls' | 'double_xp', amount: 1 }`
-    - **Behavior:** Adds $+1 \text{ Oxygen}$ (capped at 5), bonus pearls, or double XP after watching Google AdMob rewarded ad.
+10. `GET /api/gamification/admob/ssv`
+    - **Access:** Public only after SHA-256 ECDSA verification against Google's AdMob keys; also validates timestamp, user, transaction ID, reward metadata, and optionally `ADMOB_REWARDED_AD_UNIT_ID`.
+    - **Behavior:** Transactionally awards fixed +2 Oxygen (cap 5), +25 Pearls, or Double XP derived from the referenced server-side lesson receipt. AdMob transaction IDs are idempotent and verified receipts are limited to six per user per UTC day.
+11. `POST /api/gamification/claim-ad-reward`
+    - **Behavior:** Returns HTTP 410. Direct client reward claims cannot modify balances.
 
 ---
 
@@ -1265,7 +1305,7 @@ npm test
 - **Harness Setup (`tests/setup.js`)**: Configures `NODE_ENV = 'test'`, initializes Sequelize database connection, handles test user fixtures, and performs clean teardowns between test suites.
 - **Authentication Suite (`tests/auth.test.js`)**: Tests user registration, password bcrypt hashing, duplicate email rejection, JWT generation, protected route authorization, and role-based access control.
 - **Curriculum Suite (`tests/curriculum.test.js`)**: Tests multi-language curriculum retrieval (`de_en_a1`, `en_hi_a1`), unit hierarchy, JIT lesson manifests, and stage parsing.
-- **Gamification Suite (`tests/gamification.test.js`)**: Tests oxygen bubble regeneration, daily streak state transitions, pearls economy, and database-persisted ad reward claims (`POST /api/gamification/claim-ad-reward`).
+- **Gamification Suite (`tests/gamification.test.js`)**: Tests oxygen regeneration, streaks, server-calculated rewards, rejection of client-supplied reward amounts, completion validation and idempotent replay, disabled direct ad claims, AdMob signature verification, transaction replay, and server-derived Double XP.
 - **Lesson Mechanics Suite (`tests/lesson_mechanics.test.js`)**: Tests Fisher-Yates derangement algorithms for matching pairs, pronunciation fuzzy scoring validation, and stage-specific constraints.
 
 ### 9.2 Hostinger Live Latency Benchmark (`backend/scripts/benchmark_hostinger.js`)

@@ -10,6 +10,7 @@ const KaraokeAudio = require('./KaraokeAudio');
 const UserNodeProgress = require('./UserNodeProgress');
 const UserQuest = require('./UserQuest');
 const CurriculumLesson = require('./CurriculumLesson');
+const RewardTransaction = require('./RewardTransaction');
 const Page = require('./Page');
 
 Note.belongsTo(User,     { foreignKey: 'owner',     as: 'ownerUser' });
@@ -29,6 +30,9 @@ UserNodeProgress.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
 User.hasMany(UserQuest, { foreignKey: 'userId', as: 'quests' });
 UserQuest.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+User.hasMany(RewardTransaction, { foreignKey: 'userId', as: 'rewardTransactions' });
+RewardTransaction.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
 User.hasMany(CurriculumLesson, { foreignKey: 'owner', as: 'curriculumLessons' });
 CurriculumLesson.belongsTo(User, { foreignKey: 'owner', as: 'author' });

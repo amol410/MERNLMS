@@ -1,4 +1,5 @@
 const { Op } = require('sequelize');
+const { sequelize } = require('../config/database');
 const Note = require('../models/Note');
 const User = require('../models/User');
 const Subject = require('../models/Subject');
@@ -303,6 +304,7 @@ exports.trackView = async (req, res, next) => {
       if (note.isKaraoke) isKaraokeNote = true;
     }
 
+    const todayYMD = getClientDate(req);
     await UserActivity.create({
       userId: req.user.id,
       activityType: 'note',
@@ -315,8 +317,23 @@ exports.trackView = async (req, res, next) => {
         listeningSecs: isKaraokeNote ? (listeningSecs || effectiveSecs) : 0,
         isKaraoke: isKaraokeNote,
       },
-      activityDate: getClientDate(req),
+      activityDate: todayYMD,
     });
+
+    if (isKaraokeNote) {
+      try {
+        const UserQuest = require('../models/UserQuest');
+        const karaokeQuest = await UserQuest.findOne({
+          where: { userId: req.user.id, questType: 'karaoke', questDate: todayYMD, isClaimed: false }
+        });
+        if (karaokeQuest) {
+          karaokeQuest.currentAmount = Math.min(karaokeQuest.targetAmount, (karaokeQuest.currentAmount || 0) + 1);
+          await karaokeQuest.save();
+        }
+      } catch (qErr) {
+        // non-blocking quest update
+      }
+    }
 
     res.json({ success: true, logged: true });
   } catch (error) {
@@ -380,18 +397,31 @@ exports.uploadAudioFile = async (req, res, next) => {
 /**
  * GET /api/notes/audio/db/:id
  * Streams audio binary data directly from MySQL table `karaoke_audios`
- * Supports HTTP 206 Partial Content (Range requests) for smooth playback and seeking
+ * Supports HTTP 206 Partial Content (Range requests) with memory-safe SQL SUBSTR byte-slicing
  */
 exports.streamAudioFromDb = async (req, res, next) => {
   try {
-    const audio = await KaraokeAudio.findByPk(req.params.id);
-    if (!audio || !audio.audioData) {
+    const audioId = parseInt(req.params.id, 10);
+    if (isNaN(audioId) || audioId <= 0) {
+      return res.status(400).send('Invalid audio ID');
+    }
+
+    // 1. Fetch metadata & length only (does NOT load entire LONGBLOB into RAM)
+    const metaList = await sequelize.query(
+      'SELECT id, mimeType, LENGTH(audioData) AS totalLength FROM karaoke_audios WHERE id = :id LIMIT 1',
+      {
+        replacements: { id: audioId },
+        type: sequelize.QueryTypes.SELECT,
+      }
+    );
+
+    if (!metaList || metaList.length === 0 || !metaList[0].totalLength) {
       return res.status(404).send('Audio track not found in database');
     }
 
-    const buffer = Buffer.isBuffer(audio.audioData) ? audio.audioData : Buffer.from(audio.audioData);
-    const totalLength = buffer.length;
-    const contentType = audio.mimeType || 'audio/mpeg';
+    const meta = metaList[0];
+    const totalLength = Number(meta.totalLength);
+    const contentType = meta.mimeType || 'audio/mpeg';
 
     const range = req.headers.range;
     if (range) {
@@ -406,23 +436,54 @@ exports.streamAudioFromDb = async (req, res, next) => {
       }
 
       const chunkSize = (end - start) + 1;
+
+      // 2. Stream ONLY the requested byte slice directly from SQL using SUBSTR (1-indexed)
+      const chunkRows = await sequelize.query(
+        'SELECT SUBSTR(audioData, :startOneIndexed, :chunkSize) AS chunk FROM karaoke_audios WHERE id = :id LIMIT 1',
+        {
+          replacements: {
+            id: audioId,
+            startOneIndexed: start + 1,
+            chunkSize,
+          },
+          type: sequelize.QueryTypes.SELECT,
+        }
+      );
+
+      const chunkBuffer = chunkRows && chunkRows[0] && chunkRows[0].chunk;
+      if (!chunkBuffer) {
+        return res.status(500).send('Error reading audio range');
+      }
+
+      const finalChunk = Buffer.isBuffer(chunkBuffer) ? chunkBuffer : Buffer.from(chunkBuffer);
       res.writeHead(206, {
         'Content-Range': `bytes ${start}-${end}/${totalLength}`,
         'Accept-Ranges': 'bytes',
-        'Content-Length': chunkSize,
+        'Content-Length': finalChunk.length,
         'Content-Type': contentType,
         'Cache-Control': 'public, max-age=31536000',
       });
-      return res.end(buffer.subarray(start, end + 1));
+      return res.end(finalChunk);
     }
 
+    // Full audio request
+    const fullAudioRows = await sequelize.query(
+      'SELECT audioData FROM karaoke_audios WHERE id = :id LIMIT 1',
+      {
+        replacements: { id: audioId },
+        type: sequelize.QueryTypes.SELECT,
+      }
+    );
+    const fullBuffer = fullAudioRows && fullAudioRows[0] && fullAudioRows[0].audioData;
+    const finalBuffer = Buffer.isBuffer(fullBuffer) ? fullBuffer : Buffer.from(fullBuffer || '');
+
     res.writeHead(200, {
-      'Content-Length': totalLength,
+      'Content-Length': finalBuffer.length,
       'Content-Type': contentType,
       'Accept-Ranges': 'bytes',
       'Cache-Control': 'public, max-age=31536000',
     });
-    return res.end(buffer);
+    return res.end(finalBuffer);
   } catch (error) {
     console.error('Error streaming audio from DB:', error);
     res.status(500).send('Error streaming audio from database');

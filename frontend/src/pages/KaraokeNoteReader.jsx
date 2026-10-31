@@ -19,13 +19,14 @@ function formatTime(secs) {
   return `${m}:${String(s).padStart(2, '0')}`;
 }
 
+import { getSharedAudioContext } from '../utils/audioHelper';
+
 // ─── Native Web Audio Chimes & German Pronunciation Evaluation Helpers ──────
 
 function playCelebrationSound() {
   try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return;
-    const ctx = new AudioCtx();
+    const ctx = getSharedAudioContext();
+    if (!ctx) return;
     const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 major chord arpeggio
     freqs.forEach((freq, idx) => {
       const osc = ctx.createOscillator();
@@ -44,9 +45,8 @@ function playCelebrationSound() {
 
 function playRetrySound() {
   try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return;
-    const ctx = new AudioCtx();
+    const ctx = getSharedAudioContext();
+    if (!ctx) return;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = 'sine';

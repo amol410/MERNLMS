@@ -684,21 +684,7 @@ export default function LingoDolphyPage() {
             fetchPath(targetLanguage, nativeLanguage, level, selectedSection);
             fetchStatus();
           }}
-          onComplete={async (completedNode, resultData) => {
-            // Optimistic instant unlock: mark current completed and next available
-            const completedIdx = completedNode?.index;
-            setNodes(prev => prev.map(n => {
-              const isThisNode = (completedIdx !== undefined && n.index === completedIdx) ||
-                                 (completedNode?.id && String(n.id) === String(completedNode.id));
-              if (isThisNode) {
-                return { ...n, status: 'completed', stars: 3 };
-              }
-              if (completedIdx !== undefined && n.index === completedIdx + 1) {
-                return { ...n, status: 'available' };
-              }
-              return n;
-            }));
-
+          onComplete={async () => {
             // Refresh economy stats and fetch fresh canonical path
             fetchStatus();
             try {

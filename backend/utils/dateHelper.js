@@ -9,6 +9,7 @@
  * Returns today's local date (YYYY-MM-DD) for the client.
  */
 function getClientDate(req) {
+    const serverDerivedDate = toClientLocalDate(new Date(), req) || new Date().toISOString().split('T')[0];
     if (req) {
         // Explicit client date header from axios interceptor (e.g. '2026-09-25')
         const explicitDate = req.headers?.['x-client-date']
@@ -17,10 +18,19 @@ function getClientDate(req) {
             || req.query?.clientDate;
 
         if (explicitDate && /^\d{4}-\d{2}-\d{2}$/.test(String(explicitDate))) {
-            return String(explicitDate);
+            // Anti-cheat verification: explicit date cannot diverge more than +/- 1 calendar day
+            // from the server's real wall-clock time in the client's local timezone.
+            const serverMs = new Date(serverDerivedDate).getTime();
+            const clientMs = new Date(String(explicitDate)).getTime();
+            if (!isNaN(serverMs) && !isNaN(clientMs)) {
+                const diffDays = Math.abs(serverMs - clientMs) / (1000 * 60 * 60 * 24);
+                if (diffDays <= 1) {
+                    return String(explicitDate);
+                }
+            }
         }
     }
-    return toClientLocalDate(new Date(), req);
+    return serverDerivedDate;
 }
 
 /**

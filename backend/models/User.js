@@ -31,6 +31,8 @@ const User = sequelize.define('User', {
     pearls: { type: DataTypes.INTEGER, defaultValue: 10, field: 'pearls' },
     oxygen: { type: DataTypes.INTEGER, defaultValue: 5, field: 'oxygen' },
     lastOxygenRefill: { type: DataTypes.DATE, defaultValue: DataTypes.NOW, field: 'last_oxygen_refill' },
+    streakFreezeCount: { type: DataTypes.INTEGER, defaultValue: 0, field: 'streak_freeze_count' },
+    doubleXpExpiresAt: { type: DataTypes.DATE, defaultValue: null, field: 'double_xp_expires_at' },
     totalXp: { type: DataTypes.INTEGER, defaultValue: 0, field: 'total_xp' },
     currentLeague: { type: DataTypes.STRING(50), defaultValue: 'Coral Reef', field: 'current_league' },
     fcmToken: { type: DataTypes.STRING(500), allowNull: true, field: 'fcm_token' },

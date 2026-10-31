@@ -1,36 +1,57 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Navbar from './components/common/Navbar';
 
+// Core entry routes (eagerly loaded for sub-second first paint)
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
-import NotesPage from './pages/NotesPage';
-import NoteEditorPage from './pages/NoteEditorPage';
-import NoteDetailPage from './pages/NoteDetailPage';
-import VideosPage from './pages/VideosPage';
-import VideoDetailPage from './pages/VideoDetailPage';
-import VideoFormPage from './pages/VideoFormPage';
-import QuizzesPage from './pages/QuizzesPage';
-import QuizFormPage from './pages/QuizFormPage';
-import QuizTakePage from './pages/QuizTakePage';
-import FlashcardsPage from './pages/FlashcardsPage';
-import FlashcardFormPage from './pages/FlashcardFormPage';
-import StudyPage from './pages/StudyPage';
-import ProfilePage from './pages/ProfilePage';
-import AdminPage from './pages/AdminPage';
-import ActivityHistoryPage from './pages/ActivityHistoryPage';
-import QuizReviewPage from './pages/QuizReviewPage';
-import KaraokeNoteReader from './pages/KaraokeNoteReader';
-import CurriculumPage from './pages/CurriculumPage';
-import LingoDolphyPage from './pages/LingoDolphyPage';
-import AdminPagesPage from './pages/AdminPagesPage';
-import AdminNotificationsPage from './pages/AdminNotificationsPage';
-import PageEditorPage from './pages/PageEditorPage';
-import PublicPageView from './pages/PublicPageView';
+
+// Lazy-loaded routes (chunked on-demand, isolating heavy Admin & Editor bundles)
+const NotesPage = lazy(() => import('./pages/NotesPage'));
+const NoteEditorPage = lazy(() => import('./pages/NoteEditorPage'));
+const NoteDetailPage = lazy(() => import('./pages/NoteDetailPage'));
+const KaraokeNoteReader = lazy(() => import('./pages/KaraokeNoteReader'));
+
+const VideosPage = lazy(() => import('./pages/VideosPage'));
+const VideoDetailPage = lazy(() => import('./pages/VideoDetailPage'));
+const VideoFormPage = lazy(() => import('./pages/VideoFormPage'));
+
+const QuizzesPage = lazy(() => import('./pages/QuizzesPage'));
+const QuizFormPage = lazy(() => import('./pages/QuizFormPage'));
+const QuizTakePage = lazy(() => import('./pages/QuizTakePage'));
+const QuizReviewPage = lazy(() => import('./pages/QuizReviewPage'));
+
+const FlashcardsPage = lazy(() => import('./pages/FlashcardsPage'));
+const FlashcardFormPage = lazy(() => import('./pages/FlashcardFormPage'));
+const StudyPage = lazy(() => import('./pages/StudyPage'));
+
+const LingoDolphyPage = lazy(() => import('./pages/LingoDolphyPage'));
+const CurriculumPage = lazy(() => import('./pages/CurriculumPage'));
+
+const AdminPage = lazy(() => import('./pages/AdminPage'));
+const AdminPagesPage = lazy(() => import('./pages/AdminPagesPage'));
+const AdminNotificationsPage = lazy(() => import('./pages/AdminNotificationsPage'));
+const PageEditorPage = lazy(() => import('./pages/PageEditorPage'));
+const PublicPageView = lazy(() => import('./pages/PublicPageView'));
+
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const ActivityHistoryPage = lazy(() => import('./pages/ActivityHistoryPage'));
+
+function PageFallback() {
+  return (
+    <div className="flex items-center justify-center min-h-[50vh]">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
+        <span className="text-xs font-semibold text-gray-400">Loading page...</span>
+      </div>
+    </div>
+  );
+}
 
 function Layout({ children }) {
   const location = useLocation();
@@ -39,7 +60,11 @@ function Layout({ children }) {
   return (
     <div className={isQuizTake ? "min-h-screen" : "pt-24 min-h-screen"}>
       {!isQuizTake && <Navbar />}
-      <main className={isQuizTake ? "pb-0" : "pb-12"}>{children}</main>
+      <main className={isQuizTake ? "pb-0" : "pb-12"}>
+        <Suspense fallback={<PageFallback />}>
+          {children}
+        </Suspense>
+      </main>
     </div>
   );
 }
