@@ -128,11 +128,6 @@ app.get('/app-ads.txt', (req, res) => {
     res.send('google.com, pub-6038618318911032, DIRECT, f08c47fec0942fa0\n');
 });
 
-// 5. Sound effects mobile testing soundboard (isolated)
-app.get(['/check/sounds', '/check/sounds/'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/check_sounds.html'));
-});
-
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'dist')));
 
