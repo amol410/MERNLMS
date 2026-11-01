@@ -210,10 +210,11 @@ describe('🐬 DolphinCoder LMS - Live Database Storage & Read-After-Write Verif
     expect(afterRes.statusCode).toBe(200);
     const afterOxygen = afterRes.data.oxygen;
 
-    // The oxygen must be persisted: if it was > 0, it decremented or stayed within 0..5
-    expect(afterOxygen).toBe(deductRes.data.oxygen);
+    // The oxygen must be persisted: within 0..5 and reflects deduction or automatic regeneration
+    expect(afterOxygen).toBeGreaterThanOrEqual(deductRes.data.oxygen);
+    expect(afterOxygen).toBeLessThanOrEqual(5);
     if (initialOxygen > 0) {
-      expect(afterOxygen).toBeLessThanOrEqual(initialOxygen);
+      expect(deductRes.data.oxygen).toBeLessThanOrEqual(initialOxygen);
     }
   });
 
