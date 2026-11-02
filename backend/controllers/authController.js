@@ -433,28 +433,67 @@ exports.resetPassword = async (req, res, next) => {
  */
 exports.googleLogin = async (req, res, next) => {
   try {
-    const token = req.body.idToken || req.body.credential || req.body.id_token;
-    if (!token) {
+    const token = req.body.idToken || req.body.credential || req.body.id_token || req.body.token;
+    const accessToken = req.body.accessToken || req.body.access_token;
+    if (!token && !accessToken) {
       return res.status(400).json({ success: false, message: 'Google ID token or credential is required' });
     }
 
-    const clientId = process.env.GOOGLE_CLIENT_ID;
-    const client = new OAuth2Client(clientId);
+    const defaultClientIds = [
+      '954842353363-3es8j5j88oinub65ln43563atq6166r5.apps.googleusercontent.com',
+      '954842353363-d1rduacuqb0easj85t8ejhf22ih0erre.apps.googleusercontent.com',
+      '954842353363-arjj1qqm2csgpri2fvn3uv7223fgdaa3.apps.googleusercontent.com',
+      '954842353363-sbrtsu5c3n62bm82g9sptv0maf0jvpbg.apps.googleusercontent.com',
+    ];
+    const envClientIds = (process.env.GOOGLE_CLIENT_ID || '')
+      .split(',')
+      .map(id => id.trim())
+      .filter(Boolean);
+    const allowedAudiences = Array.from(new Set([...envClientIds, ...defaultClientIds]));
+    const client = new OAuth2Client(envClientIds[0] || defaultClientIds[0]);
 
-    let ticket;
-    try {
-      ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: clientId || undefined,
-      });
-    } catch (verifyErr) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid or expired Google token: ' + verifyErr.message,
-      });
+    let payload = null;
+    if (token) {
+      try {
+        const ticket = await client.verifyIdToken({
+          idToken: token,
+          audience: allowedAudiences.length > 0 ? allowedAudiences : undefined,
+        });
+        payload = ticket.getPayload();
+      } catch (verifyErr) {
+        if (!accessToken) {
+          return res.status(401).json({
+            success: false,
+            message: 'Invalid or expired Google token: ' + verifyErr.message,
+          });
+        }
+      }
     }
 
-    const payload = ticket.getPayload();
+    if (!payload && accessToken) {
+      try {
+        const tokenInfo = await client.getTokenInfo(accessToken);
+        if (!tokenInfo || !tokenInfo.sub) {
+          return res.status(401).json({
+            success: false,
+            message: 'Invalid or expired Google access token',
+          });
+        }
+        payload = {
+          sub: tokenInfo.sub,
+          email: tokenInfo.email || req.body.email,
+          name: req.body.name || (tokenInfo.email ? tokenInfo.email.split('@')[0] : 'Google User'),
+          picture: req.body.avatar || req.body.photoUrl || null,
+          email_verified: true,
+        };
+      } catch (accessErr) {
+        return res.status(401).json({
+          success: false,
+          message: 'Invalid or expired Google token: ' + accessErr.message,
+        });
+      }
+    }
+
     if (!payload || !payload.sub) {
       return res.status(401).json({ success: false, message: 'Failed to retrieve Google profile' });
     }
