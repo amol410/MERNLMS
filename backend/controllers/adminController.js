@@ -10,10 +10,10 @@ exports.createTrainer = async (req, res, next) => {
     if (existing) {
       return res.status(400).json({ success: false, message: 'Email already in use' });
     }
-    const trainer = await User.create({ name, email, password, role: 'trainer' });
+    const trainer = await User.create({ name, email, password, role: 'trainer', isEmailVerified: true });
     res.status(201).json({
       success: true,
-      user: { _id: trainer.id, name: trainer.name, email: trainer.email, role: trainer.role, isActive: trainer.isActive, createdAt: trainer.createdAt },
+      user: { _id: trainer.id, name: trainer.name, email: trainer.email, role: trainer.role, isActive: trainer.isActive, isEmailVerified: trainer.isEmailVerified, createdAt: trainer.createdAt },
     });
   } catch (error) {
     next(error);

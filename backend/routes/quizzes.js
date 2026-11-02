@@ -4,12 +4,12 @@ const {
   getQuizzes, getQuizById, createQuiz, updateQuiz, deleteQuiz,
   submitAttempt, getMyAttempts, getLatestQuizAttemptReview, getAllAttempts, bulkUploadQuiz,
 } = require('../controllers/quizController');
-const { protect, authorize } = require('../middleware/auth');
+const { protect, optionalProtect, authorize } = require('../middleware/auth');
 const multer = require('multer');
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 
-router.get('/', getQuizzes);
+router.get('/', optionalProtect, getQuizzes);
 router.get('/:id', protect, getQuizById);
 router.post('/', protect, authorize('trainer', 'admin'), createQuiz);
 router.put('/:id', protect, authorize('trainer', 'admin'), updateQuiz);

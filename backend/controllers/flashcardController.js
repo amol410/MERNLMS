@@ -159,8 +159,16 @@ exports.removeCard = async (req, res, next) => {
 
 exports.saveProgress = async (req, res, next) => {
   try {
-    const { cardResults, engagementSecs } = req.body;
-    const masteredCount = cardResults.filter(r => r.status === 'known').length;
+    const { cardResults: rawCardResults, engagementSecs } = req.body;
+    const cardResults = Array.isArray(rawCardResults)
+      ? rawCardResults
+      : (rawCardResults && typeof rawCardResults === 'object'
+          ? Object.entries(rawCardResults).map(([cardId, status]) => ({
+              cardId,
+              status: status === 'easy' || status === 'known' ? 'known' : 'learning',
+            }))
+          : []);
+    const masteredCount = cardResults.filter(r => r && (r.status === 'known' || r.status === 'easy')).length;
 
     let progress = await FlashcardProgress.findOne({
       where: { student: req.user.id, flashcard: req.params.id },

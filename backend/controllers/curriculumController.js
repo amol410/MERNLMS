@@ -530,17 +530,21 @@ exports.getUnitsSummary = async (req, res, next) => {
 exports.toggleUnitLiveStatus = async (req, res, next) => {
     try {
         const { unitNumber } = req.params;
-        const { isLive, learningLanguage = 'de', level = 'A1' } = req.body;
+        const { isLive, learningLanguage = 'de', level = 'A1', nativeLanguage } = req.body;
+        const resolvedNativeLanguage = nativeLanguage || req.query?.nativeLanguage;
+
+        const where = {
+            unitNumber: parseInt(unitNumber, 10),
+            learningLanguage,
+            level,
+        };
+        if (resolvedNativeLanguage) {
+            where.nativeLanguage = resolvedNativeLanguage;
+        }
 
         await CurriculumLesson.update(
             { isLive: Boolean(isLive) },
-            {
-                where: {
-                    unitNumber: parseInt(unitNumber, 10),
-                    learningLanguage,
-                    level,
-                },
-            }
+            { where }
         );
 
         res.json({
@@ -556,15 +560,19 @@ exports.toggleUnitLiveStatus = async (req, res, next) => {
 exports.deleteUnit = async (req, res, next) => {
     try {
         const { unitNumber } = req.params;
-        const { learningLanguage = 'de', level = 'A1' } = req.query;
+        const { learningLanguage = 'de', level = 'A1', nativeLanguage } = req.query;
+        const resolvedNativeLanguage = nativeLanguage || req.body?.nativeLanguage;
 
-        const count = await CurriculumLesson.destroy({
-            where: {
-                unitNumber: parseInt(unitNumber, 10),
-                learningLanguage,
-                level,
-            },
-        });
+        const where = {
+            unitNumber: parseInt(unitNumber, 10),
+            learningLanguage,
+            level,
+        };
+        if (resolvedNativeLanguage) {
+            where.nativeLanguage = resolvedNativeLanguage;
+        }
+
+        const count = await CurriculumLesson.destroy({ where });
 
         res.json({
             success: true,

@@ -199,6 +199,13 @@ exports.login = async (req, res, next) => {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
+    if (user.isActive === false) {
+      return res.status(403).json({
+        success: false,
+        message: 'Your account has been deactivated. Please contact an administrator.',
+      });
+    }
+
     // Require email verification before allowing login
     if (!user.isEmailVerified) {
       const otp = crypto.randomInt(100000, 1000000).toString();
@@ -271,6 +278,9 @@ exports.updateProfile = async (req, res, next) => {
 exports.changePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;
+    if (!newPassword || newPassword.length < 6) {
+      return res.status(400).json({ success: false, message: 'New password must be at least 6 characters' });
+    }
     const user = await User.findByPk(req.user.id);
 
     if (!(await user.matchPassword(currentPassword))) {
@@ -488,6 +498,13 @@ exports.googleLogin = async (req, res, next) => {
         avatar,
         role: 'student',
         isEmailVerified: true,
+      });
+    }
+
+    if (user.isActive === false) {
+      return res.status(403).json({
+        success: false,
+        message: 'Your account has been deactivated. Please contact an administrator.',
       });
     }
 

@@ -257,6 +257,31 @@ exports.getPath = async (req, res, next) => {
             whereClause.unitNumber = { [Op.between]: [secStartUnit, secEndUnit] };
         }
 
+        // Query all live lesson IDs for this course to preserve global node.index under windowing
+        const allCourseLessons = await CurriculumLesson.findAll({
+            where: {
+                isLive: true,
+                learningLanguage: targetLang,
+                nativeLanguage: nativeLang,
+                level: level,
+            },
+            attributes: ['id'],
+            order: [
+                ['unitNumber', 'ASC'],
+                ['lessonIndex', 'ASC'],
+                ['id', 'ASC'],
+            ],
+            raw: true,
+        });
+        const globalIndexMap = new Map();
+        if (Array.isArray(allCourseLessons)) {
+            allCourseLessons.forEach((lesson, idx) => {
+                if (lesson && lesson.id !== undefined) {
+                    globalIndexMap.set(lesson.id, idx);
+                }
+            });
+        }
+
         // Fetch live published lessons created by admin/trainers for this language/level
         // CRITICAL PERFORMANCE: Only select map navigation attributes. Omit heavy `stages` & `karaokeData`!
         const liveCurriculum = await CurriculumLesson.findAll({
@@ -289,6 +314,7 @@ exports.getPath = async (req, res, next) => {
         let targetNodesList = [];
         if (liveCurriculum && liveCurriculum.length > 0) {
             targetNodesList = liveCurriculum.map((l, idx) => {
+                const globalIdx = globalIndexMap.has(l.id) ? globalIndexMap.get(l.id) : idx;
                 const uNum = l.unitNumber || 1;
                 const secNum = uNum <= 35 ? 1 : (uNum <= 70 ? 2 : 3);
                 const secTitle = secNum === 1 ? 'Rookie' : (secNum === 2 ? 'Explorer' : 'Traveler');
@@ -297,7 +323,7 @@ exports.getPath = async (req, res, next) => {
 
                 return {
                     id: l.id,
-                    index: idx,
+                    index: globalIdx,
                     unitNumber: uNum,
                     unitTitle: l.unitTitle || 'First Steps',
                     unitDescription: l.unitDescription || '',
@@ -314,7 +340,7 @@ exports.getPath = async (req, res, next) => {
                     sourceId: l.sourceNoteId || l.id,
                     stages: null, // Stages loaded on demand via /api/gamification/lesson/:id
                     audioUrl: l.audioUrl,
-                    offset: zigzagOffsets[idx % zigzagOffsets.length],
+                    offset: zigzagOffsets[globalIdx % zigzagOffsets.length],
                 };
             });
         } else {
@@ -537,6 +563,9 @@ exports.completeNode = async (req, res, next) => {
                     } else if (q.questType === 'lesson' || q.questType === 'speech') {
                         q.currentAmount = Math.min(q.targetAmount, (q.currentAmount || 0) + 1);
                         await q.save({ transaction });
+                    } else if (q.questType === 'karaoke' && (node.type === 'karaoke' || req.body.nodeType === 'karaoke')) {
+                        q.currentAmount = Math.min(q.targetAmount, (q.currentAmount || 0) + 1);
+                        await q.save({ transaction });
                     }
                 }
             } catch (questErr) {
@@ -581,7 +610,7 @@ exports.completeNode = async (req, res, next) => {
                 userId,
                 kind: 'lesson',
                 reference: attemptId,
-                xpEarned: reward.xpEarned,
+                xpEarned: finalXpEarned,
                 pearlsEarned: reward.pearlsEarned,
                 responseBody,
             }, { transaction });
@@ -644,6 +673,7 @@ exports.getLeaderboard = async (req, res, next) => {
         let leagueUsers = await User.findAll({
             where: { isActive: true, currentLeague: league },
             attributes: ['id', 'name', 'avatar', 'totalXp', 'currentLeague', 'streakCount'],
+            order: [['totalXp', 'DESC']],
             limit: 30,
         });
 
@@ -651,18 +681,20 @@ exports.getLeaderboard = async (req, res, next) => {
             leagueUsers = await User.findAll({
                 where: { isActive: true },
                 attributes: ['id', 'name', 'avatar', 'totalXp', 'currentLeague', 'streakCount'],
+                order: [['totalXp', 'DESC']],
                 limit: 30,
             });
         }
 
         // 3. Map and rank by weekly XP (falling back to totalXp if 0 weekly XP)
         const userEntries = leagueUsers.map(u => {
-            const weeklyXp = weeklyXpMap[u.id] !== undefined ? weeklyXpMap[u.id] : (u.totalXp || 0);
+            const weeklyXp = weeklyXpMap[u.id] !== undefined ? weeklyXpMap[u.id] : 0;
             return {
                 id: u.id,
                 name: u.name,
                 avatar: u.avatar,
-                xp: weeklyXp,
+                xp: weeklyXp || (u.totalXp || 0),
+                weeklyXp,
                 totalXp: u.totalXp || 0,
                 streak: u.streakCount || 1,
                 isCurrent: u.id === req.user.id,
@@ -673,12 +705,13 @@ exports.getLeaderboard = async (req, res, next) => {
         // Ensure current requesting user is included
         const hasCurrentUser = userEntries.some(u => u.isCurrent);
         if (!hasCurrentUser && req.user) {
-            const currentWeeklyXp = weeklyXpMap[req.user.id] !== undefined ? weeklyXpMap[req.user.id] : (req.user.totalXp || 0);
+            const currentWeeklyXp = weeklyXpMap[req.user.id] !== undefined ? weeklyXpMap[req.user.id] : 0;
             userEntries.push({
                 id: req.user.id,
                 name: req.user.name,
                 avatar: req.user.avatar,
-                xp: currentWeeklyXp,
+                xp: currentWeeklyXp || (req.user.totalXp || 0),
+                weeklyXp: currentWeeklyXp,
                 totalXp: req.user.totalXp || 0,
                 streak: req.user.streakCount || 1,
                 isCurrent: true,
@@ -686,8 +719,8 @@ exports.getLeaderboard = async (req, res, next) => {
             });
         }
 
-        // Sort descending by XP, then streak
-        userEntries.sort((a, b) => b.xp - a.xp || b.streak - a.streak);
+        // Sort descending by weeklyXp, then totalXp, then streak
+        userEntries.sort((a, b) => (b.weeklyXp - a.weeklyXp) || (b.totalXp - a.totalXp) || (b.streak - a.streak));
 
         // Assign ranks and promotion/demotion zones (top 10 advance, bottom 5 demote)
         const formatted = userEntries.slice(0, 30).map((u, idx) => {

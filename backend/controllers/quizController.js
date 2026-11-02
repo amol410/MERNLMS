@@ -64,16 +64,22 @@ exports.getQuizzes = async (req, res, next) => {
   try {
     const { q, tag, page = 1, limit = 6, subject, topic } = req.query;
     const isStaff = req.user?.role === 'trainer' || req.user?.role === 'admin';
-    const where = isStaff
+    const visibilityCondition = isStaff
       ? { [Op.or]: [{ isPublished: true }, { createdBy: req.user.id }] }
       : { isPublished: true };
 
+    const andConditions = [visibilityCondition];
+
     if (q) {
-      where[Op.or] = [
-        { title: { [Op.like]: `%${q}%` } },
-        { description: { [Op.like]: `%${q}%` } },
-      ];
+      andConditions.push({
+        [Op.or]: [
+          { title: { [Op.like]: `%${q}%` } },
+          { description: { [Op.like]: `%${q}%` } },
+        ],
+      });
     }
+
+    const where = andConditions.length === 1 ? { ...visibilityCondition } : { [Op.and]: andConditions };
 
     if (tag) {
       where.tags = { [Op.like]: `%"${tag}"%` };
