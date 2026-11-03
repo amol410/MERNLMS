@@ -209,4 +209,48 @@ describe('Admin Management, Profile Lifecycle & Multi-Course Track Isolation Sui
             expect(res.body.nodes[0].index).toBe(1);
         });
     });
+
+    describe('4. Mobile App Version Gate Control (/api/admin/app-version)', () => {
+        it('allows admin to retrieve and update the mobile force-update version threshold', async () => {
+            const { token: adminToken } = await createTestAdmin();
+            const { token: studentToken } = await createTestUser();
+
+            // Non-admin cannot access
+            const forbiddenRes = await request(app)
+                .get('/api/admin/app-version')
+                .set('Authorization', `Bearer ${studentToken}`);
+            expect(forbiddenRes.status).toBe(403);
+
+            // Admin gets current version config
+            const getRes = await request(app)
+                .get('/api/admin/app-version')
+                .set('Authorization', `Bearer ${adminToken}`);
+            expect(getRes.status).toBe(200);
+            expect(getRes.body.success).toBe(true);
+            expect(getRes.body.version).toBeDefined();
+
+            // Admin updates the minimum required version to 30
+            const putRes = await request(app)
+                .put('/api/admin/app-version')
+                .set('Authorization', `Bearer ${adminToken}`)
+                .send({
+                    min_required_version: 30,
+                    min_version_name: '1.5.0',
+                    latest_version_name: '1.5.0',
+                    title: 'Critical Security Update',
+                    message: 'Please update to v1.5.0 immediately to continue learning.',
+                });
+            expect(putRes.status).toBe(200);
+            expect(putRes.body.success).toBe(true);
+            expect(putRes.body.version.min_required_version).toBe(30);
+            expect(putRes.body.version.min_version_name).toBe('1.5.0');
+
+            // Public mobile endpoint /app_version.json reflects the new threshold immediately
+            const publicRes = await request(app)
+                .get('/app_version.json');
+            expect(publicRes.status).toBe(200);
+            expect(publicRes.body.min_required_version).toBe(30);
+            expect(publicRes.body.title).toBe('Critical Security Update');
+        });
+    });
 });

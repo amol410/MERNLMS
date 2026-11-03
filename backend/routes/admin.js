@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createTrainer, getUsers, toggleUserActive, deleteUser, updateTrainer } = require('../controllers/adminController');
+const { createTrainer, getUsers, toggleUserActive, deleteUser, updateTrainer, getAppVersion, updateAppVersion } = require('../controllers/adminController');
 const { protect, authorize } = require('../middleware/auth');
 
 router.use(protect, authorize('admin'));
@@ -9,5 +9,7 @@ router.get('/users', getUsers);
 router.put('/users/:id/toggle-active', toggleUserActive);
 router.delete('/users/:id', deleteUser);
 router.put('/trainers/:id', updateTrainer);
+router.get('/app-version', getAppVersion);
+router.put('/app-version', updateAppVersion);
 
 module.exports = router;

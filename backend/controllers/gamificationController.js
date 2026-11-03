@@ -299,6 +299,7 @@ exports.getPath = async (req, res, next) => {
                 'pearlsReward',
                 'audioUrl',
                 'sourceNoteId',
+                'updatedAt',
             ],
             order: [
                 ['unitNumber', 'ASC'],
@@ -341,6 +342,7 @@ exports.getPath = async (req, res, next) => {
                     stages: null, // Stages loaded on demand via /api/gamification/lesson/:id
                     audioUrl: l.audioUrl,
                     offset: zigzagOffsets[globalIdx % zigzagOffsets.length],
+                    updatedAt: l.updatedAt ? (typeof l.updatedAt.toISOString === 'function' ? l.updatedAt.toISOString() : String(l.updatedAt)) : null,
                 };
             });
         } else {
@@ -524,9 +526,11 @@ exports.completeNode = async (req, res, next) => {
             user.totalXp = (user.totalXp || 0) + finalXpEarned;
             user.pearls = (user.pearls || 0) + reward.pearlsEarned;
 
-            const todayYMD = getClientDate(req) || getTodayLocalYMD(req.headers['x-timezone-offset']);
+            // Server-authoritative UTC date (anti-tamper: strictly ignore client-supplied timestamps)
+            const todayYMD = new Date().toISOString().split('T')[0];
             if (!user.lastActiveDate) {
                 user.streakCount = 1;
+                user.streakFreezeCount = Math.max(0, user.streakFreezeCount || 0);
                 user.lastActiveDate = todayYMD;
             } else {
                 const lastDate = new Date(user.lastActiveDate);
@@ -534,16 +538,20 @@ exports.completeNode = async (req, res, next) => {
                 const diffDays = Math.round((todayDate - lastDate) / (1000 * 60 * 60 * 24));
                 if (diffDays === 1) {
                     user.streakCount = (user.streakCount || 0) + 1;
+                    user.streakFreezeCount = Math.max(0, user.streakFreezeCount || 0);
                     user.lastActiveDate = todayYMD;
                 } else if (diffDays > 1) {
                     if ((user.streakFreezeCount || 0) > 0) {
-                        user.streakFreezeCount -= 1;
+                        user.streakFreezeCount = Math.max(0, (user.streakFreezeCount || 0) - 1);
                         user.lastActiveDate = todayYMD;
                         // Streak preserved thanks to active Streak Freeze!
                     } else {
                         user.streakCount = 1;
+                        user.streakFreezeCount = 0;
                         user.lastActiveDate = todayYMD;
                     }
+                } else {
+                    user.streakFreezeCount = Math.max(0, user.streakFreezeCount || 0);
                 }
             }
 
@@ -652,18 +660,23 @@ exports.getLeaderboard = async (req, res, next) => {
 
         // 1. Calculate weekly XP from RewardTransaction since Monday 00:00 UTC
         const weeklyXpMap = {};
+        const earliestRewardMap = {};
         try {
             const weeklyRewards = await RewardTransaction.findAll({
                 where: {
                     createdAt: { [Op.gte]: monday },
                 },
-                attributes: ['userId', 'xpEarned'],
+                attributes: ['userId', 'xpEarned', 'createdAt'],
+                order: [['createdAt', 'ASC']],
                 raw: true,
             });
 
             for (const r of weeklyRewards) {
                 const uid = r.userId || r.user_id;
                 weeklyXpMap[uid] = (weeklyXpMap[uid] || 0) + (parseInt(r.xpEarned || r.xp_earned, 10) || 0);
+                if (!earliestRewardMap[uid] && r.createdAt) {
+                    earliestRewardMap[uid] = new Date(r.createdAt).getTime();
+                }
             }
         } catch (txErr) {
             console.warn('⚠️ [getLeaderboard] weeklyXp aggregation note:', txErr.message);
@@ -673,7 +686,7 @@ exports.getLeaderboard = async (req, res, next) => {
         let leagueUsers = await User.findAll({
             where: { isActive: true, currentLeague: league },
             attributes: ['id', 'name', 'avatar', 'totalXp', 'currentLeague', 'streakCount'],
-            order: [['totalXp', 'DESC']],
+            order: [['totalXp', 'DESC'], ['id', 'ASC']],
             limit: 30,
         });
 
@@ -681,7 +694,7 @@ exports.getLeaderboard = async (req, res, next) => {
             leagueUsers = await User.findAll({
                 where: { isActive: true },
                 attributes: ['id', 'name', 'avatar', 'totalXp', 'currentLeague', 'streakCount'],
-                order: [['totalXp', 'DESC']],
+                order: [['totalXp', 'DESC'], ['id', 'ASC']],
                 limit: 30,
             });
         }
@@ -699,6 +712,7 @@ exports.getLeaderboard = async (req, res, next) => {
                 streak: u.streakCount || 1,
                 isCurrent: u.id === req.user.id,
                 league: u.currentLeague || league,
+                firstAchievedAt: earliestRewardMap[u.id] || null,
             };
         });
 
@@ -716,11 +730,21 @@ exports.getLeaderboard = async (req, res, next) => {
                 streak: req.user.streakCount || 1,
                 isCurrent: true,
                 league: req.user.currentLeague || league,
+                firstAchievedAt: earliestRewardMap[req.user.id] || null,
             });
         }
 
-        // Sort descending by weeklyXp, then totalXp, then streak
-        userEntries.sort((a, b) => (b.weeklyXp - a.weeklyXp) || (b.totalXp - a.totalXp) || (b.streak - a.streak));
+        // Sort descending by weeklyXp, then totalXp, then streak.
+        // Tie-breaker: earlier achievement timestamp (firstAchievedAt ASC), then stable ID (id ASC)
+        userEntries.sort((a, b) => {
+            if (b.weeklyXp !== a.weeklyXp) return b.weeklyXp - a.weeklyXp;
+            if (b.totalXp !== a.totalXp) return b.totalXp - a.totalXp;
+            if (b.streak !== a.streak) return b.streak - a.streak;
+            if (a.firstAchievedAt && b.firstAchievedAt && a.firstAchievedAt !== b.firstAchievedAt) {
+                return a.firstAchievedAt - b.firstAchievedAt;
+            }
+            return a.id - b.id;
+        });
 
         // Assign ranks and promotion/demotion zones (top 10 advance, bottom 5 demote)
         const formatted = userEntries.slice(0, 30).map((u, idx) => {
@@ -755,29 +779,40 @@ exports.getLeaderboard = async (req, res, next) => {
 // 5. Refill Oxygen via Shop (Cost: 50 Pearls)
 exports.refillOxygen = async (req, res, next) => {
     try {
-        const user = await User.findByPk(req.user.id);
-        if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+        const userId = req.user.id;
+        const result = await sequelize.transaction(async transaction => {
+            const user = await User.findByPk(userId, {
+                transaction,
+                lock: transaction.LOCK.UPDATE,
+            });
+            if (!user) return { status: 404, body: { success: false, message: 'User not found' } };
 
-        if (user.oxygen >= 5) {
-            return res.status(400).json({ success: false, message: 'Oxygen is already full' });
-        }
+            if (user.oxygen >= 5) {
+                return { status: 400, body: { success: false, message: 'Oxygen is already full' } };
+            }
 
-        const cost = 50;
-        if ((user.pearls || 0) < cost) {
-            return res.status(400).json({ success: false, message: 'Not enough pearls (50 required)' });
-        }
+            const cost = 50;
+            if ((user.pearls || 0) < cost) {
+                return { status: 400, body: { success: false, message: 'Not enough pearls (50 required)' } };
+            }
 
-        user.pearls -= cost;
-        user.oxygen = 5;
-        user.lastOxygenRefill = new Date();
-        await user.save();
+            user.pearls -= cost;
+            user.oxygen = 5;
+            user.lastOxygenRefill = new Date();
+            await user.save({ transaction });
 
-        res.status(200).json({
-            success: true,
-            message: 'Oxygen fully restored!',
-            oxygen: user.oxygen,
-            pearls: user.pearls,
+            return {
+                status: 200,
+                body: {
+                    success: true,
+                    message: 'Oxygen fully restored!',
+                    oxygen: user.oxygen,
+                    pearls: user.pearls,
+                },
+            };
         });
+
+        res.status(result.status).json(result.body);
     } catch (error) {
         next(error);
     }
@@ -904,7 +939,8 @@ exports.buyDoubleXp = async (req, res, next) => {
 exports.getQuests = async (req, res, next) => {
     try {
         const userId = req.user.id;
-        const todayYMD = getClientDate(req) || getTodayLocalYMD(req.headers['x-timezone-offset']);
+        // Server-authoritative UTC date (anti-tamper: strictly ignore client-supplied timestamps)
+        const todayYMD = new Date().toISOString().split('T')[0];
 
         let quests = await UserQuest.findAll({
             where: { userId, questDate: todayYMD },
@@ -1056,6 +1092,7 @@ exports.getLessonDetails = async (req, res, next) => {
                 karaokeData: lesson.karaokeData,
                 audioUrl: lesson.audioUrl,
                 sourceNoteId: lesson.sourceNoteId,
+                updatedAt: lesson.updatedAt ? (typeof lesson.updatedAt.toISOString === 'function' ? lesson.updatedAt.toISOString() : String(lesson.updatedAt)) : null,
             }
         });
     } catch (error) {

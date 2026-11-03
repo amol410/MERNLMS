@@ -1,0 +1,1919 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Marathi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "mr",
+  "level": "A1",
+  "unitNumber": 1,
+  "unitTitle": "First Meetings & Greetings",
+  "unitDescription": "पहिल्या भेटी आणि परिचय",
+  "accentColor": "#1CB0F6",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "title": "First Meetings & Greetings • Lesson 1",
+      "subtitle": "पहिल्या भेटी: मुख्य अभिवादन (Greetings)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "hello",
+              "native": "नमस्कार"
+            },
+            {
+              "target": "morning",
+              "native": "सकाळ"
+            },
+            {
+              "target": "everyone",
+              "native": "सर्वजण"
+            },
+            {
+              "target": "welcome",
+              "native": "स्वागत"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Hello everyone, good morning!",
+          "tokens": [
+            "Hello",
+            "everyone,",
+            "good",
+            "morning!",
+            "welcome",
+            "night"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "सूर्योदय आणि सकाळ दर्शवणारे योग्य कार्ड निवडा:",
+          "targetWord": "morning",
+          "translation": "सकाळ",
+          "options": [
+            {
+              "text": "Morning (सकाळ / सुबह)",
+              "imageUrl": "/uploads/curriculum/morning.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "Night (रात्र / रात)",
+              "imageUrl": "/uploads/curriculum/night.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "City (शहर)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "Good _______, everyone!",
+          "sentence": "Good _______, everyone!",
+          "blank": "morning",
+          "translation": "सगळ्यांना शुभ सकाळ!",
+          "options": [
+            "morning",
+            "night",
+            "city"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा (SVO रचना)",
+          "prompt": "सगळ्यांना नमस्कार, शुभ सकाळ!",
+          "targetSentence": "Hello everyone, good morning!",
+          "tokens": [
+            "Hello",
+            "everyone,",
+            "good",
+            "morning!",
+            "welcome",
+            "night"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'स्वागत' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "welcome",
+          "hint": "संकेत: w ने सुरू होणारा ७ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphino",
+          "partnerMessage": "Hello everyone, welcome to our class!",
+          "translation": "सगळ्यांना नमस्कार, आपल्या वर्गात स्वागत आहे!",
+          "options": [
+            {
+              "text": "Good morning! Thank you very much.",
+              "isCorrect": true
+            },
+            {
+              "text": "Good night, sleep well.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "Good morning everyone, welcome!",
+          "sentence": "Good morning everyone, welcome!",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "सगळ्यांना शुभ सकाळ, आपले स्वागत आहे!",
+              "isCorrect": true
+            },
+            {
+              "text": "शुभ रात्री, उद्या भेटूया.",
+              "isCorrect": false
+            },
+            {
+              "text": "माझे नाव अमित आहे.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "Hello everyone, good morning!",
+          "translation": "सगळ्यांना नमस्कार, शुभ सकाळ!",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "Hello everyone!\nGood morning to you.\nWelcome to our English class.",
+          "translationText": "सगळ्यांना नमस्कार!\nतुम्हाला शुभ सकाळ.\nआपल्या इंग्रजी वर्गात स्वागत आहे."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "title": "First Meetings & Greetings • Lesson 2",
+      "subtitle": "स्वतःची ओळख आणि नाव (Identity & Origin)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "name",
+              "native": "नाव"
+            },
+            {
+              "target": "live",
+              "native": "राहणे"
+            },
+            {
+              "target": "city",
+              "native": "शहर"
+            },
+            {
+              "target": "from",
+              "native": "कडून / हून"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "My name is Amit.",
+          "tokens": [
+            "My",
+            "name",
+            "is",
+            "Amit.",
+            "live",
+            "city"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "मोठे शहर (City) दर्शवणारे चित्र निवडा:",
+          "targetWord": "city",
+          "translation": "शहर",
+          "options": [
+            {
+              "text": "City (शहर)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "Seat (आसन / बैठक)",
+              "imageUrl": "/uploads/curriculum/seat.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "Friend (मित्र / दोस्त)",
+              "imageUrl": "/uploads/curriculum/friend.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "My _______ is Amit.",
+          "sentence": "My _______ is Amit.",
+          "blank": "name",
+          "translation": "माझे नाव अमित आहे.",
+          "options": [
+            "name",
+            "city",
+            "live"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा (SVO रचना)",
+          "prompt": "मी एका मोठ्या शहरात राहतो.",
+          "targetSentence": "I live in a big city.",
+          "tokens": [
+            "I",
+            "live",
+            "in",
+            "a",
+            "big",
+            "city.",
+            "name",
+            "from"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'शहर' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "city",
+          "hint": "संकेत: c ने सुरू होणारा ४ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where do you live in India?",
+          "translation": "तुम्ही भारतात कुठे राहता?",
+          "options": [
+            {
+              "text": "I live in a big city called Pune.",
+              "isCorrect": true
+            },
+            {
+              "text": "Good night, see you tomorrow.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "My name is Amit and I am from Pune.",
+          "sentence": "My name is Amit and I am from Pune.",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझे नाव अमित आहे आणि मी पुण्याचा आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "कृपया इथेच बसा.",
+              "isCorrect": false
+            },
+            {
+              "text": "मी खूप मजेत आहे.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "My name is Amit and I live in Pune.",
+          "translation": "माझे नाव अमित आहे आणि मी पुण्यात राहतो.",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "My name is Amit.\nI am from Pune.\nI live in a big and beautiful city.",
+          "translationText": "माझे नाव अमित आहे.\nमी पुण्याचा आहे.\nमी एका मोठ्या आणि सुंदर शहरात राहतो."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "title": "First Meetings & Greetings • Lesson 3",
+      "subtitle": "शिष्टाचार आणि नम्रता (Courtesies & Politeness)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "please",
+              "native": "कृपया"
+            },
+            {
+              "target": "seat",
+              "native": "जागा / आसन"
+            },
+            {
+              "target": "help",
+              "native": "मदत"
+            },
+            {
+              "target": "thank",
+              "native": "आभार मानणे"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Please have a seat.",
+          "tokens": [
+            "Please",
+            "have",
+            "a",
+            "seat.",
+            "help",
+            "thank"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "बैठक / जागा (Seat) दर्शवणारे चित्र निवडा:",
+          "targetWord": "seat",
+          "translation": "जागा / आसन",
+          "options": [
+            {
+              "text": "Seat (जागा / सीट)",
+              "imageUrl": "/uploads/curriculum/seat.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "City (शहर)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "Night (रात्र / रात)",
+              "imageUrl": "/uploads/curriculum/night.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "Please have a _______ right here.",
+          "sentence": "Please have a _______ right here.",
+          "blank": "seat",
+          "translation": "कृपया इथेच बसा.",
+          "options": [
+            "seat",
+            "live",
+            "help"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा (SVO रचना)",
+          "prompt": "तुमच्या मदतीसाठी मनापासून धन्यवाद.",
+          "targetSentence": "Thank you for your help.",
+          "tokens": [
+            "Thank",
+            "you",
+            "for",
+            "your",
+            "help.",
+            "please",
+            "seat"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'मदत' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "help",
+          "hint": "संकेत: h ने सुरू होणारा ४ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphino",
+          "partnerMessage": "Please have a seat right here, sir.",
+          "translation": "कृपया इथेच बसा, सर.",
+          "options": [
+            {
+              "text": "Thank you so much for your help!",
+              "isCorrect": true
+            },
+            {
+              "text": "My name is a big city.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "Please have a seat and thank you for your help.",
+          "sentence": "Please have a seat and thank you for your help.",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "कृपया इथे बसा आणि मदतीबद्दल धन्यवाद.",
+              "isCorrect": true
+            },
+            {
+              "text": "मी पुण्यात राहतो.",
+              "isCorrect": false
+            },
+            {
+              "text": "आज तुम्ही कसे आहात?",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "Thank you for your kind help.",
+          "translation": "तुमच्या प्रेमळ मदतीबद्दल धन्यवाद.",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "Please have a seat.\nMake yourself comfortable.\nThank you for your kind help.",
+          "translationText": "कृपया इथे बसा.\nशांतपणे विश्रांती घ्या.\nतुमच्या दयाळू मदतीबद्दल धन्यवाद."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "title": "First Meetings & Greetings • Lesson 4",
+      "subtitle": "खुशहाली विचारणे (Asking Well-Being)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "today",
+              "native": "आज"
+            },
+            {
+              "target": "fine",
+              "native": "छान / बरे"
+            },
+            {
+              "target": "great",
+              "native": "उत्तम / मजेत"
+            },
+            {
+              "target": "doing",
+              "native": "कसे आहात"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "How are you doing today?",
+          "tokens": [
+            "How",
+            "are",
+            "you",
+            "doing",
+            "today?",
+            "fine",
+            "great"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "उत्तम / मजेत (Great) दर्शवणारे आनंदी चित्र निवडा:",
+          "targetWord": "great",
+          "translation": "उत्तम / मजेत",
+          "options": [
+            {
+              "text": "Great (उत्तम / बहुत बढ़िया)",
+              "imageUrl": "/uploads/curriculum/great.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "Seat (जागा / सीट)",
+              "imageUrl": "/uploads/curriculum/seat.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "Night (रात्र / रात)",
+              "imageUrl": "/uploads/curriculum/night.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "How are you _______ today?",
+          "sentence": "How are you _______ today?",
+          "blank": "doing",
+          "translation": "आज तुम्ही कसे आहात?",
+          "options": [
+            "doing",
+            "fine",
+            "great"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा (SVO रचना)",
+          "prompt": "मी खूप मजेत आहे, धन्यवाद!",
+          "targetSentence": "I am doing great, thank you!",
+          "tokens": [
+            "I",
+            "am",
+            "doing",
+            "great,",
+            "thank",
+            "you!",
+            "fine",
+            "today"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'ठीक / बरे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "fine",
+          "hint": "संकेत: f ने सुरू होणारा ४ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Good morning! How are you doing today?",
+          "translation": "शुभ सकाळ! आज तुम्ही कसे आहात?",
+          "options": [
+            {
+              "text": "I am doing great, thank you so much!",
+              "isCorrect": true
+            },
+            {
+              "text": "Please have a seat right now.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "I am doing great today, thank you!",
+          "sentence": "I am doing great today, thank you!",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मी आज खूप मजेत आहे, धन्यवाद!",
+              "isCorrect": true
+            },
+            {
+              "text": "शुभ रात्री, उद्या भेटूया.",
+              "isCorrect": false
+            },
+            {
+              "text": "मी एका शहरात राहतो.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "How are you doing today?",
+          "translation": "आज तुम्ही कसे आहात?",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "How are you doing today?\nI am fine, I am great!\nThank you very much, my friend.",
+          "translationText": "आज तुम्ही कसे आहात?\nमी ठीक आहे, मी मजेत आहे!\nमाझ्या मित्रा, मनापासून धन्यवाद."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "title": "First Meetings & Greetings • Lesson 5",
+      "subtitle": "संध्याकाळ आणि निरोप (Partings & Night • L1 रिव्हिजन)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "पुनरावृत्ती (Lesson 1): मुख्य अभिवादन",
+          "pairs": [
+            {
+              "target": "hello",
+              "native": "नमस्कार"
+            },
+            {
+              "target": "morning",
+              "native": "सकाळ"
+            },
+            {
+              "target": "everyone",
+              "native": "सर्वजण"
+            },
+            {
+              "target": "welcome",
+              "native": "स्वागत"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Good night, see you tomorrow!",
+          "tokens": [
+            "Good",
+            "night,",
+            "see",
+            "you",
+            "tomorrow!",
+            "friend",
+            "soon"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "रात्र आणि चंद्र (Night) दर्शवणारे चित्र निवडा:",
+          "targetWord": "night",
+          "translation": "रात्र",
+          "options": [
+            {
+              "text": "Night (रात्र / रात)",
+              "imageUrl": "/uploads/curriculum/night.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "Morning (सकाळ / सुबह)",
+              "imageUrl": "/uploads/curriculum/morning.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "City (शहर)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "Good _______, sleep well!",
+          "sentence": "Good _______, sleep well!",
+          "blank": "night",
+          "translation": "शुभ रात्री, शांत झोपा!",
+          "options": [
+            "night",
+            "morning",
+            "tomorrow"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "पुनरावृत्ती (Lesson 1): सकाळचे अभिवादन वाक्य",
+          "prompt": "सगळ्यांना नमस्कार, शुभ सकाळ!",
+          "targetSentence": "Hello everyone, good morning!",
+          "tokens": [
+            "Hello",
+            "everyone,",
+            "good",
+            "morning!",
+            "night",
+            "welcome"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'उद्या' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "tomorrow",
+          "hint": "संकेत: t ने सुरू होणारा ८ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphino",
+          "partnerMessage": "It is very late, good night my friend!",
+          "translation": "खूप उशीर झाला आहे, शुभ रात्री माझ्या मित्रा!",
+          "options": [
+            {
+              "text": "Good night, see you tomorrow morning!",
+              "isCorrect": true
+            },
+            {
+              "text": "Please have a seat right here.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "Good night, see you all tomorrow!",
+          "sentence": "Good night, see you all tomorrow!",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "शुभ रात्री, उद्या तुम्हा सर्वांना भेटूया!",
+              "isCorrect": true
+            },
+            {
+              "text": "सगळ्यांना नमस्कार, शुभ सकाळ!",
+              "isCorrect": false
+            },
+            {
+              "text": "माझे नाव अमित आहे.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "See you tomorrow, my friend!",
+          "translation": "उद्या भेटूया, माझ्या मित्रा!",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "The night is here.\nSleep well, my dear friend.\nSee you all tomorrow morning.",
+          "translationText": "रात्र झाली आहे.\nशांत झोपा, माझ्या प्रिय मित्रा.\nउद्या सकाळी तुम्हा सर्वांना भेटूया."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "title": "First Meetings & Greetings • Lesson 6",
+      "subtitle": "माहिती विचारणे (Questions & Pronouns • L2 रिव्हिजन)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "पुनरावृत्ती (Lesson 2): नाव आणि शहर",
+          "pairs": [
+            {
+              "target": "name",
+              "native": "नाव"
+            },
+            {
+              "target": "live",
+              "native": "राहणे"
+            },
+            {
+              "target": "city",
+              "native": "शहर"
+            },
+            {
+              "target": "from",
+              "native": "कडून / हून"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "What is your name?",
+          "tokens": [
+            "What",
+            "is",
+            "your",
+            "name?",
+            "where",
+            "who"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "स्थान किंवा ठिकाण (Where) दर्शवणारा नकाशा निवडा:",
+          "targetWord": "where",
+          "translation": "कुठे",
+          "options": [
+            {
+              "text": "Where (कुठे / कहाँ - Map Location)",
+              "imageUrl": "/uploads/curriculum/where.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "City (शहर)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "Night (रात्र / रात)",
+              "imageUrl": "/uploads/curriculum/night.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "_______ is your name?",
+          "sentence": "_______ is your name?",
+          "blank": "What",
+          "translation": "तुमचे नाव काय आहे?",
+          "options": [
+            "What",
+            "Where",
+            "Who"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "पुनरावृत्ती (Lesson 2): स्वतःचे शहर सांगणारे वाक्य",
+          "prompt": "मी एका मोठ्या शहरात राहतो.",
+          "targetSentence": "I live in a big city.",
+          "tokens": [
+            "I",
+            "live",
+            "in",
+            "a",
+            "big",
+            "city.",
+            "name",
+            "from"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'कुठे' साठी इंग्रजी प्रश्नार्थक शब्द टाईप करा:",
+          "target": "where",
+          "hint": "संकेत: w ने सुरू होणारा ५ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hello! What is your name?",
+          "translation": "नमस्कार! तुमचे नाव काय आहे?",
+          "options": [
+            {
+              "text": "My name is Rohan and I live in Pune.",
+              "isCorrect": true
+            },
+            {
+              "text": "Good night, sleep well.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "Where do you live in this city?",
+          "sentence": "Where do you live in this city?",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तुम्ही या शहरात कुठे राहता?",
+              "isCorrect": true
+            },
+            {
+              "text": "माझे नाव अमित आहे.",
+              "isCorrect": false
+            },
+            {
+              "text": "कृपया इथेच बसा.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "What is your name and where do you live?",
+          "translation": "तुमचे नाव काय आहे आणि तुम्ही कुठे राहता?",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "What is your name?\nWhere do you live?\nTell me all about your hometown.",
+          "translationText": "तुमचे नाव काय आहे?\nतुम्ही कुठे राहता?\nमला तुमच्या गावाबद्दल सर्व सांगा."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 6,
+      "title": "First Meetings & Greetings • Lesson 7",
+      "subtitle": "माफी आणि क्षमायाचना (Apologies & Excuses • L3 रिव्हिजन)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "पुनरावृत्ती (Lesson 3): शिष्टाचार आणि नम्रता",
+          "pairs": [
+            {
+              "target": "please",
+              "native": "कृपया"
+            },
+            {
+              "target": "seat",
+              "native": "जागा / आसन"
+            },
+            {
+              "target": "help",
+              "native": "मदत"
+            },
+            {
+              "target": "thank",
+              "native": "आभार मानणे"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Excuse me, can you help me?",
+          "tokens": [
+            "Excuse",
+            "me,",
+            "can",
+            "you",
+            "help",
+            "me?",
+            "sorry",
+            "problem"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "माफी मागण्याची मुद्रा (Sorry) दर्शवणारे चित्र निवडा:",
+          "targetWord": "sorry",
+          "translation": "माफ करा",
+          "options": [
+            {
+              "text": "Sorry (माफ करा / क्षमा करें)",
+              "imageUrl": "/uploads/curriculum/sorry.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "City (शहर)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "Seat (जागा / सीट)",
+              "imageUrl": "/uploads/curriculum/seat.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "_______ me, where is the office?",
+          "sentence": "_______ me, where is the office?",
+          "blank": "Excuse",
+          "translation": "माफ करा, कार्यालय कुठे आहे?",
+          "options": [
+            "Excuse",
+            "Sorry",
+            "Please"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "पुनरावृत्ती (Lesson 3): आसन ग्रहण करण्याचे विनम्र वाक्य",
+          "prompt": "कृपया इथेच बसा.",
+          "targetSentence": "Please have a seat right here.",
+          "tokens": [
+            "Please",
+            "have",
+            "a",
+            "seat",
+            "right",
+            "here.",
+            "help",
+            "thank"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'अडचण / समस्या' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "problem",
+          "hint": "संकेत: p ने सुरू होणारा ७ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Vikram",
+          "partnerAvatar": "dolphino",
+          "partnerMessage": "I am so sorry for disturbing you!",
+          "translation": "तुम्हाला त्रास दिल्याबद्दल मी मनापासून दिलगीर आहे!",
+          "options": [
+            {
+              "text": "No problem at all, how can I help you?",
+              "isCorrect": true
+            },
+            {
+              "text": "My name is not a problem.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "Excuse me, no problem at all!",
+          "sentence": "Excuse me, no problem at all!",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माफ करा, काहीही अडचण नाही!",
+              "isCorrect": true
+            },
+            {
+              "text": "आज तुम्ही कसे आहात?",
+              "isCorrect": false
+            },
+            {
+              "text": "शुभ रात्री, उद्या भेटू.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "No problem at all, you are welcome!",
+          "translation": "काहीही हरकत नाही, आपले स्वागत आहे!",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "Excuse me, sir.\nI am very sorry.\nNo problem at all, you are welcome.",
+          "translationText": "माफ करा, सर.\nमी दिलगीर आहे.\nकाहीही अडचण नाही, आपले स्वागत आहे."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "title": "First Meetings & Greetings • Lesson 8",
+      "subtitle": "भेटीचा आनंद व्यक्त करणे (Pleasure to Meet • L4 रिव्हिजन)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "पुनरावृत्ती (Lesson 4): खुशहाली विचारणे",
+          "pairs": [
+            {
+              "target": "today",
+              "native": "आज"
+            },
+            {
+              "target": "fine",
+              "native": "छान / बरे"
+            },
+            {
+              "target": "great",
+              "native": "उत्तम / मजेत"
+            },
+            {
+              "target": "doing",
+              "native": "कसे आहात"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Nice to meet you too!",
+          "tokens": [
+            "Nice",
+            "to",
+            "meet",
+            "you",
+            "too!",
+            "pleasure",
+            "also"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "हस्तआंदोलन आणि भेट (Handshake / Meet) दर्शवणारे चित्र निवडा:",
+          "targetWord": "meet",
+          "translation": "भेटणे",
+          "options": [
+            {
+              "text": "Meet (भेटणे / मिलना - Handshake)",
+              "imageUrl": "/uploads/curriculum/meet.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "Seat (जागा / आसन)",
+              "imageUrl": "/uploads/curriculum/seat.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "Night (रात्र / रात)",
+              "imageUrl": "/uploads/curriculum/night.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "Nice to _______ you, Amit!",
+          "sentence": "Nice to _______ you, Amit!",
+          "blank": "meet",
+          "translation": "अमित, तुम्हाला भेटून आनंद झाला!",
+          "options": [
+            "meet",
+            "live",
+            "seat"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "पुनरावृत्ती (Lesson 4): मजेत असल्याचे सांगणारे वाक्य",
+          "prompt": "मी खूप मजेत आहे, धन्यवाद!",
+          "targetSentence": "I am doing great, thank you!",
+          "tokens": [
+            "I",
+            "am",
+            "doing",
+            "great,",
+            "thank",
+            "you!",
+            "fine",
+            "today"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'भेटणे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "meet",
+          "hint": "संकेत: m ने सुरू होणारा ४ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphino",
+          "partnerMessage": "Hello! Nice to meet you. I am Rahul from Pune.",
+          "translation": "नमस्कार! तुम्हाला भेटून आनंद झाला. मी पुण्याचा राहुल आहे.",
+          "options": [
+            {
+              "text": "Nice to meet you too! I am Rohan.",
+              "isCorrect": true
+            },
+            {
+              "text": "Good night, sleep well.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "It is a great pleasure to meet you.",
+          "sentence": "It is a great pleasure to meet you.",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तुम्हाला भेटून खूप आनंद झाला.",
+              "isCorrect": true
+            },
+            {
+              "text": "मी एका शहरात राहतो.",
+              "isCorrect": false
+            },
+            {
+              "text": "शुभ रात्री, उद्या भेटू.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "It is a pleasure to meet you, Amit!",
+          "translation": "अमित, तुम्हाला भेटून आनंद झाला!",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "Nice to meet you.\nGlad to know you.\nIt is an absolute pleasure to meet you today.",
+          "translationText": "तुम्हाला भेटून आनंद झाला.\nतुमची ओळख झाल्याबद्दल समाधान वाटले.\nआज तुम्हाला भेटून मनापासून आनंद झाला."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "title": "First Meetings & Greetings • Lesson 9",
+      "subtitle": "दिवसाच्या वेळा आणि शुभेच्छा (Times of Day • L5 रिव्हिजन)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "पुनरावृत्ती (Lesson 5): निरोप आणि रात्र",
+          "pairs": [
+            {
+              "target": "night",
+              "native": "रात्र"
+            },
+            {
+              "target": "tomorrow",
+              "native": "उद्या"
+            },
+            {
+              "target": "friend",
+              "native": "मित्र"
+            },
+            {
+              "target": "soon",
+              "native": "लवकरच"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Good evening, see you later!",
+          "tokens": [
+            "Good",
+            "evening,",
+            "see",
+            "you",
+            "later!",
+            "afternoon",
+            "day"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "संध्याकाळ (Evening - Sunset) दर्शवणारे चित्र निवडा:",
+          "targetWord": "evening",
+          "translation": "संध्याकाळ",
+          "options": [
+            {
+              "text": "Evening (संध्याकाळ / शाम)",
+              "imageUrl": "/uploads/curriculum/evening.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "City (शहर)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "Seat (जागा / सीट)",
+              "imageUrl": "/uploads/curriculum/seat.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "Good _______, how was your day?",
+          "sentence": "Good _______, how was your day?",
+          "blank": "evening",
+          "translation": "शुभ संध्याकाळ, तुमचा दिवस कसा गेला?",
+          "options": [
+            "evening",
+            "later",
+            "day"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "पुनरावृत्ती (Lesson 5): रात्रीचा निरोप वाक्य",
+          "prompt": "शुभ रात्री, उद्या तुम्हा सर्वांना भेटूया!",
+          "targetSentence": "Good night, see you all tomorrow!",
+          "tokens": [
+            "Good",
+            "night,",
+            "see",
+            "you",
+            "all",
+            "tomorrow!",
+            "friend",
+            "soon"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'संध्याकाळ' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "evening",
+          "hint": "संकेत: e ने सुरू होणारा ७ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Sneha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Good evening! How was your work today?",
+          "translation": "शुभ संध्याकाळ! आज तुमचे काम कसे झाले?",
+          "options": [
+            {
+              "text": "Good evening! It was very good, thank you.",
+              "isCorrect": true
+            },
+            {
+              "text": "Please have a seat right now.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "Have a wonderful afternoon and see you later.",
+          "sentence": "Have a wonderful afternoon and see you later.",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तुमची दुपार छान जावो, नंतर भेटूया.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझे नाव अमित आहे.",
+              "isCorrect": false
+            },
+            {
+              "text": "मी पुण्यात राहतो.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "Have a nice day and see you later!",
+          "translation": "तुमचा दिवस चांगला जावो, नंतर भेटूया!",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "Good morning, good afternoon, and good evening too.\nHave a wonderful day.\nSee you later, my dear friend.",
+          "translationText": "शुभ सकाळ, शुभ दुपार आणि शुभ संध्याकाळ सुद्धा.\nतुमचा दिवस खूप चांगला जावो.\nनंतर भेटूया, माझ्या प्रिय मित्रा."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "title": "First Meetings & Greetings • Lesson 10",
+      "subtitle": "सहकारी आणि आदरार्थी संबोधने (Titles & Team • L6 रिव्हिजन)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "पुनरावृत्ती (Lesson 6): प्रश्नार्थक शब्द",
+          "pairs": [
+            {
+              "target": "where",
+              "native": "कुठे"
+            },
+            {
+              "target": "what",
+              "native": "काय"
+            },
+            {
+              "target": "your",
+              "native": "तुमचे / तुझे"
+            },
+            {
+              "target": "who",
+              "native": "कोण"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "This is my colleague, Priya.",
+          "tokens": [
+            "This",
+            "is",
+            "my",
+            "colleague,",
+            "Priya.",
+            "sir",
+            "madam"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "कार्यालयातील सहकारी (Colleague) दर्शवणारे चित्र निवडा:",
+          "targetWord": "colleague",
+          "translation": "सहकारी",
+          "options": [
+            {
+              "text": "Colleague (सहकारी / सहकर्मी)",
+              "imageUrl": "/uploads/curriculum/colleague.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "City (शहर)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "Seat (जागा / सीट)",
+              "imageUrl": "/uploads/curriculum/seat.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "This is my _______, Priya.",
+          "sentence": "This is my _______, Priya.",
+          "blank": "colleague",
+          "translation": "ही माझी सहकारी, प्रिया आहे.",
+          "options": [
+            "colleague",
+            "city",
+            "seat"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "पुनरावृत्ती (Lesson 6): नाव आणि पत्ता विचारणारे वाक्य",
+          "prompt": "तुमचे नाव काय आहे आणि तुम्ही कुठे राहता?",
+          "targetSentence": "What is your name and where do you live?",
+          "tokens": [
+            "What",
+            "is",
+            "your",
+            "name",
+            "and",
+            "where",
+            "do",
+            "you",
+            "live?",
+            "who"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'सहकारी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "colleague",
+          "hint": "संकेत: colleague"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Director",
+          "partnerAvatar": "dolphino",
+          "partnerMessage": "Let me introduce our team: this is Priya.",
+          "translation": "मी आपल्या टीमची ओळख करून देतो: ही प्रिया आहे.",
+          "options": [
+            {
+              "text": "Hello madam, it is a pleasure to meet you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Good night, sleep well.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "Good morning sir, may I help you today?",
+          "sentence": "Good morning sir, may I help you today?",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "नमस्कार सर, मी आज तुम्हाला मदत करू शकतो का?",
+              "isCorrect": true
+            },
+            {
+              "text": "मी पुण्यात राहतो.",
+              "isCorrect": false
+            },
+            {
+              "text": "शुभ रात्री, उद्या भेटू.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "Hello sir, this is my colleague.",
+          "translation": "नमस्कार सर, हे माझे सहकारी आहेत.",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "This is my colleague.\nHello sir, hello madam.\nWelcome to our office today.",
+          "translationText": "ही माझी सहकारी आहे.\nनमस्कार सर, नमस्कार मॅडम.\nआज आपल्या कार्यालयात आपले स्वागत आहे."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "title": "First Meetings & Greetings • Lesson 11",
+      "subtitle": "दैनंदिन संभाषण आणि सहमती (Fluency & Agreement • L7 रिव्हिजन)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "पुनरावृत्ती (Lesson 7): माफी आणि नम्रता",
+          "pairs": [
+            {
+              "target": "sorry",
+              "native": "माफ करा"
+            },
+            {
+              "target": "excuse",
+              "native": "क्षमस्व"
+            },
+            {
+              "target": "problem",
+              "native": "अडचण / समस्या"
+            },
+            {
+              "target": "no problem",
+              "native": "काही हरकत नाही"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Sure, let us talk soon!",
+          "tokens": [
+            "Sure,",
+            "let",
+            "us",
+            "talk",
+            "soon!",
+            "together",
+            "right"
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "चित्र शब्द कार्ड ओळखा",
+          "prompt": "संभाषण आणि बोलणे (Talk) दर्शवणारे चित्र निवडा:",
+          "targetWord": "talk",
+          "translation": "बोलणे",
+          "options": [
+            {
+              "text": "Talk (बोलणे / बातचीत)",
+              "imageUrl": "/uploads/curriculum/talk.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "City (शहर)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "Night (रात्र / रात)",
+              "imageUrl": "/uploads/curriculum/night.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "वाक्यातील रिकामी जागा भरा",
+          "prompt": "Sure, let us work _______ on this.",
+          "sentence": "Sure, let us work _______ on this.",
+          "blank": "together",
+          "translation": "नक्कीच, आपण यावर एकत्र काम करूया.",
+          "options": [
+            "together",
+            "right",
+            "talk"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "पुनरावृत्ती (Lesson 7): काही अडचण नसल्याचे सांगणारे वाक्य",
+          "prompt": "माफ करा, काहीही अडचण नाही!",
+          "targetSentence": "Excuse me, no problem at all!",
+          "tokens": [
+            "Excuse",
+            "me,",
+            "no",
+            "problem",
+            "at",
+            "all!",
+            "sorry",
+            "help"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "इंग्रजीत अचूक स्पेलिंग टाईप करा",
+          "prompt": "'एकत्र' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "together",
+          "hint": "संकेत: t ने सुरू होणारा ८ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण संवाद पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphino",
+          "partnerMessage": "Can we meet tomorrow to talk about our work?",
+          "translation": "आपण उद्या आपल्या कामाबद्दल बोलण्यासाठी भेटू शकतो का?",
+          "options": [
+            {
+              "text": "Sure, let us meet and talk together!",
+              "isCorrect": true
+            },
+            {
+              "text": "I am a big city.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि अचूक अर्थ निवडा",
+          "spokenGerman": "That is completely right, thank you.",
+          "sentence": "That is completely right, thank you.",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "हे अगदी बरोबर आहे, धन्यवाद.",
+              "isCorrect": true
+            },
+            {
+              "text": "शुभ रात्री, उद्या भेटू.",
+              "isCorrect": false
+            },
+            {
+              "text": "कृपया इथेच बसा.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट उच्चार सराव (Pronunciation)",
+          "prompt": "Sure, let us talk together soon!",
+          "translation": "नक्कीच, आपण लवकरच एकत्र बोलूया!",
+          "minAccuracy": 75
+        },
+        {
+          "type": "karaoke",
+          "title": "तालबद्ध वाचन आणि संगीत कथा (Karaoke)",
+          "storyText": "We talk together.\nWe learn together.\nSure, that is right, we succeed together.",
+          "translationText": "आपण एकत्र बोलतो.\nआपण एकत्र शिकतो.\nनक्कीच, हे बरोबर आहे, आपण एकत्र यशस्वी होतो."
+        }
+      ]
+    },
+    {
+      "lessonIndex": 11,
+      "title": "🏆 Unit 1 Trophy Exam: First Meetings & Greetings",
+      "subtitle": "🏆 युनिट १ महा-सराव परीक्षा (Trophy Exam • All 10 Formats)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 15,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "पुनरावृत्ती (Lesson 8): भेटीचा आनंद व्यक्त करणे",
+          "pairs": [
+            {
+              "target": "meet",
+              "native": "भेटणे"
+            },
+            {
+              "target": "nice",
+              "native": "छान / सुखद"
+            },
+            {
+              "target": "pleasure",
+              "native": "आनंद / समाधान"
+            },
+            {
+              "target": "also",
+              "native": "सुद्धा / देखील"
+            }
+          ]
+        },
+        {
+          "type": "picture_select",
+          "title": "महा-आव्हान: स्वागत मुद्रा (Welcome) ओळखा",
+          "prompt": "स्वागत (Welcome / Namaste) दर्शवणारे योग्य चित्र निवडा:",
+          "targetWord": "welcome",
+          "translation": "स्वागत",
+          "options": [
+            {
+              "text": "Welcome (स्वागत)",
+              "imageUrl": "/uploads/curriculum/welcome.webp",
+              "isCorrect": true
+            },
+            {
+              "text": "Colleague (सहकारी / सहकर्मी)",
+              "imageUrl": "/uploads/curriculum/colleague.webp",
+              "isCorrect": false
+            },
+            {
+              "text": "Problem (अडचण / समस्या)",
+              "imageUrl": "/uploads/curriculum/problem.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "महा-आव्हान: संपूर्ण ओळख वाक्य पूर्ण करा",
+          "prompt": "Hello, my _______ is Rohan and I live in Pune.",
+          "sentence": "Hello, my _______ is Rohan and I live in Pune.",
+          "blank": "name",
+          "translation": "नमस्कार, माझे नाव रोहन आहे आणि मी पुण्यात राहतो.",
+          "options": [
+            "name",
+            "city",
+            "seat"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "महा-आव्हान: वेगवान ऐका आणि टॅप करा",
+          "targetSentence": "Hello everyone, my name is Amit and I live in Pune.",
+          "tokens": [
+            "Hello",
+            "everyone,",
+            "my",
+            "name",
+            "is",
+            "Amit",
+            "and",
+            "I",
+            "live",
+            "in",
+            "Pune.",
+            "welcome"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "पुनरावृत्ती (Lesson 8): भेटीचा आनंद सांगणारे वाक्य",
+          "prompt": "अमित, तुम्हाला भेटून आनंद झाला!",
+          "targetSentence": "Nice to meet you, Amit!",
+          "tokens": [
+            "Nice",
+            "to",
+            "meet",
+            "you,",
+            "Amit!",
+            "pleasure",
+            "fine"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "महा-आव्हान: आभार व्यक्त करणारा शब्द लिहा",
+          "prompt": "'धन्यवाद / आभार' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "thank",
+          "hint": "संकेत: t ने सुरू होणारा ५ अक्षरी शब्द"
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "महा-आव्हान: थेट संभाषण संवाद",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Good morning! How are you doing today, Rohan?",
+          "translation": "शुभ सकाळ! आज तुम्ही कसे आहात, रोहन?",
+          "options": [
+            {
+              "text": "Good morning! I am doing great, thank you so much!",
+              "isCorrect": true
+            },
+            {
+              "text": "Good night, see you tomorrow.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "listen_select",
+          "title": "महा-आव्हान: ऐका आणि अचूक अर्थ ओळखा",
+          "spokenGerman": "It is an absolute pleasure to meet you, sir.",
+          "sentence": "It is an absolute pleasure to meet you, sir.",
+          "question": "या इंग्रजी वाक्याचा अचूक अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "सर, तुम्हाला भेटून अत्यंत आनंद झाला.",
+              "isCorrect": true
+            },
+            {
+              "text": "शुभ रात्री सर.",
+              "isCorrect": false
+            },
+            {
+              "text": "माफ करा, तुम्ही कोण आहात?",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "महा-आव्हान: अचूक भाषण चाचणी (Speech Exam)",
+          "prompt": "Hello everyone, my name is Rohan and I live in Pune.",
+          "translation": "सगळ्यांना नमस्कार, माझे नाव रोहन आहे आणि मी पुण्यात राहतो.",
+          "minAccuracy": 80
+        },
+        {
+          "type": "karaoke",
+          "title": "महा-आव्हान: युनिट १ विजयी गान (Unit 1 Anthem)",
+          "storyText": "Hello everyone!\nMy name is Rohan.\nNice to meet you, have a wonderful day!",
+          "translationText": "सगळ्यांना नमस्कार!\nमाझे नाव रोहन आहे.\nतुम्हाला भेटून आनंद झाला, तुमचा दिवस खूप छान जावो!"
+        }
+      ]
+    }
+  ]
+}

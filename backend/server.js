@@ -59,6 +59,22 @@ app.use('/api/curriculum', require('./routes/curriculum'));
 app.use('/api/pages', require('./routes/pages'));
 app.use('/api/notifications', require('./routes/notification'));
 
+// App Version Gateway for Mobile Force Updates
+app.get('/app_version.json', (req, res) => {
+    const localVersionFile = path.join(__dirname, 'app_version.json');
+    if (fs.existsSync(localVersionFile)) {
+        return res.sendFile(localVersionFile);
+    }
+    return res.json({
+        min_required_version: 29,
+        min_version_name: "1.4.3",
+        latest_version_name: "1.4.3",
+        update_url: "https://play.google.com/store/apps/details?id=com.dolphincoder.lms",
+        title: "Update Required",
+        message: "A newer version of DolphinCoder is available on Google Play. Please update to continue your learning journey."
+    });
+});
+
 const fs = require('fs');
 const audioUploadDir = path.join(__dirname, 'uploads/audio');
 if (!fs.existsSync(audioUploadDir)) {

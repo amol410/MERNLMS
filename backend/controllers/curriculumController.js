@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
-const { sanitizeLessonStages } = require('../utils/stageSanitizer');
+const { sanitizeLessonStages, validateLessonStages } = require('../utils/stageSanitizer');
 
 // Helper to determine if user has trainer or admin role
 const isStaff = (user) => user && (user.role === 'trainer' || user.role === 'admin');
@@ -119,6 +119,17 @@ exports.createLesson = async (req, res, next) => {
             return res.status(400).json({ success: false, message: 'Lesson title is required' });
         }
 
+        if (stages && stages.length > 0) {
+            const validation = validateLessonStages(stages);
+            if (!validation.isValid) {
+                return res.status(400).json({
+                    success: false,
+                    message: `Malformed challenge schema: ${validation.errors.join('; ')}`,
+                    errors: validation.errors,
+                });
+            }
+        }
+
         // Determine next lessonIndex if not provided
         let targetIndex = lessonIndex;
         if (targetIndex === undefined || targetIndex === null) {
@@ -168,6 +179,17 @@ exports.updateLesson = async (req, res, next) => {
         const lesson = await CurriculumLesson.findByPk(req.params.id);
         if (!lesson) {
             return res.status(404).json({ success: false, message: 'Lesson not found' });
+        }
+
+        if (req.body.stages && req.body.stages.length > 0) {
+            const validation = validateLessonStages(req.body.stages);
+            if (!validation.isValid) {
+                return res.status(400).json({
+                    success: false,
+                    message: `Malformed challenge schema: ${validation.errors.join('; ')}`,
+                    errors: validation.errors,
+                });
+            }
         }
 
         const fields = [
@@ -402,46 +424,103 @@ exports.bulkUpload = async (req, res, next) => {
             return res.status(400).json({ success: false, message: 'No valid lesson data found in upload' });
         }
 
-        // Find existing max index in this unit
-        const maxLesson = await CurriculumLesson.findOne({
-            where: { learningLanguage, nativeLanguage, level, unitNumber },
-            order: [['lessonIndex', 'DESC']],
-        });
-        let startIndex = maxLesson ? maxLesson.lessonIndex + 1 : 0;
+        // 1. Strict Malformed Challenge Schema Rejection: Check all stages before any DB write
+        for (let i = 0; i < parsedItems.length; i++) {
+            const item = parsedItems[i];
+            if (item.stages && item.stages.length > 0) {
+                const validation = validateLessonStages(item.stages);
+                if (!validation.isValid) {
+                    return res.status(400).json({
+                        success: false,
+                        message: `Malformed challenge schema in lesson "${item.title || i}": ${validation.errors.join('; ')}`,
+                        errors: validation.errors,
+                    });
+                }
+            }
+        }
 
-        const createdLessons = [];
+        // 2. Unit-by-Unit Bulk Upload Conflict Resolution:
+        // Find existing lessons for this unit to update matches and preserve untouched lessons
+        const existingLessons = await CurriculumLesson.findAll({
+            where: {
+                learningLanguage,
+                nativeLanguage,
+                level,
+                unitNumber,
+            },
+            order: [['lessonIndex', 'ASC']],
+        });
+
+        let maxIndex = existingLessons.reduce((max, l) => Math.max(max, l.lessonIndex !== undefined ? l.lessonIndex : -1), -1);
+
+        const processedLessons = [];
 
         for (let i = 0; i < parsedItems.length; i++) {
             const item = parsedItems[i];
             if (!item.title) continue;
 
-            const lesson = await CurriculumLesson.create({
-                owner: req.user.id,
-                learningLanguage: item.learningLanguage || learningLanguage,
-                nativeLanguage: item.nativeLanguage || nativeLanguage,
-                level: item.level || level,
-                unitNumber: item.unitNumber || unitNumber,
-                unitTitle: item.unitTitle || unitTitle,
-                unitDescription: item.unitDescription || '',
-                lessonIndex: startIndex + i,
-                title: item.title,
-                subtitle: item.subtitle || '',
-                nodeType: item.nodeType || 'lesson',
-                xpReward: item.xpReward || 15,
-                pearlsReward: item.pearlsReward || 5,
-                isLive: false, // Always default OFF
-                stages: item.stages || [],
-                audioUrl: item.audioUrl || null,
-            });
+            const cleanStages = item.stages ? sanitizeLessonStages(item.stages) : [];
 
-            createdLessons.push(lesson);
+            // Match existing lesson by id, lessonIndex, or title (for conflict resolution)
+            let existing = null;
+            if (item.id) {
+                existing = existingLessons.find(l => l.id === item.id);
+            }
+            if (!existing && item.lessonIndex !== undefined) {
+                existing = existingLessons.find(l => l.lessonIndex === item.lessonIndex);
+            }
+            if (!existing && item.conflictResolution !== 'append' && item.title) {
+                existing = existingLessons.find(l => l.title.trim().toLowerCase() === item.title.trim().toLowerCase());
+            }
+
+            if (existing) {
+                // Update existing lesson: preserves original id & untouched lessons' UserNodeProgress
+                existing.title = item.title.trim();
+                if (item.subtitle !== undefined) existing.subtitle = item.subtitle.trim();
+                if (item.nodeType !== undefined) existing.nodeType = item.nodeType;
+                if (item.xpReward !== undefined) existing.xpReward = item.xpReward;
+                if (item.pearlsReward !== undefined) existing.pearlsReward = item.pearlsReward;
+                if (item.stages !== undefined) existing.stages = cleanStages;
+                if (item.audioUrl !== undefined) existing.audioUrl = item.audioUrl;
+                if (item.unitTitle) existing.unitTitle = item.unitTitle;
+                if (item.unitDescription !== undefined) existing.unitDescription = item.unitDescription;
+                if (item.isLive !== undefined) existing.isLive = Boolean(item.isLive);
+                await existing.save();
+                processedLessons.push(existing);
+            } else {
+                // Insert new lesson maintaining course hierarchy integrity
+                maxIndex++;
+                const newLessonIndex = (item.lessonIndex !== undefined && !existingLessons.some(l => l.lessonIndex === item.lessonIndex))
+                    ? item.lessonIndex
+                    : maxIndex;
+
+                const lesson = await CurriculumLesson.create({
+                    owner: req.user.id,
+                    learningLanguage: item.learningLanguage || learningLanguage,
+                    nativeLanguage: item.nativeLanguage || nativeLanguage,
+                    level: item.level || level,
+                    unitNumber: item.unitNumber || unitNumber,
+                    unitTitle: item.unitTitle || unitTitle,
+                    unitDescription: item.unitDescription || '',
+                    lessonIndex: newLessonIndex,
+                    title: item.title.trim(),
+                    subtitle: (item.subtitle || '').trim(),
+                    nodeType: item.nodeType || 'lesson',
+                    xpReward: item.xpReward || 15,
+                    pearlsReward: item.pearlsReward || 5,
+                    isLive: item.isLive !== undefined ? Boolean(item.isLive) : false,
+                    stages: cleanStages,
+                    audioUrl: item.audioUrl || null,
+                });
+                processedLessons.push(lesson);
+            }
         }
 
         res.status(201).json({
             success: true,
-            message: `Bulk uploaded ${createdLessons.length} lessons as DRAFTS (Default OFF)`,
-            count: createdLessons.length,
-            lessons: createdLessons,
+            message: `Bulk uploaded ${processedLessons.length} lessons in unit ${unitNumber}`,
+            count: processedLessons.length,
+            lessons: processedLessons,
         });
     } catch (error) {
         next(error);

@@ -13,32 +13,44 @@ const CurriculumLesson = require('./CurriculumLesson');
 const RewardTransaction = require('./RewardTransaction');
 const Page = require('./Page');
 
-Note.belongsTo(User,     { foreignKey: 'owner',     as: 'ownerUser' });
-Note.belongsTo(Subject,  { foreignKey: 'subjectId', as: 'subject' });
-Note.hasMany(KaraokeAudio, { foreignKey: 'noteId', as: 'audioTracks' });
-KaraokeAudio.belongsTo(Note, { foreignKey: 'noteId', as: 'note' });
-Video.belongsTo(User,    { foreignKey: 'addedBy',   as: 'addedByUser' });
-Quiz.belongsTo(User,     { foreignKey: 'createdBy', as: 'createdByUser' });
-Quiz.belongsTo(Subject,  { foreignKey: 'subjectId', as: 'subject' });
-Flashcard.belongsTo(User,{ foreignKey: 'owner',     as: 'ownerUser' });
-QuizAttempt.belongsTo(User, { foreignKey: 'studentId', as: 'student' });
-QuizAttempt.belongsTo(Quiz, { foreignKey: 'quizId',    as: 'quiz' });
-UserActivity.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Note.belongsTo(User,     { foreignKey: 'owner',     as: 'ownerUser', onDelete: 'CASCADE' });
+Note.belongsTo(Subject,  { foreignKey: 'subjectId', as: 'subject', onDelete: 'SET NULL' });
+Subject.hasMany(Note,    { foreignKey: 'subjectId', as: 'notes', onDelete: 'SET NULL' });
 
-User.hasMany(UserNodeProgress, { foreignKey: 'userId', as: 'nodeProgress' });
-UserNodeProgress.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Note.hasMany(KaraokeAudio, { foreignKey: 'noteId', as: 'audioTracks', onDelete: 'CASCADE' });
+KaraokeAudio.belongsTo(Note, { foreignKey: 'noteId', as: 'note', onDelete: 'CASCADE' });
 
-User.hasMany(UserQuest, { foreignKey: 'userId', as: 'quests' });
-UserQuest.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Video.belongsTo(User,    { foreignKey: 'addedBy',   as: 'addedByUser', onDelete: 'CASCADE' });
 
-User.hasMany(RewardTransaction, { foreignKey: 'userId', as: 'rewardTransactions' });
-RewardTransaction.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Quiz.belongsTo(User,     { foreignKey: 'createdBy', as: 'createdByUser', onDelete: 'CASCADE' });
+Quiz.belongsTo(Subject,  { foreignKey: 'subjectId', as: 'subject', onDelete: 'SET NULL' });
+Subject.hasMany(Quiz,    { foreignKey: 'subjectId', as: 'quizzes', onDelete: 'SET NULL' });
 
-User.hasMany(CurriculumLesson, { foreignKey: 'owner', as: 'curriculumLessons' });
-CurriculumLesson.belongsTo(User, { foreignKey: 'owner', as: 'author' });
-CurriculumLesson.belongsTo(Note, { foreignKey: 'sourceNoteId', as: 'sourceNote' });
+Flashcard.belongsTo(User,{ foreignKey: 'owner',     as: 'ownerUser', onDelete: 'CASCADE' });
 
-User.hasMany(Page, { foreignKey: 'authorId', as: 'pages' });
-Page.belongsTo(User, { foreignKey: 'authorId', as: 'author' });
+Quiz.hasMany(QuizAttempt, { foreignKey: 'quizId', as: 'attempts', onDelete: 'CASCADE' });
+QuizAttempt.belongsTo(User, { foreignKey: 'studentId', as: 'student', onDelete: 'CASCADE' });
+QuizAttempt.belongsTo(Quiz, { foreignKey: 'quizId',    as: 'quiz', onDelete: 'CASCADE' });
+
+User.hasMany(UserActivity, { foreignKey: 'userId', as: 'activities', onDelete: 'CASCADE' });
+UserActivity.belongsTo(User, { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE' });
+
+User.hasMany(UserNodeProgress, { foreignKey: 'userId', as: 'nodeProgress', onDelete: 'CASCADE' });
+UserNodeProgress.belongsTo(User, { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE' });
+
+User.hasMany(UserQuest, { foreignKey: 'userId', as: 'quests', onDelete: 'CASCADE' });
+UserQuest.belongsTo(User, { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE' });
+
+User.hasMany(RewardTransaction, { foreignKey: 'userId', as: 'rewardTransactions', onDelete: 'CASCADE' });
+RewardTransaction.belongsTo(User, { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE' });
+
+User.hasMany(CurriculumLesson, { foreignKey: 'owner', as: 'curriculumLessons', onDelete: 'CASCADE' });
+CurriculumLesson.belongsTo(User, { foreignKey: 'owner', as: 'author', onDelete: 'CASCADE' });
+
+Note.hasMany(CurriculumLesson, { foreignKey: 'sourceNoteId', as: 'curriculumLessons', onDelete: 'SET NULL' });
+CurriculumLesson.belongsTo(Note, { foreignKey: 'sourceNoteId', as: 'sourceNote', onDelete: 'SET NULL' });
+
+User.hasMany(Page, { foreignKey: 'authorId', as: 'pages', onDelete: 'CASCADE' });
+Page.belongsTo(User, { foreignKey: 'authorId', as: 'author', onDelete: 'CASCADE' });
 
 

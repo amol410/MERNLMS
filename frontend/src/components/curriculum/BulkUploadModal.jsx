@@ -38,6 +38,14 @@ const SAMPLE_JSON = JSON.stringify({
           title: "Listen and tap what you hear",
           targetSentence: "Guten Tag, ich bin Anna",
           tokens: ["Kaffee", "Guten", "Tag,", "ich", "bin", "Anna"]
+        },
+        {
+          type: "word_match",
+          title: "Match the word pairs (Part 2)",
+          pairs: [
+            { target: "Bitte", native: "Please" },
+            { target: "Tschüss", native: "Goodbye" }
+          ]
         }
       ]
     },
@@ -62,6 +70,7 @@ export default function BulkUploadModal({
   const [mode, setMode] = useState('csv'); // 'csv' or 'json'
   const [content, setContent] = useState(SAMPLE_CSV);
   const [loading, setLoading] = useState(false);
+  const [targetUnit, setTargetUnit] = useState(unitNumber);
 
   if (!isOpen) return null;
 
@@ -111,7 +120,7 @@ export default function BulkUploadModal({
         learningLanguage: currentLanguage,
         nativeLanguage: currentNative,
         level: currentLevel,
-        unitNumber: parseInt(unitNumber, 10),
+        unitNumber: parseInt(targetUnit, 10) || 1,
         lessonsData: content,
       });
 
@@ -136,9 +145,23 @@ export default function BulkUploadModal({
             </div>
             <div>
               <h2 className="text-xl font-bold text-white">Bulk Upload Lessons</h2>
-              <p className="text-xs text-gray-400">
-                Upload entire curriculum for {currentLevel} • Unit {unitNumber}
-              </p>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-xs text-gray-400">
+                  Target: {currentLevel} •
+                </span>
+                <label className="flex items-center gap-1 text-xs text-emerald-300 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-500/20">
+                  <span>Unit:</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="200"
+                    value={targetUnit}
+                    onChange={e => setTargetUnit(e.target.value)}
+                    className="w-12 bg-transparent text-emerald-300 font-bold text-xs border-0 p-0 focus:ring-0 text-center"
+                    title="Change target unit number for upload"
+                  />
+                </label>
+              </div>
             </div>
           </div>
           <button onClick={onClose} className="btn-icon">

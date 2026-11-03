@@ -23,6 +23,15 @@ if (process.env.NODE_ENV === 'test') {
         storage: ':memory:',
         logging: false,
     });
+
+    // SQLite single-connection transaction queue to safely support concurrent transactions in tests
+    const originalTransaction = sequelize.transaction.bind(sequelize);
+    let sqliteTxQueue = Promise.resolve();
+    sequelize.transaction = function(...args) {
+        const next = sqliteTxQueue.then(() => originalTransaction(...args));
+        sqliteTxQueue = next.catch(() => {});
+        return next;
+    };
 } else {
     sequelize = new Sequelize(
         process.env.DB_NAME,

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { ShieldCheck, Plus, Trash2, UserX, UserCheck, Users, X, BookOpen, Tag, ChevronDown, ChevronUp, Bell } from 'lucide-react';
+import { ShieldCheck, Plus, Trash2, UserX, UserCheck, Users, X, BookOpen, Tag, ChevronDown, ChevronUp, Bell, Smartphone, Save, AlertTriangle, CheckCircle, RefreshCw } from 'lucide-react';
 import { useSubjects } from '../hooks/useSubjects';
 
 export default function AdminPage() {
@@ -15,6 +15,18 @@ export default function AdminPage() {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [creating, setCreating] = useState(false);
+
+  // Mobile App Version Gate State
+  const [versionConfig, setVersionConfig] = useState({
+    min_required_version: 29,
+    min_version_name: '1.4.3',
+    latest_version_name: '1.4.3',
+    update_url: 'https://play.google.com/store/apps/details?id=com.dolphincoder.lms',
+    title: 'Update Required',
+    message: 'A newer version of DolphinCoder is available on Google Play. Please update to continue your learning journey.',
+  });
+  const [loadingVersion, setLoadingVersion] = useState(false);
+  const [savingVersion, setSavingVersion] = useState(false);
 
   const { subjects, fetchSubjects, createSubject, createTopic } = useSubjects();
   const [newSubjectName, setNewSubjectName] = useState('');
@@ -44,7 +56,40 @@ export default function AdminPage() {
     }
   };
 
-  useEffect(() => { fetchUsers(1); }, []);
+  const fetchVersionConfig = async () => {
+    setLoadingVersion(true);
+    try {
+      const { data } = await api.get('/admin/app-version');
+      if (data?.version) {
+        setVersionConfig(data.version);
+      }
+    } catch {
+      toast.error('Failed to load app version configuration');
+    } finally {
+      setLoadingVersion(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers(1);
+    fetchVersionConfig();
+  }, []);
+
+  const handleSaveVersion = async (e) => {
+    e?.preventDefault();
+    setSavingVersion(true);
+    try {
+      const { data } = await api.put('/admin/app-version', versionConfig);
+      toast.success(data?.message || 'Version gate updated successfully!');
+      if (data?.version) {
+        setVersionConfig(data.version);
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to update version gate');
+    } finally {
+      setSavingVersion(false);
+    }
+  };
 
   const handleCreateTrainer = async (e) => {
     e.preventDefault();
@@ -217,6 +262,7 @@ export default function AdminPage() {
           { key: 'trainers', label: `Trainers (${trainers.length})` },
           { key: 'students', label: `Students (${students.length})` },
           { key: 'subjects', label: `Subjects (${subjects.length})` },
+          { key: 'app-version', label: '📱 Mobile Force Update' },
         ].map(t => (
           <button
             key={t.key}
@@ -231,7 +277,7 @@ export default function AdminPage() {
       </div>
 
       {/* Users Table */}
-      {tab !== 'subjects' && (
+      {tab !== 'subjects' && tab !== 'app-version' && (
         loading ? (
           <div className="glass-card p-8 text-center text-gray-500">Loading users...</div>
         ) : (
@@ -418,6 +464,192 @@ export default function AdminPage() {
               </div>
             ))
           )}
+        </div>
+      )}
+
+      {/* Mobile Force Update Tab */}
+      {tab === 'app-version' && (
+        <div className="space-y-6 animate-fade-in">
+          {/* Header Info Banner */}
+          <div className="glass-card p-6 border border-dolphin-500/30 bg-gradient-to-r from-dolphin-500/10 via-ocean-500/10 to-transparent">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-dolphin-500/20 border border-dolphin-500/40 flex items-center justify-center text-dolphin-400 flex-shrink-0">
+                <Smartphone className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <h2 className="text-xl font-bold text-white">Mobile App Version Gate &amp; Force Update</h2>
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
+                    <CheckCircle className="w-3.5 h-3.5" />
+                    Active Gate: Build &lt; {versionConfig.min_required_version} Blocked
+                  </span>
+                </div>
+                <p className="text-gray-400 text-sm mt-1.5">
+                  Control mandatory app updates for Android devices. Whenever any tester or user launches the mobile app, their phone checks this gate. If their installed version is below the threshold, they are immediately locked on the splash screen and prompted to update from the Google Play Store.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Configuration Form */}
+          <div className="glass-card p-6 border border-white/10">
+            {loadingVersion ? (
+              <div className="p-8 text-center text-gray-500 flex items-center justify-center gap-2">
+                <RefreshCw className="w-4 h-4 animate-spin text-dolphin-400" />
+                Loading current version configuration...
+              </div>
+            ) : (
+              <form onSubmit={handleSaveVersion} className="space-y-6">
+                <div className="grid sm:grid-cols-2 gap-5">
+                  {/* Min Required Build Number */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-dolphin-400 mb-1.5">
+                      Minimum Required Build Number *
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      value={versionConfig.min_required_version}
+                      onChange={e => setVersionConfig({ ...versionConfig, min_required_version: parseInt(e.target.value, 10) || 1 })}
+                      className="input-field text-base font-semibold"
+                      required
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Corresponds to Flutter build number (e.g. <code>1.4.3+29</code> = Build <code>29</code>). Any phone below this number is blocked.
+                    </p>
+                  </div>
+
+                  {/* Latest Version Name */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">
+                      Latest Version Name
+                    </label>
+                    <input
+                      type="text"
+                      value={versionConfig.latest_version_name}
+                      onChange={e => setVersionConfig({ ...versionConfig, latest_version_name: e.target.value })}
+                      className="input-field text-base"
+                      placeholder="e.g. 1.4.3"
+                      required
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Displayed on the modal badge (e.g. <code>New Version: v1.4.3</code>).
+                    </p>
+                  </div>
+
+                  {/* Min Version Name (SemVer Fallback) */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">
+                      Minimum Version Name (SemVer fallback)
+                    </label>
+                    <input
+                      type="text"
+                      value={versionConfig.min_version_name || ''}
+                      onChange={e => setVersionConfig({ ...versionConfig, min_version_name: e.target.value })}
+                      className="input-field text-sm"
+                      placeholder="e.g. 1.4.3"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Secondary check for semantic version strings (e.g. <code>1.4.3</code>).
+                    </p>
+                  </div>
+
+                  {/* Google Play Store URL */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">
+                      Google Play Store / Download URL
+                    </label>
+                    <input
+                      type="url"
+                      value={versionConfig.update_url}
+                      onChange={e => setVersionConfig({ ...versionConfig, update_url: e.target.value })}
+                      className="input-field text-sm"
+                      placeholder="https://play.google.com/store/apps/details?id=..."
+                      required
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Target destination when user taps &quot;UPDATE ON PLAY STORE&quot;.
+                    </p>
+                  </div>
+
+                  {/* Modal Title */}
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">
+                      Popup Modal Title
+                    </label>
+                    <input
+                      type="text"
+                      value={versionConfig.title}
+                      onChange={e => setVersionConfig({ ...versionConfig, title: e.target.value })}
+                      className="input-field text-sm"
+                      placeholder="e.g. Update Required"
+                      required
+                    />
+                  </div>
+
+                  {/* Modal Message */}
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">
+                      Popup Modal Description
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={versionConfig.message}
+                      onChange={e => setVersionConfig({ ...versionConfig, message: e.target.value })}
+                      className="input-field text-sm resize-none"
+                      placeholder="e.g. A newer version of DolphinCoder is available on Google Play..."
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Quick Presets & Save */}
+                <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs text-gray-500 font-medium">Quick Set:</span>
+                    <button
+                      type="button"
+                      onClick={() => setVersionConfig({ ...versionConfig, min_required_version: 29, min_version_name: '1.4.3', latest_version_name: '1.4.3' })}
+                      className="px-2.5 py-1 rounded-lg text-xs bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 transition-all cursor-pointer"
+                    >
+                      Build 29 (Current Stable)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setVersionConfig({ ...versionConfig, min_required_version: (parseInt(versionConfig.min_required_version, 10) || 29) + 1 })}
+                      className="px-2.5 py-1 rounded-lg text-xs bg-white/5 hover:bg-white/10 text-amber-300 border border-amber-500/20 transition-all cursor-pointer"
+                    >
+                      +1 Next Release Gate
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                    <button
+                      type="button"
+                      onClick={fetchVersionConfig}
+                      disabled={loadingVersion || savingVersion}
+                      className="btn-secondary text-sm flex items-center gap-2"
+                    >
+                      <RefreshCw className={`w-4 h-4 ${loadingVersion ? 'animate-spin' : ''}`} />
+                      Reset
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={savingVersion}
+                      className="btn-primary text-sm flex items-center gap-2 px-6 shadow-lg shadow-dolphin-500/20"
+                    >
+                      {savingVersion ? (
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      ) : (
+                        <Save className="w-4 h-4" />
+                      )}
+                      Save &amp; Enforce Update
+                    </button>
+                  </div>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       )}
     </div>
