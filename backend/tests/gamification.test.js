@@ -208,8 +208,8 @@ describe('Gamification & In-Game Economy API Tests', () => {
 
             expect(res.status).toBe(200);
             expect(res.body.success).toBe(true);
-            expect(res.body.oxygen).toBe(2);
-            expect((await User.findByPk(user.id)).oxygen).toBe(2);
+            expect(res.body.oxygen).toBe(3);
+            expect((await User.findByPk(user.id)).oxygen).toBe(3);
         });
 
         it('rejects an invalid AdMob signature', async () => {

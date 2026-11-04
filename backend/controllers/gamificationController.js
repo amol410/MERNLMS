@@ -1142,7 +1142,7 @@ exports.claimAdReward = async (req, res, next) => {
 
             if (rewardType === 'oxygen') {
                 const previousOxygen = user.oxygen ?? 0;
-                user.oxygen = Math.min(5, previousOxygen + 2);
+                user.oxygen = Math.min(5, previousOxygen + 3);
                 user.lastOxygenRefill = new Date();
                 oxygenEarned = user.oxygen - previousOxygen;
             } else if (rewardType === 'pearls') {
