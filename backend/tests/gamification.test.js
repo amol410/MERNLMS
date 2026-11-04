@@ -198,16 +198,18 @@ describe('Gamification & In-Game Economy API Tests', () => {
     });
 
     describe('Rewarded ad verification', () => {
-        it('rejects direct client reward claims', async () => {
-            const { user, token } = await createTestUser({ pearls: 100 });
+        it('credits server-authoritative fixed reward and ignores client inflation amounts', async () => {
+            const { user, token } = await createTestUser({ pearls: 100, oxygen: 0 });
 
             const res = await request(app)
                 .post('/api/gamification/claim-ad-reward')
                 .set('Authorization', `Bearer ${token}`)
-                .send({ rewardType: 'pearls', amount: 99999 });
+                .send({ rewardType: 'oxygen', amount: 99999 });
 
-            expect(res.status).toBe(410);
-            expect((await User.findByPk(user.id)).pearls).toBe(100);
+            expect(res.status).toBe(200);
+            expect(res.body.success).toBe(true);
+            expect(res.body.oxygen).toBe(2);
+            expect((await User.findByPk(user.id)).oxygen).toBe(2);
         });
 
         it('rejects an invalid AdMob signature', async () => {

@@ -1101,14 +1101,100 @@ exports.getLessonDetails = async (req, res, next) => {
 };
 
 /**
- * Client-side reward claims are intentionally disabled. AdMob must call the
- * signed server-to-server callback below before any balance is changed.
+ * 10. Claim Rewarded Ad Reward (Authenticated & Server-Authoritative)
+ * Route: POST /api/gamification/claim-ad-reward
+ * Body: { rewardType: 'oxygen' | 'pearls' | 'double_xp', attemptId?: string }
  */
-exports.claimAdReward = async (req, res) => {
-    return res.status(410).json({
-        success: false,
-        message: 'Direct ad reward claims are disabled. Rewards are credited after AdMob verification.',
-    });
+exports.claimAdReward = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const { rewardType = 'oxygen', attemptId } = req.body;
+
+        if (!['oxygen', 'pearls', 'double_xp'].includes(rewardType)) {
+            return res.status(400).json({ success: false, message: 'Invalid rewardType. Expected: oxygen, pearls, or double_xp' });
+        }
+
+        const result = await sequelize.transaction(async transaction => {
+            const user = await User.findByPk(userId, {
+                transaction,
+                lock: transaction.LOCK.UPDATE,
+            });
+            if (!user) return { status: 404, body: { success: false, message: 'User not found' } };
+
+            const todayStart = new Date();
+            todayStart.setUTCHours(0, 0, 0, 0);
+            const adsToday = await RewardTransaction.count({
+                where: {
+                    userId,
+                    kind: { [Op.in]: ['admob', 'client_ad'] },
+                    createdAt: { [Op.gte]: todayStart },
+                },
+                transaction,
+            });
+
+            if (adsToday >= 6) {
+                return { status: 429, body: { success: false, message: 'Daily rewarded ad limit reached (6/6)' } };
+            }
+
+            let xpEarned = 0;
+            let pearlsEarned = 0;
+            let oxygenEarned = 0;
+
+            if (rewardType === 'oxygen') {
+                const previousOxygen = user.oxygen ?? 0;
+                user.oxygen = Math.min(5, previousOxygen + 2);
+                user.lastOxygenRefill = new Date();
+                oxygenEarned = user.oxygen - previousOxygen;
+            } else if (rewardType === 'pearls') {
+                pearlsEarned = 25;
+                user.pearls = (user.pearls || 0) + pearlsEarned;
+            } else if (rewardType === 'double_xp') {
+                if (attemptId) {
+                    const lesson = await RewardTransaction.findOne({
+                        where: { userId, kind: 'lesson', reference: attemptId },
+                        transaction,
+                    });
+                    if (lesson) {
+                        xpEarned = lesson.xpEarned;
+                        user.totalXp = (user.totalXp || 0) + xpEarned;
+                    }
+                }
+            }
+
+            await user.save({ transaction });
+
+            const transactionRef = `client-ad-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
+            const responseBody = {
+                success: true,
+                message: rewardType === 'oxygen'
+                    ? `Reward credited: +${oxygenEarned} Oxygen bubbles! 🫧`
+                    : (rewardType === 'pearls' ? `Reward credited: +${pearlsEarned} Pearls! 💎` : `Double XP reward credited! ⚡`),
+                rewardType,
+                oxygenEarned,
+                pearlsEarned,
+                xpEarned,
+                oxygen: user.oxygen,
+                pearls: user.pearls,
+                totalXp: user.totalXp,
+            };
+
+            await RewardTransaction.create({
+                userId,
+                kind: 'client_ad',
+                reference: transactionRef,
+                xpEarned,
+                pearlsEarned,
+                oxygenEarned,
+                responseBody,
+            }, { transaction });
+
+            return { status: 200, body: responseBody };
+        });
+
+        return res.status(result.status).json(result.body);
+    } catch (error) {
+        next(error);
+    }
 };
 
 exports.handleAdMobReward = async (req, res, next) => {
