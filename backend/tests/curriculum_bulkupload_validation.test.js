@@ -488,6 +488,195 @@ describe('Curriculum & Bulk Upload Validation Suite', () => {
             });
             expect(lessonsInUnit1.length).toBe(0);
         });
+
+        it('appends new lessons strictly BELOW existing lessons when replace mode is false, even if upload has lessonIndex: 0', async () => {
+            // Seed existing Unit 5 with 3 lessons (indices 0, 1, 2)
+            await CurriculumLesson.create({
+                owner: adminUser.id,
+                learningLanguage: 'de',
+                nativeLanguage: 'en',
+                level: 'A1',
+                unitNumber: 5,
+                lessonIndex: 0,
+                title: 'Existing Lesson 0',
+                isLive: true,
+            });
+            await CurriculumLesson.create({
+                owner: adminUser.id,
+                learningLanguage: 'de',
+                nativeLanguage: 'en',
+                level: 'A1',
+                unitNumber: 5,
+                lessonIndex: 1,
+                title: 'Existing Lesson 1',
+                isLive: true,
+            });
+            await CurriculumLesson.create({
+                owner: adminUser.id,
+                learningLanguage: 'de',
+                nativeLanguage: 'en',
+                level: 'A1',
+                unitNumber: 5,
+                lessonIndex: 2,
+                title: 'Existing Lesson 2',
+                isLive: true,
+            });
+
+            // Upload 2 new lessons into Unit 5 without replace (append mode)
+            // Note: Upload JSON defines lessonIndex: 0 and 1, as is common in fresh syllabus templates
+            const uploadPayload = {
+                learningLanguage: 'de',
+                nativeLanguage: 'en',
+                level: 'A1',
+                unitNumber: 5,
+                replace: false,
+                lessonsData: [
+                    {
+                        lessonIndex: 0,
+                        title: 'Appended Lesson Alpha',
+                        nodeType: 'lesson',
+                        stages: [
+                            {
+                                type: 'word_match',
+                                pairs: [{ target: 'Ja', native: 'Yes' }, { target: 'Nein', native: 'No' }],
+                            },
+                        ],
+                    },
+                    {
+                        lessonIndex: 1,
+                        title: 'Appended Lesson Beta',
+                        nodeType: 'lesson',
+                        stages: [
+                            {
+                                type: 'word_match',
+                                pairs: [{ target: 'Gut', native: 'Good' }, { target: 'Schlecht', native: 'Bad' }],
+                            },
+                        ],
+                    },
+                ],
+            };
+
+            const req = { user: adminUser, body: uploadPayload };
+            const res = createMockRes();
+
+            await curriculumController.bulkUpload(req, res, () => {});
+
+            expect(res.statusCode).toBe(201);
+            expect(res.body.success).toBe(true);
+
+            // Fetch all Unit 5 lessons sorted by lessonIndex ASC
+            const unit5Lessons = await CurriculumLesson.findAll({
+                where: { learningLanguage: 'de', nativeLanguage: 'en', level: 'A1', unitNumber: 5 },
+                order: [['lessonIndex', 'ASC']],
+            });
+
+            expect(unit5Lessons.length).toBe(5);
+            // Verify existing lessons remain at 0, 1, 2
+            expect(unit5Lessons[0].title).toBe('Existing Lesson 0');
+            expect(unit5Lessons[0].lessonIndex).toBe(0);
+            expect(unit5Lessons[1].title).toBe('Existing Lesson 1');
+            expect(unit5Lessons[1].lessonIndex).toBe(1);
+            expect(unit5Lessons[2].title).toBe('Existing Lesson 2');
+            expect(unit5Lessons[2].lessonIndex).toBe(2);
+
+            // Verify newly appended lessons are placed strictly BELOW existing lessons (indices 3 and 4)
+            expect(unit5Lessons[3].title).toBe('Appended Lesson Alpha');
+            expect(unit5Lessons[3].lessonIndex).toBe(3);
+            expect(unit5Lessons[4].title).toBe('Appended Lesson Beta');
+            expect(unit5Lessons[4].lessonIndex).toBe(4);
+        });
+
+        it('completely removes and replaces existing unit lessons when replace is true', async () => {
+            // Seed Unit 6 with 3 old lessons
+            await CurriculumLesson.create({
+                owner: adminUser.id,
+                learningLanguage: 'de',
+                nativeLanguage: 'en',
+                level: 'A1',
+                unitNumber: 6,
+                lessonIndex: 0,
+                title: 'Old Deprecated Lesson 1',
+                isLive: true,
+            });
+            await CurriculumLesson.create({
+                owner: adminUser.id,
+                learningLanguage: 'de',
+                nativeLanguage: 'en',
+                level: 'A1',
+                unitNumber: 6,
+                lessonIndex: 1,
+                title: 'Old Deprecated Lesson 2',
+                isLive: true,
+            });
+            await CurriculumLesson.create({
+                owner: adminUser.id,
+                learningLanguage: 'de',
+                nativeLanguage: 'en',
+                level: 'A1',
+                unitNumber: 6,
+                lessonIndex: 2,
+                title: 'Old Deprecated Lesson 3',
+                isLive: true,
+            });
+
+            // Perform bulk upload with replace: true
+            const uploadPayload = {
+                learningLanguage: 'de',
+                nativeLanguage: 'en',
+                level: 'A1',
+                unitNumber: 6,
+                replace: true,
+                lessonsData: [
+                    {
+                        lessonIndex: 0,
+                        title: 'Replacement Lesson Fresh 1',
+                        nodeType: 'lesson',
+                        stages: [
+                            {
+                                type: 'word_match',
+                                pairs: [{ target: 'Hallo', native: 'Hello' }, { target: 'Welt', native: 'World' }],
+                            },
+                        ],
+                    },
+                    {
+                        lessonIndex: 1,
+                        title: 'Replacement Lesson Fresh 2',
+                        nodeType: 'lesson',
+                        stages: [
+                            {
+                                type: 'word_match',
+                                pairs: [{ target: 'Morgen', native: 'Morning' }, { target: 'Abend', native: 'Evening' }],
+                            },
+                        ],
+                    },
+                ],
+            };
+
+            const req = { user: adminUser, body: uploadPayload };
+            const res = createMockRes();
+
+            await curriculumController.bulkUpload(req, res, () => {});
+
+            expect(res.statusCode).toBe(201);
+            expect(res.body.success).toBe(true);
+            expect(res.body.replaced).toBe(true);
+
+            // Fetch all Unit 6 lessons
+            const unit6Lessons = await CurriculumLesson.findAll({
+                where: { learningLanguage: 'de', nativeLanguage: 'en', level: 'A1', unitNumber: 6 },
+                order: [['lessonIndex', 'ASC']],
+            });
+
+            // Verify old lessons are completely gone
+            expect(unit6Lessons.length).toBe(2);
+            expect(unit6Lessons.some(l => l.title.includes('Old Deprecated'))).toBe(false);
+
+            // Verify only the new replacement lessons exist at indices 0 and 1
+            expect(unit6Lessons[0].title).toBe('Replacement Lesson Fresh 1');
+            expect(unit6Lessons[0].lessonIndex).toBe(0);
+            expect(unit6Lessons[1].title).toBe('Replacement Lesson Fresh 2');
+            expect(unit6Lessons[1].lessonIndex).toBe(1);
+        });
     });
 
     // =========================================================================

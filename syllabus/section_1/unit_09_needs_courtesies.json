@@ -22,6 +22,34 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'चाहना' के लिए सही चित्र चुनें:",
+          "targetWord": "want",
+          "translation": "चाहना",
+          "options": [
+            {
+              "id": "u9_l1_p1",
+              "text": "want (चाहना)",
+              "imageUrl": "/uploads/curriculum/want.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l1_p2",
+              "text": "need (ज़रूरत होना)",
+              "imageUrl": "/uploads/curriculum/need.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l1_p3",
+              "text": "like (पसंद करना)",
+              "imageUrl": "/uploads/curriculum/like.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
           "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
@@ -58,20 +86,6 @@
           ]
         },
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "I need help, please",
-          "tokens": [
-            "I",
-            "need",
-            "help,",
-            "please",
-            "want",
-            "money"
-          ],
-          "audioUrl": ""
-        },
-        {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
           "sentence": "I _______.",
@@ -84,11 +98,81 @@
           ]
         },
         {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I need help, please",
+          "tokens": [
+            "I",
+            "need",
+            "help,",
+            "please",
+            "want",
+            "money"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I need help, please",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे मदद चाहिए, कृपया।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे एक पेन चाहिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे मदद चाहिए, कृपया।",
+          "audioUrl": ""
+        },
+        {
           "type": "type_word",
-          "title": "स्पेलिंग लिखें",
+          "title": "स्पेलिंग टाइप करें",
           "prompt": "'चाहना' के लिए अंग्रेज़ी शब्द टाइप करें:",
           "target": "want",
-          "hint": "संकेत: w से शुरू होता है"
+          "translation": "चाहना",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I need help, please",
+          "translation": "मुझे मदद चाहिए, कृपया।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I need help, please. Want is good.",
+          "translationText": "मुझे मदद चाहिए, कृपया।। चाहना अच्छा है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -103,8 +187,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'कृपया' के लिए सही चित्र चुनें:",
+          "targetWord": "please",
+          "translation": "कृपया",
+          "options": [
+            {
+              "id": "u9_l2_p1",
+              "text": "please (कृपया)",
+              "imageUrl": "/uploads/curriculum/please.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l2_p2",
+              "text": "thank you (धन्यवाद)",
+              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l2_p3",
+              "text": "sorry (माफ़ करें)",
+              "imageUrl": "/uploads/curriculum/sorry.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "please",
@@ -139,22 +251,20 @@
           ]
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मुझे ठंडा पानी चाहिए।",
-          "targetSentence": "I want cold water",
-          "tokens": [
-            "I",
-            "want",
-            "cold",
-            "water",
-            "hot",
-            "tea"
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______ pen.",
+          "blank": "need",
+          "translation": "मुझे एक पेन चाहिए।",
+          "options": [
+            "pen",
+            "please",
+            "thank you"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "I need a pen",
           "tokens": [
             "I",
@@ -167,11 +277,66 @@
           "audioUrl": ""
         },
         {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I need a pen",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे एक पेन चाहिए।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे ठंडा पानी चाहिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे एक पेन चाहिए।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'कृपया' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "please",
+          "translation": "कृपया",
+          "hint": "संकेत: P से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
           "prompt": "Excuse me, can you help me?",
           "translation": "मुझे मदद चाहिए, कृपया।",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I need a pen. It is very good.",
+          "translationText": "मुझे एक पेन चाहिए। यह बहुत अच्छा है।",
           "audioUrl": ""
         }
       ]
@@ -187,8 +352,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'माफ़ कीजिए' के लिए सही चित्र चुनें:",
+          "targetWord": "excuse me",
+          "translation": "माफ़ कीजिए",
+          "options": [
+            {
+              "id": "u9_l3_p1",
+              "text": "excuse me (माफ़ कीजिए)",
+              "imageUrl": "/uploads/curriculum/excuse me.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l3_p2",
+              "text": "money (पैसे)",
+              "imageUrl": "/uploads/curriculum/money.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l3_p3",
+              "text": "can (सकना)",
+              "imageUrl": "/uploads/curriculum/can.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "excuse me",
@@ -211,6 +404,171 @@
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मुझे ठंडा पानी चाहिए।",
+          "targetSentence": "I want cold water",
+          "tokens": [
+            "I",
+            "want",
+            "cold",
+            "water",
+            "hot",
+            "tea"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "water",
+          "translation": "मुझे ठंडा पानी चाहिए।",
+          "options": [
+            "water",
+            "excuse me",
+            "money"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I want cold water",
+          "tokens": [
+            "I",
+            "want",
+            "cold",
+            "water",
+            "hot",
+            "tea"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I want cold water",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे ठंडा पानी चाहिए।",
+              "isCorrect": true
+            },
+            {
+              "text": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे ठंडा पानी चाहिए।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'माफ़ कीजिए' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "excuse me",
+          "translation": "माफ़ कीजिए",
+          "hint": "संकेत: E से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I want cold water",
+          "translation": "मुझे ठंडा पानी चाहिए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I want cold water. We like this.",
+          "translationText": "मुझे ठंडा पानी चाहिए। हमें यह पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 4",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: श्रवण अभ्यास (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'ज़रूरत होना' के लिए सही चित्र चुनें:",
+          "targetWord": "need",
+          "translation": "ज़रूरत होना",
+          "options": [
+            {
+              "id": "u9_l4_p1",
+              "text": "need (ज़रूरत होना)",
+              "imageUrl": "/uploads/curriculum/need.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l4_p2",
+              "text": "please (कृपया)",
+              "imageUrl": "/uploads/curriculum/please.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l4_p3",
+              "text": "excuse me (माफ़ कीजिए)",
+              "imageUrl": "/uploads/curriculum/excuse me.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "need",
+              "native": "ज़रूरत होना"
+            },
+            {
+              "target": "thank you",
+              "native": "धन्यवाद"
+            },
+            {
+              "target": "money",
+              "native": "पैसे"
+            },
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
           "prompt": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
           "targetSentence": "Excuse me, can you help me?",
           "tokens": [
@@ -225,44 +583,18 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Excuse me, can you help _______.",
+          "sentence": "Excuse _______.",
           "blank": "me?",
           "translation": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
           "options": [
             "me?",
-            "want",
-            "thank you"
+            "need",
+            "help"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "I want cold water",
-          "tokens": [
-            "I",
-            "want",
-            "cold",
-            "water",
-            "hot",
-            "tea"
-          ],
-          "audioUrl": ""
-        }
-      ]
-    },
-    {
-      "lessonIndex": 3,
-      "unitLessonNum": 4,
-      "title": "Expressing Needs, Likes & Courtesies • Lesson 4",
-      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: श्रवण और समझ",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "Excuse me, can you help me?",
           "tokens": [
             "Excuse",
@@ -275,38 +607,127 @@
           "audioUrl": ""
         },
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "I am very sorry",
-          "tokens": [
-            "I",
-            "am",
-            "very",
-            "sorry",
-            "welcome",
-            "please"
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Excuse me, can you help me?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे मदद चाहिए, कृपया।",
+              "isCorrect": false
+            }
           ],
+          "correctOption": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
           "audioUrl": ""
         },
         {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'ज़रूरत होना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "need",
+          "translation": "ज़रूरत होना",
+          "hint": "संकेत: N से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Thank you very much",
+          "translation": "मुझे एक पेन चाहिए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Excuse me, can you help me?. Listen and speak every day.",
+          "translationText": "सुनिए, क्या आप मेरी मदद कर सकते हैं? हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 5",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: गुण और विशेषताएं",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'मैडम' के लिए सही चित्र चुनें:",
+          "targetWord": "madam",
+          "translation": "मैडम",
+          "options": [
+            {
+              "id": "u9_l5_p1",
+              "text": "madam (मैडम)",
+              "imageUrl": "/uploads/curriculum/madam.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l5_p2",
+              "text": "problem (समस्या)",
+              "imageUrl": "/uploads/curriculum/problem.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l5_p3",
+              "text": "okay (ठीक है)",
+              "imageUrl": "/uploads/curriculum/okay.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "रैपिड मिलान",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "want",
-              "native": "चाहना"
+              "target": "madam",
+              "native": "मैडम"
             },
             {
-              "target": "help",
-              "native": "मदद"
+              "target": "problem",
+              "native": "समस्या"
             },
             {
-              "target": "sorry",
-              "native": "माफ़ करें"
+              "target": "okay",
+              "native": "ठीक है"
             },
             {
-              "target": "money",
-              "native": "पैसे"
+              "target": "water",
+              "native": "पानी"
             }
           ]
         },
@@ -323,34 +744,162 @@
             "welcome",
             "please"
           ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "sorry",
+          "translation": "मुझे बहुत खेद है।",
+          "options": [
+            "sorry",
+            "madam",
+            "problem"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I am very sorry",
+          "tokens": [
+            "I",
+            "am",
+            "very",
+            "sorry",
+            "welcome",
+            "please"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I am very sorry",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे बहुत खेद है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे एक पेन चाहिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे बहुत खेद है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'मैडम' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "madam",
+          "translation": "मैडम",
+          "hint": "संकेत: M से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I am very sorry",
+          "translation": "मुझे बहुत खेद है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I am very sorry. You are doing very well.",
+          "translationText": "मुझे बहुत खेद है। आप बहुत अच्छा कर रहे हैं।",
+          "audioUrl": ""
         }
       ]
     },
     {
-      "lessonIndex": 4,
-      "unitLessonNum": 5,
-      "title": "Expressing Needs, Likes & Courtesies • Lesson 5",
-      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: व्यावहारिक प्रयोग",
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Expressing Needs, Likes & Courtesies • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 7",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: संयुक्त प्रयोग",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'धन्यवाद' के लिए सही चित्र चुनें:",
+          "targetWord": "thank you",
+          "translation": "धन्यवाद",
+          "options": [
+            {
+              "id": "u9_l7_p1",
+              "text": "thank you (धन्यवाद)",
+              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l7_p2",
+              "text": "sorry (माफ़ करें)",
+              "imageUrl": "/uploads/curriculum/sorry.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l7_p3",
+              "text": "welcome (स्वागत)",
+              "imageUrl": "/uploads/curriculum/welcome.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "madam",
-              "native": "मैडम"
+              "target": "help",
+              "native": "मदद"
             },
             {
-              "target": "problem",
-              "native": "समस्या"
+              "target": "welcome",
+              "native": "स्वागत"
             },
             {
-              "target": "okay",
-              "native": "ठीक है"
+              "target": "sir",
+              "native": "सर"
             },
             {
               "target": "water",
@@ -375,46 +924,154 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "You are welcome, _______.",
+          "sentence": "You _______.",
           "blank": "sir",
           "translation": "आपका स्वागत है, सर।",
           "options": [
             "sir",
-            "like",
-            "excuse me"
+            "thank you",
+            "welcome"
           ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "You are welcome, sir",
+          "tokens": [
+            "You",
+            "are",
+            "welcome,",
+            "sir",
+            "madam",
+            "sorry"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "You are welcome, sir",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "आपका स्वागत है, सर।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे ठंडा पानी चाहिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "आपका स्वागत है, सर।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'धन्यवाद' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "thank you",
+          "translation": "धन्यवाद",
+          "hint": "संकेत: T से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
         },
         {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
-          "prompt": "Thank you very much",
-          "translation": "कोई बात नहीं।",
+          "prompt": "You are welcome, sir",
+          "translation": "आपका स्वागत है, सर।",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "You are welcome, sir. Practice makes you perfect.",
+          "translationText": "आपका स्वागत है, सर। अभ्यास से सब आसान हो जाता है।",
           "audioUrl": ""
         }
       ]
     },
     {
-      "lessonIndex": 5,
-      "unitLessonNum": 6,
-      "title": "Expressing Needs, Likes & Courtesies • Treasure Chest 1",
-      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
-      "nodeType": "chest",
-      "xpReward": 15,
-      "pearlsReward": 25,
-      "isLive": true,
-      "stages": []
-    },
-    {
-      "lessonIndex": 6,
-      "unitLessonNum": 7,
-      "title": "Expressing Needs, Likes & Courtesies • Lesson 7",
-      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: विस्तृत वाक्य",
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 8",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: जटिल वाक्य संरचना",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पैसे' के लिए सही चित्र चुनें:",
+          "targetWord": "money",
+          "translation": "पैसे",
+          "options": [
+            {
+              "id": "u9_l8_p1",
+              "text": "money (पैसे)",
+              "imageUrl": "/uploads/curriculum/money.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l8_p2",
+              "text": "can (सकना)",
+              "imageUrl": "/uploads/curriculum/can.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l8_p3",
+              "text": "sir (सर)",
+              "imageUrl": "/uploads/curriculum/sir.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "want",
+              "native": "चाहना"
+            },
+            {
+              "target": "please",
+              "native": "कृपया"
+            },
+            {
+              "target": "excuse me",
+              "native": "माफ़ कीजिए"
+            },
+            {
+              "target": "madam",
+              "native": "मैडम"
+            }
+          ]
+        },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
@@ -430,21 +1087,20 @@
           ]
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "चाय? हाँ, कृपया!",
-          "targetSentence": "Tea? Yes, please!",
-          "tokens": [
-            "Tea?",
-            "Yes,",
-            "please!",
-            "No,",
-            "thanks!"
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "No _______.",
+          "blank": "all",
+          "translation": "कोई बात नहीं।",
+          "options": [
+            "all",
+            "money",
+            "can"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "No problem at all",
           "tokens": [
             "No",
@@ -457,43 +1113,38 @@
           "audioUrl": ""
         },
         {
-          "type": "word_match",
-          "title": "शब्दों का मिलान करें",
-          "pairs": [
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "No problem at all",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
             {
-              "target": "need",
-              "native": "ज़रूरत होना"
+              "text": "कोई बात नहीं।",
+              "isCorrect": true
             },
             {
-              "target": "please",
-              "native": "कृपया"
-            },
-            {
-              "target": "welcome",
-              "native": "स्वागत"
-            },
-            {
-              "target": "sir",
-              "native": "सर"
+              "text": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
+              "isCorrect": false
             }
-          ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 7,
-      "unitLessonNum": 8,
-      "title": "Expressing Needs, Likes & Courtesies • Lesson 8",
-      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: बातचीत और संवाद",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
+          ],
+          "correctOption": "कोई बात नहीं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पैसे' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "money",
+          "translation": "पैसे",
+          "hint": "संकेत: M से शुरू होता है",
+          "audioUrl": ""
+        },
         {
           "type": "dialogue_bubble",
-          "title": "संवाद पूरा करें",
+          "title": "बातचीत पूरी करें",
           "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
           "partnerMessage": "Can you help me, please?",
           "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
           "options": [
@@ -504,6 +1155,85 @@
             {
               "text": "My dress is red.",
               "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "No problem at all",
+          "translation": "कोई बात नहीं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "No problem at all. Everything is in order.",
+          "translationText": "कोई बात नहीं। सब कुछ सही क्रम में है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 9",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: मौखिक अभ्यास (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'समस्या' के लिए सही चित्र चुनें:",
+          "targetWord": "problem",
+          "translation": "समस्या",
+          "options": [
+            {
+              "id": "u9_l9_p1",
+              "text": "problem (समस्या)",
+              "imageUrl": "/uploads/curriculum/problem.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l9_p2",
+              "text": "okay (ठीक है)",
+              "imageUrl": "/uploads/curriculum/okay.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l9_p3",
+              "text": "water (पानी)",
+              "imageUrl": "/uploads/curriculum/water.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            },
+            {
+              "target": "sorry",
+              "native": "माफ़ करें"
+            },
+            {
+              "target": "can",
+              "native": "सकना"
+            },
+            {
+              "target": "okay",
+              "native": "ठीक है"
             }
           ]
         },
@@ -523,72 +1253,90 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Tea? Yes, _______.",
+          "sentence": "Tea? _______.",
           "blank": "please!",
           "translation": "चाय? हाँ, कृपया!",
           "options": [
             "please!",
-            "help",
-            "money"
+            "problem",
+            "okay"
           ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 8,
-      "unitLessonNum": 9,
-      "title": "Expressing Needs, Likes & Courtesies • Lesson 9",
-      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: मौखिक उच्चारण अभ्यास",
-      "nodeType": "lesson",
-      "xpReward": 25,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
+        },
         {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "Excuse me, can you help me?",
-          "translation": "मुझे मदद चाहिए, कृपया।",
-          "minAccuracy": 75,
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Tea? Yes, please!",
+          "tokens": [
+            "Tea?",
+            "Yes,",
+            "please!",
+            "No,",
+            "thanks!"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Tea? Yes, please!",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "चाय? हाँ, कृपया!",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे बहुत खेद है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "चाय? हाँ, कृपया!",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'समस्या' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "problem",
+          "translation": "समस्या",
+          "hint": "संकेत: P से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
           "audioUrl": ""
         },
         {
           "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "Thank you very much",
-          "translation": "मुझे एक पेन चाहिए।",
-          "minAccuracy": 75,
-          "audioUrl": ""
-        },
-        {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
+          "title": "बोलकर अभ्यास करें",
           "prompt": "I need a pen",
           "translation": "मुझे ठंडा पानी चाहिए।",
           "minAccuracy": 75,
           "audioUrl": ""
         },
         {
-          "type": "word_match",
-          "title": "शब्द मिलान",
-          "pairs": [
-            {
-              "target": "like",
-              "native": "पसंद करना"
-            },
-            {
-              "target": "thank you",
-              "native": "धन्यवाद"
-            },
-            {
-              "target": "excuse me",
-              "native": "माफ़ कीजिए"
-            },
-            {
-              "target": "problem",
-              "native": "समस्या"
-            }
-          ]
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Tea? Yes, please!. Speak clearly and with confidence.",
+          "translationText": "चाय? हाँ, कृपया! स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
         }
       ]
     },
@@ -596,56 +1344,91 @@
       "lessonIndex": 9,
       "unitLessonNum": 10,
       "title": "Expressing Needs, Likes & Courtesies • Lesson 10",
-      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: समग्र पुनरावृत्ति",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: संवाद अभ्यास (Dialogue Mastery)",
       "nodeType": "lesson",
-      "xpReward": 20,
+      "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "word_match",
-          "title": "5-जोड़ी मिलान",
-          "pairs": [
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'मदद' के लिए सही चित्र चुनें:",
+          "targetWord": "help",
+          "translation": "मदद",
+          "options": [
             {
-              "target": "want",
-              "native": "चाहना"
+              "id": "u9_l10_p1",
+              "text": "help (मदद)",
+              "imageUrl": "/uploads/curriculum/help.webp",
+              "isCorrect": true
             },
             {
-              "target": "help",
-              "native": "मदद"
+              "id": "u9_l10_p2",
+              "text": "welcome (स्वागत)",
+              "imageUrl": "/uploads/curriculum/welcome.webp",
+              "isCorrect": false
             },
             {
-              "target": "welcome",
-              "native": "स्वागत"
-            },
-            {
-              "target": "can",
-              "native": "सकना"
-            },
-            {
-              "target": "okay",
-              "native": "ठीक है"
+              "id": "u9_l10_p3",
+              "text": "sir (सर)",
+              "imageUrl": "/uploads/curriculum/sir.webp",
+              "isCorrect": false
             }
           ]
         },
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "You are welcome, sir",
-          "tokens": [
-            "You",
-            "are",
-            "welcome,",
-            "sir",
-            "madam",
-            "sorry"
-          ],
-          "audioUrl": ""
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "need",
+              "native": "ज़रूरत होना"
+            },
+            {
+              "target": "please",
+              "native": "कृपया"
+            },
+            {
+              "target": "money",
+              "native": "पैसे"
+            },
+            {
+              "target": "problem",
+              "native": "समस्या"
+            }
+          ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "कोई बात नहीं।",
+          "prompt": "मुझे मदद चाहिए, कृपया।",
+          "targetSentence": "I need help, please",
+          "tokens": [
+            "I",
+            "need",
+            "help,",
+            "please",
+            "want",
+            "money"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "please",
+          "translation": "मुझे मदद चाहिए, कृपया।",
+          "options": [
+            "please",
+            "help",
+            "welcome"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "No problem at all",
           "tokens": [
             "No",
@@ -654,14 +1437,71 @@
             "all",
             "yes",
             "need"
-          ]
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Tea? Yes, please!",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "चाय? हाँ, कृपया!",
+              "isCorrect": true
+            },
+            {
+              "text": "आपका स्वागत है, सर।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "चाय? हाँ, कृपया!",
+          "audioUrl": ""
         },
         {
           "type": "type_word",
           "title": "स्पेलिंग टाइप करें",
-          "prompt": "'ज़रूरत होना' के लिए सही शब्द टाइप करें:",
-          "target": "need",
-          "hint": "संकेत: n से शुरू होता है"
+          "prompt": "'मदद' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "help",
+          "translation": "मदद",
+          "hint": "संकेत: H से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Excuse me, can you help me?",
+          "translation": "मुझे मदद चाहिए, कृपया।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Excuse me, can you help me? I need a pen, please. Thank you very much!",
+          "translationText": "माफ़ कीजिए, क्या आप मेरी मदद कर सकते हैं? मुझे एक पेन चाहिए, कृपया। बहुत-बहुत धन्यवाद!",
+          "audioUrl": ""
         }
       ]
     },
@@ -679,42 +1519,727 @@
     {
       "lessonIndex": 11,
       "unitLessonNum": 12,
-      "title": "Expressing Needs, Likes & Courtesies • Expressing Needs, Likes & Courtesies • Milestone Exam",
-      "subtitle": "इकाई 9 संपूर्ण परीक्षा",
+      "title": "Expressing Needs, Likes & Courtesies • Unit 9 Milestone Exam",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
       "nodeType": "quiz",
       "xpReward": 35,
       "pearlsReward": 10,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'चाहना' के लिए सही चित्र चुनें:",
+          "targetWord": "want",
+          "translation": "चाहना",
+          "options": [
+            {
+              "id": "u9_l12_p1",
+              "text": "want (चाहना)",
+              "imageUrl": "/uploads/curriculum/want.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l12_p2",
+              "text": "please (कृपया)",
+              "imageUrl": "/uploads/curriculum/please.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l12_p3",
+              "text": "excuse me (माफ़ कीजिए)",
+              "imageUrl": "/uploads/curriculum/excuse me.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "इकाई 9 मुख्य शब्द परीक्षा",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "want",
               "native": "चाहना"
             },
             {
+              "target": "please",
+              "native": "कृपया"
+            },
+            {
+              "target": "excuse me",
+              "native": "माफ़ कीजिए"
+            },
+            {
+              "target": "madam",
+              "native": "मैडम"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "आपका स्वागत है, सर।",
+          "targetSentence": "You are welcome, sir",
+          "tokens": [
+            "You",
+            "are",
+            "welcome,",
+            "sir",
+            "madam",
+            "sorry"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "You _______.",
+          "blank": "sir",
+          "translation": "आपका स्वागत है, सर।",
+          "options": [
+            "sir",
+            "want",
+            "please"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Tea? Yes, please!",
+          "tokens": [
+            "Tea?",
+            "Yes,",
+            "please!",
+            "No,",
+            "thanks!"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I am very sorry",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे बहुत खेद है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे मदद चाहिए, कृपया।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे बहुत खेद है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पानी' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "water",
+          "translation": "पानी",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Excuse me, can you help me?",
+          "translation": "मुझे मदद चाहिए, कृपया।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Excuse me, can you help me? I need a pen, please. Thank you very much!",
+          "translationText": "माफ़ कीजिए, क्या आप मेरी मदद कर सकते हैं? मुझे एक पेन चाहिए, कृपया। बहुत-बहुत धन्यवाद!",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ],
+  "lessonsData": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 1",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'चाहना' के लिए सही चित्र चुनें:",
+          "targetWord": "want",
+          "translation": "चाहना",
+          "options": [
+            {
+              "id": "u9_l1_p1",
+              "text": "want (चाहना)",
+              "imageUrl": "/uploads/curriculum/want.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l1_p2",
+              "text": "need (ज़रूरत होना)",
+              "imageUrl": "/uploads/curriculum/need.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l1_p3",
+              "text": "like (पसंद करना)",
+              "imageUrl": "/uploads/curriculum/like.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "want",
+              "native": "चाहना"
+            },
+            {
+              "target": "need",
+              "native": "ज़रूरत होना"
+            },
+            {
               "target": "like",
               "native": "पसंद करना"
             },
             {
+              "target": "help",
+              "native": "मदद"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मुझे मदद चाहिए, कृपया।",
+          "targetSentence": "I need help, please",
+          "tokens": [
+            "I",
+            "need",
+            "help,",
+            "please",
+            "want",
+            "money"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "please",
+          "translation": "मुझे मदद चाहिए, कृपया।",
+          "options": [
+            "please",
+            "need",
+            "like"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I need help, please",
+          "tokens": [
+            "I",
+            "need",
+            "help,",
+            "please",
+            "want",
+            "money"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I need help, please",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे मदद चाहिए, कृपया।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे एक पेन चाहिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे मदद चाहिए, कृपया।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'चाहना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "want",
+          "translation": "चाहना",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I need help, please",
+          "translation": "मुझे मदद चाहिए, कृपया।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I need help, please. Want is good.",
+          "translationText": "मुझे मदद चाहिए, कृपया।। चाहना अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 2",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'कृपया' के लिए सही चित्र चुनें:",
+          "targetWord": "please",
+          "translation": "कृपया",
+          "options": [
+            {
+              "id": "u9_l2_p1",
+              "text": "please (कृपया)",
+              "imageUrl": "/uploads/curriculum/please.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l2_p2",
+              "text": "thank you (धन्यवाद)",
+              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l2_p3",
+              "text": "sorry (माफ़ करें)",
+              "imageUrl": "/uploads/curriculum/sorry.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
               "target": "please",
               "native": "कृपया"
+            },
+            {
+              "target": "thank you",
+              "native": "धन्यवाद"
             },
             {
               "target": "sorry",
               "native": "माफ़ करें"
             },
             {
-              "target": "excuse me",
-              "native": "माफ़ कीजिए"
+              "target": "welcome",
+              "native": "स्वागत"
             }
           ]
         },
         {
           "type": "sentence_builder",
-          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मुझे एक पेन चाहिए।",
+          "targetSentence": "I need a pen",
+          "tokens": [
+            "I",
+            "need",
+            "a",
+            "pen",
+            "book",
+            "car"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______ pen.",
+          "blank": "need",
+          "translation": "मुझे एक पेन चाहिए।",
+          "options": [
+            "pen",
+            "please",
+            "thank you"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I need a pen",
+          "tokens": [
+            "I",
+            "need",
+            "a",
+            "pen",
+            "book",
+            "car"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I need a pen",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे एक पेन चाहिए।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे ठंडा पानी चाहिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे एक पेन चाहिए।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'कृपया' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "please",
+          "translation": "कृपया",
+          "hint": "संकेत: P से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Excuse me, can you help me?",
+          "translation": "मुझे मदद चाहिए, कृपया।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I need a pen. It is very good.",
+          "translationText": "मुझे एक पेन चाहिए। यह बहुत अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 3",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'माफ़ कीजिए' के लिए सही चित्र चुनें:",
+          "targetWord": "excuse me",
+          "translation": "माफ़ कीजिए",
+          "options": [
+            {
+              "id": "u9_l3_p1",
+              "text": "excuse me (माफ़ कीजिए)",
+              "imageUrl": "/uploads/curriculum/excuse me.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l3_p2",
+              "text": "money (पैसे)",
+              "imageUrl": "/uploads/curriculum/money.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l3_p3",
+              "text": "can (सकना)",
+              "imageUrl": "/uploads/curriculum/can.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "excuse me",
+              "native": "माफ़ कीजिए"
+            },
+            {
+              "target": "money",
+              "native": "पैसे"
+            },
+            {
+              "target": "can",
+              "native": "सकना"
+            },
+            {
+              "target": "sir",
+              "native": "सर"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मुझे ठंडा पानी चाहिए।",
+          "targetSentence": "I want cold water",
+          "tokens": [
+            "I",
+            "want",
+            "cold",
+            "water",
+            "hot",
+            "tea"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "water",
+          "translation": "मुझे ठंडा पानी चाहिए।",
+          "options": [
+            "water",
+            "excuse me",
+            "money"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I want cold water",
+          "tokens": [
+            "I",
+            "want",
+            "cold",
+            "water",
+            "hot",
+            "tea"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I want cold water",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे ठंडा पानी चाहिए।",
+              "isCorrect": true
+            },
+            {
+              "text": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे ठंडा पानी चाहिए।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'माफ़ कीजिए' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "excuse me",
+          "translation": "माफ़ कीजिए",
+          "hint": "संकेत: E से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I want cold water",
+          "translation": "मुझे ठंडा पानी चाहिए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I want cold water. We like this.",
+          "translationText": "मुझे ठंडा पानी चाहिए। हमें यह पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 4",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: श्रवण अभ्यास (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'ज़रूरत होना' के लिए सही चित्र चुनें:",
+          "targetWord": "need",
+          "translation": "ज़रूरत होना",
+          "options": [
+            {
+              "id": "u9_l4_p1",
+              "text": "need (ज़रूरत होना)",
+              "imageUrl": "/uploads/curriculum/need.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l4_p2",
+              "text": "please (कृपया)",
+              "imageUrl": "/uploads/curriculum/please.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l4_p3",
+              "text": "excuse me (माफ़ कीजिए)",
+              "imageUrl": "/uploads/curriculum/excuse me.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "need",
+              "native": "ज़रूरत होना"
+            },
+            {
+              "target": "thank you",
+              "native": "धन्यवाद"
+            },
+            {
+              "target": "money",
+              "native": "पैसे"
+            },
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
           "prompt": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
           "targetSentence": "Excuse me, can you help me?",
           "tokens": [
@@ -727,8 +2252,690 @@
           ]
         },
         {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Excuse _______.",
+          "blank": "me?",
+          "translation": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
+          "options": [
+            "me?",
+            "need",
+            "help"
+          ]
+        },
+        {
           "type": "listen_tap",
-          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Excuse me, can you help me?",
+          "tokens": [
+            "Excuse",
+            "me,",
+            "can",
+            "you",
+            "help",
+            "me?"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Excuse me, can you help me?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे मदद चाहिए, कृपया।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'ज़रूरत होना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "need",
+          "translation": "ज़रूरत होना",
+          "hint": "संकेत: N से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Thank you very much",
+          "translation": "मुझे एक पेन चाहिए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Excuse me, can you help me?. Listen and speak every day.",
+          "translationText": "सुनिए, क्या आप मेरी मदद कर सकते हैं? हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 5",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: गुण और विशेषताएं",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'मैडम' के लिए सही चित्र चुनें:",
+          "targetWord": "madam",
+          "translation": "मैडम",
+          "options": [
+            {
+              "id": "u9_l5_p1",
+              "text": "madam (मैडम)",
+              "imageUrl": "/uploads/curriculum/madam.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l5_p2",
+              "text": "problem (समस्या)",
+              "imageUrl": "/uploads/curriculum/problem.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l5_p3",
+              "text": "okay (ठीक है)",
+              "imageUrl": "/uploads/curriculum/okay.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "madam",
+              "native": "मैडम"
+            },
+            {
+              "target": "problem",
+              "native": "समस्या"
+            },
+            {
+              "target": "okay",
+              "native": "ठीक है"
+            },
+            {
+              "target": "water",
+              "native": "पानी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मुझे बहुत खेद है।",
+          "targetSentence": "I am very sorry",
+          "tokens": [
+            "I",
+            "am",
+            "very",
+            "sorry",
+            "welcome",
+            "please"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "sorry",
+          "translation": "मुझे बहुत खेद है।",
+          "options": [
+            "sorry",
+            "madam",
+            "problem"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I am very sorry",
+          "tokens": [
+            "I",
+            "am",
+            "very",
+            "sorry",
+            "welcome",
+            "please"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I am very sorry",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे बहुत खेद है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे एक पेन चाहिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे बहुत खेद है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'मैडम' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "madam",
+          "translation": "मैडम",
+          "hint": "संकेत: M से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I am very sorry",
+          "translation": "मुझे बहुत खेद है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I am very sorry. You are doing very well.",
+          "translationText": "मुझे बहुत खेद है। आप बहुत अच्छा कर रहे हैं।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Expressing Needs, Likes & Courtesies • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 7",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: संयुक्त प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'धन्यवाद' के लिए सही चित्र चुनें:",
+          "targetWord": "thank you",
+          "translation": "धन्यवाद",
+          "options": [
+            {
+              "id": "u9_l7_p1",
+              "text": "thank you (धन्यवाद)",
+              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l7_p2",
+              "text": "sorry (माफ़ करें)",
+              "imageUrl": "/uploads/curriculum/sorry.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l7_p3",
+              "text": "welcome (स्वागत)",
+              "imageUrl": "/uploads/curriculum/welcome.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "help",
+              "native": "मदद"
+            },
+            {
+              "target": "welcome",
+              "native": "स्वागत"
+            },
+            {
+              "target": "sir",
+              "native": "सर"
+            },
+            {
+              "target": "water",
+              "native": "पानी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "आपका स्वागत है, सर।",
+          "targetSentence": "You are welcome, sir",
+          "tokens": [
+            "You",
+            "are",
+            "welcome,",
+            "sir",
+            "madam",
+            "sorry"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "You _______.",
+          "blank": "sir",
+          "translation": "आपका स्वागत है, सर।",
+          "options": [
+            "sir",
+            "thank you",
+            "welcome"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "You are welcome, sir",
+          "tokens": [
+            "You",
+            "are",
+            "welcome,",
+            "sir",
+            "madam",
+            "sorry"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "You are welcome, sir",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "आपका स्वागत है, सर।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे ठंडा पानी चाहिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "आपका स्वागत है, सर।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'धन्यवाद' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "thank you",
+          "translation": "धन्यवाद",
+          "hint": "संकेत: T से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "You are welcome, sir",
+          "translation": "आपका स्वागत है, सर।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "You are welcome, sir. Practice makes you perfect.",
+          "translationText": "आपका स्वागत है, सर। अभ्यास से सब आसान हो जाता है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 8",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: जटिल वाक्य संरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पैसे' के लिए सही चित्र चुनें:",
+          "targetWord": "money",
+          "translation": "पैसे",
+          "options": [
+            {
+              "id": "u9_l8_p1",
+              "text": "money (पैसे)",
+              "imageUrl": "/uploads/curriculum/money.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l8_p2",
+              "text": "can (सकना)",
+              "imageUrl": "/uploads/curriculum/can.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l8_p3",
+              "text": "sir (सर)",
+              "imageUrl": "/uploads/curriculum/sir.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "want",
+              "native": "चाहना"
+            },
+            {
+              "target": "please",
+              "native": "कृपया"
+            },
+            {
+              "target": "excuse me",
+              "native": "माफ़ कीजिए"
+            },
+            {
+              "target": "madam",
+              "native": "मैडम"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "कोई बात नहीं।",
+          "targetSentence": "No problem at all",
+          "tokens": [
+            "No",
+            "problem",
+            "at",
+            "all",
+            "yes",
+            "need"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "No _______.",
+          "blank": "all",
+          "translation": "कोई बात नहीं।",
+          "options": [
+            "all",
+            "money",
+            "can"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "No problem at all",
+          "tokens": [
+            "No",
+            "problem",
+            "at",
+            "all",
+            "yes",
+            "need"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "No problem at all",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "कोई बात नहीं।",
+              "isCorrect": true
+            },
+            {
+              "text": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कोई बात नहीं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पैसे' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "money",
+          "translation": "पैसे",
+          "hint": "संकेत: M से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "No problem at all",
+          "translation": "कोई बात नहीं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "No problem at all. Everything is in order.",
+          "translationText": "कोई बात नहीं। सब कुछ सही क्रम में है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 9",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: मौखिक अभ्यास (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'समस्या' के लिए सही चित्र चुनें:",
+          "targetWord": "problem",
+          "translation": "समस्या",
+          "options": [
+            {
+              "id": "u9_l9_p1",
+              "text": "problem (समस्या)",
+              "imageUrl": "/uploads/curriculum/problem.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l9_p2",
+              "text": "okay (ठीक है)",
+              "imageUrl": "/uploads/curriculum/okay.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l9_p3",
+              "text": "water (पानी)",
+              "imageUrl": "/uploads/curriculum/water.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            },
+            {
+              "target": "sorry",
+              "native": "माफ़ करें"
+            },
+            {
+              "target": "can",
+              "native": "सकना"
+            },
+            {
+              "target": "okay",
+              "native": "ठीक है"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "चाय? हाँ, कृपया!",
+          "targetSentence": "Tea? Yes, please!",
+          "tokens": [
+            "Tea?",
+            "Yes,",
+            "please!",
+            "No,",
+            "thanks!"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Tea? _______.",
+          "blank": "please!",
+          "translation": "चाय? हाँ, कृपया!",
+          "options": [
+            "please!",
+            "problem",
+            "okay"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "Tea? Yes, please!",
           "tokens": [
             "Tea?",
@@ -740,23 +2947,406 @@
           "audioUrl": ""
         },
         {
-          "type": "cloze_test",
-          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
-          "sentence": "I need a _______.",
-          "blank": "pen",
-          "translation": "मुझे एक पेन चाहिए।",
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Tea? Yes, please!",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
           "options": [
-            "pen",
-            "thank you",
+            {
+              "text": "चाय? हाँ, कृपया!",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे बहुत खेद है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "चाय? हाँ, कृपया!",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'समस्या' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "problem",
+          "translation": "समस्या",
+          "hint": "संकेत: P से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I need a pen",
+          "translation": "मुझे ठंडा पानी चाहिए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Tea? Yes, please!. Speak clearly and with confidence.",
+          "translationText": "चाय? हाँ, कृपया! स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 10",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: संवाद अभ्यास (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'मदद' के लिए सही चित्र चुनें:",
+          "targetWord": "help",
+          "translation": "मदद",
+          "options": [
+            {
+              "id": "u9_l10_p1",
+              "text": "help (मदद)",
+              "imageUrl": "/uploads/curriculum/help.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l10_p2",
+              "text": "welcome (स्वागत)",
+              "imageUrl": "/uploads/curriculum/welcome.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l10_p3",
+              "text": "sir (सर)",
+              "imageUrl": "/uploads/curriculum/sir.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "need",
+              "native": "ज़रूरत होना"
+            },
+            {
+              "target": "please",
+              "native": "कृपया"
+            },
+            {
+              "target": "money",
+              "native": "पैसे"
+            },
+            {
+              "target": "problem",
+              "native": "समस्या"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मुझे मदद चाहिए, कृपया।",
+          "targetSentence": "I need help, please",
+          "tokens": [
+            "I",
+            "need",
+            "help,",
+            "please",
+            "want",
             "money"
           ]
         },
         {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "please",
+          "translation": "मुझे मदद चाहिए, कृपया।",
+          "options": [
+            "please",
+            "help",
+            "welcome"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "No problem at all",
+          "tokens": [
+            "No",
+            "problem",
+            "at",
+            "all",
+            "yes",
+            "need"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Tea? Yes, please!",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "चाय? हाँ, कृपया!",
+              "isCorrect": true
+            },
+            {
+              "text": "आपका स्वागत है, सर।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "चाय? हाँ, कृपया!",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'मदद' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "help",
+          "translation": "मदद",
+          "hint": "संकेत: H से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
           "type": "sprechen",
-          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
+          "title": "बोलकर अभ्यास करें",
           "prompt": "Excuse me, can you help me?",
           "translation": "मुझे मदद चाहिए, कृपया।",
-          "minAccuracy": 80,
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Excuse me, can you help me? I need a pen, please. Thank you very much!",
+          "translationText": "माफ़ कीजिए, क्या आप मेरी मदद कर सकते हैं? मुझे एक पेन चाहिए, कृपया। बहुत-बहुत धन्यवाद!",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Expressing Needs, Likes & Courtesies • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Expressing Needs, Likes & Courtesies • Unit 9 Milestone Exam",
+      "subtitle": "ज़रूरतें, पसंद और शिष्टाचार: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'चाहना' के लिए सही चित्र चुनें:",
+          "targetWord": "want",
+          "translation": "चाहना",
+          "options": [
+            {
+              "id": "u9_l12_p1",
+              "text": "want (चाहना)",
+              "imageUrl": "/uploads/curriculum/want.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u9_l12_p2",
+              "text": "please (कृपया)",
+              "imageUrl": "/uploads/curriculum/please.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u9_l12_p3",
+              "text": "excuse me (माफ़ कीजिए)",
+              "imageUrl": "/uploads/curriculum/excuse me.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "want",
+              "native": "चाहना"
+            },
+            {
+              "target": "please",
+              "native": "कृपया"
+            },
+            {
+              "target": "excuse me",
+              "native": "माफ़ कीजिए"
+            },
+            {
+              "target": "madam",
+              "native": "मैडम"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "आपका स्वागत है, सर।",
+          "targetSentence": "You are welcome, sir",
+          "tokens": [
+            "You",
+            "are",
+            "welcome,",
+            "sir",
+            "madam",
+            "sorry"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "You _______.",
+          "blank": "sir",
+          "translation": "आपका स्वागत है, सर।",
+          "options": [
+            "sir",
+            "want",
+            "please"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Tea? Yes, please!",
+          "tokens": [
+            "Tea?",
+            "Yes,",
+            "please!",
+            "No,",
+            "thanks!"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I am very sorry",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे बहुत खेद है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे मदद चाहिए, कृपया।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे बहुत खेद है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पानी' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "water",
+          "translation": "पानी",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Tourist",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Can you help me, please?",
+          "translation": "क्या आप मेरी मदद कर सकते हैं, कृपया?",
+          "options": [
+            {
+              "text": "Yes, of course!",
+              "isCorrect": true
+            },
+            {
+              "text": "My dress is red.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, of course!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Excuse me, can you help me?",
+          "translation": "मुझे मदद चाहिए, कृपया।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Excuse me, can you help me? I need a pen, please. Thank you very much!",
+          "translationText": "माफ़ कीजिए, क्या आप मेरी मदद कर सकते हैं? मुझे एक पेन चाहिए, कृपया। बहुत-बहुत धन्यवाद!",
           "audioUrl": ""
         }
       ]

@@ -22,6 +22,34 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'क्या' के लिए सही चित्र चुनें:",
+          "targetWord": "what",
+          "translation": "क्या",
+          "options": [
+            {
+              "id": "u10_l1_p1",
+              "text": "what (क्या)",
+              "imageUrl": "/uploads/curriculum/what.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l1_p2",
+              "text": "where (कहाँ)",
+              "imageUrl": "/uploads/curriculum/where.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l1_p3",
+              "text": "who (कौन)",
+              "imageUrl": "/uploads/curriculum/who.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
           "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
@@ -58,20 +86,6 @@
           ]
         },
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "Where is the station?",
-          "tokens": [
-            "Where",
-            "is",
-            "the",
-            "station?",
-            "airport",
-            "market"
-          ],
-          "audioUrl": ""
-        },
-        {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
           "sentence": "Where _______.",
@@ -84,11 +98,81 @@
           ]
         },
         {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Where is the station?",
+          "tokens": [
+            "Where",
+            "is",
+            "the",
+            "station?",
+            "airport",
+            "market"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Where is the station?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "स्टेशन कहाँ है?",
+              "isCorrect": true
+            },
+            {
+              "text": "सड़क पर बाएँ मुड़िए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "स्टेशन कहाँ है?",
+          "audioUrl": ""
+        },
+        {
           "type": "type_word",
-          "title": "स्पेलिंग लिखें",
+          "title": "स्पेलिंग टाइप करें",
           "prompt": "'क्या' के लिए अंग्रेज़ी शब्द टाइप करें:",
           "target": "what",
-          "hint": "संकेत: w से शुरू होता है"
+          "translation": "क्या",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Where is the station?",
+          "translation": "स्टेशन कहाँ है?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Where is the station?. What is good.",
+          "translationText": "स्टेशन कहाँ है?। क्या अच्छा है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -103,8 +187,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'क्यों' के लिए सही चित्र चुनें:",
+          "targetWord": "why",
+          "translation": "क्यों",
+          "options": [
+            {
+              "id": "u10_l2_p1",
+              "text": "why (क्यों)",
+              "imageUrl": "/uploads/curriculum/why.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l2_p2",
+              "text": "how (कैसे)",
+              "imageUrl": "/uploads/curriculum/how.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l2_p3",
+              "text": "left (बाएँ)",
+              "imageUrl": "/uploads/curriculum/left.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "why",
@@ -139,22 +251,20 @@
           ]
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "दाएँ मुड़िए और सीधे जाइए।",
-          "targetSentence": "Turn right and go straight",
-          "tokens": [
-            "Turn",
-            "right",
-            "and",
-            "go",
-            "straight",
-            "left"
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Turn _______ road.",
+          "blank": "left",
+          "translation": "सड़क पर बाएँ मुड़िए।",
+          "options": [
+            "road",
+            "why",
+            "how"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "Turn left at the road",
           "tokens": [
             "Turn",
@@ -167,11 +277,66 @@
           "audioUrl": ""
         },
         {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Turn left at the road",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "सड़क पर बाएँ मुड़िए।",
+              "isCorrect": true
+            },
+            {
+              "text": "दाएँ मुड़िए और सीधे जाइए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "सड़क पर बाएँ मुड़िए।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'क्यों' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "why",
+          "translation": "क्यों",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
           "prompt": "Where is the station?",
           "translation": "स्टेशन कहाँ है?",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Turn left at the road. It is very good.",
+          "translationText": "सड़क पर बाएँ मुड़िए। यह बहुत अच्छा है।",
           "audioUrl": ""
         }
       ]
@@ -187,8 +352,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सीधे' के लिए सही चित्र चुनें:",
+          "targetWord": "straight",
+          "translation": "सीधे",
+          "options": [
+            {
+              "id": "u10_l3_p1",
+              "text": "straight (सीधे)",
+              "imageUrl": "/uploads/curriculum/straight.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l3_p2",
+              "text": "near (पास)",
+              "imageUrl": "/uploads/curriculum/near.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l3_p3",
+              "text": "far (दूर)",
+              "imageUrl": "/uploads/curriculum/far.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "straight",
@@ -211,6 +404,171 @@
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "दाएँ मुड़िए और सीधे जाइए।",
+          "targetSentence": "Turn right and go straight",
+          "tokens": [
+            "Turn",
+            "right",
+            "and",
+            "go",
+            "straight",
+            "left"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Turn _______.",
+          "blank": "straight",
+          "translation": "दाएँ मुड़िए और सीधे जाइए।",
+          "options": [
+            "straight",
+            "straight",
+            "near"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Turn right and go straight",
+          "tokens": [
+            "Turn",
+            "right",
+            "and",
+            "go",
+            "straight",
+            "left"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Turn right and go straight",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "दाएँ मुड़िए और सीधे जाइए।",
+              "isCorrect": true
+            },
+            {
+              "text": "कृपया यहाँ रोकिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "दाएँ मुड़िए और सीधे जाइए।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'सीधे' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "straight",
+          "translation": "सीधे",
+          "hint": "संकेत: S से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Turn right and go straight",
+          "translation": "दाएँ मुड़िए और सीधे जाइए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Turn right and go straight. We like this.",
+          "translationText": "दाएँ मुड़िए और सीधे जाइए। हमें यह पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Asking Questions & Directions • Lesson 4",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: श्रवण अभ्यास (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'कहाँ' के लिए सही चित्र चुनें:",
+          "targetWord": "where",
+          "translation": "कहाँ",
+          "options": [
+            {
+              "id": "u10_l4_p1",
+              "text": "where (कहाँ)",
+              "imageUrl": "/uploads/curriculum/where.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l4_p2",
+              "text": "why (क्यों)",
+              "imageUrl": "/uploads/curriculum/why.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l4_p3",
+              "text": "straight (सीधे)",
+              "imageUrl": "/uploads/curriculum/straight.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "where",
+              "native": "कहाँ"
+            },
+            {
+              "target": "how",
+              "native": "कैसे"
+            },
+            {
+              "target": "near",
+              "native": "पास"
+            },
+            {
+              "target": "who",
+              "native": "कौन"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
           "prompt": "कृपया यहाँ रोकिए।",
           "targetSentence": "Stop here, please",
           "tokens": [
@@ -224,44 +582,18 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Stop here, _______.",
+          "sentence": "Stop _______.",
           "blank": "please",
           "translation": "कृपया यहाँ रोकिए।",
           "options": [
             "please",
-            "what",
-            "how"
+            "where",
+            "when"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "Turn right and go straight",
-          "tokens": [
-            "Turn",
-            "right",
-            "and",
-            "go",
-            "straight",
-            "left"
-          ],
-          "audioUrl": ""
-        }
-      ]
-    },
-    {
-      "lessonIndex": 3,
-      "unitLessonNum": 4,
-      "title": "Asking Questions & Directions • Lesson 4",
-      "subtitle": "प्रश्न पूछना और दिशा निर्देश: श्रवण और समझ",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "Stop here, please",
           "tokens": [
             "Stop",
@@ -273,38 +605,127 @@
           "audioUrl": ""
         },
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "Is it near or far?",
-          "tokens": [
-            "Is",
-            "it",
-            "near",
-            "or",
-            "far?",
-            "here"
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Stop here, please",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "कृपया यहाँ रोकिए।",
+              "isCorrect": true
+            },
+            {
+              "text": "स्टेशन कहाँ है?",
+              "isCorrect": false
+            }
           ],
+          "correctOption": "कृपया यहाँ रोकिए।",
           "audioUrl": ""
         },
         {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'कहाँ' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "where",
+          "translation": "कहाँ",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Go straight and turn left",
+          "translation": "सड़क पर बाएँ मुड़िए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Stop here, please. Listen and speak every day.",
+          "translationText": "कृपया यहाँ रोकिए। हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Asking Questions & Directions • Lesson 5",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: गुण और विशेषताएं",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'मुड़ना' के लिए सही चित्र चुनें:",
+          "targetWord": "turn",
+          "translation": "मुड़ना",
+          "options": [
+            {
+              "id": "u10_l5_p1",
+              "text": "turn (मुड़ना)",
+              "imageUrl": "/uploads/curriculum/turn.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l5_p2",
+              "text": "road (सड़क)",
+              "imageUrl": "/uploads/curriculum/road.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l5_p3",
+              "text": "station (स्टेशन)",
+              "imageUrl": "/uploads/curriculum/station.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "रैपिड मिलान",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "what",
-              "native": "क्या"
+              "target": "turn",
+              "native": "मुड़ना"
             },
             {
-              "target": "when",
-              "native": "कब"
+              "target": "road",
+              "native": "सड़क"
             },
             {
-              "target": "left",
-              "native": "बाएँ"
+              "target": "station",
+              "native": "स्टेशन"
             },
             {
-              "target": "near",
-              "native": "पास"
+              "target": "map",
+              "native": "नक्शा"
             }
           ]
         },
@@ -321,34 +742,162 @@
             "far?",
             "here"
           ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Is _______.",
+          "blank": "far?",
+          "translation": "क्या यह पास है या दूर?",
+          "options": [
+            "far?",
+            "turn",
+            "road"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Is it near or far?",
+          "tokens": [
+            "Is",
+            "it",
+            "near",
+            "or",
+            "far?",
+            "here"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Is it near or far?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "क्या यह पास है या दूर?",
+              "isCorrect": true
+            },
+            {
+              "text": "सड़क पर बाएँ मुड़िए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "क्या यह पास है या दूर?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'मुड़ना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "turn",
+          "translation": "मुड़ना",
+          "hint": "संकेत: T से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Is it near or far?",
+          "translation": "क्या यह पास है या दूर?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Is it near or far?. You are doing very well.",
+          "translationText": "क्या यह पास है या दूर? आप बहुत अच्छा कर रहे हैं।",
+          "audioUrl": ""
         }
       ]
     },
     {
-      "lessonIndex": 4,
-      "unitLessonNum": 5,
-      "title": "Asking Questions & Directions • Lesson 5",
-      "subtitle": "प्रश्न पूछना और दिशा निर्देश: व्यावहारिक प्रयोग",
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Asking Questions & Directions • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Asking Questions & Directions • Lesson 7",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: संयुक्त प्रयोग",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'कैसे' के लिए सही चित्र चुनें:",
+          "targetWord": "how",
+          "translation": "कैसे",
+          "options": [
+            {
+              "id": "u10_l7_p1",
+              "text": "how (कैसे)",
+              "imageUrl": "/uploads/curriculum/how.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l7_p2",
+              "text": "left (बाएँ)",
+              "imageUrl": "/uploads/curriculum/left.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l7_p3",
+              "text": "right (दाएँ)",
+              "imageUrl": "/uploads/curriculum/right.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "turn",
-              "native": "मुड़ना"
+              "target": "when",
+              "native": "कब"
             },
             {
-              "target": "road",
-              "native": "सड़क"
+              "target": "right",
+              "native": "दाएँ"
             },
             {
-              "target": "station",
-              "native": "स्टेशन"
+              "target": "stop",
+              "native": "रुकना"
             },
             {
               "target": "map",
@@ -374,46 +923,155 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "It is far from _______.",
+          "sentence": "It _______.",
           "blank": "here",
           "translation": "यह यहाँ से दूर है।",
           "options": [
             "here",
-            "who",
-            "straight"
+            "how",
+            "right"
           ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "It is far from here",
+          "tokens": [
+            "It",
+            "is",
+            "far",
+            "from",
+            "here",
+            "near",
+            "there"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "It is far from here",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "यह यहाँ से दूर है।",
+              "isCorrect": true
+            },
+            {
+              "text": "दाएँ मुड़िए और सीधे जाइए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "यह यहाँ से दूर है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'कैसे' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "how",
+          "translation": "कैसे",
+          "hint": "संकेत: H से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
         },
         {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
-          "prompt": "Go straight and turn left",
-          "translation": "आप आज कैसे हैं?",
+          "prompt": "It is far from here",
+          "translation": "यह यहाँ से दूर है।",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "It is far from here. Practice makes you perfect.",
+          "translationText": "यह यहाँ से दूर है। अभ्यास से सब आसान हो जाता है।",
           "audioUrl": ""
         }
       ]
     },
     {
-      "lessonIndex": 5,
-      "unitLessonNum": 6,
-      "title": "Asking Questions & Directions • Treasure Chest 1",
-      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
-      "nodeType": "chest",
-      "xpReward": 15,
-      "pearlsReward": 25,
-      "isLive": true,
-      "stages": []
-    },
-    {
-      "lessonIndex": 6,
-      "unitLessonNum": 7,
-      "title": "Asking Questions & Directions • Lesson 7",
-      "subtitle": "प्रश्न पूछना और दिशा निर्देश: विस्तृत वाक्य",
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Asking Questions & Directions • Lesson 8",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: जटिल वाक्य संरचना",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पास' के लिए सही चित्र चुनें:",
+          "targetWord": "near",
+          "translation": "पास",
+          "options": [
+            {
+              "id": "u10_l8_p1",
+              "text": "near (पास)",
+              "imageUrl": "/uploads/curriculum/near.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l8_p2",
+              "text": "far (दूर)",
+              "imageUrl": "/uploads/curriculum/far.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l8_p3",
+              "text": "stop (रुकना)",
+              "imageUrl": "/uploads/curriculum/stop.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "what",
+              "native": "क्या"
+            },
+            {
+              "target": "why",
+              "native": "क्यों"
+            },
+            {
+              "target": "straight",
+              "native": "सीधे"
+            },
+            {
+              "target": "turn",
+              "native": "मुड़ना"
+            }
+          ]
+        },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
@@ -429,22 +1087,20 @@
           ]
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "बाज़ार का रास्ता कौन सा है?",
-          "targetSentence": "Which way to the market?",
-          "tokens": [
-            "Which",
-            "way",
-            "to",
-            "the",
-            "market?",
-            "road"
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "How _______.",
+          "blank": "today?",
+          "translation": "आप आज कैसे हैं?",
+          "options": [
+            "today?",
+            "near",
+            "far"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "How are you today?",
           "tokens": [
             "How",
@@ -457,43 +1113,38 @@
           "audioUrl": ""
         },
         {
-          "type": "word_match",
-          "title": "शब्दों का मिलान करें",
-          "pairs": [
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "How are you today?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
             {
-              "target": "where",
-              "native": "कहाँ"
+              "text": "आप आज कैसे हैं?",
+              "isCorrect": true
             },
             {
-              "target": "why",
-              "native": "क्यों"
-            },
-            {
-              "target": "right",
-              "native": "दाएँ"
-            },
-            {
-              "target": "stop",
-              "native": "रुकना"
+              "text": "कृपया यहाँ रोकिए।",
+              "isCorrect": false
             }
-          ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 7,
-      "unitLessonNum": 8,
-      "title": "Asking Questions & Directions • Lesson 8",
-      "subtitle": "प्रश्न पूछना और दिशा निर्देश: बातचीत और संवाद",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
+          ],
+          "correctOption": "आप आज कैसे हैं?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पास' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "near",
+          "translation": "पास",
+          "hint": "संकेत: N से शुरू होता है",
+          "audioUrl": ""
+        },
         {
           "type": "dialogue_bubble",
-          "title": "संवाद पूरा करें",
+          "title": "बातचीत पूरी करें",
           "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
           "partnerMessage": "Where is the train station?",
           "translation": "रेलवे स्टेशन कहाँ है?",
           "options": [
@@ -504,6 +1155,85 @@
             {
               "text": "I eat breakfast at 8.",
               "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "How are you today?",
+          "translation": "आप आज कैसे हैं?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "How are you today?. Everything is in order.",
+          "translationText": "आप आज कैसे हैं? सब कुछ सही क्रम में है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Asking Questions & Directions • Lesson 9",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: मौखिक अभ्यास (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सड़क' के लिए सही चित्र चुनें:",
+          "targetWord": "road",
+          "translation": "सड़क",
+          "options": [
+            {
+              "id": "u10_l9_p1",
+              "text": "road (सड़क)",
+              "imageUrl": "/uploads/curriculum/road.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l9_p2",
+              "text": "station (स्टेशन)",
+              "imageUrl": "/uploads/curriculum/station.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l9_p3",
+              "text": "map (नक्शा)",
+              "imageUrl": "/uploads/curriculum/map.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "who",
+              "native": "कौन"
+            },
+            {
+              "target": "left",
+              "native": "बाएँ"
+            },
+            {
+              "target": "far",
+              "native": "दूर"
+            },
+            {
+              "target": "station",
+              "native": "स्टेशन"
             }
           ]
         },
@@ -524,72 +1254,91 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Which way to the _______.",
+          "sentence": "Which _______.",
           "blank": "market?",
           "translation": "बाज़ार का रास्ता कौन सा है?",
           "options": [
             "market?",
-            "when",
-            "near"
+            "road",
+            "station"
           ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 8,
-      "unitLessonNum": 9,
-      "title": "Asking Questions & Directions • Lesson 9",
-      "subtitle": "प्रश्न पूछना और दिशा निर्देश: मौखिक उच्चारण अभ्यास",
-      "nodeType": "lesson",
-      "xpReward": 25,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
+        },
         {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "Where is the station?",
-          "translation": "स्टेशन कहाँ है?",
-          "minAccuracy": 75,
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Which way to the market?",
+          "tokens": [
+            "Which",
+            "way",
+            "to",
+            "the",
+            "market?",
+            "road"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Which way to the market?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "बाज़ार का रास्ता कौन सा है?",
+              "isCorrect": true
+            },
+            {
+              "text": "क्या यह पास है या दूर?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "बाज़ार का रास्ता कौन सा है?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'सड़क' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "road",
+          "translation": "सड़क",
+          "hint": "संकेत: R से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
           "audioUrl": ""
         },
         {
           "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "Go straight and turn left",
-          "translation": "सड़क पर बाएँ मुड़िए।",
-          "minAccuracy": 75,
-          "audioUrl": ""
-        },
-        {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
+          "title": "बोलकर अभ्यास करें",
           "prompt": "Turn right, please",
           "translation": "दाएँ मुड़िए और सीधे जाइए।",
           "minAccuracy": 75,
           "audioUrl": ""
         },
         {
-          "type": "word_match",
-          "title": "शब्द मिलान",
-          "pairs": [
-            {
-              "target": "who",
-              "native": "कौन"
-            },
-            {
-              "target": "how",
-              "native": "कैसे"
-            },
-            {
-              "target": "straight",
-              "native": "सीधे"
-            },
-            {
-              "target": "road",
-              "native": "सड़क"
-            }
-          ]
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Which way to the market?. Speak clearly and with confidence.",
+          "translationText": "बाज़ार का रास्ता कौन सा है? स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
         }
       ]
     },
@@ -597,57 +1346,91 @@
       "lessonIndex": 9,
       "unitLessonNum": 10,
       "title": "Asking Questions & Directions • Lesson 10",
-      "subtitle": "प्रश्न पूछना और दिशा निर्देश: समग्र पुनरावृत्ति",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: संवाद अभ्यास (Dialogue Mastery)",
       "nodeType": "lesson",
-      "xpReward": 20,
+      "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "word_match",
-          "title": "5-जोड़ी मिलान",
-          "pairs": [
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'कब' के लिए सही चित्र चुनें:",
+          "targetWord": "when",
+          "translation": "कब",
+          "options": [
             {
-              "target": "what",
-              "native": "क्या"
+              "id": "u10_l10_p1",
+              "text": "when (कब)",
+              "imageUrl": "/uploads/curriculum/when.webp",
+              "isCorrect": true
             },
             {
-              "target": "when",
-              "native": "कब"
+              "id": "u10_l10_p2",
+              "text": "right (दाएँ)",
+              "imageUrl": "/uploads/curriculum/right.webp",
+              "isCorrect": false
             },
             {
-              "target": "right",
-              "native": "दाएँ"
-            },
-            {
-              "target": "far",
-              "native": "दूर"
-            },
-            {
-              "target": "station",
-              "native": "स्टेशन"
+              "id": "u10_l10_p3",
+              "text": "stop (रुकना)",
+              "imageUrl": "/uploads/curriculum/stop.webp",
+              "isCorrect": false
             }
           ]
         },
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "It is far from here",
-          "tokens": [
-            "It",
-            "is",
-            "far",
-            "from",
-            "here",
-            "near",
-            "there"
-          ],
-          "audioUrl": ""
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "where",
+              "native": "कहाँ"
+            },
+            {
+              "target": "why",
+              "native": "क्यों"
+            },
+            {
+              "target": "near",
+              "native": "पास"
+            },
+            {
+              "target": "road",
+              "native": "सड़क"
+            }
+          ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "आप आज कैसे हैं?",
+          "prompt": "स्टेशन कहाँ है?",
+          "targetSentence": "Where is the station?",
+          "tokens": [
+            "Where",
+            "is",
+            "the",
+            "station?",
+            "airport",
+            "market"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Where _______.",
+          "blank": "station?",
+          "translation": "स्टेशन कहाँ है?",
+          "options": [
+            "station?",
+            "when",
+            "right"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "How are you today?",
           "tokens": [
             "How",
@@ -656,14 +1439,71 @@
             "today?",
             "Who",
             "Where"
-          ]
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Which way to the market?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "बाज़ार का रास्ता कौन सा है?",
+              "isCorrect": true
+            },
+            {
+              "text": "यह यहाँ से दूर है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "बाज़ार का रास्ता कौन सा है?",
+          "audioUrl": ""
         },
         {
           "type": "type_word",
           "title": "स्पेलिंग टाइप करें",
-          "prompt": "'कहाँ' के लिए सही शब्द टाइप करें:",
-          "target": "where",
-          "hint": "संकेत: w से शुरू होता है"
+          "prompt": "'कब' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "when",
+          "translation": "कब",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Where is the station?",
+          "translation": "स्टेशन कहाँ है?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Where is the train station? Go straight and turn left at the road.",
+          "translationText": "रेलवे स्टेशन कहाँ है? सीधे जाइए और सड़क पर बाएँ मुड़िए।",
+          "audioUrl": ""
         }
       ]
     },
@@ -681,55 +1521,93 @@
     {
       "lessonIndex": 11,
       "unitLessonNum": 12,
-      "title": "Asking Questions & Directions • Asking Questions & Directions • Milestone Exam",
-      "subtitle": "इकाई 10 संपूर्ण परीक्षा",
+      "title": "Asking Questions & Directions • Unit 10 Milestone Exam",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
       "nodeType": "quiz",
       "xpReward": 35,
       "pearlsReward": 10,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'क्या' के लिए सही चित्र चुनें:",
+          "targetWord": "what",
+          "translation": "क्या",
+          "options": [
+            {
+              "id": "u10_l12_p1",
+              "text": "what (क्या)",
+              "imageUrl": "/uploads/curriculum/what.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l12_p2",
+              "text": "why (क्यों)",
+              "imageUrl": "/uploads/curriculum/why.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l12_p3",
+              "text": "straight (सीधे)",
+              "imageUrl": "/uploads/curriculum/straight.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "इकाई 10 मुख्य शब्द परीक्षा",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "what",
               "native": "क्या"
             },
             {
-              "target": "who",
-              "native": "कौन"
-            },
-            {
               "target": "why",
               "native": "क्यों"
             },
             {
-              "target": "left",
-              "native": "बाएँ"
-            },
-            {
               "target": "straight",
               "native": "सीधे"
+            },
+            {
+              "target": "turn",
+              "native": "मुड़ना"
             }
           ]
         },
         {
           "type": "sentence_builder",
-          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
-          "prompt": "कृपया यहाँ रोकिए।",
-          "targetSentence": "Stop here, please",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "यह यहाँ से दूर है।",
+          "targetSentence": "It is far from here",
           "tokens": [
-            "Stop",
-            "here,",
-            "please",
-            "there",
-            "go"
+            "It",
+            "is",
+            "far",
+            "from",
+            "here",
+            "near",
+            "there"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "It _______.",
+          "blank": "here",
+          "translation": "यह यहाँ से दूर है।",
+          "options": [
+            "here",
+            "what",
+            "why"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "Which way to the market?",
           "tokens": [
             "Which",
@@ -742,23 +1620,1741 @@
           "audioUrl": ""
         },
         {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Is it near or far?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "क्या यह पास है या दूर?",
+              "isCorrect": true
+            },
+            {
+              "text": "स्टेशन कहाँ है?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "क्या यह पास है या दूर?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'नक्शा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "map",
+          "translation": "नक्शा",
+          "hint": "संकेत: M से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Where is the station?",
+          "translation": "स्टेशन कहाँ है?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Where is the train station? Go straight and turn left at the road.",
+          "translationText": "रेलवे स्टेशन कहाँ है? सीधे जाइए और सड़क पर बाएँ मुड़िए।",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ],
+  "lessonsData": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Asking Questions & Directions • Lesson 1",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'क्या' के लिए सही चित्र चुनें:",
+          "targetWord": "what",
+          "translation": "क्या",
+          "options": [
+            {
+              "id": "u10_l1_p1",
+              "text": "what (क्या)",
+              "imageUrl": "/uploads/curriculum/what.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l1_p2",
+              "text": "where (कहाँ)",
+              "imageUrl": "/uploads/curriculum/where.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l1_p3",
+              "text": "who (कौन)",
+              "imageUrl": "/uploads/curriculum/who.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "what",
+              "native": "क्या"
+            },
+            {
+              "target": "where",
+              "native": "कहाँ"
+            },
+            {
+              "target": "who",
+              "native": "कौन"
+            },
+            {
+              "target": "when",
+              "native": "कब"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "स्टेशन कहाँ है?",
+          "targetSentence": "Where is the station?",
+          "tokens": [
+            "Where",
+            "is",
+            "the",
+            "station?",
+            "airport",
+            "market"
+          ]
+        },
+        {
           "type": "cloze_test",
-          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
-          "sentence": "Turn left at the _______.",
-          "blank": "road",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Where _______.",
+          "blank": "station?",
+          "translation": "स्टेशन कहाँ है?",
+          "options": [
+            "station?",
+            "where",
+            "who"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Where is the station?",
+          "tokens": [
+            "Where",
+            "is",
+            "the",
+            "station?",
+            "airport",
+            "market"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Where is the station?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "स्टेशन कहाँ है?",
+              "isCorrect": true
+            },
+            {
+              "text": "सड़क पर बाएँ मुड़िए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "स्टेशन कहाँ है?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'क्या' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "what",
+          "translation": "क्या",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Where is the station?",
+          "translation": "स्टेशन कहाँ है?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Where is the station?. What is good.",
+          "translationText": "स्टेशन कहाँ है?। क्या अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Asking Questions & Directions • Lesson 2",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'क्यों' के लिए सही चित्र चुनें:",
+          "targetWord": "why",
+          "translation": "क्यों",
+          "options": [
+            {
+              "id": "u10_l2_p1",
+              "text": "why (क्यों)",
+              "imageUrl": "/uploads/curriculum/why.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l2_p2",
+              "text": "how (कैसे)",
+              "imageUrl": "/uploads/curriculum/how.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l2_p3",
+              "text": "left (बाएँ)",
+              "imageUrl": "/uploads/curriculum/left.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "why",
+              "native": "क्यों"
+            },
+            {
+              "target": "how",
+              "native": "कैसे"
+            },
+            {
+              "target": "left",
+              "native": "बाएँ"
+            },
+            {
+              "target": "right",
+              "native": "दाएँ"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "सड़क पर बाएँ मुड़िए।",
+          "targetSentence": "Turn left at the road",
+          "tokens": [
+            "Turn",
+            "left",
+            "at",
+            "the",
+            "road",
+            "right"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Turn _______ road.",
+          "blank": "left",
           "translation": "सड़क पर बाएँ मुड़िए।",
           "options": [
             "road",
-            "how",
+            "why",
+            "how"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Turn left at the road",
+          "tokens": [
+            "Turn",
+            "left",
+            "at",
+            "the",
+            "road",
+            "right"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Turn left at the road",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "सड़क पर बाएँ मुड़िए।",
+              "isCorrect": true
+            },
+            {
+              "text": "दाएँ मुड़िए और सीधे जाइए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "सड़क पर बाएँ मुड़िए।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'क्यों' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "why",
+          "translation": "क्यों",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Where is the station?",
+          "translation": "स्टेशन कहाँ है?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Turn left at the road. It is very good.",
+          "translationText": "सड़क पर बाएँ मुड़िए। यह बहुत अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Asking Questions & Directions • Lesson 3",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सीधे' के लिए सही चित्र चुनें:",
+          "targetWord": "straight",
+          "translation": "सीधे",
+          "options": [
+            {
+              "id": "u10_l3_p1",
+              "text": "straight (सीधे)",
+              "imageUrl": "/uploads/curriculum/straight.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l3_p2",
+              "text": "near (पास)",
+              "imageUrl": "/uploads/curriculum/near.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l3_p3",
+              "text": "far (दूर)",
+              "imageUrl": "/uploads/curriculum/far.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "straight",
+              "native": "सीधे"
+            },
+            {
+              "target": "near",
+              "native": "पास"
+            },
+            {
+              "target": "far",
+              "native": "दूर"
+            },
+            {
+              "target": "stop",
+              "native": "रुकना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "दाएँ मुड़िए और सीधे जाइए।",
+          "targetSentence": "Turn right and go straight",
+          "tokens": [
+            "Turn",
+            "right",
+            "and",
+            "go",
+            "straight",
+            "left"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Turn _______.",
+          "blank": "straight",
+          "translation": "दाएँ मुड़िए और सीधे जाइए।",
+          "options": [
+            "straight",
+            "straight",
             "near"
           ]
         },
         {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Turn right and go straight",
+          "tokens": [
+            "Turn",
+            "right",
+            "and",
+            "go",
+            "straight",
+            "left"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Turn right and go straight",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "दाएँ मुड़िए और सीधे जाइए।",
+              "isCorrect": true
+            },
+            {
+              "text": "कृपया यहाँ रोकिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "दाएँ मुड़िए और सीधे जाइए।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'सीधे' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "straight",
+          "translation": "सीधे",
+          "hint": "संकेत: S से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
           "type": "sprechen",
-          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Turn right and go straight",
+          "translation": "दाएँ मुड़िए और सीधे जाइए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Turn right and go straight. We like this.",
+          "translationText": "दाएँ मुड़िए और सीधे जाइए। हमें यह पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Asking Questions & Directions • Lesson 4",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: श्रवण अभ्यास (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'कहाँ' के लिए सही चित्र चुनें:",
+          "targetWord": "where",
+          "translation": "कहाँ",
+          "options": [
+            {
+              "id": "u10_l4_p1",
+              "text": "where (कहाँ)",
+              "imageUrl": "/uploads/curriculum/where.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l4_p2",
+              "text": "why (क्यों)",
+              "imageUrl": "/uploads/curriculum/why.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l4_p3",
+              "text": "straight (सीधे)",
+              "imageUrl": "/uploads/curriculum/straight.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "where",
+              "native": "कहाँ"
+            },
+            {
+              "target": "how",
+              "native": "कैसे"
+            },
+            {
+              "target": "near",
+              "native": "पास"
+            },
+            {
+              "target": "who",
+              "native": "कौन"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "कृपया यहाँ रोकिए।",
+          "targetSentence": "Stop here, please",
+          "tokens": [
+            "Stop",
+            "here,",
+            "please",
+            "there",
+            "go"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Stop _______.",
+          "blank": "please",
+          "translation": "कृपया यहाँ रोकिए।",
+          "options": [
+            "please",
+            "where",
+            "when"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Stop here, please",
+          "tokens": [
+            "Stop",
+            "here,",
+            "please",
+            "there",
+            "go"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Stop here, please",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "कृपया यहाँ रोकिए।",
+              "isCorrect": true
+            },
+            {
+              "text": "स्टेशन कहाँ है?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कृपया यहाँ रोकिए।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'कहाँ' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "where",
+          "translation": "कहाँ",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Go straight and turn left",
+          "translation": "सड़क पर बाएँ मुड़िए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Stop here, please. Listen and speak every day.",
+          "translationText": "कृपया यहाँ रोकिए। हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Asking Questions & Directions • Lesson 5",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: गुण और विशेषताएं",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'मुड़ना' के लिए सही चित्र चुनें:",
+          "targetWord": "turn",
+          "translation": "मुड़ना",
+          "options": [
+            {
+              "id": "u10_l5_p1",
+              "text": "turn (मुड़ना)",
+              "imageUrl": "/uploads/curriculum/turn.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l5_p2",
+              "text": "road (सड़क)",
+              "imageUrl": "/uploads/curriculum/road.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l5_p3",
+              "text": "station (स्टेशन)",
+              "imageUrl": "/uploads/curriculum/station.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "turn",
+              "native": "मुड़ना"
+            },
+            {
+              "target": "road",
+              "native": "सड़क"
+            },
+            {
+              "target": "station",
+              "native": "स्टेशन"
+            },
+            {
+              "target": "map",
+              "native": "नक्शा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "क्या यह पास है या दूर?",
+          "targetSentence": "Is it near or far?",
+          "tokens": [
+            "Is",
+            "it",
+            "near",
+            "or",
+            "far?",
+            "here"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Is _______.",
+          "blank": "far?",
+          "translation": "क्या यह पास है या दूर?",
+          "options": [
+            "far?",
+            "turn",
+            "road"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Is it near or far?",
+          "tokens": [
+            "Is",
+            "it",
+            "near",
+            "or",
+            "far?",
+            "here"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Is it near or far?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "क्या यह पास है या दूर?",
+              "isCorrect": true
+            },
+            {
+              "text": "सड़क पर बाएँ मुड़िए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "क्या यह पास है या दूर?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'मुड़ना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "turn",
+          "translation": "मुड़ना",
+          "hint": "संकेत: T से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Is it near or far?",
+          "translation": "क्या यह पास है या दूर?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Is it near or far?. You are doing very well.",
+          "translationText": "क्या यह पास है या दूर? आप बहुत अच्छा कर रहे हैं।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Asking Questions & Directions • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Asking Questions & Directions • Lesson 7",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: संयुक्त प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'कैसे' के लिए सही चित्र चुनें:",
+          "targetWord": "how",
+          "translation": "कैसे",
+          "options": [
+            {
+              "id": "u10_l7_p1",
+              "text": "how (कैसे)",
+              "imageUrl": "/uploads/curriculum/how.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l7_p2",
+              "text": "left (बाएँ)",
+              "imageUrl": "/uploads/curriculum/left.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l7_p3",
+              "text": "right (दाएँ)",
+              "imageUrl": "/uploads/curriculum/right.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "when",
+              "native": "कब"
+            },
+            {
+              "target": "right",
+              "native": "दाएँ"
+            },
+            {
+              "target": "stop",
+              "native": "रुकना"
+            },
+            {
+              "target": "map",
+              "native": "नक्शा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "यह यहाँ से दूर है।",
+          "targetSentence": "It is far from here",
+          "tokens": [
+            "It",
+            "is",
+            "far",
+            "from",
+            "here",
+            "near",
+            "there"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "It _______.",
+          "blank": "here",
+          "translation": "यह यहाँ से दूर है।",
+          "options": [
+            "here",
+            "how",
+            "right"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "It is far from here",
+          "tokens": [
+            "It",
+            "is",
+            "far",
+            "from",
+            "here",
+            "near",
+            "there"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "It is far from here",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "यह यहाँ से दूर है।",
+              "isCorrect": true
+            },
+            {
+              "text": "दाएँ मुड़िए और सीधे जाइए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "यह यहाँ से दूर है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'कैसे' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "how",
+          "translation": "कैसे",
+          "hint": "संकेत: H से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "It is far from here",
+          "translation": "यह यहाँ से दूर है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "It is far from here. Practice makes you perfect.",
+          "translationText": "यह यहाँ से दूर है। अभ्यास से सब आसान हो जाता है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Asking Questions & Directions • Lesson 8",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: जटिल वाक्य संरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पास' के लिए सही चित्र चुनें:",
+          "targetWord": "near",
+          "translation": "पास",
+          "options": [
+            {
+              "id": "u10_l8_p1",
+              "text": "near (पास)",
+              "imageUrl": "/uploads/curriculum/near.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l8_p2",
+              "text": "far (दूर)",
+              "imageUrl": "/uploads/curriculum/far.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l8_p3",
+              "text": "stop (रुकना)",
+              "imageUrl": "/uploads/curriculum/stop.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "what",
+              "native": "क्या"
+            },
+            {
+              "target": "why",
+              "native": "क्यों"
+            },
+            {
+              "target": "straight",
+              "native": "सीधे"
+            },
+            {
+              "target": "turn",
+              "native": "मुड़ना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "आप आज कैसे हैं?",
+          "targetSentence": "How are you today?",
+          "tokens": [
+            "How",
+            "are",
+            "you",
+            "today?",
+            "Who",
+            "Where"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "How _______.",
+          "blank": "today?",
+          "translation": "आप आज कैसे हैं?",
+          "options": [
+            "today?",
+            "near",
+            "far"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "How are you today?",
+          "tokens": [
+            "How",
+            "are",
+            "you",
+            "today?",
+            "Who",
+            "Where"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "How are you today?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "आप आज कैसे हैं?",
+              "isCorrect": true
+            },
+            {
+              "text": "कृपया यहाँ रोकिए।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "आप आज कैसे हैं?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पास' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "near",
+          "translation": "पास",
+          "hint": "संकेत: N से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "How are you today?",
+          "translation": "आप आज कैसे हैं?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "How are you today?. Everything is in order.",
+          "translationText": "आप आज कैसे हैं? सब कुछ सही क्रम में है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Asking Questions & Directions • Lesson 9",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: मौखिक अभ्यास (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सड़क' के लिए सही चित्र चुनें:",
+          "targetWord": "road",
+          "translation": "सड़क",
+          "options": [
+            {
+              "id": "u10_l9_p1",
+              "text": "road (सड़क)",
+              "imageUrl": "/uploads/curriculum/road.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l9_p2",
+              "text": "station (स्टेशन)",
+              "imageUrl": "/uploads/curriculum/station.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l9_p3",
+              "text": "map (नक्शा)",
+              "imageUrl": "/uploads/curriculum/map.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "who",
+              "native": "कौन"
+            },
+            {
+              "target": "left",
+              "native": "बाएँ"
+            },
+            {
+              "target": "far",
+              "native": "दूर"
+            },
+            {
+              "target": "station",
+              "native": "स्टेशन"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "बाज़ार का रास्ता कौन सा है?",
+          "targetSentence": "Which way to the market?",
+          "tokens": [
+            "Which",
+            "way",
+            "to",
+            "the",
+            "market?",
+            "road"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Which _______.",
+          "blank": "market?",
+          "translation": "बाज़ार का रास्ता कौन सा है?",
+          "options": [
+            "market?",
+            "road",
+            "station"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Which way to the market?",
+          "tokens": [
+            "Which",
+            "way",
+            "to",
+            "the",
+            "market?",
+            "road"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Which way to the market?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "बाज़ार का रास्ता कौन सा है?",
+              "isCorrect": true
+            },
+            {
+              "text": "क्या यह पास है या दूर?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "बाज़ार का रास्ता कौन सा है?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'सड़क' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "road",
+          "translation": "सड़क",
+          "hint": "संकेत: R से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Turn right, please",
+          "translation": "दाएँ मुड़िए और सीधे जाइए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Which way to the market?. Speak clearly and with confidence.",
+          "translationText": "बाज़ार का रास्ता कौन सा है? स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Asking Questions & Directions • Lesson 10",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: संवाद अभ्यास (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'कब' के लिए सही चित्र चुनें:",
+          "targetWord": "when",
+          "translation": "कब",
+          "options": [
+            {
+              "id": "u10_l10_p1",
+              "text": "when (कब)",
+              "imageUrl": "/uploads/curriculum/when.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l10_p2",
+              "text": "right (दाएँ)",
+              "imageUrl": "/uploads/curriculum/right.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l10_p3",
+              "text": "stop (रुकना)",
+              "imageUrl": "/uploads/curriculum/stop.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "where",
+              "native": "कहाँ"
+            },
+            {
+              "target": "why",
+              "native": "क्यों"
+            },
+            {
+              "target": "near",
+              "native": "पास"
+            },
+            {
+              "target": "road",
+              "native": "सड़क"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "स्टेशन कहाँ है?",
+          "targetSentence": "Where is the station?",
+          "tokens": [
+            "Where",
+            "is",
+            "the",
+            "station?",
+            "airport",
+            "market"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Where _______.",
+          "blank": "station?",
+          "translation": "स्टेशन कहाँ है?",
+          "options": [
+            "station?",
+            "when",
+            "right"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "How are you today?",
+          "tokens": [
+            "How",
+            "are",
+            "you",
+            "today?",
+            "Who",
+            "Where"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Which way to the market?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "बाज़ार का रास्ता कौन सा है?",
+              "isCorrect": true
+            },
+            {
+              "text": "यह यहाँ से दूर है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "बाज़ार का रास्ता कौन सा है?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'कब' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "when",
+          "translation": "कब",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
           "prompt": "Where is the station?",
           "translation": "स्टेशन कहाँ है?",
-          "minAccuracy": 80,
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Where is the train station? Go straight and turn left at the road.",
+          "translationText": "रेलवे स्टेशन कहाँ है? सीधे जाइए और सड़क पर बाएँ मुड़िए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Asking Questions & Directions • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Asking Questions & Directions • Unit 10 Milestone Exam",
+      "subtitle": "प्रश्न पूछना और दिशा निर्देश: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'क्या' के लिए सही चित्र चुनें:",
+          "targetWord": "what",
+          "translation": "क्या",
+          "options": [
+            {
+              "id": "u10_l12_p1",
+              "text": "what (क्या)",
+              "imageUrl": "/uploads/curriculum/what.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u10_l12_p2",
+              "text": "why (क्यों)",
+              "imageUrl": "/uploads/curriculum/why.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u10_l12_p3",
+              "text": "straight (सीधे)",
+              "imageUrl": "/uploads/curriculum/straight.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "what",
+              "native": "क्या"
+            },
+            {
+              "target": "why",
+              "native": "क्यों"
+            },
+            {
+              "target": "straight",
+              "native": "सीधे"
+            },
+            {
+              "target": "turn",
+              "native": "मुड़ना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "यह यहाँ से दूर है।",
+          "targetSentence": "It is far from here",
+          "tokens": [
+            "It",
+            "is",
+            "far",
+            "from",
+            "here",
+            "near",
+            "there"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "It _______.",
+          "blank": "here",
+          "translation": "यह यहाँ से दूर है।",
+          "options": [
+            "here",
+            "what",
+            "why"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Which way to the market?",
+          "tokens": [
+            "Which",
+            "way",
+            "to",
+            "the",
+            "market?",
+            "road"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Is it near or far?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "क्या यह पास है या दूर?",
+              "isCorrect": true
+            },
+            {
+              "text": "स्टेशन कहाँ है?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "क्या यह पास है या दूर?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'नक्शा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "map",
+          "translation": "नक्शा",
+          "hint": "संकेत: M से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Pedestrian",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where is the train station?",
+          "translation": "रेलवे स्टेशन कहाँ है?",
+          "options": [
+            {
+              "text": "Go straight and turn left.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat breakfast at 8.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Go straight and turn left.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Where is the station?",
+          "translation": "स्टेशन कहाँ है?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Where is the train station? Go straight and turn left at the road.",
+          "translationText": "रेलवे स्टेशन कहाँ है? सीधे जाइए और सड़क पर बाएँ मुड़िए।",
           "audioUrl": ""
         }
       ]

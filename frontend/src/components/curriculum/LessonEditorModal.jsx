@@ -941,10 +941,11 @@ export default function LessonEditorModal({
   };
 
   const parseServerStageToInstance = (key, s) => {
+    const isStageEnabled = s.enabled !== false;
     switch (key) {
       case 'word_match':
         return {
-          enabled: true,
+          enabled: isStageEnabled,
           wordPairs: Array.isArray(s.pairs)
             ? s.pairs.map(p => ({
                 target: p.target || p.german || p.word || '',
@@ -965,7 +966,7 @@ export default function LessonEditorModal({
             .join(', ');
         }
         return {
-          enabled: true,
+          enabled: isStageEnabled,
           listenTarget: s.targetSentence || '',
           listenDistractors: distractors,
           listenAudioUrl: s.audioUrl || '',
@@ -979,7 +980,7 @@ export default function LessonEditorModal({
       }
       case 'picture_select':
         return {
-          enabled: true,
+          enabled: isStageEnabled,
           picturePrompt: s.prompt || 'Choose the correct picture',
           pictureTargetWord: s.targetWord || s.target || '',
           pictureTranslation: s.translation || '',
@@ -1000,7 +1001,7 @@ export default function LessonEditorModal({
         };
       case 'cloze_test':
         return {
-          enabled: true,
+          enabled: isStageEnabled,
           clozePrompt: s.prompt || s.sentence || '',
           clozeTranslation: s.translation || '',
           clozeBlank: s.blank || s.target || s.correctOption || s.correctAnswer || '',
@@ -1022,7 +1023,7 @@ export default function LessonEditorModal({
             .join(', ');
         }
         return {
-          enabled: true,
+          enabled: isStageEnabled,
           builderPrompt: s.prompt ? s.prompt.replace(/^Translate:\s*"?|"?$/gi, '') : '',
           builderTarget: s.targetSentence || '',
           builderDistractors: distractors,
@@ -1030,7 +1031,7 @@ export default function LessonEditorModal({
       }
       case 'type_word':
         return {
-          enabled: true,
+          enabled: isStageEnabled,
           typePrompt: s.prompt || s.sentence || '',
           typeTarget: s.target || s.targetWord || s.word || s.correctAnswer || '',
           typeTranslation: s.translation || s.nativeMeaning || '',
@@ -1040,7 +1041,7 @@ export default function LessonEditorModal({
       case 'dialogue_bubble': {
         const correct = (s.correctOption || s.correctAnswer || '').toString().trim();
         return {
-          enabled: true,
+          enabled: isStageEnabled,
           dialoguePartnerName: s.partnerName || s.speaker || 'Anna',
           dialoguePartnerAvatar: s.partnerAvatar || 'dolphina',
           dialoguePartnerMessage: s.partnerMessage || s.prompt || s.message || '',
@@ -1063,7 +1064,7 @@ export default function LessonEditorModal({
       case 'listen_select': {
         const correct = (s.correctOption || s.correctAnswer || '').toString().trim();
         return {
-          enabled: true,
+          enabled: isStageEnabled,
           listenSelectSentence: s.spokenGerman || s.sentence || s.targetSentence || '',
           listenSelectQuestion: s.question || s.prompt || '',
           listenSelectOptions: Array.isArray(s.options) && s.options.length > 0
@@ -1088,7 +1089,7 @@ export default function LessonEditorModal({
           try { skd = JSON.parse(skd); } catch (_) { skd = null; }
         }
         return {
-          enabled: true,
+          enabled: isStageEnabled,
           sprechenPrompt: s.prompt || '',
           sprechenTranslation: s.translation || '',
           sprechenAccuracy: s.minAccuracy || 75,
@@ -1103,7 +1104,7 @@ export default function LessonEditorModal({
           try { kd = JSON.parse(kd); } catch (_) { kd = null; }
         }
         return {
-          enabled: true,
+          enabled: isStageEnabled,
           karaokeStory: s.storyText || '',
           karaokeTranslation: s.translationText || '',
           karaokeAudioUrl: s.audioUrl || '',
@@ -1641,9 +1642,12 @@ export default function LessonEditorModal({
     stageOrder.forEach(key => {
       const { baseKey, instIdx } = parseKeyInstance(key);
       const instData = stageInstances[baseKey]?.[instIdx];
-      if (instData && instData.enabled) {
+      if (instData) {
         const built = buildStageFromData(baseKey, instData);
         if (built) {
+          if (!instData.enabled) {
+            built.enabled = false;
+          }
           stages.push(built);
         }
       }
@@ -1666,7 +1670,8 @@ export default function LessonEditorModal({
     const otherStages = existingStages.filter(s => !managedTypes.has(s.type));
     stages.push(...otherStages);
 
-    if (stages.length === 0) {
+    const activeEnabledStages = stages.filter(s => s.enabled !== false);
+    if (activeEnabledStages.length === 0) {
       toast.error('Please enable and configure at least one active challenge format for this lesson.');
       setLoading(false);
       return;

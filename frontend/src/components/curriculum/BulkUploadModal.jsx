@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Upload, Download, FileText, CheckCircle2, ShieldAlert, Sparkles } from 'lucide-react';
+import { X, Upload, Download, FileText, CheckCircle2, ShieldAlert, Sparkles, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api/axios';
 
@@ -71,11 +71,13 @@ export default function BulkUploadModal({
   const [content, setContent] = useState(SAMPLE_CSV);
   const [loading, setLoading] = useState(false);
   const [targetUnit, setTargetUnit] = useState(unitNumber);
+  const [replaceMode, setReplaceMode] = useState(false);
 
   // Synchronize targetUnit whenever the modal opens or unitNumber prop changes
   useEffect(() => {
     if (isOpen) {
       setTargetUnit(unitNumber);
+      setReplaceMode(false);
     }
   }, [isOpen, unitNumber]);
 
@@ -156,6 +158,7 @@ export default function BulkUploadModal({
         level: payloadLevel,
         unitNumber: payloadUnit,
         lessonsData: content,
+        replace: Boolean(replaceMode),
       });
 
       const finalUnit = res.data?.unitNumber || payloadUnit;
@@ -272,6 +275,42 @@ export default function BulkUploadModal({
             />
           </div>
 
+          {/* Replace vs Append Mode Option */}
+          <label className={`flex items-start gap-3 p-3.5 rounded-2xl border cursor-pointer select-none transition-all ${
+            replaceMode
+              ? 'bg-rose-500/10 border-rose-500/30 ring-1 ring-rose-500/20'
+              : 'bg-white/5 border-white/10 hover:bg-white/10'
+          }`}>
+            <input
+              type="checkbox"
+              checked={replaceMode}
+              onChange={e => setReplaceMode(e.target.checked)}
+              className="w-4 h-4 mt-0.5 rounded text-rose-500 focus:ring-rose-400 bg-slate-800 border-white/20 cursor-pointer"
+            />
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <span className={`text-xs font-black uppercase tracking-wide flex items-center gap-1.5 ${replaceMode ? 'text-rose-300' : 'text-white'}`}>
+                  {replaceMode && <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />}
+                  Replace Existing Unit Content
+                </span>
+                {replaceMode ? (
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                    Wipes Existing Unit
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    Appends Below Existing
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-gray-400 mt-1 leading-relaxed">
+                {replaceMode
+                  ? '⚠️ Warning: Completely removes and discards all existing lessons in this unit from the database and inserts the new unit in its place.'
+                  : 'Safe mode (Default): Newly uploaded lessons will be appended strictly below the existing lessons in this unit.'}
+              </p>
+            </div>
+          </label>
+
           {/* Text Area */}
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -292,7 +331,7 @@ export default function BulkUploadModal({
 
         {/* Footer */}
         <div className="p-6 border-t border-white/10 bg-slate-900/60 flex items-center justify-between">
-          <span className="text-xs text-gray-500">Target: {currentLevel} • Unit {unitNumber}</span>
+          <span className="text-xs text-gray-500">Target: {currentLevel} • Unit {targetUnit}</span>
           <div className="flex gap-3">
             <button type="button" onClick={onClose} className="btn-secondary text-sm">
               Cancel
@@ -301,9 +340,15 @@ export default function BulkUploadModal({
               type="button"
               onClick={handleSubmit}
               disabled={loading}
-              className="btn-primary text-sm flex items-center gap-2"
+              className={`text-sm flex items-center gap-2 px-4 py-2 rounded-xl font-bold transition-all cursor-pointer ${
+                replaceMode
+                  ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-lg shadow-rose-900/40'
+                  : 'btn-primary'
+              }`}
             >
-              {loading ? 'Uploading...' : 'Bulk Upload Drafts 🚀'}
+              {loading
+                ? (replaceMode ? 'Replacing Unit...' : 'Uploading...')
+                : (replaceMode ? 'Replace Unit Entirely ⚠️' : 'Bulk Upload Drafts 🚀')}
             </button>
           </div>
         </div>

@@ -22,6 +22,34 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पिता' के लिए सही चित्र चुनें:",
+          "targetWord": "father",
+          "translation": "पिता",
+          "options": [
+            {
+              "id": "u3_l1_p1",
+              "text": "father (पिता)",
+              "imageUrl": "/uploads/curriculum/father.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l1_p2",
+              "text": "mother (माँ)",
+              "imageUrl": "/uploads/curriculum/mother.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l1_p3",
+              "text": "brother (भाई)",
+              "imageUrl": "/uploads/curriculum/brother.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
           "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
@@ -58,20 +86,6 @@
           ]
         },
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "He is my father",
-          "tokens": [
-            "He",
-            "is",
-            "my",
-            "father",
-            "She",
-            "mother"
-          ],
-          "audioUrl": ""
-        },
-        {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
           "sentence": "He _______.",
@@ -84,11 +98,81 @@
           ]
         },
         {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "He is my father",
+          "tokens": [
+            "He",
+            "is",
+            "my",
+            "father",
+            "She",
+            "mother"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "He is my father",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह मेरे पिता हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह मेरी माँ हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह मेरे पिता हैं।",
+          "audioUrl": ""
+        },
+        {
           "type": "type_word",
-          "title": "स्पेलिंग लिखें",
+          "title": "स्पेलिंग टाइप करें",
           "prompt": "'पिता' के लिए अंग्रेज़ी शब्द टाइप करें:",
           "target": "father",
-          "hint": "संकेत: f से शुरू होता है"
+          "translation": "पिता",
+          "hint": "संकेत: F से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "He is my father",
+          "translation": "वह मेरे पिता हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "He is my father. Father is good.",
+          "translationText": "वह मेरे पिता हैं।। पिता अच्छा है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -103,8 +187,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'दोस्त' के लिए सही चित्र चुनें:",
+          "targetWord": "friend",
+          "translation": "दोस्त",
+          "options": [
+            {
+              "id": "u3_l2_p1",
+              "text": "friend (दोस्त)",
+              "imageUrl": "/uploads/curriculum/friend.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l2_p2",
+              "text": "boy (लड़का)",
+              "imageUrl": "/uploads/curriculum/boy.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l2_p3",
+              "text": "girl (लड़की)",
+              "imageUrl": "/uploads/curriculum/girl.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "friend",
@@ -139,22 +251,20 @@
           ]
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मैं एक छात्र हूँ।",
-          "targetSentence": "I am a student",
-          "tokens": [
-            "I",
-            "am",
-            "a",
-            "student",
-            "teacher",
-            "You"
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "She _______ mother.",
+          "blank": "is",
+          "translation": "वह मेरी माँ हैं।",
+          "options": [
+            "mother",
+            "friend",
+            "boy"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "She is my mother",
           "tokens": [
             "She",
@@ -167,11 +277,66 @@
           "audioUrl": ""
         },
         {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "She is my mother",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह मेरी माँ हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं एक छात्र हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह मेरी माँ हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'दोस्त' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "friend",
+          "translation": "दोस्त",
+          "hint": "संकेत: F से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
           "prompt": "He is my father",
           "translation": "वह मेरे पिता हैं।",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "She is my mother. It is very good.",
+          "translationText": "वह मेरी माँ हैं। यह बहुत अच्छा है।",
           "audioUrl": ""
         }
       ]
@@ -187,8 +352,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'महिला' के लिए सही चित्र चुनें:",
+          "targetWord": "woman",
+          "translation": "महिला",
+          "options": [
+            {
+              "id": "u3_l3_p1",
+              "text": "woman (महिला)",
+              "imageUrl": "/uploads/curriculum/woman.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l3_p2",
+              "text": "teacher (शिक्षक)",
+              "imageUrl": "/uploads/curriculum/teacher.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l3_p3",
+              "text": "student (छात्र)",
+              "imageUrl": "/uploads/curriculum/student.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "woman",
@@ -211,6 +404,171 @@
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं एक छात्र हूँ।",
+          "targetSentence": "I am a student",
+          "tokens": [
+            "I",
+            "am",
+            "a",
+            "student",
+            "teacher",
+            "You"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "student",
+          "translation": "मैं एक छात्र हूँ।",
+          "options": [
+            "student",
+            "woman",
+            "teacher"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I am a student",
+          "tokens": [
+            "I",
+            "am",
+            "a",
+            "student",
+            "teacher",
+            "You"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I am a student",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं एक छात्र हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "तुम मेरे दोस्त हो।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं एक छात्र हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'महिला' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "woman",
+          "translation": "महिला",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I am a student",
+          "translation": "मैं एक छात्र हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I am a student. We like this.",
+          "translationText": "मैं एक छात्र हूँ। हमें यह पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Family, People & Identity • Lesson 4",
+      "subtitle": "परिवार, लोग और पहचान: श्रवण अभ्यास (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'माँ' के लिए सही चित्र चुनें:",
+          "targetWord": "mother",
+          "translation": "माँ",
+          "options": [
+            {
+              "id": "u3_l4_p1",
+              "text": "mother (माँ)",
+              "imageUrl": "/uploads/curriculum/mother.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l4_p2",
+              "text": "friend (दोस्त)",
+              "imageUrl": "/uploads/curriculum/friend.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l4_p3",
+              "text": "woman (महिला)",
+              "imageUrl": "/uploads/curriculum/woman.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "mother",
+              "native": "माँ"
+            },
+            {
+              "target": "boy",
+              "native": "लड़का"
+            },
+            {
+              "target": "teacher",
+              "native": "शिक्षक"
+            },
+            {
+              "target": "brother",
+              "native": "भाई"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
           "prompt": "तुम मेरे दोस्त हो।",
           "targetSentence": "You are my friend",
           "tokens": [
@@ -225,44 +583,18 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "You are my _______.",
+          "sentence": "You _______.",
           "blank": "friend",
           "translation": "तुम मेरे दोस्त हो।",
           "options": [
             "friend",
-            "father",
-            "boy"
+            "mother",
+            "sister"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "I am a student",
-          "tokens": [
-            "I",
-            "am",
-            "a",
-            "student",
-            "teacher",
-            "You"
-          ],
-          "audioUrl": ""
-        }
-      ]
-    },
-    {
-      "lessonIndex": 3,
-      "unitLessonNum": 4,
-      "title": "Family, People & Identity • Lesson 4",
-      "subtitle": "परिवार, लोग और पहचान: श्रवण और समझ",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "You are my friend",
           "tokens": [
             "You",
@@ -275,38 +607,127 @@
           "audioUrl": ""
         },
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "He is a good teacher",
-          "tokens": [
-            "He",
-            "is",
-            "a",
-            "good",
-            "teacher",
-            "student"
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "You are my friend",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "तुम मेरे दोस्त हो।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह मेरे पिता हैं।",
+              "isCorrect": false
+            }
           ],
+          "correctOption": "तुम मेरे दोस्त हो।",
           "audioUrl": ""
         },
         {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'माँ' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "mother",
+          "translation": "माँ",
+          "hint": "संकेत: M से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I am a student",
+          "translation": "वह मेरी माँ हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "You are my friend. Listen and speak every day.",
+          "translationText": "तुम मेरे दोस्त हो। हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Family, People & Identity • Lesson 5",
+      "subtitle": "परिवार, लोग और पहचान: गुण और विशेषताएं",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'मैं' के लिए सही चित्र चुनें:",
+          "targetWord": "I",
+          "translation": "मैं",
+          "options": [
+            {
+              "id": "u3_l5_p1",
+              "text": "I (मैं)",
+              "imageUrl": "/uploads/curriculum/I.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l5_p2",
+              "text": "you (तुम / आप)",
+              "imageUrl": "/uploads/curriculum/you.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l5_p3",
+              "text": "he (वह)",
+              "imageUrl": "/uploads/curriculum/he.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "रैपिड मिलान",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "father",
-              "native": "पिता"
+              "target": "I",
+              "native": "मैं"
             },
             {
-              "target": "sister",
-              "native": "बहन"
+              "target": "you",
+              "native": "तुम / आप"
             },
             {
-              "target": "girl",
-              "native": "लड़की"
+              "target": "he",
+              "native": "वह"
             },
             {
-              "target": "teacher",
-              "native": "शिक्षक"
+              "target": "we",
+              "native": "हम"
             }
           ]
         },
@@ -323,34 +744,162 @@
             "teacher",
             "student"
           ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "He _______.",
+          "blank": "teacher",
+          "translation": "वह एक अच्छे शिक्षक हैं।",
+          "options": [
+            "teacher",
+            "I",
+            "you"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "He is a good teacher",
+          "tokens": [
+            "He",
+            "is",
+            "a",
+            "good",
+            "teacher",
+            "student"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "He is a good teacher",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह एक अच्छे शिक्षक हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह मेरी माँ हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह एक अच्छे शिक्षक हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'मैं' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "I",
+          "translation": "मैं",
+          "hint": "संकेत: I से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "He is a good teacher",
+          "translation": "वह एक अच्छे शिक्षक हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "He is a good teacher. You are doing very well.",
+          "translationText": "वह एक अच्छे शिक्षक हैं। आप बहुत अच्छा कर रहे हैं।",
+          "audioUrl": ""
         }
       ]
     },
     {
-      "lessonIndex": 4,
-      "unitLessonNum": 5,
-      "title": "Family, People & Identity • Lesson 5",
-      "subtitle": "परिवार, लोग और पहचान: व्यावहारिक प्रयोग",
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Family, People & Identity • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Family, People & Identity • Lesson 7",
+      "subtitle": "परिवार, लोग और पहचान: संयुक्त प्रयोग",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'लड़का' के लिए सही चित्र चुनें:",
+          "targetWord": "boy",
+          "translation": "लड़का",
+          "options": [
+            {
+              "id": "u3_l7_p1",
+              "text": "boy (लड़का)",
+              "imageUrl": "/uploads/curriculum/boy.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l7_p2",
+              "text": "girl (लड़की)",
+              "imageUrl": "/uploads/curriculum/girl.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l7_p3",
+              "text": "man (पुरुष)",
+              "imageUrl": "/uploads/curriculum/man.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "I",
-              "native": "मैं"
+              "target": "sister",
+              "native": "बहन"
             },
             {
-              "target": "you",
-              "native": "तुम / आप"
+              "target": "man",
+              "native": "पुरुष"
             },
             {
-              "target": "he",
-              "native": "वह"
+              "target": "family",
+              "native": "परिवार"
             },
             {
               "target": "we",
@@ -375,46 +924,154 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "We are _______.",
+          "sentence": "We _______.",
           "blank": "friends",
           "translation": "हम दोस्त हैं।",
           "options": [
             "friends",
-            "brother",
-            "woman"
+            "boy",
+            "man"
           ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "We are friends",
+          "tokens": [
+            "We",
+            "are",
+            "friends",
+            "They",
+            "family",
+            "I"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "We are friends",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "हम दोस्त हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं एक छात्र हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "हम दोस्त हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'लड़का' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "boy",
+          "translation": "लड़का",
+          "hint": "संकेत: B से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
         },
         {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
-          "prompt": "I am a student",
-          "translation": "वह मेरी बहन है।",
+          "prompt": "We are friends",
+          "translation": "हम दोस्त हैं।",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "We are friends. Practice makes you perfect.",
+          "translationText": "हम दोस्त हैं। अभ्यास से सब आसान हो जाता है।",
           "audioUrl": ""
         }
       ]
     },
     {
-      "lessonIndex": 5,
-      "unitLessonNum": 6,
-      "title": "Family, People & Identity • Treasure Chest 1",
-      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
-      "nodeType": "chest",
-      "xpReward": 15,
-      "pearlsReward": 25,
-      "isLive": true,
-      "stages": []
-    },
-    {
-      "lessonIndex": 6,
-      "unitLessonNum": 7,
-      "title": "Family, People & Identity • Lesson 7",
-      "subtitle": "परिवार, लोग और पहचान: विस्तृत वाक्य",
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Family, People & Identity • Lesson 8",
+      "subtitle": "परिवार, लोग और पहचान: जटिल वाक्य संरचना",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'शिक्षक' के लिए सही चित्र चुनें:",
+          "targetWord": "teacher",
+          "translation": "शिक्षक",
+          "options": [
+            {
+              "id": "u3_l8_p1",
+              "text": "teacher (शिक्षक)",
+              "imageUrl": "/uploads/curriculum/teacher.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l8_p2",
+              "text": "student (छात्र)",
+              "imageUrl": "/uploads/curriculum/student.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l8_p3",
+              "text": "family (परिवार)",
+              "imageUrl": "/uploads/curriculum/family.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "father",
+              "native": "पिता"
+            },
+            {
+              "target": "friend",
+              "native": "दोस्त"
+            },
+            {
+              "target": "woman",
+              "native": "महिला"
+            },
+            {
+              "target": "I",
+              "native": "मैं"
+            }
+          ]
+        },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
@@ -430,22 +1087,20 @@
           ]
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "वे मेरा परिवार हैं।",
-          "targetSentence": "They are my family",
-          "tokens": [
-            "They",
-            "are",
-            "my",
-            "family",
-            "friends",
-            "We"
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "She _______.",
+          "blank": "sister",
+          "translation": "वह मेरी बहन है।",
+          "options": [
+            "sister",
+            "teacher",
+            "student"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "She is my sister",
           "tokens": [
             "She",
@@ -458,43 +1113,38 @@
           "audioUrl": ""
         },
         {
-          "type": "word_match",
-          "title": "शब्दों का मिलान करें",
-          "pairs": [
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "She is my sister",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
             {
-              "target": "mother",
-              "native": "माँ"
+              "text": "वह मेरी बहन है।",
+              "isCorrect": true
             },
             {
-              "target": "friend",
-              "native": "दोस्त"
-            },
-            {
-              "target": "man",
-              "native": "पुरुष"
-            },
-            {
-              "target": "family",
-              "native": "परिवार"
+              "text": "तुम मेरे दोस्त हो।",
+              "isCorrect": false
             }
-          ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 7,
-      "unitLessonNum": 8,
-      "title": "Family, People & Identity • Lesson 8",
-      "subtitle": "परिवार, लोग और पहचान: बातचीत और संवाद",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
+          ],
+          "correctOption": "वह मेरी बहन है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'शिक्षक' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "teacher",
+          "translation": "शिक्षक",
+          "hint": "संकेत: T से शुरू होता है",
+          "audioUrl": ""
+        },
         {
           "type": "dialogue_bubble",
-          "title": "संवाद पूरा करें",
+          "title": "बातचीत पूरी करें",
           "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
           "partnerMessage": "Who is he?",
           "translation": "वह कौन है?",
           "options": [
@@ -505,6 +1155,85 @@
             {
               "text": "Cold water, please.",
               "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "She is my sister",
+          "translation": "वह मेरी बहन है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "She is my sister. Everything is in order.",
+          "translationText": "वह मेरी बहन है। सब कुछ सही क्रम में है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Family, People & Identity • Lesson 9",
+      "subtitle": "परिवार, लोग और पहचान: मौखिक अभ्यास (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'तुम / आप' के लिए सही चित्र चुनें:",
+          "targetWord": "you",
+          "translation": "तुम / आप",
+          "options": [
+            {
+              "id": "u3_l9_p1",
+              "text": "you (तुम / आप)",
+              "imageUrl": "/uploads/curriculum/you.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l9_p2",
+              "text": "he (वह)",
+              "imageUrl": "/uploads/curriculum/he.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l9_p3",
+              "text": "we (हम)",
+              "imageUrl": "/uploads/curriculum/we.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "brother",
+              "native": "भाई"
+            },
+            {
+              "target": "girl",
+              "native": "लड़की"
+            },
+            {
+              "target": "student",
+              "native": "छात्र"
+            },
+            {
+              "target": "he",
+              "native": "वह"
             }
           ]
         },
@@ -525,72 +1254,91 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "They are my _______.",
+          "sentence": "They _______.",
           "blank": "family",
           "translation": "वे मेरा परिवार हैं।",
           "options": [
             "family",
-            "sister",
-            "teacher"
+            "you",
+            "he"
           ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 8,
-      "unitLessonNum": 9,
-      "title": "Family, People & Identity • Lesson 9",
-      "subtitle": "परिवार, लोग और पहचान: मौखिक उच्चारण अभ्यास",
-      "nodeType": "lesson",
-      "xpReward": 25,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
+        },
         {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "He is my father",
-          "translation": "वह मेरे पिता हैं।",
-          "minAccuracy": 75,
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "They are my family",
+          "tokens": [
+            "They",
+            "are",
+            "my",
+            "family",
+            "friends",
+            "We"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "They are my family",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वे मेरा परिवार हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह एक अच्छे शिक्षक हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वे मेरा परिवार हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'तुम / आप' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "you",
+          "translation": "तुम / आप",
+          "hint": "संकेत: Y से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
           "audioUrl": ""
         },
         {
           "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "I am a student",
-          "translation": "वह मेरी माँ हैं।",
-          "minAccuracy": 75,
-          "audioUrl": ""
-        },
-        {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
+          "title": "बोलकर अभ्यास करें",
           "prompt": "You are my friend",
           "translation": "मैं एक छात्र हूँ।",
           "minAccuracy": 75,
           "audioUrl": ""
         },
         {
-          "type": "word_match",
-          "title": "शब्द मिलान",
-          "pairs": [
-            {
-              "target": "brother",
-              "native": "भाई"
-            },
-            {
-              "target": "boy",
-              "native": "लड़का"
-            },
-            {
-              "target": "woman",
-              "native": "महिला"
-            },
-            {
-              "target": "you",
-              "native": "तुम / आप"
-            }
-          ]
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "They are my family. Speak clearly and with confidence.",
+          "translationText": "वे मेरा परिवार हैं। स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
         }
       ]
     },
@@ -598,56 +1346,91 @@
       "lessonIndex": 9,
       "unitLessonNum": 10,
       "title": "Family, People & Identity • Lesson 10",
-      "subtitle": "परिवार, लोग और पहचान: समग्र पुनरावृत्ति",
+      "subtitle": "परिवार, लोग और पहचान: संवाद अभ्यास (Dialogue Mastery)",
       "nodeType": "lesson",
-      "xpReward": 20,
+      "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "word_match",
-          "title": "5-जोड़ी मिलान",
-          "pairs": [
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'बहन' के लिए सही चित्र चुनें:",
+          "targetWord": "sister",
+          "translation": "बहन",
+          "options": [
             {
-              "target": "father",
-              "native": "पिता"
+              "id": "u3_l10_p1",
+              "text": "sister (बहन)",
+              "imageUrl": "/uploads/curriculum/sister.webp",
+              "isCorrect": true
             },
             {
-              "target": "sister",
-              "native": "बहन"
+              "id": "u3_l10_p2",
+              "text": "man (पुरुष)",
+              "imageUrl": "/uploads/curriculum/man.webp",
+              "isCorrect": false
             },
             {
-              "target": "man",
-              "native": "पुरुष"
-            },
-            {
-              "target": "student",
-              "native": "छात्र"
-            },
-            {
-              "target": "he",
-              "native": "वह"
+              "id": "u3_l10_p3",
+              "text": "family (परिवार)",
+              "imageUrl": "/uploads/curriculum/family.webp",
+              "isCorrect": false
             }
           ]
         },
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "We are friends",
-          "tokens": [
-            "We",
-            "are",
-            "friends",
-            "They",
-            "family",
-            "I"
-          ],
-          "audioUrl": ""
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "mother",
+              "native": "माँ"
+            },
+            {
+              "target": "friend",
+              "native": "दोस्त"
+            },
+            {
+              "target": "teacher",
+              "native": "शिक्षक"
+            },
+            {
+              "target": "you",
+              "native": "तुम / आप"
+            }
+          ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "वह मेरी बहन है।",
+          "prompt": "वह मेरे पिता हैं।",
+          "targetSentence": "He is my father",
+          "tokens": [
+            "He",
+            "is",
+            "my",
+            "father",
+            "She",
+            "mother"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "He _______.",
+          "blank": "father",
+          "translation": "वह मेरे पिता हैं।",
+          "options": [
+            "father",
+            "sister",
+            "man"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "She is my sister",
           "tokens": [
             "She",
@@ -656,14 +1439,71 @@
             "sister",
             "brother",
             "mother"
-          ]
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "They are my family",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वे मेरा परिवार हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "हम दोस्त हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वे मेरा परिवार हैं।",
+          "audioUrl": ""
         },
         {
           "type": "type_word",
           "title": "स्पेलिंग टाइप करें",
-          "prompt": "'माँ' के लिए सही शब्द टाइप करें:",
-          "target": "mother",
-          "hint": "संकेत: m से शुरू होता है"
+          "prompt": "'बहन' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "sister",
+          "translation": "बहन",
+          "hint": "संकेत: S से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "He is my father",
+          "translation": "वह मेरे पिता हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "This is my family. She is my mother and he is my brother.",
+          "translationText": "यह मेरा परिवार है। वह मेरी माँ हैं और वह मेरा भाई है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -681,56 +1521,92 @@
     {
       "lessonIndex": 11,
       "unitLessonNum": 12,
-      "title": "Family, People & Identity • Family, People & Identity • Milestone Exam",
-      "subtitle": "इकाई 3 संपूर्ण परीक्षा",
+      "title": "Family, People & Identity • Unit 3 Milestone Exam",
+      "subtitle": "परिवार, लोग और पहचान: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
       "nodeType": "quiz",
       "xpReward": 35,
       "pearlsReward": 10,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पिता' के लिए सही चित्र चुनें:",
+          "targetWord": "father",
+          "translation": "पिता",
+          "options": [
+            {
+              "id": "u3_l12_p1",
+              "text": "father (पिता)",
+              "imageUrl": "/uploads/curriculum/father.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l12_p2",
+              "text": "friend (दोस्त)",
+              "imageUrl": "/uploads/curriculum/friend.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l12_p3",
+              "text": "woman (महिला)",
+              "imageUrl": "/uploads/curriculum/woman.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "इकाई 3 मुख्य शब्द परीक्षा",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "father",
               "native": "पिता"
             },
             {
-              "target": "brother",
-              "native": "भाई"
-            },
-            {
               "target": "friend",
               "native": "दोस्त"
             },
             {
-              "target": "girl",
-              "native": "लड़की"
-            },
-            {
               "target": "woman",
               "native": "महिला"
+            },
+            {
+              "target": "I",
+              "native": "मैं"
             }
           ]
         },
         {
           "type": "sentence_builder",
-          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
-          "prompt": "तुम मेरे दोस्त हो।",
-          "targetSentence": "You are my friend",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "हम दोस्त हैं।",
+          "targetSentence": "We are friends",
           "tokens": [
-            "You",
+            "We",
             "are",
-            "my",
-            "friend",
-            "brother",
-            "We"
+            "friends",
+            "They",
+            "family",
+            "I"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "We _______.",
+          "blank": "friends",
+          "translation": "हम दोस्त हैं।",
+          "options": [
+            "friends",
+            "father",
+            "friend"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "They are my family",
           "tokens": [
             "They",
@@ -743,23 +1619,1740 @@
           "audioUrl": ""
         },
         {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "He is a good teacher",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह एक अच्छे शिक्षक हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह मेरे पिता हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह एक अच्छे शिक्षक हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'हम' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "we",
+          "translation": "हम",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "He is my father",
+          "translation": "वह मेरे पिता हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "This is my family. She is my mother and he is my brother.",
+          "translationText": "यह मेरा परिवार है। वह मेरी माँ हैं और वह मेरा भाई है।",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ],
+  "lessonsData": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Family, People & Identity • Lesson 1",
+      "subtitle": "परिवार, लोग और पहचान: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पिता' के लिए सही चित्र चुनें:",
+          "targetWord": "father",
+          "translation": "पिता",
+          "options": [
+            {
+              "id": "u3_l1_p1",
+              "text": "father (पिता)",
+              "imageUrl": "/uploads/curriculum/father.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l1_p2",
+              "text": "mother (माँ)",
+              "imageUrl": "/uploads/curriculum/mother.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l1_p3",
+              "text": "brother (भाई)",
+              "imageUrl": "/uploads/curriculum/brother.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "father",
+              "native": "पिता"
+            },
+            {
+              "target": "mother",
+              "native": "माँ"
+            },
+            {
+              "target": "brother",
+              "native": "भाई"
+            },
+            {
+              "target": "sister",
+              "native": "बहन"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह मेरे पिता हैं।",
+          "targetSentence": "He is my father",
+          "tokens": [
+            "He",
+            "is",
+            "my",
+            "father",
+            "She",
+            "mother"
+          ]
+        },
+        {
           "type": "cloze_test",
-          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
-          "sentence": "She is my _______.",
-          "blank": "mother",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "He _______.",
+          "blank": "father",
+          "translation": "वह मेरे पिता हैं।",
+          "options": [
+            "father",
+            "mother",
+            "brother"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "He is my father",
+          "tokens": [
+            "He",
+            "is",
+            "my",
+            "father",
+            "She",
+            "mother"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "He is my father",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह मेरे पिता हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह मेरी माँ हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह मेरे पिता हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पिता' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "father",
+          "translation": "पिता",
+          "hint": "संकेत: F से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "He is my father",
+          "translation": "वह मेरे पिता हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "He is my father. Father is good.",
+          "translationText": "वह मेरे पिता हैं।। पिता अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Family, People & Identity • Lesson 2",
+      "subtitle": "परिवार, लोग और पहचान: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'दोस्त' के लिए सही चित्र चुनें:",
+          "targetWord": "friend",
+          "translation": "दोस्त",
+          "options": [
+            {
+              "id": "u3_l2_p1",
+              "text": "friend (दोस्त)",
+              "imageUrl": "/uploads/curriculum/friend.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l2_p2",
+              "text": "boy (लड़का)",
+              "imageUrl": "/uploads/curriculum/boy.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l2_p3",
+              "text": "girl (लड़की)",
+              "imageUrl": "/uploads/curriculum/girl.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "friend",
+              "native": "दोस्त"
+            },
+            {
+              "target": "boy",
+              "native": "लड़का"
+            },
+            {
+              "target": "girl",
+              "native": "लड़की"
+            },
+            {
+              "target": "man",
+              "native": "पुरुष"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह मेरी माँ हैं।",
+          "targetSentence": "She is my mother",
+          "tokens": [
+            "She",
+            "is",
+            "my",
+            "mother",
+            "He",
+            "sister"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "She _______ mother.",
+          "blank": "is",
           "translation": "वह मेरी माँ हैं।",
           "options": [
             "mother",
-            "boy",
+            "friend",
+            "boy"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "She is my mother",
+          "tokens": [
+            "She",
+            "is",
+            "my",
+            "mother",
+            "He",
+            "sister"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "She is my mother",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह मेरी माँ हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं एक छात्र हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह मेरी माँ हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'दोस्त' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "friend",
+          "translation": "दोस्त",
+          "hint": "संकेत: F से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "He is my father",
+          "translation": "वह मेरे पिता हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "She is my mother. It is very good.",
+          "translationText": "वह मेरी माँ हैं। यह बहुत अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Family, People & Identity • Lesson 3",
+      "subtitle": "परिवार, लोग और पहचान: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'महिला' के लिए सही चित्र चुनें:",
+          "targetWord": "woman",
+          "translation": "महिला",
+          "options": [
+            {
+              "id": "u3_l3_p1",
+              "text": "woman (महिला)",
+              "imageUrl": "/uploads/curriculum/woman.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l3_p2",
+              "text": "teacher (शिक्षक)",
+              "imageUrl": "/uploads/curriculum/teacher.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l3_p3",
+              "text": "student (छात्र)",
+              "imageUrl": "/uploads/curriculum/student.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "woman",
+              "native": "महिला"
+            },
+            {
+              "target": "teacher",
+              "native": "शिक्षक"
+            },
+            {
+              "target": "student",
+              "native": "छात्र"
+            },
+            {
+              "target": "family",
+              "native": "परिवार"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं एक छात्र हूँ।",
+          "targetSentence": "I am a student",
+          "tokens": [
+            "I",
+            "am",
+            "a",
+            "student",
+            "teacher",
+            "You"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "student",
+          "translation": "मैं एक छात्र हूँ।",
+          "options": [
+            "student",
+            "woman",
             "teacher"
           ]
         },
         {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I am a student",
+          "tokens": [
+            "I",
+            "am",
+            "a",
+            "student",
+            "teacher",
+            "You"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I am a student",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं एक छात्र हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "तुम मेरे दोस्त हो।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं एक छात्र हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'महिला' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "woman",
+          "translation": "महिला",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
           "type": "sprechen",
-          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I am a student",
+          "translation": "मैं एक छात्र हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I am a student. We like this.",
+          "translationText": "मैं एक छात्र हूँ। हमें यह पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Family, People & Identity • Lesson 4",
+      "subtitle": "परिवार, लोग और पहचान: श्रवण अभ्यास (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'माँ' के लिए सही चित्र चुनें:",
+          "targetWord": "mother",
+          "translation": "माँ",
+          "options": [
+            {
+              "id": "u3_l4_p1",
+              "text": "mother (माँ)",
+              "imageUrl": "/uploads/curriculum/mother.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l4_p2",
+              "text": "friend (दोस्त)",
+              "imageUrl": "/uploads/curriculum/friend.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l4_p3",
+              "text": "woman (महिला)",
+              "imageUrl": "/uploads/curriculum/woman.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "mother",
+              "native": "माँ"
+            },
+            {
+              "target": "boy",
+              "native": "लड़का"
+            },
+            {
+              "target": "teacher",
+              "native": "शिक्षक"
+            },
+            {
+              "target": "brother",
+              "native": "भाई"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "तुम मेरे दोस्त हो।",
+          "targetSentence": "You are my friend",
+          "tokens": [
+            "You",
+            "are",
+            "my",
+            "friend",
+            "brother",
+            "We"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "You _______.",
+          "blank": "friend",
+          "translation": "तुम मेरे दोस्त हो।",
+          "options": [
+            "friend",
+            "mother",
+            "sister"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "You are my friend",
+          "tokens": [
+            "You",
+            "are",
+            "my",
+            "friend",
+            "brother",
+            "We"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "You are my friend",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "तुम मेरे दोस्त हो।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह मेरे पिता हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "तुम मेरे दोस्त हो।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'माँ' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "mother",
+          "translation": "माँ",
+          "hint": "संकेत: M से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I am a student",
+          "translation": "वह मेरी माँ हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "You are my friend. Listen and speak every day.",
+          "translationText": "तुम मेरे दोस्त हो। हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Family, People & Identity • Lesson 5",
+      "subtitle": "परिवार, लोग और पहचान: गुण और विशेषताएं",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'मैं' के लिए सही चित्र चुनें:",
+          "targetWord": "I",
+          "translation": "मैं",
+          "options": [
+            {
+              "id": "u3_l5_p1",
+              "text": "I (मैं)",
+              "imageUrl": "/uploads/curriculum/I.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l5_p2",
+              "text": "you (तुम / आप)",
+              "imageUrl": "/uploads/curriculum/you.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l5_p3",
+              "text": "he (वह)",
+              "imageUrl": "/uploads/curriculum/he.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "I",
+              "native": "मैं"
+            },
+            {
+              "target": "you",
+              "native": "तुम / आप"
+            },
+            {
+              "target": "he",
+              "native": "वह"
+            },
+            {
+              "target": "we",
+              "native": "हम"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह एक अच्छे शिक्षक हैं।",
+          "targetSentence": "He is a good teacher",
+          "tokens": [
+            "He",
+            "is",
+            "a",
+            "good",
+            "teacher",
+            "student"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "He _______.",
+          "blank": "teacher",
+          "translation": "वह एक अच्छे शिक्षक हैं।",
+          "options": [
+            "teacher",
+            "I",
+            "you"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "He is a good teacher",
+          "tokens": [
+            "He",
+            "is",
+            "a",
+            "good",
+            "teacher",
+            "student"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "He is a good teacher",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह एक अच्छे शिक्षक हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह मेरी माँ हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह एक अच्छे शिक्षक हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'मैं' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "I",
+          "translation": "मैं",
+          "hint": "संकेत: I से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "He is a good teacher",
+          "translation": "वह एक अच्छे शिक्षक हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "He is a good teacher. You are doing very well.",
+          "translationText": "वह एक अच्छे शिक्षक हैं। आप बहुत अच्छा कर रहे हैं।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Family, People & Identity • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Family, People & Identity • Lesson 7",
+      "subtitle": "परिवार, लोग और पहचान: संयुक्त प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'लड़का' के लिए सही चित्र चुनें:",
+          "targetWord": "boy",
+          "translation": "लड़का",
+          "options": [
+            {
+              "id": "u3_l7_p1",
+              "text": "boy (लड़का)",
+              "imageUrl": "/uploads/curriculum/boy.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l7_p2",
+              "text": "girl (लड़की)",
+              "imageUrl": "/uploads/curriculum/girl.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l7_p3",
+              "text": "man (पुरुष)",
+              "imageUrl": "/uploads/curriculum/man.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "sister",
+              "native": "बहन"
+            },
+            {
+              "target": "man",
+              "native": "पुरुष"
+            },
+            {
+              "target": "family",
+              "native": "परिवार"
+            },
+            {
+              "target": "we",
+              "native": "हम"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "हम दोस्त हैं।",
+          "targetSentence": "We are friends",
+          "tokens": [
+            "We",
+            "are",
+            "friends",
+            "They",
+            "family",
+            "I"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "We _______.",
+          "blank": "friends",
+          "translation": "हम दोस्त हैं।",
+          "options": [
+            "friends",
+            "boy",
+            "man"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "We are friends",
+          "tokens": [
+            "We",
+            "are",
+            "friends",
+            "They",
+            "family",
+            "I"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "We are friends",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "हम दोस्त हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं एक छात्र हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "हम दोस्त हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'लड़का' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "boy",
+          "translation": "लड़का",
+          "hint": "संकेत: B से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "We are friends",
+          "translation": "हम दोस्त हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "We are friends. Practice makes you perfect.",
+          "translationText": "हम दोस्त हैं। अभ्यास से सब आसान हो जाता है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Family, People & Identity • Lesson 8",
+      "subtitle": "परिवार, लोग और पहचान: जटिल वाक्य संरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'शिक्षक' के लिए सही चित्र चुनें:",
+          "targetWord": "teacher",
+          "translation": "शिक्षक",
+          "options": [
+            {
+              "id": "u3_l8_p1",
+              "text": "teacher (शिक्षक)",
+              "imageUrl": "/uploads/curriculum/teacher.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l8_p2",
+              "text": "student (छात्र)",
+              "imageUrl": "/uploads/curriculum/student.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l8_p3",
+              "text": "family (परिवार)",
+              "imageUrl": "/uploads/curriculum/family.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "father",
+              "native": "पिता"
+            },
+            {
+              "target": "friend",
+              "native": "दोस्त"
+            },
+            {
+              "target": "woman",
+              "native": "महिला"
+            },
+            {
+              "target": "I",
+              "native": "मैं"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह मेरी बहन है।",
+          "targetSentence": "She is my sister",
+          "tokens": [
+            "She",
+            "is",
+            "my",
+            "sister",
+            "brother",
+            "mother"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "She _______.",
+          "blank": "sister",
+          "translation": "वह मेरी बहन है।",
+          "options": [
+            "sister",
+            "teacher",
+            "student"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "She is my sister",
+          "tokens": [
+            "She",
+            "is",
+            "my",
+            "sister",
+            "brother",
+            "mother"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "She is my sister",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह मेरी बहन है।",
+              "isCorrect": true
+            },
+            {
+              "text": "तुम मेरे दोस्त हो।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह मेरी बहन है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'शिक्षक' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "teacher",
+          "translation": "शिक्षक",
+          "hint": "संकेत: T से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "She is my sister",
+          "translation": "वह मेरी बहन है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "She is my sister. Everything is in order.",
+          "translationText": "वह मेरी बहन है। सब कुछ सही क्रम में है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Family, People & Identity • Lesson 9",
+      "subtitle": "परिवार, लोग और पहचान: मौखिक अभ्यास (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'तुम / आप' के लिए सही चित्र चुनें:",
+          "targetWord": "you",
+          "translation": "तुम / आप",
+          "options": [
+            {
+              "id": "u3_l9_p1",
+              "text": "you (तुम / आप)",
+              "imageUrl": "/uploads/curriculum/you.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l9_p2",
+              "text": "he (वह)",
+              "imageUrl": "/uploads/curriculum/he.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l9_p3",
+              "text": "we (हम)",
+              "imageUrl": "/uploads/curriculum/we.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "brother",
+              "native": "भाई"
+            },
+            {
+              "target": "girl",
+              "native": "लड़की"
+            },
+            {
+              "target": "student",
+              "native": "छात्र"
+            },
+            {
+              "target": "he",
+              "native": "वह"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वे मेरा परिवार हैं।",
+          "targetSentence": "They are my family",
+          "tokens": [
+            "They",
+            "are",
+            "my",
+            "family",
+            "friends",
+            "We"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "They _______.",
+          "blank": "family",
+          "translation": "वे मेरा परिवार हैं।",
+          "options": [
+            "family",
+            "you",
+            "he"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "They are my family",
+          "tokens": [
+            "They",
+            "are",
+            "my",
+            "family",
+            "friends",
+            "We"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "They are my family",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वे मेरा परिवार हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह एक अच्छे शिक्षक हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वे मेरा परिवार हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'तुम / आप' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "you",
+          "translation": "तुम / आप",
+          "hint": "संकेत: Y से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "You are my friend",
+          "translation": "मैं एक छात्र हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "They are my family. Speak clearly and with confidence.",
+          "translationText": "वे मेरा परिवार हैं। स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Family, People & Identity • Lesson 10",
+      "subtitle": "परिवार, लोग और पहचान: संवाद अभ्यास (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'बहन' के लिए सही चित्र चुनें:",
+          "targetWord": "sister",
+          "translation": "बहन",
+          "options": [
+            {
+              "id": "u3_l10_p1",
+              "text": "sister (बहन)",
+              "imageUrl": "/uploads/curriculum/sister.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l10_p2",
+              "text": "man (पुरुष)",
+              "imageUrl": "/uploads/curriculum/man.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l10_p3",
+              "text": "family (परिवार)",
+              "imageUrl": "/uploads/curriculum/family.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "mother",
+              "native": "माँ"
+            },
+            {
+              "target": "friend",
+              "native": "दोस्त"
+            },
+            {
+              "target": "teacher",
+              "native": "शिक्षक"
+            },
+            {
+              "target": "you",
+              "native": "तुम / आप"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह मेरे पिता हैं।",
+          "targetSentence": "He is my father",
+          "tokens": [
+            "He",
+            "is",
+            "my",
+            "father",
+            "She",
+            "mother"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "He _______.",
+          "blank": "father",
+          "translation": "वह मेरे पिता हैं।",
+          "options": [
+            "father",
+            "sister",
+            "man"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "She is my sister",
+          "tokens": [
+            "She",
+            "is",
+            "my",
+            "sister",
+            "brother",
+            "mother"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "They are my family",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वे मेरा परिवार हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "हम दोस्त हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वे मेरा परिवार हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'बहन' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "sister",
+          "translation": "बहन",
+          "hint": "संकेत: S से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
           "prompt": "He is my father",
           "translation": "वह मेरे पिता हैं।",
-          "minAccuracy": 80,
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "This is my family. She is my mother and he is my brother.",
+          "translationText": "यह मेरा परिवार है। वह मेरी माँ हैं और वह मेरा भाई है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Family, People & Identity • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Family, People & Identity • Unit 3 Milestone Exam",
+      "subtitle": "परिवार, लोग और पहचान: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पिता' के लिए सही चित्र चुनें:",
+          "targetWord": "father",
+          "translation": "पिता",
+          "options": [
+            {
+              "id": "u3_l12_p1",
+              "text": "father (पिता)",
+              "imageUrl": "/uploads/curriculum/father.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u3_l12_p2",
+              "text": "friend (दोस्त)",
+              "imageUrl": "/uploads/curriculum/friend.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u3_l12_p3",
+              "text": "woman (महिला)",
+              "imageUrl": "/uploads/curriculum/woman.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "father",
+              "native": "पिता"
+            },
+            {
+              "target": "friend",
+              "native": "दोस्त"
+            },
+            {
+              "target": "woman",
+              "native": "महिला"
+            },
+            {
+              "target": "I",
+              "native": "मैं"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "हम दोस्त हैं।",
+          "targetSentence": "We are friends",
+          "tokens": [
+            "We",
+            "are",
+            "friends",
+            "They",
+            "family",
+            "I"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "We _______.",
+          "blank": "friends",
+          "translation": "हम दोस्त हैं।",
+          "options": [
+            "friends",
+            "father",
+            "friend"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "They are my family",
+          "tokens": [
+            "They",
+            "are",
+            "my",
+            "family",
+            "friends",
+            "We"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "He is a good teacher",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह एक अच्छे शिक्षक हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह मेरे पिता हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह एक अच्छे शिक्षक हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'हम' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "we",
+          "translation": "हम",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Priya",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Who is he?",
+          "translation": "वह कौन है?",
+          "options": [
+            {
+              "text": "He is my brother.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold water, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "He is my brother.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "He is my father",
+          "translation": "वह मेरे पिता हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "This is my family. She is my mother and he is my brother.",
+          "translationText": "यह मेरा परिवार है। वह मेरी माँ हैं और वह मेरा भाई है।",
           "audioUrl": ""
         }
       ]

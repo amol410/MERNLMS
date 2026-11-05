@@ -22,6 +22,34 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'खाना' के लिए सही चित्र चुनें:",
+          "targetWord": "eat",
+          "translation": "खाना",
+          "options": [
+            {
+              "id": "u4_l1_p1",
+              "text": "eat (खाना)",
+              "imageUrl": "/uploads/curriculum/eat.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l1_p2",
+              "text": "drink (पीना)",
+              "imageUrl": "/uploads/curriculum/drink.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l1_p3",
+              "text": "read (पढ़ना)",
+              "imageUrl": "/uploads/curriculum/read.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
           "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
@@ -46,47 +74,105 @@
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मैं ब्रेड खाता हूँ।",
-          "targetSentence": "I eat bread",
+          "prompt": "मैं सेब खाता हूँ।",
+          "targetSentence": "I eat an apple",
           "tokens": [
             "I",
             "eat",
+            "an",
+            "apple",
             "bread",
-            "drink",
-            "water"
+            "drink"
           ]
-        },
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "I eat bread",
-          "tokens": [
-            "I",
-            "eat",
-            "bread",
-            "drink",
-            "water"
-          ],
-          "audioUrl": ""
         },
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
           "sentence": "I _______.",
-          "blank": "bread",
-          "translation": "मैं ब्रेड खाता हूँ।",
+          "blank": "apple",
+          "translation": "मैं सेब खाता हूँ।",
           "options": [
-            "bread",
+            "apple",
             "drink",
             "read"
           ]
         },
         {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I eat an apple",
+          "tokens": [
+            "I",
+            "eat",
+            "an",
+            "apple",
+            "bread",
+            "drink"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I eat an apple",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं सेब खाता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं किताब पढ़ता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं सेब खाता हूँ।",
+          "audioUrl": ""
+        },
+        {
           "type": "type_word",
-          "title": "स्पेलिंग लिखें",
+          "title": "स्पेलिंग टाइप करें",
           "prompt": "'खाना' के लिए अंग्रेज़ी शब्द टाइप करें:",
           "target": "eat",
-          "hint": "संकेत: e से शुरू होता है"
+          "translation": "खाना",
+          "hint": "संकेत: E से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I eat an apple",
+          "translation": "मैं सेब खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I eat an apple. Eat is good.",
+          "translationText": "मैं सेब खाता हूँ।। खाना अच्छा है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -101,8 +187,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'बोलना' के लिए सही चित्र चुनें:",
+          "targetWord": "speak",
+          "translation": "बोलना",
+          "options": [
+            {
+              "id": "u4_l2_p1",
+              "text": "speak (बोलना)",
+              "imageUrl": "/uploads/curriculum/speak.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l2_p2",
+              "text": "go (जाना)",
+              "imageUrl": "/uploads/curriculum/go.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l2_p3",
+              "text": "come (आना)",
+              "imageUrl": "/uploads/curriculum/come.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "speak",
@@ -137,22 +251,20 @@
           ]
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मैं हिंदी और अंग्रेज़ी बोलता हूँ।",
-          "targetSentence": "I speak Hindi and English",
-          "tokens": [
-            "I",
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______ book.",
+          "blank": "read",
+          "translation": "मैं किताब पढ़ता हूँ।",
+          "options": [
+            "book",
             "speak",
-            "Hindi",
-            "and",
-            "English",
-            "read"
+            "go"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "I read a book",
           "tokens": [
             "I",
@@ -165,11 +277,66 @@
           "audioUrl": ""
         },
         {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I read a book",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं किताब पढ़ता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं अंग्रेज़ी बोलता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं किताब पढ़ता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'बोलना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "speak",
+          "translation": "बोलना",
+          "hint": "संकेत: S से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
-          "prompt": "I speak English every day",
-          "translation": "मैं ब्रेड खाता हूँ।",
+          "prompt": "I speak English",
+          "translation": "मैं सेब खाता हूँ।",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I read a book. It is very good.",
+          "translationText": "मैं किताब पढ़ता हूँ। यह बहुत अच्छा है।",
           "audioUrl": ""
         }
       ]
@@ -185,8 +352,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पसंद करना' के लिए सही चित्र चुनें:",
+          "targetWord": "like",
+          "translation": "पसंद करना",
+          "options": [
+            {
+              "id": "u4_l3_p1",
+              "text": "like (पसंद करना)",
+              "imageUrl": "/uploads/curriculum/like.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l3_p2",
+              "text": "work (काम करना)",
+              "imageUrl": "/uploads/curriculum/work.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l3_p3",
+              "text": "live (रहना)",
+              "imageUrl": "/uploads/curriculum/live.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "like",
@@ -209,41 +404,102 @@
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मैं स्कूल जाता हूँ।",
-          "targetSentence": "I go to school",
+          "prompt": "मैं अंग्रेज़ी बोलता हूँ।",
+          "targetSentence": "I speak English",
           "tokens": [
             "I",
-            "go",
-            "to",
-            "school",
-            "office",
-            "come"
+            "speak",
+            "English",
+            "Hindi",
+            "read"
           ]
         },
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I go to _______.",
-          "blank": "school",
-          "translation": "मैं स्कूल जाता हूँ।",
+          "sentence": "I _______.",
+          "blank": "English",
+          "translation": "मैं अंग्रेज़ी बोलता हूँ।",
           "options": [
-            "school",
-            "eat",
-            "go"
+            "English",
+            "like",
+            "work"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "I speak Hindi and English",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I speak English",
           "tokens": [
             "I",
             "speak",
-            "Hindi",
-            "and",
             "English",
+            "Hindi",
             "read"
           ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I speak English",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं अंग्रेज़ी बोलता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं स्कूल जाता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं अंग्रेज़ी बोलता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पसंद करना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "like",
+          "translation": "पसंद करना",
+          "hint": "संकेत: L से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I speak English",
+          "translation": "मैं अंग्रेज़ी बोलता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I speak English. We like this.",
+          "translationText": "मैं अंग्रेज़ी बोलता हूँ। हमें यह पसंद है।",
           "audioUrl": ""
         }
       ]
@@ -252,77 +508,164 @@
       "lessonIndex": 3,
       "unitLessonNum": 4,
       "title": "Common Everyday Verbs & SVO • Lesson 4",
-      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: श्रवण और समझ",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: श्रवण अभ्यास (Ear Training)",
       "nodeType": "lesson",
-      "xpReward": 20,
+      "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "I go to school",
-          "tokens": [
-            "I",
-            "go",
-            "to",
-            "school",
-            "office",
-            "come"
-          ],
-          "audioUrl": ""
-        },
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "She works in an office",
-          "tokens": [
-            "She",
-            "works",
-            "in",
-            "an",
-            "office",
-            "school",
-            "lives"
-          ],
-          "audioUrl": ""
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पीना' के लिए सही चित्र चुनें:",
+          "targetWord": "drink",
+          "translation": "पीना",
+          "options": [
+            {
+              "id": "u4_l4_p1",
+              "text": "drink (पीना)",
+              "imageUrl": "/uploads/curriculum/drink.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l4_p2",
+              "text": "speak (बोलना)",
+              "imageUrl": "/uploads/curriculum/speak.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l4_p3",
+              "text": "like (पसंद करना)",
+              "imageUrl": "/uploads/curriculum/like.webp",
+              "isCorrect": false
+            }
+          ]
         },
         {
           "type": "word_match",
-          "title": "रैपिड मिलान",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "eat",
-              "native": "खाना"
+              "target": "drink",
+              "native": "पीना"
             },
             {
-              "target": "write",
-              "native": "लिखना"
-            },
-            {
-              "target": "come",
-              "native": "आना"
+              "target": "go",
+              "native": "जाना"
             },
             {
               "target": "work",
               "native": "काम करना"
+            },
+            {
+              "target": "read",
+              "native": "पढ़ना"
             }
           ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "वह कार्यालय में काम करती है।",
-          "targetSentence": "She works in an office",
+          "prompt": "मैं स्कूल जाता हूँ।",
+          "targetSentence": "I go to school",
           "tokens": [
-            "She",
-            "works",
-            "in",
-            "an",
-            "office",
+            "I",
+            "go",
+            "to",
             "school",
-            "lives"
+            "home",
+            "work"
           ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "school",
+          "translation": "मैं स्कूल जाता हूँ।",
+          "options": [
+            "school",
+            "drink",
+            "write"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I go to school",
+          "tokens": [
+            "I",
+            "go",
+            "to",
+            "school",
+            "home",
+            "work"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I go to school",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं स्कूल जाता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं सेब खाता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं स्कूल जाता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पीना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "drink",
+          "translation": "पीना",
+          "hint": "संकेत: D से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I read a book every day",
+          "translation": "मैं किताब पढ़ता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I go to school. Listen and speak every day.",
+          "translationText": "मैं स्कूल जाता हूँ। हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
         }
       ]
     },
@@ -330,15 +673,43 @@
       "lessonIndex": 4,
       "unitLessonNum": 5,
       "title": "Common Everyday Verbs & SVO • Lesson 5",
-      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: व्यावहारिक प्रयोग",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: गुण और विशेषताएं",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सेब' के लिए सही चित्र चुनें:",
+          "targetWord": "apple",
+          "translation": "सेब",
+          "options": [
+            {
+              "id": "u4_l5_p1",
+              "text": "apple (सेब)",
+              "imageUrl": "/uploads/curriculum/apple.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l5_p2",
+              "text": "school (स्कूल)",
+              "imageUrl": "/uploads/curriculum/school.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l5_p3",
+              "text": "English (अंग्रेज़ी)",
+              "imageUrl": "/uploads/curriculum/English.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "apple",
@@ -361,35 +732,102 @@
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मुझे चाय बहुत पसंद है।",
-          "targetSentence": "I like tea very much",
+          "prompt": "मुझे किताबें पसंद हैं।",
+          "targetSentence": "I like books",
           "tokens": [
             "I",
             "like",
-            "tea",
-            "very",
-            "much",
-            "coffee"
+            "books",
+            "apples",
+            "tea"
           ]
         },
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I like tea very _______.",
-          "blank": "much",
-          "translation": "मुझे चाय बहुत पसंद है।",
+          "sentence": "I _______.",
+          "blank": "books",
+          "translation": "मुझे किताबें पसंद हैं।",
           "options": [
-            "much",
-            "read",
-            "like"
+            "books",
+            "apple",
+            "school"
           ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I like books",
+          "tokens": [
+            "I",
+            "like",
+            "books",
+            "apples",
+            "tea"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I like books",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे किताबें पसंद हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं किताब पढ़ता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे किताबें पसंद हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'सेब' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "apple",
+          "translation": "सेब",
+          "hint": "संकेत: A से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
         },
         {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
-          "prompt": "I read a book",
-          "translation": "कृपया धीरे बोलिए।",
+          "prompt": "I like books",
+          "translation": "मुझे किताबें पसंद हैं।",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I like books. You are doing very well.",
+          "translationText": "मुझे किताबें पसंद हैं। आप बहुत अच्छा कर रहे हैं।",
           "audioUrl": ""
         }
       ]
@@ -409,63 +847,47 @@
       "lessonIndex": 6,
       "unitLessonNum": 7,
       "title": "Common Everyday Verbs & SVO • Lesson 7",
-      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: विस्तृत वाक्य",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: संयुक्त प्रयोग",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "कृपया धीरे बोलिए।",
-          "targetSentence": "Speak slowly, please",
-          "tokens": [
-            "Speak",
-            "slowly,",
-            "please",
-            "fast",
-            "read"
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'जाना' के लिए सही चित्र चुनें:",
+          "targetWord": "go",
+          "translation": "जाना",
+          "options": [
+            {
+              "id": "u4_l7_p1",
+              "text": "go (जाना)",
+              "imageUrl": "/uploads/curriculum/go.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l7_p2",
+              "text": "come (आना)",
+              "imageUrl": "/uploads/curriculum/come.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l7_p3",
+              "text": "see (देखना)",
+              "imageUrl": "/uploads/curriculum/see.webp",
+              "isCorrect": false
+            }
           ]
-        },
-        {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "हम साथ में खाना खाते हैं।",
-          "targetSentence": "We eat food together",
-          "tokens": [
-            "We",
-            "eat",
-            "food",
-            "together",
-            "drink",
-            "water"
-          ]
-        },
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "Speak slowly, please",
-          "tokens": [
-            "Speak",
-            "slowly,",
-            "please",
-            "fast",
-            "read"
-          ],
-          "audioUrl": ""
         },
         {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "drink",
-              "native": "पीना"
-            },
-            {
-              "target": "speak",
-              "native": "बोलना"
+              "target": "write",
+              "native": "लिखना"
             },
             {
               "target": "see",
@@ -474,25 +896,84 @@
             {
               "target": "book",
               "native": "किताब"
+            },
+            {
+              "target": "Hindi",
+              "native": "हिंदी"
             }
           ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 7,
-      "unitLessonNum": 8,
-      "title": "Common Everyday Verbs & SVO • Lesson 8",
-      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: बातचीत और संवाद",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह अंग्रेज़ी पढ़ती है।",
+          "targetSentence": "She reads English",
+          "tokens": [
+            "She",
+            "reads",
+            "English",
+            "speaks",
+            "Hindi"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "She _______.",
+          "blank": "English",
+          "translation": "वह अंग्रेज़ी पढ़ती है।",
+          "options": [
+            "English",
+            "go",
+            "see"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "She reads English",
+          "tokens": [
+            "She",
+            "reads",
+            "English",
+            "speaks",
+            "Hindi"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "She reads English",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह अंग्रेज़ी पढ़ती है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं अंग्रेज़ी बोलता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह अंग्रेज़ी पढ़ती है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'जाना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "go",
+          "translation": "जाना",
+          "hint": "संकेत: G से शुरू होता है",
+          "audioUrl": ""
+        },
         {
           "type": "dialogue_bubble",
-          "title": "संवाद पूरा करें",
-          "partnerName": "Teacher",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
           "partnerMessage": "Do you speak English?",
           "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
           "options": [
@@ -501,36 +982,190 @@
               "isCorrect": true
             },
             {
-              "text": "My house is small.",
+              "text": "I am eating bread.",
               "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "She reads English",
+          "translation": "वह अंग्रेज़ी पढ़ती है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "She reads English. Practice makes you perfect.",
+          "translationText": "वह अंग्रेज़ी पढ़ती है। अभ्यास से सब आसान हो जाता है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Common Everyday Verbs & SVO • Lesson 8",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: जटिल वाक्य संरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'काम करना' के लिए सही चित्र चुनें:",
+          "targetWord": "work",
+          "translation": "काम करना",
+          "options": [
+            {
+              "id": "u4_l8_p1",
+              "text": "work (काम करना)",
+              "imageUrl": "/uploads/curriculum/work.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l8_p2",
+              "text": "live (रहना)",
+              "imageUrl": "/uploads/curriculum/live.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l8_p3",
+              "text": "book (किताब)",
+              "imageUrl": "/uploads/curriculum/book.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाना"
+            },
+            {
+              "target": "speak",
+              "native": "बोलना"
+            },
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            },
+            {
+              "target": "apple",
+              "native": "सेब"
             }
           ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "हम साथ में खाना खाते हैं।",
-          "targetSentence": "We eat food together",
+          "prompt": "हम साथ में खाते हैं।",
+          "targetSentence": "We eat together",
           "tokens": [
             "We",
             "eat",
-            "food",
             "together",
             "drink",
-            "water"
+            "go"
           ]
         },
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "We eat food _______.",
+          "sentence": "We _______.",
           "blank": "together",
-          "translation": "हम साथ में खाना खाते हैं।",
+          "translation": "हम साथ में खाते हैं।",
           "options": [
             "together",
-            "write",
-            "work"
+            "work",
+            "live"
           ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "We eat together",
+          "tokens": [
+            "We",
+            "eat",
+            "together",
+            "drink",
+            "go"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "We eat together",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "हम साथ में खाते हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं स्कूल जाता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "हम साथ में खाते हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'काम करना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "work",
+          "translation": "काम करना",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "We eat together",
+          "translation": "हम साथ में खाते हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "We eat together. Everything is in order.",
+          "translationText": "हम साथ में खाते हैं। सब कुछ सही क्रम में है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -538,85 +1173,51 @@
       "lessonIndex": 8,
       "unitLessonNum": 9,
       "title": "Common Everyday Verbs & SVO • Lesson 9",
-      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: मौखिक उच्चारण अभ्यास",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: मौखिक अभ्यास (Speech Lab)",
       "nodeType": "lesson",
-      "xpReward": 25,
+      "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "I speak English every day",
-          "translation": "मैं ब्रेड खाता हूँ।",
-          "minAccuracy": 75,
-          "audioUrl": ""
-        },
-        {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "I read a book",
-          "translation": "मैं किताब पढ़ता हूँ।",
-          "minAccuracy": 75,
-          "audioUrl": ""
-        },
-        {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "I like tea",
-          "translation": "मैं हिंदी और अंग्रेज़ी बोलता हूँ।",
-          "minAccuracy": 75,
-          "audioUrl": ""
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'स्कूल' के लिए सही चित्र चुनें:",
+          "targetWord": "school",
+          "translation": "स्कूल",
+          "options": [
+            {
+              "id": "u4_l9_p1",
+              "text": "school (स्कूल)",
+              "imageUrl": "/uploads/curriculum/school.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l9_p2",
+              "text": "English (अंग्रेज़ी)",
+              "imageUrl": "/uploads/curriculum/English.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l9_p3",
+              "text": "Hindi (हिंदी)",
+              "imageUrl": "/uploads/curriculum/Hindi.webp",
+              "isCorrect": false
+            }
+          ]
         },
         {
           "type": "word_match",
-          "title": "शब्द मिलान",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "read",
               "native": "पढ़ना"
             },
             {
-              "target": "go",
-              "native": "जाना"
-            },
-            {
-              "target": "like",
-              "native": "पसंद करना"
-            },
-            {
-              "target": "school",
-              "native": "स्कूल"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 9,
-      "unitLessonNum": 10,
-      "title": "Common Everyday Verbs & SVO • Lesson 10",
-      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: समग्र पुनरावृत्ति",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
-        {
-          "type": "word_match",
-          "title": "5-जोड़ी मिलान",
-          "pairs": [
-            {
-              "target": "eat",
-              "native": "खाना"
-            },
-            {
-              "target": "write",
-              "native": "लिखना"
-            },
-            {
-              "target": "see",
-              "native": "देखना"
+              "target": "come",
+              "native": "आना"
             },
             {
               "target": "live",
@@ -629,38 +1230,269 @@
           ]
         },
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "I like tea very much",
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं यहाँ रहता हूँ।",
+          "targetSentence": "I live here",
           "tokens": [
             "I",
-            "like",
-            "tea",
-            "very",
-            "much",
-            "coffee"
+            "live",
+            "here",
+            "work",
+            "there"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "here",
+          "translation": "मैं यहाँ रहता हूँ।",
+          "options": [
+            "here",
+            "school",
+            "English"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I live here",
+          "tokens": [
+            "I",
+            "live",
+            "here",
+            "work",
+            "there"
           ],
           "audioUrl": ""
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "कृपया धीरे बोलिए।",
-          "targetSentence": "Speak slowly, please",
-          "tokens": [
-            "Speak",
-            "slowly,",
-            "please",
-            "fast",
-            "read"
-          ]
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I live here",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं यहाँ रहता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे किताबें पसंद हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं यहाँ रहता हूँ।",
+          "audioUrl": ""
         },
         {
           "type": "type_word",
           "title": "स्पेलिंग टाइप करें",
-          "prompt": "'पीना' के लिए सही शब्द टाइप करें:",
-          "target": "drink",
-          "hint": "संकेत: d से शुरू होता है"
+          "prompt": "'स्कूल' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "school",
+          "translation": "स्कूल",
+          "hint": "संकेत: S से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I like apples",
+          "translation": "मैं अंग्रेज़ी बोलता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I live here. Speak clearly and with confidence.",
+          "translationText": "मैं यहाँ रहता हूँ। स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Common Everyday Verbs & SVO • Lesson 10",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: संवाद अभ्यास (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'लिखना' के लिए सही चित्र चुनें:",
+          "targetWord": "write",
+          "translation": "लिखना",
+          "options": [
+            {
+              "id": "u4_l10_p1",
+              "text": "write (लिखना)",
+              "imageUrl": "/uploads/curriculum/write.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l10_p2",
+              "text": "see (देखना)",
+              "imageUrl": "/uploads/curriculum/see.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l10_p3",
+              "text": "book (किताब)",
+              "imageUrl": "/uploads/curriculum/book.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "drink",
+              "native": "पीना"
+            },
+            {
+              "target": "speak",
+              "native": "बोलना"
+            },
+            {
+              "target": "work",
+              "native": "काम करना"
+            },
+            {
+              "target": "school",
+              "native": "स्कूल"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं सेब खाता हूँ।",
+          "targetSentence": "I eat an apple",
+          "tokens": [
+            "I",
+            "eat",
+            "an",
+            "apple",
+            "bread",
+            "drink"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "apple",
+          "translation": "मैं सेब खाता हूँ।",
+          "options": [
+            "apple",
+            "write",
+            "see"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "We eat together",
+          "tokens": [
+            "We",
+            "eat",
+            "together",
+            "drink",
+            "go"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I live here",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं यहाँ रहता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह अंग्रेज़ी पढ़ती है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं यहाँ रहता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'लिखना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "write",
+          "translation": "लिखना",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I speak English",
+          "translation": "मैं सेब खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I go to school and read books. I like English very much.",
+          "translationText": "मैं स्कूल जाता हूँ और किताबें पढ़ता हूँ। मुझे अंग्रेज़ी बहुत पसंद है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -678,42 +1510,724 @@
     {
       "lessonIndex": 11,
       "unitLessonNum": 12,
-      "title": "Common Everyday Verbs & SVO • Common Everyday Verbs & SVO • Milestone Exam",
-      "subtitle": "इकाई 4 संपूर्ण परीक्षा",
+      "title": "Common Everyday Verbs & SVO • Unit 4 Milestone Exam",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
       "nodeType": "quiz",
       "xpReward": 35,
       "pearlsReward": 10,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'खाना' के लिए सही चित्र चुनें:",
+          "targetWord": "eat",
+          "translation": "खाना",
+          "options": [
+            {
+              "id": "u4_l12_p1",
+              "text": "eat (खाना)",
+              "imageUrl": "/uploads/curriculum/eat.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l12_p2",
+              "text": "speak (बोलना)",
+              "imageUrl": "/uploads/curriculum/speak.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l12_p3",
+              "text": "like (पसंद करना)",
+              "imageUrl": "/uploads/curriculum/like.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "इकाई 4 मुख्य शब्द परीक्षा",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "eat",
               "native": "खाना"
             },
             {
+              "target": "speak",
+              "native": "बोलना"
+            },
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            },
+            {
+              "target": "apple",
+              "native": "सेब"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह अंग्रेज़ी पढ़ती है।",
+          "targetSentence": "She reads English",
+          "tokens": [
+            "She",
+            "reads",
+            "English",
+            "speaks",
+            "Hindi"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "She _______.",
+          "blank": "English",
+          "translation": "वह अंग्रेज़ी पढ़ती है।",
+          "options": [
+            "English",
+            "eat",
+            "speak"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I live here",
+          "tokens": [
+            "I",
+            "live",
+            "here",
+            "work",
+            "there"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I like books",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे किताबें पसंद हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं सेब खाता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे किताबें पसंद हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'हिंदी' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "Hindi",
+          "translation": "हिंदी",
+          "hint": "संकेत: H से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I speak English",
+          "translation": "मैं सेब खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I go to school and read books. I like English very much.",
+          "translationText": "मैं स्कूल जाता हूँ और किताबें पढ़ता हूँ। मुझे अंग्रेज़ी बहुत पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ],
+  "lessonsData": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Common Everyday Verbs & SVO • Lesson 1",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'खाना' के लिए सही चित्र चुनें:",
+          "targetWord": "eat",
+          "translation": "खाना",
+          "options": [
+            {
+              "id": "u4_l1_p1",
+              "text": "eat (खाना)",
+              "imageUrl": "/uploads/curriculum/eat.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l1_p2",
+              "text": "drink (पीना)",
+              "imageUrl": "/uploads/curriculum/drink.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l1_p3",
+              "text": "read (पढ़ना)",
+              "imageUrl": "/uploads/curriculum/read.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाना"
+            },
+            {
+              "target": "drink",
+              "native": "पीना"
+            },
+            {
               "target": "read",
               "native": "पढ़ना"
             },
             {
+              "target": "write",
+              "native": "लिखना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं सेब खाता हूँ।",
+          "targetSentence": "I eat an apple",
+          "tokens": [
+            "I",
+            "eat",
+            "an",
+            "apple",
+            "bread",
+            "drink"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "apple",
+          "translation": "मैं सेब खाता हूँ।",
+          "options": [
+            "apple",
+            "drink",
+            "read"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I eat an apple",
+          "tokens": [
+            "I",
+            "eat",
+            "an",
+            "apple",
+            "bread",
+            "drink"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I eat an apple",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं सेब खाता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं किताब पढ़ता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं सेब खाता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'खाना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "eat",
+          "translation": "खाना",
+          "hint": "संकेत: E से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I eat an apple",
+          "translation": "मैं सेब खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I eat an apple. Eat is good.",
+          "translationText": "मैं सेब खाता हूँ।। खाना अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Common Everyday Verbs & SVO • Lesson 2",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'बोलना' के लिए सही चित्र चुनें:",
+          "targetWord": "speak",
+          "translation": "बोलना",
+          "options": [
+            {
+              "id": "u4_l2_p1",
+              "text": "speak (बोलना)",
+              "imageUrl": "/uploads/curriculum/speak.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l2_p2",
+              "text": "go (जाना)",
+              "imageUrl": "/uploads/curriculum/go.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l2_p3",
+              "text": "come (आना)",
+              "imageUrl": "/uploads/curriculum/come.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
               "target": "speak",
               "native": "बोलना"
+            },
+            {
+              "target": "go",
+              "native": "जाना"
             },
             {
               "target": "come",
               "native": "आना"
             },
             {
-              "target": "like",
-              "native": "पसंद करना"
+              "target": "see",
+              "native": "देखना"
             }
           ]
         },
         {
           "type": "sentence_builder",
-          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं किताब पढ़ता हूँ।",
+          "targetSentence": "I read a book",
+          "tokens": [
+            "I",
+            "read",
+            "a",
+            "book",
+            "write",
+            "school"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______ book.",
+          "blank": "read",
+          "translation": "मैं किताब पढ़ता हूँ।",
+          "options": [
+            "book",
+            "speak",
+            "go"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I read a book",
+          "tokens": [
+            "I",
+            "read",
+            "a",
+            "book",
+            "write",
+            "school"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I read a book",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं किताब पढ़ता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं अंग्रेज़ी बोलता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं किताब पढ़ता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'बोलना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "speak",
+          "translation": "बोलना",
+          "hint": "संकेत: S से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I speak English",
+          "translation": "मैं सेब खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I read a book. It is very good.",
+          "translationText": "मैं किताब पढ़ता हूँ। यह बहुत अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Common Everyday Verbs & SVO • Lesson 3",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पसंद करना' के लिए सही चित्र चुनें:",
+          "targetWord": "like",
+          "translation": "पसंद करना",
+          "options": [
+            {
+              "id": "u4_l3_p1",
+              "text": "like (पसंद करना)",
+              "imageUrl": "/uploads/curriculum/like.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l3_p2",
+              "text": "work (काम करना)",
+              "imageUrl": "/uploads/curriculum/work.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l3_p3",
+              "text": "live (रहना)",
+              "imageUrl": "/uploads/curriculum/live.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            },
+            {
+              "target": "work",
+              "native": "काम करना"
+            },
+            {
+              "target": "live",
+              "native": "रहना"
+            },
+            {
+              "target": "book",
+              "native": "किताब"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं अंग्रेज़ी बोलता हूँ।",
+          "targetSentence": "I speak English",
+          "tokens": [
+            "I",
+            "speak",
+            "English",
+            "Hindi",
+            "read"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "English",
+          "translation": "मैं अंग्रेज़ी बोलता हूँ।",
+          "options": [
+            "English",
+            "like",
+            "work"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I speak English",
+          "tokens": [
+            "I",
+            "speak",
+            "English",
+            "Hindi",
+            "read"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I speak English",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं अंग्रेज़ी बोलता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं स्कूल जाता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं अंग्रेज़ी बोलता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पसंद करना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "like",
+          "translation": "पसंद करना",
+          "hint": "संकेत: L से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I speak English",
+          "translation": "मैं अंग्रेज़ी बोलता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I speak English. We like this.",
+          "translationText": "मैं अंग्रेज़ी बोलता हूँ। हमें यह पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Common Everyday Verbs & SVO • Lesson 4",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: श्रवण अभ्यास (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पीना' के लिए सही चित्र चुनें:",
+          "targetWord": "drink",
+          "translation": "पीना",
+          "options": [
+            {
+              "id": "u4_l4_p1",
+              "text": "drink (पीना)",
+              "imageUrl": "/uploads/curriculum/drink.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l4_p2",
+              "text": "speak (बोलना)",
+              "imageUrl": "/uploads/curriculum/speak.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l4_p3",
+              "text": "like (पसंद करना)",
+              "imageUrl": "/uploads/curriculum/like.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "drink",
+              "native": "पीना"
+            },
+            {
+              "target": "go",
+              "native": "जाना"
+            },
+            {
+              "target": "work",
+              "native": "काम करना"
+            },
+            {
+              "target": "read",
+              "native": "पढ़ना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
           "prompt": "मैं स्कूल जाता हूँ।",
           "targetSentence": "I go to school",
           "tokens": [
@@ -721,42 +2235,1098 @@
             "go",
             "to",
             "school",
-            "office",
-            "come"
-          ]
-        },
-        {
-          "type": "listen_tap",
-          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
-          "targetSentence": "We eat food together",
-          "tokens": [
-            "We",
-            "eat",
-            "food",
-            "together",
-            "drink",
-            "water"
-          ],
-          "audioUrl": ""
-        },
-        {
-          "type": "cloze_test",
-          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
-          "sentence": "I read a _______.",
-          "blank": "book",
-          "translation": "मैं किताब पढ़ता हूँ।",
-          "options": [
-            "book",
-            "go",
+            "home",
             "work"
           ]
         },
         {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "school",
+          "translation": "मैं स्कूल जाता हूँ।",
+          "options": [
+            "school",
+            "drink",
+            "write"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I go to school",
+          "tokens": [
+            "I",
+            "go",
+            "to",
+            "school",
+            "home",
+            "work"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I go to school",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं स्कूल जाता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं सेब खाता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं स्कूल जाता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पीना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "drink",
+          "translation": "पीना",
+          "hint": "संकेत: D से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
           "type": "sprechen",
-          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
-          "prompt": "I speak English every day",
-          "translation": "मैं ब्रेड खाता हूँ।",
-          "minAccuracy": 80,
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I read a book every day",
+          "translation": "मैं किताब पढ़ता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I go to school. Listen and speak every day.",
+          "translationText": "मैं स्कूल जाता हूँ। हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Common Everyday Verbs & SVO • Lesson 5",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: गुण और विशेषताएं",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सेब' के लिए सही चित्र चुनें:",
+          "targetWord": "apple",
+          "translation": "सेब",
+          "options": [
+            {
+              "id": "u4_l5_p1",
+              "text": "apple (सेब)",
+              "imageUrl": "/uploads/curriculum/apple.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l5_p2",
+              "text": "school (स्कूल)",
+              "imageUrl": "/uploads/curriculum/school.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l5_p3",
+              "text": "English (अंग्रेज़ी)",
+              "imageUrl": "/uploads/curriculum/English.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "apple",
+              "native": "सेब"
+            },
+            {
+              "target": "school",
+              "native": "स्कूल"
+            },
+            {
+              "target": "English",
+              "native": "अंग्रेज़ी"
+            },
+            {
+              "target": "Hindi",
+              "native": "हिंदी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मुझे किताबें पसंद हैं।",
+          "targetSentence": "I like books",
+          "tokens": [
+            "I",
+            "like",
+            "books",
+            "apples",
+            "tea"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "books",
+          "translation": "मुझे किताबें पसंद हैं।",
+          "options": [
+            "books",
+            "apple",
+            "school"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I like books",
+          "tokens": [
+            "I",
+            "like",
+            "books",
+            "apples",
+            "tea"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I like books",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे किताबें पसंद हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं किताब पढ़ता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे किताबें पसंद हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'सेब' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "apple",
+          "translation": "सेब",
+          "hint": "संकेत: A से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I like books",
+          "translation": "मुझे किताबें पसंद हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I like books. You are doing very well.",
+          "translationText": "मुझे किताबें पसंद हैं। आप बहुत अच्छा कर रहे हैं।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Common Everyday Verbs & SVO • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Common Everyday Verbs & SVO • Lesson 7",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: संयुक्त प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'जाना' के लिए सही चित्र चुनें:",
+          "targetWord": "go",
+          "translation": "जाना",
+          "options": [
+            {
+              "id": "u4_l7_p1",
+              "text": "go (जाना)",
+              "imageUrl": "/uploads/curriculum/go.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l7_p2",
+              "text": "come (आना)",
+              "imageUrl": "/uploads/curriculum/come.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l7_p3",
+              "text": "see (देखना)",
+              "imageUrl": "/uploads/curriculum/see.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "write",
+              "native": "लिखना"
+            },
+            {
+              "target": "see",
+              "native": "देखना"
+            },
+            {
+              "target": "book",
+              "native": "किताब"
+            },
+            {
+              "target": "Hindi",
+              "native": "हिंदी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह अंग्रेज़ी पढ़ती है।",
+          "targetSentence": "She reads English",
+          "tokens": [
+            "She",
+            "reads",
+            "English",
+            "speaks",
+            "Hindi"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "She _______.",
+          "blank": "English",
+          "translation": "वह अंग्रेज़ी पढ़ती है।",
+          "options": [
+            "English",
+            "go",
+            "see"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "She reads English",
+          "tokens": [
+            "She",
+            "reads",
+            "English",
+            "speaks",
+            "Hindi"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "She reads English",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह अंग्रेज़ी पढ़ती है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं अंग्रेज़ी बोलता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह अंग्रेज़ी पढ़ती है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'जाना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "go",
+          "translation": "जाना",
+          "hint": "संकेत: G से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "She reads English",
+          "translation": "वह अंग्रेज़ी पढ़ती है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "She reads English. Practice makes you perfect.",
+          "translationText": "वह अंग्रेज़ी पढ़ती है। अभ्यास से सब आसान हो जाता है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Common Everyday Verbs & SVO • Lesson 8",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: जटिल वाक्य संरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'काम करना' के लिए सही चित्र चुनें:",
+          "targetWord": "work",
+          "translation": "काम करना",
+          "options": [
+            {
+              "id": "u4_l8_p1",
+              "text": "work (काम करना)",
+              "imageUrl": "/uploads/curriculum/work.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l8_p2",
+              "text": "live (रहना)",
+              "imageUrl": "/uploads/curriculum/live.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l8_p3",
+              "text": "book (किताब)",
+              "imageUrl": "/uploads/curriculum/book.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाना"
+            },
+            {
+              "target": "speak",
+              "native": "बोलना"
+            },
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            },
+            {
+              "target": "apple",
+              "native": "सेब"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "हम साथ में खाते हैं।",
+          "targetSentence": "We eat together",
+          "tokens": [
+            "We",
+            "eat",
+            "together",
+            "drink",
+            "go"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "We _______.",
+          "blank": "together",
+          "translation": "हम साथ में खाते हैं।",
+          "options": [
+            "together",
+            "work",
+            "live"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "We eat together",
+          "tokens": [
+            "We",
+            "eat",
+            "together",
+            "drink",
+            "go"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "We eat together",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "हम साथ में खाते हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं स्कूल जाता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "हम साथ में खाते हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'काम करना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "work",
+          "translation": "काम करना",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "We eat together",
+          "translation": "हम साथ में खाते हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "We eat together. Everything is in order.",
+          "translationText": "हम साथ में खाते हैं। सब कुछ सही क्रम में है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Common Everyday Verbs & SVO • Lesson 9",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: मौखिक अभ्यास (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'स्कूल' के लिए सही चित्र चुनें:",
+          "targetWord": "school",
+          "translation": "स्कूल",
+          "options": [
+            {
+              "id": "u4_l9_p1",
+              "text": "school (स्कूल)",
+              "imageUrl": "/uploads/curriculum/school.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l9_p2",
+              "text": "English (अंग्रेज़ी)",
+              "imageUrl": "/uploads/curriculum/English.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l9_p3",
+              "text": "Hindi (हिंदी)",
+              "imageUrl": "/uploads/curriculum/Hindi.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "read",
+              "native": "पढ़ना"
+            },
+            {
+              "target": "come",
+              "native": "आना"
+            },
+            {
+              "target": "live",
+              "native": "रहना"
+            },
+            {
+              "target": "English",
+              "native": "अंग्रेज़ी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं यहाँ रहता हूँ।",
+          "targetSentence": "I live here",
+          "tokens": [
+            "I",
+            "live",
+            "here",
+            "work",
+            "there"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "here",
+          "translation": "मैं यहाँ रहता हूँ।",
+          "options": [
+            "here",
+            "school",
+            "English"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I live here",
+          "tokens": [
+            "I",
+            "live",
+            "here",
+            "work",
+            "there"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I live here",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं यहाँ रहता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मुझे किताबें पसंद हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं यहाँ रहता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'स्कूल' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "school",
+          "translation": "स्कूल",
+          "hint": "संकेत: S से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I like apples",
+          "translation": "मैं अंग्रेज़ी बोलता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I live here. Speak clearly and with confidence.",
+          "translationText": "मैं यहाँ रहता हूँ। स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Common Everyday Verbs & SVO • Lesson 10",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: संवाद अभ्यास (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'लिखना' के लिए सही चित्र चुनें:",
+          "targetWord": "write",
+          "translation": "लिखना",
+          "options": [
+            {
+              "id": "u4_l10_p1",
+              "text": "write (लिखना)",
+              "imageUrl": "/uploads/curriculum/write.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l10_p2",
+              "text": "see (देखना)",
+              "imageUrl": "/uploads/curriculum/see.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l10_p3",
+              "text": "book (किताब)",
+              "imageUrl": "/uploads/curriculum/book.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "drink",
+              "native": "पीना"
+            },
+            {
+              "target": "speak",
+              "native": "बोलना"
+            },
+            {
+              "target": "work",
+              "native": "काम करना"
+            },
+            {
+              "target": "school",
+              "native": "स्कूल"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं सेब खाता हूँ।",
+          "targetSentence": "I eat an apple",
+          "tokens": [
+            "I",
+            "eat",
+            "an",
+            "apple",
+            "bread",
+            "drink"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "apple",
+          "translation": "मैं सेब खाता हूँ।",
+          "options": [
+            "apple",
+            "write",
+            "see"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "We eat together",
+          "tokens": [
+            "We",
+            "eat",
+            "together",
+            "drink",
+            "go"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I live here",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं यहाँ रहता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह अंग्रेज़ी पढ़ती है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं यहाँ रहता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'लिखना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "write",
+          "translation": "लिखना",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I speak English",
+          "translation": "मैं सेब खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I go to school and read books. I like English very much.",
+          "translationText": "मैं स्कूल जाता हूँ और किताबें पढ़ता हूँ। मुझे अंग्रेज़ी बहुत पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Common Everyday Verbs & SVO • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Common Everyday Verbs & SVO • Unit 4 Milestone Exam",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'खाना' के लिए सही चित्र चुनें:",
+          "targetWord": "eat",
+          "translation": "खाना",
+          "options": [
+            {
+              "id": "u4_l12_p1",
+              "text": "eat (खाना)",
+              "imageUrl": "/uploads/curriculum/eat.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l12_p2",
+              "text": "speak (बोलना)",
+              "imageUrl": "/uploads/curriculum/speak.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l12_p3",
+              "text": "like (पसंद करना)",
+              "imageUrl": "/uploads/curriculum/like.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाना"
+            },
+            {
+              "target": "speak",
+              "native": "बोलना"
+            },
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            },
+            {
+              "target": "apple",
+              "native": "सेब"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह अंग्रेज़ी पढ़ती है।",
+          "targetSentence": "She reads English",
+          "tokens": [
+            "She",
+            "reads",
+            "English",
+            "speaks",
+            "Hindi"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "She _______.",
+          "blank": "English",
+          "translation": "वह अंग्रेज़ी पढ़ती है।",
+          "options": [
+            "English",
+            "eat",
+            "speak"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I live here",
+          "tokens": [
+            "I",
+            "live",
+            "here",
+            "work",
+            "there"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I like books",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मुझे किताबें पसंद हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं सेब खाता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मुझे किताबें पसंद हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'हिंदी' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "Hindi",
+          "translation": "हिंदी",
+          "hint": "संकेत: H से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Rahul",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "I am eating bread.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I speak English",
+          "translation": "मैं सेब खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I go to school and read books. I like English very much.",
+          "translationText": "मैं स्कूल जाता हूँ और किताबें पढ़ता हूँ। मुझे अंग्रेज़ी बहुत पसंद है।",
           "audioUrl": ""
         }
       ]
