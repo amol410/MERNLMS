@@ -148,7 +148,10 @@ describe('Curriculum, Lesson Management, and Publishing API', () => {
             const stages = [
                 {
                     type: 'word_match',
-                    pairs: [{ target: 'Hallo', native: 'Hello' }],
+                    pairs: [
+                        { target: 'Hallo', native: 'Hello' },
+                        { target: 'Tschüss', native: 'Bye' },
+                    ],
                 },
                 {
                     type: 'cloze_test',
@@ -188,7 +191,10 @@ describe('Curriculum, Lesson Management, and Publishing API', () => {
             expect(returnedStages).toHaveLength(2);
 
             expect(returnedStages[0].type).toBe('word_match');
-            expect(returnedStages[0].pairs).toEqual([{ target: 'Hallo', native: 'Hello' }]);
+            expect(returnedStages[0].pairs).toEqual([
+                { target: 'Hallo', native: 'Hello' },
+                { target: 'Tschüss', native: 'Bye' },
+            ]);
 
             expect(returnedStages[1].type).toBe('cloze_test');
             expect(returnedStages[1].sentence).toBe('Ich _____ Anna.');

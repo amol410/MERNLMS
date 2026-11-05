@@ -412,6 +412,82 @@ describe('Curriculum & Bulk Upload Validation Suite', () => {
             expect(u2.totalLessons).toBe(1);
             expect(u2.liveLessons).toBe(1);
         });
+
+        it('automatically respects root-level unitNumber, unitTitle, and languages declared in uploaded JSON file even if req.body has stale default unitNumber', async () => {
+            // Simulate user being on unit 1 (or default req.body.unitNumber = 1), but uploading a Unit 2 curriculum file
+            const unit2FileContent = JSON.stringify({
+                courseTitle: 'English A1 Comprehensive Curriculum (For Hindi Speakers)',
+                learningLanguage: 'en',
+                nativeLanguage: 'hi',
+                level: 'A1',
+                unitNumber: 2,
+                unitTitle: 'Food, Drinks & Temperatures',
+                unitDescription: 'खान-पान और तापमान',
+                lessons: [
+                    {
+                        lessonIndex: 0,
+                        title: 'Food & Drinks • Lesson 1',
+                        subtitle: 'Hot & cold drinks',
+                        nodeType: 'lesson',
+                        xpReward: 15,
+                        pearlsReward: 5,
+                        stages: [
+                            {
+                                type: 'word_match',
+                                pairs: [
+                                    { target: 'water', native: 'पानी' },
+                                    { target: 'tea', native: 'चाय' },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            });
+
+            const uploadReq = {
+                user: adminUser,
+                body: {
+                    learningLanguage: 'en',
+                    nativeLanguage: 'hi',
+                    level: 'A1',
+                    unitNumber: 1, // Stale unit number from UI state
+                    unitTitle: 'Coral Reef',
+                    lessonsData: unit2FileContent,
+                },
+            };
+            const uploadRes = createMockRes();
+
+            await curriculumController.bulkUpload(uploadReq, uploadRes, () => {});
+
+            expect(uploadRes.statusCode).toBe(201);
+            expect(uploadRes.body.unitNumber).toBe(2);
+            expect(uploadRes.body.unitTitle).toBe('Food, Drinks & Temperatures');
+
+            // Verify lessons were saved under unitNumber = 2, NOT unitNumber = 1
+            const lessonsInUnit2 = await CurriculumLesson.findAll({
+                where: {
+                    learningLanguage: 'en',
+                    nativeLanguage: 'hi',
+                    level: 'A1',
+                    unitNumber: 2,
+                },
+            });
+
+            expect(lessonsInUnit2.length).toBe(1);
+            expect(lessonsInUnit2[0].unitNumber).toBe(2);
+            expect(lessonsInUnit2[0].unitTitle).toBe('Food, Drinks & Temperatures');
+            expect(lessonsInUnit2[0].unitDescription).toBe('खान-पान और तापमान');
+
+            const lessonsInUnit1 = await CurriculumLesson.findAll({
+                where: {
+                    learningLanguage: 'en',
+                    nativeLanguage: 'hi',
+                    level: 'A1',
+                    unitNumber: 1,
+                },
+            });
+            expect(lessonsInUnit1.length).toBe(0);
+        });
     });
 
     // =========================================================================

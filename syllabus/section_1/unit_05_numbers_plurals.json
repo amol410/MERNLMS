@@ -1,0 +1,766 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Hindi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "hi",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 5,
+  "unitTitle": "Numbers, Quantities & Plurals",
+  "unitDescription": "संख्याएं, मात्रा और बहुवचन",
+  "accentColor": "#FF4B4B",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Numbers, Quantities & Plurals • Lesson 1",
+      "subtitle": "संख्याएं, मात्रा और बहुवचन: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "one",
+              "native": "एक"
+            },
+            {
+              "target": "two",
+              "native": "दो"
+            },
+            {
+              "target": "three",
+              "native": "तीन"
+            },
+            {
+              "target": "four",
+              "native": "चार"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "एक पेन और दो गाड़ियाँ",
+          "targetSentence": "one pen and two cars",
+          "tokens": [
+            "one",
+            "pen",
+            "and",
+            "two",
+            "cars",
+            "three"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "one pen and two cars",
+          "tokens": [
+            "one",
+            "pen",
+            "and",
+            "two",
+            "cars",
+            "three"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "one _______.",
+          "blank": "cars",
+          "translation": "एक पेन और दो गाड़ियाँ",
+          "options": [
+            "cars",
+            "two",
+            "three"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग लिखें",
+          "prompt": "'एक' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "one",
+          "hint": "संकेत: o से शुरू होता है"
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Numbers, Quantities & Plurals • Lesson 2",
+      "subtitle": "संख्याएं, मात्रा और बहुवचन: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "five",
+              "native": "पाँच"
+            },
+            {
+              "target": "six",
+              "native": "छह"
+            },
+            {
+              "target": "seven",
+              "native": "सात"
+            },
+            {
+              "target": "eight",
+              "native": "आठ"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "तीन कप चाय",
+          "targetSentence": "three cups of tea",
+          "tokens": [
+            "three",
+            "cups",
+            "of",
+            "tea",
+            "coffee",
+            "four"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "पाँच बड़े घर",
+          "targetSentence": "five big houses",
+          "tokens": [
+            "five",
+            "big",
+            "houses",
+            "small",
+            "six"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "three cups of tea",
+          "tokens": [
+            "three",
+            "cups",
+            "of",
+            "tea",
+            "coffee",
+            "four"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I have two pens",
+          "translation": "एक पेन और दो गाड़ियाँ",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Numbers, Quantities & Plurals • Lesson 3",
+      "subtitle": "संख्याएं, मात्रा और बहुवचन: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "nine",
+              "native": "नौ"
+            },
+            {
+              "target": "ten",
+              "native": "दस"
+            },
+            {
+              "target": "pen",
+              "native": "पेन"
+            },
+            {
+              "target": "pens",
+              "native": "पेन (बहुवचन)"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरे पास सात सेब हैं।",
+          "targetSentence": "I have seven apples",
+          "tokens": [
+            "I",
+            "have",
+            "seven",
+            "apples",
+            "books",
+            "eight"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I have seven _______.",
+          "blank": "apples",
+          "translation": "मेरे पास सात सेब हैं।",
+          "options": [
+            "apples",
+            "one",
+            "six"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "five big houses",
+          "tokens": [
+            "five",
+            "big",
+            "houses",
+            "small",
+            "six"
+          ],
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Numbers, Quantities & Plurals • Lesson 4",
+      "subtitle": "संख्याएं, मात्रा और बहुवचन: श्रवण और समझ",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "I have seven apples",
+          "tokens": [
+            "I",
+            "have",
+            "seven",
+            "apples",
+            "books",
+            "eight"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "ten students are here",
+          "tokens": [
+            "ten",
+            "students",
+            "are",
+            "here",
+            "teachers",
+            "there"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "रैपिड मिलान",
+          "pairs": [
+            {
+              "target": "one",
+              "native": "एक"
+            },
+            {
+              "target": "four",
+              "native": "चार"
+            },
+            {
+              "target": "seven",
+              "native": "सात"
+            },
+            {
+              "target": "ten",
+              "native": "दस"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "दस छात्र यहाँ हैं।",
+          "targetSentence": "ten students are here",
+          "tokens": [
+            "ten",
+            "students",
+            "are",
+            "here",
+            "teachers",
+            "there"
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Numbers, Quantities & Plurals • Lesson 5",
+      "subtitle": "संख्याएं, मात्रा और बहुवचन: व्यावहारिक प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "apples",
+              "native": "सेब"
+            },
+            {
+              "target": "many",
+              "native": "कई"
+            },
+            {
+              "target": "only",
+              "native": "केवल"
+            },
+            {
+              "target": "children",
+              "native": "बच्चे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "उसके कई दोस्त हैं।",
+          "targetSentence": "He has many friends",
+          "tokens": [
+            "He",
+            "has",
+            "many",
+            "friends",
+            "only",
+            "one"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "He has many _______.",
+          "blank": "friends",
+          "translation": "उसके कई दोस्त हैं।",
+          "options": [
+            "friends",
+            "three",
+            "nine"
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Five students are here",
+          "translation": "आपके पास कितनी गाड़ियाँ हैं?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Numbers, Quantities & Plurals • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Numbers, Quantities & Plurals • Lesson 7",
+      "subtitle": "संख्याएं, मात्रा और बहुवचन: विस्तृत वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "आपके पास कितनी गाड़ियाँ हैं?",
+          "targetSentence": "How many cars do you have?",
+          "tokens": [
+            "How",
+            "many",
+            "cars",
+            "do",
+            "you",
+            "have?"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "केवल एक किताब, कृपया।",
+          "targetSentence": "Only one book, please",
+          "tokens": [
+            "Only",
+            "one",
+            "book,",
+            "please",
+            "two",
+            "pens"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "How many cars do you have?",
+          "tokens": [
+            "How",
+            "many",
+            "cars",
+            "do",
+            "you",
+            "have?"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "two",
+              "native": "दो"
+            },
+            {
+              "target": "five",
+              "native": "पाँच"
+            },
+            {
+              "target": "eight",
+              "native": "आठ"
+            },
+            {
+              "target": "pens",
+              "native": "पेन (बहुवचन)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Numbers, Quantities & Plurals • Lesson 8",
+      "subtitle": "संख्याएं, मात्रा और बहुवचन: बातचीत और संवाद",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "dialogue_bubble",
+          "title": "संवाद पूरा करें",
+          "partnerName": "Shopkeeper",
+          "partnerMessage": "How many apples do you want?",
+          "translation": "आपको कितने सेब चाहिए?",
+          "options": [
+            {
+              "text": "Four apples, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "He is my teacher.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "केवल एक किताब, कृपया।",
+          "targetSentence": "Only one book, please",
+          "tokens": [
+            "Only",
+            "one",
+            "book,",
+            "please",
+            "two",
+            "pens"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Only one book, _______.",
+          "blank": "please",
+          "translation": "केवल एक किताब, कृपया।",
+          "options": [
+            "please",
+            "four",
+            "ten"
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Numbers, Quantities & Plurals • Lesson 9",
+      "subtitle": "संख्याएं, मात्रा और बहुवचन: मौखिक उच्चारण अभ्यास",
+      "nodeType": "lesson",
+      "xpReward": 25,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "I have two pens",
+          "translation": "एक पेन और दो गाड़ियाँ",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "Five students are here",
+          "translation": "तीन कप चाय",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "Three cars",
+          "translation": "पाँच बड़े घर",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "शब्द मिलान",
+          "pairs": [
+            {
+              "target": "three",
+              "native": "तीन"
+            },
+            {
+              "target": "six",
+              "native": "छह"
+            },
+            {
+              "target": "nine",
+              "native": "नौ"
+            },
+            {
+              "target": "many",
+              "native": "कई"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Numbers, Quantities & Plurals • Lesson 10",
+      "subtitle": "संख्याएं, मात्रा और बहुवचन: समग्र पुनरावृत्ति",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "5-जोड़ी मिलान",
+          "pairs": [
+            {
+              "target": "one",
+              "native": "एक"
+            },
+            {
+              "target": "four",
+              "native": "चार"
+            },
+            {
+              "target": "eight",
+              "native": "आठ"
+            },
+            {
+              "target": "pen",
+              "native": "पेन"
+            },
+            {
+              "target": "only",
+              "native": "केवल"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "He has many friends",
+          "tokens": [
+            "He",
+            "has",
+            "many",
+            "friends",
+            "only",
+            "one"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "आपके पास कितनी गाड़ियाँ हैं?",
+          "targetSentence": "How many cars do you have?",
+          "tokens": [
+            "How",
+            "many",
+            "cars",
+            "do",
+            "you",
+            "have?"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'दो' के लिए सही शब्द टाइप करें:",
+          "target": "two",
+          "hint": "संकेत: t से शुरू होता है"
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Numbers, Quantities & Plurals • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Numbers, Quantities & Plurals • Numbers, Quantities & Plurals • Milestone Exam",
+      "subtitle": "इकाई 5 संपूर्ण परीक्षा",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "इकाई 5 मुख्य शब्द परीक्षा",
+          "pairs": [
+            {
+              "target": "one",
+              "native": "एक"
+            },
+            {
+              "target": "three",
+              "native": "तीन"
+            },
+            {
+              "target": "five",
+              "native": "पाँच"
+            },
+            {
+              "target": "seven",
+              "native": "सात"
+            },
+            {
+              "target": "nine",
+              "native": "नौ"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
+          "prompt": "मेरे पास सात सेब हैं।",
+          "targetSentence": "I have seven apples",
+          "tokens": [
+            "I",
+            "have",
+            "seven",
+            "apples",
+            "books",
+            "eight"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
+          "targetSentence": "Only one book, please",
+          "tokens": [
+            "Only",
+            "one",
+            "book,",
+            "please",
+            "two",
+            "pens"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "cloze_test",
+          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
+          "sentence": "three cups of _______.",
+          "blank": "tea",
+          "translation": "तीन कप चाय",
+          "options": [
+            "tea",
+            "six",
+            "ten"
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
+          "prompt": "I have two pens",
+          "translation": "एक पेन और दो गाड़ियाँ",
+          "minAccuracy": 80,
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

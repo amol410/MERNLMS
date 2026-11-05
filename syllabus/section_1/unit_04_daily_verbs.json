@@ -1,0 +1,765 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Hindi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "hi",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 4,
+  "unitTitle": "Common Everyday Verbs & SVO",
+  "unitDescription": "रोज़मर्रा की क्रियाएं और वाक्य संरचना",
+  "accentColor": "#FF9600",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Common Everyday Verbs & SVO • Lesson 1",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाना"
+            },
+            {
+              "target": "drink",
+              "native": "पीना"
+            },
+            {
+              "target": "read",
+              "native": "पढ़ना"
+            },
+            {
+              "target": "write",
+              "native": "लिखना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं ब्रेड खाता हूँ।",
+          "targetSentence": "I eat bread",
+          "tokens": [
+            "I",
+            "eat",
+            "bread",
+            "drink",
+            "water"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "I eat bread",
+          "tokens": [
+            "I",
+            "eat",
+            "bread",
+            "drink",
+            "water"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "bread",
+          "translation": "मैं ब्रेड खाता हूँ।",
+          "options": [
+            "bread",
+            "drink",
+            "read"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग लिखें",
+          "prompt": "'खाना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "eat",
+          "hint": "संकेत: e से शुरू होता है"
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Common Everyday Verbs & SVO • Lesson 2",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "speak",
+              "native": "बोलना"
+            },
+            {
+              "target": "go",
+              "native": "जाना"
+            },
+            {
+              "target": "come",
+              "native": "आना"
+            },
+            {
+              "target": "see",
+              "native": "देखना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं किताब पढ़ता हूँ।",
+          "targetSentence": "I read a book",
+          "tokens": [
+            "I",
+            "read",
+            "a",
+            "book",
+            "write",
+            "school"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं हिंदी और अंग्रेज़ी बोलता हूँ।",
+          "targetSentence": "I speak Hindi and English",
+          "tokens": [
+            "I",
+            "speak",
+            "Hindi",
+            "and",
+            "English",
+            "read"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "I read a book",
+          "tokens": [
+            "I",
+            "read",
+            "a",
+            "book",
+            "write",
+            "school"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I speak English every day",
+          "translation": "मैं ब्रेड खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Common Everyday Verbs & SVO • Lesson 3",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            },
+            {
+              "target": "work",
+              "native": "काम करना"
+            },
+            {
+              "target": "live",
+              "native": "रहना"
+            },
+            {
+              "target": "book",
+              "native": "किताब"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं स्कूल जाता हूँ।",
+          "targetSentence": "I go to school",
+          "tokens": [
+            "I",
+            "go",
+            "to",
+            "school",
+            "office",
+            "come"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I go to _______.",
+          "blank": "school",
+          "translation": "मैं स्कूल जाता हूँ।",
+          "options": [
+            "school",
+            "eat",
+            "go"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "I speak Hindi and English",
+          "tokens": [
+            "I",
+            "speak",
+            "Hindi",
+            "and",
+            "English",
+            "read"
+          ],
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Common Everyday Verbs & SVO • Lesson 4",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: श्रवण और समझ",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "I go to school",
+          "tokens": [
+            "I",
+            "go",
+            "to",
+            "school",
+            "office",
+            "come"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "She works in an office",
+          "tokens": [
+            "She",
+            "works",
+            "in",
+            "an",
+            "office",
+            "school",
+            "lives"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "रैपिड मिलान",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाना"
+            },
+            {
+              "target": "write",
+              "native": "लिखना"
+            },
+            {
+              "target": "come",
+              "native": "आना"
+            },
+            {
+              "target": "work",
+              "native": "काम करना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह कार्यालय में काम करती है।",
+          "targetSentence": "She works in an office",
+          "tokens": [
+            "She",
+            "works",
+            "in",
+            "an",
+            "office",
+            "school",
+            "lives"
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Common Everyday Verbs & SVO • Lesson 5",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: व्यावहारिक प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "apple",
+              "native": "सेब"
+            },
+            {
+              "target": "school",
+              "native": "स्कूल"
+            },
+            {
+              "target": "English",
+              "native": "अंग्रेज़ी"
+            },
+            {
+              "target": "Hindi",
+              "native": "हिंदी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मुझे चाय बहुत पसंद है।",
+          "targetSentence": "I like tea very much",
+          "tokens": [
+            "I",
+            "like",
+            "tea",
+            "very",
+            "much",
+            "coffee"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I like tea very _______.",
+          "blank": "much",
+          "translation": "मुझे चाय बहुत पसंद है।",
+          "options": [
+            "much",
+            "read",
+            "like"
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I read a book",
+          "translation": "कृपया धीरे बोलिए।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Common Everyday Verbs & SVO • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Common Everyday Verbs & SVO • Lesson 7",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: विस्तृत वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "कृपया धीरे बोलिए।",
+          "targetSentence": "Speak slowly, please",
+          "tokens": [
+            "Speak",
+            "slowly,",
+            "please",
+            "fast",
+            "read"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "हम साथ में खाना खाते हैं।",
+          "targetSentence": "We eat food together",
+          "tokens": [
+            "We",
+            "eat",
+            "food",
+            "together",
+            "drink",
+            "water"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "Speak slowly, please",
+          "tokens": [
+            "Speak",
+            "slowly,",
+            "please",
+            "fast",
+            "read"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "drink",
+              "native": "पीना"
+            },
+            {
+              "target": "speak",
+              "native": "बोलना"
+            },
+            {
+              "target": "see",
+              "native": "देखना"
+            },
+            {
+              "target": "book",
+              "native": "किताब"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Common Everyday Verbs & SVO • Lesson 8",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: बातचीत और संवाद",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "dialogue_bubble",
+          "title": "संवाद पूरा करें",
+          "partnerName": "Teacher",
+          "partnerMessage": "Do you speak English?",
+          "translation": "क्या आप अंग्रेज़ी बोलते हैं?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is small.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "हम साथ में खाना खाते हैं।",
+          "targetSentence": "We eat food together",
+          "tokens": [
+            "We",
+            "eat",
+            "food",
+            "together",
+            "drink",
+            "water"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "We eat food _______.",
+          "blank": "together",
+          "translation": "हम साथ में खाना खाते हैं।",
+          "options": [
+            "together",
+            "write",
+            "work"
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Common Everyday Verbs & SVO • Lesson 9",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: मौखिक उच्चारण अभ्यास",
+      "nodeType": "lesson",
+      "xpReward": 25,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "I speak English every day",
+          "translation": "मैं ब्रेड खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "I read a book",
+          "translation": "मैं किताब पढ़ता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "I like tea",
+          "translation": "मैं हिंदी और अंग्रेज़ी बोलता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "शब्द मिलान",
+          "pairs": [
+            {
+              "target": "read",
+              "native": "पढ़ना"
+            },
+            {
+              "target": "go",
+              "native": "जाना"
+            },
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            },
+            {
+              "target": "school",
+              "native": "स्कूल"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Common Everyday Verbs & SVO • Lesson 10",
+      "subtitle": "रोज़मर्रा की क्रियाएं और वाक्य संरचना: समग्र पुनरावृत्ति",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "5-जोड़ी मिलान",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाना"
+            },
+            {
+              "target": "write",
+              "native": "लिखना"
+            },
+            {
+              "target": "see",
+              "native": "देखना"
+            },
+            {
+              "target": "live",
+              "native": "रहना"
+            },
+            {
+              "target": "English",
+              "native": "अंग्रेज़ी"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "I like tea very much",
+          "tokens": [
+            "I",
+            "like",
+            "tea",
+            "very",
+            "much",
+            "coffee"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "कृपया धीरे बोलिए।",
+          "targetSentence": "Speak slowly, please",
+          "tokens": [
+            "Speak",
+            "slowly,",
+            "please",
+            "fast",
+            "read"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पीना' के लिए सही शब्द टाइप करें:",
+          "target": "drink",
+          "hint": "संकेत: d से शुरू होता है"
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Common Everyday Verbs & SVO • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Common Everyday Verbs & SVO • Common Everyday Verbs & SVO • Milestone Exam",
+      "subtitle": "इकाई 4 संपूर्ण परीक्षा",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "इकाई 4 मुख्य शब्द परीक्षा",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाना"
+            },
+            {
+              "target": "read",
+              "native": "पढ़ना"
+            },
+            {
+              "target": "speak",
+              "native": "बोलना"
+            },
+            {
+              "target": "come",
+              "native": "आना"
+            },
+            {
+              "target": "like",
+              "native": "पसंद करना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
+          "prompt": "मैं स्कूल जाता हूँ।",
+          "targetSentence": "I go to school",
+          "tokens": [
+            "I",
+            "go",
+            "to",
+            "school",
+            "office",
+            "come"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
+          "targetSentence": "We eat food together",
+          "tokens": [
+            "We",
+            "eat",
+            "food",
+            "together",
+            "drink",
+            "water"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "cloze_test",
+          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
+          "sentence": "I read a _______.",
+          "blank": "book",
+          "translation": "मैं किताब पढ़ता हूँ।",
+          "options": [
+            "book",
+            "go",
+            "work"
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
+          "prompt": "I speak English every day",
+          "translation": "मैं ब्रेड खाता हूँ।",
+          "minAccuracy": 80,
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}
