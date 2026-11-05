@@ -22,8 +22,8 @@ export default function AdminPage() {
     min_version_name: '1.4.3',
     latest_version_name: '1.4.3',
     update_url: 'https://play.google.com/store/apps/details?id=com.dolphincoder.lms',
-    title: 'Update Required',
-    message: 'A newer version of DolphinCoder is available on Google Play. Please update to continue your learning journey.',
+    title: 'Critical Security Update',
+    message: 'Please update to v1.4.3 immediately to continue learning.',
   });
   const [loadingVersion, setLoadingVersion] = useState(false);
   const [savingVersion, setSavingVersion] = useState(false);
@@ -609,7 +609,14 @@ export default function AdminPage() {
                     <span className="text-xs text-gray-500 font-medium">Quick Set:</span>
                     <button
                       type="button"
-                      onClick={() => setVersionConfig({ ...versionConfig, min_required_version: 29, min_version_name: '1.4.3', latest_version_name: '1.4.3' })}
+                      onClick={() => setVersionConfig({
+                        ...versionConfig,
+                        min_required_version: 29,
+                        min_version_name: '1.4.3',
+                        latest_version_name: '1.4.3',
+                        title: 'Critical Security Update',
+                        message: 'Please update to v1.4.3 immediately to continue learning.'
+                      })}
                       className="px-2.5 py-1 rounded-lg text-xs bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 transition-all cursor-pointer"
                     >
                       Build 29 (Current Stable)

@@ -70,8 +70,8 @@ app.get('/app_version.json', (req, res) => {
         min_version_name: "1.4.3",
         latest_version_name: "1.4.3",
         update_url: "https://play.google.com/store/apps/details?id=com.dolphincoder.lms",
-        title: "Update Required",
-        message: "A newer version of DolphinCoder is available on Google Play. Please update to continue your learning journey."
+        title: "Critical Security Update",
+        message: "Please update to v1.4.3 immediately to continue learning."
     });
 });
 
