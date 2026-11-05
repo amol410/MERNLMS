@@ -1,0 +1,1700 @@
+{
+  "courseTitle": "German A1 Comprehensive Curriculum (For English Speakers)",
+  "learningLanguage": "de",
+  "nativeLanguage": "en",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 9,
+  "unitTitle": "Expressing Needs, Likes & Courtesies",
+  "unitDescription": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners",
+  "accentColor": "#CE82FF",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 1",
+      "subtitle": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners: Core Words",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'I would like':",
+          "targetWord": "ich möchte",
+          "translation": "I would like",
+          "options": [
+            {
+              "id": "de_u9_l1_p1",
+              "text": "ich möchte (I would like)",
+              "imageUrl": "/uploads/curriculum/i_would_like.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u9_l1_p2",
+              "text": "ich brauche (I need)",
+              "imageUrl": "/uploads/curriculum/i_need.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u9_l1_p3",
+              "text": "gern (gladly / like to)",
+              "imageUrl": "/uploads/curriculum/gladly_/_like_to.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "ich möchte",
+              "native": "I would like"
+            },
+            {
+              "target": "ich brauche",
+              "native": "I need"
+            },
+            {
+              "target": "gern",
+              "native": "gladly / like to"
+            },
+            {
+              "target": "nicht",
+              "native": "not"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I would like to pay, please",
+          "targetSentence": "ich möchte zahlen, bitte",
+          "tokens": [
+            "ich",
+            "möchte",
+            "zahlen,",
+            "bitte",
+            "brauche",
+            "Rechnung"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "bitte",
+          "translation": "I would like to pay, please",
+          "options": [
+            "bitte",
+            "ich brauche",
+            "gern"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich möchte zahlen, bitte",
+          "tokens": [
+            "ich",
+            "möchte",
+            "zahlen,",
+            "bitte",
+            "brauche",
+            "Rechnung"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich möchte zahlen, bitte",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I would like to pay, please",
+              "isCorrect": true
+            },
+            {
+              "text": "the check, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I would like to pay, please",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'I would like':",
+          "target": "ich möchte",
+          "translation": "I would like",
+          "hint": "Hint: starts with 'i'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kellner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchten Sie noch etwas bestellen?",
+          "translation": "Would you like to order anything else?",
+          "options": [
+            {
+              "text": "Nein danke, ich möchte zahlen, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Die Hose ist schwarz.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Nein danke, ich möchte zahlen, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "ich möchte zahlen, bitte",
+          "translation": "I would like to pay, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich möchte zahlen, bitte. ich möchte ist gut.",
+          "translationText": "I would like to pay, please. I would like is good.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 2",
+      "subtitle": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners: Sentence Syntax",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'no / none':",
+          "targetWord": "kein",
+          "translation": "no / none",
+          "options": [
+            {
+              "id": "de_u9_l2_p1",
+              "text": "kein (no / none)",
+              "imageUrl": "/uploads/curriculum/no_/_none.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u9_l2_p2",
+              "text": "Entschuldigung (excuse me / sorry)",
+              "imageUrl": "/uploads/curriculum/excuse_me_/_sorry.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u9_l2_p3",
+              "text": "bitte schön (here you go)",
+              "imageUrl": "/uploads/curriculum/here_you_go.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "kein",
+              "native": "no / none"
+            },
+            {
+              "target": "Entschuldigung",
+              "native": "excuse me / sorry"
+            },
+            {
+              "target": "bitte schön",
+              "native": "here you go"
+            },
+            {
+              "target": "gern geschehen",
+              "native": "you are welcome"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the check, please",
+          "targetSentence": "die Rechnung, bitte",
+          "tokens": [
+            "die",
+            "Rechnung,",
+            "bitte",
+            "Hilfe",
+            "zahlen"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "die _______ bitte.",
+          "blank": "Rechnung,",
+          "translation": "the check, please",
+          "options": [
+            "bitte",
+            "kein",
+            "Entschuldigung"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "die Rechnung, bitte",
+          "tokens": [
+            "die",
+            "Rechnung,",
+            "bitte",
+            "Hilfe",
+            "zahlen"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "die Rechnung, bitte",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the check, please",
+              "isCorrect": true
+            },
+            {
+              "text": "I like to drink coffee",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the check, please",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'no / none':",
+          "target": "kein",
+          "translation": "no / none",
+          "hint": "Hint: starts with 'k'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kellner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchten Sie noch etwas bestellen?",
+          "translation": "Would you like to order anything else?",
+          "options": [
+            {
+              "text": "Nein danke, ich möchte zahlen, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Die Hose ist schwarz.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Nein danke, ich möchte zahlen, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ich möchte bezahlen, bitte",
+            "I would like to pay, please"
+          ],
+          "translation": "I would like to pay, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "die Rechnung, bitte. Es ist sehr schön.",
+          "translationText": "the check, please. It is very nice.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 3",
+      "subtitle": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners: Compounds & Conjunctions",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'no problem':",
+          "targetWord": "kein Problem",
+          "translation": "no problem",
+          "options": [
+            {
+              "id": "de_u9_l3_p1",
+              "text": "kein Problem (no problem)",
+              "imageUrl": "/uploads/curriculum/no_problem.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u9_l3_p2",
+              "text": "Hilfe (help)",
+              "imageUrl": "/uploads/curriculum/help.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u9_l3_p3",
+              "text": "helfen (to help)",
+              "imageUrl": "/uploads/curriculum/to_help.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "kein Problem",
+              "native": "no problem"
+            },
+            {
+              "target": "Hilfe",
+              "native": "help"
+            },
+            {
+              "target": "helfen",
+              "native": "to help"
+            },
+            {
+              "target": "Rechnung",
+              "native": "bill / check"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I like to drink coffee",
+          "targetSentence": "ich trinke gern Kaffee",
+          "tokens": [
+            "ich",
+            "trinke",
+            "gern",
+            "Kaffee",
+            "Tee",
+            "nicht"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Kaffee",
+          "translation": "I like to drink coffee",
+          "options": [
+            "Kaffee",
+            "kein Problem",
+            "Hilfe"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich trinke gern Kaffee",
+          "tokens": [
+            "ich",
+            "trinke",
+            "gern",
+            "Kaffee",
+            "Tee",
+            "nicht"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich trinke gern Kaffee",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I like to drink coffee",
+              "isCorrect": true
+            },
+            {
+              "text": "I need your help",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I like to drink coffee",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'no problem':",
+          "target": "kein Problem",
+          "translation": "no problem",
+          "hint": "Hint: starts with 'k'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kellner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchten Sie noch etwas bestellen?",
+          "translation": "Would you like to order anything else?",
+          "options": [
+            {
+              "text": "Nein danke, ich möchte zahlen, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Die Hose ist schwarz.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Nein danke, ich möchte zahlen, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "ich trinke gern Kaffee",
+          "translation": "I like to drink coffee",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich trinke gern Kaffee. Wir mögen das.",
+          "translationText": "I like to drink coffee. We like this.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 4",
+      "subtitle": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners: Ear Training",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'I need':",
+          "targetWord": "ich brauche",
+          "translation": "I need",
+          "options": [
+            {
+              "id": "de_u9_l4_p1",
+              "text": "ich brauche (I need)",
+              "imageUrl": "/uploads/curriculum/i_need.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u9_l4_p2",
+              "text": "kein (no / none)",
+              "imageUrl": "/uploads/curriculum/no_/_none.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u9_l4_p3",
+              "text": "kein Problem (no problem)",
+              "imageUrl": "/uploads/curriculum/no_problem.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "ich brauche",
+              "native": "I need"
+            },
+            {
+              "target": "Entschuldigung",
+              "native": "excuse me / sorry"
+            },
+            {
+              "target": "Hilfe",
+              "native": "help"
+            },
+            {
+              "target": "gern",
+              "native": "gladly / like to"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I need your help",
+          "targetSentence": "ich brauche deine Hilfe",
+          "tokens": [
+            "ich",
+            "brauche",
+            "deine",
+            "Hilfe",
+            "möchte",
+            "Geld"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Hilfe",
+          "translation": "I need your help",
+          "options": [
+            "Hilfe",
+            "ich brauche",
+            "nicht"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich brauche deine Hilfe",
+          "tokens": [
+            "ich",
+            "brauche",
+            "deine",
+            "Hilfe",
+            "möchte",
+            "Geld"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich brauche deine Hilfe",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I need your help",
+              "isCorrect": true
+            },
+            {
+              "text": "I would like to pay, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I need your help",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'I need':",
+          "target": "ich brauche",
+          "translation": "I need",
+          "hint": "Hint: starts with 'i'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kellner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchten Sie noch etwas bestellen?",
+          "translation": "Would you like to order anything else?",
+          "options": [
+            {
+              "text": "Nein danke, ich möchte zahlen, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Die Hose ist schwarz.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Nein danke, ich möchte zahlen, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Entschuldigung, können Sie mir helfen?",
+            "Excuse me, can you help me?"
+          ],
+          "translation": "the check, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich brauche deine Hilfe. Höre und sprich jeden Tag.",
+          "translationText": "I need your help. Listen and speak every day.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 5",
+      "subtitle": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners: Context Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'to pay':",
+          "targetWord": "zahlen",
+          "translation": "to pay",
+          "options": [
+            {
+              "id": "de_u9_l5_p1",
+              "text": "zahlen (to pay)",
+              "imageUrl": "/uploads/curriculum/to_pay.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u9_l5_p2",
+              "text": "mögen (to like)",
+              "imageUrl": "/uploads/curriculum/to_like.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u9_l5_p3",
+              "text": "vielleicht (maybe)",
+              "imageUrl": "/uploads/curriculum/maybe.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "zahlen",
+              "native": "to pay"
+            },
+            {
+              "target": "mögen",
+              "native": "to like"
+            },
+            {
+              "target": "vielleicht",
+              "native": "maybe"
+            },
+            {
+              "target": "sehr",
+              "native": "very"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "excuse me, do you speak English?",
+          "targetSentence": "Entschuldigung, sprechen Sie Englisch?",
+          "tokens": [
+            "Entschuldigung,",
+            "sprechen",
+            "Sie",
+            "Englisch?",
+            "Deutsch",
+            "bitte"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Entschuldigung, _______.",
+          "blank": "Englisch?",
+          "translation": "excuse me, do you speak English?",
+          "options": [
+            "Englisch?",
+            "zahlen",
+            "mögen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Entschuldigung, sprechen Sie Englisch?",
+          "tokens": [
+            "Entschuldigung,",
+            "sprechen",
+            "Sie",
+            "Englisch?",
+            "Deutsch",
+            "bitte"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Entschuldigung, sprechen Sie Englisch?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "excuse me, do you speak English?",
+              "isCorrect": true
+            },
+            {
+              "text": "the check, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "excuse me, do you speak English?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'to pay':",
+          "target": "zahlen",
+          "translation": "to pay",
+          "hint": "Hint: starts with 'z'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kellner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchten Sie noch etwas bestellen?",
+          "translation": "Would you like to order anything else?",
+          "options": [
+            {
+              "text": "Nein danke, ich möchte zahlen, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Die Hose ist schwarz.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Nein danke, ich möchte zahlen, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "Entschuldigung, sprechen Sie Englisch?",
+          "translation": "excuse me, do you speak English?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Entschuldigung, sprechen Sie Englisch?. Du machst das sehr gut.",
+          "translationText": "excuse me, do you speak English?. You are doing very well.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Expressing Needs, Likes & Courtesies • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 7",
+      "subtitle": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners: Compound Usage",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'excuse me / sorry':",
+          "targetWord": "Entschuldigung",
+          "translation": "excuse me / sorry",
+          "options": [
+            {
+              "id": "de_u9_l7_p1",
+              "text": "Entschuldigung (excuse me / sorry)",
+              "imageUrl": "/uploads/curriculum/excuse_me_/_sorry.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u9_l7_p2",
+              "text": "bitte schön (here you go)",
+              "imageUrl": "/uploads/curriculum/here_you_go.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u9_l7_p3",
+              "text": "gern geschehen (you are welcome)",
+              "imageUrl": "/uploads/curriculum/you_are_welcome.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "nicht",
+              "native": "not"
+            },
+            {
+              "target": "gern geschehen",
+              "native": "you are welcome"
+            },
+            {
+              "target": "Rechnung",
+              "native": "bill / check"
+            },
+            {
+              "target": "sehr",
+              "native": "very"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "thank you very much! - You're welcome!",
+          "targetSentence": "vielen Dank! - Gern geschehen!",
+          "tokens": [
+            "vielen",
+            "Dank!",
+            "-",
+            "Gern",
+            "geschehen!",
+            "bitte"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "vielen _______.",
+          "blank": "geschehen!",
+          "translation": "thank you very much! - You're welcome!",
+          "options": [
+            "geschehen!",
+            "Entschuldigung",
+            "gern geschehen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "vielen Dank! - Gern geschehen!",
+          "tokens": [
+            "vielen",
+            "Dank!",
+            "-",
+            "Gern",
+            "geschehen!",
+            "bitte"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "vielen Dank! - Gern geschehen!",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "thank you very much! - You're welcome!",
+              "isCorrect": true
+            },
+            {
+              "text": "I like to drink coffee",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "thank you very much! - You're welcome!",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'excuse me / sorry':",
+          "target": "Entschuldigung",
+          "translation": "excuse me / sorry",
+          "hint": "Hint: starts with 'E'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kellner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchten Sie noch etwas bestellen?",
+          "translation": "Would you like to order anything else?",
+          "options": [
+            {
+              "text": "Nein danke, ich möchte zahlen, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Die Hose ist schwarz.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Nein danke, ich möchte zahlen, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "vielen Dank! - Gern geschehen!",
+          "translation": "thank you very much! - You're welcome!",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "vielen Dank! - Gern geschehen!. Übung macht den Meister.",
+          "translationText": "thank you very much! - You're welcome!. Practice makes perfect.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 8",
+      "subtitle": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners: Sentence Patterns",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'help':",
+          "targetWord": "Hilfe",
+          "translation": "help",
+          "options": [
+            {
+              "id": "de_u9_l8_p1",
+              "text": "Hilfe (help)",
+              "imageUrl": "/uploads/curriculum/help.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u9_l8_p2",
+              "text": "helfen (to help)",
+              "imageUrl": "/uploads/curriculum/to_help.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u9_l8_p3",
+              "text": "Rechnung (bill / check)",
+              "imageUrl": "/uploads/curriculum/bill_/_check.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "ich möchte",
+              "native": "I would like"
+            },
+            {
+              "target": "kein",
+              "native": "no / none"
+            },
+            {
+              "target": "kein Problem",
+              "native": "no problem"
+            },
+            {
+              "target": "zahlen",
+              "native": "to pay"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I do not like to eat meat",
+          "targetSentence": "ich esse nicht gern Fleisch",
+          "tokens": [
+            "ich",
+            "esse",
+            "nicht",
+            "gern",
+            "Fleisch",
+            "Brot"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Fleisch",
+          "translation": "I do not like to eat meat",
+          "options": [
+            "Fleisch",
+            "Hilfe",
+            "helfen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich esse nicht gern Fleisch",
+          "tokens": [
+            "ich",
+            "esse",
+            "nicht",
+            "gern",
+            "Fleisch",
+            "Brot"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich esse nicht gern Fleisch",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I do not like to eat meat",
+              "isCorrect": true
+            },
+            {
+              "text": "I need your help",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I do not like to eat meat",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'help':",
+          "target": "Hilfe",
+          "translation": "help",
+          "hint": "Hint: starts with 'H'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kellner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchten Sie noch etwas bestellen?",
+          "translation": "Would you like to order anything else?",
+          "options": [
+            {
+              "text": "Nein danke, ich möchte zahlen, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Die Hose ist schwarz.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Nein danke, ich möchte zahlen, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "ich esse nicht gern Fleisch",
+          "translation": "I do not like to eat meat",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich esse nicht gern Fleisch. Alles ist in bester Ordnung.",
+          "translationText": "I do not like to eat meat. Everything is in good order.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 9",
+      "subtitle": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners: Speech Lab",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'to like':",
+          "targetWord": "mögen",
+          "translation": "to like",
+          "options": [
+            {
+              "id": "de_u9_l9_p1",
+              "text": "mögen (to like)",
+              "imageUrl": "/uploads/curriculum/to_like.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u9_l9_p2",
+              "text": "vielleicht (maybe)",
+              "imageUrl": "/uploads/curriculum/maybe.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u9_l9_p3",
+              "text": "sehr (very)",
+              "imageUrl": "/uploads/curriculum/very.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "gern",
+              "native": "gladly / like to"
+            },
+            {
+              "target": "bitte schön",
+              "native": "here you go"
+            },
+            {
+              "target": "helfen",
+              "native": "to help"
+            },
+            {
+              "target": "vielleicht",
+              "native": "maybe"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "could you please help me?",
+          "targetSentence": "können Sie mir bitte helfen?",
+          "tokens": [
+            "können",
+            "Sie",
+            "mir",
+            "bitte",
+            "helfen?",
+            "brauche"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "können _______.",
+          "blank": "helfen?",
+          "translation": "could you please help me?",
+          "options": [
+            "helfen?",
+            "mögen",
+            "vielleicht"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "können Sie mir bitte helfen?",
+          "tokens": [
+            "können",
+            "Sie",
+            "mir",
+            "bitte",
+            "helfen?",
+            "brauche"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "können Sie mir bitte helfen?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "could you please help me?",
+              "isCorrect": true
+            },
+            {
+              "text": "excuse me, do you speak English?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "could you please help me?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'to like':",
+          "target": "mögen",
+          "translation": "to like",
+          "hint": "Hint: starts with 'm'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kellner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchten Sie noch etwas bestellen?",
+          "translation": "Would you like to order anything else?",
+          "options": [
+            {
+              "text": "Nein danke, ich möchte zahlen, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Die Hose ist schwarz.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Nein danke, ich möchte zahlen, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Vielen Dank! Gern geschehen!",
+            "Thank you very much! You're welcome!"
+          ],
+          "translation": "I like to drink coffee",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "können Sie mir bitte helfen?. Sprich deutlich und mit Freude.",
+          "translationText": "could you please help me?. Speak clearly and with joy.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Expressing Needs, Likes & Courtesies • Lesson 10",
+      "subtitle": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners: Dialogue Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'not':",
+          "targetWord": "nicht",
+          "translation": "not",
+          "options": [
+            {
+              "id": "de_u9_l10_p1",
+              "text": "nicht (not)",
+              "imageUrl": "/uploads/curriculum/not.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u9_l10_p2",
+              "text": "gern geschehen (you are welcome)",
+              "imageUrl": "/uploads/curriculum/you_are_welcome.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u9_l10_p3",
+              "text": "Rechnung (bill / check)",
+              "imageUrl": "/uploads/curriculum/bill_/_check.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "ich brauche",
+              "native": "I need"
+            },
+            {
+              "target": "kein",
+              "native": "no / none"
+            },
+            {
+              "target": "Hilfe",
+              "native": "help"
+            },
+            {
+              "target": "mögen",
+              "native": "to like"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I would like to pay, please",
+          "targetSentence": "ich möchte zahlen, bitte",
+          "tokens": [
+            "ich",
+            "möchte",
+            "zahlen,",
+            "bitte",
+            "brauche",
+            "Rechnung"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "bitte",
+          "translation": "I would like to pay, please",
+          "options": [
+            "bitte",
+            "nicht",
+            "gern geschehen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich esse nicht gern Fleisch",
+          "tokens": [
+            "ich",
+            "esse",
+            "nicht",
+            "gern",
+            "Fleisch",
+            "Brot"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "können Sie mir bitte helfen?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "could you please help me?",
+              "isCorrect": true
+            },
+            {
+              "text": "thank you very much! - You're welcome!",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "could you please help me?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'not':",
+          "target": "nicht",
+          "translation": "not",
+          "hint": "Hint: starts with 'n'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kellner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchten Sie noch etwas bestellen?",
+          "translation": "Would you like to order anything else?",
+          "options": [
+            {
+              "text": "Nein danke, ich möchte zahlen, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Die Hose ist schwarz.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Nein danke, ich möchte zahlen, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ich möchte bezahlen, bitte",
+            "I would like to pay, please"
+          ],
+          "translation": "I would like to pay, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Entschuldigung! Ich brauche Hilfe. Können Sie mir bitte helfen? Vielen Dank!",
+          "translationText": "Excuse me! I need help. Could you please help me? Thank you very much!",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Expressing Needs, Likes & Courtesies • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Expressing Needs, Likes & Courtesies • Unit 9 Milestone Exam",
+      "subtitle": "Polite German requests with 'ich möchte', preferences with 'gern', and courteous manners: Comprehensive Unit Exam (Trophy Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'I would like':",
+          "targetWord": "ich möchte",
+          "translation": "I would like",
+          "options": [
+            {
+              "id": "de_u9_l12_p1",
+              "text": "ich möchte (I would like)",
+              "imageUrl": "/uploads/curriculum/i_would_like.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u9_l12_p2",
+              "text": "kein (no / none)",
+              "imageUrl": "/uploads/curriculum/no_/_none.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u9_l12_p3",
+              "text": "kein Problem (no problem)",
+              "imageUrl": "/uploads/curriculum/no_problem.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "ich möchte",
+              "native": "I would like"
+            },
+            {
+              "target": "kein",
+              "native": "no / none"
+            },
+            {
+              "target": "kein Problem",
+              "native": "no problem"
+            },
+            {
+              "target": "zahlen",
+              "native": "to pay"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "thank you very much! - You're welcome!",
+          "targetSentence": "vielen Dank! - Gern geschehen!",
+          "tokens": [
+            "vielen",
+            "Dank!",
+            "-",
+            "Gern",
+            "geschehen!",
+            "bitte"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "vielen _______.",
+          "blank": "geschehen!",
+          "translation": "thank you very much! - You're welcome!",
+          "options": [
+            "geschehen!",
+            "ich möchte",
+            "kein"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "können Sie mir bitte helfen?",
+          "tokens": [
+            "können",
+            "Sie",
+            "mir",
+            "bitte",
+            "helfen?",
+            "brauche"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Entschuldigung, sprechen Sie Englisch?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "excuse me, do you speak English?",
+              "isCorrect": true
+            },
+            {
+              "text": "I would like to pay, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "excuse me, do you speak English?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'very':",
+          "target": "sehr",
+          "translation": "very",
+          "hint": "Hint: starts with 's'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kellner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchten Sie noch etwas bestellen?",
+          "translation": "Would you like to order anything else?",
+          "options": [
+            {
+              "text": "Nein danke, ich möchte zahlen, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Die Hose ist schwarz.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Nein danke, ich möchte zahlen, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ich möchte bezahlen, bitte",
+            "I would like to pay, please"
+          ],
+          "translation": "I would like to pay, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Entschuldigung! Ich brauche Hilfe. Können Sie mir bitte helfen? Vielen Dank!",
+          "translationText": "Excuse me! I need help. Could you please help me? Thank you very much!",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

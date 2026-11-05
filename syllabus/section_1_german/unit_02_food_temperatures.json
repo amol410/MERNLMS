@@ -1,0 +1,1697 @@
+{
+  "courseTitle": "German A1 Comprehensive Curriculum (For English Speakers)",
+  "learningLanguage": "de",
+  "nativeLanguage": "en",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 2,
+  "unitTitle": "Food, Bakery & Drinks",
+  "unitDescription": "German bread, café culture, cold cuts and daily beverages",
+  "accentColor": "#58CC02",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Food, Bakery & Drinks • Lesson 1",
+      "subtitle": "German bread, café culture, cold cuts and daily beverages: Core Words",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'bread':",
+          "targetWord": "Brot",
+          "translation": "bread",
+          "options": [
+            {
+              "id": "de_u2_l1_p1",
+              "text": "Brot (bread)",
+              "imageUrl": "/uploads/curriculum/bread.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u2_l1_p2",
+              "text": "Brötchen (bread roll)",
+              "imageUrl": "/uploads/curriculum/bread_roll.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u2_l1_p3",
+              "text": "Kaffee (coffee)",
+              "imageUrl": "/uploads/curriculum/coffee.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Brot",
+              "native": "bread"
+            },
+            {
+              "target": "Brötchen",
+              "native": "bread roll"
+            },
+            {
+              "target": "Kaffee",
+              "native": "coffee"
+            },
+            {
+              "target": "Tee",
+              "native": "tea"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "coffee, please",
+          "targetSentence": "Kaffee, bitte",
+          "tokens": [
+            "Kaffee,",
+            "bitte",
+            "Tee",
+            "danke",
+            "heiß"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Kaffee, _______.",
+          "blank": "bitte",
+          "translation": "coffee, please",
+          "options": [
+            "bitte",
+            "Brötchen",
+            "Kaffee"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Kaffee, bitte",
+          "tokens": [
+            "Kaffee,",
+            "bitte",
+            "Tee",
+            "danke",
+            "heiß"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Kaffee, bitte",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "coffee, please",
+              "isCorrect": true
+            },
+            {
+              "text": "bread and water",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "coffee, please",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'bread':",
+          "target": "Brot",
+          "translation": "bread",
+          "hint": "Hint: starts with 'B'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Lukas",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchtest du Kaffee oder Tee?",
+          "translation": "Would you like coffee or tea?",
+          "options": [
+            {
+              "text": "Kaffee mit Milch, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Haus ist klein.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Kaffee mit Milch, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "Kaffee, bitte",
+          "translation": "coffee, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Kaffee, bitte. Brot ist gut.",
+          "translationText": "coffee, please. Bread is good.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Food, Bakery & Drinks • Lesson 2",
+      "subtitle": "German bread, café culture, cold cuts and daily beverages: Sentence Syntax",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'water':",
+          "targetWord": "Wasser",
+          "translation": "water",
+          "options": [
+            {
+              "id": "de_u2_l2_p1",
+              "text": "Wasser (water)",
+              "imageUrl": "/uploads/curriculum/water.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u2_l2_p2",
+              "text": "Milch (milk)",
+              "imageUrl": "/uploads/curriculum/milk.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u2_l2_p3",
+              "text": "Käse (cheese)",
+              "imageUrl": "/uploads/curriculum/cheese.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Wasser",
+              "native": "water"
+            },
+            {
+              "target": "Milch",
+              "native": "milk"
+            },
+            {
+              "target": "Käse",
+              "native": "cheese"
+            },
+            {
+              "target": "Wurst",
+              "native": "sausage"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "bread and water",
+          "targetSentence": "Brot und Wasser",
+          "tokens": [
+            "Brot",
+            "und",
+            "Wasser",
+            "Käse",
+            "Milch"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Brot _______ Wasser.",
+          "blank": "und",
+          "translation": "bread and water",
+          "options": [
+            "Wasser",
+            "Wasser",
+            "Milch"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Brot und Wasser",
+          "tokens": [
+            "Brot",
+            "und",
+            "Wasser",
+            "Käse",
+            "Milch"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Brot und Wasser",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "bread and water",
+              "isCorrect": true
+            },
+            {
+              "text": "the coffee is hot",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "bread and water",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'water':",
+          "target": "Wasser",
+          "translation": "water",
+          "hint": "Hint: starts with 'W'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Lukas",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchtest du Kaffee oder Tee?",
+          "translation": "Would you like coffee or tea?",
+          "options": [
+            {
+              "text": "Kaffee mit Milch, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Haus ist klein.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Kaffee mit Milch, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Kaffee und Brot, bitte",
+            "Coffee and bread, please"
+          ],
+          "translation": "coffee, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Brot und Wasser. Es ist sehr schön.",
+          "translationText": "bread and water. It is very nice.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Food, Bakery & Drinks • Lesson 3",
+      "subtitle": "German bread, café culture, cold cuts and daily beverages: Compounds & Conjunctions",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'hot':",
+          "targetWord": "heiß",
+          "translation": "hot",
+          "options": [
+            {
+              "id": "de_u2_l3_p1",
+              "text": "heiß (hot)",
+              "imageUrl": "/uploads/curriculum/hot.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u2_l3_p2",
+              "text": "kalt (cold)",
+              "imageUrl": "/uploads/curriculum/cold.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u2_l3_p3",
+              "text": "lecker (delicious)",
+              "imageUrl": "/uploads/curriculum/delicious.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "heiß",
+              "native": "hot"
+            },
+            {
+              "target": "kalt",
+              "native": "cold"
+            },
+            {
+              "target": "lecker",
+              "native": "delicious"
+            },
+            {
+              "target": "bitte",
+              "native": "please"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the coffee is hot",
+          "targetSentence": "der Kaffee ist heiß",
+          "tokens": [
+            "der",
+            "Kaffee",
+            "ist",
+            "heiß",
+            "kalt",
+            "Tee"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "der _______.",
+          "blank": "heiß",
+          "translation": "the coffee is hot",
+          "options": [
+            "heiß",
+            "heiß",
+            "kalt"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "der Kaffee ist heiß",
+          "tokens": [
+            "der",
+            "Kaffee",
+            "ist",
+            "heiß",
+            "kalt",
+            "Tee"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "der Kaffee ist heiß",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the coffee is hot",
+              "isCorrect": true
+            },
+            {
+              "text": "the water is cold",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the coffee is hot",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'hot':",
+          "target": "heiß",
+          "translation": "hot",
+          "hint": "Hint: starts with 'h'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Lukas",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchtest du Kaffee oder Tee?",
+          "translation": "Would you like coffee or tea?",
+          "options": [
+            {
+              "text": "Kaffee mit Milch, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Haus ist klein.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Kaffee mit Milch, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "der Kaffee ist heiß",
+          "translation": "the coffee is hot",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "der Kaffee ist heiß. Wir mögen das.",
+          "translationText": "the coffee is hot. We like this.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Food, Bakery & Drinks • Lesson 4",
+      "subtitle": "German bread, café culture, cold cuts and daily beverages: Ear Training",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'bread roll':",
+          "targetWord": "Brötchen",
+          "translation": "bread roll",
+          "options": [
+            {
+              "id": "de_u2_l4_p1",
+              "text": "Brötchen (bread roll)",
+              "imageUrl": "/uploads/curriculum/bread_roll.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u2_l4_p2",
+              "text": "Wasser (water)",
+              "imageUrl": "/uploads/curriculum/water.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u2_l4_p3",
+              "text": "heiß (hot)",
+              "imageUrl": "/uploads/curriculum/hot.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Brötchen",
+              "native": "bread roll"
+            },
+            {
+              "target": "Milch",
+              "native": "milk"
+            },
+            {
+              "target": "kalt",
+              "native": "cold"
+            },
+            {
+              "target": "Kaffee",
+              "native": "coffee"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the water is cold",
+          "targetSentence": "das Wasser ist kalt",
+          "tokens": [
+            "das",
+            "Wasser",
+            "ist",
+            "kalt",
+            "heiß",
+            "Brot"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "kalt",
+          "translation": "the water is cold",
+          "options": [
+            "kalt",
+            "Brötchen",
+            "Tee"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das Wasser ist kalt",
+          "tokens": [
+            "das",
+            "Wasser",
+            "ist",
+            "kalt",
+            "heiß",
+            "Brot"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das Wasser ist kalt",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the water is cold",
+              "isCorrect": true
+            },
+            {
+              "text": "coffee, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the water is cold",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'bread roll':",
+          "target": "Brötchen",
+          "translation": "bread roll",
+          "hint": "Hint: starts with 'B'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Lukas",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchtest du Kaffee oder Tee?",
+          "translation": "Would you like coffee or tea?",
+          "options": [
+            {
+              "text": "Kaffee mit Milch, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Haus ist klein.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Kaffee mit Milch, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Das Brot ist sehr lecker",
+            "The bread is very delicious"
+          ],
+          "translation": "bread and water",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "das Wasser ist kalt. Höre und sprich jeden Tag.",
+          "translationText": "the water is cold. Listen and speak every day.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Food, Bakery & Drinks • Lesson 5",
+      "subtitle": "German bread, café culture, cold cuts and daily beverages: Context Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'thank you':",
+          "targetWord": "danke",
+          "translation": "thank you",
+          "options": [
+            {
+              "id": "de_u2_l5_p1",
+              "text": "danke (thank you)",
+              "imageUrl": "/uploads/curriculum/thank_you.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u2_l5_p2",
+              "text": "Apfel (apple)",
+              "imageUrl": "/uploads/curriculum/apple.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u2_l5_p3",
+              "text": "Zucker (sugar)",
+              "imageUrl": "/uploads/curriculum/sugar.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "danke",
+              "native": "thank you"
+            },
+            {
+              "target": "Apfel",
+              "native": "apple"
+            },
+            {
+              "target": "Zucker",
+              "native": "sugar"
+            },
+            {
+              "target": "Butter",
+              "native": "butter"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the bread is very delicious",
+          "targetSentence": "das Brot ist sehr lecker",
+          "tokens": [
+            "das",
+            "Brot",
+            "ist",
+            "sehr",
+            "lecker",
+            "Käse"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "lecker",
+          "translation": "the bread is very delicious",
+          "options": [
+            "lecker",
+            "danke",
+            "Apfel"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das Brot ist sehr lecker",
+          "tokens": [
+            "das",
+            "Brot",
+            "ist",
+            "sehr",
+            "lecker",
+            "Käse"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das Brot ist sehr lecker",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the bread is very delicious",
+              "isCorrect": true
+            },
+            {
+              "text": "bread and water",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the bread is very delicious",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'thank you':",
+          "target": "danke",
+          "translation": "thank you",
+          "hint": "Hint: starts with 'd'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Lukas",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchtest du Kaffee oder Tee?",
+          "translation": "Would you like coffee or tea?",
+          "options": [
+            {
+              "text": "Kaffee mit Milch, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Haus ist klein.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Kaffee mit Milch, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "das Brot ist sehr lecker",
+          "translation": "the bread is very delicious",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "das Brot ist sehr lecker. Du machst das sehr gut.",
+          "translationText": "the bread is very delicious. You are doing very well.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Food, Bakery & Drinks • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Food, Bakery & Drinks • Lesson 7",
+      "subtitle": "German bread, café culture, cold cuts and daily beverages: Compound Usage",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'milk':",
+          "targetWord": "Milch",
+          "translation": "milk",
+          "options": [
+            {
+              "id": "de_u2_l7_p1",
+              "text": "Milch (milk)",
+              "imageUrl": "/uploads/curriculum/milk.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u2_l7_p2",
+              "text": "Käse (cheese)",
+              "imageUrl": "/uploads/curriculum/cheese.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u2_l7_p3",
+              "text": "Wurst (sausage)",
+              "imageUrl": "/uploads/curriculum/sausage.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Tee",
+              "native": "tea"
+            },
+            {
+              "target": "Wurst",
+              "native": "sausage"
+            },
+            {
+              "target": "bitte",
+              "native": "please"
+            },
+            {
+              "target": "Butter",
+              "native": "butter"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "a bread roll with cheese, please",
+          "targetSentence": "ein Brötchen mit Käse, bitte",
+          "tokens": [
+            "ein",
+            "Brötchen",
+            "mit",
+            "Käse,",
+            "bitte",
+            "Wurst"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ein _______.",
+          "blank": "bitte",
+          "translation": "a bread roll with cheese, please",
+          "options": [
+            "bitte",
+            "Milch",
+            "Wurst"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ein Brötchen mit Käse, bitte",
+          "tokens": [
+            "ein",
+            "Brötchen",
+            "mit",
+            "Käse,",
+            "bitte",
+            "Wurst"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ein Brötchen mit Käse, bitte",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "a bread roll with cheese, please",
+              "isCorrect": true
+            },
+            {
+              "text": "the coffee is hot",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "a bread roll with cheese, please",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'milk':",
+          "target": "Milch",
+          "translation": "milk",
+          "hint": "Hint: starts with 'M'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Lukas",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchtest du Kaffee oder Tee?",
+          "translation": "Would you like coffee or tea?",
+          "options": [
+            {
+              "text": "Kaffee mit Milch, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Haus ist klein.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Kaffee mit Milch, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "ein Brötchen mit Käse, bitte",
+          "translation": "a bread roll with cheese, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ein Brötchen mit Käse, bitte. Übung macht den Meister.",
+          "translationText": "a bread roll with cheese, please. Practice makes perfect.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Food, Bakery & Drinks • Lesson 8",
+      "subtitle": "German bread, café culture, cold cuts and daily beverages: Sentence Patterns",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'cold':",
+          "targetWord": "kalt",
+          "translation": "cold",
+          "options": [
+            {
+              "id": "de_u2_l8_p1",
+              "text": "kalt (cold)",
+              "imageUrl": "/uploads/curriculum/cold.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u2_l8_p2",
+              "text": "lecker (delicious)",
+              "imageUrl": "/uploads/curriculum/delicious.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u2_l8_p3",
+              "text": "bitte (please)",
+              "imageUrl": "/uploads/curriculum/please.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Brot",
+              "native": "bread"
+            },
+            {
+              "target": "Wasser",
+              "native": "water"
+            },
+            {
+              "target": "heiß",
+              "native": "hot"
+            },
+            {
+              "target": "danke",
+              "native": "thank you"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "tea with milk and sugar",
+          "targetSentence": "Tee mit Milch und Zucker",
+          "tokens": [
+            "Tee",
+            "mit",
+            "Milch",
+            "und",
+            "Zucker",
+            "Kaffee"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Tee _______.",
+          "blank": "Zucker",
+          "translation": "tea with milk and sugar",
+          "options": [
+            "Zucker",
+            "kalt",
+            "lecker"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Tee mit Milch und Zucker",
+          "tokens": [
+            "Tee",
+            "mit",
+            "Milch",
+            "und",
+            "Zucker",
+            "Kaffee"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Tee mit Milch und Zucker",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "tea with milk and sugar",
+              "isCorrect": true
+            },
+            {
+              "text": "the water is cold",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "tea with milk and sugar",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'cold':",
+          "target": "kalt",
+          "translation": "cold",
+          "hint": "Hint: starts with 'k'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Lukas",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchtest du Kaffee oder Tee?",
+          "translation": "Would you like coffee or tea?",
+          "options": [
+            {
+              "text": "Kaffee mit Milch, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Haus ist klein.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Kaffee mit Milch, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "Tee mit Milch und Zucker",
+          "translation": "tea with milk and sugar",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Tee mit Milch und Zucker. Alles ist in bester Ordnung.",
+          "translationText": "tea with milk and sugar. Everything is in good order.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Food, Bakery & Drinks • Lesson 9",
+      "subtitle": "German bread, café culture, cold cuts and daily beverages: Speech Lab",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'apple':",
+          "targetWord": "Apfel",
+          "translation": "apple",
+          "options": [
+            {
+              "id": "de_u2_l9_p1",
+              "text": "Apfel (apple)",
+              "imageUrl": "/uploads/curriculum/apple.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u2_l9_p2",
+              "text": "Zucker (sugar)",
+              "imageUrl": "/uploads/curriculum/sugar.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u2_l9_p3",
+              "text": "Butter (butter)",
+              "imageUrl": "/uploads/curriculum/butter.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Kaffee",
+              "native": "coffee"
+            },
+            {
+              "target": "Käse",
+              "native": "cheese"
+            },
+            {
+              "target": "lecker",
+              "native": "delicious"
+            },
+            {
+              "target": "Zucker",
+              "native": "sugar"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "coffee and fresh bread",
+          "targetSentence": "Kaffee und frisches Brot",
+          "tokens": [
+            "Kaffee",
+            "und",
+            "frisches",
+            "Brot",
+            "Wasser",
+            "kalt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Kaffee _______.",
+          "blank": "Brot",
+          "translation": "coffee and fresh bread",
+          "options": [
+            "Brot",
+            "Apfel",
+            "Zucker"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Kaffee und frisches Brot",
+          "tokens": [
+            "Kaffee",
+            "und",
+            "frisches",
+            "Brot",
+            "Wasser",
+            "kalt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Kaffee und frisches Brot",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "coffee and fresh bread",
+              "isCorrect": true
+            },
+            {
+              "text": "the bread is very delicious",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "coffee and fresh bread",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'apple':",
+          "target": "Apfel",
+          "translation": "apple",
+          "hint": "Hint: starts with 'A'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Lukas",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchtest du Kaffee oder Tee?",
+          "translation": "Would you like coffee or tea?",
+          "options": [
+            {
+              "text": "Kaffee mit Milch, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Haus ist klein.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Kaffee mit Milch, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ein Brötchen mit Käse",
+            "A bread roll with cheese"
+          ],
+          "translation": "the coffee is hot",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Kaffee und frisches Brot. Sprich deutlich und mit Freude.",
+          "translationText": "coffee and fresh bread. Speak clearly and with joy.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Food, Bakery & Drinks • Lesson 10",
+      "subtitle": "German bread, café culture, cold cuts and daily beverages: Dialogue Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'tea':",
+          "targetWord": "Tee",
+          "translation": "tea",
+          "options": [
+            {
+              "id": "de_u2_l10_p1",
+              "text": "Tee (tea)",
+              "imageUrl": "/uploads/curriculum/tea.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u2_l10_p2",
+              "text": "Wurst (sausage)",
+              "imageUrl": "/uploads/curriculum/sausage.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u2_l10_p3",
+              "text": "bitte (please)",
+              "imageUrl": "/uploads/curriculum/please.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Brötchen",
+              "native": "bread roll"
+            },
+            {
+              "target": "Wasser",
+              "native": "water"
+            },
+            {
+              "target": "kalt",
+              "native": "cold"
+            },
+            {
+              "target": "Apfel",
+              "native": "apple"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "coffee, please",
+          "targetSentence": "Kaffee, bitte",
+          "tokens": [
+            "Kaffee,",
+            "bitte",
+            "Tee",
+            "danke",
+            "heiß"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Kaffee, _______.",
+          "blank": "bitte",
+          "translation": "coffee, please",
+          "options": [
+            "bitte",
+            "Tee",
+            "Wurst"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Tee mit Milch und Zucker",
+          "tokens": [
+            "Tee",
+            "mit",
+            "Milch",
+            "und",
+            "Zucker",
+            "Kaffee"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Kaffee und frisches Brot",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "coffee and fresh bread",
+              "isCorrect": true
+            },
+            {
+              "text": "a bread roll with cheese, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "coffee and fresh bread",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'tea':",
+          "target": "Tee",
+          "translation": "tea",
+          "hint": "Hint: starts with 'T'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Lukas",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchtest du Kaffee oder Tee?",
+          "translation": "Would you like coffee or tea?",
+          "options": [
+            {
+              "text": "Kaffee mit Milch, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Haus ist klein.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Kaffee mit Milch, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Kaffee und Brot, bitte",
+            "Coffee and bread, please"
+          ],
+          "translation": "coffee, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Guten Morgen! Hier ist heißer Kaffee und frisches Brot.",
+          "translationText": "Good morning! Here is hot coffee and fresh bread.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Food, Bakery & Drinks • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Food, Bakery & Drinks • Unit 2 Milestone Exam",
+      "subtitle": "German bread, café culture, cold cuts and daily beverages: Comprehensive Unit Exam (Trophy Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'bread':",
+          "targetWord": "Brot",
+          "translation": "bread",
+          "options": [
+            {
+              "id": "de_u2_l12_p1",
+              "text": "Brot (bread)",
+              "imageUrl": "/uploads/curriculum/bread.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u2_l12_p2",
+              "text": "Wasser (water)",
+              "imageUrl": "/uploads/curriculum/water.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u2_l12_p3",
+              "text": "heiß (hot)",
+              "imageUrl": "/uploads/curriculum/hot.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Brot",
+              "native": "bread"
+            },
+            {
+              "target": "Wasser",
+              "native": "water"
+            },
+            {
+              "target": "heiß",
+              "native": "hot"
+            },
+            {
+              "target": "danke",
+              "native": "thank you"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "a bread roll with cheese, please",
+          "targetSentence": "ein Brötchen mit Käse, bitte",
+          "tokens": [
+            "ein",
+            "Brötchen",
+            "mit",
+            "Käse,",
+            "bitte",
+            "Wurst"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ein _______.",
+          "blank": "bitte",
+          "translation": "a bread roll with cheese, please",
+          "options": [
+            "bitte",
+            "Brot",
+            "Wasser"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Kaffee und frisches Brot",
+          "tokens": [
+            "Kaffee",
+            "und",
+            "frisches",
+            "Brot",
+            "Wasser",
+            "kalt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das Brot ist sehr lecker",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the bread is very delicious",
+              "isCorrect": true
+            },
+            {
+              "text": "coffee, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the bread is very delicious",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'butter':",
+          "target": "Butter",
+          "translation": "butter",
+          "hint": "Hint: starts with 'B'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Lukas",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Möchtest du Kaffee oder Tee?",
+          "translation": "Would you like coffee or tea?",
+          "options": [
+            {
+              "text": "Kaffee mit Milch, bitte.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Haus ist klein.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Kaffee mit Milch, bitte.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Kaffee und Brot, bitte",
+            "Coffee and bread, please"
+          ],
+          "translation": "coffee, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Guten Morgen! Hier ist heißer Kaffee und frisches Brot.",
+          "translationText": "Good morning! Here is hot coffee and fresh bread.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

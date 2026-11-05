@@ -1,0 +1,1707 @@
+{
+  "courseTitle": "German A1 Comprehensive Curriculum (For English Speakers)",
+  "learningLanguage": "de",
+  "nativeLanguage": "en",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 7,
+  "unitTitle": "Daily Routines & Time",
+  "unitDescription": "Times of day, clock time, morning routines and V2 word order",
+  "accentColor": "#1CB0F6",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Daily Routines & Time • Lesson 1",
+      "subtitle": "Times of day, clock time, morning routines and V2 word order: Core Words",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'morning':",
+          "targetWord": "Morgen",
+          "translation": "morning",
+          "options": [
+            {
+              "id": "de_u7_l1_p1",
+              "text": "Morgen (morning)",
+              "imageUrl": "/uploads/curriculum/morning.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u7_l1_p2",
+              "text": "Mittag (noon / midday)",
+              "imageUrl": "/uploads/curriculum/noon_/_midday.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u7_l1_p3",
+              "text": "Abend (evening)",
+              "imageUrl": "/uploads/curriculum/evening.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Morgen",
+              "native": "morning"
+            },
+            {
+              "target": "Mittag",
+              "native": "noon / midday"
+            },
+            {
+              "target": "Abend",
+              "native": "evening"
+            },
+            {
+              "target": "Nacht",
+              "native": "night"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "it is eight o'clock",
+          "targetSentence": "es ist acht Uhr",
+          "tokens": [
+            "es",
+            "ist",
+            "acht",
+            "Uhr",
+            "neun",
+            "spät"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "es _______.",
+          "blank": "Uhr",
+          "translation": "it is eight o'clock",
+          "options": [
+            "Uhr",
+            "Mittag",
+            "Abend"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "es ist acht Uhr",
+          "tokens": [
+            "es",
+            "ist",
+            "acht",
+            "Uhr",
+            "neun",
+            "spät"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "es ist acht Uhr",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "it is eight o'clock",
+              "isCorrect": true
+            },
+            {
+              "text": "good morning! time for breakfast",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "it is eight o'clock",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'morning':",
+          "target": "Morgen",
+          "translation": "morning",
+          "hint": "Hint: starts with 'M'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Sophie",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie spät ist es jetzt?",
+          "translation": "What time is it now?",
+          "options": [
+            {
+              "text": "Es ist genau neun Uhr.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Vater ist nett.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Es ist genau neun Uhr.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "es ist acht Uhr",
+          "translation": "it is eight o'clock",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "es ist acht Uhr. Morgen ist gut.",
+          "translationText": "it is eight o'clock. Morning is good.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Daily Routines & Time • Lesson 2",
+      "subtitle": "Times of day, clock time, morning routines and V2 word order: Sentence Syntax",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'o'clock / clock':",
+          "targetWord": "Uhr",
+          "translation": "o'clock / clock",
+          "options": [
+            {
+              "id": "de_u7_l2_p1",
+              "text": "Uhr (o'clock / clock)",
+              "imageUrl": "/uploads/curriculum/o'clock_/_clock.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u7_l2_p2",
+              "text": "spät (late)",
+              "imageUrl": "/uploads/curriculum/late.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u7_l2_p3",
+              "text": "früh (early)",
+              "imageUrl": "/uploads/curriculum/early.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Uhr",
+              "native": "o'clock / clock"
+            },
+            {
+              "target": "spät",
+              "native": "late"
+            },
+            {
+              "target": "früh",
+              "native": "early"
+            },
+            {
+              "target": "heute",
+              "native": "today"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "good morning! time for breakfast",
+          "targetSentence": "Guten Morgen! Zeit fürs Frühstück",
+          "tokens": [
+            "Guten",
+            "Morgen!",
+            "Zeit",
+            "fürs",
+            "Frühstück",
+            "Abend"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Guten _______ Frühstück.",
+          "blank": "Morgen!",
+          "translation": "good morning! time for breakfast",
+          "options": [
+            "Frühstück",
+            "Uhr",
+            "spät"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Guten Morgen! Zeit fürs Frühstück",
+          "tokens": [
+            "Guten",
+            "Morgen!",
+            "Zeit",
+            "fürs",
+            "Frühstück",
+            "Abend"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Guten Morgen! Zeit fürs Frühstück",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "good morning! time for breakfast",
+              "isCorrect": true
+            },
+            {
+              "text": "today I learn German",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "good morning! time for breakfast",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'o'clock / clock':",
+          "target": "Uhr",
+          "translation": "o'clock / clock",
+          "hint": "Hint: starts with 'U'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Sophie",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie spät ist es jetzt?",
+          "translation": "What time is it now?",
+          "options": [
+            {
+              "text": "Es ist genau neun Uhr.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Vater ist nett.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Es ist genau neun Uhr.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Es ist acht Uhr morgens",
+            "It is eight o'clock in the morning"
+          ],
+          "translation": "it is eight o'clock",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Guten Morgen! Zeit fürs Frühstück. Es ist sehr schön.",
+          "translationText": "good morning! time for breakfast. It is very nice.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Daily Routines & Time • Lesson 3",
+      "subtitle": "Times of day, clock time, morning routines and V2 word order: Compounds & Conjunctions",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'now':",
+          "targetWord": "jetzt",
+          "translation": "now",
+          "options": [
+            {
+              "id": "de_u7_l3_p1",
+              "text": "jetzt (now)",
+              "imageUrl": "/uploads/curriculum/now.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u7_l3_p2",
+              "text": "morgen (tomorrow)",
+              "imageUrl": "/uploads/curriculum/tomorrow.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u7_l3_p3",
+              "text": "Frühstück (breakfast)",
+              "imageUrl": "/uploads/curriculum/breakfast.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "jetzt",
+              "native": "now"
+            },
+            {
+              "target": "morgen",
+              "native": "tomorrow"
+            },
+            {
+              "target": "Frühstück",
+              "native": "breakfast"
+            },
+            {
+              "target": "Abendessen",
+              "native": "dinner"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "today I learn German",
+          "targetSentence": "heute lerne ich Deutsch",
+          "tokens": [
+            "heute",
+            "lerne",
+            "ich",
+            "Deutsch",
+            "Englisch",
+            "jetzt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "heute _______.",
+          "blank": "Deutsch",
+          "translation": "today I learn German",
+          "options": [
+            "Deutsch",
+            "jetzt",
+            "morgen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "heute lerne ich Deutsch",
+          "tokens": [
+            "heute",
+            "lerne",
+            "ich",
+            "Deutsch",
+            "Englisch",
+            "jetzt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "heute lerne ich Deutsch",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "today I learn German",
+              "isCorrect": true
+            },
+            {
+              "text": "we eat at seven o'clock",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "today I learn German",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'now':",
+          "target": "jetzt",
+          "translation": "now",
+          "hint": "Hint: starts with 'j'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Sophie",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie spät ist es jetzt?",
+          "translation": "What time is it now?",
+          "options": [
+            {
+              "text": "Es ist genau neun Uhr.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Vater ist nett.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Es ist genau neun Uhr.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "heute lerne ich Deutsch",
+          "translation": "today I learn German",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "heute lerne ich Deutsch. Wir mögen das.",
+          "translationText": "today I learn German. We like this.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Daily Routines & Time • Lesson 4",
+      "subtitle": "Times of day, clock time, morning routines and V2 word order: Ear Training",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'noon / midday':",
+          "targetWord": "Mittag",
+          "translation": "noon / midday",
+          "options": [
+            {
+              "id": "de_u7_l4_p1",
+              "text": "Mittag (noon / midday)",
+              "imageUrl": "/uploads/curriculum/noon_/_midday.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u7_l4_p2",
+              "text": "Uhr (o'clock / clock)",
+              "imageUrl": "/uploads/curriculum/o'clock_/_clock.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u7_l4_p3",
+              "text": "jetzt (now)",
+              "imageUrl": "/uploads/curriculum/now.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Mittag",
+              "native": "noon / midday"
+            },
+            {
+              "target": "spät",
+              "native": "late"
+            },
+            {
+              "target": "morgen",
+              "native": "tomorrow"
+            },
+            {
+              "target": "Abend",
+              "native": "evening"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "we eat at seven o'clock",
+          "targetSentence": "wir essen um sieben Uhr",
+          "tokens": [
+            "wir",
+            "essen",
+            "um",
+            "sieben",
+            "Uhr",
+            "acht"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "wir _______.",
+          "blank": "Uhr",
+          "translation": "we eat at seven o'clock",
+          "options": [
+            "Uhr",
+            "Mittag",
+            "Nacht"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "wir essen um sieben Uhr",
+          "tokens": [
+            "wir",
+            "essen",
+            "um",
+            "sieben",
+            "Uhr",
+            "acht"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "wir essen um sieben Uhr",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "we eat at seven o'clock",
+              "isCorrect": true
+            },
+            {
+              "text": "it is eight o'clock",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "we eat at seven o'clock",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'noon / midday':",
+          "target": "Mittag",
+          "translation": "noon / midday",
+          "hint": "Hint: starts with 'M'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Sophie",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie spät ist es jetzt?",
+          "translation": "What time is it now?",
+          "options": [
+            {
+              "text": "Es ist genau neun Uhr.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Vater ist nett.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Es ist genau neun Uhr.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Heute habe ich viel Zeit",
+            "Today I have a lot of time"
+          ],
+          "translation": "good morning! time for breakfast",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "wir essen um sieben Uhr. Höre und sprich jeden Tag.",
+          "translationText": "we eat at seven o'clock. Listen and speak every day.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Daily Routines & Time • Lesson 5",
+      "subtitle": "Times of day, clock time, morning routines and V2 word order: Context Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'when':",
+          "targetWord": "wann",
+          "translation": "when",
+          "options": [
+            {
+              "id": "de_u7_l5_p1",
+              "text": "wann (when)",
+              "imageUrl": "/uploads/curriculum/when.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u7_l5_p2",
+              "text": "immer (always)",
+              "imageUrl": "/uploads/curriculum/always.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u7_l5_p3",
+              "text": "oft (often)",
+              "imageUrl": "/uploads/curriculum/often.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "wann",
+              "native": "when"
+            },
+            {
+              "target": "immer",
+              "native": "always"
+            },
+            {
+              "target": "oft",
+              "native": "often"
+            },
+            {
+              "target": "Zeit",
+              "native": "time"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "it is already very late",
+          "targetSentence": "es ist schon sehr spät",
+          "tokens": [
+            "es",
+            "ist",
+            "schon",
+            "sehr",
+            "spät",
+            "früh",
+            "jetzt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "es _______.",
+          "blank": "spät",
+          "translation": "it is already very late",
+          "options": [
+            "spät",
+            "wann",
+            "immer"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "es ist schon sehr spät",
+          "tokens": [
+            "es",
+            "ist",
+            "schon",
+            "sehr",
+            "spät",
+            "früh",
+            "jetzt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "es ist schon sehr spät",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "it is already very late",
+              "isCorrect": true
+            },
+            {
+              "text": "good morning! time for breakfast",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "it is already very late",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'when':",
+          "target": "wann",
+          "translation": "when",
+          "hint": "Hint: starts with 'w'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Sophie",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie spät ist es jetzt?",
+          "translation": "What time is it now?",
+          "options": [
+            {
+              "text": "Es ist genau neun Uhr.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Vater ist nett.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Es ist genau neun Uhr.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "es ist schon sehr spät",
+          "translation": "it is already very late",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "es ist schon sehr spät. Du machst das sehr gut.",
+          "translationText": "it is already very late. You are doing very well.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Daily Routines & Time • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Daily Routines & Time • Lesson 7",
+      "subtitle": "Times of day, clock time, morning routines and V2 word order: Compound Usage",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'late':",
+          "targetWord": "spät",
+          "translation": "late",
+          "options": [
+            {
+              "id": "de_u7_l7_p1",
+              "text": "spät (late)",
+              "imageUrl": "/uploads/curriculum/late.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u7_l7_p2",
+              "text": "früh (early)",
+              "imageUrl": "/uploads/curriculum/early.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u7_l7_p3",
+              "text": "heute (today)",
+              "imageUrl": "/uploads/curriculum/today.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Nacht",
+              "native": "night"
+            },
+            {
+              "target": "heute",
+              "native": "today"
+            },
+            {
+              "target": "Abendessen",
+              "native": "dinner"
+            },
+            {
+              "target": "Zeit",
+              "native": "time"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "in the evening I drink tea",
+          "targetSentence": "am Abend trinke ich Tee",
+          "tokens": [
+            "am",
+            "Abend",
+            "trinke",
+            "ich",
+            "Tee",
+            "Kaffee",
+            "Morgen"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "am _______.",
+          "blank": "Tee",
+          "translation": "in the evening I drink tea",
+          "options": [
+            "Tee",
+            "spät",
+            "heute"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "am Abend trinke ich Tee",
+          "tokens": [
+            "am",
+            "Abend",
+            "trinke",
+            "ich",
+            "Tee",
+            "Kaffee",
+            "Morgen"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "am Abend trinke ich Tee",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "in the evening I drink tea",
+              "isCorrect": true
+            },
+            {
+              "text": "today I learn German",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "in the evening I drink tea",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'late':",
+          "target": "spät",
+          "translation": "late",
+          "hint": "Hint: starts with 's'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Sophie",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie spät ist es jetzt?",
+          "translation": "What time is it now?",
+          "options": [
+            {
+              "text": "Es ist genau neun Uhr.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Vater ist nett.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Es ist genau neun Uhr.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "am Abend trinke ich Tee",
+          "translation": "in the evening I drink tea",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "am Abend trinke ich Tee. Übung macht den Meister.",
+          "translationText": "in the evening I drink tea. Practice makes perfect.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Daily Routines & Time • Lesson 8",
+      "subtitle": "Times of day, clock time, morning routines and V2 word order: Sentence Patterns",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'tomorrow':",
+          "targetWord": "morgen",
+          "translation": "tomorrow",
+          "options": [
+            {
+              "id": "de_u7_l8_p1",
+              "text": "morgen (tomorrow)",
+              "imageUrl": "/uploads/curriculum/tomorrow.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u7_l8_p2",
+              "text": "Frühstück (breakfast)",
+              "imageUrl": "/uploads/curriculum/breakfast.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u7_l8_p3",
+              "text": "Abendessen (dinner)",
+              "imageUrl": "/uploads/curriculum/dinner.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Morgen",
+              "native": "morning"
+            },
+            {
+              "target": "Uhr",
+              "native": "o'clock / clock"
+            },
+            {
+              "target": "jetzt",
+              "native": "now"
+            },
+            {
+              "target": "wann",
+              "native": "when"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "when do you have breakfast?",
+          "targetSentence": "wann frühstückst du?",
+          "tokens": [
+            "wann",
+            "frühstückst",
+            "du?",
+            "heute",
+            "isst",
+            "Uhr"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "wann _______.",
+          "blank": "du?",
+          "translation": "when do you have breakfast?",
+          "options": [
+            "du?",
+            "morgen",
+            "Frühstück"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "wann frühstückst du?",
+          "tokens": [
+            "wann",
+            "frühstückst",
+            "du?",
+            "heute",
+            "isst",
+            "Uhr"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "wann frühstückst du?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "when do you have breakfast?",
+              "isCorrect": true
+            },
+            {
+              "text": "we eat at seven o'clock",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "when do you have breakfast?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'tomorrow':",
+          "target": "morgen",
+          "translation": "tomorrow",
+          "hint": "Hint: starts with 'm'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Sophie",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie spät ist es jetzt?",
+          "translation": "What time is it now?",
+          "options": [
+            {
+              "text": "Es ist genau neun Uhr.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Vater ist nett.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Es ist genau neun Uhr.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "wann frühstückst du?",
+          "translation": "when do you have breakfast?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "wann frühstückst du?. Alles ist in bester Ordnung.",
+          "translationText": "when do you have breakfast?. Everything is in good order.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Daily Routines & Time • Lesson 9",
+      "subtitle": "Times of day, clock time, morning routines and V2 word order: Speech Lab",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'always':",
+          "targetWord": "immer",
+          "translation": "always",
+          "options": [
+            {
+              "id": "de_u7_l9_p1",
+              "text": "immer (always)",
+              "imageUrl": "/uploads/curriculum/always.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u7_l9_p2",
+              "text": "oft (often)",
+              "imageUrl": "/uploads/curriculum/often.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u7_l9_p3",
+              "text": "Zeit (time)",
+              "imageUrl": "/uploads/curriculum/time.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Abend",
+              "native": "evening"
+            },
+            {
+              "target": "früh",
+              "native": "early"
+            },
+            {
+              "target": "Frühstück",
+              "native": "breakfast"
+            },
+            {
+              "target": "oft",
+              "native": "often"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "now I have time",
+          "targetSentence": "jetzt habe ich Zeit",
+          "tokens": [
+            "jetzt",
+            "habe",
+            "ich",
+            "Zeit",
+            "Geld",
+            "heute"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "jetzt _______.",
+          "blank": "Zeit",
+          "translation": "now I have time",
+          "options": [
+            "Zeit",
+            "immer",
+            "oft"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "jetzt habe ich Zeit",
+          "tokens": [
+            "jetzt",
+            "habe",
+            "ich",
+            "Zeit",
+            "Geld",
+            "heute"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "jetzt habe ich Zeit",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "now I have time",
+              "isCorrect": true
+            },
+            {
+              "text": "it is already very late",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "now I have time",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'always':",
+          "target": "immer",
+          "translation": "always",
+          "hint": "Hint: starts with 'i'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Sophie",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie spät ist es jetzt?",
+          "translation": "What time is it now?",
+          "options": [
+            {
+              "text": "Es ist genau neun Uhr.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Vater ist nett.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Es ist genau neun Uhr.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Am Abend lerne ich Deutsch",
+            "In the evening I learn German"
+          ],
+          "translation": "today I learn German",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "jetzt habe ich Zeit. Sprich deutlich und mit Freude.",
+          "translationText": "now I have time. Speak clearly and with joy.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Daily Routines & Time • Lesson 10",
+      "subtitle": "Times of day, clock time, morning routines and V2 word order: Dialogue Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'night':",
+          "targetWord": "Nacht",
+          "translation": "night",
+          "options": [
+            {
+              "id": "de_u7_l10_p1",
+              "text": "Nacht (night)",
+              "imageUrl": "/uploads/curriculum/night.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u7_l10_p2",
+              "text": "heute (today)",
+              "imageUrl": "/uploads/curriculum/today.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u7_l10_p3",
+              "text": "Abendessen (dinner)",
+              "imageUrl": "/uploads/curriculum/dinner.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Mittag",
+              "native": "noon / midday"
+            },
+            {
+              "target": "Uhr",
+              "native": "o'clock / clock"
+            },
+            {
+              "target": "morgen",
+              "native": "tomorrow"
+            },
+            {
+              "target": "immer",
+              "native": "always"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "it is eight o'clock",
+          "targetSentence": "es ist acht Uhr",
+          "tokens": [
+            "es",
+            "ist",
+            "acht",
+            "Uhr",
+            "neun",
+            "spät"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "es _______.",
+          "blank": "Uhr",
+          "translation": "it is eight o'clock",
+          "options": [
+            "Uhr",
+            "Nacht",
+            "heute"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "wann frühstückst du?",
+          "tokens": [
+            "wann",
+            "frühstückst",
+            "du?",
+            "heute",
+            "isst",
+            "Uhr"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "jetzt habe ich Zeit",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "now I have time",
+              "isCorrect": true
+            },
+            {
+              "text": "in the evening I drink tea",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "now I have time",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'night':",
+          "target": "Nacht",
+          "translation": "night",
+          "hint": "Hint: starts with 'N'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Sophie",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie spät ist es jetzt?",
+          "translation": "What time is it now?",
+          "options": [
+            {
+              "text": "Es ist genau neun Uhr.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Vater ist nett.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Es ist genau neun Uhr.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Es ist acht Uhr morgens",
+            "It is eight o'clock in the morning"
+          ],
+          "translation": "it is eight o'clock",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Guten Morgen! Es ist acht Uhr. Zeit für Kaffee und ein leckeres Frühstück.",
+          "translationText": "Good morning! It is eight o'clock. Time for coffee and a delicious breakfast.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Daily Routines & Time • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Daily Routines & Time • Unit 7 Milestone Exam",
+      "subtitle": "Times of day, clock time, morning routines and V2 word order: Comprehensive Unit Exam (Trophy Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'morning':",
+          "targetWord": "Morgen",
+          "translation": "morning",
+          "options": [
+            {
+              "id": "de_u7_l12_p1",
+              "text": "Morgen (morning)",
+              "imageUrl": "/uploads/curriculum/morning.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u7_l12_p2",
+              "text": "Uhr (o'clock / clock)",
+              "imageUrl": "/uploads/curriculum/o'clock_/_clock.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u7_l12_p3",
+              "text": "jetzt (now)",
+              "imageUrl": "/uploads/curriculum/now.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Morgen",
+              "native": "morning"
+            },
+            {
+              "target": "Uhr",
+              "native": "o'clock / clock"
+            },
+            {
+              "target": "jetzt",
+              "native": "now"
+            },
+            {
+              "target": "wann",
+              "native": "when"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "in the evening I drink tea",
+          "targetSentence": "am Abend trinke ich Tee",
+          "tokens": [
+            "am",
+            "Abend",
+            "trinke",
+            "ich",
+            "Tee",
+            "Kaffee",
+            "Morgen"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "am _______.",
+          "blank": "Tee",
+          "translation": "in the evening I drink tea",
+          "options": [
+            "Tee",
+            "Morgen",
+            "Uhr"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "jetzt habe ich Zeit",
+          "tokens": [
+            "jetzt",
+            "habe",
+            "ich",
+            "Zeit",
+            "Geld",
+            "heute"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "es ist schon sehr spät",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "it is already very late",
+              "isCorrect": true
+            },
+            {
+              "text": "it is eight o'clock",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "it is already very late",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'time':",
+          "target": "Zeit",
+          "translation": "time",
+          "hint": "Hint: starts with 'Z'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Sophie",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie spät ist es jetzt?",
+          "translation": "What time is it now?",
+          "options": [
+            {
+              "text": "Es ist genau neun Uhr.",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Vater ist nett.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Es ist genau neun Uhr.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Es ist acht Uhr morgens",
+            "It is eight o'clock in the morning"
+          ],
+          "translation": "it is eight o'clock",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Guten Morgen! Es ist acht Uhr. Zeit für Kaffee und ein leckeres Frühstück.",
+          "translationText": "Good morning! It is eight o'clock. Time for coffee and a delicious breakfast.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1711 @@
+{
+  "courseTitle": "German A1 Comprehensive Curriculum (For English Speakers)",
+  "learningLanguage": "de",
+  "nativeLanguage": "en",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 8,
+  "unitTitle": "Colors, Clothes & Weather",
+  "unitDescription": "Describing clothes, seasonal weather in Germany and vibrant colors",
+  "accentColor": "#78C800",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Colors, Clothes & Weather • Lesson 1",
+      "subtitle": "Describing clothes, seasonal weather in Germany and vibrant colors: Core Words",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'blue':",
+          "targetWord": "blau",
+          "translation": "blue",
+          "options": [
+            {
+              "id": "de_u8_l1_p1",
+              "text": "blau (blue)",
+              "imageUrl": "/uploads/curriculum/blue.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u8_l1_p2",
+              "text": "rot (red)",
+              "imageUrl": "/uploads/curriculum/red.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u8_l1_p3",
+              "text": "grün (green)",
+              "imageUrl": "/uploads/curriculum/green.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "blau",
+              "native": "blue"
+            },
+            {
+              "target": "rot",
+              "native": "red"
+            },
+            {
+              "target": "grün",
+              "native": "green"
+            },
+            {
+              "target": "gelb",
+              "native": "yellow"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the jacket is warm",
+          "targetSentence": "die Jacke ist warm",
+          "tokens": [
+            "die",
+            "Jacke",
+            "ist",
+            "warm",
+            "kalt",
+            "Hose"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "die _______.",
+          "blank": "warm",
+          "translation": "the jacket is warm",
+          "options": [
+            "warm",
+            "rot",
+            "grün"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "die Jacke ist warm",
+          "tokens": [
+            "die",
+            "Jacke",
+            "ist",
+            "warm",
+            "kalt",
+            "Hose"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "die Jacke ist warm",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the jacket is warm",
+              "isCorrect": true
+            },
+            {
+              "text": "my shirt is blue",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the jacket is warm",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'blue':",
+          "target": "blau",
+          "translation": "blue",
+          "hint": "Hint: starts with 'b'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Leon",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie findest du meine neue Jacke?",
+          "translation": "How do you like my new jacket?",
+          "options": [
+            {
+              "text": "Die Jacke ist sehr schön und warm!",
+              "isCorrect": true
+            },
+            {
+              "text": "Um sieben Uhr morgens.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Die Jacke ist sehr schön und warm!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "die Jacke ist warm",
+          "translation": "the jacket is warm",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "die Jacke ist warm. blau ist gut.",
+          "translationText": "the jacket is warm. Blue is good.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Colors, Clothes & Weather • Lesson 2",
+      "subtitle": "Describing clothes, seasonal weather in Germany and vibrant colors: Sentence Syntax",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'black':",
+          "targetWord": "schwarz",
+          "translation": "black",
+          "options": [
+            {
+              "id": "de_u8_l2_p1",
+              "text": "schwarz (black)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u8_l2_p2",
+              "text": "weiß (white)",
+              "imageUrl": "/uploads/curriculum/white.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u8_l2_p3",
+              "text": "Hemd (shirt)",
+              "imageUrl": "/uploads/curriculum/shirt.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "schwarz",
+              "native": "black"
+            },
+            {
+              "target": "weiß",
+              "native": "white"
+            },
+            {
+              "target": "Hemd",
+              "native": "shirt"
+            },
+            {
+              "target": "Hose",
+              "native": "pants"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "my shirt is blue",
+          "targetSentence": "mein Hemd ist blau",
+          "tokens": [
+            "mein",
+            "Hemd",
+            "ist",
+            "blau",
+            "rot",
+            "grün"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "mein _______ blau.",
+          "blank": "Hemd",
+          "translation": "my shirt is blue",
+          "options": [
+            "blau",
+            "schwarz",
+            "weiß"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "mein Hemd ist blau",
+          "tokens": [
+            "mein",
+            "Hemd",
+            "ist",
+            "blau",
+            "rot",
+            "grün"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "mein Hemd ist blau",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "my shirt is blue",
+              "isCorrect": true
+            },
+            {
+              "text": "the pants are black",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "my shirt is blue",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'black':",
+          "target": "schwarz",
+          "translation": "black",
+          "hint": "Hint: starts with 's'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Leon",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie findest du meine neue Jacke?",
+          "translation": "How do you like my new jacket?",
+          "options": [
+            {
+              "text": "Die Jacke ist sehr schön und warm!",
+              "isCorrect": true
+            },
+            {
+              "text": "Um sieben Uhr morgens.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Die Jacke ist sehr schön und warm!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Meine Jacke ist blau und warm",
+            "My jacket is blue and warm"
+          ],
+          "translation": "the jacket is warm",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "mein Hemd ist blau. Es ist sehr schön.",
+          "translationText": "my shirt is blue. It is very nice.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Colors, Clothes & Weather • Lesson 3",
+      "subtitle": "Describing clothes, seasonal weather in Germany and vibrant colors: Compounds & Conjunctions",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'jacket':",
+          "targetWord": "Jacke",
+          "translation": "jacket",
+          "options": [
+            {
+              "id": "de_u8_l3_p1",
+              "text": "Jacke (jacket)",
+              "imageUrl": "/uploads/curriculum/jacket.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u8_l3_p2",
+              "text": "Schuhe (shoes)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u8_l3_p3",
+              "text": "Kleid (dress)",
+              "imageUrl": "/uploads/curriculum/dress.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Jacke",
+              "native": "jacket"
+            },
+            {
+              "target": "Schuhe",
+              "native": "shoes"
+            },
+            {
+              "target": "Kleid",
+              "native": "dress"
+            },
+            {
+              "target": "warm",
+              "native": "warm"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the pants are black",
+          "targetSentence": "die Hose ist schwarz",
+          "tokens": [
+            "die",
+            "Hose",
+            "ist",
+            "schwarz",
+            "weiß",
+            "Hemd"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "die _______.",
+          "blank": "schwarz",
+          "translation": "the pants are black",
+          "options": [
+            "schwarz",
+            "Jacke",
+            "Schuhe"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "die Hose ist schwarz",
+          "tokens": [
+            "die",
+            "Hose",
+            "ist",
+            "schwarz",
+            "weiß",
+            "Hemd"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "die Hose ist schwarz",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the pants are black",
+              "isCorrect": true
+            },
+            {
+              "text": "I wear red shoes",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the pants are black",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'jacket':",
+          "target": "Jacke",
+          "translation": "jacket",
+          "hint": "Hint: starts with 'J'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Leon",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie findest du meine neue Jacke?",
+          "translation": "How do you like my new jacket?",
+          "options": [
+            {
+              "text": "Die Jacke ist sehr schön und warm!",
+              "isCorrect": true
+            },
+            {
+              "text": "Um sieben Uhr morgens.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Die Jacke ist sehr schön und warm!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "die Hose ist schwarz",
+          "translation": "the pants are black",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "die Hose ist schwarz. Wir mögen das.",
+          "translationText": "the pants are black. We like this.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Colors, Clothes & Weather • Lesson 4",
+      "subtitle": "Describing clothes, seasonal weather in Germany and vibrant colors: Ear Training",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'red':",
+          "targetWord": "rot",
+          "translation": "red",
+          "options": [
+            {
+              "id": "de_u8_l4_p1",
+              "text": "rot (red)",
+              "imageUrl": "/uploads/curriculum/red.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u8_l4_p2",
+              "text": "schwarz (black)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u8_l4_p3",
+              "text": "Jacke (jacket)",
+              "imageUrl": "/uploads/curriculum/jacket.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "rot",
+              "native": "red"
+            },
+            {
+              "target": "weiß",
+              "native": "white"
+            },
+            {
+              "target": "Schuhe",
+              "native": "shoes"
+            },
+            {
+              "target": "grün",
+              "native": "green"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I wear red shoes",
+          "targetSentence": "ich trage rote Schuhe",
+          "tokens": [
+            "ich",
+            "trage",
+            "rote",
+            "Schuhe",
+            "blaue",
+            "Jacke"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Schuhe",
+          "translation": "I wear red shoes",
+          "options": [
+            "Schuhe",
+            "rot",
+            "gelb"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich trage rote Schuhe",
+          "tokens": [
+            "ich",
+            "trage",
+            "rote",
+            "Schuhe",
+            "blaue",
+            "Jacke"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich trage rote Schuhe",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I wear red shoes",
+              "isCorrect": true
+            },
+            {
+              "text": "the jacket is warm",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I wear red shoes",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'red':",
+          "target": "rot",
+          "translation": "red",
+          "hint": "Hint: starts with 'r'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Leon",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie findest du meine neue Jacke?",
+          "translation": "How do you like my new jacket?",
+          "options": [
+            {
+              "text": "Die Jacke ist sehr schön und warm!",
+              "isCorrect": true
+            },
+            {
+              "text": "Um sieben Uhr morgens.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Die Jacke ist sehr schön und warm!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Das Wetter ist heute sonnig und schön",
+            "The weather is sunny and nice today"
+          ],
+          "translation": "my shirt is blue",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich trage rote Schuhe. Höre und sprich jeden Tag.",
+          "translationText": "I wear red shoes. Listen and speak every day.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Colors, Clothes & Weather • Lesson 5",
+      "subtitle": "Describing clothes, seasonal weather in Germany and vibrant colors: Context Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'cold':",
+          "targetWord": "kalt",
+          "translation": "cold",
+          "options": [
+            {
+              "id": "de_u8_l5_p1",
+              "text": "kalt (cold)",
+              "imageUrl": "/uploads/curriculum/cold.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u8_l5_p2",
+              "text": "schön (beautiful)",
+              "imageUrl": "/uploads/curriculum/beautiful.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u8_l5_p3",
+              "text": "tragen (to wear)",
+              "imageUrl": "/uploads/curriculum/to_wear.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "kalt",
+              "native": "cold"
+            },
+            {
+              "target": "schön",
+              "native": "beautiful"
+            },
+            {
+              "target": "tragen",
+              "native": "to wear"
+            },
+            {
+              "target": "Wetter",
+              "native": "weather"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the weather is nice today",
+          "targetSentence": "das Wetter ist heute schön",
+          "tokens": [
+            "das",
+            "Wetter",
+            "ist",
+            "heute",
+            "schön",
+            "kalt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "schön",
+          "translation": "the weather is nice today",
+          "options": [
+            "schön",
+            "kalt",
+            "schön"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das Wetter ist heute schön",
+          "tokens": [
+            "das",
+            "Wetter",
+            "ist",
+            "heute",
+            "schön",
+            "kalt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das Wetter ist heute schön",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the weather is nice today",
+              "isCorrect": true
+            },
+            {
+              "text": "my shirt is blue",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the weather is nice today",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'cold':",
+          "target": "kalt",
+          "translation": "cold",
+          "hint": "Hint: starts with 'k'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Leon",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie findest du meine neue Jacke?",
+          "translation": "How do you like my new jacket?",
+          "options": [
+            {
+              "text": "Die Jacke ist sehr schön und warm!",
+              "isCorrect": true
+            },
+            {
+              "text": "Um sieben Uhr morgens.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Die Jacke ist sehr schön und warm!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "das Wetter ist heute schön",
+          "translation": "the weather is nice today",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "das Wetter ist heute schön. Du machst das sehr gut.",
+          "translationText": "the weather is nice today. You are doing very well.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Colors, Clothes & Weather • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Colors, Clothes & Weather • Lesson 7",
+      "subtitle": "Describing clothes, seasonal weather in Germany and vibrant colors: Compound Usage",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'white':",
+          "targetWord": "weiß",
+          "translation": "white",
+          "options": [
+            {
+              "id": "de_u8_l7_p1",
+              "text": "weiß (white)",
+              "imageUrl": "/uploads/curriculum/white.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u8_l7_p2",
+              "text": "Hemd (shirt)",
+              "imageUrl": "/uploads/curriculum/shirt.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u8_l7_p3",
+              "text": "Hose (pants)",
+              "imageUrl": "/uploads/curriculum/pants.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "gelb",
+              "native": "yellow"
+            },
+            {
+              "target": "Hose",
+              "native": "pants"
+            },
+            {
+              "target": "warm",
+              "native": "warm"
+            },
+            {
+              "target": "Wetter",
+              "native": "weather"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the dress is green and new",
+          "targetSentence": "das Kleid ist grün und neu",
+          "tokens": [
+            "das",
+            "Kleid",
+            "ist",
+            "grün",
+            "und",
+            "neu",
+            "alt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "neu",
+          "translation": "the dress is green and new",
+          "options": [
+            "neu",
+            "weiß",
+            "Hose"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das Kleid ist grün und neu",
+          "tokens": [
+            "das",
+            "Kleid",
+            "ist",
+            "grün",
+            "und",
+            "neu",
+            "alt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das Kleid ist grün und neu",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the dress is green and new",
+              "isCorrect": true
+            },
+            {
+              "text": "the pants are black",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the dress is green and new",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'white':",
+          "target": "weiß",
+          "translation": "white",
+          "hint": "Hint: starts with 'w'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Leon",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie findest du meine neue Jacke?",
+          "translation": "How do you like my new jacket?",
+          "options": [
+            {
+              "text": "Die Jacke ist sehr schön und warm!",
+              "isCorrect": true
+            },
+            {
+              "text": "Um sieben Uhr morgens.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Die Jacke ist sehr schön und warm!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "das Kleid ist grün und neu",
+          "translation": "the dress is green and new",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "das Kleid ist grün und neu. Übung macht den Meister.",
+          "translationText": "the dress is green and new. Practice makes perfect.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Colors, Clothes & Weather • Lesson 8",
+      "subtitle": "Describing clothes, seasonal weather in Germany and vibrant colors: Sentence Patterns",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'shoes':",
+          "targetWord": "Schuhe",
+          "translation": "shoes",
+          "options": [
+            {
+              "id": "de_u8_l8_p1",
+              "text": "Schuhe (shoes)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u8_l8_p2",
+              "text": "Kleid (dress)",
+              "imageUrl": "/uploads/curriculum/dress.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u8_l8_p3",
+              "text": "warm (warm)",
+              "imageUrl": "/uploads/curriculum/warm.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "blau",
+              "native": "blue"
+            },
+            {
+              "target": "schwarz",
+              "native": "black"
+            },
+            {
+              "target": "Jacke",
+              "native": "jacket"
+            },
+            {
+              "target": "kalt",
+              "native": "cold"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "in winter it is very cold",
+          "targetSentence": "im Winter ist es sehr kalt",
+          "tokens": [
+            "im",
+            "Winter",
+            "ist",
+            "es",
+            "sehr",
+            "kalt",
+            "warm"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "im _______.",
+          "blank": "kalt",
+          "translation": "in winter it is very cold",
+          "options": [
+            "kalt",
+            "Schuhe",
+            "Kleid"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "im Winter ist es sehr kalt",
+          "tokens": [
+            "im",
+            "Winter",
+            "ist",
+            "es",
+            "sehr",
+            "kalt",
+            "warm"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "im Winter ist es sehr kalt",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "in winter it is very cold",
+              "isCorrect": true
+            },
+            {
+              "text": "I wear red shoes",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "in winter it is very cold",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'shoes':",
+          "target": "Schuhe",
+          "translation": "shoes",
+          "hint": "Hint: starts with 'S'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Leon",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie findest du meine neue Jacke?",
+          "translation": "How do you like my new jacket?",
+          "options": [
+            {
+              "text": "Die Jacke ist sehr schön und warm!",
+              "isCorrect": true
+            },
+            {
+              "text": "Um sieben Uhr morgens.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Die Jacke ist sehr schön und warm!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "im Winter ist es sehr kalt",
+          "translation": "in winter it is very cold",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "im Winter ist es sehr kalt. Alles ist in bester Ordnung.",
+          "translationText": "in winter it is very cold. Everything is in good order.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Colors, Clothes & Weather • Lesson 9",
+      "subtitle": "Describing clothes, seasonal weather in Germany and vibrant colors: Speech Lab",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'beautiful':",
+          "targetWord": "schön",
+          "translation": "beautiful",
+          "options": [
+            {
+              "id": "de_u8_l9_p1",
+              "text": "schön (beautiful)",
+              "imageUrl": "/uploads/curriculum/beautiful.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u8_l9_p2",
+              "text": "tragen (to wear)",
+              "imageUrl": "/uploads/curriculum/to_wear.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u8_l9_p3",
+              "text": "Wetter (weather)",
+              "imageUrl": "/uploads/curriculum/weather.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "grün",
+              "native": "green"
+            },
+            {
+              "target": "Hemd",
+              "native": "shirt"
+            },
+            {
+              "target": "Kleid",
+              "native": "dress"
+            },
+            {
+              "target": "tragen",
+              "native": "to wear"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "his shoes are clean and black",
+          "targetSentence": "seine Schuhe sind sauber und schwarz",
+          "tokens": [
+            "seine",
+            "Schuhe",
+            "sind",
+            "sauber",
+            "und",
+            "schwarz",
+            "weiß"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "seine _______.",
+          "blank": "schwarz",
+          "translation": "his shoes are clean and black",
+          "options": [
+            "schwarz",
+            "schön",
+            "tragen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "seine Schuhe sind sauber und schwarz",
+          "tokens": [
+            "seine",
+            "Schuhe",
+            "sind",
+            "sauber",
+            "und",
+            "schwarz",
+            "weiß"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "seine Schuhe sind sauber und schwarz",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "his shoes are clean and black",
+              "isCorrect": true
+            },
+            {
+              "text": "the weather is nice today",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "his shoes are clean and black",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'beautiful':",
+          "target": "schön",
+          "translation": "beautiful",
+          "hint": "Hint: starts with 's'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Leon",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie findest du meine neue Jacke?",
+          "translation": "How do you like my new jacket?",
+          "options": [
+            {
+              "text": "Die Jacke ist sehr schön und warm!",
+              "isCorrect": true
+            },
+            {
+              "text": "Um sieben Uhr morgens.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Die Jacke ist sehr schön und warm!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ich trage ein weißes Hemd",
+            "I wear a white shirt"
+          ],
+          "translation": "the pants are black",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "seine Schuhe sind sauber und schwarz. Sprich deutlich und mit Freude.",
+          "translationText": "his shoes are clean and black. Speak clearly and with joy.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Colors, Clothes & Weather • Lesson 10",
+      "subtitle": "Describing clothes, seasonal weather in Germany and vibrant colors: Dialogue Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'yellow':",
+          "targetWord": "gelb",
+          "translation": "yellow",
+          "options": [
+            {
+              "id": "de_u8_l10_p1",
+              "text": "gelb (yellow)",
+              "imageUrl": "/uploads/curriculum/yellow.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u8_l10_p2",
+              "text": "Hose (pants)",
+              "imageUrl": "/uploads/curriculum/pants.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u8_l10_p3",
+              "text": "warm (warm)",
+              "imageUrl": "/uploads/curriculum/warm.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "rot",
+              "native": "red"
+            },
+            {
+              "target": "schwarz",
+              "native": "black"
+            },
+            {
+              "target": "Schuhe",
+              "native": "shoes"
+            },
+            {
+              "target": "schön",
+              "native": "beautiful"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the jacket is warm",
+          "targetSentence": "die Jacke ist warm",
+          "tokens": [
+            "die",
+            "Jacke",
+            "ist",
+            "warm",
+            "kalt",
+            "Hose"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "die _______.",
+          "blank": "warm",
+          "translation": "the jacket is warm",
+          "options": [
+            "warm",
+            "gelb",
+            "Hose"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "im Winter ist es sehr kalt",
+          "tokens": [
+            "im",
+            "Winter",
+            "ist",
+            "es",
+            "sehr",
+            "kalt",
+            "warm"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "seine Schuhe sind sauber und schwarz",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "his shoes are clean and black",
+              "isCorrect": true
+            },
+            {
+              "text": "the dress is green and new",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "his shoes are clean and black",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'yellow':",
+          "target": "gelb",
+          "translation": "yellow",
+          "hint": "Hint: starts with 'g'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Leon",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie findest du meine neue Jacke?",
+          "translation": "How do you like my new jacket?",
+          "options": [
+            {
+              "text": "Die Jacke ist sehr schön und warm!",
+              "isCorrect": true
+            },
+            {
+              "text": "Um sieben Uhr morgens.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Die Jacke ist sehr schön und warm!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Meine Jacke ist blau und warm",
+            "My jacket is blue and warm"
+          ],
+          "translation": "the jacket is warm",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Heute ist das Wetter schön. Ich trage meine blaue Jacke und neue Schuhe.",
+          "translationText": "Today the weather is nice. I wear my blue jacket and new shoes.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Colors, Clothes & Weather • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Colors, Clothes & Weather • Unit 8 Milestone Exam",
+      "subtitle": "Describing clothes, seasonal weather in Germany and vibrant colors: Comprehensive Unit Exam (Trophy Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'blue':",
+          "targetWord": "blau",
+          "translation": "blue",
+          "options": [
+            {
+              "id": "de_u8_l12_p1",
+              "text": "blau (blue)",
+              "imageUrl": "/uploads/curriculum/blue.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u8_l12_p2",
+              "text": "schwarz (black)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u8_l12_p3",
+              "text": "Jacke (jacket)",
+              "imageUrl": "/uploads/curriculum/jacket.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "blau",
+              "native": "blue"
+            },
+            {
+              "target": "schwarz",
+              "native": "black"
+            },
+            {
+              "target": "Jacke",
+              "native": "jacket"
+            },
+            {
+              "target": "kalt",
+              "native": "cold"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the dress is green and new",
+          "targetSentence": "das Kleid ist grün und neu",
+          "tokens": [
+            "das",
+            "Kleid",
+            "ist",
+            "grün",
+            "und",
+            "neu",
+            "alt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "neu",
+          "translation": "the dress is green and new",
+          "options": [
+            "neu",
+            "blau",
+            "schwarz"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "seine Schuhe sind sauber und schwarz",
+          "tokens": [
+            "seine",
+            "Schuhe",
+            "sind",
+            "sauber",
+            "und",
+            "schwarz",
+            "weiß"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das Wetter ist heute schön",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the weather is nice today",
+              "isCorrect": true
+            },
+            {
+              "text": "the jacket is warm",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the weather is nice today",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'weather':",
+          "target": "Wetter",
+          "translation": "weather",
+          "hint": "Hint: starts with 'W'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Leon",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Wie findest du meine neue Jacke?",
+          "translation": "How do you like my new jacket?",
+          "options": [
+            {
+              "text": "Die Jacke ist sehr schön und warm!",
+              "isCorrect": true
+            },
+            {
+              "text": "Um sieben Uhr morgens.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Die Jacke ist sehr schön und warm!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Meine Jacke ist blau und warm",
+            "My jacket is blue and warm"
+          ],
+          "translation": "the jacket is warm",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Heute ist das Wetter schön. Ich trage meine blaue Jacke und neue Schuhe.",
+          "translationText": "Today the weather is nice. I wear my blue jacket and new shoes.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}
