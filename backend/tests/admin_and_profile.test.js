@@ -229,28 +229,44 @@ describe('Admin Management, Profile Lifecycle & Multi-Course Track Isolation Sui
             expect(getRes.body.success).toBe(true);
             expect(getRes.body.version).toBeDefined();
 
-            // Admin updates the minimum required version to 30
-            const putRes = await request(app)
-                .put('/api/admin/app-version')
-                .set('Authorization', `Bearer ${adminToken}`)
-                .send({
-                    min_required_version: 30,
-                    min_version_name: '1.5.0',
-                    latest_version_name: '1.5.0',
-                    title: 'Critical Security Update',
-                    message: 'Please update to v1.5.0 immediately to continue learning.',
-                });
-            expect(putRes.status).toBe(200);
-            expect(putRes.body.success).toBe(true);
-            expect(putRes.body.version.min_required_version).toBe(30);
-            expect(putRes.body.version.min_version_name).toBe('1.5.0');
+            const path = require('path');
+            const fs = require('fs');
+            const versionFilePath = path.join(__dirname, '../app_version.json');
+            const frontendVersionPath = path.join(__dirname, '../../frontend/public/app_version.json');
+            const initialVersionData = fs.existsSync(versionFilePath) ? fs.readFileSync(versionFilePath, 'utf8') : null;
 
-            // Public mobile endpoint /app_version.json reflects the new threshold immediately
-            const publicRes = await request(app)
-                .get('/app_version.json');
-            expect(publicRes.status).toBe(200);
-            expect(publicRes.body.min_required_version).toBe(30);
-            expect(publicRes.body.title).toBe('Critical Security Update');
+            try {
+                // Admin updates the minimum required version to 30
+                const putRes = await request(app)
+                    .put('/api/admin/app-version')
+                    .set('Authorization', `Bearer ${adminToken}`)
+                    .send({
+                        min_required_version: 30,
+                        min_version_name: '1.5.0',
+                        latest_version_name: '1.5.0',
+                        title: 'Critical Security Update',
+                        message: 'Please update to v1.5.0 immediately to continue learning.',
+                    });
+                expect(putRes.status).toBe(200);
+                expect(putRes.body.success).toBe(true);
+                expect(putRes.body.version.min_required_version).toBe(30);
+                expect(putRes.body.version.min_version_name).toBe('1.5.0');
+
+                // Public mobile endpoint /app_version.json reflects the new threshold immediately
+                const publicRes = await request(app)
+                    .get('/app_version.json');
+                expect(publicRes.status).toBe(200);
+                expect(publicRes.body.min_required_version).toBe(30);
+                expect(publicRes.body.title).toBe('Critical Security Update');
+            } finally {
+                // Restore initial version data so tests do not dirty repo working tree
+                if (initialVersionData) {
+                    fs.writeFileSync(versionFilePath, initialVersionData, 'utf8');
+                    if (fs.existsSync(path.dirname(frontendVersionPath))) {
+                        try { fs.writeFileSync(frontendVersionPath, initialVersionData, 'utf8'); } catch (_) {}
+                    }
+                }
+            }
         });
     });
 });
