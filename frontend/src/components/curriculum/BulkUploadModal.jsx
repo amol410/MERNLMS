@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Upload, Download, FileText, CheckCircle2, ShieldAlert, Sparkles } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api/axios';
@@ -72,6 +72,13 @@ export default function BulkUploadModal({
   const [loading, setLoading] = useState(false);
   const [targetUnit, setTargetUnit] = useState(unitNumber);
 
+  // Synchronize targetUnit whenever the modal opens or unitNumber prop changes
+  useEffect(() => {
+    if (isOpen) {
+      setTargetUnit(unitNumber);
+    }
+  }, [isOpen, unitNumber]);
+
   if (!isOpen) return null;
 
   const downloadFile = (filename, text) => {
@@ -98,6 +105,15 @@ export default function BulkUploadModal({
         setContent(text);
         if (file.name.endsWith('.json')) {
           setMode('json');
+          try {
+            const parsed = JSON.parse(text);
+            if (parsed.unitNumber && !isNaN(parseInt(parsed.unitNumber, 10))) {
+              const detectedUnit = parseInt(parsed.unitNumber, 10);
+              setTargetUnit(detectedUnit);
+              toast.success(`Loaded ${file.name} (Auto-detected Unit ${detectedUnit})`);
+              return;
+            }
+          } catch (_) {}
         } else {
           setMode('csv');
         }
@@ -116,16 +132,35 @@ export default function BulkUploadModal({
 
     setLoading(true);
     try {
+      let payloadUnit = parseInt(targetUnit, 10) || 1;
+      let payloadLang = currentLanguage;
+      let payloadNative = currentNative;
+      let payloadLevel = currentLevel;
+
+      // If JSON mode or content is JSON, auto-align with file's root attributes
+      if (mode === 'json' || content.trim().startsWith('{')) {
+        try {
+          const parsed = JSON.parse(content);
+          if (parsed.unitNumber && !isNaN(parseInt(parsed.unitNumber, 10))) {
+            payloadUnit = parseInt(parsed.unitNumber, 10);
+          }
+          if (parsed.learningLanguage) payloadLang = parsed.learningLanguage;
+          if (parsed.nativeLanguage) payloadNative = parsed.nativeLanguage;
+          if (parsed.level) payloadLevel = parsed.level;
+        } catch (_) {}
+      }
+
       const res = await api.post('/curriculum/bulk-upload', {
-        learningLanguage: currentLanguage,
-        nativeLanguage: currentNative,
-        level: currentLevel,
-        unitNumber: parseInt(targetUnit, 10) || 1,
+        learningLanguage: payloadLang,
+        nativeLanguage: payloadNative,
+        level: payloadLevel,
+        unitNumber: payloadUnit,
         lessonsData: content,
       });
 
-      toast.success(res.data.message || 'Bulk upload successful (All saved as Draft)!');
-      onSuccess?.();
+      const finalUnit = res.data?.unitNumber || payloadUnit;
+      toast.success(res.data.message || `Bulk upload successful for Unit ${finalUnit}!`);
+      onSuccess?.(finalUnit);
       onClose();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to bulk upload lessons');

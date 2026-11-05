@@ -1,0 +1,775 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Hindi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "hi",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 8,
+  "unitTitle": "Colors, Clothes & Appearance",
+  "unitDescription": "रंग, कपड़े और रूप-रंग",
+  "accentColor": "#E91E63",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Colors, Clothes & Appearance • Lesson 1",
+      "subtitle": "रंग, कपड़े और रूप-रंग: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "blue",
+              "native": "नीला"
+            },
+            {
+              "target": "green",
+              "native": "हरा"
+            },
+            {
+              "target": "yellow",
+              "native": "पीला"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "लाल गाड़ी और नीला घर",
+          "targetSentence": "a red car and a blue house",
+          "tokens": [
+            "a",
+            "red",
+            "car",
+            "and",
+            "a",
+            "blue",
+            "house"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "a red car and a blue house",
+          "tokens": [
+            "a",
+            "red",
+            "car",
+            "and",
+            "a",
+            "blue",
+            "house"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "a _______.",
+          "blank": "house",
+          "translation": "लाल गाड़ी और नीला घर",
+          "options": [
+            "house",
+            "blue",
+            "green"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग लिखें",
+          "prompt": "'लाल' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "red",
+          "hint": "संकेत: r से शुरू होता है"
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Colors, Clothes & Appearance • Lesson 2",
+      "subtitle": "रंग, कपड़े और रूप-रंग: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "black",
+              "native": "काला"
+            },
+            {
+              "target": "white",
+              "native": "सफ़ेद"
+            },
+            {
+              "target": "shirt",
+              "native": "कमीज़"
+            },
+            {
+              "target": "pants",
+              "native": "पतलून"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरी कमीज़ सफ़ेद है।",
+          "targetSentence": "My shirt is white",
+          "tokens": [
+            "My",
+            "shirt",
+            "is",
+            "white",
+            "black",
+            "red"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह काले जूते पहनता है।",
+          "targetSentence": "He wears black shoes",
+          "tokens": [
+            "He",
+            "wears",
+            "black",
+            "shoes",
+            "white",
+            "pants"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "My shirt is white",
+          "tokens": [
+            "My",
+            "shirt",
+            "is",
+            "white",
+            "black",
+            "red"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My favorite color is blue",
+          "translation": "लाल गाड़ी और नीला घर",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Colors, Clothes & Appearance • Lesson 3",
+      "subtitle": "रंग, कपड़े और रूप-रंग: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "shoes",
+              "native": "जूते"
+            },
+            {
+              "target": "hat",
+              "native": "टोपी"
+            },
+            {
+              "target": "dress",
+              "native": "पोशाक"
+            },
+            {
+              "target": "coat",
+              "native": "कोट"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैंने टोपी पहनी हुई है।",
+          "targetSentence": "I am wearing a hat",
+          "tokens": [
+            "I",
+            "am",
+            "wearing",
+            "a",
+            "hat",
+            "coat",
+            "dress"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I am wearing a _______.",
+          "blank": "hat",
+          "translation": "मैंने टोपी पहनी हुई है।",
+          "options": [
+            "hat",
+            "red",
+            "white"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "He wears black shoes",
+          "tokens": [
+            "He",
+            "wears",
+            "black",
+            "shoes",
+            "white",
+            "pants"
+          ],
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Colors, Clothes & Appearance • Lesson 4",
+      "subtitle": "रंग, कपड़े और रूप-रंग: श्रवण और समझ",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "I am wearing a hat",
+          "tokens": [
+            "I",
+            "am",
+            "wearing",
+            "a",
+            "hat",
+            "coat",
+            "dress"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "Her dress is very beautiful",
+          "tokens": [
+            "Her",
+            "dress",
+            "is",
+            "very",
+            "beautiful",
+            "shirt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "रैपिड मिलान",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "yellow",
+              "native": "पीला"
+            },
+            {
+              "target": "shirt",
+              "native": "कमीज़"
+            },
+            {
+              "target": "hat",
+              "native": "टोपी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "उसकी पोशाक बहुत सुंदर है।",
+          "targetSentence": "Her dress is very beautiful",
+          "tokens": [
+            "Her",
+            "dress",
+            "is",
+            "very",
+            "beautiful",
+            "shirt"
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Colors, Clothes & Appearance • Lesson 5",
+      "subtitle": "रंग, कपड़े और रूप-रंग: व्यावहारिक प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "wear",
+              "native": "पहनना"
+            },
+            {
+              "target": "wearing",
+              "native": "पहने हुए"
+            },
+            {
+              "target": "color",
+              "native": "रंग"
+            },
+            {
+              "target": "favorite",
+              "native": "पसंदीदा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरा पसंदीदा रंग नीला है।",
+          "targetSentence": "My favorite color is blue",
+          "tokens": [
+            "My",
+            "favorite",
+            "color",
+            "is",
+            "blue",
+            "green",
+            "red"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "My favorite color is _______.",
+          "blank": "blue",
+          "translation": "मेरा पसंदीदा रंग नीला है।",
+          "options": [
+            "blue",
+            "green",
+            "shoes"
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I wear black shoes",
+          "translation": "आपकी गाड़ी का रंग क्या है?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Colors, Clothes & Appearance • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Colors, Clothes & Appearance • Lesson 7",
+      "subtitle": "रंग, कपड़े और रूप-रंग: विस्तृत वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "आपकी गाड़ी का रंग क्या है?",
+          "targetSentence": "What color is your car?",
+          "tokens": [
+            "What",
+            "color",
+            "is",
+            "your",
+            "car?",
+            "house"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरी गाड़ी लाल है।",
+          "targetSentence": "My car is red",
+          "tokens": [
+            "My",
+            "car",
+            "is",
+            "red",
+            "blue",
+            "white"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "What color is your car?",
+          "tokens": [
+            "What",
+            "color",
+            "is",
+            "your",
+            "car?",
+            "house"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "blue",
+              "native": "नीला"
+            },
+            {
+              "target": "black",
+              "native": "काला"
+            },
+            {
+              "target": "pants",
+              "native": "पतलून"
+            },
+            {
+              "target": "coat",
+              "native": "कोट"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Colors, Clothes & Appearance • Lesson 8",
+      "subtitle": "रंग, कपड़े और रूप-रंग: बातचीत और संवाद",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "dialogue_bubble",
+          "title": "संवाद पूरा करें",
+          "partnerName": "Aman",
+          "partnerMessage": "What color is your shirt?",
+          "translation": "आपकी कमीज़ का रंग क्या है?",
+          "options": [
+            {
+              "text": "My shirt is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is eight o'clock.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरी गाड़ी लाल है।",
+          "targetSentence": "My car is red",
+          "tokens": [
+            "My",
+            "car",
+            "is",
+            "red",
+            "blue",
+            "white"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "My car is _______.",
+          "blank": "red",
+          "translation": "मेरी गाड़ी लाल है।",
+          "options": [
+            "red",
+            "yellow",
+            "hat"
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Colors, Clothes & Appearance • Lesson 9",
+      "subtitle": "रंग, कपड़े और रूप-रंग: मौखिक उच्चारण अभ्यास",
+      "nodeType": "lesson",
+      "xpReward": 25,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "My favorite color is blue",
+          "translation": "लाल गाड़ी और नीला घर",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "I wear black shoes",
+          "translation": "मेरी कमीज़ सफ़ेद है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "My car is red",
+          "translation": "वह काले जूते पहनता है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "शब्द मिलान",
+          "pairs": [
+            {
+              "target": "green",
+              "native": "हरा"
+            },
+            {
+              "target": "white",
+              "native": "सफ़ेद"
+            },
+            {
+              "target": "shoes",
+              "native": "जूते"
+            },
+            {
+              "target": "wearing",
+              "native": "पहने हुए"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Colors, Clothes & Appearance • Lesson 10",
+      "subtitle": "रंग, कपड़े और रूप-रंग: समग्र पुनरावृत्ति",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "5-जोड़ी मिलान",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "yellow",
+              "native": "पीला"
+            },
+            {
+              "target": "pants",
+              "native": "पतलून"
+            },
+            {
+              "target": "dress",
+              "native": "पोशाक"
+            },
+            {
+              "target": "color",
+              "native": "रंग"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "My favorite color is blue",
+          "tokens": [
+            "My",
+            "favorite",
+            "color",
+            "is",
+            "blue",
+            "green",
+            "red"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "आपकी गाड़ी का रंग क्या है?",
+          "targetSentence": "What color is your car?",
+          "tokens": [
+            "What",
+            "color",
+            "is",
+            "your",
+            "car?",
+            "house"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'नीला' के लिए सही शब्द टाइप करें:",
+          "target": "blue",
+          "hint": "संकेत: b से शुरू होता है"
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Colors, Clothes & Appearance • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Colors, Clothes & Appearance • Colors, Clothes & Appearance • Milestone Exam",
+      "subtitle": "इकाई 8 संपूर्ण परीक्षा",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "इकाई 8 मुख्य शब्द परीक्षा",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "green",
+              "native": "हरा"
+            },
+            {
+              "target": "black",
+              "native": "काला"
+            },
+            {
+              "target": "shirt",
+              "native": "कमीज़"
+            },
+            {
+              "target": "shoes",
+              "native": "जूते"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
+          "prompt": "मैंने टोपी पहनी हुई है।",
+          "targetSentence": "I am wearing a hat",
+          "tokens": [
+            "I",
+            "am",
+            "wearing",
+            "a",
+            "hat",
+            "coat",
+            "dress"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
+          "targetSentence": "My car is red",
+          "tokens": [
+            "My",
+            "car",
+            "is",
+            "red",
+            "blue",
+            "white"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "cloze_test",
+          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
+          "sentence": "My shirt is _______.",
+          "blank": "white",
+          "translation": "मेरी कमीज़ सफ़ेद है।",
+          "options": [
+            "white",
+            "white",
+            "hat"
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
+          "prompt": "My favorite color is blue",
+          "translation": "लाल गाड़ी और नीला घर",
+          "minAccuracy": 80,
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

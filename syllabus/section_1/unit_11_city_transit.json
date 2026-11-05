@@ -1,0 +1,777 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Hindi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "hi",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 11,
+  "unitTitle": "Places in the City & Transportation",
+  "unitDescription": "शहर के स्थान और यात्रा",
+  "accentColor": "#8B5CF6",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Places in the City & Transportation • Lesson 1",
+      "subtitle": "शहर के स्थान और यात्रा: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "bus",
+              "native": "बस"
+            },
+            {
+              "target": "train",
+              "native": "ट्रेन"
+            },
+            {
+              "target": "auto",
+              "native": "ऑटो"
+            },
+            {
+              "target": "taxi",
+              "native": "टैक्सी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं बस से काम पर जाता हूँ।",
+          "targetSentence": "I go to work by bus",
+          "tokens": [
+            "I",
+            "go",
+            "to",
+            "work",
+            "by",
+            "bus",
+            "train"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "I go to work by bus",
+          "tokens": [
+            "I",
+            "go",
+            "to",
+            "work",
+            "by",
+            "bus",
+            "train"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "bus",
+          "translation": "मैं बस से काम पर जाता हूँ।",
+          "options": [
+            "bus",
+            "train",
+            "auto"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग लिखें",
+          "prompt": "'बस' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "bus",
+          "hint": "संकेत: b से शुरू होता है"
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Places in the City & Transportation • Lesson 2",
+      "subtitle": "शहर के स्थान और यात्रा: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "station",
+              "native": "स्टेशन"
+            },
+            {
+              "target": "airport",
+              "native": "हवाई अड्डा"
+            },
+            {
+              "target": "market",
+              "native": "बाज़ार"
+            },
+            {
+              "target": "hospital",
+              "native": "अस्पताल"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "ट्रेन स्टेशन पर है।",
+          "targetSentence": "The train is at the station",
+          "tokens": [
+            "The",
+            "train",
+            "is",
+            "at",
+            "the",
+            "station",
+            "bus"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं बाज़ार जा रहा हूँ।",
+          "targetSentence": "I am going to the market",
+          "tokens": [
+            "I",
+            "am",
+            "going",
+            "to",
+            "the",
+            "market",
+            "bank"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "The train is at the station",
+          "tokens": [
+            "The",
+            "train",
+            "is",
+            "at",
+            "the",
+            "station",
+            "bus"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "How much is the ticket?",
+          "translation": "मैं बस से काम पर जाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Places in the City & Transportation • Lesson 3",
+      "subtitle": "शहर के स्थान और यात्रा: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "bank",
+              "native": "बैंक"
+            },
+            {
+              "target": "hotel",
+              "native": "होटल"
+            },
+            {
+              "target": "ticket",
+              "native": "टिकट"
+            },
+            {
+              "target": "price",
+              "native": "कीमत"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "बैंक अस्पताल के पास है।",
+          "targetSentence": "The bank is near the hospital",
+          "tokens": [
+            "The",
+            "bank",
+            "is",
+            "near",
+            "the",
+            "hospital",
+            "hotel"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "The bank is near the _______.",
+          "blank": "hospital",
+          "translation": "बैंक अस्पताल के पास है।",
+          "options": [
+            "hospital",
+            "bus",
+            "airport"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "I am going to the market",
+          "tokens": [
+            "I",
+            "am",
+            "going",
+            "to",
+            "the",
+            "market",
+            "bank"
+          ],
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Places in the City & Transportation • Lesson 4",
+      "subtitle": "शहर के स्थान और यात्रा: श्रवण और समझ",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "The bank is near the hospital",
+          "tokens": [
+            "The",
+            "bank",
+            "is",
+            "near",
+            "the",
+            "hospital",
+            "hotel"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "One ticket to Delhi, please",
+          "tokens": [
+            "One",
+            "ticket",
+            "to",
+            "Delhi,",
+            "please",
+            "two"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "रैपिड मिलान",
+          "pairs": [
+            {
+              "target": "bus",
+              "native": "बस"
+            },
+            {
+              "target": "taxi",
+              "native": "टैक्सी"
+            },
+            {
+              "target": "market",
+              "native": "बाज़ार"
+            },
+            {
+              "target": "hotel",
+              "native": "होटल"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "दिल्ली के लिए एक टिकट, कृपया।",
+          "targetSentence": "One ticket to Delhi, please",
+          "tokens": [
+            "One",
+            "ticket",
+            "to",
+            "Delhi,",
+            "please",
+            "two"
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Places in the City & Transportation • Lesson 5",
+      "subtitle": "शहर के स्थान और यात्रा: व्यावहारिक प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "seat",
+              "native": "सीट"
+            },
+            {
+              "target": "driver",
+              "native": "ड्राइवर"
+            },
+            {
+              "target": "city",
+              "native": "शहर"
+            },
+            {
+              "target": "how much",
+              "native": "कितना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "टिकट कितने का है?",
+          "targetSentence": "How much is the ticket?",
+          "tokens": [
+            "How",
+            "much",
+            "is",
+            "the",
+            "ticket?",
+            "price"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "How much is the _______.",
+          "blank": "ticket?",
+          "translation": "टिकट कितने का है?",
+          "options": [
+            "ticket?",
+            "auto",
+            "bank"
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "One ticket, please",
+          "translation": "यह मेरी सीट है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Places in the City & Transportation • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Places in the City & Transportation • Lesson 7",
+      "subtitle": "शहर के स्थान और यात्रा: विस्तृत वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "यह मेरी सीट है।",
+          "targetSentence": "This is my seat",
+          "tokens": [
+            "This",
+            "is",
+            "my",
+            "seat",
+            "your",
+            "bag"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "कृपया होटल पर रोकिए।",
+          "targetSentence": "Stop at the hotel, please",
+          "tokens": [
+            "Stop",
+            "at",
+            "the",
+            "hotel,",
+            "please",
+            "bank"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "This is my seat",
+          "tokens": [
+            "This",
+            "is",
+            "my",
+            "seat",
+            "your",
+            "bag"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "train",
+              "native": "ट्रेन"
+            },
+            {
+              "target": "station",
+              "native": "स्टेशन"
+            },
+            {
+              "target": "hospital",
+              "native": "अस्पताल"
+            },
+            {
+              "target": "price",
+              "native": "कीमत"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Places in the City & Transportation • Lesson 8",
+      "subtitle": "शहर के स्थान और यात्रा: बातचीत और संवाद",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "dialogue_bubble",
+          "title": "संवाद पूरा करें",
+          "partnerName": "Auto Driver",
+          "partnerMessage": "Where do you want to go?",
+          "translation": "आप कहाँ जाना चाहते हैं?",
+          "options": [
+            {
+              "text": "To the market, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My father is tall.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "कृपया होटल पर रोकिए।",
+          "targetSentence": "Stop at the hotel, please",
+          "tokens": [
+            "Stop",
+            "at",
+            "the",
+            "hotel,",
+            "please",
+            "bank"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Stop at the hotel, _______.",
+          "blank": "please",
+          "translation": "कृपया होटल पर रोकिए।",
+          "options": [
+            "please",
+            "taxi",
+            "hotel"
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Places in the City & Transportation • Lesson 9",
+      "subtitle": "शहर के स्थान और यात्रा: मौखिक उच्चारण अभ्यास",
+      "nodeType": "lesson",
+      "xpReward": 25,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "How much is the ticket?",
+          "translation": "मैं बस से काम पर जाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "One ticket, please",
+          "translation": "ट्रेन स्टेशन पर है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "Stop at the station",
+          "translation": "मैं बाज़ार जा रहा हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "शब्द मिलान",
+          "pairs": [
+            {
+              "target": "auto",
+              "native": "ऑटो"
+            },
+            {
+              "target": "airport",
+              "native": "हवाई अड्डा"
+            },
+            {
+              "target": "bank",
+              "native": "बैंक"
+            },
+            {
+              "target": "driver",
+              "native": "ड्राइवर"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Places in the City & Transportation • Lesson 10",
+      "subtitle": "शहर के स्थान और यात्रा: समग्र पुनरावृत्ति",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "5-जोड़ी मिलान",
+          "pairs": [
+            {
+              "target": "bus",
+              "native": "बस"
+            },
+            {
+              "target": "taxi",
+              "native": "टैक्सी"
+            },
+            {
+              "target": "hospital",
+              "native": "अस्पताल"
+            },
+            {
+              "target": "ticket",
+              "native": "टिकट"
+            },
+            {
+              "target": "city",
+              "native": "शहर"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "How much is the ticket?",
+          "tokens": [
+            "How",
+            "much",
+            "is",
+            "the",
+            "ticket?",
+            "price"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "यह मेरी सीट है।",
+          "targetSentence": "This is my seat",
+          "tokens": [
+            "This",
+            "is",
+            "my",
+            "seat",
+            "your",
+            "bag"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'ट्रेन' के लिए सही शब्द टाइप करें:",
+          "target": "train",
+          "hint": "संकेत: t से शुरू होता है"
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Places in the City & Transportation • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Places in the City & Transportation • Places in the City & Transportation • Milestone Exam",
+      "subtitle": "इकाई 11 संपूर्ण परीक्षा",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "इकाई 11 मुख्य शब्द परीक्षा",
+          "pairs": [
+            {
+              "target": "bus",
+              "native": "बस"
+            },
+            {
+              "target": "auto",
+              "native": "ऑटो"
+            },
+            {
+              "target": "station",
+              "native": "स्टेशन"
+            },
+            {
+              "target": "market",
+              "native": "बाज़ार"
+            },
+            {
+              "target": "bank",
+              "native": "बैंक"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
+          "prompt": "बैंक अस्पताल के पास है।",
+          "targetSentence": "The bank is near the hospital",
+          "tokens": [
+            "The",
+            "bank",
+            "is",
+            "near",
+            "the",
+            "hospital",
+            "hotel"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
+          "targetSentence": "Stop at the hotel, please",
+          "tokens": [
+            "Stop",
+            "at",
+            "the",
+            "hotel,",
+            "please",
+            "bank"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "cloze_test",
+          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
+          "sentence": "The train is at the _______.",
+          "blank": "station",
+          "translation": "ट्रेन स्टेशन पर है।",
+          "options": [
+            "station",
+            "airport",
+            "hotel"
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
+          "prompt": "How much is the ticket?",
+          "translation": "मैं बस से काम पर जाता हूँ।",
+          "minAccuracy": 80,
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

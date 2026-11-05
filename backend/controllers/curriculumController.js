@@ -385,36 +385,68 @@ exports.bulkUpload = async (req, res, next) => {
             level = 'A1',
             unitNumber = 1,
             unitTitle = 'Coral Reef',
-            lessonsData, // Can be array of objects or CSV text
+            lessonsData, // Can be array of objects, JSON string, or CSV text
         } = req.body;
+
+        let effectiveLearningLanguage = learningLanguage;
+        let effectiveNativeLanguage = nativeLanguage;
+        let effectiveLevel = level;
+        let effectiveUnitNumber = parseInt(unitNumber, 10) || 1;
+        let effectiveUnitTitle = unitTitle;
+        let effectiveUnitDescription = '';
 
         let parsedItems = [];
 
         if (Array.isArray(lessonsData)) {
             parsedItems = lessonsData;
-        } else if (typeof lessonsData === 'string') {
-            // Check if JSON string
+        } else if (typeof lessonsData === 'string' || (lessonsData && typeof lessonsData === 'object')) {
             try {
-                const jsonParsed = JSON.parse(lessonsData);
+                const jsonParsed = typeof lessonsData === 'string' ? JSON.parse(lessonsData) : lessonsData;
                 if (Array.isArray(jsonParsed)) {
                     parsedItems = jsonParsed;
-                } else if (jsonParsed.lessons && Array.isArray(jsonParsed.lessons)) {
-                    parsedItems = jsonParsed.lessons;
+                } else if (jsonParsed && typeof jsonParsed === 'object') {
+                    // Extract root-level metadata if explicitly declared in the uploaded JSON file
+                    if (jsonParsed.unitNumber !== undefined && jsonParsed.unitNumber !== null && !isNaN(parseInt(jsonParsed.unitNumber, 10))) {
+                        effectiveUnitNumber = parseInt(jsonParsed.unitNumber, 10);
+                    }
+                    if (jsonParsed.unitTitle) {
+                        effectiveUnitTitle = jsonParsed.unitTitle.trim();
+                    }
+                    if (jsonParsed.unitDescription) {
+                        effectiveUnitDescription = jsonParsed.unitDescription.trim();
+                    }
+                    if (jsonParsed.learningLanguage) {
+                        effectiveLearningLanguage = jsonParsed.learningLanguage.trim();
+                    }
+                    if (jsonParsed.nativeLanguage) {
+                        effectiveNativeLanguage = jsonParsed.nativeLanguage.trim();
+                    }
+                    if (jsonParsed.level) {
+                        effectiveLevel = jsonParsed.level.trim();
+                    }
+
+                    if (Array.isArray(jsonParsed.lessons)) {
+                        parsedItems = jsonParsed.lessons;
+                    } else if (Array.isArray(jsonParsed.lessonsData)) {
+                        parsedItems = jsonParsed.lessonsData;
+                    }
                 }
             } catch {
-                // Parse as CSV
-                const lines = lessonsData.split(/\r?\n/).filter(line => line.trim());
-                // Headers: Title, NodeType, Subtitle, XpReward, StagesSummary
-                const startLine = lines[0].toLowerCase().includes('title') ? 1 : 0;
-                for (let i = startLine; i < lines.length; i++) {
-                    const parts = lines[i].split(',').map(s => s.trim().replace(/^"|"$/g, ''));
-                    if (parts.length > 0 && parts[0]) {
-                        parsedItems.push({
-                            title: parts[0],
-                            nodeType: parts[1] || 'lesson',
-                            subtitle: parts[2] || '',
-                            xpReward: parseInt(parts[3] || '15', 10),
-                        });
+                if (typeof lessonsData === 'string') {
+                    // Parse as CSV
+                    const lines = lessonsData.split(/\r?\n/).filter(line => line.trim());
+                    // Headers: Title, NodeType, Subtitle, XpReward, StagesSummary
+                    const startLine = lines[0].toLowerCase().includes('title') ? 1 : 0;
+                    for (let i = startLine; i < lines.length; i++) {
+                        const parts = lines[i].split(',').map(s => s.trim().replace(/^"|"$/g, ''));
+                        if (parts.length > 0 && parts[0]) {
+                            parsedItems.push({
+                                title: parts[0],
+                                nodeType: parts[1] || 'lesson',
+                                subtitle: parts[2] || '',
+                                xpReward: parseInt(parts[3] || '15', 10),
+                            });
+                        }
                     }
                 }
             }
@@ -443,10 +475,10 @@ exports.bulkUpload = async (req, res, next) => {
         // Find existing lessons for this unit to update matches and preserve untouched lessons
         const existingLessons = await CurriculumLesson.findAll({
             where: {
-                learningLanguage,
-                nativeLanguage,
-                level,
-                unitNumber,
+                learningLanguage: effectiveLearningLanguage,
+                nativeLanguage: effectiveNativeLanguage,
+                level: effectiveLevel,
+                unitNumber: effectiveUnitNumber,
             },
             order: [['lessonIndex', 'ASC']],
         });
@@ -482,8 +514,8 @@ exports.bulkUpload = async (req, res, next) => {
                 if (item.pearlsReward !== undefined) existing.pearlsReward = item.pearlsReward;
                 if (item.stages !== undefined) existing.stages = cleanStages;
                 if (item.audioUrl !== undefined) existing.audioUrl = item.audioUrl;
-                if (item.unitTitle) existing.unitTitle = item.unitTitle;
-                if (item.unitDescription !== undefined) existing.unitDescription = item.unitDescription;
+                if (item.unitTitle || effectiveUnitTitle) existing.unitTitle = item.unitTitle || effectiveUnitTitle;
+                if (item.unitDescription !== undefined || effectiveUnitDescription) existing.unitDescription = item.unitDescription !== undefined ? item.unitDescription : effectiveUnitDescription;
                 if (item.isLive !== undefined) existing.isLive = Boolean(item.isLive);
                 await existing.save();
                 processedLessons.push(existing);
@@ -496,12 +528,12 @@ exports.bulkUpload = async (req, res, next) => {
 
                 const lesson = await CurriculumLesson.create({
                     owner: req.user.id,
-                    learningLanguage: item.learningLanguage || learningLanguage,
-                    nativeLanguage: item.nativeLanguage || nativeLanguage,
-                    level: item.level || level,
-                    unitNumber: item.unitNumber || unitNumber,
-                    unitTitle: item.unitTitle || unitTitle,
-                    unitDescription: item.unitDescription || '',
+                    learningLanguage: item.learningLanguage || effectiveLearningLanguage,
+                    nativeLanguage: item.nativeLanguage || effectiveNativeLanguage,
+                    level: item.level || effectiveLevel,
+                    unitNumber: item.unitNumber || effectiveUnitNumber,
+                    unitTitle: item.unitTitle || effectiveUnitTitle,
+                    unitDescription: item.unitDescription || effectiveUnitDescription,
                     lessonIndex: newLessonIndex,
                     title: item.title.trim(),
                     subtitle: (item.subtitle || '').trim(),
@@ -518,8 +550,10 @@ exports.bulkUpload = async (req, res, next) => {
 
         res.status(201).json({
             success: true,
-            message: `Bulk uploaded ${processedLessons.length} lessons in unit ${unitNumber}`,
+            message: `Bulk uploaded ${processedLessons.length} lessons in unit ${effectiveUnitNumber}`,
             count: processedLessons.length,
+            unitNumber: effectiveUnitNumber,
+            unitTitle: effectiveUnitTitle,
             lessons: processedLessons,
         });
     } catch (error) {

@@ -1,0 +1,779 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Hindi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "hi",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 6,
+  "unitTitle": "Home, Rooms & Prepositions",
+  "unitDescription": "घर, कमरे और स्थान सूचक",
+  "accentColor": "#2B70C9",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Home, Rooms & Prepositions • Lesson 1",
+      "subtitle": "घर, कमरे और स्थान सूचक: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "room",
+              "native": "कमरा"
+            },
+            {
+              "target": "kitchen",
+              "native": "रसोई"
+            },
+            {
+              "target": "table",
+              "native": "मेज़"
+            },
+            {
+              "target": "chair",
+              "native": "कुर्सी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "किताब मेज़ पर है।",
+          "targetSentence": "The book is on the table",
+          "tokens": [
+            "The",
+            "book",
+            "is",
+            "on",
+            "the",
+            "table",
+            "under"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "The book is on the table",
+          "tokens": [
+            "The",
+            "book",
+            "is",
+            "on",
+            "the",
+            "table",
+            "under"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "The _______.",
+          "blank": "table",
+          "translation": "किताब मेज़ पर है।",
+          "options": [
+            "table",
+            "kitchen",
+            "table"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग लिखें",
+          "prompt": "'कमरा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "room",
+          "hint": "संकेत: r से शुरू होता है"
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Home, Rooms & Prepositions • Lesson 2",
+      "subtitle": "घर, कमरे और स्थान सूचक: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "bed",
+              "native": "बिस्तर"
+            },
+            {
+              "target": "door",
+              "native": "दरवाज़ा"
+            },
+            {
+              "target": "window",
+              "native": "खिड़की"
+            },
+            {
+              "target": "wall",
+              "native": "दीवार"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरी माँ रसोई में हैं।",
+          "targetSentence": "My mother is in the kitchen",
+          "tokens": [
+            "My",
+            "mother",
+            "is",
+            "in",
+            "the",
+            "kitchen",
+            "room"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "बिल्ली कुर्सी के नीचे है।",
+          "targetSentence": "The cat is under the chair",
+          "tokens": [
+            "The",
+            "cat",
+            "is",
+            "under",
+            "the",
+            "chair",
+            "table"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "My mother is in the kitchen",
+          "tokens": [
+            "My",
+            "mother",
+            "is",
+            "in",
+            "the",
+            "kitchen",
+            "room"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "The book is on the table",
+          "translation": "किताब मेज़ पर है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Home, Rooms & Prepositions • Lesson 3",
+      "subtitle": "घर, कमरे और स्थान सूचक: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "phone",
+              "native": "फ़ोन"
+            },
+            {
+              "target": "key",
+              "native": "चाबी"
+            },
+            {
+              "target": "bag",
+              "native": "बैग"
+            },
+            {
+              "target": "in",
+              "native": "में"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरा फ़ोन कहाँ है?",
+          "targetSentence": "Where is my phone?",
+          "tokens": [
+            "Where",
+            "is",
+            "my",
+            "phone?",
+            "key",
+            "bag"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Where is my _______.",
+          "blank": "phone?",
+          "translation": "मेरा फ़ोन कहाँ है?",
+          "options": [
+            "phone?",
+            "room",
+            "door"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "The cat is under the chair",
+          "tokens": [
+            "The",
+            "cat",
+            "is",
+            "under",
+            "the",
+            "chair",
+            "table"
+          ],
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Home, Rooms & Prepositions • Lesson 4",
+      "subtitle": "घर, कमरे और स्थान सूचक: श्रवण और समझ",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "Where is my phone?",
+          "tokens": [
+            "Where",
+            "is",
+            "my",
+            "phone?",
+            "key",
+            "bag"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "The keys are in the bag",
+          "tokens": [
+            "The",
+            "keys",
+            "are",
+            "in",
+            "the",
+            "bag",
+            "table"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "रैपिड मिलान",
+          "pairs": [
+            {
+              "target": "room",
+              "native": "कमरा"
+            },
+            {
+              "target": "chair",
+              "native": "कुर्सी"
+            },
+            {
+              "target": "window",
+              "native": "खिड़की"
+            },
+            {
+              "target": "key",
+              "native": "चाबी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "चाबियाँ बैग में हैं।",
+          "targetSentence": "The keys are in the bag",
+          "tokens": [
+            "The",
+            "keys",
+            "are",
+            "in",
+            "the",
+            "bag",
+            "table"
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Home, Rooms & Prepositions • Lesson 5",
+      "subtitle": "घर, कमरे और स्थान सूचक: व्यावहारिक प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "on",
+              "native": "पर"
+            },
+            {
+              "target": "under",
+              "native": "के नीचे"
+            },
+            {
+              "target": "near",
+              "native": "के पास"
+            },
+            {
+              "target": "where",
+              "native": "कहाँ"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "दरवाज़ा खुला है।",
+          "targetSentence": "The door is open",
+          "tokens": [
+            "The",
+            "door",
+            "is",
+            "open",
+            "closed",
+            "window"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "The door is _______.",
+          "blank": "open",
+          "translation": "दरवाज़ा खुला है।",
+          "options": [
+            "open",
+            "table",
+            "phone"
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Where is my phone?",
+          "translation": "खिड़की बंद है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Home, Rooms & Prepositions • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Home, Rooms & Prepositions • Lesson 7",
+      "subtitle": "घर, कमरे और स्थान सूचक: विस्तृत वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "खिड़की बंद है।",
+          "targetSentence": "The window is closed",
+          "tokens": [
+            "The",
+            "window",
+            "is",
+            "closed",
+            "open",
+            "door"
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरा घर स्कूल के पास है।",
+          "targetSentence": "My house is near the school",
+          "tokens": [
+            "My",
+            "house",
+            "is",
+            "near",
+            "the",
+            "school",
+            "far"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "The window is closed",
+          "tokens": [
+            "The",
+            "window",
+            "is",
+            "closed",
+            "open",
+            "door"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "शब्दों का मिलान करें",
+          "pairs": [
+            {
+              "target": "kitchen",
+              "native": "रसोई"
+            },
+            {
+              "target": "bed",
+              "native": "बिस्तर"
+            },
+            {
+              "target": "wall",
+              "native": "दीवार"
+            },
+            {
+              "target": "in",
+              "native": "में"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Home, Rooms & Prepositions • Lesson 8",
+      "subtitle": "घर, कमरे और स्थान सूचक: बातचीत और संवाद",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "dialogue_bubble",
+          "title": "संवाद पूरा करें",
+          "partnerName": "Sister",
+          "partnerMessage": "Where is my bag?",
+          "translation": "मेरा बैग कहाँ है?",
+          "options": [
+            {
+              "text": "It is on the chair.",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat bread.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरा घर स्कूल के पास है।",
+          "targetSentence": "My house is near the school",
+          "tokens": [
+            "My",
+            "house",
+            "is",
+            "near",
+            "the",
+            "school",
+            "far"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "My house is near the _______.",
+          "blank": "school",
+          "translation": "मेरा घर स्कूल के पास है।",
+          "options": [
+            "school",
+            "chair",
+            "key"
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Home, Rooms & Prepositions • Lesson 9",
+      "subtitle": "घर, कमरे और स्थान सूचक: मौखिक उच्चारण अभ्यास",
+      "nodeType": "lesson",
+      "xpReward": 25,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "The book is on the table",
+          "translation": "किताब मेज़ पर है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "Where is my phone?",
+          "translation": "मेरी माँ रसोई में हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "स्पष्ट बोलें",
+          "prompt": "The door is open",
+          "translation": "बिल्ली कुर्सी के नीचे है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "word_match",
+          "title": "शब्द मिलान",
+          "pairs": [
+            {
+              "target": "table",
+              "native": "मेज़"
+            },
+            {
+              "target": "door",
+              "native": "दरवाज़ा"
+            },
+            {
+              "target": "phone",
+              "native": "फ़ोन"
+            },
+            {
+              "target": "under",
+              "native": "के नीचे"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Home, Rooms & Prepositions • Lesson 10",
+      "subtitle": "घर, कमरे और स्थान सूचक: समग्र पुनरावृत्ति",
+      "nodeType": "lesson",
+      "xpReward": 20,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "5-जोड़ी मिलान",
+          "pairs": [
+            {
+              "target": "room",
+              "native": "कमरा"
+            },
+            {
+              "target": "chair",
+              "native": "कुर्सी"
+            },
+            {
+              "target": "wall",
+              "native": "दीवार"
+            },
+            {
+              "target": "bag",
+              "native": "बैग"
+            },
+            {
+              "target": "near",
+              "native": "के पास"
+            }
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और टैप करें",
+          "targetSentence": "The door is open",
+          "tokens": [
+            "The",
+            "door",
+            "is",
+            "open",
+            "closed",
+            "window"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "खिड़की बंद है।",
+          "targetSentence": "The window is closed",
+          "tokens": [
+            "The",
+            "window",
+            "is",
+            "closed",
+            "open",
+            "door"
+          ]
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'रसोई' के लिए सही शब्द टाइप करें:",
+          "target": "kitchen",
+          "hint": "संकेत: k से शुरू होता है"
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Home, Rooms & Prepositions • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Home, Rooms & Prepositions • Home, Rooms & Prepositions • Milestone Exam",
+      "subtitle": "इकाई 6 संपूर्ण परीक्षा",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "word_match",
+          "title": "इकाई 6 मुख्य शब्द परीक्षा",
+          "pairs": [
+            {
+              "target": "room",
+              "native": "कमरा"
+            },
+            {
+              "target": "table",
+              "native": "मेज़"
+            },
+            {
+              "target": "bed",
+              "native": "बिस्तर"
+            },
+            {
+              "target": "window",
+              "native": "खिड़की"
+            },
+            {
+              "target": "phone",
+              "native": "फ़ोन"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
+          "prompt": "मेरा फ़ोन कहाँ है?",
+          "targetSentence": "Where is my phone?",
+          "tokens": [
+            "Where",
+            "is",
+            "my",
+            "phone?",
+            "key",
+            "bag"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
+          "targetSentence": "My house is near the school",
+          "tokens": [
+            "My",
+            "house",
+            "is",
+            "near",
+            "the",
+            "school",
+            "far"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "cloze_test",
+          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
+          "sentence": "My mother is in the _______.",
+          "blank": "kitchen",
+          "translation": "मेरी माँ रसोई में हैं।",
+          "options": [
+            "kitchen",
+            "door",
+            "key"
+          ]
+        },
+        {
+          "type": "sprechen",
+          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
+          "prompt": "The book is on the table",
+          "translation": "किताब मेज़ पर है।",
+          "minAccuracy": 80,
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

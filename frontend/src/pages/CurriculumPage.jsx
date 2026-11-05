@@ -1131,9 +1131,15 @@ export default function CurriculumPage() {
       />
 
       <BulkUploadModal
+        key={`bulk-upload-${unitNumber}-${bulkModalOpen}`}
         isOpen={bulkModalOpen}
         onClose={() => setBulkModalOpen(false)}
-        onSuccess={fetchCurriculum}
+        onSuccess={(uploadedUnit) => {
+          if (uploadedUnit && typeof uploadedUnit === 'number') {
+            setUnitNumber(uploadedUnit);
+          }
+          fetchCurriculum();
+        }}
         currentLanguage={learningLanguage}
         currentNative={nativeLanguage}
         currentLevel={level}
