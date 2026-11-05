@@ -88,7 +88,7 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das ist mein _______",
           "blank": "Vater",
           "translation": "this is my father",
           "options": [
@@ -253,13 +253,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "meine _______ nett.",
-          "blank": "Mutter",
+          "sentence": "meine Mutter ist _______",
+          "blank": "nett",
           "translation": "my mother is nice",
           "options": [
             "nett",
-            "Sohn",
-            "Tochter"
+            "Vater",
+            "Mutter"
           ]
         },
         {
@@ -421,13 +421,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "mein _______.",
+          "sentence": "mein Bruder und meine _______",
           "blank": "Schwester",
           "translation": "my brother and my sister",
           "options": [
             "Schwester",
-            "Mann",
-            "Frau"
+            "Vater",
+            "Mutter"
           ]
         },
         {
@@ -586,13 +586,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wer _______.",
-          "blank": "Frau?",
+          "sentence": "wer ist diese _______?",
+          "blank": "Frau",
           "translation": "who is this woman?",
           "options": [
-            "Frau?",
-            "Mutter",
-            "Schwester"
+            "Frau",
+            "Vater",
+            "Mutter"
           ]
         },
         {
@@ -754,13 +754,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das ist mein Freund _______",
           "blank": "Lukas",
           "translation": "this is my friend Lukas",
           "options": [
             "Lukas",
-            "Guten Tag",
-            "Tschüss"
+            "Vater",
+            "Mutter"
           ]
         },
         {
@@ -799,10 +799,10 @@
         {
           "type": "type_word",
           "title": "Type the German spelling",
-          "prompt": "Type the German word for 'good day':",
-          "target": "Guten Tag",
-          "translation": "good day",
-          "hint": "Hint: starts with 'G'",
+          "prompt": "Type the German word for 'father':",
+          "target": "Vater",
+          "translation": "father",
+          "hint": "Hint: starts with 'V'",
           "audioUrl": ""
         },
         {
@@ -930,13 +930,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "Guten _______.",
+          "sentence": "Guten Tag, Herr _______",
           "blank": "Müller",
           "translation": "good day, Mr. Mueller",
           "options": [
             "Müller",
-            "Tochter",
-            "Kind"
+            "Vater",
+            "Mutter"
           ]
         },
         {
@@ -1095,13 +1095,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "Hallo, _______.",
-          "blank": "du?",
+          "sentence": "Hallo, wie _______ du?",
+          "blank": "heißt",
           "translation": "hello, what is your name?",
           "options": [
-            "du?",
-            "Frau",
-            "Herr"
+            "heißt",
+            "Vater",
+            "Mutter"
           ]
         },
         {
@@ -1260,13 +1260,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "Auf _______.",
+          "sentence": "Auf Wiedersehen, Frau _______",
           "blank": "Schmidt",
           "translation": "goodbye, Mrs. Schmidt",
           "options": [
             "Schmidt",
-            "Tschüss",
-            "Auf Wiedersehen"
+            "Vater",
+            "Mutter"
           ]
         },
         {
@@ -1428,13 +1428,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das ist mein _______",
           "blank": "Vater",
           "translation": "this is my father",
           "options": [
             "Vater",
-            "Schwester",
-            "Kind"
+            "Mutter",
+            "Bruder"
           ]
         },
         {
@@ -1607,13 +1607,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "Guten _______.",
+          "sentence": "Guten Tag, Herr _______",
           "blank": "Müller",
           "translation": "good day, Mr. Mueller",
           "options": [
             "Müller",
             "Vater",
-            "Sohn"
+            "Mutter"
           ]
         },
         {

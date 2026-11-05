@@ -87,13 +87,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "zwei _______.",
+          "sentence": "zwei Euro, _______",
           "blank": "bitte",
           "translation": "two euros, please",
           "options": [
             "bitte",
-            "zwei",
-            "drei"
+            "eins",
+            "zwei"
           ]
         },
         {
@@ -251,13 +251,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "drei _______ Brot.",
-          "blank": "Brötchen",
+          "sentence": "drei Brötchen und ein _______",
+          "blank": "Brot",
           "translation": "three bread rolls and one bread",
           "options": [
             "Brot",
-            "fünf",
-            "sechs"
+            "eins",
+            "zwei"
           ]
         },
         {
@@ -419,13 +419,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wie _______.",
-          "blank": "das?",
+          "sentence": "wie viel kostet _______?",
+          "blank": "das",
           "translation": "how much does that cost?",
           "options": [
-            "das?",
-            "neun",
-            "zehn"
+            "das",
+            "eins",
+            "zwei"
           ]
         },
         {
@@ -584,13 +584,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das kostet fünf _______",
           "blank": "Euro",
           "translation": "that costs five euros",
           "options": [
             "Euro",
-            "zwei",
-            "vier"
+            "eins",
+            "zwei"
           ]
         },
         {
@@ -751,13 +751,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "vier _______.",
+          "sentence": "vier Äpfel, _______",
           "blank": "bitte",
           "translation": "four apples, please",
           "options": [
             "bitte",
-            "kostet",
-            "wie viel"
+            "eins",
+            "zwei"
           ]
         },
         {
@@ -926,13 +926,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "der _______.",
+          "sentence": "der Kaffee ist nicht _______",
           "blank": "teuer",
           "translation": "the coffee is not expensive",
           "options": [
             "teuer",
-            "sechs",
-            "acht"
+            "eins",
+            "zwei"
           ]
         },
         {
@@ -1091,13 +1091,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
-          "blank": "Euro",
+          "sentence": "das Buch kostet _______ Euro",
+          "blank": "zehn",
           "translation": "the book costs ten euros",
           "options": [
-            "Euro",
             "zehn",
-            "Euro"
+            "eins",
+            "zwei"
           ]
         },
         {
@@ -1256,13 +1256,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "zwei _______.",
+          "sentence": "zwei Kaffee und zwei _______",
           "blank": "Brötchen",
           "translation": "two coffees and two bread rolls",
           "options": [
             "Brötchen",
-            "wie viel",
-            "teuer"
+            "eins",
+            "zwei"
           ]
         },
         {
@@ -1301,10 +1301,10 @@
         {
           "type": "type_word",
           "title": "Type the German spelling",
-          "prompt": "Type the German word for 'how much':",
-          "target": "wie viel",
-          "translation": "how much",
-          "hint": "Hint: starts with 'w'",
+          "prompt": "Type the German word for 'one':",
+          "target": "eins",
+          "translation": "one",
+          "hint": "Hint: starts with 'e'",
           "audioUrl": ""
         },
         {
@@ -1423,13 +1423,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "zwei _______.",
+          "sentence": "zwei Euro, _______",
           "blank": "bitte",
           "translation": "two euros, please",
           "options": [
             "bitte",
-            "vier",
-            "acht"
+            "eins",
+            "zwei"
           ]
         },
         {
@@ -1602,13 +1602,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "der _______.",
+          "sentence": "der Kaffee ist nicht _______",
           "blank": "teuer",
           "translation": "the coffee is not expensive",
           "options": [
             "teuer",
             "eins",
-            "fünf"
+            "zwei"
           ]
         },
         {

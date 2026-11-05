@@ -88,13 +88,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wo _______.",
-          "blank": "Straße?",
+          "sentence": "wo ist die _______?",
+          "blank": "Straße",
           "translation": "where is the street?",
           "options": [
-            "Straße?",
-            "wie",
-            "wer"
+            "Straße",
+            "wo ist",
+            "wie"
           ]
         },
         {
@@ -133,9 +133,9 @@
         {
           "type": "type_word",
           "title": "Type the German spelling",
-          "prompt": "Type the German word for 'where is':",
-          "target": "wo ist",
-          "translation": "where is",
+          "prompt": "Type the German word for 'how':",
+          "target": "wie",
+          "translation": "how",
           "hint": "Hint: starts with 'w'",
           "audioUrl": ""
         },
@@ -253,13 +253,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "bitte _______ geradeaus.",
-          "blank": "gehen",
+          "sentence": "bitte gehen Sie _______",
+          "blank": "geradeaus",
           "translation": "please go straight ahead",
           "options": [
             "geradeaus",
-            "wann",
-            "warum"
+            "wo ist",
+            "wie"
           ]
         },
         {
@@ -421,13 +421,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "biegen _______.",
-          "blank": "ab",
+          "sentence": "biegen Sie _______ ab",
+          "blank": "links",
           "translation": "turn left",
           "options": [
-            "ab",
-            "geradeaus",
-            "nah"
+            "links",
+            "wo ist",
+            "wie"
           ]
         },
         {
@@ -586,13 +586,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "an _______.",
+          "sentence": "an der Ampel nach _______",
           "blank": "rechts",
           "translation": "at the traffic light to the right",
           "options": [
             "rechts",
-            "wie",
-            "was"
+            "wo ist",
+            "wie"
           ]
         },
         {
@@ -755,13 +755,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ist _______.",
-          "blank": "hier?",
+          "sentence": "ist es weit von _______?",
+          "blank": "hier",
           "translation": "is it far from here?",
           "options": [
-            "hier?",
-            "Ampel",
-            "Straße"
+            "hier",
+            "wo ist",
+            "wie"
           ]
         },
         {
@@ -933,13 +933,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "nein, _______.",
+          "sentence": "nein, es ist ganz _______",
           "blank": "nah",
           "translation": "no, it is very close",
           "options": [
             "nah",
-            "warum",
-            "rechts"
+            "wo ist",
+            "wie"
           ]
         },
         {
@@ -1099,13 +1099,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wohin _______.",
-          "blank": "jetzt?",
+          "sentence": "wohin gehen Sie _______?",
+          "blank": "jetzt",
           "translation": "where are you going now?",
           "options": [
-            "jetzt?",
-            "nah",
-            "weit"
+            "jetzt",
+            "wo ist",
+            "wie"
           ]
         },
         {
@@ -1265,13 +1265,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "die _______.",
+          "sentence": "die Apotheke ist an der _______",
           "blank": "Ecke",
           "translation": "the pharmacy is on the corner",
           "options": [
             "Ecke",
-            "Straße",
-            "hier"
+            "wo ist",
+            "wie"
           ]
         },
         {
@@ -1434,13 +1434,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wo _______.",
-          "blank": "Straße?",
+          "sentence": "wo ist die _______?",
+          "blank": "Straße",
           "translation": "where is the street?",
           "options": [
-            "Straße?",
-            "was",
-            "rechts"
+            "Straße",
+            "wo ist",
+            "wie"
           ]
         },
         {
@@ -1614,13 +1614,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "nein, _______.",
+          "sentence": "nein, es ist ganz _______",
           "blank": "nah",
           "translation": "no, it is very close",
           "options": [
             "nah",
             "wo ist",
-            "wann"
+            "wie"
           ]
         },
         {

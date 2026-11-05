@@ -88,13 +88,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "die _______.",
+          "sentence": "die Jacke ist _______",
           "blank": "warm",
           "translation": "the jacket is warm",
           "options": [
             "warm",
-            "rot",
-            "grün"
+            "blau",
+            "rot"
           ]
         },
         {
@@ -253,13 +253,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "mein _______ blau.",
-          "blank": "Hemd",
+          "sentence": "mein Hemd ist _______",
+          "blank": "blau",
           "translation": "my shirt is blue",
           "options": [
             "blau",
-            "schwarz",
-            "weiß"
+            "rot",
+            "grün"
           ]
         },
         {
@@ -421,13 +421,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "die _______.",
+          "sentence": "die Hose ist _______",
           "blank": "schwarz",
           "translation": "the pants are black",
           "options": [
             "schwarz",
-            "Jacke",
-            "Schuhe"
+            "blau",
+            "rot"
           ]
         },
         {
@@ -586,13 +586,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
+          "sentence": "ich trage rote _______",
           "blank": "Schuhe",
           "translation": "I wear red shoes",
           "options": [
             "Schuhe",
-            "rot",
-            "gelb"
+            "blau",
+            "rot"
           ]
         },
         {
@@ -754,13 +754,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das Wetter ist heute _______",
           "blank": "schön",
           "translation": "the weather is nice today",
           "options": [
             "schön",
-            "kalt",
-            "schön"
+            "blau",
+            "rot"
           ]
         },
         {
@@ -931,13 +931,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das Kleid ist grün und _______",
           "blank": "neu",
           "translation": "the dress is green and new",
           "options": [
             "neu",
-            "weiß",
-            "Hose"
+            "blau",
+            "rot"
           ]
         },
         {
@@ -1098,13 +1098,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "im _______.",
+          "sentence": "im Winter ist es sehr _______",
           "blank": "kalt",
           "translation": "in winter it is very cold",
           "options": [
             "kalt",
-            "Schuhe",
-            "Kleid"
+            "blau",
+            "rot"
           ]
         },
         {
@@ -1265,13 +1265,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "seine _______.",
+          "sentence": "seine Schuhe sind sauber und _______",
           "blank": "schwarz",
           "translation": "his shoes are clean and black",
           "options": [
             "schwarz",
-            "schön",
-            "tragen"
+            "blau",
+            "rot"
           ]
         },
         {
@@ -1434,13 +1434,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "die _______.",
+          "sentence": "die Jacke ist _______",
           "blank": "warm",
           "translation": "the jacket is warm",
           "options": [
             "warm",
-            "gelb",
-            "Hose"
+            "blau",
+            "rot"
           ]
         },
         {
@@ -1615,13 +1615,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das Kleid ist grün und _______",
           "blank": "neu",
           "translation": "the dress is green and new",
           "options": [
             "neu",
             "blau",
-            "schwarz"
+            "rot"
           ]
         },
         {

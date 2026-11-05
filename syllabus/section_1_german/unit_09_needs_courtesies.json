@@ -88,13 +88,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
+          "sentence": "ich möchte zahlen, _______",
           "blank": "bitte",
           "translation": "I would like to pay, please",
           "options": [
             "bitte",
-            "ich brauche",
-            "gern"
+            "ich möchte",
+            "ich brauche"
           ]
         },
         {
@@ -133,10 +133,10 @@
         {
           "type": "type_word",
           "title": "Type the German spelling",
-          "prompt": "Type the German word for 'I would like':",
-          "target": "ich möchte",
-          "translation": "I would like",
-          "hint": "Hint: starts with 'i'",
+          "prompt": "Type the German word for 'gladly / like to':",
+          "target": "gern",
+          "translation": "gladly / like to",
+          "hint": "Hint: starts with 'g'",
           "audioUrl": ""
         },
         {
@@ -252,13 +252,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "die _______ bitte.",
-          "blank": "Rechnung,",
+          "sentence": "die Rechnung, _______",
+          "blank": "bitte",
           "translation": "the check, please",
           "options": [
             "bitte",
-            "kein",
-            "Entschuldigung"
+            "ich möchte",
+            "ich brauche"
           ]
         },
         {
@@ -419,13 +419,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
+          "sentence": "ich trinke gern _______",
           "blank": "Kaffee",
           "translation": "I like to drink coffee",
           "options": [
             "Kaffee",
-            "kein Problem",
-            "Hilfe"
+            "ich möchte",
+            "ich brauche"
           ]
         },
         {
@@ -464,10 +464,10 @@
         {
           "type": "type_word",
           "title": "Type the German spelling",
-          "prompt": "Type the German word for 'no problem':",
-          "target": "kein Problem",
-          "translation": "no problem",
-          "hint": "Hint: starts with 'k'",
+          "prompt": "Type the German word for 'gladly / like to':",
+          "target": "gern",
+          "translation": "gladly / like to",
+          "hint": "Hint: starts with 'g'",
           "audioUrl": ""
         },
         {
@@ -584,13 +584,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
+          "sentence": "ich brauche deine _______",
           "blank": "Hilfe",
           "translation": "I need your help",
           "options": [
             "Hilfe",
-            "ich brauche",
-            "nicht"
+            "ich möchte",
+            "ich brauche"
           ]
         },
         {
@@ -629,10 +629,10 @@
         {
           "type": "type_word",
           "title": "Type the German spelling",
-          "prompt": "Type the German word for 'I need':",
-          "target": "ich brauche",
-          "translation": "I need",
-          "hint": "Hint: starts with 'i'",
+          "prompt": "Type the German word for 'gladly / like to':",
+          "target": "gern",
+          "translation": "gladly / like to",
+          "hint": "Hint: starts with 'g'",
           "audioUrl": ""
         },
         {
@@ -752,13 +752,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "Entschuldigung, _______.",
-          "blank": "Englisch?",
+          "sentence": "Entschuldigung, sprechen Sie _______?",
+          "blank": "Englisch",
           "translation": "excuse me, do you speak English?",
           "options": [
-            "Englisch?",
-            "zahlen",
-            "mögen"
+            "Englisch",
+            "ich möchte",
+            "ich brauche"
           ]
         },
         {
@@ -928,13 +928,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "vielen _______.",
-          "blank": "geschehen!",
+          "sentence": "vielen Dank! - Gern _______!",
+          "blank": "geschehen",
           "translation": "thank you very much! - You're welcome!",
           "options": [
-            "geschehen!",
-            "Entschuldigung",
-            "gern geschehen"
+            "geschehen",
+            "ich möchte",
+            "ich brauche"
           ]
         },
         {
@@ -1093,13 +1093,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
+          "sentence": "ich esse nicht gern _______",
           "blank": "Fleisch",
           "translation": "I do not like to eat meat",
           "options": [
             "Fleisch",
-            "Hilfe",
-            "helfen"
+            "ich möchte",
+            "ich brauche"
           ]
         },
         {
@@ -1258,13 +1258,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "können _______.",
-          "blank": "helfen?",
+          "sentence": "können Sie mir bitte _______?",
+          "blank": "helfen",
           "translation": "could you please help me?",
           "options": [
-            "helfen?",
-            "mögen",
-            "vielleicht"
+            "helfen",
+            "ich möchte",
+            "ich brauche"
           ]
         },
         {
@@ -1426,13 +1426,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
+          "sentence": "ich möchte zahlen, _______",
           "blank": "bitte",
           "translation": "I would like to pay, please",
           "options": [
             "bitte",
-            "nicht",
-            "gern geschehen"
+            "ich möchte",
+            "ich brauche"
           ]
         },
         {
@@ -1605,13 +1605,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "vielen _______.",
-          "blank": "geschehen!",
+          "sentence": "vielen Dank! - Gern _______!",
+          "blank": "geschehen",
           "translation": "thank you very much! - You're welcome!",
           "options": [
-            "geschehen!",
+            "geschehen",
             "ich möchte",
-            "kein"
+            "ich brauche"
           ]
         },
         {

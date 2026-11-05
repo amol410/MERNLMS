@@ -87,13 +87,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "Kaffee, _______.",
+          "sentence": "Kaffee, _______",
           "blank": "bitte",
           "translation": "coffee, please",
           "options": [
             "bitte",
-            "Brötchen",
-            "Kaffee"
+            "Brot",
+            "Brötchen"
           ]
         },
         {
@@ -250,13 +250,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "Brot _______ Wasser.",
-          "blank": "und",
+          "sentence": "Brot und _______",
+          "blank": "Wasser",
           "translation": "bread and water",
           "options": [
             "Wasser",
-            "Wasser",
-            "Milch"
+            "Brot",
+            "Brötchen"
           ]
         },
         {
@@ -417,13 +417,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "der _______.",
+          "sentence": "der Kaffee ist _______",
           "blank": "heiß",
           "translation": "the coffee is hot",
           "options": [
             "heiß",
-            "heiß",
-            "kalt"
+            "Brot",
+            "Brötchen"
           ]
         },
         {
@@ -582,13 +582,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das Wasser ist _______",
           "blank": "kalt",
           "translation": "the water is cold",
           "options": [
             "kalt",
-            "Brötchen",
-            "Tee"
+            "Brot",
+            "Brötchen"
           ]
         },
         {
@@ -750,13 +750,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das Brot ist sehr _______",
           "blank": "lecker",
           "translation": "the bread is very delicious",
           "options": [
             "lecker",
-            "danke",
-            "Apfel"
+            "Brot",
+            "Brötchen"
           ]
         },
         {
@@ -926,13 +926,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ein _______.",
+          "sentence": "ein Brötchen mit Käse, _______",
           "blank": "bitte",
           "translation": "a bread roll with cheese, please",
           "options": [
             "bitte",
-            "Milch",
-            "Wurst"
+            "Brot",
+            "Brötchen"
           ]
         },
         {
@@ -1091,13 +1091,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "Tee _______.",
+          "sentence": "Tee mit Milch und _______",
           "blank": "Zucker",
           "translation": "tea with milk and sugar",
           "options": [
             "Zucker",
-            "kalt",
-            "lecker"
+            "Brot",
+            "Brötchen"
           ]
         },
         {
@@ -1256,13 +1256,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "Kaffee _______.",
+          "sentence": "Kaffee und frisches _______",
           "blank": "Brot",
           "translation": "coffee and fresh bread",
           "options": [
             "Brot",
-            "Apfel",
-            "Zucker"
+            "Brötchen",
+            "Kaffee"
           ]
         },
         {
@@ -1423,13 +1423,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "Kaffee, _______.",
+          "sentence": "Kaffee, _______",
           "blank": "bitte",
           "translation": "coffee, please",
           "options": [
             "bitte",
-            "Tee",
-            "Wurst"
+            "Brot",
+            "Brötchen"
           ]
         },
         {
@@ -1602,13 +1602,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ein _______.",
+          "sentence": "ein Brötchen mit Käse, _______",
           "blank": "bitte",
           "translation": "a bread roll with cheese, please",
           "options": [
             "bitte",
             "Brot",
-            "Wasser"
+            "Brötchen"
           ]
         },
         {

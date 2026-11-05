@@ -88,13 +88,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wo _______.",
-          "blank": "Schlüssel?",
+          "sentence": "wo ist der _______?",
+          "blank": "Schlüssel",
           "translation": "where is the key?",
           "options": [
-            "Schlüssel?",
-            "Küche",
-            "Bad"
+            "Schlüssel",
+            "Zimmer",
+            "Küche"
           ]
         },
         {
@@ -254,13 +254,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "der _______ Tisch.",
-          "blank": "Schlüssel",
+          "sentence": "der Schlüssel ist auf dem _______",
+          "blank": "Tisch",
           "translation": "the key is on the table",
           "options": [
             "Tisch",
-            "Tisch",
-            "Stuhl"
+            "Zimmer",
+            "Küche"
           ]
         },
         {
@@ -424,13 +424,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "meine _______.",
-          "blank": "Küche",
+          "sentence": "meine Mutter ist _______ der Küche",
+          "blank": "in",
           "translation": "my mother is in the kitchen",
           "options": [
-            "Küche",
             "in",
-            "auf"
+            "Zimmer",
+            "Küche"
           ]
         },
         {
@@ -591,13 +591,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "der _______.",
+          "sentence": "der Stuhl steht neben dem _______",
           "blank": "Bett",
           "translation": "the chair stands next to the bed",
           "options": [
             "Bett",
-            "Küche",
-            "Wohnzimmer"
+            "Zimmer",
+            "Küche"
           ]
         },
         {
@@ -761,13 +761,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das Zimmer ist groß und _______",
           "blank": "hell",
           "translation": "the room is big and bright",
           "options": [
             "hell",
-            "wo",
-            "Schlüssel"
+            "Zimmer",
+            "Küche"
           ]
         },
         {
@@ -939,13 +939,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das Buch liegt auf dem _______",
           "blank": "Stuhl",
           "translation": "the book lies on the chair",
           "options": [
             "Stuhl",
-            "Stuhl",
-            "Schrank"
+            "Zimmer",
+            "Küche"
           ]
         },
         {
@@ -1106,13 +1106,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das Bad ist sehr _______",
           "blank": "sauber",
           "translation": "the bathroom is very clean",
           "options": [
             "sauber",
-            "auf",
-            "unter"
+            "Zimmer",
+            "Küche"
           ]
         },
         {
@@ -1273,13 +1273,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "die _______.",
+          "sentence": "die Küche ist modern und _______",
           "blank": "schön",
           "translation": "the kitchen is modern and nice",
           "options": [
             "schön",
-            "Schlüssel",
-            "Tür"
+            "Zimmer",
+            "Küche"
           ]
         },
         {
@@ -1442,13 +1442,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wo _______.",
-          "blank": "Schlüssel?",
+          "sentence": "wo ist der _______?",
+          "blank": "Schlüssel",
           "translation": "where is the key?",
           "options": [
-            "Schlüssel?",
-            "Wohnzimmer",
-            "Schrank"
+            "Schlüssel",
+            "Zimmer",
+            "Küche"
           ]
         },
         {
@@ -1623,13 +1623,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das Buch liegt auf dem _______",
           "blank": "Stuhl",
           "translation": "the book lies on the chair",
           "options": [
             "Stuhl",
             "Zimmer",
-            "Tisch"
+            "Küche"
           ]
         },
         {
