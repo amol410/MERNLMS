@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   Compass, Plus, Upload, ListPlus, Search, Filter, Sparkles,
   Layers, CheckCircle2, AlertCircle, Edit3, Trash2, Eye, EyeOff,
@@ -83,17 +84,99 @@ const NODE_TYPE_MAP = {
   quiz:    { label: 'Checkpoint Exam', icon: '🏆', color: 'from-orange-500 to-red-500' },
 };
 
+const CURRICULUM_STORAGE_KEY = 'curriculum_filter_settings';
+
+function getInitialCurriculumFilters(searchParams) {
+  let stored = null;
+  try {
+    const raw = localStorage.getItem(CURRICULUM_STORAGE_KEY);
+    if (raw) stored = JSON.parse(raw);
+  } catch (_) {}
+
+  // 1. Check URL parameters first (e.g. ?lang=en&native=hi&level=A1&unit=4)
+  const urlLang = searchParams.get('lang') || searchParams.get('learningLanguage');
+  const urlNative = searchParams.get('native') || searchParams.get('nativeLanguage');
+  const urlLevel = searchParams.get('level');
+  const urlUnit = searchParams.get('unit') || searchParams.get('unitNumber');
+
+  // Fallback chain: URL Param -> localStorage -> Default ('en' to 'hi', A1, Unit 1)
+  const learningLanguage = urlLang || stored?.learningLanguage || 'en';
+  const nativeLanguage = urlNative || stored?.nativeLanguage || 'hi';
+  const level = urlLevel || stored?.level || 'A1';
+  const unitNumber = urlUnit
+    ? (parseInt(urlUnit, 10) || 1)
+    : (stored?.unitNumber ? (parseInt(stored.unitNumber, 10) || 1) : 1);
+  const unitTitle = stored?.unitTitle || '';
+  const unitDescription = stored?.unitDescription || '';
+
+  return {
+    learningLanguage,
+    nativeLanguage,
+    level,
+    unitNumber,
+    unitTitle,
+    unitDescription,
+  };
+}
+
 export default function CurriculumPage() {
   const { user } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Initialize filters using Hybrid Persistence (URL Query Params -> localStorage -> defaults)
+  const initialFilters = useMemo(() => getInitialCurriculumFilters(searchParams), []);
 
   // Filters State
-  const [learningLanguage, setLearningLanguage] = useState('de');
-  const [nativeLanguage, setNativeLanguage] = useState('en');
-  const [level, setLevel] = useState('A1');
-  const [selectedSection, setSelectedSection] = useState(1);
-  const [unitNumber, setUnitNumber] = useState(1);
-  const [unitTitle, setUnitTitle] = useState('Greet and introduce yourself');
-  const [unitDescription, setUnitDescription] = useState('Erste Begrüßungen');
+  const [learningLanguage, setLearningLanguage] = useState(initialFilters.learningLanguage);
+  const [nativeLanguage, setNativeLanguage] = useState(initialFilters.nativeLanguage);
+  const [level, setLevel] = useState(initialFilters.level);
+  const [selectedSection, setSelectedSection] = useState(() => {
+    return initialFilters.unitNumber <= 35 ? 1 : (initialFilters.unitNumber <= 70 ? 2 : 3);
+  });
+  const [unitNumber, setUnitNumber] = useState(initialFilters.unitNumber);
+  const [unitTitle, setUnitTitle] = useState(initialFilters.unitTitle || 'Basic Objects & Possessives');
+  const [unitDescription, setUnitDescription] = useState(initialFilters.unitDescription || '');
+
+  // 1. Persist active curriculum filters to localStorage whenever they change
+  useEffect(() => {
+    try {
+      localStorage.setItem(CURRICULUM_STORAGE_KEY, JSON.stringify({
+        learningLanguage,
+        nativeLanguage,
+        level,
+        unitNumber,
+        unitTitle,
+        unitDescription,
+      }));
+    } catch (_) {}
+  }, [learningLanguage, nativeLanguage, level, unitNumber, unitTitle, unitDescription]);
+
+  // 2. Silently synchronize active filters to URL search parameters (Hybrid URL + LocalStorage Deep-linking)
+  useEffect(() => {
+    const currentLang = searchParams.get('lang');
+    const currentNative = searchParams.get('native');
+    const currentLevel = searchParams.get('level');
+    const currentUnit = searchParams.get('unit');
+
+    if (
+      currentLang !== learningLanguage ||
+      currentNative !== nativeLanguage ||
+      currentLevel !== level ||
+      currentUnit !== String(unitNumber)
+    ) {
+      setSearchParams(
+        prev => {
+          const next = new URLSearchParams(prev);
+          next.set('lang', learningLanguage);
+          next.set('native', nativeLanguage);
+          next.set('level', level);
+          next.set('unit', String(unitNumber));
+          return next;
+        },
+        { replace: true }
+      );
+    }
+  }, [learningLanguage, nativeLanguage, level, unitNumber, searchParams, setSearchParams]);
 
   // Search filter inside unit
   const [lessonSearch, setLessonSearch] = useState('');
