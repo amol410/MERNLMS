@@ -86,13 +86,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "How _______.",
-          "blank": "cost?",
+          "sentence": "How much does it _______?",
+          "blank": "cost",
           "translation": "याची किंमत किती आहे?",
           "options": [
-            "cost?",
-            "two",
-            "three"
+            "cost",
+            "one",
+            "two"
           ]
         },
         {
@@ -251,13 +251,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "It _______ rupees.",
-          "blank": "costs",
+          "sentence": "It costs ten _______",
+          "blank": "rupees",
           "translation": "याची किंमत दहा रुपये आहे.",
           "options": [
             "rupees",
-            "five",
-            "ten"
+            "one",
+            "two"
           ]
         },
         {
@@ -416,13 +416,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Two _______.",
+          "sentence": "Two cups of tea, _______",
           "blank": "please",
           "translation": "कृपया दोन कप चहा द्या.",
           "options": [
             "please",
-            "cost",
-            "expensive"
+            "one",
+            "two"
           ]
         },
         {
@@ -581,13 +581,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "This _______.",
+          "sentence": "This book is _______",
           "blank": "expensive",
           "translation": "हे पुस्तक महाग आहे.",
           "options": [
             "expensive",
-            "two",
-            "four"
+            "one",
+            "two"
           ]
         },
         {
@@ -690,7 +690,7 @@
             {
               "id": "u5_l5_p1",
               "text": "how much (किती)",
-              "imageUrl": "/uploads/curriculum/how much.webp",
+              "imageUrl": "/uploads/curriculum/how_much.webp",
               "isCorrect": true
             },
             {
@@ -746,13 +746,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "That _______.",
+          "sentence": "That pen is very _______",
           "blank": "cheap",
           "translation": "ते पेन खूप स्वस्त आहे.",
           "options": [
             "cheap",
-            "how much",
-            "total"
+            "one",
+            "two"
           ]
         },
         {
@@ -791,10 +791,10 @@
         {
           "type": "type_word",
           "title": "स्पेलिंग टाईप करा",
-          "prompt": "'किती' साठी इंग्रजी शब्द टाईप करा:",
-          "target": "how much",
-          "translation": "किती",
-          "hint": "संकेत: H ने सुरू होते",
+          "prompt": "'अनेक' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "many",
+          "translation": "अनेक",
+          "hint": "संकेत: M ने सुरू होते",
           "audioUrl": ""
         },
         {
@@ -922,13 +922,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I want five _______",
           "blank": "apples",
           "translation": "मला पाच सफरचंद पाहिजेत.",
           "options": [
             "apples",
-            "ten",
-            "rupee"
+            "one",
+            "two"
           ]
         },
         {
@@ -1087,13 +1087,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "The _______.",
+          "sentence": "The shop is _______",
           "blank": "open",
           "translation": "दुकान उघडे आहे.",
           "options": [
             "open",
-            "expensive",
-            "cheap"
+            "one",
+            "two"
           ]
         },
         {
@@ -1252,13 +1252,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Total _______.",
-          "blank": "rupees",
+          "sentence": "_______ is fifty rupees",
+          "blank": "Total",
           "translation": "एकूण पन्नास रुपये झाले.",
           "options": [
-            "rupees",
-            "total",
-            "buy"
+            "Total",
+            "one",
+            "two"
           ]
         },
         {
@@ -1417,13 +1417,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "How _______.",
-          "blank": "cost?",
+          "sentence": "How much does it _______?",
+          "blank": "cost",
           "translation": "याची किंमत किती आहे?",
           "options": [
-            "cost?",
-            "four",
-            "rupee"
+            "cost",
+            "one",
+            "two"
           ]
         },
         {
@@ -1593,13 +1593,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I want five _______",
           "blank": "apples",
           "translation": "मला पाच सफरचंद पाहिजेत.",
           "options": [
             "apples",
             "one",
-            "five"
+            "two"
           ]
         },
         {

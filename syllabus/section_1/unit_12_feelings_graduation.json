@@ -88,11 +88,11 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
-          "blank": "today",
+          "sentence": "I am very _______ today",
+          "blank": "happy",
           "translation": "मैं आज बहुत खुश हूँ।",
           "options": [
-            "today",
+            "happy",
             "sad",
             "tired"
           ]
@@ -253,13 +253,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______ tired.",
-          "blank": "am",
+          "sentence": "I am hungry and _______",
+          "blank": "tired",
           "translation": "मुझे भूख लगी है और मैं थका हूँ।",
           "options": [
             "tired",
-            "thirsty",
-            "fine"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -417,13 +417,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Are _______.",
-          "blank": "thirsty?",
+          "sentence": "Are you _______?",
+          "blank": "thirsty",
           "translation": "क्या आपको प्यास लगी है?",
           "options": [
-            "thirsty?",
-            "headache",
-            "fever"
+            "thirsty",
+            "happy",
+            "sad"
           ]
         },
         {
@@ -581,13 +581,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I have a _______",
           "blank": "headache",
           "translation": "मेरे सिर में दर्द है।",
           "options": [
             "headache",
-            "sad",
-            "hungry"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -746,13 +746,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He has a _______",
           "blank": "fever",
           "translation": "उसे बुखार है।",
           "options": [
             "fever",
-            "rest",
-            "feel"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -922,13 +922,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Please _______.",
+          "sentence": "Please see a _______",
           "blank": "doctor",
           "translation": "कृपया डॉक्टर से मिलिए।",
           "options": [
             "doctor",
-            "fine",
-            "sick"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -1087,13 +1087,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Take _______.",
+          "sentence": "Take rest and drink _______",
           "blank": "water",
           "translation": "आराम कीजिए और पानी पीजिए।",
           "options": [
             "water",
-            "fever",
-            "doctor"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -1253,13 +1253,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I am ready to _______",
           "blank": "graduate",
           "translation": "मैं स्नातक होने के लिए तैयार हूँ।",
           "options": [
             "graduate",
-            "feel",
-            "ready"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -1419,13 +1419,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I am very happy _______",
           "blank": "today",
           "translation": "मैं आज बहुत खुश हूँ।",
           "options": [
             "today",
-            "hungry",
-            "sick"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -1595,13 +1595,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Please _______.",
+          "sentence": "Please see a _______",
           "blank": "doctor",
           "translation": "कृपया डॉक्टर से मिलिए।",
           "options": [
             "doctor",
             "happy",
-            "thirsty"
+            "sad"
           ]
         },
         {
@@ -1763,11 +1763,11 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
-          "blank": "today",
+          "sentence": "I am very _______ today",
+          "blank": "happy",
           "translation": "मैं आज बहुत खुश हूँ।",
           "options": [
-            "today",
+            "happy",
             "sad",
             "tired"
           ]
@@ -1928,13 +1928,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______ tired.",
-          "blank": "am",
+          "sentence": "I am hungry and _______",
+          "blank": "tired",
           "translation": "मुझे भूख लगी है और मैं थका हूँ।",
           "options": [
             "tired",
-            "thirsty",
-            "fine"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -2092,13 +2092,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Are _______.",
-          "blank": "thirsty?",
+          "sentence": "Are you _______?",
+          "blank": "thirsty",
           "translation": "क्या आपको प्यास लगी है?",
           "options": [
-            "thirsty?",
-            "headache",
-            "fever"
+            "thirsty",
+            "happy",
+            "sad"
           ]
         },
         {
@@ -2256,13 +2256,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I have a _______",
           "blank": "headache",
           "translation": "मेरे सिर में दर्द है।",
           "options": [
             "headache",
-            "sad",
-            "hungry"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -2421,13 +2421,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He has a _______",
           "blank": "fever",
           "translation": "उसे बुखार है।",
           "options": [
             "fever",
-            "rest",
-            "feel"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -2597,13 +2597,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Please _______.",
+          "sentence": "Please see a _______",
           "blank": "doctor",
           "translation": "कृपया डॉक्टर से मिलिए।",
           "options": [
             "doctor",
-            "fine",
-            "sick"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -2762,13 +2762,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Take _______.",
+          "sentence": "Take rest and drink _______",
           "blank": "water",
           "translation": "आराम कीजिए और पानी पीजिए।",
           "options": [
             "water",
-            "fever",
-            "doctor"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -2928,13 +2928,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I am ready to _______",
           "blank": "graduate",
           "translation": "मैं स्नातक होने के लिए तैयार हूँ।",
           "options": [
             "graduate",
-            "feel",
-            "ready"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -3094,13 +3094,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I am very happy _______",
           "blank": "today",
           "translation": "मैं आज बहुत खुश हूँ।",
           "options": [
             "today",
-            "hungry",
-            "sick"
+            "happy",
+            "sad"
           ]
         },
         {
@@ -3270,13 +3270,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Please _______.",
+          "sentence": "Please see a _______",
           "blank": "doctor",
           "translation": "कृपया डॉक्टर से मिलिए।",
           "options": [
             "doctor",
             "happy",
-            "thirsty"
+            "sad"
           ]
         },
         {

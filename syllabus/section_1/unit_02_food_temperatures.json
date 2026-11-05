@@ -86,7 +86,7 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "cold _______.",
+          "sentence": "cold _______",
           "blank": "water",
           "translation": "ठंडा पानी",
           "options": [
@@ -247,13 +247,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "hot _______ tea.",
+          "sentence": "hot _______",
           "blank": "tea",
           "translation": "गरम चाय",
           "options": [
             "tea",
-            "cold",
-            "hot"
+            "water",
+            "coffee"
           ]
         },
         {
@@ -409,13 +409,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "tea _______.",
+          "sentence": "tea and _______",
           "blank": "water",
           "translation": "चाय और पानी",
           "options": [
             "water",
-            "bread",
-            "sugar"
+            "tea",
+            "coffee"
           ]
         },
         {
@@ -573,13 +573,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "hot _______.",
+          "sentence": "hot coffee and cold _______",
           "blank": "milk",
           "translation": "गरम कॉफ़ी और ठंडा दूध",
           "options": [
             "milk",
-            "tea",
-            "milk"
+            "water",
+            "tea"
           ]
         },
         {
@@ -738,13 +738,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "This _______.",
+          "sentence": "This food is _______",
           "blank": "hot",
           "translation": "यह खाना गरम है।",
           "options": [
             "hot",
-            "spicy",
-            "fresh"
+            "water",
+            "tea"
           ]
         },
         {
@@ -914,13 +914,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Tea _______.",
+          "sentence": "Tea is sweet and _______",
           "blank": "tasty",
           "translation": "चाय मीठी और स्वादिष्ट है।",
           "options": [
             "tasty",
-            "hot",
-            "and"
+            "water",
+            "tea"
           ]
         },
         {
@@ -1078,13 +1078,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Water, _______.",
+          "sentence": "Water, _______",
           "blank": "please",
           "translation": "कृपया पानी दीजिए।",
           "options": [
             "please",
-            "sugar",
-            "food"
+            "water",
+            "tea"
           ]
         },
         {
@@ -1198,7 +1198,7 @@
             {
               "id": "u2_l9_p3",
               "text": "thank you (धन्यवाद)",
-              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "imageUrl": "/uploads/curriculum/thank_you.webp",
               "isCorrect": false
             }
           ]
@@ -1242,13 +1242,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I want hot _______",
           "blank": "tea",
           "translation": "मुझे गरम चाय चाहिए।",
           "options": [
             "tea",
-            "fresh",
-            "please"
+            "water",
+            "coffee"
           ]
         },
         {
@@ -1405,13 +1405,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "cold _______.",
+          "sentence": "cold _______",
           "blank": "water",
           "translation": "ठंडा पानी",
           "options": [
             "water",
-            "milk",
-            "and"
+            "tea",
+            "coffee"
           ]
         },
         {
@@ -1580,13 +1580,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Tea _______.",
+          "sentence": "Tea is sweet and _______",
           "blank": "tasty",
           "translation": "चाय मीठी और स्वादिष्ट है।",
           "options": [
             "tasty",
             "water",
-            "cold"
+            "tea"
           ]
         },
         {
@@ -1625,10 +1625,10 @@
         {
           "type": "type_word",
           "title": "स्पेलिंग टाइप करें",
-          "prompt": "'धन्यवाद' के लिए अंग्रेज़ी शब्द टाइप करें:",
-          "target": "thank you",
-          "translation": "धन्यवाद",
-          "hint": "संकेत: T से शुरू होता है",
+          "prompt": "'कृपया' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "please",
+          "translation": "कृपया",
+          "hint": "संकेत: P से शुरू होता है",
           "audioUrl": ""
         },
         {
@@ -1745,7 +1745,7 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "cold _______.",
+          "sentence": "cold _______",
           "blank": "water",
           "translation": "ठंडा पानी",
           "options": [
@@ -1906,13 +1906,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "hot _______ tea.",
+          "sentence": "hot _______",
           "blank": "tea",
           "translation": "गरम चाय",
           "options": [
             "tea",
-            "cold",
-            "hot"
+            "water",
+            "coffee"
           ]
         },
         {
@@ -2068,13 +2068,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "tea _______.",
+          "sentence": "tea and _______",
           "blank": "water",
           "translation": "चाय और पानी",
           "options": [
             "water",
-            "bread",
-            "sugar"
+            "tea",
+            "coffee"
           ]
         },
         {
@@ -2232,13 +2232,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "hot _______.",
+          "sentence": "hot coffee and cold _______",
           "blank": "milk",
           "translation": "गरम कॉफ़ी और ठंडा दूध",
           "options": [
             "milk",
-            "tea",
-            "milk"
+            "water",
+            "tea"
           ]
         },
         {
@@ -2397,13 +2397,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "This _______.",
+          "sentence": "This food is _______",
           "blank": "hot",
           "translation": "यह खाना गरम है।",
           "options": [
             "hot",
-            "spicy",
-            "fresh"
+            "water",
+            "tea"
           ]
         },
         {
@@ -2573,13 +2573,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Tea _______.",
+          "sentence": "Tea is sweet and _______",
           "blank": "tasty",
           "translation": "चाय मीठी और स्वादिष्ट है।",
           "options": [
             "tasty",
-            "hot",
-            "and"
+            "water",
+            "tea"
           ]
         },
         {
@@ -2737,13 +2737,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Water, _______.",
+          "sentence": "Water, _______",
           "blank": "please",
           "translation": "कृपया पानी दीजिए।",
           "options": [
             "please",
-            "sugar",
-            "food"
+            "water",
+            "tea"
           ]
         },
         {
@@ -2857,7 +2857,7 @@
             {
               "id": "u2_l9_p3",
               "text": "thank you (धन्यवाद)",
-              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "imageUrl": "/uploads/curriculum/thank_you.webp",
               "isCorrect": false
             }
           ]
@@ -2901,13 +2901,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I want hot _______",
           "blank": "tea",
           "translation": "मुझे गरम चाय चाहिए।",
           "options": [
             "tea",
-            "fresh",
-            "please"
+            "water",
+            "coffee"
           ]
         },
         {
@@ -3064,13 +3064,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "cold _______.",
+          "sentence": "cold _______",
           "blank": "water",
           "translation": "ठंडा पानी",
           "options": [
             "water",
-            "milk",
-            "and"
+            "tea",
+            "coffee"
           ]
         },
         {
@@ -3239,13 +3239,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Tea _______.",
+          "sentence": "Tea is sweet and _______",
           "blank": "tasty",
           "translation": "चाय मीठी और स्वादिष्ट है।",
           "options": [
             "tasty",
             "water",
-            "cold"
+            "tea"
           ]
         },
         {
@@ -3284,10 +3284,10 @@
         {
           "type": "type_word",
           "title": "स्पेलिंग टाइप करें",
-          "prompt": "'धन्यवाद' के लिए अंग्रेज़ी शब्द टाइप करें:",
-          "target": "thank you",
-          "translation": "धन्यवाद",
-          "hint": "संकेत: T से शुरू होता है",
+          "prompt": "'कृपया' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "please",
+          "translation": "कृपया",
+          "hint": "संकेत: P से शुरू होता है",
           "audioUrl": ""
         },
         {

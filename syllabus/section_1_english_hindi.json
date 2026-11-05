@@ -96,12 +96,12 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "my _______.",
+              "sentence": "my _______",
               "blank": "car",
               "translation": "मेरी गाड़ी",
               "options": [
                 "car",
-                "car",
+                "house",
                 "my"
               ]
             },
@@ -260,13 +260,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "my _______ big.",
-              "blank": "house",
+              "sentence": "my house is _______",
+              "blank": "big",
               "translation": "मेरा घर बड़ा है।",
               "options": [
                 "big",
-                "big",
-                "small"
+                "house",
+                "car"
               ]
             },
             {
@@ -425,13 +425,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "your _______.",
+              "sentence": "your car is _______",
               "blank": "small",
               "translation": "तुम्हारी गाड़ी छोटी है।",
               "options": [
                 "small",
-                "dirty",
-                "new"
+                "house",
+                "car"
               ]
             },
             {
@@ -590,13 +590,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "his _______.",
+              "sentence": "his house is _______",
               "blank": "clean",
               "translation": "उसका घर साफ़ है।",
               "options": [
                 "clean",
-                "car",
-                "your"
+                "house",
+                "car"
               ]
             },
             {
@@ -755,13 +755,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "my _______.",
+              "sentence": "my car is very _______",
               "blank": "clean",
               "translation": "मेरी गाड़ी बहुत साफ़ है।",
               "options": [
                 "clean",
-                "this",
-                "that"
+                "house",
+                "car"
               ]
             },
             {
@@ -931,13 +931,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "this _______.",
+              "sentence": "this is my _______",
               "blank": "car",
               "translation": "यह मेरी गाड़ी है।",
               "options": [
                 "car",
-                "small",
-                "clean"
+                "house",
+                "my"
               ]
             },
             {
@@ -1096,13 +1096,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "that _______.",
+              "sentence": "that is your _______",
               "blank": "house",
               "translation": "वह तुम्हारा घर है।",
               "options": [
                 "house",
-                "new",
-                "old"
+                "car",
+                "my"
               ]
             },
             {
@@ -1262,13 +1262,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "my _______.",
+              "sentence": "my car is new and _______",
               "blank": "clean",
               "translation": "मेरी गाड़ी नई और साफ़ है।",
               "options": [
                 "clean",
-                "that",
-                "here"
+                "house",
+                "car"
               ]
             },
             {
@@ -1427,13 +1427,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "my _______.",
+              "sentence": "my _______",
               "blank": "car",
               "translation": "मेरी गाड़ी",
               "options": [
                 "car",
-                "your",
-                "clean"
+                "house",
+                "my"
               ]
             },
             {
@@ -1603,13 +1603,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "this _______.",
+              "sentence": "this is my _______",
               "blank": "car",
               "translation": "यह मेरी गाड़ी है।",
               "options": [
                 "car",
                 "house",
-                "big"
+                "my"
               ]
             },
             {
@@ -1779,7 +1779,7 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "cold _______.",
+              "sentence": "cold _______",
               "blank": "water",
               "translation": "ठंडा पानी",
               "options": [
@@ -1940,13 +1940,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "hot _______ tea.",
+              "sentence": "hot _______",
               "blank": "tea",
               "translation": "गरम चाय",
               "options": [
                 "tea",
-                "cold",
-                "hot"
+                "water",
+                "coffee"
               ]
             },
             {
@@ -2102,13 +2102,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "tea _______.",
+              "sentence": "tea and _______",
               "blank": "water",
               "translation": "चाय और पानी",
               "options": [
                 "water",
-                "bread",
-                "sugar"
+                "tea",
+                "coffee"
               ]
             },
             {
@@ -2266,13 +2266,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "hot _______.",
+              "sentence": "hot coffee and cold _______",
               "blank": "milk",
               "translation": "गरम कॉफ़ी और ठंडा दूध",
               "options": [
                 "milk",
-                "tea",
-                "milk"
+                "water",
+                "tea"
               ]
             },
             {
@@ -2431,13 +2431,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "This _______.",
+              "sentence": "This food is _______",
               "blank": "hot",
               "translation": "यह खाना गरम है।",
               "options": [
                 "hot",
-                "spicy",
-                "fresh"
+                "water",
+                "tea"
               ]
             },
             {
@@ -2607,13 +2607,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Tea _______.",
+              "sentence": "Tea is sweet and _______",
               "blank": "tasty",
               "translation": "चाय मीठी और स्वादिष्ट है।",
               "options": [
                 "tasty",
-                "hot",
-                "and"
+                "water",
+                "tea"
               ]
             },
             {
@@ -2771,13 +2771,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Water, _______.",
+              "sentence": "Water, _______",
               "blank": "please",
               "translation": "कृपया पानी दीजिए।",
               "options": [
                 "please",
-                "sugar",
-                "food"
+                "water",
+                "tea"
               ]
             },
             {
@@ -2891,7 +2891,7 @@
                 {
                   "id": "u2_l9_p3",
                   "text": "thank you (धन्यवाद)",
-                  "imageUrl": "/uploads/curriculum/thank you.webp",
+                  "imageUrl": "/uploads/curriculum/thank_you.webp",
                   "isCorrect": false
                 }
               ]
@@ -2935,13 +2935,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I want hot _______",
               "blank": "tea",
               "translation": "मुझे गरम चाय चाहिए।",
               "options": [
                 "tea",
-                "fresh",
-                "please"
+                "water",
+                "coffee"
               ]
             },
             {
@@ -3098,13 +3098,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "cold _______.",
+              "sentence": "cold _______",
               "blank": "water",
               "translation": "ठंडा पानी",
               "options": [
                 "water",
-                "milk",
-                "and"
+                "tea",
+                "coffee"
               ]
             },
             {
@@ -3273,13 +3273,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Tea _______.",
+              "sentence": "Tea is sweet and _______",
               "blank": "tasty",
               "translation": "चाय मीठी और स्वादिष्ट है।",
               "options": [
                 "tasty",
                 "water",
-                "cold"
+                "tea"
               ]
             },
             {
@@ -3318,10 +3318,10 @@
             {
               "type": "type_word",
               "title": "स्पेलिंग टाइप करें",
-              "prompt": "'धन्यवाद' के लिए अंग्रेज़ी शब्द टाइप करें:",
-              "target": "thank you",
-              "translation": "धन्यवाद",
-              "hint": "संकेत: T से शुरू होता है",
+              "prompt": "'कृपया' के लिए अंग्रेज़ी शब्द टाइप करें:",
+              "target": "please",
+              "translation": "कृपया",
+              "hint": "संकेत: P से शुरू होता है",
               "audioUrl": ""
             },
             {
@@ -3450,7 +3450,7 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "He _______.",
+              "sentence": "He is my _______",
               "blank": "father",
               "translation": "वह मेरे पिता हैं।",
               "options": [
@@ -3615,13 +3615,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "She _______ mother.",
-              "blank": "is",
+              "sentence": "She is my _______",
+              "blank": "mother",
               "translation": "वह मेरी माँ हैं।",
               "options": [
                 "mother",
-                "friend",
-                "boy"
+                "father",
+                "brother"
               ]
             },
             {
@@ -3780,13 +3780,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I am a _______",
               "blank": "student",
               "translation": "मैं एक छात्र हूँ।",
               "options": [
                 "student",
-                "woman",
-                "teacher"
+                "father",
+                "mother"
               ]
             },
             {
@@ -3945,13 +3945,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "You _______.",
+              "sentence": "You are my _______",
               "blank": "friend",
               "translation": "तुम मेरे दोस्त हो।",
               "options": [
                 "friend",
-                "mother",
-                "sister"
+                "father",
+                "mother"
               ]
             },
             {
@@ -4054,7 +4054,7 @@
                 {
                   "id": "u3_l5_p1",
                   "text": "I (मैं)",
-                  "imageUrl": "/uploads/curriculum/I.webp",
+                  "imageUrl": "/uploads/curriculum/i.webp",
                   "isCorrect": true
                 },
                 {
@@ -4110,13 +4110,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "He _______.",
+              "sentence": "He is a good _______",
               "blank": "teacher",
               "translation": "वह एक अच्छे शिक्षक हैं।",
               "options": [
                 "teacher",
-                "I",
-                "you"
+                "father",
+                "mother"
               ]
             },
             {
@@ -4286,13 +4286,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "We _______.",
+              "sentence": "We are _______",
               "blank": "friends",
               "translation": "हम दोस्त हैं।",
               "options": [
                 "friends",
-                "boy",
-                "man"
+                "father",
+                "mother"
               ]
             },
             {
@@ -4451,13 +4451,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "She _______.",
+              "sentence": "She is my _______",
               "blank": "sister",
               "translation": "वह मेरी बहन है।",
               "options": [
                 "sister",
-                "teacher",
-                "student"
+                "father",
+                "mother"
               ]
             },
             {
@@ -4616,13 +4616,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "They _______.",
+              "sentence": "They are my _______",
               "blank": "family",
               "translation": "वे मेरा परिवार हैं।",
               "options": [
                 "family",
-                "you",
-                "he"
+                "father",
+                "mother"
               ]
             },
             {
@@ -4781,13 +4781,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "He _______.",
+              "sentence": "He is my _______",
               "blank": "father",
               "translation": "वह मेरे पिता हैं।",
               "options": [
                 "father",
-                "sister",
-                "man"
+                "mother",
+                "brother"
               ]
             },
             {
@@ -4957,13 +4957,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "We _______.",
+              "sentence": "We are _______",
               "blank": "friends",
               "translation": "हम दोस्त हैं।",
               "options": [
                 "friends",
                 "father",
-                "friend"
+                "mother"
               ]
             },
             {
@@ -5134,11 +5134,11 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
-              "blank": "apple",
+              "sentence": "I _______ an apple",
+              "blank": "eat",
               "translation": "मैं सेब खाता हूँ।",
               "options": [
-                "apple",
+                "eat",
                 "drink",
                 "read"
               ]
@@ -5299,13 +5299,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______ book.",
-              "blank": "read",
+              "sentence": "I read a _______",
+              "blank": "book",
               "translation": "मैं किताब पढ़ता हूँ।",
               "options": [
                 "book",
-                "speak",
-                "go"
+                "eat",
+                "drink"
               ]
             },
             {
@@ -5463,13 +5463,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I speak _______",
               "blank": "English",
               "translation": "मैं अंग्रेज़ी बोलता हूँ।",
               "options": [
                 "English",
-                "like",
-                "work"
+                "eat",
+                "drink"
               ]
             },
             {
@@ -5627,13 +5627,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I go to _______",
               "blank": "school",
               "translation": "मैं स्कूल जाता हूँ।",
               "options": [
                 "school",
-                "drink",
-                "write"
+                "eat",
+                "drink"
               ]
             },
             {
@@ -5748,7 +5748,7 @@
                 {
                   "id": "u4_l5_p3",
                   "text": "English (अंग्रेज़ी)",
-                  "imageUrl": "/uploads/curriculum/English.webp",
+                  "imageUrl": "/uploads/curriculum/english.webp",
                   "isCorrect": false
                 }
               ]
@@ -5791,13 +5791,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I like _______",
               "blank": "books",
               "translation": "मुझे किताबें पसंद हैं।",
               "options": [
                 "books",
-                "apple",
-                "school"
+                "eat",
+                "drink"
               ]
             },
             {
@@ -5965,13 +5965,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "She _______.",
+              "sentence": "She reads _______",
               "blank": "English",
               "translation": "वह अंग्रेज़ी पढ़ती है।",
               "options": [
                 "English",
-                "go",
-                "see"
+                "eat",
+                "drink"
               ]
             },
             {
@@ -6128,13 +6128,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "We _______.",
+              "sentence": "We eat _______",
               "blank": "together",
               "translation": "हम साथ में खाते हैं।",
               "options": [
                 "together",
-                "work",
-                "live"
+                "eat",
+                "drink"
               ]
             },
             {
@@ -6242,13 +6242,13 @@
                 {
                   "id": "u4_l9_p2",
                   "text": "English (अंग्रेज़ी)",
-                  "imageUrl": "/uploads/curriculum/English.webp",
+                  "imageUrl": "/uploads/curriculum/english.webp",
                   "isCorrect": false
                 },
                 {
                   "id": "u4_l9_p3",
                   "text": "Hindi (हिंदी)",
-                  "imageUrl": "/uploads/curriculum/Hindi.webp",
+                  "imageUrl": "/uploads/curriculum/hindi.webp",
                   "isCorrect": false
                 }
               ]
@@ -6291,13 +6291,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I live _______",
               "blank": "here",
               "translation": "मैं यहाँ रहता हूँ।",
               "options": [
                 "here",
-                "school",
-                "English"
+                "eat",
+                "drink"
               ]
             },
             {
@@ -6455,13 +6455,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I eat an _______",
               "blank": "apple",
               "translation": "मैं सेब खाता हूँ।",
               "options": [
                 "apple",
-                "write",
-                "see"
+                "eat",
+                "drink"
               ]
             },
             {
@@ -6629,13 +6629,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "She _______.",
+              "sentence": "She reads _______",
               "blank": "English",
               "translation": "वह अंग्रेज़ी पढ़ती है।",
               "options": [
                 "English",
                 "eat",
-                "speak"
+                "drink"
               ]
             },
             {
@@ -6805,11 +6805,11 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "one _______.",
-              "blank": "books",
+              "sentence": "_______ pen and two books",
+              "blank": "one",
               "translation": "एक पेन और दो किताबें",
               "options": [
-                "books",
+                "one",
                 "two",
                 "three"
               ]
@@ -6969,13 +6969,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "three _______ cars.",
+              "sentence": "three _______",
               "blank": "cars",
               "translation": "तीन गाड़ियाँ",
               "options": [
                 "cars",
-                "five",
-                "six"
+                "one",
+                "two"
               ]
             },
             {
@@ -7132,13 +7132,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "four _______.",
+              "sentence": "four cups of _______",
               "blank": "tea",
               "translation": "चार कप चाय",
               "options": [
                 "tea",
-                "nine",
-                "ten"
+                "one",
+                "two"
               ]
             },
             {
@@ -7296,13 +7296,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I have five _______",
               "blank": "apples",
               "translation": "मेरे पास पाँच सेब हैं।",
               "options": [
                 "apples",
-                "two",
-                "four"
+                "one",
+                "two"
               ]
             },
             {
@@ -7460,13 +7460,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "six _______.",
+              "sentence": "six big _______",
               "blank": "houses",
               "translation": "छह बड़े घर",
               "options": [
                 "houses",
-                "apples",
-                "cars"
+                "one",
+                "two"
               ]
             },
             {
@@ -7634,13 +7634,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "seven _______.",
+              "sentence": "seven _______",
               "blank": "days",
               "translation": "सात दिन",
               "options": [
                 "days",
-                "six",
-                "eight"
+                "one",
+                "two"
               ]
             },
             {
@@ -7796,13 +7796,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "ten _______.",
-              "blank": "students",
+              "sentence": "_______ students",
+              "blank": "ten",
               "translation": "दस छात्र",
               "options": [
-                "students",
                 "ten",
-                "pen"
+                "one",
+                "two"
               ]
             },
             {
@@ -7959,13 +7959,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I have many _______",
               "blank": "friends",
               "translation": "मेरे कई दोस्त हैं।",
               "options": [
                 "friends",
-                "cars",
-                "houses"
+                "one",
+                "two"
               ]
             },
             {
@@ -8124,13 +8124,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "one _______.",
+              "sentence": "one pen and two _______",
               "blank": "books",
               "translation": "एक पेन और दो किताबें",
               "options": [
                 "books",
-                "four",
-                "eight"
+                "one",
+                "two"
               ]
             },
             {
@@ -8297,13 +8297,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "seven _______.",
+              "sentence": "seven _______",
               "blank": "days",
               "translation": "सात दिन",
               "options": [
                 "days",
                 "one",
-                "five"
+                "two"
               ]
             },
             {
@@ -8475,13 +8475,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "The _______.",
+              "sentence": "The book is on the _______",
               "blank": "table",
               "translation": "किताब मेज़ पर है।",
               "options": [
                 "table",
-                "kitchen",
-                "table"
+                "room",
+                "kitchen"
               ]
             },
             {
@@ -8642,13 +8642,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "My _______ kitchen.",
-              "blank": "mother",
+              "sentence": "My mother is in the _______",
+              "blank": "kitchen",
               "translation": "मेरी माँ रसोई में हैं।",
               "options": [
                 "kitchen",
-                "bed",
-                "door"
+                "room",
+                "table"
               ]
             },
             {
@@ -8809,13 +8809,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "The _______.",
+              "sentence": "The cat is under the _______",
               "blank": "chair",
               "translation": "बिल्ली कुर्सी के नीचे है।",
               "options": [
                 "chair",
-                "on",
-                "under"
+                "room",
+                "kitchen"
               ]
             },
             {
@@ -8976,13 +8976,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "My _______.",
+              "sentence": "My phone is on the _______",
               "blank": "bed",
               "translation": "मेरा फोन बिस्तर पर है।",
               "options": [
                 "bed",
-                "kitchen",
-                "chair"
+                "room",
+                "kitchen"
               ]
             },
             {
@@ -9143,13 +9143,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "The _______.",
+              "sentence": "The keys are in the _______",
               "blank": "bag",
               "translation": "चाबियाँ बैग में हैं।",
               "options": [
                 "bag",
-                "key",
-                "phone"
+                "room",
+                "kitchen"
               ]
             },
             {
@@ -9320,13 +9320,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "The _______.",
-              "blank": "open",
+              "sentence": "The _______ is open",
+              "blank": "door",
               "translation": "दरवाज़ा खुला है।",
               "options": [
-                "open",
                 "door",
-                "in"
+                "room",
+                "kitchen"
               ]
             },
             {
@@ -9485,13 +9485,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "The _______.",
+              "sentence": "The window is _______",
               "blank": "closed",
               "translation": "खिड़की बंद है।",
               "options": [
                 "closed",
-                "under",
-                "near"
+                "room",
+                "kitchen"
               ]
             },
             {
@@ -9651,13 +9651,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "The _______.",
+              "sentence": "The car is near the _______",
               "blank": "house",
               "translation": "गाड़ी घर के पास है।",
               "options": [
                 "house",
-                "phone",
-                "bag"
+                "room",
+                "kitchen"
               ]
             },
             {
@@ -9818,13 +9818,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "The _______.",
+              "sentence": "The book is on the _______",
               "blank": "table",
               "translation": "किताब मेज़ पर है।",
               "options": [
                 "table",
-                "chair",
-                "in"
+                "room",
+                "kitchen"
               ]
             },
             {
@@ -9994,13 +9994,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "The _______.",
+              "sentence": "The door is _______",
               "blank": "open",
               "translation": "दरवाज़ा खुला है।",
               "options": [
                 "open",
                 "room",
-                "bed"
+                "kitchen"
               ]
             },
             {
@@ -10170,7 +10170,7 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Good _______.",
+              "sentence": "Good _______",
               "blank": "morning",
               "translation": "शुभ प्रभात",
               "options": [
@@ -10289,7 +10289,7 @@
                 {
                   "id": "u7_l2_p3",
                   "text": "wake up (उठना)",
-                  "imageUrl": "/uploads/curriculum/wake up.webp",
+                  "imageUrl": "/uploads/curriculum/wake_up.webp",
                   "isCorrect": false
                 }
               ]
@@ -10333,13 +10333,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______ early.",
-              "blank": "wake",
+              "sentence": "I wake up _______",
+              "blank": "early",
               "translation": "मैं जल्दी उठता हूँ।",
               "options": [
                 "early",
-                "clock",
-                "hour"
+                "morning",
+                "evening"
               ]
             },
             {
@@ -10498,13 +10498,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
-              "blank": "8",
+              "sentence": "I eat _______ at 8",
+              "blank": "breakfast",
               "translation": "मैं 8 बजे नाश्ता करता हूँ।",
               "options": [
-                "8",
                 "breakfast",
-                "lunch"
+                "morning",
+                "evening"
               ]
             },
             {
@@ -10663,13 +10663,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "He _______.",
+              "sentence": "He sleeps late at _______",
               "blank": "night",
               "translation": "वह रात में देर से सोता है।",
               "options": [
                 "night",
-                "evening",
-                "time"
+                "morning",
+                "evening"
               ]
             },
             {
@@ -10828,13 +10828,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "What _______.",
-              "blank": "it?",
+              "sentence": "What _______ is it?",
+              "blank": "time",
               "translation": "कितने बजे हैं?",
               "options": [
-                "it?",
-                "tomorrow",
-                "early"
+                "time",
+                "morning",
+                "evening"
               ]
             },
             {
@@ -10954,7 +10954,7 @@
                 {
                   "id": "u7_l7_p2",
                   "text": "wake up (उठना)",
-                  "imageUrl": "/uploads/curriculum/wake up.webp",
+                  "imageUrl": "/uploads/curriculum/wake_up.webp",
                   "isCorrect": false
                 },
                 {
@@ -11004,13 +11004,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I eat lunch in the _______",
               "blank": "afternoon",
               "translation": "मैं दोपहर में खाना खाता हूँ।",
               "options": [
                 "afternoon",
-                "hour",
-                "sleep"
+                "morning",
+                "evening"
               ]
             },
             {
@@ -11168,13 +11168,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I work _______",
               "blank": "today",
               "translation": "मैं आज काम करता हूँ।",
               "options": [
                 "today",
-                "lunch",
-                "dinner"
+                "morning",
+                "evening"
               ]
             },
             {
@@ -11332,13 +11332,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "School _______.",
+              "sentence": "School is closed _______",
               "blank": "tomorrow",
               "translation": "कल स्कूल बंद है।",
               "options": [
                 "tomorrow",
-                "early",
-                "late"
+                "morning",
+                "evening"
               ]
             },
             {
@@ -11495,13 +11495,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Good _______.",
+              "sentence": "Good _______",
               "blank": "morning",
               "translation": "शुभ प्रभात",
               "options": [
                 "morning",
-                "time",
-                "sleep"
+                "evening",
+                "night"
               ]
             },
             {
@@ -11670,13 +11670,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I eat lunch in the _______",
               "blank": "afternoon",
               "translation": "मैं दोपहर में खाना खाता हूँ।",
               "options": [
                 "afternoon",
                 "morning",
-                "clock"
+                "evening"
               ]
             },
             {
@@ -11846,11 +11846,11 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "a _______.",
-              "blank": "car",
+              "sentence": "a _______ car",
+              "blank": "red",
               "translation": "लाल गाड़ी",
               "options": [
-                "car",
+                "red",
                 "blue",
                 "green"
               ]
@@ -12010,13 +12010,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "a _______ shoes.",
-              "blank": "white",
+              "sentence": "a white shirt and _______ shoes",
+              "blank": "black",
               "translation": "सफ़ेद कमीज़ और काले जूते",
               "options": [
-                "shoes",
                 "black",
-                "white"
+                "red",
+                "blue"
               ]
             },
             {
@@ -12175,13 +12175,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "My _______.",
+              "sentence": "My shirt is _______",
               "blank": "blue",
               "translation": "मेरी कमीज़ नीली है।",
               "options": [
                 "blue",
-                "shoes",
-                "hat"
+                "red",
+                "green"
               ]
             },
             {
@@ -12340,13 +12340,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "She _______.",
+              "sentence": "She wears a red _______",
               "blank": "dress",
               "translation": "वह लाल ड्रेस पहनती है।",
               "options": [
                 "dress",
-                "blue",
-                "yellow"
+                "red",
+                "blue"
               ]
             },
             {
@@ -12505,13 +12505,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "My _______.",
+              "sentence": "My shoes are black and _______",
               "blank": "clean",
               "translation": "मेरे जूते काले और साफ़ हैं।",
               "options": [
                 "clean",
-                "color",
-                "favorite"
+                "red",
+                "blue"
               ]
             },
             {
@@ -12681,13 +12681,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "My _______.",
+              "sentence": "My favorite color is _______",
               "blank": "green",
               "translation": "मेरा पसंदीदा रंग हरा है।",
               "options": [
                 "green",
-                "white",
-                "pants"
+                "red",
+                "blue"
               ]
             },
             {
@@ -12846,13 +12846,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "He _______.",
+              "sentence": "He is wearing a _______",
               "blank": "hat",
               "translation": "उसने टोपी पहनी है।",
               "options": [
                 "hat",
-                "hat",
-                "dress"
+                "red",
+                "blue"
               ]
             },
             {
@@ -13011,13 +13011,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "This _______.",
+              "sentence": "This yellow shirt is _______",
               "blank": "new",
               "translation": "यह पीली कमीज़ नई है।",
               "options": [
                 "new",
-                "favorite",
-                "bright"
+                "red",
+                "blue"
               ]
             },
             {
@@ -13175,13 +13175,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "a _______.",
+              "sentence": "a red _______",
               "blank": "car",
               "translation": "लाल गाड़ी",
               "options": [
                 "car",
-                "yellow",
-                "pants"
+                "red",
+                "blue"
               ]
             },
             {
@@ -13351,13 +13351,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "My _______.",
+              "sentence": "My favorite color is _______",
               "blank": "green",
               "translation": "मेरा पसंदीदा रंग हरा है।",
               "options": [
                 "green",
                 "red",
-                "black"
+                "blue"
               ]
             },
             {
@@ -13528,13 +13528,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I need help, _______",
               "blank": "please",
               "translation": "मुझे मदद चाहिए, कृपया।",
               "options": [
                 "please",
-                "need",
-                "like"
+                "want",
+                "need"
               ]
             },
             {
@@ -13643,7 +13643,7 @@
                 {
                   "id": "u9_l2_p2",
                   "text": "thank you (धन्यवाद)",
-                  "imageUrl": "/uploads/curriculum/thank you.webp",
+                  "imageUrl": "/uploads/curriculum/thank_you.webp",
                   "isCorrect": false
                 },
                 {
@@ -13693,13 +13693,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______ pen.",
-              "blank": "need",
+              "sentence": "I need a _______",
+              "blank": "pen",
               "translation": "मुझे एक पेन चाहिए।",
               "options": [
                 "pen",
-                "please",
-                "thank you"
+                "want",
+                "need"
               ]
             },
             {
@@ -13802,7 +13802,7 @@
                 {
                   "id": "u9_l3_p1",
                   "text": "excuse me (माफ़ कीजिए)",
-                  "imageUrl": "/uploads/curriculum/excuse me.webp",
+                  "imageUrl": "/uploads/curriculum/excuse_me.webp",
                   "isCorrect": true
                 },
                 {
@@ -13858,13 +13858,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I want cold _______",
               "blank": "water",
               "translation": "मुझे ठंडा पानी चाहिए।",
               "options": [
                 "water",
-                "excuse me",
-                "money"
+                "want",
+                "need"
               ]
             },
             {
@@ -13903,10 +13903,10 @@
             {
               "type": "type_word",
               "title": "स्पेलिंग टाइप करें",
-              "prompt": "'माफ़ कीजिए' के लिए अंग्रेज़ी शब्द टाइप करें:",
-              "target": "excuse me",
-              "translation": "माफ़ कीजिए",
-              "hint": "संकेत: E से शुरू होता है",
+              "prompt": "'स्वागत' के लिए अंग्रेज़ी शब्द टाइप करें:",
+              "target": "welcome",
+              "translation": "स्वागत",
+              "hint": "संकेत: W से शुरू होता है",
               "audioUrl": ""
             },
             {
@@ -13979,7 +13979,7 @@
                 {
                   "id": "u9_l4_p3",
                   "text": "excuse me (माफ़ कीजिए)",
-                  "imageUrl": "/uploads/curriculum/excuse me.webp",
+                  "imageUrl": "/uploads/curriculum/excuse_me.webp",
                   "isCorrect": false
                 }
               ]
@@ -14023,13 +14023,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Excuse _______.",
-              "blank": "me?",
+              "sentence": "Excuse me, can you _______ me?",
+              "blank": "help",
               "translation": "सुनिए, क्या आप मेरी मदद कर सकते हैं?",
               "options": [
-                "me?",
-                "need",
-                "help"
+                "help",
+                "want",
+                "need"
               ]
             },
             {
@@ -14188,13 +14188,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I am very _______",
               "blank": "sorry",
               "translation": "मुझे बहुत खेद है।",
               "options": [
                 "sorry",
-                "madam",
-                "problem"
+                "want",
+                "need"
               ]
             },
             {
@@ -14308,7 +14308,7 @@
                 {
                   "id": "u9_l7_p1",
                   "text": "thank you (धन्यवाद)",
-                  "imageUrl": "/uploads/curriculum/thank you.webp",
+                  "imageUrl": "/uploads/curriculum/thank_you.webp",
                   "isCorrect": true
                 },
                 {
@@ -14364,13 +14364,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "You _______.",
+              "sentence": "You are welcome, _______",
               "blank": "sir",
               "translation": "आपका स्वागत है, सर।",
               "options": [
                 "sir",
-                "thank you",
-                "welcome"
+                "want",
+                "need"
               ]
             },
             {
@@ -14409,10 +14409,10 @@
             {
               "type": "type_word",
               "title": "स्पेलिंग टाइप करें",
-              "prompt": "'धन्यवाद' के लिए अंग्रेज़ी शब्द टाइप करें:",
-              "target": "thank you",
-              "translation": "धन्यवाद",
-              "hint": "संकेत: T से शुरू होता है",
+              "prompt": "'कृपया' के लिए अंग्रेज़ी शब्द टाइप करें:",
+              "target": "please",
+              "translation": "कृपया",
+              "hint": "संकेत: P से शुरू होता है",
               "audioUrl": ""
             },
             {
@@ -14529,13 +14529,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "No _______.",
+              "sentence": "No problem at _______",
               "blank": "all",
               "translation": "कोई बात नहीं।",
               "options": [
                 "all",
-                "money",
-                "can"
+                "want",
+                "need"
               ]
             },
             {
@@ -14693,13 +14693,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Tea? _______.",
-              "blank": "please!",
+              "sentence": "Tea? Yes, _______!",
+              "blank": "please",
               "translation": "चाय? हाँ, कृपया!",
               "options": [
-                "please!",
-                "problem",
-                "okay"
+                "please",
+                "want",
+                "need"
               ]
             },
             {
@@ -14857,13 +14857,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
-              "blank": "please",
+              "sentence": "I need _______, please",
+              "blank": "help",
               "translation": "मुझे मदद चाहिए, कृपया।",
               "options": [
-                "please",
                 "help",
-                "welcome"
+                "want",
+                "need"
               ]
             },
             {
@@ -14989,7 +14989,7 @@
                 {
                   "id": "u9_l12_p3",
                   "text": "excuse me (माफ़ कीजिए)",
-                  "imageUrl": "/uploads/curriculum/excuse me.webp",
+                  "imageUrl": "/uploads/curriculum/excuse_me.webp",
                   "isCorrect": false
                 }
               ]
@@ -15033,13 +15033,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "You _______.",
+              "sentence": "You are welcome, _______",
               "blank": "sir",
               "translation": "आपका स्वागत है, सर।",
               "options": [
                 "sir",
                 "want",
-                "please"
+                "need"
               ]
             },
             {
@@ -15209,13 +15209,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Where _______.",
-              "blank": "station?",
+              "sentence": "Where is the _______?",
+              "blank": "station",
               "translation": "स्टेशन कहाँ है?",
               "options": [
-                "station?",
-                "where",
-                "who"
+                "station",
+                "what",
+                "where"
               ]
             },
             {
@@ -15374,13 +15374,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Turn _______ road.",
-              "blank": "left",
+              "sentence": "Turn left at the _______",
+              "blank": "road",
               "translation": "सड़क पर बाएँ मुड़िए।",
               "options": [
                 "road",
-                "why",
-                "how"
+                "what",
+                "where"
               ]
             },
             {
@@ -15539,13 +15539,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Turn _______.",
+              "sentence": "Turn right and go _______",
               "blank": "straight",
               "translation": "दाएँ मुड़िए और सीधे जाइए।",
               "options": [
                 "straight",
-                "straight",
-                "near"
+                "what",
+                "where"
               ]
             },
             {
@@ -15703,13 +15703,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Stop _______.",
+              "sentence": "Stop here, _______",
               "blank": "please",
               "translation": "कृपया यहाँ रोकिए।",
               "options": [
                 "please",
-                "where",
-                "when"
+                "what",
+                "where"
               ]
             },
             {
@@ -15867,13 +15867,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Is _______.",
-              "blank": "far?",
+              "sentence": "Is it near or _______?",
+              "blank": "far",
               "translation": "क्या यह पास है या दूर?",
               "options": [
-                "far?",
-                "turn",
-                "road"
+                "far",
+                "what",
+                "where"
               ]
             },
             {
@@ -16044,13 +16044,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "It _______.",
+              "sentence": "It is far from _______",
               "blank": "here",
               "translation": "यह यहाँ से दूर है।",
               "options": [
                 "here",
-                "how",
-                "right"
+                "what",
+                "where"
               ]
             },
             {
@@ -16210,13 +16210,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "How _______.",
-              "blank": "today?",
+              "sentence": "How are you _______?",
+              "blank": "today",
               "translation": "आप आज कैसे हैं?",
               "options": [
-                "today?",
-                "near",
-                "far"
+                "today",
+                "what",
+                "where"
               ]
             },
             {
@@ -16375,13 +16375,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Which _______.",
-              "blank": "market?",
+              "sentence": "Which way to the _______?",
+              "blank": "market",
               "translation": "बाज़ार का रास्ता कौन सा है?",
               "options": [
-                "market?",
-                "road",
-                "station"
+                "market",
+                "what",
+                "where"
               ]
             },
             {
@@ -16540,13 +16540,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Where _______.",
-              "blank": "station?",
+              "sentence": "Where is the _______?",
+              "blank": "station",
               "translation": "स्टेशन कहाँ है?",
               "options": [
-                "station?",
-                "when",
-                "right"
+                "station",
+                "what",
+                "where"
               ]
             },
             {
@@ -16717,13 +16717,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "It _______.",
+              "sentence": "It is far from _______",
               "blank": "here",
               "translation": "यह यहाँ से दूर है।",
               "options": [
                 "here",
                 "what",
-                "why"
+                "where"
               ]
             },
             {
@@ -16895,7 +16895,7 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I go to work by _______",
               "blank": "bus",
               "translation": "मैं बस से काम पर जाता हूँ।",
               "options": [
@@ -17062,13 +17062,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "The _______ station.",
-              "blank": "train",
+              "sentence": "The train is at the _______",
+              "blank": "station",
               "translation": "ट्रेन स्टेशन पर है।",
               "options": [
                 "station",
-                "station",
-                "airport"
+                "bus",
+                "train"
               ]
             },
             {
@@ -17229,13 +17229,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I am going to the _______",
               "blank": "market",
               "translation": "मैं बाज़ार जा रहा हूँ।",
               "options": [
                 "market",
-                "bank",
-                "hotel"
+                "bus",
+                "train"
               ]
             },
             {
@@ -17396,13 +17396,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "The _______.",
+              "sentence": "The bank is near the _______",
               "blank": "hospital",
               "translation": "बैंक अस्पताल के पास है।",
               "options": [
                 "hospital",
-                "train",
-                "taxi"
+                "bus",
+                "train"
               ]
             },
             {
@@ -17562,13 +17562,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "One _______.",
+              "sentence": "One ticket to Delhi, _______",
               "blank": "please",
               "translation": "दिल्ली के लिए एक टिकट, कृपया।",
               "options": [
                 "please",
-                "seat",
-                "driver"
+                "bus",
+                "train"
               ]
             },
             {
@@ -17738,13 +17738,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "How _______.",
-              "blank": "ticket?",
+              "sentence": "How much is the _______?",
+              "blank": "ticket",
               "translation": "टिकट कितने का है?",
               "options": [
-                "ticket?",
-                "airport",
-                "hospital"
+                "ticket",
+                "bus",
+                "train"
               ]
             },
             {
@@ -17903,13 +17903,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "This _______.",
+              "sentence": "This is my _______",
               "blank": "seat",
               "translation": "यह मेरी सीट है।",
               "options": [
                 "seat",
-                "hotel",
-                "ticket"
+                "bus",
+                "train"
               ]
             },
             {
@@ -18024,7 +18024,7 @@
                 {
                   "id": "u11_l9_p3",
                   "text": "how much (कितना)",
-                  "imageUrl": "/uploads/curriculum/how much.webp",
+                  "imageUrl": "/uploads/curriculum/how_much.webp",
                   "isCorrect": false
                 }
               ]
@@ -18068,13 +18068,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Stop _______.",
+              "sentence": "Stop at the hotel, _______",
               "blank": "please",
               "translation": "कृपया होटल पर रोकिए।",
               "options": [
                 "please",
-                "driver",
-                "city"
+                "bus",
+                "train"
               ]
             },
             {
@@ -18234,13 +18234,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I go to work by _______",
               "blank": "bus",
               "translation": "मैं बस से काम पर जाता हूँ।",
               "options": [
                 "bus",
-                "taxi",
-                "hospital"
+                "train",
+                "auto"
               ]
             },
             {
@@ -18410,13 +18410,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "How _______.",
-              "blank": "ticket?",
+              "sentence": "How much is the _______?",
+              "blank": "ticket",
               "translation": "टिकट कितने का है?",
               "options": [
-                "ticket?",
+                "ticket",
                 "bus",
-                "station"
+                "train"
               ]
             },
             {
@@ -18455,10 +18455,10 @@
             {
               "type": "type_word",
               "title": "स्पेलिंग टाइप करें",
-              "prompt": "'कितना' के लिए अंग्रेज़ी शब्द टाइप करें:",
-              "target": "how much",
-              "translation": "कितना",
-              "hint": "संकेत: H से शुरू होता है",
+              "prompt": "'शहर' के लिए अंग्रेज़ी शब्द टाइप करें:",
+              "target": "city",
+              "translation": "शहर",
+              "hint": "संकेत: C से शुरू होता है",
               "audioUrl": ""
             },
             {
@@ -18587,11 +18587,11 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
-              "blank": "today",
+              "sentence": "I am very _______ today",
+              "blank": "happy",
               "translation": "मैं आज बहुत खुश हूँ।",
               "options": [
-                "today",
+                "happy",
                 "sad",
                 "tired"
               ]
@@ -18752,13 +18752,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______ tired.",
-              "blank": "am",
+              "sentence": "I am hungry and _______",
+              "blank": "tired",
               "translation": "मुझे भूख लगी है और मैं थका हूँ।",
               "options": [
                 "tired",
-                "thirsty",
-                "fine"
+                "happy",
+                "sad"
               ]
             },
             {
@@ -18916,13 +18916,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Are _______.",
-              "blank": "thirsty?",
+              "sentence": "Are you _______?",
+              "blank": "thirsty",
               "translation": "क्या आपको प्यास लगी है?",
               "options": [
-                "thirsty?",
-                "headache",
-                "fever"
+                "thirsty",
+                "happy",
+                "sad"
               ]
             },
             {
@@ -19080,13 +19080,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I have a _______",
               "blank": "headache",
               "translation": "मेरे सिर में दर्द है।",
               "options": [
                 "headache",
-                "sad",
-                "hungry"
+                "happy",
+                "sad"
               ]
             },
             {
@@ -19245,13 +19245,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "He _______.",
+              "sentence": "He has a _______",
               "blank": "fever",
               "translation": "उसे बुखार है।",
               "options": [
                 "fever",
-                "rest",
-                "feel"
+                "happy",
+                "sad"
               ]
             },
             {
@@ -19421,13 +19421,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Please _______.",
+              "sentence": "Please see a _______",
               "blank": "doctor",
               "translation": "कृपया डॉक्टर से मिलिए।",
               "options": [
                 "doctor",
-                "fine",
-                "sick"
+                "happy",
+                "sad"
               ]
             },
             {
@@ -19586,13 +19586,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Take _______.",
+              "sentence": "Take rest and drink _______",
               "blank": "water",
               "translation": "आराम कीजिए और पानी पीजिए।",
               "options": [
                 "water",
-                "fever",
-                "doctor"
+                "happy",
+                "sad"
               ]
             },
             {
@@ -19752,13 +19752,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I am ready to _______",
               "blank": "graduate",
               "translation": "मैं स्नातक होने के लिए तैयार हूँ।",
               "options": [
                 "graduate",
-                "feel",
-                "ready"
+                "happy",
+                "sad"
               ]
             },
             {
@@ -19918,13 +19918,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "I _______.",
+              "sentence": "I am very happy _______",
               "blank": "today",
               "translation": "मैं आज बहुत खुश हूँ।",
               "options": [
                 "today",
-                "hungry",
-                "sick"
+                "happy",
+                "sad"
               ]
             },
             {
@@ -20094,13 +20094,13 @@
             {
               "type": "cloze_test",
               "title": "रिक्त स्थान भरें",
-              "sentence": "Please _______.",
+              "sentence": "Please see a _______",
               "blank": "doctor",
               "translation": "कृपया डॉक्टर से मिलिए।",
               "options": [
                 "doctor",
                 "happy",
-                "thirsty"
+                "sad"
               ]
             },
             {

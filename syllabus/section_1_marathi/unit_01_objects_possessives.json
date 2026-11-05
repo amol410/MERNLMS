@@ -85,12 +85,12 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "my _______.",
+          "sentence": "my _______",
           "blank": "car",
           "translation": "माझी गाडी",
           "options": [
             "car",
-            "car",
+            "house",
             "my"
           ]
         },
@@ -249,13 +249,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "my _______ big.",
-          "blank": "house",
+          "sentence": "my house is _______",
+          "blank": "big",
           "translation": "माझे घर मोठे आहे.",
           "options": [
             "big",
-            "big",
-            "small"
+            "house",
+            "car"
           ]
         },
         {
@@ -414,13 +414,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "your _______.",
+          "sentence": "your car is _______",
           "blank": "small",
           "translation": "तुझी गाडी लहान आहे.",
           "options": [
             "small",
-            "dirty",
-            "new"
+            "house",
+            "car"
           ]
         },
         {
@@ -579,13 +579,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "his _______.",
+          "sentence": "his house is _______",
           "blank": "clean",
           "translation": "त्याचे घर स्वच्छ आहे.",
           "options": [
             "clean",
-            "car",
-            "your"
+            "house",
+            "car"
           ]
         },
         {
@@ -744,13 +744,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "my _______.",
+          "sentence": "my car is very _______",
           "blank": "clean",
           "translation": "माझी गाडी खूप स्वच्छ आहे.",
           "options": [
             "clean",
-            "this",
-            "that"
+            "house",
+            "car"
           ]
         },
         {
@@ -920,13 +920,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "this _______.",
+          "sentence": "this is my _______",
           "blank": "car",
           "translation": "ही माझी गाडी आहे.",
           "options": [
             "car",
-            "small",
-            "clean"
+            "house",
+            "my"
           ]
         },
         {
@@ -1085,13 +1085,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "that _______.",
+          "sentence": "that is your _______",
           "blank": "house",
           "translation": "ते तुझे घर आहे.",
           "options": [
             "house",
-            "new",
-            "old"
+            "car",
+            "my"
           ]
         },
         {
@@ -1251,13 +1251,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "my _______.",
+          "sentence": "my car is new and _______",
           "blank": "clean",
           "translation": "माझी गाडी नवीन आणि स्वच्छ आहे.",
           "options": [
             "clean",
-            "that",
-            "here"
+            "house",
+            "car"
           ]
         },
         {
@@ -1416,13 +1416,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "my _______.",
+          "sentence": "my _______",
           "blank": "car",
           "translation": "माझी गाडी",
           "options": [
             "car",
-            "your",
-            "clean"
+            "house",
+            "my"
           ]
         },
         {
@@ -1592,13 +1592,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "this _______.",
+          "sentence": "this is my _______",
           "blank": "car",
           "translation": "ही माझी गाडी आहे.",
           "options": [
             "car",
             "house",
-            "big"
+            "my"
           ]
         },
         {

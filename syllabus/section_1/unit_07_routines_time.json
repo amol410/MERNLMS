@@ -86,7 +86,7 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Good _______.",
+          "sentence": "Good _______",
           "blank": "morning",
           "translation": "शुभ प्रभात",
           "options": [
@@ -205,7 +205,7 @@
             {
               "id": "u7_l2_p3",
               "text": "wake up (उठना)",
-              "imageUrl": "/uploads/curriculum/wake up.webp",
+              "imageUrl": "/uploads/curriculum/wake_up.webp",
               "isCorrect": false
             }
           ]
@@ -249,13 +249,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______ early.",
-          "blank": "wake",
+          "sentence": "I wake up _______",
+          "blank": "early",
           "translation": "मैं जल्दी उठता हूँ।",
           "options": [
             "early",
-            "clock",
-            "hour"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -414,13 +414,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
-          "blank": "8",
+          "sentence": "I eat _______ at 8",
+          "blank": "breakfast",
           "translation": "मैं 8 बजे नाश्ता करता हूँ।",
           "options": [
-            "8",
             "breakfast",
-            "lunch"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -579,13 +579,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He sleeps late at _______",
           "blank": "night",
           "translation": "वह रात में देर से सोता है।",
           "options": [
             "night",
-            "evening",
-            "time"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -744,13 +744,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "What _______.",
-          "blank": "it?",
+          "sentence": "What _______ is it?",
+          "blank": "time",
           "translation": "कितने बजे हैं?",
           "options": [
-            "it?",
-            "tomorrow",
-            "early"
+            "time",
+            "morning",
+            "evening"
           ]
         },
         {
@@ -870,7 +870,7 @@
             {
               "id": "u7_l7_p2",
               "text": "wake up (उठना)",
-              "imageUrl": "/uploads/curriculum/wake up.webp",
+              "imageUrl": "/uploads/curriculum/wake_up.webp",
               "isCorrect": false
             },
             {
@@ -920,13 +920,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I eat lunch in the _______",
           "blank": "afternoon",
           "translation": "मैं दोपहर में खाना खाता हूँ।",
           "options": [
             "afternoon",
-            "hour",
-            "sleep"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -1084,13 +1084,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I work _______",
           "blank": "today",
           "translation": "मैं आज काम करता हूँ।",
           "options": [
             "today",
-            "lunch",
-            "dinner"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -1248,13 +1248,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "School _______.",
+          "sentence": "School is closed _______",
           "blank": "tomorrow",
           "translation": "कल स्कूल बंद है।",
           "options": [
             "tomorrow",
-            "early",
-            "late"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -1411,13 +1411,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Good _______.",
+          "sentence": "Good _______",
           "blank": "morning",
           "translation": "शुभ प्रभात",
           "options": [
             "morning",
-            "time",
-            "sleep"
+            "evening",
+            "night"
           ]
         },
         {
@@ -1586,13 +1586,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I eat lunch in the _______",
           "blank": "afternoon",
           "translation": "मैं दोपहर में खाना खाता हूँ।",
           "options": [
             "afternoon",
             "morning",
-            "clock"
+            "evening"
           ]
         },
         {
@@ -1751,7 +1751,7 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Good _______.",
+          "sentence": "Good _______",
           "blank": "morning",
           "translation": "शुभ प्रभात",
           "options": [
@@ -1870,7 +1870,7 @@
             {
               "id": "u7_l2_p3",
               "text": "wake up (उठना)",
-              "imageUrl": "/uploads/curriculum/wake up.webp",
+              "imageUrl": "/uploads/curriculum/wake_up.webp",
               "isCorrect": false
             }
           ]
@@ -1914,13 +1914,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______ early.",
-          "blank": "wake",
+          "sentence": "I wake up _______",
+          "blank": "early",
           "translation": "मैं जल्दी उठता हूँ।",
           "options": [
             "early",
-            "clock",
-            "hour"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -2079,13 +2079,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
-          "blank": "8",
+          "sentence": "I eat _______ at 8",
+          "blank": "breakfast",
           "translation": "मैं 8 बजे नाश्ता करता हूँ।",
           "options": [
-            "8",
             "breakfast",
-            "lunch"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -2244,13 +2244,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He sleeps late at _______",
           "blank": "night",
           "translation": "वह रात में देर से सोता है।",
           "options": [
             "night",
-            "evening",
-            "time"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -2409,13 +2409,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "What _______.",
-          "blank": "it?",
+          "sentence": "What _______ is it?",
+          "blank": "time",
           "translation": "कितने बजे हैं?",
           "options": [
-            "it?",
-            "tomorrow",
-            "early"
+            "time",
+            "morning",
+            "evening"
           ]
         },
         {
@@ -2535,7 +2535,7 @@
             {
               "id": "u7_l7_p2",
               "text": "wake up (उठना)",
-              "imageUrl": "/uploads/curriculum/wake up.webp",
+              "imageUrl": "/uploads/curriculum/wake_up.webp",
               "isCorrect": false
             },
             {
@@ -2585,13 +2585,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I eat lunch in the _______",
           "blank": "afternoon",
           "translation": "मैं दोपहर में खाना खाता हूँ।",
           "options": [
             "afternoon",
-            "hour",
-            "sleep"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -2749,13 +2749,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I work _______",
           "blank": "today",
           "translation": "मैं आज काम करता हूँ।",
           "options": [
             "today",
-            "lunch",
-            "dinner"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -2913,13 +2913,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "School _______.",
+          "sentence": "School is closed _______",
           "blank": "tomorrow",
           "translation": "कल स्कूल बंद है।",
           "options": [
             "tomorrow",
-            "early",
-            "late"
+            "morning",
+            "evening"
           ]
         },
         {
@@ -3076,13 +3076,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Good _______.",
+          "sentence": "Good _______",
           "blank": "morning",
           "translation": "शुभ प्रभात",
           "options": [
             "morning",
-            "time",
-            "sleep"
+            "evening",
+            "night"
           ]
         },
         {
@@ -3251,13 +3251,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I eat lunch in the _______",
           "blank": "afternoon",
           "translation": "मैं दोपहर में खाना खाता हूँ।",
           "options": [
             "afternoon",
             "morning",
-            "clock"
+            "evening"
           ]
         },
         {

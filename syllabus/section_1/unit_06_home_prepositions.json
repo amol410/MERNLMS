@@ -89,13 +89,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The book is on the _______",
           "blank": "table",
           "translation": "किताब मेज़ पर है।",
           "options": [
             "table",
-            "kitchen",
-            "table"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -256,13 +256,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______ kitchen.",
-          "blank": "mother",
+          "sentence": "My mother is in the _______",
+          "blank": "kitchen",
           "translation": "मेरी माँ रसोई में हैं।",
           "options": [
             "kitchen",
-            "bed",
-            "door"
+            "room",
+            "table"
           ]
         },
         {
@@ -423,13 +423,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The cat is under the _______",
           "blank": "chair",
           "translation": "बिल्ली कुर्सी के नीचे है।",
           "options": [
             "chair",
-            "on",
-            "under"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -590,13 +590,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______.",
+          "sentence": "My phone is on the _______",
           "blank": "bed",
           "translation": "मेरा फोन बिस्तर पर है।",
           "options": [
             "bed",
-            "kitchen",
-            "chair"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -757,13 +757,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The keys are in the _______",
           "blank": "bag",
           "translation": "चाबियाँ बैग में हैं।",
           "options": [
             "bag",
-            "key",
-            "phone"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -934,13 +934,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
-          "blank": "open",
+          "sentence": "The _______ is open",
+          "blank": "door",
           "translation": "दरवाज़ा खुला है।",
           "options": [
-            "open",
             "door",
-            "in"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -1099,13 +1099,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The window is _______",
           "blank": "closed",
           "translation": "खिड़की बंद है।",
           "options": [
             "closed",
-            "under",
-            "near"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -1265,13 +1265,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The car is near the _______",
           "blank": "house",
           "translation": "गाड़ी घर के पास है।",
           "options": [
             "house",
-            "phone",
-            "bag"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -1432,13 +1432,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The book is on the _______",
           "blank": "table",
           "translation": "किताब मेज़ पर है।",
           "options": [
             "table",
-            "chair",
-            "in"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -1608,13 +1608,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The door is _______",
           "blank": "open",
           "translation": "दरवाज़ा खुला है।",
           "options": [
             "open",
             "room",
-            "bed"
+            "kitchen"
           ]
         },
         {
@@ -1777,13 +1777,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The book is on the _______",
           "blank": "table",
           "translation": "किताब मेज़ पर है।",
           "options": [
             "table",
-            "kitchen",
-            "table"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -1944,13 +1944,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______ kitchen.",
-          "blank": "mother",
+          "sentence": "My mother is in the _______",
+          "blank": "kitchen",
           "translation": "मेरी माँ रसोई में हैं।",
           "options": [
             "kitchen",
-            "bed",
-            "door"
+            "room",
+            "table"
           ]
         },
         {
@@ -2111,13 +2111,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The cat is under the _______",
           "blank": "chair",
           "translation": "बिल्ली कुर्सी के नीचे है।",
           "options": [
             "chair",
-            "on",
-            "under"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -2278,13 +2278,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______.",
+          "sentence": "My phone is on the _______",
           "blank": "bed",
           "translation": "मेरा फोन बिस्तर पर है।",
           "options": [
             "bed",
-            "kitchen",
-            "chair"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -2445,13 +2445,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The keys are in the _______",
           "blank": "bag",
           "translation": "चाबियाँ बैग में हैं।",
           "options": [
             "bag",
-            "key",
-            "phone"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -2622,13 +2622,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
-          "blank": "open",
+          "sentence": "The _______ is open",
+          "blank": "door",
           "translation": "दरवाज़ा खुला है।",
           "options": [
-            "open",
             "door",
-            "in"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -2787,13 +2787,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The window is _______",
           "blank": "closed",
           "translation": "खिड़की बंद है।",
           "options": [
             "closed",
-            "under",
-            "near"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -2953,13 +2953,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The car is near the _______",
           "blank": "house",
           "translation": "गाड़ी घर के पास है।",
           "options": [
             "house",
-            "phone",
-            "bag"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -3120,13 +3120,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The book is on the _______",
           "blank": "table",
           "translation": "किताब मेज़ पर है।",
           "options": [
             "table",
-            "chair",
-            "in"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -3296,13 +3296,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "The _______.",
+          "sentence": "The door is _______",
           "blank": "open",
           "translation": "दरवाज़ा खुला है।",
           "options": [
             "open",
             "room",
-            "bed"
+            "kitchen"
           ]
         },
         {

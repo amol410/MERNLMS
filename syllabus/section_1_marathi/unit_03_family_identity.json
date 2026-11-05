@@ -86,7 +86,7 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "He _______.",
+          "sentence": "He is my _______",
           "blank": "father",
           "translation": "ते माझे वडील आहेत.",
           "options": [
@@ -251,13 +251,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "She _______ mother.",
-          "blank": "is",
+          "sentence": "She is my _______",
+          "blank": "mother",
           "translation": "त्या माझी आई आहेत.",
           "options": [
             "mother",
-            "friend",
-            "boy"
+            "father",
+            "brother"
           ]
         },
         {
@@ -416,13 +416,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I am a _______",
           "blank": "student",
           "translation": "मी एक विद्यार्थी आहे.",
           "options": [
             "student",
-            "woman",
-            "teacher"
+            "father",
+            "mother"
           ]
         },
         {
@@ -581,13 +581,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "You _______.",
+          "sentence": "You are my _______",
           "blank": "friend",
           "translation": "तू माझा मित्र आहेस.",
           "options": [
             "friend",
-            "mother",
-            "sister"
+            "father",
+            "mother"
           ]
         },
         {
@@ -690,7 +690,7 @@
             {
               "id": "u3_l5_p1",
               "text": "I (मी)",
-              "imageUrl": "/uploads/curriculum/I.webp",
+              "imageUrl": "/uploads/curriculum/i.webp",
               "isCorrect": true
             },
             {
@@ -746,13 +746,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "He _______.",
+          "sentence": "He is a good _______",
           "blank": "teacher",
           "translation": "ते एक चांगले शिक्षक आहेत.",
           "options": [
             "teacher",
-            "I",
-            "you"
+            "father",
+            "mother"
           ]
         },
         {
@@ -922,13 +922,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "We _______.",
+          "sentence": "We are _______",
           "blank": "friends",
           "translation": "आम्ही मित्र आहोत.",
           "options": [
             "friends",
-            "boy",
-            "man"
+            "father",
+            "mother"
           ]
         },
         {
@@ -1087,13 +1087,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "She _______.",
+          "sentence": "She is my _______",
           "blank": "sister",
           "translation": "ती माझी बहीण आहे.",
           "options": [
             "sister",
-            "teacher",
-            "student"
+            "father",
+            "mother"
           ]
         },
         {
@@ -1252,13 +1252,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "They _______.",
+          "sentence": "They are my _______",
           "blank": "family",
           "translation": "ते माझे कुटुंब आहेत.",
           "options": [
             "family",
-            "you",
-            "he"
+            "father",
+            "mother"
           ]
         },
         {
@@ -1417,13 +1417,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "He _______.",
+          "sentence": "He is my _______",
           "blank": "father",
           "translation": "ते माझे वडील आहेत.",
           "options": [
             "father",
-            "sister",
-            "man"
+            "mother",
+            "brother"
           ]
         },
         {
@@ -1593,13 +1593,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "We _______.",
+          "sentence": "We are _______",
           "blank": "friends",
           "translation": "आम्ही मित्र आहोत.",
           "options": [
             "friends",
             "father",
-            "friend"
+            "mother"
           ]
         },
         {

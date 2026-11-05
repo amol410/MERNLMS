@@ -86,13 +86,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Where _______.",
-          "blank": "station?",
+          "sentence": "Where is the _______?",
+          "blank": "station",
           "translation": "स्टेशन कुठे आहे?",
           "options": [
-            "station?",
-            "where",
-            "who"
+            "station",
+            "what",
+            "where"
           ]
         },
         {
@@ -251,13 +251,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Turn _______ road.",
-          "blank": "left",
+          "sentence": "Turn left at the _______",
+          "blank": "road",
           "translation": "रस्त्यावर डावीकडे वळा.",
           "options": [
             "road",
-            "why",
-            "how"
+            "what",
+            "where"
           ]
         },
         {
@@ -416,13 +416,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Turn _______.",
+          "sentence": "Turn right and go _______",
           "blank": "straight",
           "translation": "उजवीकडे वळा आणि सरळ जा.",
           "options": [
             "straight",
-            "straight",
-            "near"
+            "what",
+            "where"
           ]
         },
         {
@@ -580,13 +580,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Stop _______.",
+          "sentence": "Stop here, _______",
           "blank": "please",
           "translation": "कृपया येथे थांबा.",
           "options": [
             "please",
-            "where",
-            "when"
+            "what",
+            "where"
           ]
         },
         {
@@ -744,13 +744,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Is _______.",
-          "blank": "far?",
+          "sentence": "Is it near or _______?",
+          "blank": "far",
           "translation": "ते जवळ आहे की लांब?",
           "options": [
-            "far?",
-            "turn",
-            "road"
+            "far",
+            "what",
+            "where"
           ]
         },
         {
@@ -921,13 +921,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "It _______.",
+          "sentence": "It is far from _______",
           "blank": "here",
           "translation": "ते येथून लांब आहे.",
           "options": [
             "here",
-            "how",
-            "right"
+            "what",
+            "where"
           ]
         },
         {
@@ -1087,13 +1087,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "How _______.",
-          "blank": "today?",
+          "sentence": "How are you _______?",
+          "blank": "today",
           "translation": "आज तुम्ही कसे आहात?",
           "options": [
-            "today?",
-            "near",
-            "far"
+            "today",
+            "what",
+            "where"
           ]
         },
         {
@@ -1252,13 +1252,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Which _______.",
-          "blank": "market?",
+          "sentence": "Which way to the _______?",
+          "blank": "market",
           "translation": "बाजाराचा रस्ता कोणता आहे?",
           "options": [
-            "market?",
-            "road",
-            "station"
+            "market",
+            "what",
+            "where"
           ]
         },
         {
@@ -1417,13 +1417,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Where _______.",
-          "blank": "station?",
+          "sentence": "Where is the _______?",
+          "blank": "station",
           "translation": "स्टेशन कुठे आहे?",
           "options": [
-            "station?",
-            "when",
-            "right"
+            "station",
+            "what",
+            "where"
           ]
         },
         {
@@ -1594,13 +1594,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "It _______.",
+          "sentence": "It is far from _______",
           "blank": "here",
           "translation": "ते येथून लांब आहे.",
           "options": [
             "here",
             "what",
-            "why"
+            "where"
           ]
         },
         {

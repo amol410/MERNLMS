@@ -87,7 +87,7 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I go to work by _______",
           "blank": "bus",
           "translation": "मी बसने कामावर जातो.",
           "options": [
@@ -254,13 +254,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "The _______ station.",
-          "blank": "train",
+          "sentence": "The train is at the _______",
+          "blank": "station",
           "translation": "ट्रेन स्टेशनवर आहे.",
           "options": [
             "station",
-            "station",
-            "airport"
+            "bus",
+            "train"
           ]
         },
         {
@@ -421,13 +421,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I am going to the _______",
           "blank": "market",
           "translation": "मी बाजारात जात आहे.",
           "options": [
             "market",
-            "bank",
-            "hotel"
+            "bus",
+            "train"
           ]
         },
         {
@@ -588,13 +588,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "The _______.",
+          "sentence": "The bank is near the _______",
           "blank": "hospital",
           "translation": "बँक हॉस्पिटलच्या जवळ आहे.",
           "options": [
             "hospital",
-            "train",
-            "taxi"
+            "bus",
+            "train"
           ]
         },
         {
@@ -754,13 +754,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "One _______.",
+          "sentence": "One ticket to Pune, _______",
           "blank": "please",
           "translation": "कृपया पुण्याचे एक तिकीट द्या.",
           "options": [
             "please",
-            "seat",
-            "driver"
+            "bus",
+            "train"
           ]
         },
         {
@@ -930,13 +930,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "How _______.",
-          "blank": "ticket?",
+          "sentence": "How much is the _______?",
+          "blank": "ticket",
           "translation": "तिकीट कितीचे आहे?",
           "options": [
-            "ticket?",
-            "airport",
-            "hospital"
+            "ticket",
+            "bus",
+            "train"
           ]
         },
         {
@@ -1095,13 +1095,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "This _______.",
+          "sentence": "This is my _______",
           "blank": "seat",
           "translation": "ही माझी सीट आहे.",
           "options": [
             "seat",
-            "hotel",
-            "ticket"
+            "bus",
+            "train"
           ]
         },
         {
@@ -1216,7 +1216,7 @@
             {
               "id": "u11_l9_p3",
               "text": "how much (किती)",
-              "imageUrl": "/uploads/curriculum/how much.webp",
+              "imageUrl": "/uploads/curriculum/how_much.webp",
               "isCorrect": false
             }
           ]
@@ -1260,13 +1260,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Stop _______.",
+          "sentence": "Stop at the hotel, _______",
           "blank": "please",
           "translation": "कृपया हॉटेलजवळ थांबा.",
           "options": [
             "please",
-            "driver",
-            "city"
+            "bus",
+            "train"
           ]
         },
         {
@@ -1426,13 +1426,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I go to work by _______",
           "blank": "bus",
           "translation": "मी बसने कामावर जातो.",
           "options": [
             "bus",
-            "taxi",
-            "hospital"
+            "train",
+            "auto"
           ]
         },
         {
@@ -1602,13 +1602,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "How _______.",
-          "blank": "ticket?",
+          "sentence": "How much is the _______?",
+          "blank": "ticket",
           "translation": "तिकीट कितीचे आहे?",
           "options": [
-            "ticket?",
+            "ticket",
             "bus",
-            "station"
+            "train"
           ]
         },
         {
@@ -1647,10 +1647,10 @@
         {
           "type": "type_word",
           "title": "स्पेलिंग टाईप करा",
-          "prompt": "'किती' साठी इंग्रजी शब्द टाईप करा:",
-          "target": "how much",
-          "translation": "किती",
-          "hint": "संकेत: H ने सुरू होते",
+          "prompt": "'शहर' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "city",
+          "translation": "शहर",
+          "hint": "संकेत: C ने सुरू होते",
           "audioUrl": ""
         },
         {

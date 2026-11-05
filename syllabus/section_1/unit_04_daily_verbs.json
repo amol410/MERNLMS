@@ -88,11 +88,11 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
-          "blank": "apple",
+          "sentence": "I _______ an apple",
+          "blank": "eat",
           "translation": "मैं सेब खाता हूँ।",
           "options": [
-            "apple",
+            "eat",
             "drink",
             "read"
           ]
@@ -253,13 +253,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______ book.",
-          "blank": "read",
+          "sentence": "I read a _______",
+          "blank": "book",
           "translation": "मैं किताब पढ़ता हूँ।",
           "options": [
             "book",
-            "speak",
-            "go"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -417,13 +417,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I speak _______",
           "blank": "English",
           "translation": "मैं अंग्रेज़ी बोलता हूँ।",
           "options": [
             "English",
-            "like",
-            "work"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -581,13 +581,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I go to _______",
           "blank": "school",
           "translation": "मैं स्कूल जाता हूँ।",
           "options": [
             "school",
-            "drink",
-            "write"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -702,7 +702,7 @@
             {
               "id": "u4_l5_p3",
               "text": "English (अंग्रेज़ी)",
-              "imageUrl": "/uploads/curriculum/English.webp",
+              "imageUrl": "/uploads/curriculum/english.webp",
               "isCorrect": false
             }
           ]
@@ -745,13 +745,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I like _______",
           "blank": "books",
           "translation": "मुझे किताबें पसंद हैं।",
           "options": [
             "books",
-            "apple",
-            "school"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -919,13 +919,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "She _______.",
+          "sentence": "She reads _______",
           "blank": "English",
           "translation": "वह अंग्रेज़ी पढ़ती है।",
           "options": [
             "English",
-            "go",
-            "see"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -1082,13 +1082,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "We _______.",
+          "sentence": "We eat _______",
           "blank": "together",
           "translation": "हम साथ में खाते हैं।",
           "options": [
             "together",
-            "work",
-            "live"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -1196,13 +1196,13 @@
             {
               "id": "u4_l9_p2",
               "text": "English (अंग्रेज़ी)",
-              "imageUrl": "/uploads/curriculum/English.webp",
+              "imageUrl": "/uploads/curriculum/english.webp",
               "isCorrect": false
             },
             {
               "id": "u4_l9_p3",
               "text": "Hindi (हिंदी)",
-              "imageUrl": "/uploads/curriculum/Hindi.webp",
+              "imageUrl": "/uploads/curriculum/hindi.webp",
               "isCorrect": false
             }
           ]
@@ -1245,13 +1245,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I live _______",
           "blank": "here",
           "translation": "मैं यहाँ रहता हूँ।",
           "options": [
             "here",
-            "school",
-            "English"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -1409,13 +1409,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I eat an _______",
           "blank": "apple",
           "translation": "मैं सेब खाता हूँ।",
           "options": [
             "apple",
-            "write",
-            "see"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -1583,13 +1583,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "She _______.",
+          "sentence": "She reads _______",
           "blank": "English",
           "translation": "वह अंग्रेज़ी पढ़ती है।",
           "options": [
             "English",
             "eat",
-            "speak"
+            "drink"
           ]
         },
         {
@@ -1749,11 +1749,11 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
-          "blank": "apple",
+          "sentence": "I _______ an apple",
+          "blank": "eat",
           "translation": "मैं सेब खाता हूँ।",
           "options": [
-            "apple",
+            "eat",
             "drink",
             "read"
           ]
@@ -1914,13 +1914,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______ book.",
-          "blank": "read",
+          "sentence": "I read a _______",
+          "blank": "book",
           "translation": "मैं किताब पढ़ता हूँ।",
           "options": [
             "book",
-            "speak",
-            "go"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -2078,13 +2078,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I speak _______",
           "blank": "English",
           "translation": "मैं अंग्रेज़ी बोलता हूँ।",
           "options": [
             "English",
-            "like",
-            "work"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -2242,13 +2242,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I go to _______",
           "blank": "school",
           "translation": "मैं स्कूल जाता हूँ।",
           "options": [
             "school",
-            "drink",
-            "write"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -2363,7 +2363,7 @@
             {
               "id": "u4_l5_p3",
               "text": "English (अंग्रेज़ी)",
-              "imageUrl": "/uploads/curriculum/English.webp",
+              "imageUrl": "/uploads/curriculum/english.webp",
               "isCorrect": false
             }
           ]
@@ -2406,13 +2406,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I like _______",
           "blank": "books",
           "translation": "मुझे किताबें पसंद हैं।",
           "options": [
             "books",
-            "apple",
-            "school"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -2580,13 +2580,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "She _______.",
+          "sentence": "She reads _______",
           "blank": "English",
           "translation": "वह अंग्रेज़ी पढ़ती है।",
           "options": [
             "English",
-            "go",
-            "see"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -2743,13 +2743,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "We _______.",
+          "sentence": "We eat _______",
           "blank": "together",
           "translation": "हम साथ में खाते हैं।",
           "options": [
             "together",
-            "work",
-            "live"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -2857,13 +2857,13 @@
             {
               "id": "u4_l9_p2",
               "text": "English (अंग्रेज़ी)",
-              "imageUrl": "/uploads/curriculum/English.webp",
+              "imageUrl": "/uploads/curriculum/english.webp",
               "isCorrect": false
             },
             {
               "id": "u4_l9_p3",
               "text": "Hindi (हिंदी)",
-              "imageUrl": "/uploads/curriculum/Hindi.webp",
+              "imageUrl": "/uploads/curriculum/hindi.webp",
               "isCorrect": false
             }
           ]
@@ -2906,13 +2906,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I live _______",
           "blank": "here",
           "translation": "मैं यहाँ रहता हूँ।",
           "options": [
             "here",
-            "school",
-            "English"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -3070,13 +3070,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I eat an _______",
           "blank": "apple",
           "translation": "मैं सेब खाता हूँ।",
           "options": [
             "apple",
-            "write",
-            "see"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -3244,13 +3244,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "She _______.",
+          "sentence": "She reads _______",
           "blank": "English",
           "translation": "वह अंग्रेज़ी पढ़ती है।",
           "options": [
             "English",
             "eat",
-            "speak"
+            "drink"
           ]
         },
         {
