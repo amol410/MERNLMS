@@ -1,0 +1,1702 @@
+{
+  "courseTitle": "German A1 Comprehensive Curriculum (For English Speakers)",
+  "learningLanguage": "de",
+  "nativeLanguage": "en",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 1,
+  "unitTitle": "Basic Objects & Possessives",
+  "unitDescription": "Essential German objects, articles and possessive pronouns",
+  "accentColor": "#1CB0F6",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Basic Objects & Possessives • Lesson 1",
+      "subtitle": "Essential German objects, articles and possessive pronouns: Core Words",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'house':",
+          "targetWord": "Haus",
+          "translation": "house",
+          "options": [
+            {
+              "id": "de_u1_l1_p1",
+              "text": "Haus (house)",
+              "imageUrl": "/uploads/curriculum/house.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u1_l1_p2",
+              "text": "Auto (car)",
+              "imageUrl": "/uploads/curriculum/car.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u1_l1_p3",
+              "text": "Buch (book)",
+              "imageUrl": "/uploads/curriculum/book.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Haus",
+              "native": "house"
+            },
+            {
+              "target": "Auto",
+              "native": "car"
+            },
+            {
+              "target": "Buch",
+              "native": "book"
+            },
+            {
+              "target": "mein",
+              "native": "my"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "my car",
+          "targetSentence": "mein Auto",
+          "tokens": [
+            "mein",
+            "Auto",
+            "Haus",
+            "dein",
+            "ist"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "mein _______.",
+          "blank": "Auto",
+          "translation": "my car",
+          "options": [
+            "Auto",
+            "Auto",
+            "Buch"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "mein Auto",
+          "tokens": [
+            "mein",
+            "Auto",
+            "Haus",
+            "dein",
+            "ist"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "mein Auto",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "my car",
+              "isCorrect": true
+            },
+            {
+              "text": "my house is big",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "my car",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'house':",
+          "target": "Haus",
+          "translation": "house",
+          "hint": "Hint: starts with 'H'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ist das dein Auto?",
+          "translation": "Is that your car?",
+          "options": [
+            {
+              "text": "Ja, das ist mein Auto.",
+              "isCorrect": true
+            },
+            {
+              "text": "Kalter Tee, bitte.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, das ist mein Auto.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "mein Auto",
+          "translation": "my car",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "mein Auto. Haus ist gut.",
+          "translationText": "my car. House is good.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Basic Objects & Possessives • Lesson 2",
+      "subtitle": "Essential German objects, articles and possessive pronouns: Sentence Syntax",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'your':",
+          "targetWord": "dein",
+          "translation": "your",
+          "options": [
+            {
+              "id": "de_u1_l2_p1",
+              "text": "dein (your)",
+              "imageUrl": "/uploads/curriculum/your.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u1_l2_p2",
+              "text": "groß (big)",
+              "imageUrl": "/uploads/curriculum/big.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u1_l2_p3",
+              "text": "klein (small)",
+              "imageUrl": "/uploads/curriculum/small.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "dein",
+              "native": "your"
+            },
+            {
+              "target": "groß",
+              "native": "big"
+            },
+            {
+              "target": "klein",
+              "native": "small"
+            },
+            {
+              "target": "ist",
+              "native": "is"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "my house is big",
+          "targetSentence": "mein Haus ist groß",
+          "tokens": [
+            "mein",
+            "Haus",
+            "ist",
+            "groß",
+            "klein",
+            "Auto"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "mein _______ groß.",
+          "blank": "Haus",
+          "translation": "my house is big",
+          "options": [
+            "groß",
+            "dein",
+            "groß"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "mein Haus ist groß",
+          "tokens": [
+            "mein",
+            "Haus",
+            "ist",
+            "groß",
+            "klein",
+            "Auto"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "mein Haus ist groß",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "my house is big",
+              "isCorrect": true
+            },
+            {
+              "text": "your car is small",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "my house is big",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'your':",
+          "target": "dein",
+          "translation": "your",
+          "hint": "Hint: starts with 'd'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ist das dein Auto?",
+          "translation": "Is that your car?",
+          "options": [
+            {
+              "text": "Ja, das ist mein Auto.",
+              "isCorrect": true
+            },
+            {
+              "text": "Kalter Tee, bitte.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, das ist mein Auto.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Mein Auto ist groß",
+            "My car is big"
+          ],
+          "translation": "my car",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "mein Haus ist groß. Es ist sehr schön.",
+          "translationText": "my house is big. It is very nice.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Basic Objects & Possessives • Lesson 3",
+      "subtitle": "Essential German objects, articles and possessive pronouns: Compounds & Conjunctions",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'clean':",
+          "targetWord": "sauber",
+          "translation": "clean",
+          "options": [
+            {
+              "id": "de_u1_l3_p1",
+              "text": "sauber (clean)",
+              "imageUrl": "/uploads/curriculum/clean.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u1_l3_p2",
+              "text": "schmutzig (dirty)",
+              "imageUrl": "/uploads/curriculum/dirty.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u1_l3_p3",
+              "text": "neu (new)",
+              "imageUrl": "/uploads/curriculum/new.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "sauber",
+              "native": "clean"
+            },
+            {
+              "target": "schmutzig",
+              "native": "dirty"
+            },
+            {
+              "target": "neu",
+              "native": "new"
+            },
+            {
+              "target": "alt",
+              "native": "old"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "your car is small",
+          "targetSentence": "dein Auto ist klein",
+          "tokens": [
+            "dein",
+            "Auto",
+            "ist",
+            "klein",
+            "groß",
+            "Haus"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "dein _______.",
+          "blank": "klein",
+          "translation": "your car is small",
+          "options": [
+            "klein",
+            "sauber",
+            "schmutzig"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "dein Auto ist klein",
+          "tokens": [
+            "dein",
+            "Auto",
+            "ist",
+            "klein",
+            "groß",
+            "Haus"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "dein Auto ist klein",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "your car is small",
+              "isCorrect": true
+            },
+            {
+              "text": "his house is clean",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "your car is small",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'clean':",
+          "target": "sauber",
+          "translation": "clean",
+          "hint": "Hint: starts with 's'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ist das dein Auto?",
+          "translation": "Is that your car?",
+          "options": [
+            {
+              "text": "Ja, das ist mein Auto.",
+              "isCorrect": true
+            },
+            {
+              "text": "Kalter Tee, bitte.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, das ist mein Auto.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "dein Auto ist klein",
+          "translation": "your car is small",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "dein Auto ist klein. Wir mögen das.",
+          "translationText": "your car is small. We like this.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Basic Objects & Possessives • Lesson 4",
+      "subtitle": "Essential German objects, articles and possessive pronouns: Ear Training",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'car':",
+          "targetWord": "Auto",
+          "translation": "car",
+          "options": [
+            {
+              "id": "de_u1_l4_p1",
+              "text": "Auto (car)",
+              "imageUrl": "/uploads/curriculum/car.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u1_l4_p2",
+              "text": "dein (your)",
+              "imageUrl": "/uploads/curriculum/your.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u1_l4_p3",
+              "text": "sauber (clean)",
+              "imageUrl": "/uploads/curriculum/clean.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Auto",
+              "native": "car"
+            },
+            {
+              "target": "groß",
+              "native": "big"
+            },
+            {
+              "target": "schmutzig",
+              "native": "dirty"
+            },
+            {
+              "target": "Buch",
+              "native": "book"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "his house is clean",
+          "targetSentence": "sein Haus ist sauber",
+          "tokens": [
+            "sein",
+            "Haus",
+            "ist",
+            "sauber",
+            "schmutzig",
+            "mein"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "sein _______.",
+          "blank": "sauber",
+          "translation": "his house is clean",
+          "options": [
+            "sauber",
+            "Auto",
+            "mein"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "sein Haus ist sauber",
+          "tokens": [
+            "sein",
+            "Haus",
+            "ist",
+            "sauber",
+            "schmutzig",
+            "mein"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "sein Haus ist sauber",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "his house is clean",
+              "isCorrect": true
+            },
+            {
+              "text": "my car",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "his house is clean",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'car':",
+          "target": "Auto",
+          "translation": "car",
+          "hint": "Hint: starts with 'A'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ist das dein Auto?",
+          "translation": "Is that your car?",
+          "options": [
+            {
+              "text": "Ja, das ist mein Auto.",
+              "isCorrect": true
+            },
+            {
+              "text": "Kalter Tee, bitte.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, das ist mein Auto.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Das ist mein Haus",
+            "That is my house"
+          ],
+          "translation": "my house is big",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "sein Haus ist sauber. Höre und sprich jeden Tag.",
+          "translationText": "his house is clean. Listen and speak every day.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Basic Objects & Possessives • Lesson 5",
+      "subtitle": "Essential German objects, articles and possessive pronouns: Context Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'name':",
+          "targetWord": "Name",
+          "translation": "name",
+          "options": [
+            {
+              "id": "de_u1_l5_p1",
+              "text": "Name (name)",
+              "imageUrl": "/uploads/curriculum/name.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u1_l5_p2",
+              "text": "das (this / that)",
+              "imageUrl": "/uploads/curriculum/this_/_that.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u1_l5_p3",
+              "text": "hier (here)",
+              "imageUrl": "/uploads/curriculum/here.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Name",
+              "native": "name"
+            },
+            {
+              "target": "das",
+              "native": "this / that"
+            },
+            {
+              "target": "hier",
+              "native": "here"
+            },
+            {
+              "target": "dort",
+              "native": "there"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "my car is very clean",
+          "targetSentence": "mein Auto ist sehr sauber",
+          "tokens": [
+            "mein",
+            "Auto",
+            "ist",
+            "sehr",
+            "sauber",
+            "Haus"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "mein _______.",
+          "blank": "sauber",
+          "translation": "my car is very clean",
+          "options": [
+            "sauber",
+            "Name",
+            "das"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "mein Auto ist sehr sauber",
+          "tokens": [
+            "mein",
+            "Auto",
+            "ist",
+            "sehr",
+            "sauber",
+            "Haus"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "mein Auto ist sehr sauber",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "my car is very clean",
+              "isCorrect": true
+            },
+            {
+              "text": "my house is big",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "my car is very clean",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'name':",
+          "target": "Name",
+          "translation": "name",
+          "hint": "Hint: starts with 'N'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ist das dein Auto?",
+          "translation": "Is that your car?",
+          "options": [
+            {
+              "text": "Ja, das ist mein Auto.",
+              "isCorrect": true
+            },
+            {
+              "text": "Kalter Tee, bitte.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, das ist mein Auto.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "mein Auto ist sehr sauber",
+          "translation": "my car is very clean",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "mein Auto ist sehr sauber. Du machst das sehr gut.",
+          "translationText": "my car is very clean. You are doing very well.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Basic Objects & Possessives • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Basic Objects & Possessives • Lesson 7",
+      "subtitle": "Essential German objects, articles and possessive pronouns: Compound Usage",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'big':",
+          "targetWord": "groß",
+          "translation": "big",
+          "options": [
+            {
+              "id": "de_u1_l7_p1",
+              "text": "groß (big)",
+              "imageUrl": "/uploads/curriculum/big.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u1_l7_p2",
+              "text": "klein (small)",
+              "imageUrl": "/uploads/curriculum/small.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u1_l7_p3",
+              "text": "ist (is)",
+              "imageUrl": "/uploads/curriculum/is.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "mein",
+              "native": "my"
+            },
+            {
+              "target": "ist",
+              "native": "is"
+            },
+            {
+              "target": "alt",
+              "native": "old"
+            },
+            {
+              "target": "dort",
+              "native": "there"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "this is my car",
+          "targetSentence": "das ist mein Auto",
+          "tokens": [
+            "das",
+            "ist",
+            "mein",
+            "Auto",
+            "hier",
+            "Haus"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "Auto",
+          "translation": "this is my car",
+          "options": [
+            "Auto",
+            "groß",
+            "ist"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das ist mein Auto",
+          "tokens": [
+            "das",
+            "ist",
+            "mein",
+            "Auto",
+            "hier",
+            "Haus"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das ist mein Auto",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "this is my car",
+              "isCorrect": true
+            },
+            {
+              "text": "your car is small",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "this is my car",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'big':",
+          "target": "groß",
+          "translation": "big",
+          "hint": "Hint: starts with 'g'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ist das dein Auto?",
+          "translation": "Is that your car?",
+          "options": [
+            {
+              "text": "Ja, das ist mein Auto.",
+              "isCorrect": true
+            },
+            {
+              "text": "Kalter Tee, bitte.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, das ist mein Auto.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "das ist mein Auto",
+          "translation": "this is my car",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "das ist mein Auto. Übung macht den Meister.",
+          "translationText": "this is my car. Practice makes perfect.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Basic Objects & Possessives • Lesson 8",
+      "subtitle": "Essential German objects, articles and possessive pronouns: Sentence Patterns",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'dirty':",
+          "targetWord": "schmutzig",
+          "translation": "dirty",
+          "options": [
+            {
+              "id": "de_u1_l8_p1",
+              "text": "schmutzig (dirty)",
+              "imageUrl": "/uploads/curriculum/dirty.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u1_l8_p2",
+              "text": "neu (new)",
+              "imageUrl": "/uploads/curriculum/new.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u1_l8_p3",
+              "text": "alt (old)",
+              "imageUrl": "/uploads/curriculum/old.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Haus",
+              "native": "house"
+            },
+            {
+              "target": "dein",
+              "native": "your"
+            },
+            {
+              "target": "sauber",
+              "native": "clean"
+            },
+            {
+              "target": "Name",
+              "native": "name"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "there is your house",
+          "targetSentence": "dort ist dein Haus",
+          "tokens": [
+            "dort",
+            "ist",
+            "dein",
+            "Haus",
+            "das",
+            "Auto"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "dort _______.",
+          "blank": "Haus",
+          "translation": "there is your house",
+          "options": [
+            "Haus",
+            "schmutzig",
+            "neu"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "dort ist dein Haus",
+          "tokens": [
+            "dort",
+            "ist",
+            "dein",
+            "Haus",
+            "das",
+            "Auto"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "dort ist dein Haus",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "there is your house",
+              "isCorrect": true
+            },
+            {
+              "text": "his house is clean",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "there is your house",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'dirty':",
+          "target": "schmutzig",
+          "translation": "dirty",
+          "hint": "Hint: starts with 's'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ist das dein Auto?",
+          "translation": "Is that your car?",
+          "options": [
+            {
+              "text": "Ja, das ist mein Auto.",
+              "isCorrect": true
+            },
+            {
+              "text": "Kalter Tee, bitte.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, das ist mein Auto.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "dort ist dein Haus",
+          "translation": "there is your house",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "dort ist dein Haus. Alles ist in bester Ordnung.",
+          "translationText": "there is your house. Everything is in good order.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Basic Objects & Possessives • Lesson 9",
+      "subtitle": "Essential German objects, articles and possessive pronouns: Speech Lab",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'this / that':",
+          "targetWord": "das",
+          "translation": "this / that",
+          "options": [
+            {
+              "id": "de_u1_l9_p1",
+              "text": "das (this / that)",
+              "imageUrl": "/uploads/curriculum/this_/_that.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u1_l9_p2",
+              "text": "hier (here)",
+              "imageUrl": "/uploads/curriculum/here.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u1_l9_p3",
+              "text": "dort (there)",
+              "imageUrl": "/uploads/curriculum/there.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Buch",
+              "native": "book"
+            },
+            {
+              "target": "klein",
+              "native": "small"
+            },
+            {
+              "target": "neu",
+              "native": "new"
+            },
+            {
+              "target": "hier",
+              "native": "here"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "my car is new and clean",
+          "targetSentence": "mein Auto ist neu und sauber",
+          "tokens": [
+            "mein",
+            "Auto",
+            "ist",
+            "neu",
+            "und",
+            "sauber",
+            "alt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "mein _______.",
+          "blank": "sauber",
+          "translation": "my car is new and clean",
+          "options": [
+            "sauber",
+            "das",
+            "hier"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "mein Auto ist neu und sauber",
+          "tokens": [
+            "mein",
+            "Auto",
+            "ist",
+            "neu",
+            "und",
+            "sauber",
+            "alt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "mein Auto ist neu und sauber",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "my car is new and clean",
+              "isCorrect": true
+            },
+            {
+              "text": "my car is very clean",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "my car is new and clean",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'this / that':",
+          "target": "das",
+          "translation": "this / that",
+          "hint": "Hint: starts with 'd'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ist das dein Auto?",
+          "translation": "Is that your car?",
+          "options": [
+            {
+              "text": "Ja, das ist mein Auto.",
+              "isCorrect": true
+            },
+            {
+              "text": "Kalter Tee, bitte.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, das ist mein Auto.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Mein Auto ist neu und sauber",
+            "My car is new and clean"
+          ],
+          "translation": "your car is small",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "mein Auto ist neu und sauber. Sprich deutlich und mit Freude.",
+          "translationText": "my car is new and clean. Speak clearly and with joy.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Basic Objects & Possessives • Lesson 10",
+      "subtitle": "Essential German objects, articles and possessive pronouns: Dialogue Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'my':",
+          "targetWord": "mein",
+          "translation": "my",
+          "options": [
+            {
+              "id": "de_u1_l10_p1",
+              "text": "mein (my)",
+              "imageUrl": "/uploads/curriculum/my.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u1_l10_p2",
+              "text": "ist (is)",
+              "imageUrl": "/uploads/curriculum/is.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u1_l10_p3",
+              "text": "alt (old)",
+              "imageUrl": "/uploads/curriculum/old.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Auto",
+              "native": "car"
+            },
+            {
+              "target": "dein",
+              "native": "your"
+            },
+            {
+              "target": "schmutzig",
+              "native": "dirty"
+            },
+            {
+              "target": "das",
+              "native": "this / that"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "my car",
+          "targetSentence": "mein Auto",
+          "tokens": [
+            "mein",
+            "Auto",
+            "Haus",
+            "dein",
+            "ist"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "mein _______.",
+          "blank": "Auto",
+          "translation": "my car",
+          "options": [
+            "Auto",
+            "mein",
+            "ist"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "dort ist dein Haus",
+          "tokens": [
+            "dort",
+            "ist",
+            "dein",
+            "Haus",
+            "das",
+            "Auto"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "mein Auto ist neu und sauber",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "my car is new and clean",
+              "isCorrect": true
+            },
+            {
+              "text": "this is my car",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "my car is new and clean",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'my':",
+          "target": "mein",
+          "translation": "my",
+          "hint": "Hint: starts with 'm'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ist das dein Auto?",
+          "translation": "Is that your car?",
+          "options": [
+            {
+              "text": "Ja, das ist mein Auto.",
+              "isCorrect": true
+            },
+            {
+              "text": "Kalter Tee, bitte.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, das ist mein Auto.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Mein Auto ist groß",
+            "My car is big"
+          ],
+          "translation": "my car",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Das ist mein Auto. Mein Auto ist sehr sauber und neu.",
+          "translationText": "This is my car. My car is very clean and new.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Basic Objects & Possessives • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Basic Objects & Possessives • Unit 1 Milestone Exam",
+      "subtitle": "Essential German objects, articles and possessive pronouns: Comprehensive Unit Exam (Trophy Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'house':",
+          "targetWord": "Haus",
+          "translation": "house",
+          "options": [
+            {
+              "id": "de_u1_l12_p1",
+              "text": "Haus (house)",
+              "imageUrl": "/uploads/curriculum/house.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u1_l12_p2",
+              "text": "dein (your)",
+              "imageUrl": "/uploads/curriculum/your.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u1_l12_p3",
+              "text": "sauber (clean)",
+              "imageUrl": "/uploads/curriculum/clean.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Haus",
+              "native": "house"
+            },
+            {
+              "target": "dein",
+              "native": "your"
+            },
+            {
+              "target": "sauber",
+              "native": "clean"
+            },
+            {
+              "target": "Name",
+              "native": "name"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "this is my car",
+          "targetSentence": "das ist mein Auto",
+          "tokens": [
+            "das",
+            "ist",
+            "mein",
+            "Auto",
+            "hier",
+            "Haus"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "Auto",
+          "translation": "this is my car",
+          "options": [
+            "Auto",
+            "Haus",
+            "dein"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "mein Auto ist neu und sauber",
+          "tokens": [
+            "mein",
+            "Auto",
+            "ist",
+            "neu",
+            "und",
+            "sauber",
+            "alt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "mein Auto ist sehr sauber",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "my car is very clean",
+              "isCorrect": true
+            },
+            {
+              "text": "my car",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "my car is very clean",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'there':",
+          "target": "dort",
+          "translation": "there",
+          "hint": "Hint: starts with 'd'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ist das dein Auto?",
+          "translation": "Is that your car?",
+          "options": [
+            {
+              "text": "Ja, das ist mein Auto.",
+              "isCorrect": true
+            },
+            {
+              "text": "Kalter Tee, bitte.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, das ist mein Auto.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Mein Auto ist groß",
+            "My car is big"
+          ],
+          "translation": "my car",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Das ist mein Auto. Mein Auto ist sehr sauber und neu.",
+          "translationText": "This is my car. My car is very clean and new.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

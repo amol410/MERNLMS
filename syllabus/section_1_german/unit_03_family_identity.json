@@ -1,0 +1,1702 @@
+{
+  "courseTitle": "German A1 Comprehensive Curriculum (For English Speakers)",
+  "learningLanguage": "de",
+  "nativeLanguage": "en",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 3,
+  "unitTitle": "Family, People & Address",
+  "unitDescription": "Family members, formal vs informal address, greetings and introductions",
+  "accentColor": "#CE82FF",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Family, People & Address • Lesson 1",
+      "subtitle": "Family members, formal vs informal address, greetings and introductions: Core Words",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'father':",
+          "targetWord": "Vater",
+          "translation": "father",
+          "options": [
+            {
+              "id": "de_u3_l1_p1",
+              "text": "Vater (father)",
+              "imageUrl": "/uploads/curriculum/father.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u3_l1_p2",
+              "text": "Mutter (mother)",
+              "imageUrl": "/uploads/curriculum/mother.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u3_l1_p3",
+              "text": "Bruder (brother)",
+              "imageUrl": "/uploads/curriculum/brother.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Vater",
+              "native": "father"
+            },
+            {
+              "target": "Mutter",
+              "native": "mother"
+            },
+            {
+              "target": "Bruder",
+              "native": "brother"
+            },
+            {
+              "target": "Schwester",
+              "native": "sister"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "this is my father",
+          "targetSentence": "das ist mein Vater",
+          "tokens": [
+            "das",
+            "ist",
+            "mein",
+            "Vater",
+            "Mutter",
+            "Freund"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "Vater",
+          "translation": "this is my father",
+          "options": [
+            "Vater",
+            "Mutter",
+            "Bruder"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das ist mein Vater",
+          "tokens": [
+            "das",
+            "ist",
+            "mein",
+            "Vater",
+            "Mutter",
+            "Freund"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das ist mein Vater",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "this is my father",
+              "isCorrect": true
+            },
+            {
+              "text": "my mother is nice",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "this is my father",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'father':",
+          "target": "Vater",
+          "translation": "father",
+          "hint": "Hint: starts with 'V'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Julia",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hallo! Wer ist das?",
+          "translation": "Hello! Who is that?",
+          "options": [
+            {
+              "text": "Das ist mein Bruder Max.",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich trinke Wasser.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Das ist mein Bruder Max.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "das ist mein Vater",
+          "translation": "this is my father",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "das ist mein Vater. Vater ist gut.",
+          "translationText": "this is my father. Father is good.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Family, People & Address • Lesson 2",
+      "subtitle": "Family members, formal vs informal address, greetings and introductions: Sentence Syntax",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'son':",
+          "targetWord": "Sohn",
+          "translation": "son",
+          "options": [
+            {
+              "id": "de_u3_l2_p1",
+              "text": "Sohn (son)",
+              "imageUrl": "/uploads/curriculum/son.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u3_l2_p2",
+              "text": "Tochter (daughter)",
+              "imageUrl": "/uploads/curriculum/daughter.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u3_l2_p3",
+              "text": "Freund (friend)",
+              "imageUrl": "/uploads/curriculum/friend.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Sohn",
+              "native": "son"
+            },
+            {
+              "target": "Tochter",
+              "native": "daughter"
+            },
+            {
+              "target": "Freund",
+              "native": "friend"
+            },
+            {
+              "target": "Kind",
+              "native": "child"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "my mother is nice",
+          "targetSentence": "meine Mutter ist nett",
+          "tokens": [
+            "meine",
+            "Mutter",
+            "ist",
+            "nett",
+            "Vater",
+            "gut"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "meine _______ nett.",
+          "blank": "Mutter",
+          "translation": "my mother is nice",
+          "options": [
+            "nett",
+            "Sohn",
+            "Tochter"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "meine Mutter ist nett",
+          "tokens": [
+            "meine",
+            "Mutter",
+            "ist",
+            "nett",
+            "Vater",
+            "gut"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "meine Mutter ist nett",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "my mother is nice",
+              "isCorrect": true
+            },
+            {
+              "text": "my brother and my sister",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "my mother is nice",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'son':",
+          "target": "Sohn",
+          "translation": "son",
+          "hint": "Hint: starts with 'S'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Julia",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hallo! Wer ist das?",
+          "translation": "Hello! Who is that?",
+          "options": [
+            {
+              "text": "Das ist mein Bruder Max.",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich trinke Wasser.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Das ist mein Bruder Max.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Das ist meine Mutter",
+            "This is my mother"
+          ],
+          "translation": "this is my father",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "meine Mutter ist nett. Es ist sehr schön.",
+          "translationText": "my mother is nice. It is very nice.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Family, People & Address • Lesson 3",
+      "subtitle": "Family members, formal vs informal address, greetings and introductions: Compounds & Conjunctions",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'man / husband':",
+          "targetWord": "Mann",
+          "translation": "man / husband",
+          "options": [
+            {
+              "id": "de_u3_l3_p1",
+              "text": "Mann (man / husband)",
+              "imageUrl": "/uploads/curriculum/man_/_husband.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u3_l3_p2",
+              "text": "Frau (woman / Mrs.)",
+              "imageUrl": "/uploads/curriculum/woman_/_mrs..webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u3_l3_p3",
+              "text": "Herr (Mr.)",
+              "imageUrl": "/uploads/curriculum/mr..webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Mann",
+              "native": "man / husband"
+            },
+            {
+              "target": "Frau",
+              "native": "woman / Mrs."
+            },
+            {
+              "target": "Herr",
+              "native": "Mr."
+            },
+            {
+              "target": "Hallo",
+              "native": "hello"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "my brother and my sister",
+          "targetSentence": "mein Bruder und meine Schwester",
+          "tokens": [
+            "mein",
+            "Bruder",
+            "und",
+            "meine",
+            "Schwester",
+            "Freund"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "mein _______.",
+          "blank": "Schwester",
+          "translation": "my brother and my sister",
+          "options": [
+            "Schwester",
+            "Mann",
+            "Frau"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "mein Bruder und meine Schwester",
+          "tokens": [
+            "mein",
+            "Bruder",
+            "und",
+            "meine",
+            "Schwester",
+            "Freund"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "mein Bruder und meine Schwester",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "my brother and my sister",
+              "isCorrect": true
+            },
+            {
+              "text": "who is this woman?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "my brother and my sister",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'man / husband':",
+          "target": "Mann",
+          "translation": "man / husband",
+          "hint": "Hint: starts with 'M'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Julia",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hallo! Wer ist das?",
+          "translation": "Hello! Who is that?",
+          "options": [
+            {
+              "text": "Das ist mein Bruder Max.",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich trinke Wasser.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Das ist mein Bruder Max.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "mein Bruder und meine Schwester",
+          "translation": "my brother and my sister",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "mein Bruder und meine Schwester. Wir mögen das.",
+          "translationText": "my brother and my sister. We like this.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Family, People & Address • Lesson 4",
+      "subtitle": "Family members, formal vs informal address, greetings and introductions: Ear Training",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'mother':",
+          "targetWord": "Mutter",
+          "translation": "mother",
+          "options": [
+            {
+              "id": "de_u3_l4_p1",
+              "text": "Mutter (mother)",
+              "imageUrl": "/uploads/curriculum/mother.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u3_l4_p2",
+              "text": "Sohn (son)",
+              "imageUrl": "/uploads/curriculum/son.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u3_l4_p3",
+              "text": "Mann (man / husband)",
+              "imageUrl": "/uploads/curriculum/man_/_husband.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Mutter",
+              "native": "mother"
+            },
+            {
+              "target": "Tochter",
+              "native": "daughter"
+            },
+            {
+              "target": "Frau",
+              "native": "woman / Mrs."
+            },
+            {
+              "target": "Bruder",
+              "native": "brother"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "who is this woman?",
+          "targetSentence": "wer ist diese Frau?",
+          "tokens": [
+            "wer",
+            "ist",
+            "diese",
+            "Frau?",
+            "Mann",
+            "das"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "wer _______.",
+          "blank": "Frau?",
+          "translation": "who is this woman?",
+          "options": [
+            "Frau?",
+            "Mutter",
+            "Schwester"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "wer ist diese Frau?",
+          "tokens": [
+            "wer",
+            "ist",
+            "diese",
+            "Frau?",
+            "Mann",
+            "das"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "wer ist diese Frau?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "who is this woman?",
+              "isCorrect": true
+            },
+            {
+              "text": "this is my father",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "who is this woman?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'mother':",
+          "target": "Mutter",
+          "translation": "mother",
+          "hint": "Hint: starts with 'M'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Julia",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hallo! Wer ist das?",
+          "translation": "Hello! Who is that?",
+          "options": [
+            {
+              "text": "Das ist mein Bruder Max.",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich trinke Wasser.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Das ist mein Bruder Max.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Guten Tag, wie geht es Ihnen?",
+            "Good day, how are you? (formal)"
+          ],
+          "translation": "my mother is nice",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "wer ist diese Frau?. Höre und sprich jeden Tag.",
+          "translationText": "who is this woman?. Listen and speak every day.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Family, People & Address • Lesson 5",
+      "subtitle": "Family members, formal vs informal address, greetings and introductions: Context Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'good day':",
+          "targetWord": "Guten Tag",
+          "translation": "good day",
+          "options": [
+            {
+              "id": "de_u3_l5_p1",
+              "text": "Guten Tag (good day)",
+              "imageUrl": "/uploads/curriculum/good_day.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u3_l5_p2",
+              "text": "Tschüss (bye)",
+              "imageUrl": "/uploads/curriculum/bye.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u3_l5_p3",
+              "text": "Auf Wiedersehen (goodbye)",
+              "imageUrl": "/uploads/curriculum/goodbye.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Guten Tag",
+              "native": "good day"
+            },
+            {
+              "target": "Tschüss",
+              "native": "bye"
+            },
+            {
+              "target": "Auf Wiedersehen",
+              "native": "goodbye"
+            },
+            {
+              "target": "wer",
+              "native": "who"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "this is my friend Lukas",
+          "targetSentence": "das ist mein Freund Lukas",
+          "tokens": [
+            "das",
+            "ist",
+            "mein",
+            "Freund",
+            "Lukas",
+            "Vater"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "Lukas",
+          "translation": "this is my friend Lukas",
+          "options": [
+            "Lukas",
+            "Guten Tag",
+            "Tschüss"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das ist mein Freund Lukas",
+          "tokens": [
+            "das",
+            "ist",
+            "mein",
+            "Freund",
+            "Lukas",
+            "Vater"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das ist mein Freund Lukas",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "this is my friend Lukas",
+              "isCorrect": true
+            },
+            {
+              "text": "my mother is nice",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "this is my friend Lukas",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'good day':",
+          "target": "Guten Tag",
+          "translation": "good day",
+          "hint": "Hint: starts with 'G'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Julia",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hallo! Wer ist das?",
+          "translation": "Hello! Who is that?",
+          "options": [
+            {
+              "text": "Das ist mein Bruder Max.",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich trinke Wasser.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Das ist mein Bruder Max.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "das ist mein Freund Lukas",
+          "translation": "this is my friend Lukas",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "das ist mein Freund Lukas. Du machst das sehr gut.",
+          "translationText": "this is my friend Lukas. You are doing very well.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Family, People & Address • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Family, People & Address • Lesson 7",
+      "subtitle": "Family members, formal vs informal address, greetings and introductions: Compound Usage",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'daughter':",
+          "targetWord": "Tochter",
+          "translation": "daughter",
+          "options": [
+            {
+              "id": "de_u3_l7_p1",
+              "text": "Tochter (daughter)",
+              "imageUrl": "/uploads/curriculum/daughter.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u3_l7_p2",
+              "text": "Freund (friend)",
+              "imageUrl": "/uploads/curriculum/friend.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u3_l7_p3",
+              "text": "Kind (child)",
+              "imageUrl": "/uploads/curriculum/child.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Schwester",
+              "native": "sister"
+            },
+            {
+              "target": "Kind",
+              "native": "child"
+            },
+            {
+              "target": "Hallo",
+              "native": "hello"
+            },
+            {
+              "target": "wer",
+              "native": "who"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "good day, Mr. Mueller",
+          "targetSentence": "Guten Tag, Herr Müller",
+          "tokens": [
+            "Guten",
+            "Tag,",
+            "Herr",
+            "Müller",
+            "Hallo",
+            "Frau"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Guten _______.",
+          "blank": "Müller",
+          "translation": "good day, Mr. Mueller",
+          "options": [
+            "Müller",
+            "Tochter",
+            "Kind"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Guten Tag, Herr Müller",
+          "tokens": [
+            "Guten",
+            "Tag,",
+            "Herr",
+            "Müller",
+            "Hallo",
+            "Frau"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Guten Tag, Herr Müller",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "good day, Mr. Mueller",
+              "isCorrect": true
+            },
+            {
+              "text": "my brother and my sister",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "good day, Mr. Mueller",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'daughter':",
+          "target": "Tochter",
+          "translation": "daughter",
+          "hint": "Hint: starts with 'T'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Julia",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hallo! Wer ist das?",
+          "translation": "Hello! Who is that?",
+          "options": [
+            {
+              "text": "Das ist mein Bruder Max.",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich trinke Wasser.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Das ist mein Bruder Max.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "Guten Tag, Herr Müller",
+          "translation": "good day, Mr. Mueller",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Guten Tag, Herr Müller. Übung macht den Meister.",
+          "translationText": "good day, Mr. Mueller. Practice makes perfect.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Family, People & Address • Lesson 8",
+      "subtitle": "Family members, formal vs informal address, greetings and introductions: Sentence Patterns",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'woman / Mrs.':",
+          "targetWord": "Frau",
+          "translation": "woman / Mrs.",
+          "options": [
+            {
+              "id": "de_u3_l8_p1",
+              "text": "Frau (woman / Mrs.)",
+              "imageUrl": "/uploads/curriculum/woman_/_mrs..webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u3_l8_p2",
+              "text": "Herr (Mr.)",
+              "imageUrl": "/uploads/curriculum/mr..webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u3_l8_p3",
+              "text": "Hallo (hello)",
+              "imageUrl": "/uploads/curriculum/hello.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Vater",
+              "native": "father"
+            },
+            {
+              "target": "Sohn",
+              "native": "son"
+            },
+            {
+              "target": "Mann",
+              "native": "man / husband"
+            },
+            {
+              "target": "Guten Tag",
+              "native": "good day"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "hello, what is your name?",
+          "targetSentence": "Hallo, wie heißt du?",
+          "tokens": [
+            "Hallo,",
+            "wie",
+            "heißt",
+            "du?",
+            "wer",
+            "ist"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Hallo, _______.",
+          "blank": "du?",
+          "translation": "hello, what is your name?",
+          "options": [
+            "du?",
+            "Frau",
+            "Herr"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Hallo, wie heißt du?",
+          "tokens": [
+            "Hallo,",
+            "wie",
+            "heißt",
+            "du?",
+            "wer",
+            "ist"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Hallo, wie heißt du?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "hello, what is your name?",
+              "isCorrect": true
+            },
+            {
+              "text": "who is this woman?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "hello, what is your name?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'woman / Mrs.':",
+          "target": "Frau",
+          "translation": "woman / Mrs.",
+          "hint": "Hint: starts with 'F'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Julia",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hallo! Wer ist das?",
+          "translation": "Hello! Who is that?",
+          "options": [
+            {
+              "text": "Das ist mein Bruder Max.",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich trinke Wasser.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Das ist mein Bruder Max.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "Hallo, wie heißt du?",
+          "translation": "hello, what is your name?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Hallo, wie heißt du?. Alles ist in bester Ordnung.",
+          "translationText": "hello, what is your name?. Everything is in good order.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Family, People & Address • Lesson 9",
+      "subtitle": "Family members, formal vs informal address, greetings and introductions: Speech Lab",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'bye':",
+          "targetWord": "Tschüss",
+          "translation": "bye",
+          "options": [
+            {
+              "id": "de_u3_l9_p1",
+              "text": "Tschüss (bye)",
+              "imageUrl": "/uploads/curriculum/bye.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u3_l9_p2",
+              "text": "Auf Wiedersehen (goodbye)",
+              "imageUrl": "/uploads/curriculum/goodbye.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u3_l9_p3",
+              "text": "wer (who)",
+              "imageUrl": "/uploads/curriculum/who.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Bruder",
+              "native": "brother"
+            },
+            {
+              "target": "Freund",
+              "native": "friend"
+            },
+            {
+              "target": "Herr",
+              "native": "Mr."
+            },
+            {
+              "target": "Auf Wiedersehen",
+              "native": "goodbye"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "goodbye, Mrs. Schmidt",
+          "targetSentence": "Auf Wiedersehen, Frau Schmidt",
+          "tokens": [
+            "Auf",
+            "Wiedersehen,",
+            "Frau",
+            "Schmidt",
+            "Tschüss",
+            "Herr"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Auf _______.",
+          "blank": "Schmidt",
+          "translation": "goodbye, Mrs. Schmidt",
+          "options": [
+            "Schmidt",
+            "Tschüss",
+            "Auf Wiedersehen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Auf Wiedersehen, Frau Schmidt",
+          "tokens": [
+            "Auf",
+            "Wiedersehen,",
+            "Frau",
+            "Schmidt",
+            "Tschüss",
+            "Herr"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Auf Wiedersehen, Frau Schmidt",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "goodbye, Mrs. Schmidt",
+              "isCorrect": true
+            },
+            {
+              "text": "this is my friend Lukas",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "goodbye, Mrs. Schmidt",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'bye':",
+          "target": "Tschüss",
+          "translation": "bye",
+          "hint": "Hint: starts with 'T'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Julia",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hallo! Wer ist das?",
+          "translation": "Hello! Who is that?",
+          "options": [
+            {
+              "text": "Das ist mein Bruder Max.",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich trinke Wasser.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Das ist mein Bruder Max.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Mein Freund heißt Lukas",
+            "My friend is named Lukas"
+          ],
+          "translation": "my brother and my sister",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Auf Wiedersehen, Frau Schmidt. Sprich deutlich und mit Freude.",
+          "translationText": "goodbye, Mrs. Schmidt. Speak clearly and with joy.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Family, People & Address • Lesson 10",
+      "subtitle": "Family members, formal vs informal address, greetings and introductions: Dialogue Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'sister':",
+          "targetWord": "Schwester",
+          "translation": "sister",
+          "options": [
+            {
+              "id": "de_u3_l10_p1",
+              "text": "Schwester (sister)",
+              "imageUrl": "/uploads/curriculum/sister.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u3_l10_p2",
+              "text": "Kind (child)",
+              "imageUrl": "/uploads/curriculum/child.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u3_l10_p3",
+              "text": "Hallo (hello)",
+              "imageUrl": "/uploads/curriculum/hello.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Mutter",
+              "native": "mother"
+            },
+            {
+              "target": "Sohn",
+              "native": "son"
+            },
+            {
+              "target": "Frau",
+              "native": "woman / Mrs."
+            },
+            {
+              "target": "Tschüss",
+              "native": "bye"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "this is my father",
+          "targetSentence": "das ist mein Vater",
+          "tokens": [
+            "das",
+            "ist",
+            "mein",
+            "Vater",
+            "Mutter",
+            "Freund"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "Vater",
+          "translation": "this is my father",
+          "options": [
+            "Vater",
+            "Schwester",
+            "Kind"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Hallo, wie heißt du?",
+          "tokens": [
+            "Hallo,",
+            "wie",
+            "heißt",
+            "du?",
+            "wer",
+            "ist"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "Auf Wiedersehen, Frau Schmidt",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "goodbye, Mrs. Schmidt",
+              "isCorrect": true
+            },
+            {
+              "text": "good day, Mr. Mueller",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "goodbye, Mrs. Schmidt",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'sister':",
+          "target": "Schwester",
+          "translation": "sister",
+          "hint": "Hint: starts with 'S'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Julia",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hallo! Wer ist das?",
+          "translation": "Hello! Who is that?",
+          "options": [
+            {
+              "text": "Das ist mein Bruder Max.",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich trinke Wasser.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Das ist mein Bruder Max.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Das ist meine Mutter",
+            "This is my mother"
+          ],
+          "translation": "this is my father",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Das ist meine Familie. Mein Vater, meine Mutter und mein Bruder.",
+          "translationText": "This is my family. My father, my mother and my brother.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Family, People & Address • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Family, People & Address • Unit 3 Milestone Exam",
+      "subtitle": "Family members, formal vs informal address, greetings and introductions: Comprehensive Unit Exam (Trophy Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'father':",
+          "targetWord": "Vater",
+          "translation": "father",
+          "options": [
+            {
+              "id": "de_u3_l12_p1",
+              "text": "Vater (father)",
+              "imageUrl": "/uploads/curriculum/father.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u3_l12_p2",
+              "text": "Sohn (son)",
+              "imageUrl": "/uploads/curriculum/son.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u3_l12_p3",
+              "text": "Mann (man / husband)",
+              "imageUrl": "/uploads/curriculum/man_/_husband.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Vater",
+              "native": "father"
+            },
+            {
+              "target": "Sohn",
+              "native": "son"
+            },
+            {
+              "target": "Mann",
+              "native": "man / husband"
+            },
+            {
+              "target": "Guten Tag",
+              "native": "good day"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "good day, Mr. Mueller",
+          "targetSentence": "Guten Tag, Herr Müller",
+          "tokens": [
+            "Guten",
+            "Tag,",
+            "Herr",
+            "Müller",
+            "Hallo",
+            "Frau"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "Guten _______.",
+          "blank": "Müller",
+          "translation": "good day, Mr. Mueller",
+          "options": [
+            "Müller",
+            "Vater",
+            "Sohn"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "Auf Wiedersehen, Frau Schmidt",
+          "tokens": [
+            "Auf",
+            "Wiedersehen,",
+            "Frau",
+            "Schmidt",
+            "Tschüss",
+            "Herr"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das ist mein Freund Lukas",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "this is my friend Lukas",
+              "isCorrect": true
+            },
+            {
+              "text": "this is my father",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "this is my friend Lukas",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'who':",
+          "target": "wer",
+          "translation": "who",
+          "hint": "Hint: starts with 'w'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Julia",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Hallo! Wer ist das?",
+          "translation": "Hello! Who is that?",
+          "options": [
+            {
+              "text": "Das ist mein Bruder Max.",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich trinke Wasser.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Das ist mein Bruder Max.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Das ist meine Mutter",
+            "This is my mother"
+          ],
+          "translation": "this is my father",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Das ist meine Familie. Mein Vater, meine Mutter und mein Bruder.",
+          "translationText": "This is my family. My father, my mother and my brother.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

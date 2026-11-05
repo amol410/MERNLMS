@@ -1,0 +1,1718 @@
+{
+  "courseTitle": "German A1 Comprehensive Curriculum (For English Speakers)",
+  "learningLanguage": "de",
+  "nativeLanguage": "en",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 12,
+  "unitTitle": "Feelings, Well-Being & Section 1 Graduation",
+  "unitDescription": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation",
+  "accentColor": "#FFD700",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Lesson 1",
+      "subtitle": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation: Core Words",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'good':",
+          "targetWord": "gut",
+          "translation": "good",
+          "options": [
+            {
+              "id": "de_u12_l1_p1",
+              "text": "gut (good)",
+              "imageUrl": "/uploads/curriculum/good.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u12_l1_p2",
+              "text": "sehr gut (very good)",
+              "imageUrl": "/uploads/curriculum/very_good.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u12_l1_p3",
+              "text": "schlecht (bad)",
+              "imageUrl": "/uploads/curriculum/bad.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "gut",
+              "native": "good"
+            },
+            {
+              "target": "sehr gut",
+              "native": "very good"
+            },
+            {
+              "target": "schlecht",
+              "native": "bad"
+            },
+            {
+              "target": "müde",
+              "native": "tired"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "how are you?",
+          "targetSentence": "wie geht es dir?",
+          "tokens": [
+            "wie",
+            "geht",
+            "es",
+            "dir?",
+            "Ihnen?",
+            "gut"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "wie _______.",
+          "blank": "dir?",
+          "translation": "how are you?",
+          "options": [
+            "dir?",
+            "sehr gut",
+            "schlecht"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "wie geht es dir?",
+          "tokens": [
+            "wie",
+            "geht",
+            "es",
+            "dir?",
+            "Ihnen?",
+            "gut"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "wie geht es dir?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "how are you?",
+              "isCorrect": true
+            },
+            {
+              "text": "thank you, I am doing very well",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "how are you?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'good':",
+          "target": "gut",
+          "translation": "good",
+          "hint": "Hint: starts with 'g'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Trainer Dolphy",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Herzlichen Glückwunsch! Du hast Section 1 abgeschlossen. Wie fühlst du dich?",
+          "translation": "Congratulations! You completed Section 1. How do you feel?",
+          "options": [
+            {
+              "text": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+              "isCorrect": true
+            },
+            {
+              "text": "Nein danke, ich möchte kein Brot.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "wie geht es dir?",
+          "translation": "how are you?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "wie geht es dir?. gut ist gut.",
+          "translationText": "how are you?. Good is good.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Lesson 2",
+      "subtitle": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation: Sentence Syntax",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'sick':",
+          "targetWord": "krank",
+          "translation": "sick",
+          "options": [
+            {
+              "id": "de_u12_l2_p1",
+              "text": "krank (sick)",
+              "imageUrl": "/uploads/curriculum/sick.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u12_l2_p2",
+              "text": "gesund (healthy)",
+              "imageUrl": "/uploads/curriculum/healthy.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u12_l2_p3",
+              "text": "Arzt (doctor)",
+              "imageUrl": "/uploads/curriculum/doctor.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "krank",
+              "native": "sick"
+            },
+            {
+              "target": "gesund",
+              "native": "healthy"
+            },
+            {
+              "target": "Arzt",
+              "native": "doctor"
+            },
+            {
+              "target": "Kopf",
+              "native": "head"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "thank you, I am doing very well",
+          "targetSentence": "danke, mir geht es sehr gut",
+          "tokens": [
+            "danke,",
+            "mir",
+            "geht",
+            "es",
+            "sehr",
+            "gut",
+            "schlecht"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "danke, _______ gut.",
+          "blank": "mir",
+          "translation": "thank you, I am doing very well",
+          "options": [
+            "gut",
+            "krank",
+            "gesund"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "danke, mir geht es sehr gut",
+          "tokens": [
+            "danke,",
+            "mir",
+            "geht",
+            "es",
+            "sehr",
+            "gut",
+            "schlecht"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "danke, mir geht es sehr gut",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "thank you, I am doing very well",
+              "isCorrect": true
+            },
+            {
+              "text": "I feel tired today",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "thank you, I am doing very well",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'sick':",
+          "target": "krank",
+          "translation": "sick",
+          "hint": "Hint: starts with 'k'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Trainer Dolphy",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Herzlichen Glückwunsch! Du hast Section 1 abgeschlossen. Wie fühlst du dich?",
+          "translation": "Congratulations! You completed Section 1. How do you feel?",
+          "options": [
+            {
+              "text": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+              "isCorrect": true
+            },
+            {
+              "text": "Nein danke, ich möchte kein Brot.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Mir geht es heute sehr gut, danke",
+            "I am doing very well today, thank you"
+          ],
+          "translation": "how are you?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "danke, mir geht es sehr gut. Es ist sehr schön.",
+          "translationText": "thank you, I am doing very well. It is very nice.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Lesson 3",
+      "subtitle": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation: Compounds & Conjunctions",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'headache':",
+          "targetWord": "Kopfschmerzen",
+          "translation": "headache",
+          "options": [
+            {
+              "id": "de_u12_l3_p1",
+              "text": "Kopfschmerzen (headache)",
+              "imageUrl": "/uploads/curriculum/headache.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u12_l3_p2",
+              "text": "Medizin (medicine)",
+              "imageUrl": "/uploads/curriculum/medicine.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u12_l3_p3",
+              "text": "Wasser (water)",
+              "imageUrl": "/uploads/curriculum/water.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Kopfschmerzen",
+              "native": "headache"
+            },
+            {
+              "target": "Medizin",
+              "native": "medicine"
+            },
+            {
+              "target": "Wasser",
+              "native": "water"
+            },
+            {
+              "target": "schlafen",
+              "native": "to sleep"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I feel tired today",
+          "targetSentence": "ich fühle mich heute müde",
+          "tokens": [
+            "ich",
+            "fühle",
+            "mich",
+            "heute",
+            "müde",
+            "krank",
+            "gut"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "müde",
+          "translation": "I feel tired today",
+          "options": [
+            "müde",
+            "Kopfschmerzen",
+            "Medizin"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich fühle mich heute müde",
+          "tokens": [
+            "ich",
+            "fühle",
+            "mich",
+            "heute",
+            "müde",
+            "krank",
+            "gut"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich fühle mich heute müde",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I feel tired today",
+              "isCorrect": true
+            },
+            {
+              "text": "he is sick and needs a doctor",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel tired today",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'headache':",
+          "target": "Kopfschmerzen",
+          "translation": "headache",
+          "hint": "Hint: starts with 'K'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Trainer Dolphy",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Herzlichen Glückwunsch! Du hast Section 1 abgeschlossen. Wie fühlst du dich?",
+          "translation": "Congratulations! You completed Section 1. How do you feel?",
+          "options": [
+            {
+              "text": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+              "isCorrect": true
+            },
+            {
+              "text": "Nein danke, ich möchte kein Brot.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "ich fühle mich heute müde",
+          "translation": "I feel tired today",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich fühle mich heute müde. Wir mögen das.",
+          "translationText": "I feel tired today. We like this.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Lesson 4",
+      "subtitle": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation: Ear Training",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'very good':",
+          "targetWord": "sehr gut",
+          "translation": "very good",
+          "options": [
+            {
+              "id": "de_u12_l4_p1",
+              "text": "sehr gut (very good)",
+              "imageUrl": "/uploads/curriculum/very_good.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u12_l4_p2",
+              "text": "krank (sick)",
+              "imageUrl": "/uploads/curriculum/sick.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u12_l4_p3",
+              "text": "Kopfschmerzen (headache)",
+              "imageUrl": "/uploads/curriculum/headache.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "sehr gut",
+              "native": "very good"
+            },
+            {
+              "target": "gesund",
+              "native": "healthy"
+            },
+            {
+              "target": "Medizin",
+              "native": "medicine"
+            },
+            {
+              "target": "schlecht",
+              "native": "bad"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "he is sick and needs a doctor",
+          "targetSentence": "er ist krank und braucht einen Arzt",
+          "tokens": [
+            "er",
+            "ist",
+            "krank",
+            "und",
+            "braucht",
+            "einen",
+            "Arzt",
+            "Medizin"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "er _______.",
+          "blank": "Arzt",
+          "translation": "he is sick and needs a doctor",
+          "options": [
+            "Arzt",
+            "sehr gut",
+            "müde"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "er ist krank und braucht einen Arzt",
+          "tokens": [
+            "er",
+            "ist",
+            "krank",
+            "und",
+            "braucht",
+            "einen",
+            "Arzt",
+            "Medizin"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "er ist krank und braucht einen Arzt",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "he is sick and needs a doctor",
+              "isCorrect": true
+            },
+            {
+              "text": "how are you?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "he is sick and needs a doctor",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'very good':",
+          "target": "sehr gut",
+          "translation": "very good",
+          "hint": "Hint: starts with 's'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Trainer Dolphy",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Herzlichen Glückwunsch! Du hast Section 1 abgeschlossen. Wie fühlst du dich?",
+          "translation": "Congratulations! You completed Section 1. How do you feel?",
+          "options": [
+            {
+              "text": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+              "isCorrect": true
+            },
+            {
+              "text": "Nein danke, ich möchte kein Brot.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ich spreche Deutsch und lerne jeden Tag",
+            "I speak German and learn every day"
+          ],
+          "translation": "thank you, I am doing very well",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "er ist krank und braucht einen Arzt. Höre und sprich jeden Tag.",
+          "translationText": "he is sick and needs a doctor. Listen and speak every day.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Lesson 5",
+      "subtitle": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation: Context Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'to feel':",
+          "targetWord": "fühlen",
+          "translation": "to feel",
+          "options": [
+            {
+              "id": "de_u12_l5_p1",
+              "text": "fühlen (to feel)",
+              "imageUrl": "/uploads/curriculum/to_feel.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u12_l5_p2",
+              "text": "Glückwunsch (congratulations)",
+              "imageUrl": "/uploads/curriculum/congratulations.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u12_l5_p3",
+              "text": "fertig (finished)",
+              "imageUrl": "/uploads/curriculum/finished.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "fühlen",
+              "native": "to feel"
+            },
+            {
+              "target": "Glückwunsch",
+              "native": "congratulations"
+            },
+            {
+              "target": "fertig",
+              "native": "finished"
+            },
+            {
+              "target": "Erfolg",
+              "native": "success"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "drink plenty of water and sleep",
+          "targetSentence": "trinken Sie viel Wasser und schlafen Sie",
+          "tokens": [
+            "trinken",
+            "Sie",
+            "viel",
+            "Wasser",
+            "und",
+            "schlafen",
+            "Sie"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "trinken _______.",
+          "blank": "Sie",
+          "translation": "drink plenty of water and sleep",
+          "options": [
+            "Sie",
+            "fühlen",
+            "Glückwunsch"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "trinken Sie viel Wasser und schlafen Sie",
+          "tokens": [
+            "trinken",
+            "Sie",
+            "viel",
+            "Wasser",
+            "und",
+            "schlafen",
+            "Sie"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "trinken Sie viel Wasser und schlafen Sie",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "drink plenty of water and sleep",
+              "isCorrect": true
+            },
+            {
+              "text": "thank you, I am doing very well",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "drink plenty of water and sleep",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'to feel':",
+          "target": "fühlen",
+          "translation": "to feel",
+          "hint": "Hint: starts with 'f'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Trainer Dolphy",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Herzlichen Glückwunsch! Du hast Section 1 abgeschlossen. Wie fühlst du dich?",
+          "translation": "Congratulations! You completed Section 1. How do you feel?",
+          "options": [
+            {
+              "text": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+              "isCorrect": true
+            },
+            {
+              "text": "Nein danke, ich möchte kein Brot.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "trinken Sie viel Wasser und schlafen Sie",
+          "translation": "drink plenty of water and sleep",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "trinken Sie viel Wasser und schlafen Sie. Du machst das sehr gut.",
+          "translationText": "drink plenty of water and sleep. You are doing very well.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Lesson 7",
+      "subtitle": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation: Compound Usage",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'healthy':",
+          "targetWord": "gesund",
+          "translation": "healthy",
+          "options": [
+            {
+              "id": "de_u12_l7_p1",
+              "text": "gesund (healthy)",
+              "imageUrl": "/uploads/curriculum/healthy.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u12_l7_p2",
+              "text": "Arzt (doctor)",
+              "imageUrl": "/uploads/curriculum/doctor.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u12_l7_p3",
+              "text": "Kopf (head)",
+              "imageUrl": "/uploads/curriculum/head.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "müde",
+              "native": "tired"
+            },
+            {
+              "target": "Kopf",
+              "native": "head"
+            },
+            {
+              "target": "schlafen",
+              "native": "to sleep"
+            },
+            {
+              "target": "Erfolg",
+              "native": "success"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I have a headache",
+          "targetSentence": "ich habe Kopfschmerzen",
+          "tokens": [
+            "ich",
+            "habe",
+            "Kopfschmerzen",
+            "Medizin",
+            "Arzt",
+            "Wasser"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Kopfschmerzen",
+          "translation": "I have a headache",
+          "options": [
+            "Kopfschmerzen",
+            "gesund",
+            "Kopf"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich habe Kopfschmerzen",
+          "tokens": [
+            "ich",
+            "habe",
+            "Kopfschmerzen",
+            "Medizin",
+            "Arzt",
+            "Wasser"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich habe Kopfschmerzen",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I have a headache",
+              "isCorrect": true
+            },
+            {
+              "text": "I feel tired today",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I have a headache",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'healthy':",
+          "target": "gesund",
+          "translation": "healthy",
+          "hint": "Hint: starts with 'g'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Trainer Dolphy",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Herzlichen Glückwunsch! Du hast Section 1 abgeschlossen. Wie fühlst du dich?",
+          "translation": "Congratulations! You completed Section 1. How do you feel?",
+          "options": [
+            {
+              "text": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+              "isCorrect": true
+            },
+            {
+              "text": "Nein danke, ich möchte kein Brot.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "ich habe Kopfschmerzen",
+          "translation": "I have a headache",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich habe Kopfschmerzen. Übung macht den Meister.",
+          "translationText": "I have a headache. Practice makes perfect.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Lesson 8",
+      "subtitle": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation: Sentence Patterns",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'medicine':",
+          "targetWord": "Medizin",
+          "translation": "medicine",
+          "options": [
+            {
+              "id": "de_u12_l8_p1",
+              "text": "Medizin (medicine)",
+              "imageUrl": "/uploads/curriculum/medicine.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u12_l8_p2",
+              "text": "Wasser (water)",
+              "imageUrl": "/uploads/curriculum/water.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u12_l8_p3",
+              "text": "schlafen (to sleep)",
+              "imageUrl": "/uploads/curriculum/to_sleep.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "gut",
+              "native": "good"
+            },
+            {
+              "target": "krank",
+              "native": "sick"
+            },
+            {
+              "target": "Kopfschmerzen",
+              "native": "headache"
+            },
+            {
+              "target": "fühlen",
+              "native": "to feel"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "congratulations on your success!",
+          "targetSentence": "herzlichen Glückwunsch zum Erfolg!",
+          "tokens": [
+            "herzlichen",
+            "Glückwunsch",
+            "zum",
+            "Erfolg!",
+            "fertig",
+            "gut"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "herzlichen _______.",
+          "blank": "Erfolg!",
+          "translation": "congratulations on your success!",
+          "options": [
+            "Erfolg!",
+            "Medizin",
+            "Wasser"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "herzlichen Glückwunsch zum Erfolg!",
+          "tokens": [
+            "herzlichen",
+            "Glückwunsch",
+            "zum",
+            "Erfolg!",
+            "fertig",
+            "gut"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "herzlichen Glückwunsch zum Erfolg!",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "congratulations on your success!",
+              "isCorrect": true
+            },
+            {
+              "text": "he is sick and needs a doctor",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "congratulations on your success!",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'medicine':",
+          "target": "Medizin",
+          "translation": "medicine",
+          "hint": "Hint: starts with 'M'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Trainer Dolphy",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Herzlichen Glückwunsch! Du hast Section 1 abgeschlossen. Wie fühlst du dich?",
+          "translation": "Congratulations! You completed Section 1. How do you feel?",
+          "options": [
+            {
+              "text": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+              "isCorrect": true
+            },
+            {
+              "text": "Nein danke, ich möchte kein Brot.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "herzlichen Glückwunsch zum Erfolg!",
+          "translation": "congratulations on your success!",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "herzlichen Glückwunsch zum Erfolg!. Alles ist in bester Ordnung.",
+          "translationText": "congratulations on your success!. Everything is in good order.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Lesson 9",
+      "subtitle": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation: Speech Lab",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'congratulations':",
+          "targetWord": "Glückwunsch",
+          "translation": "congratulations",
+          "options": [
+            {
+              "id": "de_u12_l9_p1",
+              "text": "Glückwunsch (congratulations)",
+              "imageUrl": "/uploads/curriculum/congratulations.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u12_l9_p2",
+              "text": "fertig (finished)",
+              "imageUrl": "/uploads/curriculum/finished.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u12_l9_p3",
+              "text": "Erfolg (success)",
+              "imageUrl": "/uploads/curriculum/success.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "schlecht",
+              "native": "bad"
+            },
+            {
+              "target": "Arzt",
+              "native": "doctor"
+            },
+            {
+              "target": "Wasser",
+              "native": "water"
+            },
+            {
+              "target": "fertig",
+              "native": "finished"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I completed Section 1 and speak German!",
+          "targetSentence": "ich habe Section 1 geschafft und spreche Deutsch!",
+          "tokens": [
+            "ich",
+            "habe",
+            "Section",
+            "1",
+            "geschafft",
+            "und",
+            "spreche",
+            "Deutsch!"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Deutsch!",
+          "translation": "I completed Section 1 and speak German!",
+          "options": [
+            "Deutsch!",
+            "Glückwunsch",
+            "fertig"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich habe Section 1 geschafft und spreche Deutsch!",
+          "tokens": [
+            "ich",
+            "habe",
+            "Section",
+            "1",
+            "geschafft",
+            "und",
+            "spreche",
+            "Deutsch!"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich habe Section 1 geschafft und spreche Deutsch!",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I completed Section 1 and speak German!",
+              "isCorrect": true
+            },
+            {
+              "text": "drink plenty of water and sleep",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I completed Section 1 and speak German!",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'congratulations':",
+          "target": "Glückwunsch",
+          "translation": "congratulations",
+          "hint": "Hint: starts with 'G'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Trainer Dolphy",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Herzlichen Glückwunsch! Du hast Section 1 abgeschlossen. Wie fühlst du dich?",
+          "translation": "Congratulations! You completed Section 1. How do you feel?",
+          "options": [
+            {
+              "text": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+              "isCorrect": true
+            },
+            {
+              "text": "Nein danke, ich möchte kein Brot.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Herzlichen Glückwunsch zum Abschluss von Section 1!",
+            "Congratulations on graduating from Section 1!"
+          ],
+          "translation": "I feel tired today",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich habe Section 1 geschafft und spreche Deutsch!. Sprich deutlich und mit Freude.",
+          "translationText": "I completed Section 1 and speak German!. Speak clearly and with joy.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Lesson 10",
+      "subtitle": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation: Dialogue Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'tired':",
+          "targetWord": "müde",
+          "translation": "tired",
+          "options": [
+            {
+              "id": "de_u12_l10_p1",
+              "text": "müde (tired)",
+              "imageUrl": "/uploads/curriculum/tired.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u12_l10_p2",
+              "text": "Kopf (head)",
+              "imageUrl": "/uploads/curriculum/head.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u12_l10_p3",
+              "text": "schlafen (to sleep)",
+              "imageUrl": "/uploads/curriculum/to_sleep.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "sehr gut",
+              "native": "very good"
+            },
+            {
+              "target": "krank",
+              "native": "sick"
+            },
+            {
+              "target": "Medizin",
+              "native": "medicine"
+            },
+            {
+              "target": "Glückwunsch",
+              "native": "congratulations"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "how are you?",
+          "targetSentence": "wie geht es dir?",
+          "tokens": [
+            "wie",
+            "geht",
+            "es",
+            "dir?",
+            "Ihnen?",
+            "gut"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "wie _______.",
+          "blank": "dir?",
+          "translation": "how are you?",
+          "options": [
+            "dir?",
+            "müde",
+            "Kopf"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "herzlichen Glückwunsch zum Erfolg!",
+          "tokens": [
+            "herzlichen",
+            "Glückwunsch",
+            "zum",
+            "Erfolg!",
+            "fertig",
+            "gut"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich habe Section 1 geschafft und spreche Deutsch!",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I completed Section 1 and speak German!",
+              "isCorrect": true
+            },
+            {
+              "text": "I have a headache",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I completed Section 1 and speak German!",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'tired':",
+          "target": "müde",
+          "translation": "tired",
+          "hint": "Hint: starts with 'm'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Trainer Dolphy",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Herzlichen Glückwunsch! Du hast Section 1 abgeschlossen. Wie fühlst du dich?",
+          "translation": "Congratulations! You completed Section 1. How do you feel?",
+          "options": [
+            {
+              "text": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+              "isCorrect": true
+            },
+            {
+              "text": "Nein danke, ich möchte kein Brot.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Mir geht es heute sehr gut, danke",
+            "I am doing very well today, thank you"
+          ],
+          "translation": "how are you?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Hurra! Ich habe alle zwölf Einheiten geschafft. Ich kann Deutsch sprechen, verstehen und schreiben. Glückwunsch!",
+          "translationText": "Hooray! I completed all twelve units. I can speak, understand and write German. Congratulations!",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Feelings, Well-Being & Section 1 Graduation • Unit 12 Milestone Exam",
+      "subtitle": "Expressing health, how you feel, doctor visit basics, and celebrating A1 milestone graduation: Comprehensive Unit Exam (Trophy Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'good':",
+          "targetWord": "gut",
+          "translation": "good",
+          "options": [
+            {
+              "id": "de_u12_l12_p1",
+              "text": "gut (good)",
+              "imageUrl": "/uploads/curriculum/good.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u12_l12_p2",
+              "text": "krank (sick)",
+              "imageUrl": "/uploads/curriculum/sick.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u12_l12_p3",
+              "text": "Kopfschmerzen (headache)",
+              "imageUrl": "/uploads/curriculum/headache.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "gut",
+              "native": "good"
+            },
+            {
+              "target": "krank",
+              "native": "sick"
+            },
+            {
+              "target": "Kopfschmerzen",
+              "native": "headache"
+            },
+            {
+              "target": "fühlen",
+              "native": "to feel"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I have a headache",
+          "targetSentence": "ich habe Kopfschmerzen",
+          "tokens": [
+            "ich",
+            "habe",
+            "Kopfschmerzen",
+            "Medizin",
+            "Arzt",
+            "Wasser"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Kopfschmerzen",
+          "translation": "I have a headache",
+          "options": [
+            "Kopfschmerzen",
+            "gut",
+            "krank"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich habe Section 1 geschafft und spreche Deutsch!",
+          "tokens": [
+            "ich",
+            "habe",
+            "Section",
+            "1",
+            "geschafft",
+            "und",
+            "spreche",
+            "Deutsch!"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "trinken Sie viel Wasser und schlafen Sie",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "drink plenty of water and sleep",
+              "isCorrect": true
+            },
+            {
+              "text": "how are you?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "drink plenty of water and sleep",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'success':",
+          "target": "Erfolg",
+          "translation": "success",
+          "hint": "Hint: starts with 'E'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Trainer Dolphy",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Herzlichen Glückwunsch! Du hast Section 1 abgeschlossen. Wie fühlst du dich?",
+          "translation": "Congratulations! You completed Section 1. How do you feel?",
+          "options": [
+            {
+              "text": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+              "isCorrect": true
+            },
+            {
+              "text": "Nein danke, ich möchte kein Brot.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Super! Ich kann jetzt Deutsch verstehen und sprechen!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Mir geht es heute sehr gut, danke",
+            "I am doing very well today, thank you"
+          ],
+          "translation": "how are you?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Hurra! Ich habe alle zwölf Einheiten geschafft. Ich kann Deutsch sprechen, verstehen und schreiben. Glückwunsch!",
+          "translationText": "Hooray! I completed all twelve units. I can speak, understand and write German. Congratulations!",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1715 @@
+{
+  "courseTitle": "German A1 Comprehensive Curriculum (For English Speakers)",
+  "learningLanguage": "de",
+  "nativeLanguage": "en",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 11,
+  "unitTitle": "City Transit & Public Places",
+  "unitDescription": "German public transportation: trains, subway, stations, tickets and city landmarks",
+  "accentColor": "#2B70C9",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "City Transit & Public Places • Lesson 1",
+      "subtitle": "German public transportation: trains, subway, stations, tickets and city landmarks: Core Words",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'train station':",
+          "targetWord": "Bahnhof",
+          "translation": "train station",
+          "options": [
+            {
+              "id": "de_u11_l1_p1",
+              "text": "Bahnhof (train station)",
+              "imageUrl": "/uploads/curriculum/train_station.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u11_l1_p2",
+              "text": "Zug (train)",
+              "imageUrl": "/uploads/curriculum/train.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u11_l1_p3",
+              "text": "Bus (bus)",
+              "imageUrl": "/uploads/curriculum/bus.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Bahnhof",
+              "native": "train station"
+            },
+            {
+              "target": "Zug",
+              "native": "train"
+            },
+            {
+              "target": "Bus",
+              "native": "bus"
+            },
+            {
+              "target": "U-Bahn",
+              "native": "subway"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "a ticket to Berlin, please",
+          "targetSentence": "eine Fahrkarte nach Berlin, bitte",
+          "tokens": [
+            "eine",
+            "Fahrkarte",
+            "nach",
+            "Berlin,",
+            "bitte",
+            "Zug"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "eine _______.",
+          "blank": "bitte",
+          "translation": "a ticket to Berlin, please",
+          "options": [
+            "bitte",
+            "Zug",
+            "Bus"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "eine Fahrkarte nach Berlin, bitte",
+          "tokens": [
+            "eine",
+            "Fahrkarte",
+            "nach",
+            "Berlin,",
+            "bitte",
+            "Zug"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "eine Fahrkarte nach Berlin, bitte",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "a ticket to Berlin, please",
+              "isCorrect": true
+            },
+            {
+              "text": "the train departs at ten o'clock",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "a ticket to Berlin, please",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'train station':",
+          "target": "Bahnhof",
+          "translation": "train station",
+          "hint": "Hint: starts with 'B'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Schaffner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ihre Fahrkarten, bitte!",
+          "translation": "Your tickets, please!",
+          "options": [
+            {
+              "text": "Hier ist meine Fahrkarte. Bitte sehr!",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Zimmer ist sauber.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier ist meine Fahrkarte. Bitte sehr!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "eine Fahrkarte nach Berlin, bitte",
+          "translation": "a ticket to Berlin, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "eine Fahrkarte nach Berlin, bitte. Bahnhof ist gut.",
+          "translationText": "a ticket to Berlin, please. Train station is good.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "City Transit & Public Places • Lesson 2",
+      "subtitle": "German public transportation: trains, subway, stations, tickets and city landmarks: Sentence Syntax",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'airport':",
+          "targetWord": "Flughafen",
+          "translation": "airport",
+          "options": [
+            {
+              "id": "de_u11_l2_p1",
+              "text": "Flughafen (airport)",
+              "imageUrl": "/uploads/curriculum/airport.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u11_l2_p2",
+              "text": "Fahrkarte (ticket)",
+              "imageUrl": "/uploads/curriculum/ticket.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u11_l2_p3",
+              "text": "Gleis (platform / track)",
+              "imageUrl": "/uploads/curriculum/platform_/_track.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Flughafen",
+              "native": "airport"
+            },
+            {
+              "target": "Fahrkarte",
+              "native": "ticket"
+            },
+            {
+              "target": "Gleis",
+              "native": "platform / track"
+            },
+            {
+              "target": "Apotheke",
+              "native": "pharmacy"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the train departs at ten o'clock",
+          "targetSentence": "der Zug fährt um zehn Uhr ab",
+          "tokens": [
+            "der",
+            "Zug",
+            "fährt",
+            "um",
+            "zehn",
+            "Uhr",
+            "ab",
+            "Gleis"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "der _______ ab.",
+          "blank": "Zug",
+          "translation": "the train departs at ten o'clock",
+          "options": [
+            "ab",
+            "Flughafen",
+            "Fahrkarte"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "der Zug fährt um zehn Uhr ab",
+          "tokens": [
+            "der",
+            "Zug",
+            "fährt",
+            "um",
+            "zehn",
+            "Uhr",
+            "ab",
+            "Gleis"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "der Zug fährt um zehn Uhr ab",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the train departs at ten o'clock",
+              "isCorrect": true
+            },
+            {
+              "text": "from which platform does the train depart?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the train departs at ten o'clock",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'airport':",
+          "target": "Flughafen",
+          "translation": "airport",
+          "hint": "Hint: starts with 'F'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Schaffner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ihre Fahrkarten, bitte!",
+          "translation": "Your tickets, please!",
+          "options": [
+            {
+              "text": "Hier ist meine Fahrkarte. Bitte sehr!",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Zimmer ist sauber.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier ist meine Fahrkarte. Bitte sehr!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Eine Fahrkarte nach München, bitte",
+            "A ticket to Munich, please"
+          ],
+          "translation": "a ticket to Berlin, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "der Zug fährt um zehn Uhr ab. Es ist sehr schön.",
+          "translationText": "the train departs at ten o'clock. It is very nice.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "City Transit & Public Places • Lesson 3",
+      "subtitle": "German public transportation: trains, subway, stations, tickets and city landmarks: Compounds & Conjunctions",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'supermarket':",
+          "targetWord": "Supermarkt",
+          "translation": "supermarket",
+          "options": [
+            {
+              "id": "de_u11_l3_p1",
+              "text": "Supermarkt (supermarket)",
+              "imageUrl": "/uploads/curriculum/supermarket.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u11_l3_p2",
+              "text": "Hotel (hotel)",
+              "imageUrl": "/uploads/curriculum/hotel.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u11_l3_p3",
+              "text": "Park (park)",
+              "imageUrl": "/uploads/curriculum/park.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Supermarkt",
+              "native": "supermarket"
+            },
+            {
+              "target": "Hotel",
+              "native": "hotel"
+            },
+            {
+              "target": "Park",
+              "native": "park"
+            },
+            {
+              "target": "Stadt",
+              "native": "city"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "from which platform does the train depart?",
+          "targetSentence": "von welchem Gleis fährt der Zug?",
+          "tokens": [
+            "von",
+            "welchem",
+            "Gleis",
+            "fährt",
+            "der",
+            "Zug?",
+            "Bus"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "von _______.",
+          "blank": "Zug?",
+          "translation": "from which platform does the train depart?",
+          "options": [
+            "Zug?",
+            "Supermarkt",
+            "Hotel"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "von welchem Gleis fährt der Zug?",
+          "tokens": [
+            "von",
+            "welchem",
+            "Gleis",
+            "fährt",
+            "der",
+            "Zug?",
+            "Bus"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "von welchem Gleis fährt der Zug?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "from which platform does the train depart?",
+              "isCorrect": true
+            },
+            {
+              "text": "the train is on platform four",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "from which platform does the train depart?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'supermarket':",
+          "target": "Supermarkt",
+          "translation": "supermarket",
+          "hint": "Hint: starts with 'S'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Schaffner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ihre Fahrkarten, bitte!",
+          "translation": "Your tickets, please!",
+          "options": [
+            {
+              "text": "Hier ist meine Fahrkarte. Bitte sehr!",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Zimmer ist sauber.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier ist meine Fahrkarte. Bitte sehr!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "von welchem Gleis fährt der Zug?",
+          "translation": "from which platform does the train depart?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "von welchem Gleis fährt der Zug?. Wir mögen das.",
+          "translationText": "from which platform does the train depart?. We like this.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "City Transit & Public Places • Lesson 4",
+      "subtitle": "German public transportation: trains, subway, stations, tickets and city landmarks: Ear Training",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'train':",
+          "targetWord": "Zug",
+          "translation": "train",
+          "options": [
+            {
+              "id": "de_u11_l4_p1",
+              "text": "Zug (train)",
+              "imageUrl": "/uploads/curriculum/train.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u11_l4_p2",
+              "text": "Flughafen (airport)",
+              "imageUrl": "/uploads/curriculum/airport.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u11_l4_p3",
+              "text": "Supermarkt (supermarket)",
+              "imageUrl": "/uploads/curriculum/supermarket.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Zug",
+              "native": "train"
+            },
+            {
+              "target": "Fahrkarte",
+              "native": "ticket"
+            },
+            {
+              "target": "Hotel",
+              "native": "hotel"
+            },
+            {
+              "target": "Bus",
+              "native": "bus"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the train is on platform four",
+          "targetSentence": "der Zug steht auf Gleis vier",
+          "tokens": [
+            "der",
+            "Zug",
+            "steht",
+            "auf",
+            "Gleis",
+            "vier",
+            "drei"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "der _______.",
+          "blank": "vier",
+          "translation": "the train is on platform four",
+          "options": [
+            "vier",
+            "Zug",
+            "U-Bahn"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "der Zug steht auf Gleis vier",
+          "tokens": [
+            "der",
+            "Zug",
+            "steht",
+            "auf",
+            "Gleis",
+            "vier",
+            "drei"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "der Zug steht auf Gleis vier",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the train is on platform four",
+              "isCorrect": true
+            },
+            {
+              "text": "a ticket to Berlin, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the train is on platform four",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'train':",
+          "target": "Zug",
+          "translation": "train",
+          "hint": "Hint: starts with 'Z'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Schaffner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ihre Fahrkarten, bitte!",
+          "translation": "Your tickets, please!",
+          "options": [
+            {
+              "text": "Hier ist meine Fahrkarte. Bitte sehr!",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Zimmer ist sauber.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier ist meine Fahrkarte. Bitte sehr!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Der Zug nach Frankfurt fährt auf Gleis zwei",
+            "The train to Frankfurt departs on platform two"
+          ],
+          "translation": "the train departs at ten o'clock",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "der Zug steht auf Gleis vier. Höre und sprich jeden Tag.",
+          "translationText": "the train is on platform four. Listen and speak every day.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "City Transit & Public Places • Lesson 5",
+      "subtitle": "German public transportation: trains, subway, stations, tickets and city landmarks: Context Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'center':",
+          "targetWord": "Zentrum",
+          "translation": "center",
+          "options": [
+            {
+              "id": "de_u11_l5_p1",
+              "text": "Zentrum (center)",
+              "imageUrl": "/uploads/curriculum/center.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u11_l5_p2",
+              "text": "Haltestelle (stop)",
+              "imageUrl": "/uploads/curriculum/stop.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u11_l5_p3",
+              "text": "fahren (to travel / ride)",
+              "imageUrl": "/uploads/curriculum/to_travel_/_ride.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Zentrum",
+              "native": "center"
+            },
+            {
+              "target": "Haltestelle",
+              "native": "stop"
+            },
+            {
+              "target": "fahren",
+              "native": "to travel / ride"
+            },
+            {
+              "target": "abfahren",
+              "native": "to depart"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I travel by subway",
+          "targetSentence": "ich fahre mit der U-Bahn",
+          "tokens": [
+            "ich",
+            "fahre",
+            "mit",
+            "der",
+            "U-Bahn",
+            "Bus",
+            "Zug"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "U-Bahn",
+          "translation": "I travel by subway",
+          "options": [
+            "U-Bahn",
+            "Zentrum",
+            "Haltestelle"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich fahre mit der U-Bahn",
+          "tokens": [
+            "ich",
+            "fahre",
+            "mit",
+            "der",
+            "U-Bahn",
+            "Bus",
+            "Zug"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich fahre mit der U-Bahn",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I travel by subway",
+              "isCorrect": true
+            },
+            {
+              "text": "the train departs at ten o'clock",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I travel by subway",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'center':",
+          "target": "Zentrum",
+          "translation": "center",
+          "hint": "Hint: starts with 'Z'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Schaffner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ihre Fahrkarten, bitte!",
+          "translation": "Your tickets, please!",
+          "options": [
+            {
+              "text": "Hier ist meine Fahrkarte. Bitte sehr!",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Zimmer ist sauber.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier ist meine Fahrkarte. Bitte sehr!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "ich fahre mit der U-Bahn",
+          "translation": "I travel by subway",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich fahre mit der U-Bahn. Du machst das sehr gut.",
+          "translationText": "I travel by subway. You are doing very well.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "City Transit & Public Places • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "City Transit & Public Places • Lesson 7",
+      "subtitle": "German public transportation: trains, subway, stations, tickets and city landmarks: Compound Usage",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'ticket':",
+          "targetWord": "Fahrkarte",
+          "translation": "ticket",
+          "options": [
+            {
+              "id": "de_u11_l7_p1",
+              "text": "Fahrkarte (ticket)",
+              "imageUrl": "/uploads/curriculum/ticket.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u11_l7_p2",
+              "text": "Gleis (platform / track)",
+              "imageUrl": "/uploads/curriculum/platform_/_track.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u11_l7_p3",
+              "text": "Apotheke (pharmacy)",
+              "imageUrl": "/uploads/curriculum/pharmacy.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "U-Bahn",
+              "native": "subway"
+            },
+            {
+              "target": "Apotheke",
+              "native": "pharmacy"
+            },
+            {
+              "target": "Stadt",
+              "native": "city"
+            },
+            {
+              "target": "abfahren",
+              "native": "to depart"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "where is the nearest supermarket?",
+          "targetSentence": "wo ist der nächste Supermarkt?",
+          "tokens": [
+            "wo",
+            "ist",
+            "der",
+            "nächste",
+            "Supermarkt?",
+            "Bahnhof"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "wo _______.",
+          "blank": "Supermarkt?",
+          "translation": "where is the nearest supermarket?",
+          "options": [
+            "Supermarkt?",
+            "Fahrkarte",
+            "Apotheke"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "wo ist der nächste Supermarkt?",
+          "tokens": [
+            "wo",
+            "ist",
+            "der",
+            "nächste",
+            "Supermarkt?",
+            "Bahnhof"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "wo ist der nächste Supermarkt?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "where is the nearest supermarket?",
+              "isCorrect": true
+            },
+            {
+              "text": "from which platform does the train depart?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "where is the nearest supermarket?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'ticket':",
+          "target": "Fahrkarte",
+          "translation": "ticket",
+          "hint": "Hint: starts with 'F'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Schaffner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ihre Fahrkarten, bitte!",
+          "translation": "Your tickets, please!",
+          "options": [
+            {
+              "text": "Hier ist meine Fahrkarte. Bitte sehr!",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Zimmer ist sauber.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier ist meine Fahrkarte. Bitte sehr!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "wo ist der nächste Supermarkt?",
+          "translation": "where is the nearest supermarket?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "wo ist der nächste Supermarkt?. Übung macht den Meister.",
+          "translationText": "where is the nearest supermarket?. Practice makes perfect.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "City Transit & Public Places • Lesson 8",
+      "subtitle": "German public transportation: trains, subway, stations, tickets and city landmarks: Sentence Patterns",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'hotel':",
+          "targetWord": "Hotel",
+          "translation": "hotel",
+          "options": [
+            {
+              "id": "de_u11_l8_p1",
+              "text": "Hotel (hotel)",
+              "imageUrl": "/uploads/curriculum/hotel.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u11_l8_p2",
+              "text": "Park (park)",
+              "imageUrl": "/uploads/curriculum/park.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u11_l8_p3",
+              "text": "Stadt (city)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Bahnhof",
+              "native": "train station"
+            },
+            {
+              "target": "Flughafen",
+              "native": "airport"
+            },
+            {
+              "target": "Supermarkt",
+              "native": "supermarket"
+            },
+            {
+              "target": "Zentrum",
+              "native": "center"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the hotel is located in the city center",
+          "targetSentence": "das Hotel liegt im Stadtzentrum",
+          "tokens": [
+            "das",
+            "Hotel",
+            "liegt",
+            "im",
+            "Stadtzentrum",
+            "Park"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "Stadtzentrum",
+          "translation": "the hotel is located in the city center",
+          "options": [
+            "Stadtzentrum",
+            "Hotel",
+            "Park"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das Hotel liegt im Stadtzentrum",
+          "tokens": [
+            "das",
+            "Hotel",
+            "liegt",
+            "im",
+            "Stadtzentrum",
+            "Park"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das Hotel liegt im Stadtzentrum",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the hotel is located in the city center",
+              "isCorrect": true
+            },
+            {
+              "text": "the train is on platform four",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the hotel is located in the city center",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'hotel':",
+          "target": "Hotel",
+          "translation": "hotel",
+          "hint": "Hint: starts with 'H'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Schaffner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ihre Fahrkarten, bitte!",
+          "translation": "Your tickets, please!",
+          "options": [
+            {
+              "text": "Hier ist meine Fahrkarte. Bitte sehr!",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Zimmer ist sauber.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier ist meine Fahrkarte. Bitte sehr!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "das Hotel liegt im Stadtzentrum",
+          "translation": "the hotel is located in the city center",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "das Hotel liegt im Stadtzentrum. Alles ist in bester Ordnung.",
+          "translationText": "the hotel is located in the city center. Everything is in good order.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "City Transit & Public Places • Lesson 9",
+      "subtitle": "German public transportation: trains, subway, stations, tickets and city landmarks: Speech Lab",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'stop':",
+          "targetWord": "Haltestelle",
+          "translation": "stop",
+          "options": [
+            {
+              "id": "de_u11_l9_p1",
+              "text": "Haltestelle (stop)",
+              "imageUrl": "/uploads/curriculum/stop.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u11_l9_p2",
+              "text": "fahren (to travel / ride)",
+              "imageUrl": "/uploads/curriculum/to_travel_/_ride.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u11_l9_p3",
+              "text": "abfahren (to depart)",
+              "imageUrl": "/uploads/curriculum/to_depart.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Bus",
+              "native": "bus"
+            },
+            {
+              "target": "Gleis",
+              "native": "platform / track"
+            },
+            {
+              "target": "Park",
+              "native": "park"
+            },
+            {
+              "target": "fahren",
+              "native": "to travel / ride"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the bus arrives in five minutes",
+          "targetSentence": "der Bus kommt in fünf Minuten",
+          "tokens": [
+            "der",
+            "Bus",
+            "kommt",
+            "in",
+            "fünf",
+            "Minuten",
+            "Zug"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "der _______.",
+          "blank": "Minuten",
+          "translation": "the bus arrives in five minutes",
+          "options": [
+            "Minuten",
+            "Haltestelle",
+            "fahren"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "der Bus kommt in fünf Minuten",
+          "tokens": [
+            "der",
+            "Bus",
+            "kommt",
+            "in",
+            "fünf",
+            "Minuten",
+            "Zug"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "der Bus kommt in fünf Minuten",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the bus arrives in five minutes",
+              "isCorrect": true
+            },
+            {
+              "text": "I travel by subway",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the bus arrives in five minutes",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'stop':",
+          "target": "Haltestelle",
+          "translation": "stop",
+          "hint": "Hint: starts with 'H'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Schaffner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ihre Fahrkarten, bitte!",
+          "translation": "Your tickets, please!",
+          "options": [
+            {
+              "text": "Hier ist meine Fahrkarte. Bitte sehr!",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Zimmer ist sauber.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier ist meine Fahrkarte. Bitte sehr!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ich fahre mit dem Bus ins Zentrum",
+            "I take the bus to the city center"
+          ],
+          "translation": "from which platform does the train depart?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "der Bus kommt in fünf Minuten. Sprich deutlich und mit Freude.",
+          "translationText": "the bus arrives in five minutes. Speak clearly and with joy.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "City Transit & Public Places • Lesson 10",
+      "subtitle": "German public transportation: trains, subway, stations, tickets and city landmarks: Dialogue Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'subway':",
+          "targetWord": "U-Bahn",
+          "translation": "subway",
+          "options": [
+            {
+              "id": "de_u11_l10_p1",
+              "text": "U-Bahn (subway)",
+              "imageUrl": "/uploads/curriculum/subway.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u11_l10_p2",
+              "text": "Apotheke (pharmacy)",
+              "imageUrl": "/uploads/curriculum/pharmacy.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u11_l10_p3",
+              "text": "Stadt (city)",
+              "imageUrl": "/uploads/curriculum/city.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Zug",
+              "native": "train"
+            },
+            {
+              "target": "Flughafen",
+              "native": "airport"
+            },
+            {
+              "target": "Hotel",
+              "native": "hotel"
+            },
+            {
+              "target": "Haltestelle",
+              "native": "stop"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "a ticket to Berlin, please",
+          "targetSentence": "eine Fahrkarte nach Berlin, bitte",
+          "tokens": [
+            "eine",
+            "Fahrkarte",
+            "nach",
+            "Berlin,",
+            "bitte",
+            "Zug"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "eine _______.",
+          "blank": "bitte",
+          "translation": "a ticket to Berlin, please",
+          "options": [
+            "bitte",
+            "U-Bahn",
+            "Apotheke"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das Hotel liegt im Stadtzentrum",
+          "tokens": [
+            "das",
+            "Hotel",
+            "liegt",
+            "im",
+            "Stadtzentrum",
+            "Park"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "der Bus kommt in fünf Minuten",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the bus arrives in five minutes",
+              "isCorrect": true
+            },
+            {
+              "text": "where is the nearest supermarket?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the bus arrives in five minutes",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'subway':",
+          "target": "U-Bahn",
+          "translation": "subway",
+          "hint": "Hint: starts with 'U'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Schaffner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ihre Fahrkarten, bitte!",
+          "translation": "Your tickets, please!",
+          "options": [
+            {
+              "text": "Hier ist meine Fahrkarte. Bitte sehr!",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Zimmer ist sauber.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier ist meine Fahrkarte. Bitte sehr!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Eine Fahrkarte nach München, bitte",
+            "A ticket to Munich, please"
+          ],
+          "translation": "a ticket to Berlin, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Wir sind am Hauptbahnhof. Unser Zug nach München steht auf Gleis vier. Gute Reise!",
+          "translationText": "We are at the main station. Our train to Munich is on platform four. Have a good trip!",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "City Transit & Public Places • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "City Transit & Public Places • Unit 11 Milestone Exam",
+      "subtitle": "German public transportation: trains, subway, stations, tickets and city landmarks: Comprehensive Unit Exam (Trophy Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'train station':",
+          "targetWord": "Bahnhof",
+          "translation": "train station",
+          "options": [
+            {
+              "id": "de_u11_l12_p1",
+              "text": "Bahnhof (train station)",
+              "imageUrl": "/uploads/curriculum/train_station.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u11_l12_p2",
+              "text": "Flughafen (airport)",
+              "imageUrl": "/uploads/curriculum/airport.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u11_l12_p3",
+              "text": "Supermarkt (supermarket)",
+              "imageUrl": "/uploads/curriculum/supermarket.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Bahnhof",
+              "native": "train station"
+            },
+            {
+              "target": "Flughafen",
+              "native": "airport"
+            },
+            {
+              "target": "Supermarkt",
+              "native": "supermarket"
+            },
+            {
+              "target": "Zentrum",
+              "native": "center"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "where is the nearest supermarket?",
+          "targetSentence": "wo ist der nächste Supermarkt?",
+          "tokens": [
+            "wo",
+            "ist",
+            "der",
+            "nächste",
+            "Supermarkt?",
+            "Bahnhof"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "wo _______.",
+          "blank": "Supermarkt?",
+          "translation": "where is the nearest supermarket?",
+          "options": [
+            "Supermarkt?",
+            "Bahnhof",
+            "Flughafen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "der Bus kommt in fünf Minuten",
+          "tokens": [
+            "der",
+            "Bus",
+            "kommt",
+            "in",
+            "fünf",
+            "Minuten",
+            "Zug"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich fahre mit der U-Bahn",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I travel by subway",
+              "isCorrect": true
+            },
+            {
+              "text": "a ticket to Berlin, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I travel by subway",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'to depart':",
+          "target": "abfahren",
+          "translation": "to depart",
+          "hint": "Hint: starts with 'a'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Schaffner",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Ihre Fahrkarten, bitte!",
+          "translation": "Your tickets, please!",
+          "options": [
+            {
+              "text": "Hier ist meine Fahrkarte. Bitte sehr!",
+              "isCorrect": true
+            },
+            {
+              "text": "Mein Zimmer ist sauber.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier ist meine Fahrkarte. Bitte sehr!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Eine Fahrkarte nach München, bitte",
+            "A ticket to Munich, please"
+          ],
+          "translation": "a ticket to Berlin, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Wir sind am Hauptbahnhof. Unser Zug nach München steht auf Gleis vier. Gute Reise!",
+          "translationText": "We are at the main station. Our train to Munich is on platform four. Have a good trip!",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

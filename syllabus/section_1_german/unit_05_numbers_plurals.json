@@ -1,0 +1,1697 @@
+{
+  "courseTitle": "German A1 Comprehensive Curriculum (For English Speakers)",
+  "learningLanguage": "de",
+  "nativeLanguage": "en",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 5,
+  "unitTitle": "Numbers, Prices & Plurals",
+  "unitDescription": "Counting 1 to 10, Euro currency prices, and plural noun endings",
+  "accentColor": "#FF4B4B",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Numbers, Prices & Plurals • Lesson 1",
+      "subtitle": "Counting 1 to 10, Euro currency prices, and plural noun endings: Core Words",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'one':",
+          "targetWord": "eins",
+          "translation": "one",
+          "options": [
+            {
+              "id": "de_u5_l1_p1",
+              "text": "eins (one)",
+              "imageUrl": "/uploads/curriculum/one.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u5_l1_p2",
+              "text": "zwei (two)",
+              "imageUrl": "/uploads/curriculum/two.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u5_l1_p3",
+              "text": "drei (three)",
+              "imageUrl": "/uploads/curriculum/three.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "eins",
+              "native": "one"
+            },
+            {
+              "target": "zwei",
+              "native": "two"
+            },
+            {
+              "target": "drei",
+              "native": "three"
+            },
+            {
+              "target": "vier",
+              "native": "four"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "two euros, please",
+          "targetSentence": "zwei Euro, bitte",
+          "tokens": [
+            "zwei",
+            "Euro,",
+            "bitte",
+            "drei",
+            "Cent"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "zwei _______.",
+          "blank": "bitte",
+          "translation": "two euros, please",
+          "options": [
+            "bitte",
+            "zwei",
+            "drei"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "zwei Euro, bitte",
+          "tokens": [
+            "zwei",
+            "Euro,",
+            "bitte",
+            "drei",
+            "Cent"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "zwei Euro, bitte",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "two euros, please",
+              "isCorrect": true
+            },
+            {
+              "text": "three bread rolls and one bread",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "two euros, please",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'one':",
+          "target": "eins",
+          "translation": "one",
+          "hint": "Hint: starts with 'e'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kassierer",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Das macht vier Euro, bitte.",
+          "translation": "That comes to four euros, please.",
+          "options": [
+            {
+              "text": "Hier sind fünf Euro. Danke!",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich heiße Anna.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier sind fünf Euro. Danke!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "zwei Euro, bitte",
+          "translation": "two euros, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "zwei Euro, bitte. eins ist gut.",
+          "translationText": "two euros, please. One is good.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Numbers, Prices & Plurals • Lesson 2",
+      "subtitle": "Counting 1 to 10, Euro currency prices, and plural noun endings: Sentence Syntax",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'five':",
+          "targetWord": "fünf",
+          "translation": "five",
+          "options": [
+            {
+              "id": "de_u5_l2_p1",
+              "text": "fünf (five)",
+              "imageUrl": "/uploads/curriculum/five.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u5_l2_p2",
+              "text": "sechs (six)",
+              "imageUrl": "/uploads/curriculum/six.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u5_l2_p3",
+              "text": "sieben (seven)",
+              "imageUrl": "/uploads/curriculum/seven.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "fünf",
+              "native": "five"
+            },
+            {
+              "target": "sechs",
+              "native": "six"
+            },
+            {
+              "target": "sieben",
+              "native": "seven"
+            },
+            {
+              "target": "acht",
+              "native": "eight"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "three bread rolls and one bread",
+          "targetSentence": "drei Brötchen und ein Brot",
+          "tokens": [
+            "drei",
+            "Brötchen",
+            "und",
+            "ein",
+            "Brot",
+            "zwei"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "drei _______ Brot.",
+          "blank": "Brötchen",
+          "translation": "three bread rolls and one bread",
+          "options": [
+            "Brot",
+            "fünf",
+            "sechs"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "drei Brötchen und ein Brot",
+          "tokens": [
+            "drei",
+            "Brötchen",
+            "und",
+            "ein",
+            "Brot",
+            "zwei"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "drei Brötchen und ein Brot",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "three bread rolls and one bread",
+              "isCorrect": true
+            },
+            {
+              "text": "how much does that cost?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "three bread rolls and one bread",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'five':",
+          "target": "fünf",
+          "translation": "five",
+          "hint": "Hint: starts with 'f'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kassierer",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Das macht vier Euro, bitte.",
+          "translation": "That comes to four euros, please.",
+          "options": [
+            {
+              "text": "Hier sind fünf Euro. Danke!",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich heiße Anna.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier sind fünf Euro. Danke!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Wie viel kostet das Brot?",
+            "How much does the bread cost?"
+          ],
+          "translation": "two euros, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "drei Brötchen und ein Brot. Es ist sehr schön.",
+          "translationText": "three bread rolls and one bread. It is very nice.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Numbers, Prices & Plurals • Lesson 3",
+      "subtitle": "Counting 1 to 10, Euro currency prices, and plural noun endings: Compounds & Conjunctions",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'nine':",
+          "targetWord": "neun",
+          "translation": "nine",
+          "options": [
+            {
+              "id": "de_u5_l3_p1",
+              "text": "neun (nine)",
+              "imageUrl": "/uploads/curriculum/nine.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u5_l3_p2",
+              "text": "zehn (ten)",
+              "imageUrl": "/uploads/curriculum/ten.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u5_l3_p3",
+              "text": "Euro (euro)",
+              "imageUrl": "/uploads/curriculum/euro.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "neun",
+              "native": "nine"
+            },
+            {
+              "target": "zehn",
+              "native": "ten"
+            },
+            {
+              "target": "Euro",
+              "native": "euro"
+            },
+            {
+              "target": "Cent",
+              "native": "cent"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "how much does that cost?",
+          "targetSentence": "wie viel kostet das?",
+          "tokens": [
+            "wie",
+            "viel",
+            "kostet",
+            "das?",
+            "ist",
+            "teuer"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "wie _______.",
+          "blank": "das?",
+          "translation": "how much does that cost?",
+          "options": [
+            "das?",
+            "neun",
+            "zehn"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "wie viel kostet das?",
+          "tokens": [
+            "wie",
+            "viel",
+            "kostet",
+            "das?",
+            "ist",
+            "teuer"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "wie viel kostet das?",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "how much does that cost?",
+              "isCorrect": true
+            },
+            {
+              "text": "that costs five euros",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "how much does that cost?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'nine':",
+          "target": "neun",
+          "translation": "nine",
+          "hint": "Hint: starts with 'n'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kassierer",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Das macht vier Euro, bitte.",
+          "translation": "That comes to four euros, please.",
+          "options": [
+            {
+              "text": "Hier sind fünf Euro. Danke!",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich heiße Anna.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier sind fünf Euro. Danke!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "wie viel kostet das?",
+          "translation": "how much does that cost?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "wie viel kostet das?. Wir mögen das.",
+          "translationText": "how much does that cost?. We like this.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Numbers, Prices & Plurals • Lesson 4",
+      "subtitle": "Counting 1 to 10, Euro currency prices, and plural noun endings: Ear Training",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'two':",
+          "targetWord": "zwei",
+          "translation": "two",
+          "options": [
+            {
+              "id": "de_u5_l4_p1",
+              "text": "zwei (two)",
+              "imageUrl": "/uploads/curriculum/two.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u5_l4_p2",
+              "text": "fünf (five)",
+              "imageUrl": "/uploads/curriculum/five.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u5_l4_p3",
+              "text": "neun (nine)",
+              "imageUrl": "/uploads/curriculum/nine.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "zwei",
+              "native": "two"
+            },
+            {
+              "target": "sechs",
+              "native": "six"
+            },
+            {
+              "target": "zehn",
+              "native": "ten"
+            },
+            {
+              "target": "drei",
+              "native": "three"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "that costs five euros",
+          "targetSentence": "das kostet fünf Euro",
+          "tokens": [
+            "das",
+            "kostet",
+            "fünf",
+            "Euro",
+            "zehn",
+            "billig"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "Euro",
+          "translation": "that costs five euros",
+          "options": [
+            "Euro",
+            "zwei",
+            "vier"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das kostet fünf Euro",
+          "tokens": [
+            "das",
+            "kostet",
+            "fünf",
+            "Euro",
+            "zehn",
+            "billig"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das kostet fünf Euro",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "that costs five euros",
+              "isCorrect": true
+            },
+            {
+              "text": "two euros, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "that costs five euros",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'two':",
+          "target": "zwei",
+          "translation": "two",
+          "hint": "Hint: starts with 'z'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kassierer",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Das macht vier Euro, bitte.",
+          "translation": "That comes to four euros, please.",
+          "options": [
+            {
+              "text": "Hier sind fünf Euro. Danke!",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich heiße Anna.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier sind fünf Euro. Danke!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Drei Euro und fünfzig Cent",
+            "Three euros and fifty cents"
+          ],
+          "translation": "three bread rolls and one bread",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "das kostet fünf Euro. Höre und sprich jeden Tag.",
+          "translationText": "that costs five euros. Listen and speak every day.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Numbers, Prices & Plurals • Lesson 5",
+      "subtitle": "Counting 1 to 10, Euro currency prices, and plural noun endings: Context Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'costs':",
+          "targetWord": "kostet",
+          "translation": "costs",
+          "options": [
+            {
+              "id": "de_u5_l5_p1",
+              "text": "kostet (costs)",
+              "imageUrl": "/uploads/curriculum/costs.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u5_l5_p2",
+              "text": "wie viel (how much)",
+              "imageUrl": "/uploads/curriculum/how_much.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u5_l5_p3",
+              "text": "teuer (expensive)",
+              "imageUrl": "/uploads/curriculum/expensive.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "kostet",
+              "native": "costs"
+            },
+            {
+              "target": "wie viel",
+              "native": "how much"
+            },
+            {
+              "target": "teuer",
+              "native": "expensive"
+            },
+            {
+              "target": "billig",
+              "native": "cheap"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "four apples, please",
+          "targetSentence": "vier Äpfel, bitte",
+          "tokens": [
+            "vier",
+            "Äpfel,",
+            "bitte",
+            "fünf",
+            "Brote"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "vier _______.",
+          "blank": "bitte",
+          "translation": "four apples, please",
+          "options": [
+            "bitte",
+            "kostet",
+            "wie viel"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "vier Äpfel, bitte",
+          "tokens": [
+            "vier",
+            "Äpfel,",
+            "bitte",
+            "fünf",
+            "Brote"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "vier Äpfel, bitte",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "four apples, please",
+              "isCorrect": true
+            },
+            {
+              "text": "three bread rolls and one bread",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "four apples, please",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'costs':",
+          "target": "kostet",
+          "translation": "costs",
+          "hint": "Hint: starts with 'k'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kassierer",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Das macht vier Euro, bitte.",
+          "translation": "That comes to four euros, please.",
+          "options": [
+            {
+              "text": "Hier sind fünf Euro. Danke!",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich heiße Anna.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier sind fünf Euro. Danke!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "vier Äpfel, bitte",
+          "translation": "four apples, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "vier Äpfel, bitte. Du machst das sehr gut.",
+          "translationText": "four apples, please. You are doing very well.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Numbers, Prices & Plurals • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Numbers, Prices & Plurals • Lesson 7",
+      "subtitle": "Counting 1 to 10, Euro currency prices, and plural noun endings: Compound Usage",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'six':",
+          "targetWord": "sechs",
+          "translation": "six",
+          "options": [
+            {
+              "id": "de_u5_l7_p1",
+              "text": "sechs (six)",
+              "imageUrl": "/uploads/curriculum/six.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u5_l7_p2",
+              "text": "sieben (seven)",
+              "imageUrl": "/uploads/curriculum/seven.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u5_l7_p3",
+              "text": "acht (eight)",
+              "imageUrl": "/uploads/curriculum/eight.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "vier",
+              "native": "four"
+            },
+            {
+              "target": "acht",
+              "native": "eight"
+            },
+            {
+              "target": "Cent",
+              "native": "cent"
+            },
+            {
+              "target": "billig",
+              "native": "cheap"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the coffee is not expensive",
+          "targetSentence": "der Kaffee ist nicht teuer",
+          "tokens": [
+            "der",
+            "Kaffee",
+            "ist",
+            "nicht",
+            "teuer",
+            "billig"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "der _______.",
+          "blank": "teuer",
+          "translation": "the coffee is not expensive",
+          "options": [
+            "teuer",
+            "sechs",
+            "acht"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "der Kaffee ist nicht teuer",
+          "tokens": [
+            "der",
+            "Kaffee",
+            "ist",
+            "nicht",
+            "teuer",
+            "billig"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "der Kaffee ist nicht teuer",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the coffee is not expensive",
+              "isCorrect": true
+            },
+            {
+              "text": "how much does that cost?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the coffee is not expensive",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'six':",
+          "target": "sechs",
+          "translation": "six",
+          "hint": "Hint: starts with 's'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kassierer",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Das macht vier Euro, bitte.",
+          "translation": "That comes to four euros, please.",
+          "options": [
+            {
+              "text": "Hier sind fünf Euro. Danke!",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich heiße Anna.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier sind fünf Euro. Danke!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "der Kaffee ist nicht teuer",
+          "translation": "the coffee is not expensive",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "der Kaffee ist nicht teuer. Übung macht den Meister.",
+          "translationText": "the coffee is not expensive. Practice makes perfect.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Numbers, Prices & Plurals • Lesson 8",
+      "subtitle": "Counting 1 to 10, Euro currency prices, and plural noun endings: Sentence Patterns",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'ten':",
+          "targetWord": "zehn",
+          "translation": "ten",
+          "options": [
+            {
+              "id": "de_u5_l8_p1",
+              "text": "zehn (ten)",
+              "imageUrl": "/uploads/curriculum/ten.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u5_l8_p2",
+              "text": "Euro (euro)",
+              "imageUrl": "/uploads/curriculum/euro.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u5_l8_p3",
+              "text": "Cent (cent)",
+              "imageUrl": "/uploads/curriculum/cent.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "eins",
+              "native": "one"
+            },
+            {
+              "target": "fünf",
+              "native": "five"
+            },
+            {
+              "target": "neun",
+              "native": "nine"
+            },
+            {
+              "target": "kostet",
+              "native": "costs"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the book costs ten euros",
+          "targetSentence": "das Buch kostet zehn Euro",
+          "tokens": [
+            "das",
+            "Buch",
+            "kostet",
+            "zehn",
+            "Euro",
+            "drei"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "das _______.",
+          "blank": "Euro",
+          "translation": "the book costs ten euros",
+          "options": [
+            "Euro",
+            "zehn",
+            "Euro"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das Buch kostet zehn Euro",
+          "tokens": [
+            "das",
+            "Buch",
+            "kostet",
+            "zehn",
+            "Euro",
+            "drei"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "das Buch kostet zehn Euro",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "the book costs ten euros",
+              "isCorrect": true
+            },
+            {
+              "text": "that costs five euros",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "the book costs ten euros",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'ten':",
+          "target": "zehn",
+          "translation": "ten",
+          "hint": "Hint: starts with 'z'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kassierer",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Das macht vier Euro, bitte.",
+          "translation": "That comes to four euros, please.",
+          "options": [
+            {
+              "text": "Hier sind fünf Euro. Danke!",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich heiße Anna.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier sind fünf Euro. Danke!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "das Buch kostet zehn Euro",
+          "translation": "the book costs ten euros",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "das Buch kostet zehn Euro. Alles ist in bester Ordnung.",
+          "translationText": "the book costs ten euros. Everything is in good order.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Numbers, Prices & Plurals • Lesson 9",
+      "subtitle": "Counting 1 to 10, Euro currency prices, and plural noun endings: Speech Lab",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'how much':",
+          "targetWord": "wie viel",
+          "translation": "how much",
+          "options": [
+            {
+              "id": "de_u5_l9_p1",
+              "text": "wie viel (how much)",
+              "imageUrl": "/uploads/curriculum/how_much.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u5_l9_p2",
+              "text": "teuer (expensive)",
+              "imageUrl": "/uploads/curriculum/expensive.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u5_l9_p3",
+              "text": "billig (cheap)",
+              "imageUrl": "/uploads/curriculum/cheap.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "drei",
+              "native": "three"
+            },
+            {
+              "target": "sieben",
+              "native": "seven"
+            },
+            {
+              "target": "Euro",
+              "native": "euro"
+            },
+            {
+              "target": "teuer",
+              "native": "expensive"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "two coffees and two bread rolls",
+          "targetSentence": "zwei Kaffee und zwei Brötchen",
+          "tokens": [
+            "zwei",
+            "Kaffee",
+            "und",
+            "zwei",
+            "Brötchen",
+            "Euro"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "zwei _______.",
+          "blank": "Brötchen",
+          "translation": "two coffees and two bread rolls",
+          "options": [
+            "Brötchen",
+            "wie viel",
+            "teuer"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "zwei Kaffee und zwei Brötchen",
+          "tokens": [
+            "zwei",
+            "Kaffee",
+            "und",
+            "zwei",
+            "Brötchen",
+            "Euro"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "zwei Kaffee und zwei Brötchen",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "two coffees and two bread rolls",
+              "isCorrect": true
+            },
+            {
+              "text": "four apples, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "two coffees and two bread rolls",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'how much':",
+          "target": "wie viel",
+          "translation": "how much",
+          "hint": "Hint: starts with 'w'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kassierer",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Das macht vier Euro, bitte.",
+          "translation": "That comes to four euros, please.",
+          "options": [
+            {
+              "text": "Hier sind fünf Euro. Danke!",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich heiße Anna.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier sind fünf Euro. Danke!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Zwei Brötchen und ein Kaffee",
+            "Two bread rolls and one coffee"
+          ],
+          "translation": "how much does that cost?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "zwei Kaffee und zwei Brötchen. Sprich deutlich und mit Freude.",
+          "translationText": "two coffees and two bread rolls. Speak clearly and with joy.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Numbers, Prices & Plurals • Lesson 10",
+      "subtitle": "Counting 1 to 10, Euro currency prices, and plural noun endings: Dialogue Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'four':",
+          "targetWord": "vier",
+          "translation": "four",
+          "options": [
+            {
+              "id": "de_u5_l10_p1",
+              "text": "vier (four)",
+              "imageUrl": "/uploads/curriculum/four.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u5_l10_p2",
+              "text": "acht (eight)",
+              "imageUrl": "/uploads/curriculum/eight.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u5_l10_p3",
+              "text": "Cent (cent)",
+              "imageUrl": "/uploads/curriculum/cent.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "zwei",
+              "native": "two"
+            },
+            {
+              "target": "fünf",
+              "native": "five"
+            },
+            {
+              "target": "zehn",
+              "native": "ten"
+            },
+            {
+              "target": "wie viel",
+              "native": "how much"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "two euros, please",
+          "targetSentence": "zwei Euro, bitte",
+          "tokens": [
+            "zwei",
+            "Euro,",
+            "bitte",
+            "drei",
+            "Cent"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "zwei _______.",
+          "blank": "bitte",
+          "translation": "two euros, please",
+          "options": [
+            "bitte",
+            "vier",
+            "acht"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "das Buch kostet zehn Euro",
+          "tokens": [
+            "das",
+            "Buch",
+            "kostet",
+            "zehn",
+            "Euro",
+            "drei"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "zwei Kaffee und zwei Brötchen",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "two coffees and two bread rolls",
+              "isCorrect": true
+            },
+            {
+              "text": "the coffee is not expensive",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "two coffees and two bread rolls",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'four':",
+          "target": "vier",
+          "translation": "four",
+          "hint": "Hint: starts with 'v'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kassierer",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Das macht vier Euro, bitte.",
+          "translation": "That comes to four euros, please.",
+          "options": [
+            {
+              "text": "Hier sind fünf Euro. Danke!",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich heiße Anna.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier sind fünf Euro. Danke!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Wie viel kostet das Brot?",
+            "How much does the bread cost?"
+          ],
+          "translation": "two euros, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Eins, zwei, drei, vier, fünf. Wie viel kostet das? Das kostet fünf Euro.",
+          "translationText": "One, two, three, four, five. How much does that cost? That costs five euros.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Numbers, Prices & Plurals • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Numbers, Prices & Plurals • Unit 5 Milestone Exam",
+      "subtitle": "Counting 1 to 10, Euro currency prices, and plural noun endings: Comprehensive Unit Exam (Trophy Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'one':",
+          "targetWord": "eins",
+          "translation": "one",
+          "options": [
+            {
+              "id": "de_u5_l12_p1",
+              "text": "eins (one)",
+              "imageUrl": "/uploads/curriculum/one.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u5_l12_p2",
+              "text": "fünf (five)",
+              "imageUrl": "/uploads/curriculum/five.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u5_l12_p3",
+              "text": "neun (nine)",
+              "imageUrl": "/uploads/curriculum/nine.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "eins",
+              "native": "one"
+            },
+            {
+              "target": "fünf",
+              "native": "five"
+            },
+            {
+              "target": "neun",
+              "native": "nine"
+            },
+            {
+              "target": "kostet",
+              "native": "costs"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "the coffee is not expensive",
+          "targetSentence": "der Kaffee ist nicht teuer",
+          "tokens": [
+            "der",
+            "Kaffee",
+            "ist",
+            "nicht",
+            "teuer",
+            "billig"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "der _______.",
+          "blank": "teuer",
+          "translation": "the coffee is not expensive",
+          "options": [
+            "teuer",
+            "eins",
+            "fünf"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "zwei Kaffee und zwei Brötchen",
+          "tokens": [
+            "zwei",
+            "Kaffee",
+            "und",
+            "zwei",
+            "Brötchen",
+            "Euro"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "vier Äpfel, bitte",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "four apples, please",
+              "isCorrect": true
+            },
+            {
+              "text": "two euros, please",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "four apples, please",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'cheap':",
+          "target": "billig",
+          "translation": "cheap",
+          "hint": "Hint: starts with 'b'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Kassierer",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Das macht vier Euro, bitte.",
+          "translation": "That comes to four euros, please.",
+          "options": [
+            {
+              "text": "Hier sind fünf Euro. Danke!",
+              "isCorrect": true
+            },
+            {
+              "text": "Ich heiße Anna.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hier sind fünf Euro. Danke!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Wie viel kostet das Brot?",
+            "How much does the bread cost?"
+          ],
+          "translation": "two euros, please",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Eins, zwei, drei, vier, fünf. Wie viel kostet das? Das kostet fünf Euro.",
+          "translationText": "One, two, three, four, five. How much does that cost? That costs five euros.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

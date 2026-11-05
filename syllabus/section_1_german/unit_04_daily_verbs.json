@@ -1,0 +1,1698 @@
+{
+  "courseTitle": "German A1 Comprehensive Curriculum (For English Speakers)",
+  "learningLanguage": "de",
+  "nativeLanguage": "en",
+  "level": "A1",
+  "sectionNumber": 1,
+  "sectionTitle": "Section 1: Rookie (A1 Foundation)",
+  "unitNumber": 4,
+  "unitTitle": "Everyday Verbs & Sentence Structure",
+  "unitDescription": "Core daily verbs, present tense conjugation and SVO sentence structure",
+  "accentColor": "#FF9600",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Everyday Verbs & Sentence Structure • Lesson 1",
+      "subtitle": "Core daily verbs, present tense conjugation and SVO sentence structure: Core Words",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'to drink':",
+          "targetWord": "trinken",
+          "translation": "to drink",
+          "options": [
+            {
+              "id": "de_u4_l1_p1",
+              "text": "trinken (to drink)",
+              "imageUrl": "/uploads/curriculum/to_drink.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u4_l1_p2",
+              "text": "essen (to eat)",
+              "imageUrl": "/uploads/curriculum/to_eat.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u4_l1_p3",
+              "text": "wohnen (to live / reside)",
+              "imageUrl": "/uploads/curriculum/to_live_/_reside.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "trinken",
+              "native": "to drink"
+            },
+            {
+              "target": "essen",
+              "native": "to eat"
+            },
+            {
+              "target": "wohnen",
+              "native": "to live / reside"
+            },
+            {
+              "target": "lernen",
+              "native": "to learn"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I learn German",
+          "targetSentence": "ich lerne Deutsch",
+          "tokens": [
+            "ich",
+            "lerne",
+            "Deutsch",
+            "Englisch",
+            "trinke"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Deutsch",
+          "translation": "I learn German",
+          "options": [
+            "Deutsch",
+            "essen",
+            "wohnen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich lerne Deutsch",
+          "tokens": [
+            "ich",
+            "lerne",
+            "Deutsch",
+            "Englisch",
+            "trinke"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich lerne Deutsch",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I learn German",
+              "isCorrect": true
+            },
+            {
+              "text": "you speak English",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I learn German",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'to drink':",
+          "target": "trinken",
+          "translation": "to drink",
+          "hint": "Hint: starts with 't'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Max",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Sprichst du Deutsch?",
+          "translation": "Do you speak German?",
+          "options": [
+            {
+              "text": "Ja, ich lerne Deutsch.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Auto ist schmutzig.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, ich lerne Deutsch.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "ich lerne Deutsch",
+          "translation": "I learn German",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich lerne Deutsch. trinken ist gut.",
+          "translationText": "I learn German. To drink is good.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Everyday Verbs & Sentence Structure • Lesson 2",
+      "subtitle": "Core daily verbs, present tense conjugation and SVO sentence structure: Sentence Syntax",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'to work':",
+          "targetWord": "arbeiten",
+          "translation": "to work",
+          "options": [
+            {
+              "id": "de_u4_l2_p1",
+              "text": "arbeiten (to work)",
+              "imageUrl": "/uploads/curriculum/to_work.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u4_l2_p2",
+              "text": "gehen (to go)",
+              "imageUrl": "/uploads/curriculum/to_go.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u4_l2_p3",
+              "text": "kommen (to come)",
+              "imageUrl": "/uploads/curriculum/to_come.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "arbeiten",
+              "native": "to work"
+            },
+            {
+              "target": "gehen",
+              "native": "to go"
+            },
+            {
+              "target": "kommen",
+              "native": "to come"
+            },
+            {
+              "target": "sprechen",
+              "native": "to speak"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "you speak English",
+          "targetSentence": "du sprichst Englisch",
+          "tokens": [
+            "du",
+            "sprichst",
+            "Englisch",
+            "Deutsch",
+            "kommst"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "du _______ Englisch.",
+          "blank": "sprichst",
+          "translation": "you speak English",
+          "options": [
+            "Englisch",
+            "arbeiten",
+            "gehen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "du sprichst Englisch",
+          "tokens": [
+            "du",
+            "sprichst",
+            "Englisch",
+            "Deutsch",
+            "kommst"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "du sprichst Englisch",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "you speak English",
+              "isCorrect": true
+            },
+            {
+              "text": "we drink water",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "you speak English",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'to work':",
+          "target": "arbeiten",
+          "translation": "to work",
+          "hint": "Hint: starts with 'a'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Max",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Sprichst du Deutsch?",
+          "translation": "Do you speak German?",
+          "options": [
+            {
+              "text": "Ja, ich lerne Deutsch.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Auto ist schmutzig.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, ich lerne Deutsch.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ich lerne Deutsch jeden Tag",
+            "I learn German every day"
+          ],
+          "translation": "I learn German",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "du sprichst Englisch. Es ist sehr schön.",
+          "translationText": "you speak English. It is very nice.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Everyday Verbs & Sentence Structure • Lesson 3",
+      "subtitle": "Core daily verbs, present tense conjugation and SVO sentence structure: Compounds & Conjunctions",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'German':",
+          "targetWord": "Deutsch",
+          "translation": "German",
+          "options": [
+            {
+              "id": "de_u4_l3_p1",
+              "text": "Deutsch (German)",
+              "imageUrl": "/uploads/curriculum/german.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u4_l3_p2",
+              "text": "Englisch (English)",
+              "imageUrl": "/uploads/curriculum/english.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u4_l3_p3",
+              "text": "ich (I)",
+              "imageUrl": "/uploads/curriculum/i.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "Deutsch",
+              "native": "German"
+            },
+            {
+              "target": "Englisch",
+              "native": "English"
+            },
+            {
+              "target": "ich",
+              "native": "I"
+            },
+            {
+              "target": "du",
+              "native": "you"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "we drink water",
+          "targetSentence": "wir trinken Wasser",
+          "tokens": [
+            "wir",
+            "trinken",
+            "Wasser",
+            "Kaffee",
+            "essen"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "wir _______.",
+          "blank": "Wasser",
+          "translation": "we drink water",
+          "options": [
+            "Wasser",
+            "Deutsch",
+            "Englisch"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "wir trinken Wasser",
+          "tokens": [
+            "wir",
+            "trinken",
+            "Wasser",
+            "Kaffee",
+            "essen"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "wir trinken Wasser",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "we drink water",
+              "isCorrect": true
+            },
+            {
+              "text": "he lives in Berlin",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "we drink water",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'German':",
+          "target": "Deutsch",
+          "translation": "German",
+          "hint": "Hint: starts with 'D'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Max",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Sprichst du Deutsch?",
+          "translation": "Do you speak German?",
+          "options": [
+            {
+              "text": "Ja, ich lerne Deutsch.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Auto ist schmutzig.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, ich lerne Deutsch.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "wir trinken Wasser",
+          "translation": "we drink water",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "wir trinken Wasser. Wir mögen das.",
+          "translationText": "we drink water. We like this.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Everyday Verbs & Sentence Structure • Lesson 4",
+      "subtitle": "Core daily verbs, present tense conjugation and SVO sentence structure: Ear Training",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'to eat':",
+          "targetWord": "essen",
+          "translation": "to eat",
+          "options": [
+            {
+              "id": "de_u4_l4_p1",
+              "text": "essen (to eat)",
+              "imageUrl": "/uploads/curriculum/to_eat.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u4_l4_p2",
+              "text": "arbeiten (to work)",
+              "imageUrl": "/uploads/curriculum/to_work.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u4_l4_p3",
+              "text": "Deutsch (German)",
+              "imageUrl": "/uploads/curriculum/german.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "essen",
+              "native": "to eat"
+            },
+            {
+              "target": "gehen",
+              "native": "to go"
+            },
+            {
+              "target": "Englisch",
+              "native": "English"
+            },
+            {
+              "target": "wohnen",
+              "native": "to live / reside"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "he lives in Berlin",
+          "targetSentence": "er wohnt in Berlin",
+          "tokens": [
+            "er",
+            "wohnt",
+            "in",
+            "Berlin",
+            "München",
+            "arbeitet"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "er _______.",
+          "blank": "Berlin",
+          "translation": "he lives in Berlin",
+          "options": [
+            "Berlin",
+            "essen",
+            "lernen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "er wohnt in Berlin",
+          "tokens": [
+            "er",
+            "wohnt",
+            "in",
+            "Berlin",
+            "München",
+            "arbeitet"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "er wohnt in Berlin",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "he lives in Berlin",
+              "isCorrect": true
+            },
+            {
+              "text": "I learn German",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "he lives in Berlin",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'to eat':",
+          "target": "essen",
+          "translation": "to eat",
+          "hint": "Hint: starts with 'e'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Max",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Sprichst du Deutsch?",
+          "translation": "Do you speak German?",
+          "options": [
+            {
+              "text": "Ja, ich lerne Deutsch.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Auto ist schmutzig.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, ich lerne Deutsch.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Wir trinken Kaffee und essen Brot",
+            "We drink coffee and eat bread"
+          ],
+          "translation": "you speak English",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "er wohnt in Berlin. Höre und sprich jeden Tag.",
+          "translationText": "he lives in Berlin. Listen and speak every day.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Everyday Verbs & Sentence Structure • Lesson 5",
+      "subtitle": "Core daily verbs, present tense conjugation and SVO sentence structure: Context Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'he':",
+          "targetWord": "er",
+          "translation": "he",
+          "options": [
+            {
+              "id": "de_u4_l5_p1",
+              "text": "er (he)",
+              "imageUrl": "/uploads/curriculum/he.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u4_l5_p2",
+              "text": "sie (she / they)",
+              "imageUrl": "/uploads/curriculum/she_/_they.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u4_l5_p3",
+              "text": "wir (we)",
+              "imageUrl": "/uploads/curriculum/we.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "er",
+              "native": "he"
+            },
+            {
+              "target": "sie",
+              "native": "she / they"
+            },
+            {
+              "target": "wir",
+              "native": "we"
+            },
+            {
+              "target": "gerne",
+              "native": "gladly"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "she works a lot",
+          "targetSentence": "sie arbeitet viel",
+          "tokens": [
+            "sie",
+            "arbeitet",
+            "viel",
+            "wohnt",
+            "lernt",
+            "gut"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "sie _______.",
+          "blank": "viel",
+          "translation": "she works a lot",
+          "options": [
+            "viel",
+            "er",
+            "sie"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "sie arbeitet viel",
+          "tokens": [
+            "sie",
+            "arbeitet",
+            "viel",
+            "wohnt",
+            "lernt",
+            "gut"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "sie arbeitet viel",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "she works a lot",
+              "isCorrect": true
+            },
+            {
+              "text": "you speak English",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "she works a lot",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'he':",
+          "target": "er",
+          "translation": "he",
+          "hint": "Hint: starts with 'e'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Max",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Sprichst du Deutsch?",
+          "translation": "Do you speak German?",
+          "options": [
+            {
+              "text": "Ja, ich lerne Deutsch.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Auto ist schmutzig.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, ich lerne Deutsch.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "sie arbeitet viel",
+          "translation": "she works a lot",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "sie arbeitet viel. Du machst das sehr gut.",
+          "translationText": "she works a lot. You are doing very well.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Everyday Verbs & Sentence Structure • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Everyday Verbs & Sentence Structure • Lesson 7",
+      "subtitle": "Core daily verbs, present tense conjugation and SVO sentence structure: Compound Usage",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'to go':",
+          "targetWord": "gehen",
+          "translation": "to go",
+          "options": [
+            {
+              "id": "de_u4_l7_p1",
+              "text": "gehen (to go)",
+              "imageUrl": "/uploads/curriculum/to_go.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u4_l7_p2",
+              "text": "kommen (to come)",
+              "imageUrl": "/uploads/curriculum/to_come.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u4_l7_p3",
+              "text": "sprechen (to speak)",
+              "imageUrl": "/uploads/curriculum/to_speak.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "lernen",
+              "native": "to learn"
+            },
+            {
+              "target": "sprechen",
+              "native": "to speak"
+            },
+            {
+              "target": "du",
+              "native": "you"
+            },
+            {
+              "target": "gerne",
+              "native": "gladly"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I eat bread and drink tea",
+          "targetSentence": "ich esse Brot und trinke Tee",
+          "tokens": [
+            "ich",
+            "esse",
+            "Brot",
+            "und",
+            "trinke",
+            "Tee",
+            "Kaffee"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Tee",
+          "translation": "I eat bread and drink tea",
+          "options": [
+            "Tee",
+            "gehen",
+            "sprechen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "ich esse Brot und trinke Tee",
+          "tokens": [
+            "ich",
+            "esse",
+            "Brot",
+            "und",
+            "trinke",
+            "Tee",
+            "Kaffee"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "ich esse Brot und trinke Tee",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "I eat bread and drink tea",
+              "isCorrect": true
+            },
+            {
+              "text": "we drink water",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I eat bread and drink tea",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'to go':",
+          "target": "gehen",
+          "translation": "to go",
+          "hint": "Hint: starts with 'g'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Max",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Sprichst du Deutsch?",
+          "translation": "Do you speak German?",
+          "options": [
+            {
+              "text": "Ja, ich lerne Deutsch.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Auto ist schmutzig.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, ich lerne Deutsch.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "ich esse Brot und trinke Tee",
+          "translation": "I eat bread and drink tea",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "ich esse Brot und trinke Tee. Übung macht den Meister.",
+          "translationText": "I eat bread and drink tea. Practice makes perfect.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Everyday Verbs & Sentence Structure • Lesson 8",
+      "subtitle": "Core daily verbs, present tense conjugation and SVO sentence structure: Sentence Patterns",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'English':",
+          "targetWord": "Englisch",
+          "translation": "English",
+          "options": [
+            {
+              "id": "de_u4_l8_p1",
+              "text": "Englisch (English)",
+              "imageUrl": "/uploads/curriculum/english.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u4_l8_p2",
+              "text": "ich (I)",
+              "imageUrl": "/uploads/curriculum/i.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u4_l8_p3",
+              "text": "du (you)",
+              "imageUrl": "/uploads/curriculum/you.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "trinken",
+              "native": "to drink"
+            },
+            {
+              "target": "arbeiten",
+              "native": "to work"
+            },
+            {
+              "target": "Deutsch",
+              "native": "German"
+            },
+            {
+              "target": "er",
+              "native": "he"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "we come from Germany",
+          "targetSentence": "wir kommen aus Deutschland",
+          "tokens": [
+            "wir",
+            "kommen",
+            "aus",
+            "Deutschland",
+            "Berlin",
+            "wohnen"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "wir _______.",
+          "blank": "Deutschland",
+          "translation": "we come from Germany",
+          "options": [
+            "Deutschland",
+            "Englisch",
+            "ich"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "wir kommen aus Deutschland",
+          "tokens": [
+            "wir",
+            "kommen",
+            "aus",
+            "Deutschland",
+            "Berlin",
+            "wohnen"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "wir kommen aus Deutschland",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "we come from Germany",
+              "isCorrect": true
+            },
+            {
+              "text": "he lives in Berlin",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "we come from Germany",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'English':",
+          "target": "Englisch",
+          "translation": "English",
+          "hint": "Hint: starts with 'E'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Max",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Sprichst du Deutsch?",
+          "translation": "Do you speak German?",
+          "options": [
+            {
+              "text": "Ja, ich lerne Deutsch.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Auto ist schmutzig.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, ich lerne Deutsch.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": "wir kommen aus Deutschland",
+          "translation": "we come from Germany",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "wir kommen aus Deutschland. Alles ist in bester Ordnung.",
+          "translationText": "we come from Germany. Everything is in good order.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Everyday Verbs & Sentence Structure • Lesson 9",
+      "subtitle": "Core daily verbs, present tense conjugation and SVO sentence structure: Speech Lab",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'she / they':",
+          "targetWord": "sie",
+          "translation": "she / they",
+          "options": [
+            {
+              "id": "de_u4_l9_p1",
+              "text": "sie (she / they)",
+              "imageUrl": "/uploads/curriculum/she_/_they.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u4_l9_p2",
+              "text": "wir (we)",
+              "imageUrl": "/uploads/curriculum/we.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u4_l9_p3",
+              "text": "gerne (gladly)",
+              "imageUrl": "/uploads/curriculum/gladly.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "wohnen",
+              "native": "to live / reside"
+            },
+            {
+              "target": "kommen",
+              "native": "to come"
+            },
+            {
+              "target": "ich",
+              "native": "I"
+            },
+            {
+              "target": "wir",
+              "native": "we"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "you learn German very fast",
+          "targetSentence": "du lernst sehr schnell Deutsch",
+          "tokens": [
+            "du",
+            "lernst",
+            "sehr",
+            "schnell",
+            "Deutsch",
+            "Englisch"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "du _______.",
+          "blank": "Deutsch",
+          "translation": "you learn German very fast",
+          "options": [
+            "Deutsch",
+            "sie",
+            "wir"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "du lernst sehr schnell Deutsch",
+          "tokens": [
+            "du",
+            "lernst",
+            "sehr",
+            "schnell",
+            "Deutsch",
+            "Englisch"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "du lernst sehr schnell Deutsch",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "you learn German very fast",
+              "isCorrect": true
+            },
+            {
+              "text": "she works a lot",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "you learn German very fast",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'she / they':",
+          "target": "sie",
+          "translation": "she / they",
+          "hint": "Hint: starts with 's'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Max",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Sprichst du Deutsch?",
+          "translation": "Do you speak German?",
+          "options": [
+            {
+              "text": "Ja, ich lerne Deutsch.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Auto ist schmutzig.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, ich lerne Deutsch.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ich wohne in Berlin",
+            "I live in Berlin"
+          ],
+          "translation": "we drink water",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "du lernst sehr schnell Deutsch. Sprich deutlich und mit Freude.",
+          "translationText": "you learn German very fast. Speak clearly and with joy.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Everyday Verbs & Sentence Structure • Lesson 10",
+      "subtitle": "Core daily verbs, present tense conjugation and SVO sentence structure: Dialogue Mastery",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'to learn':",
+          "targetWord": "lernen",
+          "translation": "to learn",
+          "options": [
+            {
+              "id": "de_u4_l10_p1",
+              "text": "lernen (to learn)",
+              "imageUrl": "/uploads/curriculum/to_learn.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u4_l10_p2",
+              "text": "sprechen (to speak)",
+              "imageUrl": "/uploads/curriculum/to_speak.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u4_l10_p3",
+              "text": "du (you)",
+              "imageUrl": "/uploads/curriculum/you.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "essen",
+              "native": "to eat"
+            },
+            {
+              "target": "arbeiten",
+              "native": "to work"
+            },
+            {
+              "target": "Englisch",
+              "native": "English"
+            },
+            {
+              "target": "sie",
+              "native": "she / they"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I learn German",
+          "targetSentence": "ich lerne Deutsch",
+          "tokens": [
+            "ich",
+            "lerne",
+            "Deutsch",
+            "Englisch",
+            "trinke"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Deutsch",
+          "translation": "I learn German",
+          "options": [
+            "Deutsch",
+            "lernen",
+            "sprechen"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "wir kommen aus Deutschland",
+          "tokens": [
+            "wir",
+            "kommen",
+            "aus",
+            "Deutschland",
+            "Berlin",
+            "wohnen"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "du lernst sehr schnell Deutsch",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "you learn German very fast",
+              "isCorrect": true
+            },
+            {
+              "text": "I eat bread and drink tea",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "you learn German very fast",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'to learn':",
+          "target": "lernen",
+          "translation": "to learn",
+          "hint": "Hint: starts with 'l'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Max",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Sprichst du Deutsch?",
+          "translation": "Do you speak German?",
+          "options": [
+            {
+              "text": "Ja, ich lerne Deutsch.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Auto ist schmutzig.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, ich lerne Deutsch.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ich lerne Deutsch jeden Tag",
+            "I learn German every day"
+          ],
+          "translation": "I learn German",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Ich lerne Deutsch und du sprichst Englisch. Wir lernen zusammen.",
+          "translationText": "I learn German and you speak English. We learn together.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Everyday Verbs & Sentence Structure • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Everyday Verbs & Sentence Structure • Unit 4 Milestone Exam",
+      "subtitle": "Core daily verbs, present tense conjugation and SVO sentence structure: Comprehensive Unit Exam (Trophy Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "Select the correct picture",
+          "prompt": "Choose the correct picture for 'to drink':",
+          "targetWord": "trinken",
+          "translation": "to drink",
+          "options": [
+            {
+              "id": "de_u4_l12_p1",
+              "text": "trinken (to drink)",
+              "imageUrl": "/uploads/curriculum/to_drink.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "de_u4_l12_p2",
+              "text": "arbeiten (to work)",
+              "imageUrl": "/uploads/curriculum/to_work.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "de_u4_l12_p3",
+              "text": "Deutsch (German)",
+              "imageUrl": "/uploads/curriculum/german.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "Match the word pairs",
+          "pairs": [
+            {
+              "target": "trinken",
+              "native": "to drink"
+            },
+            {
+              "target": "arbeiten",
+              "native": "to work"
+            },
+            {
+              "target": "Deutsch",
+              "native": "German"
+            },
+            {
+              "target": "er",
+              "native": "he"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "Build the German sentence",
+          "prompt": "I eat bread and drink tea",
+          "targetSentence": "ich esse Brot und trinke Tee",
+          "tokens": [
+            "ich",
+            "esse",
+            "Brot",
+            "und",
+            "trinke",
+            "Tee",
+            "Kaffee"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "Fill in the blank",
+          "sentence": "ich _______.",
+          "blank": "Tee",
+          "translation": "I eat bread and drink tea",
+          "options": [
+            "Tee",
+            "trinken",
+            "arbeiten"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "Listen and tap the words you hear",
+          "targetSentence": "du lernst sehr schnell Deutsch",
+          "tokens": [
+            "du",
+            "lernst",
+            "sehr",
+            "schnell",
+            "Deutsch",
+            "Englisch"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "Listen and choose the meaning",
+          "spokenGerman": "sie arbeitet viel",
+          "question": "What does this German sentence mean?",
+          "prompt": "What does this German sentence mean?",
+          "options": [
+            {
+              "text": "she works a lot",
+              "isCorrect": true
+            },
+            {
+              "text": "I learn German",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "she works a lot",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "Type the German spelling",
+          "prompt": "Type the German word for 'gladly':",
+          "target": "gerne",
+          "translation": "gladly",
+          "hint": "Hint: starts with 'g'",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "Complete the conversation",
+          "partnerName": "Max",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Sprichst du Deutsch?",
+          "translation": "Do you speak German?",
+          "options": [
+            {
+              "text": "Ja, ich lerne Deutsch.",
+              "isCorrect": true
+            },
+            {
+              "text": "Das Auto ist schmutzig.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Ja, ich lerne Deutsch.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "Speak the German sentence aloud",
+          "prompt": [
+            "Ich lerne Deutsch jeden Tag",
+            "I learn German every day"
+          ],
+          "translation": "I learn German",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "Rhythmic Reading (Karaoke Fluency)",
+          "storyText": "Ich lerne Deutsch und du sprichst Englisch. Wir lernen zusammen.",
+          "translationText": "I learn German and you speak English. We learn together.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}
