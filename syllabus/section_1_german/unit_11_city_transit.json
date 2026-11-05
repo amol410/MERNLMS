@@ -88,13 +88,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "eine _______.",
+          "sentence": "eine Fahrkarte nach Berlin, _______",
           "blank": "bitte",
           "translation": "a ticket to Berlin, please",
           "options": [
             "bitte",
-            "Zug",
-            "Bus"
+            "Bahnhof",
+            "Zug"
           ]
         },
         {
@@ -255,13 +255,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "der _______ ab.",
-          "blank": "Zug",
+          "sentence": "der Zug fährt um zehn _______ ab",
+          "blank": "Uhr",
           "translation": "the train departs at ten o'clock",
           "options": [
-            "ab",
-            "Flughafen",
-            "Fahrkarte"
+            "Uhr",
+            "Bahnhof",
+            "Zug"
           ]
         },
         {
@@ -426,13 +426,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "von _______.",
-          "blank": "Zug?",
+          "sentence": "von welchem Gleis fährt der _______?",
+          "blank": "Zug",
           "translation": "from which platform does the train depart?",
           "options": [
-            "Zug?",
-            "Supermarkt",
-            "Hotel"
+            "Zug",
+            "Bahnhof",
+            "Bus"
           ]
         },
         {
@@ -593,13 +593,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "der _______.",
-          "blank": "vier",
+          "sentence": "der _______ steht auf Gleis vier",
+          "blank": "Zug",
           "translation": "the train is on platform four",
           "options": [
-            "vier",
             "Zug",
-            "U-Bahn"
+            "Bahnhof",
+            "Bus"
           ]
         },
         {
@@ -763,13 +763,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
+          "sentence": "ich fahre mit der _______",
           "blank": "U-Bahn",
           "translation": "I travel by subway",
           "options": [
             "U-Bahn",
-            "Zentrum",
-            "Haltestelle"
+            "Bahnhof",
+            "Zug"
           ]
         },
         {
@@ -940,13 +940,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wo _______.",
-          "blank": "Supermarkt?",
+          "sentence": "wo ist der nächste _______?",
+          "blank": "Supermarkt",
           "translation": "where is the nearest supermarket?",
           "options": [
-            "Supermarkt?",
-            "Fahrkarte",
-            "Apotheke"
+            "Supermarkt",
+            "Bahnhof",
+            "Zug"
           ]
         },
         {
@@ -1105,13 +1105,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
-          "blank": "Stadtzentrum",
+          "sentence": "das _______ liegt im Stadtzentrum",
+          "blank": "Hotel",
           "translation": "the hotel is located in the city center",
           "options": [
-            "Stadtzentrum",
             "Hotel",
-            "Park"
+            "Bahnhof",
+            "Zug"
           ]
         },
         {
@@ -1271,13 +1271,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "der _______.",
+          "sentence": "der Bus kommt in fünf _______",
           "blank": "Minuten",
           "translation": "the bus arrives in five minutes",
           "options": [
             "Minuten",
-            "Haltestelle",
-            "fahren"
+            "Bahnhof",
+            "Zug"
           ]
         },
         {
@@ -1440,13 +1440,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "eine _______.",
+          "sentence": "eine Fahrkarte nach Berlin, _______",
           "blank": "bitte",
           "translation": "a ticket to Berlin, please",
           "options": [
             "bitte",
-            "U-Bahn",
-            "Apotheke"
+            "Bahnhof",
+            "Zug"
           ]
         },
         {
@@ -1619,13 +1619,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wo _______.",
-          "blank": "Supermarkt?",
+          "sentence": "wo ist der nächste _______?",
+          "blank": "Supermarkt",
           "translation": "where is the nearest supermarket?",
           "options": [
-            "Supermarkt?",
+            "Supermarkt",
             "Bahnhof",
-            "Flughafen"
+            "Zug"
           ]
         },
         {

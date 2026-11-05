@@ -96,12 +96,12 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "mein _______.",
+              "sentence": "mein _______",
               "blank": "Auto",
               "translation": "my car",
               "options": [
                 "Auto",
-                "Auto",
+                "Haus",
                 "Buch"
               ]
             },
@@ -260,13 +260,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "mein _______ groß.",
-              "blank": "Haus",
+              "sentence": "mein Haus ist _______",
+              "blank": "groß",
               "translation": "my house is big",
               "options": [
                 "groß",
-                "dein",
-                "groß"
+                "Haus",
+                "Auto"
               ]
             },
             {
@@ -428,13 +428,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "dein _______.",
+              "sentence": "dein Auto ist _______",
               "blank": "klein",
               "translation": "your car is small",
               "options": [
                 "klein",
-                "sauber",
-                "schmutzig"
+                "Haus",
+                "Auto"
               ]
             },
             {
@@ -593,13 +593,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "sein _______.",
+              "sentence": "sein Haus ist _______",
               "blank": "sauber",
               "translation": "his house is clean",
               "options": [
                 "sauber",
-                "Auto",
-                "mein"
+                "Haus",
+                "Auto"
               ]
             },
             {
@@ -761,13 +761,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "mein _______.",
+              "sentence": "mein Auto ist sehr _______",
               "blank": "sauber",
               "translation": "my car is very clean",
               "options": [
                 "sauber",
-                "Name",
-                "das"
+                "Haus",
+                "Auto"
               ]
             },
             {
@@ -937,13 +937,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das ist mein _______",
               "blank": "Auto",
               "translation": "this is my car",
               "options": [
                 "Auto",
-                "groß",
-                "ist"
+                "Haus",
+                "Buch"
               ]
             },
             {
@@ -1102,13 +1102,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "dort _______.",
+              "sentence": "dort ist dein _______",
               "blank": "Haus",
               "translation": "there is your house",
               "options": [
                 "Haus",
-                "schmutzig",
-                "neu"
+                "Auto",
+                "Buch"
               ]
             },
             {
@@ -1268,13 +1268,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "mein _______.",
+              "sentence": "mein Auto ist neu und _______",
               "blank": "sauber",
               "translation": "my car is new and clean",
               "options": [
                 "sauber",
-                "das",
-                "hier"
+                "Haus",
+                "Auto"
               ]
             },
             {
@@ -1436,13 +1436,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "mein _______.",
-              "blank": "Auto",
+              "sentence": "_______ Auto",
+              "blank": "mein",
               "translation": "my car",
               "options": [
-                "Auto",
                 "mein",
-                "ist"
+                "Haus",
+                "Auto"
               ]
             },
             {
@@ -1615,13 +1615,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das ist mein _______",
               "blank": "Auto",
               "translation": "this is my car",
               "options": [
                 "Auto",
                 "Haus",
-                "dein"
+                "Buch"
               ]
             },
             {
@@ -1795,13 +1795,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Kaffee, _______.",
+              "sentence": "Kaffee, _______",
               "blank": "bitte",
               "translation": "coffee, please",
               "options": [
                 "bitte",
-                "Brötchen",
-                "Kaffee"
+                "Brot",
+                "Brötchen"
               ]
             },
             {
@@ -1958,13 +1958,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Brot _______ Wasser.",
-              "blank": "und",
+              "sentence": "Brot und _______",
+              "blank": "Wasser",
               "translation": "bread and water",
               "options": [
                 "Wasser",
-                "Wasser",
-                "Milch"
+                "Brot",
+                "Brötchen"
               ]
             },
             {
@@ -2125,13 +2125,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "der _______.",
+              "sentence": "der Kaffee ist _______",
               "blank": "heiß",
               "translation": "the coffee is hot",
               "options": [
                 "heiß",
-                "heiß",
-                "kalt"
+                "Brot",
+                "Brötchen"
               ]
             },
             {
@@ -2290,13 +2290,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das Wasser ist _______",
               "blank": "kalt",
               "translation": "the water is cold",
               "options": [
                 "kalt",
-                "Brötchen",
-                "Tee"
+                "Brot",
+                "Brötchen"
               ]
             },
             {
@@ -2458,13 +2458,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das Brot ist sehr _______",
               "blank": "lecker",
               "translation": "the bread is very delicious",
               "options": [
                 "lecker",
-                "danke",
-                "Apfel"
+                "Brot",
+                "Brötchen"
               ]
             },
             {
@@ -2634,13 +2634,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ein _______.",
+              "sentence": "ein Brötchen mit Käse, _______",
               "blank": "bitte",
               "translation": "a bread roll with cheese, please",
               "options": [
                 "bitte",
-                "Milch",
-                "Wurst"
+                "Brot",
+                "Brötchen"
               ]
             },
             {
@@ -2799,13 +2799,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Tee _______.",
+              "sentence": "Tee mit Milch und _______",
               "blank": "Zucker",
               "translation": "tea with milk and sugar",
               "options": [
                 "Zucker",
-                "kalt",
-                "lecker"
+                "Brot",
+                "Brötchen"
               ]
             },
             {
@@ -2964,13 +2964,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Kaffee _______.",
+              "sentence": "Kaffee und frisches _______",
               "blank": "Brot",
               "translation": "coffee and fresh bread",
               "options": [
                 "Brot",
-                "Apfel",
-                "Zucker"
+                "Brötchen",
+                "Kaffee"
               ]
             },
             {
@@ -3131,13 +3131,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Kaffee, _______.",
+              "sentence": "Kaffee, _______",
               "blank": "bitte",
               "translation": "coffee, please",
               "options": [
                 "bitte",
-                "Tee",
-                "Wurst"
+                "Brot",
+                "Brötchen"
               ]
             },
             {
@@ -3310,13 +3310,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ein _______.",
+              "sentence": "ein Brötchen mit Käse, _______",
               "blank": "bitte",
               "translation": "a bread roll with cheese, please",
               "options": [
                 "bitte",
                 "Brot",
-                "Wasser"
+                "Brötchen"
               ]
             },
             {
@@ -3490,7 +3490,7 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das ist mein _______",
               "blank": "Vater",
               "translation": "this is my father",
               "options": [
@@ -3655,13 +3655,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "meine _______ nett.",
-              "blank": "Mutter",
+              "sentence": "meine Mutter ist _______",
+              "blank": "nett",
               "translation": "my mother is nice",
               "options": [
                 "nett",
-                "Sohn",
-                "Tochter"
+                "Vater",
+                "Mutter"
               ]
             },
             {
@@ -3823,13 +3823,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "mein _______.",
+              "sentence": "mein Bruder und meine _______",
               "blank": "Schwester",
               "translation": "my brother and my sister",
               "options": [
                 "Schwester",
-                "Mann",
-                "Frau"
+                "Vater",
+                "Mutter"
               ]
             },
             {
@@ -3988,13 +3988,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wer _______.",
-              "blank": "Frau?",
+              "sentence": "wer ist diese _______?",
+              "blank": "Frau",
               "translation": "who is this woman?",
               "options": [
-                "Frau?",
-                "Mutter",
-                "Schwester"
+                "Frau",
+                "Vater",
+                "Mutter"
               ]
             },
             {
@@ -4156,13 +4156,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das ist mein Freund _______",
               "blank": "Lukas",
               "translation": "this is my friend Lukas",
               "options": [
                 "Lukas",
-                "Guten Tag",
-                "Tschüss"
+                "Vater",
+                "Mutter"
               ]
             },
             {
@@ -4201,10 +4201,10 @@
             {
               "type": "type_word",
               "title": "Type the German spelling",
-              "prompt": "Type the German word for 'good day':",
-              "target": "Guten Tag",
-              "translation": "good day",
-              "hint": "Hint: starts with 'G'",
+              "prompt": "Type the German word for 'father':",
+              "target": "Vater",
+              "translation": "father",
+              "hint": "Hint: starts with 'V'",
               "audioUrl": ""
             },
             {
@@ -4332,13 +4332,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Guten _______.",
+              "sentence": "Guten Tag, Herr _______",
               "blank": "Müller",
               "translation": "good day, Mr. Mueller",
               "options": [
                 "Müller",
-                "Tochter",
-                "Kind"
+                "Vater",
+                "Mutter"
               ]
             },
             {
@@ -4497,13 +4497,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Hallo, _______.",
-              "blank": "du?",
+              "sentence": "Hallo, wie _______ du?",
+              "blank": "heißt",
               "translation": "hello, what is your name?",
               "options": [
-                "du?",
-                "Frau",
-                "Herr"
+                "heißt",
+                "Vater",
+                "Mutter"
               ]
             },
             {
@@ -4662,13 +4662,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Auf _______.",
+              "sentence": "Auf Wiedersehen, Frau _______",
               "blank": "Schmidt",
               "translation": "goodbye, Mrs. Schmidt",
               "options": [
                 "Schmidt",
-                "Tschüss",
-                "Auf Wiedersehen"
+                "Vater",
+                "Mutter"
               ]
             },
             {
@@ -4830,13 +4830,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das ist mein _______",
               "blank": "Vater",
               "translation": "this is my father",
               "options": [
                 "Vater",
-                "Schwester",
-                "Kind"
+                "Mutter",
+                "Bruder"
               ]
             },
             {
@@ -5009,13 +5009,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Guten _______.",
+              "sentence": "Guten Tag, Herr _______",
               "blank": "Müller",
               "translation": "good day, Mr. Mueller",
               "options": [
                 "Müller",
                 "Vater",
-                "Sohn"
+                "Mutter"
               ]
             },
             {
@@ -5188,13 +5188,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich lerne _______",
               "blank": "Deutsch",
               "translation": "I learn German",
               "options": [
                 "Deutsch",
-                "essen",
-                "wohnen"
+                "trinken",
+                "essen"
               ]
             },
             {
@@ -5351,13 +5351,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "du _______ Englisch.",
-              "blank": "sprichst",
+              "sentence": "du sprichst _______",
+              "blank": "Englisch",
               "translation": "you speak English",
               "options": [
                 "Englisch",
-                "arbeiten",
-                "gehen"
+                "trinken",
+                "essen"
               ]
             },
             {
@@ -5517,13 +5517,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wir _______.",
+              "sentence": "wir trinken _______",
               "blank": "Wasser",
               "translation": "we drink water",
               "options": [
                 "Wasser",
-                "Deutsch",
-                "Englisch"
+                "trinken",
+                "essen"
               ]
             },
             {
@@ -5681,13 +5681,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "er _______.",
+              "sentence": "er wohnt in _______",
               "blank": "Berlin",
               "translation": "he lives in Berlin",
               "options": [
                 "Berlin",
-                "essen",
-                "lernen"
+                "trinken",
+                "essen"
               ]
             },
             {
@@ -5849,13 +5849,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "sie _______.",
+              "sentence": "sie arbeitet _______",
               "blank": "viel",
               "translation": "she works a lot",
               "options": [
                 "viel",
-                "er",
-                "sie"
+                "trinken",
+                "essen"
               ]
             },
             {
@@ -6026,13 +6026,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich esse Brot und trinke _______",
               "blank": "Tee",
               "translation": "I eat bread and drink tea",
               "options": [
                 "Tee",
-                "gehen",
-                "sprechen"
+                "trinken",
+                "essen"
               ]
             },
             {
@@ -6192,13 +6192,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wir _______.",
+              "sentence": "wir kommen aus _______",
               "blank": "Deutschland",
               "translation": "we come from Germany",
               "options": [
                 "Deutschland",
-                "Englisch",
-                "ich"
+                "trinken",
+                "essen"
               ]
             },
             {
@@ -6357,13 +6357,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "du _______.",
+              "sentence": "du lernst sehr schnell _______",
               "blank": "Deutsch",
               "translation": "you learn German very fast",
               "options": [
                 "Deutsch",
-                "sie",
-                "wir"
+                "trinken",
+                "essen"
               ]
             },
             {
@@ -6524,13 +6524,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich lerne _______",
               "blank": "Deutsch",
               "translation": "I learn German",
               "options": [
                 "Deutsch",
-                "lernen",
-                "sprechen"
+                "trinken",
+                "essen"
               ]
             },
             {
@@ -6704,13 +6704,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich esse Brot und trinke _______",
               "blank": "Tee",
               "translation": "I eat bread and drink tea",
               "options": [
                 "Tee",
                 "trinken",
-                "arbeiten"
+                "essen"
               ]
             },
             {
@@ -6883,13 +6883,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "zwei _______.",
+              "sentence": "zwei Euro, _______",
               "blank": "bitte",
               "translation": "two euros, please",
               "options": [
                 "bitte",
-                "zwei",
-                "drei"
+                "eins",
+                "zwei"
               ]
             },
             {
@@ -7047,13 +7047,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "drei _______ Brot.",
-              "blank": "Brötchen",
+              "sentence": "drei Brötchen und ein _______",
+              "blank": "Brot",
               "translation": "three bread rolls and one bread",
               "options": [
                 "Brot",
-                "fünf",
-                "sechs"
+                "eins",
+                "zwei"
               ]
             },
             {
@@ -7215,13 +7215,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wie _______.",
-              "blank": "das?",
+              "sentence": "wie viel kostet _______?",
+              "blank": "das",
               "translation": "how much does that cost?",
               "options": [
-                "das?",
-                "neun",
-                "zehn"
+                "das",
+                "eins",
+                "zwei"
               ]
             },
             {
@@ -7380,13 +7380,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das kostet fünf _______",
               "blank": "Euro",
               "translation": "that costs five euros",
               "options": [
                 "Euro",
-                "zwei",
-                "vier"
+                "eins",
+                "zwei"
               ]
             },
             {
@@ -7547,13 +7547,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "vier _______.",
+              "sentence": "vier Äpfel, _______",
               "blank": "bitte",
               "translation": "four apples, please",
               "options": [
                 "bitte",
-                "kostet",
-                "wie viel"
+                "eins",
+                "zwei"
               ]
             },
             {
@@ -7722,13 +7722,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "der _______.",
+              "sentence": "der Kaffee ist nicht _______",
               "blank": "teuer",
               "translation": "the coffee is not expensive",
               "options": [
                 "teuer",
-                "sechs",
-                "acht"
+                "eins",
+                "zwei"
               ]
             },
             {
@@ -7887,13 +7887,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
-              "blank": "Euro",
+              "sentence": "das Buch kostet _______ Euro",
+              "blank": "zehn",
               "translation": "the book costs ten euros",
               "options": [
-                "Euro",
                 "zehn",
-                "Euro"
+                "eins",
+                "zwei"
               ]
             },
             {
@@ -8052,13 +8052,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "zwei _______.",
+              "sentence": "zwei Kaffee und zwei _______",
               "blank": "Brötchen",
               "translation": "two coffees and two bread rolls",
               "options": [
                 "Brötchen",
-                "wie viel",
-                "teuer"
+                "eins",
+                "zwei"
               ]
             },
             {
@@ -8097,10 +8097,10 @@
             {
               "type": "type_word",
               "title": "Type the German spelling",
-              "prompt": "Type the German word for 'how much':",
-              "target": "wie viel",
-              "translation": "how much",
-              "hint": "Hint: starts with 'w'",
+              "prompt": "Type the German word for 'one':",
+              "target": "eins",
+              "translation": "one",
+              "hint": "Hint: starts with 'e'",
               "audioUrl": ""
             },
             {
@@ -8219,13 +8219,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "zwei _______.",
+              "sentence": "zwei Euro, _______",
               "blank": "bitte",
               "translation": "two euros, please",
               "options": [
                 "bitte",
-                "vier",
-                "acht"
+                "eins",
+                "zwei"
               ]
             },
             {
@@ -8398,13 +8398,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "der _______.",
+              "sentence": "der Kaffee ist nicht _______",
               "blank": "teuer",
               "translation": "the coffee is not expensive",
               "options": [
                 "teuer",
                 "eins",
-                "fünf"
+                "zwei"
               ]
             },
             {
@@ -8578,13 +8578,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wo _______.",
-              "blank": "Schlüssel?",
+              "sentence": "wo ist der _______?",
+              "blank": "Schlüssel",
               "translation": "where is the key?",
               "options": [
-                "Schlüssel?",
-                "Küche",
-                "Bad"
+                "Schlüssel",
+                "Zimmer",
+                "Küche"
               ]
             },
             {
@@ -8744,13 +8744,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "der _______ Tisch.",
-              "blank": "Schlüssel",
+              "sentence": "der Schlüssel ist auf dem _______",
+              "blank": "Tisch",
               "translation": "the key is on the table",
               "options": [
                 "Tisch",
-                "Tisch",
-                "Stuhl"
+                "Zimmer",
+                "Küche"
               ]
             },
             {
@@ -8914,13 +8914,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "meine _______.",
-              "blank": "Küche",
+              "sentence": "meine Mutter ist _______ der Küche",
+              "blank": "in",
               "translation": "my mother is in the kitchen",
               "options": [
-                "Küche",
                 "in",
-                "auf"
+                "Zimmer",
+                "Küche"
               ]
             },
             {
@@ -9081,13 +9081,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "der _______.",
+              "sentence": "der Stuhl steht neben dem _______",
               "blank": "Bett",
               "translation": "the chair stands next to the bed",
               "options": [
                 "Bett",
-                "Küche",
-                "Wohnzimmer"
+                "Zimmer",
+                "Küche"
               ]
             },
             {
@@ -9251,13 +9251,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das Zimmer ist groß und _______",
               "blank": "hell",
               "translation": "the room is big and bright",
               "options": [
                 "hell",
-                "wo",
-                "Schlüssel"
+                "Zimmer",
+                "Küche"
               ]
             },
             {
@@ -9429,13 +9429,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das Buch liegt auf dem _______",
               "blank": "Stuhl",
               "translation": "the book lies on the chair",
               "options": [
                 "Stuhl",
-                "Stuhl",
-                "Schrank"
+                "Zimmer",
+                "Küche"
               ]
             },
             {
@@ -9596,13 +9596,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das Bad ist sehr _______",
               "blank": "sauber",
               "translation": "the bathroom is very clean",
               "options": [
                 "sauber",
-                "auf",
-                "unter"
+                "Zimmer",
+                "Küche"
               ]
             },
             {
@@ -9763,13 +9763,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "die _______.",
+              "sentence": "die Küche ist modern und _______",
               "blank": "schön",
               "translation": "the kitchen is modern and nice",
               "options": [
                 "schön",
-                "Schlüssel",
-                "Tür"
+                "Zimmer",
+                "Küche"
               ]
             },
             {
@@ -9932,13 +9932,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wo _______.",
-              "blank": "Schlüssel?",
+              "sentence": "wo ist der _______?",
+              "blank": "Schlüssel",
               "translation": "where is the key?",
               "options": [
-                "Schlüssel?",
-                "Wohnzimmer",
-                "Schrank"
+                "Schlüssel",
+                "Zimmer",
+                "Küche"
               ]
             },
             {
@@ -10113,13 +10113,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das Buch liegt auf dem _______",
               "blank": "Stuhl",
               "translation": "the book lies on the chair",
               "options": [
                 "Stuhl",
                 "Zimmer",
-                "Tisch"
+                "Küche"
               ]
             },
             {
@@ -10294,13 +10294,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "es _______.",
+              "sentence": "es ist acht _______",
               "blank": "Uhr",
               "translation": "it is eight o'clock",
               "options": [
                 "Uhr",
-                "Mittag",
-                "Abend"
+                "Morgen",
+                "Mittag"
               ]
             },
             {
@@ -10459,13 +10459,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Guten _______ Frühstück.",
-              "blank": "Morgen!",
+              "sentence": "Guten Morgen! Zeit fürs _______",
+              "blank": "Frühstück",
               "translation": "good morning! time for breakfast",
               "options": [
                 "Frühstück",
-                "Uhr",
-                "spät"
+                "Morgen",
+                "Mittag"
               ]
             },
             {
@@ -10627,13 +10627,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "heute _______.",
+              "sentence": "heute lerne ich _______",
               "blank": "Deutsch",
               "translation": "today I learn German",
               "options": [
                 "Deutsch",
-                "jetzt",
-                "morgen"
+                "Morgen",
+                "Mittag"
               ]
             },
             {
@@ -10792,13 +10792,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wir _______.",
+              "sentence": "wir essen um sieben _______",
               "blank": "Uhr",
               "translation": "we eat at seven o'clock",
               "options": [
                 "Uhr",
-                "Mittag",
-                "Nacht"
+                "Morgen",
+                "Mittag"
               ]
             },
             {
@@ -10961,13 +10961,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "es _______.",
+              "sentence": "es ist schon sehr _______",
               "blank": "spät",
               "translation": "it is already very late",
               "options": [
                 "spät",
-                "wann",
-                "immer"
+                "Morgen",
+                "Mittag"
               ]
             },
             {
@@ -11139,13 +11139,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "am _______.",
+              "sentence": "am Abend trinke ich _______",
               "blank": "Tee",
               "translation": "in the evening I drink tea",
               "options": [
                 "Tee",
-                "spät",
-                "heute"
+                "Morgen",
+                "Mittag"
               ]
             },
             {
@@ -11305,13 +11305,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wann _______.",
-              "blank": "du?",
+              "sentence": "wann _______ du?",
+              "blank": "frühstückst",
               "translation": "when do you have breakfast?",
               "options": [
-                "du?",
-                "morgen",
-                "Frühstück"
+                "frühstückst",
+                "Morgen",
+                "Mittag"
               ]
             },
             {
@@ -11470,13 +11470,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "jetzt _______.",
+              "sentence": "jetzt habe ich _______",
               "blank": "Zeit",
               "translation": "now I have time",
               "options": [
                 "Zeit",
-                "immer",
-                "oft"
+                "Morgen",
+                "Mittag"
               ]
             },
             {
@@ -11638,13 +11638,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "es _______.",
+              "sentence": "es ist acht _______",
               "blank": "Uhr",
               "translation": "it is eight o'clock",
               "options": [
                 "Uhr",
-                "Nacht",
-                "heute"
+                "Morgen",
+                "Mittag"
               ]
             },
             {
@@ -11818,13 +11818,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "am _______.",
+              "sentence": "am Abend trinke ich _______",
               "blank": "Tee",
               "translation": "in the evening I drink tea",
               "options": [
                 "Tee",
                 "Morgen",
-                "Uhr"
+                "Mittag"
               ]
             },
             {
@@ -11998,13 +11998,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "die _______.",
+              "sentence": "die Jacke ist _______",
               "blank": "warm",
               "translation": "the jacket is warm",
               "options": [
                 "warm",
-                "rot",
-                "grün"
+                "blau",
+                "rot"
               ]
             },
             {
@@ -12163,13 +12163,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "mein _______ blau.",
-              "blank": "Hemd",
+              "sentence": "mein Hemd ist _______",
+              "blank": "blau",
               "translation": "my shirt is blue",
               "options": [
                 "blau",
-                "schwarz",
-                "weiß"
+                "rot",
+                "grün"
               ]
             },
             {
@@ -12331,13 +12331,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "die _______.",
+              "sentence": "die Hose ist _______",
               "blank": "schwarz",
               "translation": "the pants are black",
               "options": [
                 "schwarz",
-                "Jacke",
-                "Schuhe"
+                "blau",
+                "rot"
               ]
             },
             {
@@ -12496,13 +12496,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich trage rote _______",
               "blank": "Schuhe",
               "translation": "I wear red shoes",
               "options": [
                 "Schuhe",
-                "rot",
-                "gelb"
+                "blau",
+                "rot"
               ]
             },
             {
@@ -12664,13 +12664,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das Wetter ist heute _______",
               "blank": "schön",
               "translation": "the weather is nice today",
               "options": [
                 "schön",
-                "kalt",
-                "schön"
+                "blau",
+                "rot"
               ]
             },
             {
@@ -12841,13 +12841,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das Kleid ist grün und _______",
               "blank": "neu",
               "translation": "the dress is green and new",
               "options": [
                 "neu",
-                "weiß",
-                "Hose"
+                "blau",
+                "rot"
               ]
             },
             {
@@ -13008,13 +13008,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "im _______.",
+              "sentence": "im Winter ist es sehr _______",
               "blank": "kalt",
               "translation": "in winter it is very cold",
               "options": [
                 "kalt",
-                "Schuhe",
-                "Kleid"
+                "blau",
+                "rot"
               ]
             },
             {
@@ -13175,13 +13175,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "seine _______.",
+              "sentence": "seine Schuhe sind sauber und _______",
               "blank": "schwarz",
               "translation": "his shoes are clean and black",
               "options": [
                 "schwarz",
-                "schön",
-                "tragen"
+                "blau",
+                "rot"
               ]
             },
             {
@@ -13344,13 +13344,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "die _______.",
+              "sentence": "die Jacke ist _______",
               "blank": "warm",
               "translation": "the jacket is warm",
               "options": [
                 "warm",
-                "gelb",
-                "Hose"
+                "blau",
+                "rot"
               ]
             },
             {
@@ -13525,13 +13525,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
+              "sentence": "das Kleid ist grün und _______",
               "blank": "neu",
               "translation": "the dress is green and new",
               "options": [
                 "neu",
                 "blau",
-                "schwarz"
+                "rot"
               ]
             },
             {
@@ -13706,13 +13706,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich möchte zahlen, _______",
               "blank": "bitte",
               "translation": "I would like to pay, please",
               "options": [
                 "bitte",
-                "ich brauche",
-                "gern"
+                "ich möchte",
+                "ich brauche"
               ]
             },
             {
@@ -13751,10 +13751,10 @@
             {
               "type": "type_word",
               "title": "Type the German spelling",
-              "prompt": "Type the German word for 'I would like':",
-              "target": "ich möchte",
-              "translation": "I would like",
-              "hint": "Hint: starts with 'i'",
+              "prompt": "Type the German word for 'gladly / like to':",
+              "target": "gern",
+              "translation": "gladly / like to",
+              "hint": "Hint: starts with 'g'",
               "audioUrl": ""
             },
             {
@@ -13870,13 +13870,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "die _______ bitte.",
-              "blank": "Rechnung,",
+              "sentence": "die Rechnung, _______",
+              "blank": "bitte",
               "translation": "the check, please",
               "options": [
                 "bitte",
-                "kein",
-                "Entschuldigung"
+                "ich möchte",
+                "ich brauche"
               ]
             },
             {
@@ -14037,13 +14037,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich trinke gern _______",
               "blank": "Kaffee",
               "translation": "I like to drink coffee",
               "options": [
                 "Kaffee",
-                "kein Problem",
-                "Hilfe"
+                "ich möchte",
+                "ich brauche"
               ]
             },
             {
@@ -14082,10 +14082,10 @@
             {
               "type": "type_word",
               "title": "Type the German spelling",
-              "prompt": "Type the German word for 'no problem':",
-              "target": "kein Problem",
-              "translation": "no problem",
-              "hint": "Hint: starts with 'k'",
+              "prompt": "Type the German word for 'gladly / like to':",
+              "target": "gern",
+              "translation": "gladly / like to",
+              "hint": "Hint: starts with 'g'",
               "audioUrl": ""
             },
             {
@@ -14202,13 +14202,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich brauche deine _______",
               "blank": "Hilfe",
               "translation": "I need your help",
               "options": [
                 "Hilfe",
-                "ich brauche",
-                "nicht"
+                "ich möchte",
+                "ich brauche"
               ]
             },
             {
@@ -14247,10 +14247,10 @@
             {
               "type": "type_word",
               "title": "Type the German spelling",
-              "prompt": "Type the German word for 'I need':",
-              "target": "ich brauche",
-              "translation": "I need",
-              "hint": "Hint: starts with 'i'",
+              "prompt": "Type the German word for 'gladly / like to':",
+              "target": "gern",
+              "translation": "gladly / like to",
+              "hint": "Hint: starts with 'g'",
               "audioUrl": ""
             },
             {
@@ -14370,13 +14370,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "Entschuldigung, _______.",
-              "blank": "Englisch?",
+              "sentence": "Entschuldigung, sprechen Sie _______?",
+              "blank": "Englisch",
               "translation": "excuse me, do you speak English?",
               "options": [
-                "Englisch?",
-                "zahlen",
-                "mögen"
+                "Englisch",
+                "ich möchte",
+                "ich brauche"
               ]
             },
             {
@@ -14546,13 +14546,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "vielen _______.",
-              "blank": "geschehen!",
+              "sentence": "vielen Dank! - Gern _______!",
+              "blank": "geschehen",
               "translation": "thank you very much! - You're welcome!",
               "options": [
-                "geschehen!",
-                "Entschuldigung",
-                "gern geschehen"
+                "geschehen",
+                "ich möchte",
+                "ich brauche"
               ]
             },
             {
@@ -14711,13 +14711,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich esse nicht gern _______",
               "blank": "Fleisch",
               "translation": "I do not like to eat meat",
               "options": [
                 "Fleisch",
-                "Hilfe",
-                "helfen"
+                "ich möchte",
+                "ich brauche"
               ]
             },
             {
@@ -14876,13 +14876,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "können _______.",
-              "blank": "helfen?",
+              "sentence": "können Sie mir bitte _______?",
+              "blank": "helfen",
               "translation": "could you please help me?",
               "options": [
-                "helfen?",
-                "mögen",
-                "vielleicht"
+                "helfen",
+                "ich möchte",
+                "ich brauche"
               ]
             },
             {
@@ -15044,13 +15044,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich möchte zahlen, _______",
               "blank": "bitte",
               "translation": "I would like to pay, please",
               "options": [
                 "bitte",
-                "nicht",
-                "gern geschehen"
+                "ich möchte",
+                "ich brauche"
               ]
             },
             {
@@ -15223,13 +15223,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "vielen _______.",
-              "blank": "geschehen!",
+              "sentence": "vielen Dank! - Gern _______!",
+              "blank": "geschehen",
               "translation": "thank you very much! - You're welcome!",
               "options": [
-                "geschehen!",
+                "geschehen",
                 "ich möchte",
-                "kein"
+                "ich brauche"
               ]
             },
             {
@@ -15403,13 +15403,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wo _______.",
-              "blank": "Straße?",
+              "sentence": "wo ist die _______?",
+              "blank": "Straße",
               "translation": "where is the street?",
               "options": [
-                "Straße?",
-                "wie",
-                "wer"
+                "Straße",
+                "wo ist",
+                "wie"
               ]
             },
             {
@@ -15448,9 +15448,9 @@
             {
               "type": "type_word",
               "title": "Type the German spelling",
-              "prompt": "Type the German word for 'where is':",
-              "target": "wo ist",
-              "translation": "where is",
+              "prompt": "Type the German word for 'how':",
+              "target": "wie",
+              "translation": "how",
               "hint": "Hint: starts with 'w'",
               "audioUrl": ""
             },
@@ -15568,13 +15568,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "bitte _______ geradeaus.",
-              "blank": "gehen",
+              "sentence": "bitte gehen Sie _______",
+              "blank": "geradeaus",
               "translation": "please go straight ahead",
               "options": [
                 "geradeaus",
-                "wann",
-                "warum"
+                "wo ist",
+                "wie"
               ]
             },
             {
@@ -15736,13 +15736,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "biegen _______.",
-              "blank": "ab",
+              "sentence": "biegen Sie _______ ab",
+              "blank": "links",
               "translation": "turn left",
               "options": [
-                "ab",
-                "geradeaus",
-                "nah"
+                "links",
+                "wo ist",
+                "wie"
               ]
             },
             {
@@ -15901,13 +15901,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "an _______.",
+              "sentence": "an der Ampel nach _______",
               "blank": "rechts",
               "translation": "at the traffic light to the right",
               "options": [
                 "rechts",
-                "wie",
-                "was"
+                "wo ist",
+                "wie"
               ]
             },
             {
@@ -16070,13 +16070,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ist _______.",
-              "blank": "hier?",
+              "sentence": "ist es weit von _______?",
+              "blank": "hier",
               "translation": "is it far from here?",
               "options": [
-                "hier?",
-                "Ampel",
-                "Straße"
+                "hier",
+                "wo ist",
+                "wie"
               ]
             },
             {
@@ -16248,13 +16248,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "nein, _______.",
+              "sentence": "nein, es ist ganz _______",
               "blank": "nah",
               "translation": "no, it is very close",
               "options": [
                 "nah",
-                "warum",
-                "rechts"
+                "wo ist",
+                "wie"
               ]
             },
             {
@@ -16414,13 +16414,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wohin _______.",
-              "blank": "jetzt?",
+              "sentence": "wohin gehen Sie _______?",
+              "blank": "jetzt",
               "translation": "where are you going now?",
               "options": [
-                "jetzt?",
-                "nah",
-                "weit"
+                "jetzt",
+                "wo ist",
+                "wie"
               ]
             },
             {
@@ -16580,13 +16580,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "die _______.",
+              "sentence": "die Apotheke ist an der _______",
               "blank": "Ecke",
               "translation": "the pharmacy is on the corner",
               "options": [
                 "Ecke",
-                "Straße",
-                "hier"
+                "wo ist",
+                "wie"
               ]
             },
             {
@@ -16749,13 +16749,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wo _______.",
-              "blank": "Straße?",
+              "sentence": "wo ist die _______?",
+              "blank": "Straße",
               "translation": "where is the street?",
               "options": [
-                "Straße?",
-                "was",
-                "rechts"
+                "Straße",
+                "wo ist",
+                "wie"
               ]
             },
             {
@@ -16929,13 +16929,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "nein, _______.",
+              "sentence": "nein, es ist ganz _______",
               "blank": "nah",
               "translation": "no, it is very close",
               "options": [
                 "nah",
                 "wo ist",
-                "wann"
+                "wie"
               ]
             },
             {
@@ -17110,13 +17110,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "eine _______.",
+              "sentence": "eine Fahrkarte nach Berlin, _______",
               "blank": "bitte",
               "translation": "a ticket to Berlin, please",
               "options": [
                 "bitte",
-                "Zug",
-                "Bus"
+                "Bahnhof",
+                "Zug"
               ]
             },
             {
@@ -17277,13 +17277,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "der _______ ab.",
-              "blank": "Zug",
+              "sentence": "der Zug fährt um zehn _______ ab",
+              "blank": "Uhr",
               "translation": "the train departs at ten o'clock",
               "options": [
-                "ab",
-                "Flughafen",
-                "Fahrkarte"
+                "Uhr",
+                "Bahnhof",
+                "Zug"
               ]
             },
             {
@@ -17448,13 +17448,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "von _______.",
-              "blank": "Zug?",
+              "sentence": "von welchem Gleis fährt der _______?",
+              "blank": "Zug",
               "translation": "from which platform does the train depart?",
               "options": [
-                "Zug?",
-                "Supermarkt",
-                "Hotel"
+                "Zug",
+                "Bahnhof",
+                "Bus"
               ]
             },
             {
@@ -17615,13 +17615,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "der _______.",
-              "blank": "vier",
+              "sentence": "der _______ steht auf Gleis vier",
+              "blank": "Zug",
               "translation": "the train is on platform four",
               "options": [
-                "vier",
                 "Zug",
-                "U-Bahn"
+                "Bahnhof",
+                "Bus"
               ]
             },
             {
@@ -17785,13 +17785,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich fahre mit der _______",
               "blank": "U-Bahn",
               "translation": "I travel by subway",
               "options": [
                 "U-Bahn",
-                "Zentrum",
-                "Haltestelle"
+                "Bahnhof",
+                "Zug"
               ]
             },
             {
@@ -17962,13 +17962,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wo _______.",
-              "blank": "Supermarkt?",
+              "sentence": "wo ist der nächste _______?",
+              "blank": "Supermarkt",
               "translation": "where is the nearest supermarket?",
               "options": [
-                "Supermarkt?",
-                "Fahrkarte",
-                "Apotheke"
+                "Supermarkt",
+                "Bahnhof",
+                "Zug"
               ]
             },
             {
@@ -18127,13 +18127,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "das _______.",
-              "blank": "Stadtzentrum",
+              "sentence": "das _______ liegt im Stadtzentrum",
+              "blank": "Hotel",
               "translation": "the hotel is located in the city center",
               "options": [
-                "Stadtzentrum",
                 "Hotel",
-                "Park"
+                "Bahnhof",
+                "Zug"
               ]
             },
             {
@@ -18293,13 +18293,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "der _______.",
+              "sentence": "der Bus kommt in fünf _______",
               "blank": "Minuten",
               "translation": "the bus arrives in five minutes",
               "options": [
                 "Minuten",
-                "Haltestelle",
-                "fahren"
+                "Bahnhof",
+                "Zug"
               ]
             },
             {
@@ -18462,13 +18462,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "eine _______.",
+              "sentence": "eine Fahrkarte nach Berlin, _______",
               "blank": "bitte",
               "translation": "a ticket to Berlin, please",
               "options": [
                 "bitte",
-                "U-Bahn",
-                "Apotheke"
+                "Bahnhof",
+                "Zug"
               ]
             },
             {
@@ -18641,13 +18641,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wo _______.",
-              "blank": "Supermarkt?",
+              "sentence": "wo ist der nächste _______?",
+              "blank": "Supermarkt",
               "translation": "where is the nearest supermarket?",
               "options": [
-                "Supermarkt?",
+                "Supermarkt",
                 "Bahnhof",
-                "Flughafen"
+                "Zug"
               ]
             },
             {
@@ -18822,13 +18822,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wie _______.",
-              "blank": "dir?",
+              "sentence": "wie geht es _______?",
+              "blank": "dir",
               "translation": "how are you?",
               "options": [
-                "dir?",
-                "sehr gut",
-                "schlecht"
+                "dir",
+                "gut",
+                "sehr gut"
               ]
             },
             {
@@ -18988,13 +18988,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "danke, _______ gut.",
-              "blank": "mir",
+              "sentence": "danke, mir geht es sehr _______",
+              "blank": "gut",
               "translation": "thank you, I am doing very well",
               "options": [
                 "gut",
-                "krank",
-                "gesund"
+                "sehr gut",
+                "schlecht"
               ]
             },
             {
@@ -19158,13 +19158,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich fühle mich heute _______",
               "blank": "müde",
               "translation": "I feel tired today",
               "options": [
                 "müde",
-                "Kopfschmerzen",
-                "Medizin"
+                "gut",
+                "sehr gut"
               ]
             },
             {
@@ -19326,13 +19326,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "er _______.",
+              "sentence": "er ist krank und braucht einen _______",
               "blank": "Arzt",
               "translation": "he is sick and needs a doctor",
               "options": [
                 "Arzt",
-                "sehr gut",
-                "müde"
+                "gut",
+                "sehr gut"
               ]
             },
             {
@@ -19373,10 +19373,10 @@
             {
               "type": "type_word",
               "title": "Type the German spelling",
-              "prompt": "Type the German word for 'very good':",
-              "target": "sehr gut",
-              "translation": "very good",
-              "hint": "Hint: starts with 's'",
+              "prompt": "Type the German word for 'good':",
+              "target": "gut",
+              "translation": "good",
+              "hint": "Hint: starts with 'g'",
               "audioUrl": ""
             },
             {
@@ -19497,13 +19497,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "trinken _______.",
+              "sentence": "trinken _______ viel Wasser und schlafen Sie",
               "blank": "Sie",
               "translation": "drink plenty of water and sleep",
               "options": [
                 "Sie",
-                "fühlen",
-                "Glückwunsch"
+                "gut",
+                "sehr gut"
               ]
             },
             {
@@ -19674,13 +19674,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich habe _______",
               "blank": "Kopfschmerzen",
               "translation": "I have a headache",
               "options": [
                 "Kopfschmerzen",
-                "gesund",
-                "Kopf"
+                "gut",
+                "sehr gut"
               ]
             },
             {
@@ -19839,13 +19839,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "herzlichen _______.",
-              "blank": "Erfolg!",
+              "sentence": "herzlichen Glückwunsch zum _______!",
+              "blank": "Erfolg",
               "translation": "congratulations on your success!",
               "options": [
-                "Erfolg!",
-                "Medizin",
-                "Wasser"
+                "Erfolg",
+                "gut",
+                "sehr gut"
               ]
             },
             {
@@ -20006,13 +20006,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
-              "blank": "Deutsch!",
+              "sentence": "ich habe Section 1 geschafft und spreche _______!",
+              "blank": "Deutsch",
               "translation": "I completed Section 1 and speak German!",
               "options": [
-                "Deutsch!",
-                "Glückwunsch",
-                "fertig"
+                "Deutsch",
+                "gut",
+                "sehr gut"
               ]
             },
             {
@@ -20176,13 +20176,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "wie _______.",
-              "blank": "dir?",
+              "sentence": "wie geht es _______?",
+              "blank": "dir",
               "translation": "how are you?",
               "options": [
-                "dir?",
-                "müde",
-                "Kopf"
+                "dir",
+                "gut",
+                "sehr gut"
               ]
             },
             {
@@ -20355,13 +20355,13 @@
             {
               "type": "cloze_test",
               "title": "Fill in the blank",
-              "sentence": "ich _______.",
+              "sentence": "ich habe _______",
               "blank": "Kopfschmerzen",
               "translation": "I have a headache",
               "options": [
                 "Kopfschmerzen",
                 "gut",
-                "krank"
+                "sehr gut"
               ]
             },
             {

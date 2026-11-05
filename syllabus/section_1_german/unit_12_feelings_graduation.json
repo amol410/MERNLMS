@@ -88,13 +88,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wie _______.",
-          "blank": "dir?",
+          "sentence": "wie geht es _______?",
+          "blank": "dir",
           "translation": "how are you?",
           "options": [
-            "dir?",
-            "sehr gut",
-            "schlecht"
+            "dir",
+            "gut",
+            "sehr gut"
           ]
         },
         {
@@ -254,13 +254,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "danke, _______ gut.",
-          "blank": "mir",
+          "sentence": "danke, mir geht es sehr _______",
+          "blank": "gut",
           "translation": "thank you, I am doing very well",
           "options": [
             "gut",
-            "krank",
-            "gesund"
+            "sehr gut",
+            "schlecht"
           ]
         },
         {
@@ -424,13 +424,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
+          "sentence": "ich fühle mich heute _______",
           "blank": "müde",
           "translation": "I feel tired today",
           "options": [
             "müde",
-            "Kopfschmerzen",
-            "Medizin"
+            "gut",
+            "sehr gut"
           ]
         },
         {
@@ -592,13 +592,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "er _______.",
+          "sentence": "er ist krank und braucht einen _______",
           "blank": "Arzt",
           "translation": "he is sick and needs a doctor",
           "options": [
             "Arzt",
-            "sehr gut",
-            "müde"
+            "gut",
+            "sehr gut"
           ]
         },
         {
@@ -639,10 +639,10 @@
         {
           "type": "type_word",
           "title": "Type the German spelling",
-          "prompt": "Type the German word for 'very good':",
-          "target": "sehr gut",
-          "translation": "very good",
-          "hint": "Hint: starts with 's'",
+          "prompt": "Type the German word for 'good':",
+          "target": "gut",
+          "translation": "good",
+          "hint": "Hint: starts with 'g'",
           "audioUrl": ""
         },
         {
@@ -763,13 +763,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "trinken _______.",
+          "sentence": "trinken _______ viel Wasser und schlafen Sie",
           "blank": "Sie",
           "translation": "drink plenty of water and sleep",
           "options": [
             "Sie",
-            "fühlen",
-            "Glückwunsch"
+            "gut",
+            "sehr gut"
           ]
         },
         {
@@ -940,13 +940,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
+          "sentence": "ich habe _______",
           "blank": "Kopfschmerzen",
           "translation": "I have a headache",
           "options": [
             "Kopfschmerzen",
-            "gesund",
-            "Kopf"
+            "gut",
+            "sehr gut"
           ]
         },
         {
@@ -1105,13 +1105,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "herzlichen _______.",
-          "blank": "Erfolg!",
+          "sentence": "herzlichen Glückwunsch zum _______!",
+          "blank": "Erfolg",
           "translation": "congratulations on your success!",
           "options": [
-            "Erfolg!",
-            "Medizin",
-            "Wasser"
+            "Erfolg",
+            "gut",
+            "sehr gut"
           ]
         },
         {
@@ -1272,13 +1272,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
-          "blank": "Deutsch!",
+          "sentence": "ich habe Section 1 geschafft und spreche _______!",
+          "blank": "Deutsch",
           "translation": "I completed Section 1 and speak German!",
           "options": [
-            "Deutsch!",
-            "Glückwunsch",
-            "fertig"
+            "Deutsch",
+            "gut",
+            "sehr gut"
           ]
         },
         {
@@ -1442,13 +1442,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "wie _______.",
-          "blank": "dir?",
+          "sentence": "wie geht es _______?",
+          "blank": "dir",
           "translation": "how are you?",
           "options": [
-            "dir?",
-            "müde",
-            "Kopf"
+            "dir",
+            "gut",
+            "sehr gut"
           ]
         },
         {
@@ -1621,13 +1621,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "ich _______.",
+          "sentence": "ich habe _______",
           "blank": "Kopfschmerzen",
           "translation": "I have a headache",
           "options": [
             "Kopfschmerzen",
             "gut",
-            "krank"
+            "sehr gut"
           ]
         },
         {

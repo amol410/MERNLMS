@@ -87,12 +87,12 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "mein _______.",
+          "sentence": "mein _______",
           "blank": "Auto",
           "translation": "my car",
           "options": [
             "Auto",
-            "Auto",
+            "Haus",
             "Buch"
           ]
         },
@@ -251,13 +251,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "mein _______ groß.",
-          "blank": "Haus",
+          "sentence": "mein Haus ist _______",
+          "blank": "groß",
           "translation": "my house is big",
           "options": [
             "groß",
-            "dein",
-            "groß"
+            "Haus",
+            "Auto"
           ]
         },
         {
@@ -419,13 +419,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "dein _______.",
+          "sentence": "dein Auto ist _______",
           "blank": "klein",
           "translation": "your car is small",
           "options": [
             "klein",
-            "sauber",
-            "schmutzig"
+            "Haus",
+            "Auto"
           ]
         },
         {
@@ -584,13 +584,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "sein _______.",
+          "sentence": "sein Haus ist _______",
           "blank": "sauber",
           "translation": "his house is clean",
           "options": [
             "sauber",
-            "Auto",
-            "mein"
+            "Haus",
+            "Auto"
           ]
         },
         {
@@ -752,13 +752,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "mein _______.",
+          "sentence": "mein Auto ist sehr _______",
           "blank": "sauber",
           "translation": "my car is very clean",
           "options": [
             "sauber",
-            "Name",
-            "das"
+            "Haus",
+            "Auto"
           ]
         },
         {
@@ -928,13 +928,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das ist mein _______",
           "blank": "Auto",
           "translation": "this is my car",
           "options": [
             "Auto",
-            "groß",
-            "ist"
+            "Haus",
+            "Buch"
           ]
         },
         {
@@ -1093,13 +1093,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "dort _______.",
+          "sentence": "dort ist dein _______",
           "blank": "Haus",
           "translation": "there is your house",
           "options": [
             "Haus",
-            "schmutzig",
-            "neu"
+            "Auto",
+            "Buch"
           ]
         },
         {
@@ -1259,13 +1259,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "mein _______.",
+          "sentence": "mein Auto ist neu und _______",
           "blank": "sauber",
           "translation": "my car is new and clean",
           "options": [
             "sauber",
-            "das",
-            "hier"
+            "Haus",
+            "Auto"
           ]
         },
         {
@@ -1427,13 +1427,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "mein _______.",
-          "blank": "Auto",
+          "sentence": "_______ Auto",
+          "blank": "mein",
           "translation": "my car",
           "options": [
-            "Auto",
             "mein",
-            "ist"
+            "Haus",
+            "Auto"
           ]
         },
         {
@@ -1606,13 +1606,13 @@
         {
           "type": "cloze_test",
           "title": "Fill in the blank",
-          "sentence": "das _______.",
+          "sentence": "das ist mein _______",
           "blank": "Auto",
           "translation": "this is my car",
           "options": [
             "Auto",
             "Haus",
-            "dein"
+            "Buch"
           ]
         },
         {
