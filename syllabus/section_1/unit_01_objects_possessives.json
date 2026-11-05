@@ -87,12 +87,12 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "my _______.",
+          "sentence": "my _______",
           "blank": "car",
           "translation": "मेरी गाड़ी",
           "options": [
             "car",
-            "car",
+            "house",
             "my"
           ]
         },
@@ -251,13 +251,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "my _______ big.",
-          "blank": "house",
+          "sentence": "my house is _______",
+          "blank": "big",
           "translation": "मेरा घर बड़ा है।",
           "options": [
             "big",
-            "big",
-            "small"
+            "house",
+            "car"
           ]
         },
         {
@@ -416,13 +416,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "your _______.",
+          "sentence": "your car is _______",
           "blank": "small",
           "translation": "तुम्हारी गाड़ी छोटी है।",
           "options": [
             "small",
-            "dirty",
-            "new"
+            "house",
+            "car"
           ]
         },
         {
@@ -581,13 +581,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "his _______.",
+          "sentence": "his house is _______",
           "blank": "clean",
           "translation": "उसका घर साफ़ है।",
           "options": [
             "clean",
-            "car",
-            "your"
+            "house",
+            "car"
           ]
         },
         {
@@ -746,13 +746,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "my _______.",
+          "sentence": "my car is very _______",
           "blank": "clean",
           "translation": "मेरी गाड़ी बहुत साफ़ है।",
           "options": [
             "clean",
-            "this",
-            "that"
+            "house",
+            "car"
           ]
         },
         {
@@ -922,13 +922,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "this _______.",
+          "sentence": "this is my _______",
           "blank": "car",
           "translation": "यह मेरी गाड़ी है।",
           "options": [
             "car",
-            "small",
-            "clean"
+            "house",
+            "my"
           ]
         },
         {
@@ -1087,13 +1087,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "that _______.",
+          "sentence": "that is your _______",
           "blank": "house",
           "translation": "वह तुम्हारा घर है।",
           "options": [
             "house",
-            "new",
-            "old"
+            "car",
+            "my"
           ]
         },
         {
@@ -1253,13 +1253,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "my _______.",
+          "sentence": "my car is new and _______",
           "blank": "clean",
           "translation": "मेरी गाड़ी नई और साफ़ है।",
           "options": [
             "clean",
-            "that",
-            "here"
+            "house",
+            "car"
           ]
         },
         {
@@ -1418,13 +1418,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "my _______.",
+          "sentence": "my _______",
           "blank": "car",
           "translation": "मेरी गाड़ी",
           "options": [
             "car",
-            "your",
-            "clean"
+            "house",
+            "my"
           ]
         },
         {
@@ -1594,13 +1594,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "this _______.",
+          "sentence": "this is my _______",
           "blank": "car",
           "translation": "यह मेरी गाड़ी है।",
           "options": [
             "car",
             "house",
-            "big"
+            "my"
           ]
         },
         {
@@ -1761,12 +1761,12 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "my _______.",
+          "sentence": "my _______",
           "blank": "car",
           "translation": "मेरी गाड़ी",
           "options": [
             "car",
-            "car",
+            "house",
             "my"
           ]
         },
@@ -1925,13 +1925,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "my _______ big.",
-          "blank": "house",
+          "sentence": "my house is _______",
+          "blank": "big",
           "translation": "मेरा घर बड़ा है।",
           "options": [
             "big",
-            "big",
-            "small"
+            "house",
+            "car"
           ]
         },
         {
@@ -2090,13 +2090,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "your _______.",
+          "sentence": "your car is _______",
           "blank": "small",
           "translation": "तुम्हारी गाड़ी छोटी है।",
           "options": [
             "small",
-            "dirty",
-            "new"
+            "house",
+            "car"
           ]
         },
         {
@@ -2255,13 +2255,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "his _______.",
+          "sentence": "his house is _______",
           "blank": "clean",
           "translation": "उसका घर साफ़ है।",
           "options": [
             "clean",
-            "car",
-            "your"
+            "house",
+            "car"
           ]
         },
         {
@@ -2420,13 +2420,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "my _______.",
+          "sentence": "my car is very _______",
           "blank": "clean",
           "translation": "मेरी गाड़ी बहुत साफ़ है।",
           "options": [
             "clean",
-            "this",
-            "that"
+            "house",
+            "car"
           ]
         },
         {
@@ -2596,13 +2596,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "this _______.",
+          "sentence": "this is my _______",
           "blank": "car",
           "translation": "यह मेरी गाड़ी है।",
           "options": [
             "car",
-            "small",
-            "clean"
+            "house",
+            "my"
           ]
         },
         {
@@ -2761,13 +2761,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "that _______.",
+          "sentence": "that is your _______",
           "blank": "house",
           "translation": "वह तुम्हारा घर है।",
           "options": [
             "house",
-            "new",
-            "old"
+            "car",
+            "my"
           ]
         },
         {
@@ -2927,13 +2927,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "my _______.",
+          "sentence": "my car is new and _______",
           "blank": "clean",
           "translation": "मेरी गाड़ी नई और साफ़ है।",
           "options": [
             "clean",
-            "that",
-            "here"
+            "house",
+            "car"
           ]
         },
         {
@@ -3092,13 +3092,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "my _______.",
+          "sentence": "my _______",
           "blank": "car",
           "translation": "मेरी गाड़ी",
           "options": [
             "car",
-            "your",
-            "clean"
+            "house",
+            "my"
           ]
         },
         {
@@ -3268,13 +3268,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "this _______.",
+          "sentence": "this is my _______",
           "blank": "car",
           "translation": "यह मेरी गाड़ी है।",
           "options": [
             "car",
             "house",
-            "big"
+            "my"
           ]
         },
         {

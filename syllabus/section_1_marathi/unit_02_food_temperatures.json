@@ -84,7 +84,7 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "cold _______.",
+          "sentence": "cold _______",
           "blank": "water",
           "translation": "थंड पाणी",
           "options": [
@@ -245,13 +245,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "hot _______ tea.",
+          "sentence": "hot _______",
           "blank": "tea",
           "translation": "गरम चहा",
           "options": [
             "tea",
-            "cold",
-            "hot"
+            "water",
+            "coffee"
           ]
         },
         {
@@ -407,13 +407,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "tea _______.",
+          "sentence": "tea and _______",
           "blank": "water",
           "translation": "चहा आणि पाणी",
           "options": [
             "water",
-            "bread",
-            "sugar"
+            "tea",
+            "coffee"
           ]
         },
         {
@@ -571,13 +571,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "hot _______.",
+          "sentence": "hot coffee and cold _______",
           "blank": "milk",
           "translation": "गरम कॉफी आणि थंड दूध",
           "options": [
             "milk",
-            "tea",
-            "milk"
+            "water",
+            "tea"
           ]
         },
         {
@@ -736,13 +736,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "This _______.",
+          "sentence": "This food is _______",
           "blank": "hot",
           "translation": "हे जेवण गरम आहे.",
           "options": [
             "hot",
-            "spicy",
-            "fresh"
+            "water",
+            "tea"
           ]
         },
         {
@@ -912,13 +912,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Tea _______.",
+          "sentence": "Tea is sweet and _______",
           "blank": "tasty",
           "translation": "चहा गोड आणि चवदार आहे.",
           "options": [
             "tasty",
-            "hot",
-            "and"
+            "water",
+            "tea"
           ]
         },
         {
@@ -1076,13 +1076,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Water, _______.",
+          "sentence": "Water, _______",
           "blank": "please",
           "translation": "कृपया पाणी द्या.",
           "options": [
             "please",
-            "sugar",
-            "food"
+            "water",
+            "tea"
           ]
         },
         {
@@ -1196,7 +1196,7 @@
             {
               "id": "u2_l9_p3",
               "text": "thank you (धन्यवाद)",
-              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "imageUrl": "/uploads/curriculum/thank_you.webp",
               "isCorrect": false
             }
           ]
@@ -1240,13 +1240,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I want hot _______",
           "blank": "tea",
           "translation": "मला गरम चहा पाहिजे.",
           "options": [
             "tea",
-            "fresh",
-            "please"
+            "water",
+            "coffee"
           ]
         },
         {
@@ -1403,13 +1403,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "cold _______.",
+          "sentence": "cold _______",
           "blank": "water",
           "translation": "थंड पाणी",
           "options": [
             "water",
-            "milk",
-            "and"
+            "tea",
+            "coffee"
           ]
         },
         {
@@ -1578,13 +1578,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Tea _______.",
+          "sentence": "Tea is sweet and _______",
           "blank": "tasty",
           "translation": "चहा गोड आणि चवदार आहे.",
           "options": [
             "tasty",
             "water",
-            "cold"
+            "tea"
           ]
         },
         {
@@ -1623,10 +1623,10 @@
         {
           "type": "type_word",
           "title": "स्पेलिंग टाईप करा",
-          "prompt": "'धन्यवाद' साठी इंग्रजी शब्द टाईप करा:",
-          "target": "thank you",
-          "translation": "धन्यवाद",
-          "hint": "संकेत: T ने सुरू होते",
+          "prompt": "'कृपया' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "please",
+          "translation": "कृपया",
+          "hint": "संकेत: P ने सुरू होते",
           "audioUrl": ""
         },
         {

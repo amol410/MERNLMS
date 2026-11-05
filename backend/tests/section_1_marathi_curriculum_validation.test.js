@@ -166,6 +166,52 @@ describe('Section 1 English for Marathi Speakers Curriculum Validation Suite (en
         });
     });
 
+    test('Every cloze stage has blank in options, 0 duplicate options, and 0 trailing punctuation', () => {
+        const data = JSON.parse(fs.readFileSync(section1MarathiFile, 'utf8'));
+
+        data.units.forEach((unit) => {
+            unit.lessonsData.forEach((lesson) => {
+                if (lesson.nodeType !== 'chest') {
+                    const clozeStage = lesson.stages.find(s => s.type === 'cloze_test');
+                    expect(clozeStage).toBeDefined();
+
+                    // Blank must be in options
+                    expect(clozeStage.options).toContain(clozeStage.blank);
+
+                    // Exactly 3 unique options, 0 duplicates
+                    expect(clozeStage.options.length).toBe(3);
+                    const uniqueOpts = new Set(clozeStage.options);
+                    expect(uniqueOpts.size).toBe(3);
+
+                    // Blank and options must not have trailing punctuation
+                    expect(clozeStage.blank).not.toMatch(/[.,!?:;]$/);
+                    clozeStage.options.forEach((opt) => {
+                        expect(opt).not.toMatch(/[.,!?:;]$/);
+                    });
+
+                    // Sentence must contain blank placeholder
+                    expect(clozeStage.sentence).toContain('_______');
+                }
+            });
+        });
+    });
+
+    test('All type_word stages use clean single-word targets with valid hints', () => {
+        const data = JSON.parse(fs.readFileSync(section1MarathiFile, 'utf8'));
+
+        data.units.forEach((unit) => {
+            unit.lessonsData.forEach((lesson) => {
+                if (lesson.nodeType !== 'chest') {
+                    const typeStage = lesson.stages.find(s => s.type === 'type_word');
+                    expect(typeStage).toBeDefined();
+                    expect(typeStage.target.split(' ').length).toBe(1);
+                    expect(typeStage.target).not.toMatch(/[.,!?:;]$/);
+                    expect(typeStage.hint).toBeDefined();
+                }
+            });
+        });
+    });
+
     test('Curriculum lessons bulk-insert cleanly into database without error', async () => {
         const data = JSON.parse(fs.readFileSync(section1MarathiFile, 'utf8'));
         const unit1 = data.units[0];

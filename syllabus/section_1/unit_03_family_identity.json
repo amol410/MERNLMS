@@ -88,7 +88,7 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He is my _______",
           "blank": "father",
           "translation": "वह मेरे पिता हैं।",
           "options": [
@@ -253,13 +253,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "She _______ mother.",
-          "blank": "is",
+          "sentence": "She is my _______",
+          "blank": "mother",
           "translation": "वह मेरी माँ हैं।",
           "options": [
             "mother",
-            "friend",
-            "boy"
+            "father",
+            "brother"
           ]
         },
         {
@@ -418,13 +418,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I am a _______",
           "blank": "student",
           "translation": "मैं एक छात्र हूँ।",
           "options": [
             "student",
-            "woman",
-            "teacher"
+            "father",
+            "mother"
           ]
         },
         {
@@ -583,13 +583,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "You _______.",
+          "sentence": "You are my _______",
           "blank": "friend",
           "translation": "तुम मेरे दोस्त हो।",
           "options": [
             "friend",
-            "mother",
-            "sister"
+            "father",
+            "mother"
           ]
         },
         {
@@ -692,7 +692,7 @@
             {
               "id": "u3_l5_p1",
               "text": "I (मैं)",
-              "imageUrl": "/uploads/curriculum/I.webp",
+              "imageUrl": "/uploads/curriculum/i.webp",
               "isCorrect": true
             },
             {
@@ -748,13 +748,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He is a good _______",
           "blank": "teacher",
           "translation": "वह एक अच्छे शिक्षक हैं।",
           "options": [
             "teacher",
-            "I",
-            "you"
+            "father",
+            "mother"
           ]
         },
         {
@@ -924,13 +924,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "We _______.",
+          "sentence": "We are _______",
           "blank": "friends",
           "translation": "हम दोस्त हैं।",
           "options": [
             "friends",
-            "boy",
-            "man"
+            "father",
+            "mother"
           ]
         },
         {
@@ -1089,13 +1089,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "She _______.",
+          "sentence": "She is my _______",
           "blank": "sister",
           "translation": "वह मेरी बहन है।",
           "options": [
             "sister",
-            "teacher",
-            "student"
+            "father",
+            "mother"
           ]
         },
         {
@@ -1254,13 +1254,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "They _______.",
+          "sentence": "They are my _______",
           "blank": "family",
           "translation": "वे मेरा परिवार हैं।",
           "options": [
             "family",
-            "you",
-            "he"
+            "father",
+            "mother"
           ]
         },
         {
@@ -1419,13 +1419,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He is my _______",
           "blank": "father",
           "translation": "वह मेरे पिता हैं।",
           "options": [
             "father",
-            "sister",
-            "man"
+            "mother",
+            "brother"
           ]
         },
         {
@@ -1595,13 +1595,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "We _______.",
+          "sentence": "We are _______",
           "blank": "friends",
           "translation": "हम दोस्त हैं।",
           "options": [
             "friends",
             "father",
-            "friend"
+            "mother"
           ]
         },
         {
@@ -1762,7 +1762,7 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He is my _______",
           "blank": "father",
           "translation": "वह मेरे पिता हैं।",
           "options": [
@@ -1927,13 +1927,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "She _______ mother.",
-          "blank": "is",
+          "sentence": "She is my _______",
+          "blank": "mother",
           "translation": "वह मेरी माँ हैं।",
           "options": [
             "mother",
-            "friend",
-            "boy"
+            "father",
+            "brother"
           ]
         },
         {
@@ -2092,13 +2092,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I am a _______",
           "blank": "student",
           "translation": "मैं एक छात्र हूँ।",
           "options": [
             "student",
-            "woman",
-            "teacher"
+            "father",
+            "mother"
           ]
         },
         {
@@ -2257,13 +2257,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "You _______.",
+          "sentence": "You are my _______",
           "blank": "friend",
           "translation": "तुम मेरे दोस्त हो।",
           "options": [
             "friend",
-            "mother",
-            "sister"
+            "father",
+            "mother"
           ]
         },
         {
@@ -2366,7 +2366,7 @@
             {
               "id": "u3_l5_p1",
               "text": "I (मैं)",
-              "imageUrl": "/uploads/curriculum/I.webp",
+              "imageUrl": "/uploads/curriculum/i.webp",
               "isCorrect": true
             },
             {
@@ -2422,13 +2422,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He is a good _______",
           "blank": "teacher",
           "translation": "वह एक अच्छे शिक्षक हैं।",
           "options": [
             "teacher",
-            "I",
-            "you"
+            "father",
+            "mother"
           ]
         },
         {
@@ -2598,13 +2598,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "We _______.",
+          "sentence": "We are _______",
           "blank": "friends",
           "translation": "हम दोस्त हैं।",
           "options": [
             "friends",
-            "boy",
-            "man"
+            "father",
+            "mother"
           ]
         },
         {
@@ -2763,13 +2763,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "She _______.",
+          "sentence": "She is my _______",
           "blank": "sister",
           "translation": "वह मेरी बहन है।",
           "options": [
             "sister",
-            "teacher",
-            "student"
+            "father",
+            "mother"
           ]
         },
         {
@@ -2928,13 +2928,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "They _______.",
+          "sentence": "They are my _______",
           "blank": "family",
           "translation": "वे मेरा परिवार हैं।",
           "options": [
             "family",
-            "you",
-            "he"
+            "father",
+            "mother"
           ]
         },
         {
@@ -3093,13 +3093,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He is my _______",
           "blank": "father",
           "translation": "वह मेरे पिता हैं।",
           "options": [
             "father",
-            "sister",
-            "man"
+            "mother",
+            "brother"
           ]
         },
         {
@@ -3269,13 +3269,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "We _______.",
+          "sentence": "We are _______",
           "blank": "friends",
           "translation": "हम दोस्त हैं।",
           "options": [
             "friends",
             "father",
-            "friend"
+            "mother"
           ]
         },
         {

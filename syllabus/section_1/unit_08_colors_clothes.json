@@ -87,11 +87,11 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "a _______.",
-          "blank": "car",
+          "sentence": "a _______ car",
+          "blank": "red",
           "translation": "लाल गाड़ी",
           "options": [
-            "car",
+            "red",
             "blue",
             "green"
           ]
@@ -251,13 +251,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "a _______ shoes.",
-          "blank": "white",
+          "sentence": "a white shirt and _______ shoes",
+          "blank": "black",
           "translation": "सफ़ेद कमीज़ और काले जूते",
           "options": [
-            "shoes",
             "black",
-            "white"
+            "red",
+            "blue"
           ]
         },
         {
@@ -416,13 +416,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______.",
+          "sentence": "My shirt is _______",
           "blank": "blue",
           "translation": "मेरी कमीज़ नीली है।",
           "options": [
             "blue",
-            "shoes",
-            "hat"
+            "red",
+            "green"
           ]
         },
         {
@@ -581,13 +581,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "She _______.",
+          "sentence": "She wears a red _______",
           "blank": "dress",
           "translation": "वह लाल ड्रेस पहनती है।",
           "options": [
             "dress",
-            "blue",
-            "yellow"
+            "red",
+            "blue"
           ]
         },
         {
@@ -746,13 +746,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______.",
+          "sentence": "My shoes are black and _______",
           "blank": "clean",
           "translation": "मेरे जूते काले और साफ़ हैं।",
           "options": [
             "clean",
-            "color",
-            "favorite"
+            "red",
+            "blue"
           ]
         },
         {
@@ -922,13 +922,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______.",
+          "sentence": "My favorite color is _______",
           "blank": "green",
           "translation": "मेरा पसंदीदा रंग हरा है।",
           "options": [
             "green",
-            "white",
-            "pants"
+            "red",
+            "blue"
           ]
         },
         {
@@ -1087,13 +1087,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He is wearing a _______",
           "blank": "hat",
           "translation": "उसने टोपी पहनी है।",
           "options": [
             "hat",
-            "hat",
-            "dress"
+            "red",
+            "blue"
           ]
         },
         {
@@ -1252,13 +1252,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "This _______.",
+          "sentence": "This yellow shirt is _______",
           "blank": "new",
           "translation": "यह पीली कमीज़ नई है।",
           "options": [
             "new",
-            "favorite",
-            "bright"
+            "red",
+            "blue"
           ]
         },
         {
@@ -1416,13 +1416,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "a _______.",
+          "sentence": "a red _______",
           "blank": "car",
           "translation": "लाल गाड़ी",
           "options": [
             "car",
-            "yellow",
-            "pants"
+            "red",
+            "blue"
           ]
         },
         {
@@ -1592,13 +1592,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______.",
+          "sentence": "My favorite color is _______",
           "blank": "green",
           "translation": "मेरा पसंदीदा रंग हरा है।",
           "options": [
             "green",
             "red",
-            "black"
+            "blue"
           ]
         },
         {
@@ -1758,11 +1758,11 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "a _______.",
-          "blank": "car",
+          "sentence": "a _______ car",
+          "blank": "red",
           "translation": "लाल गाड़ी",
           "options": [
-            "car",
+            "red",
             "blue",
             "green"
           ]
@@ -1922,13 +1922,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "a _______ shoes.",
-          "blank": "white",
+          "sentence": "a white shirt and _______ shoes",
+          "blank": "black",
           "translation": "सफ़ेद कमीज़ और काले जूते",
           "options": [
-            "shoes",
             "black",
-            "white"
+            "red",
+            "blue"
           ]
         },
         {
@@ -2087,13 +2087,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______.",
+          "sentence": "My shirt is _______",
           "blank": "blue",
           "translation": "मेरी कमीज़ नीली है।",
           "options": [
             "blue",
-            "shoes",
-            "hat"
+            "red",
+            "green"
           ]
         },
         {
@@ -2252,13 +2252,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "She _______.",
+          "sentence": "She wears a red _______",
           "blank": "dress",
           "translation": "वह लाल ड्रेस पहनती है।",
           "options": [
             "dress",
-            "blue",
-            "yellow"
+            "red",
+            "blue"
           ]
         },
         {
@@ -2417,13 +2417,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______.",
+          "sentence": "My shoes are black and _______",
           "blank": "clean",
           "translation": "मेरे जूते काले और साफ़ हैं।",
           "options": [
             "clean",
-            "color",
-            "favorite"
+            "red",
+            "blue"
           ]
         },
         {
@@ -2593,13 +2593,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______.",
+          "sentence": "My favorite color is _______",
           "blank": "green",
           "translation": "मेरा पसंदीदा रंग हरा है।",
           "options": [
             "green",
-            "white",
-            "pants"
+            "red",
+            "blue"
           ]
         },
         {
@@ -2758,13 +2758,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "He _______.",
+          "sentence": "He is wearing a _______",
           "blank": "hat",
           "translation": "उसने टोपी पहनी है।",
           "options": [
             "hat",
-            "hat",
-            "dress"
+            "red",
+            "blue"
           ]
         },
         {
@@ -2923,13 +2923,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "This _______.",
+          "sentence": "This yellow shirt is _______",
           "blank": "new",
           "translation": "यह पीली कमीज़ नई है।",
           "options": [
             "new",
-            "favorite",
-            "bright"
+            "red",
+            "blue"
           ]
         },
         {
@@ -3087,13 +3087,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "a _______.",
+          "sentence": "a red _______",
           "blank": "car",
           "translation": "लाल गाड़ी",
           "options": [
             "car",
-            "yellow",
-            "pants"
+            "red",
+            "blue"
           ]
         },
         {
@@ -3263,13 +3263,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My _______.",
+          "sentence": "My favorite color is _______",
           "blank": "green",
           "translation": "मेरा पसंदीदा रंग हरा है।",
           "options": [
             "green",
             "red",
-            "black"
+            "blue"
           ]
         },
         {

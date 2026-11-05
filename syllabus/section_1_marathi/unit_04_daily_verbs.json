@@ -86,13 +86,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I read a _______",
           "blank": "book",
           "translation": "मी पुस्तक वाचतो.",
           "options": [
             "book",
-            "drink",
-            "read"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -251,13 +251,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______ water.",
-          "blank": "drink",
+          "sentence": "I drink hot _______",
+          "blank": "water",
           "translation": "मी गरम पाणी पितो.",
           "options": [
             "water",
-            "speak",
-            "learn"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -415,13 +415,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "You _______.",
+          "sentence": "You speak _______",
           "blank": "English",
           "translation": "तुम्ही इंग्रजी बोलता.",
           "options": [
             "English",
-            "come",
-            "like"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -579,13 +579,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "We _______.",
+          "sentence": "We learn English _______",
           "blank": "daily",
           "translation": "आम्ही दररोज इंग्रजी शिकतो.",
           "options": [
             "daily",
-            "drink",
-            "write"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -688,19 +688,19 @@
             {
               "id": "u4_l5_p1",
               "text": "English (इंग्रजी)",
-              "imageUrl": "/uploads/curriculum/English.webp",
+              "imageUrl": "/uploads/curriculum/english.webp",
               "isCorrect": true
             },
             {
               "id": "u4_l5_p2",
               "text": "Hindi (हिंदी)",
-              "imageUrl": "/uploads/curriculum/Hindi.webp",
+              "imageUrl": "/uploads/curriculum/hindi.webp",
               "isCorrect": false
             },
             {
               "id": "u4_l5_p3",
               "text": "Marathi (मराठी)",
-              "imageUrl": "/uploads/curriculum/Marathi.webp",
+              "imageUrl": "/uploads/curriculum/marathi.webp",
               "isCorrect": false
             }
           ]
@@ -744,13 +744,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "She _______.",
+          "sentence": "She eats an _______",
           "blank": "apple",
           "translation": "ती सफरचंद खाते.",
           "options": [
             "apple",
-            "English",
-            "Hindi"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -920,13 +920,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "He _______.",
+          "sentence": "He writes a _______",
           "blank": "letter",
           "translation": "तो पत्र लिहितो.",
           "options": [
             "letter",
-            "learn",
-            "go"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -1085,13 +1085,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "They _______.",
+          "sentence": "They live in _______",
           "blank": "Mumbai",
           "translation": "ते मुंबईत राहतात.",
           "options": [
             "Mumbai",
-            "like",
-            "book"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -1194,13 +1194,13 @@
             {
               "id": "u4_l9_p1",
               "text": "Hindi (हिंदी)",
-              "imageUrl": "/uploads/curriculum/Hindi.webp",
+              "imageUrl": "/uploads/curriculum/hindi.webp",
               "isCorrect": true
             },
             {
               "id": "u4_l9_p2",
               "text": "Marathi (मराठी)",
-              "imageUrl": "/uploads/curriculum/Marathi.webp",
+              "imageUrl": "/uploads/curriculum/marathi.webp",
               "isCorrect": false
             },
             {
@@ -1250,13 +1250,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I like hot _______",
           "blank": "tea",
           "translation": "मला गरम चहा आवडतो.",
           "options": [
             "tea",
-            "Hindi",
-            "Marathi"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -1415,13 +1415,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I read a _______",
           "blank": "book",
           "translation": "मी पुस्तक वाचतो.",
           "options": [
             "book",
-            "write",
-            "go"
+            "eat",
+            "drink"
           ]
         },
         {
@@ -1591,13 +1591,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "He _______.",
+          "sentence": "He writes a _______",
           "blank": "letter",
           "translation": "तो पत्र लिहितो.",
           "options": [
             "letter",
             "eat",
-            "speak"
+            "drink"
           ]
         },
         {

@@ -86,13 +86,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Where _______.",
-          "blank": "bag?",
+          "sentence": "Where is my _______?",
+          "blank": "bag",
           "translation": "माझी बॅग कुठे आहे?",
           "options": [
-            "bag?",
-            "kitchen",
-            "bedroom"
+            "bag",
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -252,13 +252,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "The _______ table.",
-          "blank": "phone",
+          "sentence": "The phone is on the _______",
+          "blank": "table",
           "translation": "फोन टेबलावर आहे.",
           "options": [
             "table",
-            "chair",
-            "bed"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -419,13 +419,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "The _______.",
+          "sentence": "The cat is under the _______",
           "blank": "chair",
           "translation": "मांजर खुर्चीखाली आहे.",
           "options": [
             "chair",
-            "in",
-            "on"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -586,13 +586,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "My _______.",
+          "sentence": "My keys are in the _______",
           "blank": "bag",
           "translation": "माझ्या चाव्या बॅगेत आहेत.",
           "options": [
             "bag",
-            "kitchen",
-            "table"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -752,13 +752,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "The _______.",
+          "sentence": "The bedroom is very _______",
           "blank": "clean",
           "translation": "बेडरूम खूप स्वच्छ आहे.",
           "options": [
             "clean",
-            "where",
-            "key"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -928,13 +928,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Open _______.",
+          "sentence": "Open the door, _______",
           "blank": "please",
           "translation": "कृपया दरवाजा उघडा.",
           "options": [
             "please",
-            "bed",
-            "window"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -1093,13 +1093,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Close _______.",
+          "sentence": "Close the _______",
           "blank": "window",
           "translation": "खिडकी बंद करा.",
           "options": [
             "window",
-            "on",
-            "under"
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -1259,13 +1259,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "He _______.",
+          "sentence": "He is in the _______",
           "blank": "kitchen",
           "translation": "तो स्वयंपाकघरात आहे.",
           "options": [
             "kitchen",
-            "key",
-            "phone"
+            "room",
+            "bedroom"
           ]
         },
         {
@@ -1425,13 +1425,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Where _______.",
-          "blank": "bag?",
+          "sentence": "Where is my _______?",
+          "blank": "bag",
           "translation": "माझी बॅग कुठे आहे?",
           "options": [
-            "bag?",
-            "table",
-            "window"
+            "bag",
+            "room",
+            "kitchen"
           ]
         },
         {
@@ -1601,13 +1601,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Open _______.",
+          "sentence": "Open the door, _______",
           "blank": "please",
           "translation": "कृपया दरवाजा उघडा.",
           "options": [
             "please",
             "room",
-            "chair"
+            "kitchen"
           ]
         },
         {

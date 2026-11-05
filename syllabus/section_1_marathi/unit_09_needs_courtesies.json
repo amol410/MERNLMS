@@ -87,13 +87,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Excuse _______.",
-          "blank": "me?",
+          "sentence": "Excuse me, can you _______ me?",
+          "blank": "help",
           "translation": "क्षमस्व, तुम्ही मला मदत करू शकता का?",
           "options": [
-            "me?",
-            "want",
-            "help"
+            "help",
+            "need",
+            "want"
           ]
         },
         {
@@ -197,7 +197,7 @@
             {
               "id": "u9_l2_p1",
               "text": "thank you (धन्यवाद)",
-              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "imageUrl": "/uploads/curriculum/thank_you.webp",
               "isCorrect": true
             },
             {
@@ -253,13 +253,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______ please.",
-          "blank": "need",
+          "sentence": "I need a pen, _______",
+          "blank": "please",
           "translation": "मला कृपया पेन पाहिजे.",
           "options": [
             "please",
-            "thank you",
-            "welcome"
+            "need",
+            "want"
           ]
         },
         {
@@ -298,10 +298,10 @@
         {
           "type": "type_word",
           "title": "स्पेलिंग टाईप करा",
-          "prompt": "'धन्यवाद' साठी इंग्रजी शब्द टाईप करा:",
-          "target": "thank you",
-          "translation": "धन्यवाद",
-          "hint": "संकेत: T ने सुरू होते",
+          "prompt": "'कृपया' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "please",
+          "translation": "कृपया",
+          "hint": "संकेत: P ने सुरू होते",
           "audioUrl": ""
         },
         {
@@ -418,13 +418,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Thank _______.",
+          "sentence": "Thank you very _______",
           "blank": "much",
           "translation": "खूप खूप धन्यवाद.",
           "options": [
             "much",
-            "problem",
-            "sure"
+            "need",
+            "want"
           ]
         },
         {
@@ -533,7 +533,7 @@
             {
               "id": "u9_l4_p2",
               "text": "thank you (धन्यवाद)",
-              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "imageUrl": "/uploads/curriculum/thank_you.webp",
               "isCorrect": false
             },
             {
@@ -583,13 +583,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "You _______.",
+          "sentence": "You are _______",
           "blank": "welcome",
           "translation": "तुमचे स्वागत आहे.",
           "options": [
             "welcome",
-            "want",
-            "please"
+            "need",
+            "want"
           ]
         },
         {
@@ -748,13 +748,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I am very _______",
           "blank": "sorry",
           "translation": "मला खूप वाईट वाटते.",
           "options": [
             "sorry",
-            "madam",
-            "pen"
+            "need",
+            "want"
           ]
         },
         {
@@ -880,7 +880,7 @@
             {
               "id": "u9_l7_p3",
               "text": "excuse me (क्षमस्व)",
-              "imageUrl": "/uploads/curriculum/excuse me.webp",
+              "imageUrl": "/uploads/curriculum/excuse_me.webp",
               "isCorrect": false
             }
           ]
@@ -924,13 +924,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "You _______.",
-          "blank": "sir",
+          "sentence": "You are _______, sir",
+          "blank": "welcome",
           "translation": "आपले स्वागत आहे, सर.",
           "options": [
-            "sir",
             "welcome",
-            "excuse me"
+            "need",
+            "want"
           ]
         },
         {
@@ -1089,13 +1089,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "No _______.",
+          "sentence": "No problem at _______",
           "blank": "all",
           "translation": "काहीच हरकत नाही.",
           "options": [
             "all",
-            "sure",
-            "course"
+            "need",
+            "want"
           ]
         },
         {
@@ -1253,13 +1253,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Tea? _______.",
-          "blank": "please!",
+          "sentence": "Tea? Yes, _______!",
+          "blank": "please",
           "translation": "चहा? हो, कृपया!",
           "options": [
-            "please!",
-            "pen",
-            "water"
+            "please",
+            "need",
+            "want"
           ]
         },
         {
@@ -1367,7 +1367,7 @@
             {
               "id": "u9_l10_p2",
               "text": "excuse me (क्षमस्व)",
-              "imageUrl": "/uploads/curriculum/excuse me.webp",
+              "imageUrl": "/uploads/curriculum/excuse_me.webp",
               "isCorrect": false
             },
             {
@@ -1418,13 +1418,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Excuse _______.",
-          "blank": "me?",
+          "sentence": "Excuse me, can you _______ me?",
+          "blank": "help",
           "translation": "क्षमस्व, तुम्ही मला मदत करू शकता का?",
           "options": [
-            "me?",
-            "please",
-            "excuse me"
+            "help",
+            "need",
+            "want"
           ]
         },
         {
@@ -1544,7 +1544,7 @@
             {
               "id": "u9_l12_p2",
               "text": "thank you (धन्यवाद)",
-              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "imageUrl": "/uploads/curriculum/thank_you.webp",
               "isCorrect": false
             },
             {
@@ -1594,13 +1594,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "You _______.",
+          "sentence": "You are welcome, _______",
           "blank": "sir",
           "translation": "आपले स्वागत आहे, सर.",
           "options": [
             "sir",
             "need",
-            "thank you"
+            "want"
           ]
         },
         {

@@ -86,12 +86,12 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "My _______.",
+          "sentence": "My shirt is _______",
           "blank": "blue",
           "translation": "माझा शर्ट निळा आहे.",
           "options": [
             "blue",
-            "blue",
+            "red",
             "green"
           ]
         },
@@ -251,13 +251,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "She _______ dress.",
-          "blank": "wears",
+          "sentence": "She wears a red _______",
+          "blank": "dress",
           "translation": "ती लाल ड्रेस घालते.",
           "options": [
             "dress",
-            "black",
-            "yellow"
+            "red",
+            "blue"
           ]
         },
         {
@@ -416,13 +416,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "These _______.",
-          "blank": "new",
+          "sentence": "These black _______ are new",
+          "blank": "shoes",
           "translation": "हे काळे बूट नवीन आहेत.",
           "options": [
-            "new",
             "shoes",
-            "dress"
+            "red",
+            "blue"
           ]
         },
         {
@@ -581,13 +581,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "I _______.",
+          "sentence": "I like the green _______",
           "blank": "color",
           "translation": "मला हिरवा रंग आवडतो.",
           "options": [
             "color",
-            "blue",
-            "white"
+            "red",
+            "blue"
           ]
         },
         {
@@ -746,13 +746,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "You _______.",
-          "blank": "today",
+          "sentence": "You _______ very beautiful today",
+          "blank": "look",
           "translation": "तू आज खूप सुंदर दिसत आहेस.",
           "options": [
-            "today",
             "look",
-            "beautiful"
+            "red",
+            "blue"
           ]
         },
         {
@@ -922,13 +922,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "His _______.",
+          "sentence": "His white hat is _______",
           "blank": "clean",
           "translation": "त्याची पांढरी टोपी स्वच्छ आहे.",
           "options": [
             "clean",
-            "yellow",
-            "pants"
+            "red",
+            "blue"
           ]
         },
         {
@@ -1087,13 +1087,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "What _______.",
-          "blank": "color?",
+          "sentence": "What is your favorite _______?",
+          "blank": "color",
           "translation": "तुझा आवडता रंग कोणता आहे?",
           "options": [
-            "color?",
-            "dress",
-            "hat"
+            "color",
+            "red",
+            "blue"
           ]
         },
         {
@@ -1252,13 +1252,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "Blue _______.",
+          "sentence": "Blue is my favorite _______",
           "blank": "color",
           "translation": "निळा हा माझा आवडता रंग आहे.",
           "options": [
             "color",
-            "beautiful",
-            "color"
+            "red",
+            "blue"
           ]
         },
         {
@@ -1417,13 +1417,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "My _______.",
+          "sentence": "My shirt is _______",
           "blank": "blue",
           "translation": "माझा शर्ट निळा आहे.",
           "options": [
             "blue",
-            "white",
-            "pants"
+            "red",
+            "green"
           ]
         },
         {
@@ -1593,13 +1593,13 @@
         {
           "type": "cloze_test",
           "title": "गाळलेली जागा भरा",
-          "sentence": "His _______.",
+          "sentence": "His white hat is _______",
           "blank": "clean",
           "translation": "त्याची पांढरी टोपी स्वच्छ आहे.",
           "options": [
             "clean",
             "red",
-            "black"
+            "blue"
           ]
         },
         {

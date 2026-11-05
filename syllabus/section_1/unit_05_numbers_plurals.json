@@ -88,11 +88,11 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "one _______.",
-          "blank": "books",
+          "sentence": "_______ pen and two books",
+          "blank": "one",
           "translation": "एक पेन और दो किताबें",
           "options": [
-            "books",
+            "one",
             "two",
             "three"
           ]
@@ -252,13 +252,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "three _______ cars.",
+          "sentence": "three _______",
           "blank": "cars",
           "translation": "तीन गाड़ियाँ",
           "options": [
             "cars",
-            "five",
-            "six"
+            "one",
+            "two"
           ]
         },
         {
@@ -415,13 +415,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "four _______.",
+          "sentence": "four cups of _______",
           "blank": "tea",
           "translation": "चार कप चाय",
           "options": [
             "tea",
-            "nine",
-            "ten"
+            "one",
+            "two"
           ]
         },
         {
@@ -579,13 +579,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I have five _______",
           "blank": "apples",
           "translation": "मेरे पास पाँच सेब हैं।",
           "options": [
             "apples",
-            "two",
-            "four"
+            "one",
+            "two"
           ]
         },
         {
@@ -743,13 +743,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "six _______.",
+          "sentence": "six big _______",
           "blank": "houses",
           "translation": "छह बड़े घर",
           "options": [
             "houses",
-            "apples",
-            "cars"
+            "one",
+            "two"
           ]
         },
         {
@@ -917,13 +917,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "seven _______.",
+          "sentence": "seven _______",
           "blank": "days",
           "translation": "सात दिन",
           "options": [
             "days",
-            "six",
-            "eight"
+            "one",
+            "two"
           ]
         },
         {
@@ -1079,13 +1079,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "ten _______.",
-          "blank": "students",
+          "sentence": "_______ students",
+          "blank": "ten",
           "translation": "दस छात्र",
           "options": [
-            "students",
             "ten",
-            "pen"
+            "one",
+            "two"
           ]
         },
         {
@@ -1242,13 +1242,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I have many _______",
           "blank": "friends",
           "translation": "मेरे कई दोस्त हैं।",
           "options": [
             "friends",
-            "cars",
-            "houses"
+            "one",
+            "two"
           ]
         },
         {
@@ -1407,13 +1407,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "one _______.",
+          "sentence": "one pen and two _______",
           "blank": "books",
           "translation": "एक पेन और दो किताबें",
           "options": [
             "books",
-            "four",
-            "eight"
+            "one",
+            "two"
           ]
         },
         {
@@ -1580,13 +1580,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "seven _______.",
+          "sentence": "seven _______",
           "blank": "days",
           "translation": "सात दिन",
           "options": [
             "days",
             "one",
-            "five"
+            "two"
           ]
         },
         {
@@ -1747,11 +1747,11 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "one _______.",
-          "blank": "books",
+          "sentence": "_______ pen and two books",
+          "blank": "one",
           "translation": "एक पेन और दो किताबें",
           "options": [
-            "books",
+            "one",
             "two",
             "three"
           ]
@@ -1911,13 +1911,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "three _______ cars.",
+          "sentence": "three _______",
           "blank": "cars",
           "translation": "तीन गाड़ियाँ",
           "options": [
             "cars",
-            "five",
-            "six"
+            "one",
+            "two"
           ]
         },
         {
@@ -2074,13 +2074,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "four _______.",
+          "sentence": "four cups of _______",
           "blank": "tea",
           "translation": "चार कप चाय",
           "options": [
             "tea",
-            "nine",
-            "ten"
+            "one",
+            "two"
           ]
         },
         {
@@ -2238,13 +2238,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I have five _______",
           "blank": "apples",
           "translation": "मेरे पास पाँच सेब हैं।",
           "options": [
             "apples",
-            "two",
-            "four"
+            "one",
+            "two"
           ]
         },
         {
@@ -2402,13 +2402,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "six _______.",
+          "sentence": "six big _______",
           "blank": "houses",
           "translation": "छह बड़े घर",
           "options": [
             "houses",
-            "apples",
-            "cars"
+            "one",
+            "two"
           ]
         },
         {
@@ -2576,13 +2576,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "seven _______.",
+          "sentence": "seven _______",
           "blank": "days",
           "translation": "सात दिन",
           "options": [
             "days",
-            "six",
-            "eight"
+            "one",
+            "two"
           ]
         },
         {
@@ -2738,13 +2738,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "ten _______.",
-          "blank": "students",
+          "sentence": "_______ students",
+          "blank": "ten",
           "translation": "दस छात्र",
           "options": [
-            "students",
             "ten",
-            "pen"
+            "one",
+            "two"
           ]
         },
         {
@@ -2901,13 +2901,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I _______.",
+          "sentence": "I have many _______",
           "blank": "friends",
           "translation": "मेरे कई दोस्त हैं।",
           "options": [
             "friends",
-            "cars",
-            "houses"
+            "one",
+            "two"
           ]
         },
         {
@@ -3066,13 +3066,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "one _______.",
+          "sentence": "one pen and two _______",
           "blank": "books",
           "translation": "एक पेन और दो किताबें",
           "options": [
             "books",
-            "four",
-            "eight"
+            "one",
+            "two"
           ]
         },
         {
@@ -3239,13 +3239,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "seven _______.",
+          "sentence": "seven _______",
           "blank": "days",
           "translation": "सात दिन",
           "options": [
             "days",
             "one",
-            "five"
+            "two"
           ]
         },
         {

@@ -60,6 +60,86 @@ def make_chest(lesson_index, unit_lesson_num, unit_title, chest_num, xp_reward, 
         "stages": []
     }
 
+def create_cloze_stage(sent_tuple, preferred_word, all_unit_words):
+    raw_sent, trans, _ = sent_tuple
+    clean_blank = preferred_word.strip(".,!?:;\"'()")
+    
+    tokens = raw_sent.split()
+    new_tokens = []
+    replaced = False
+    
+    for tok in tokens:
+        stripped = tok.strip(".,!?:;\"'()")
+        if not replaced and stripped.lower() == clean_blank.lower():
+            leading = tok[:len(tok) - len(tok.lstrip(".,!?:;\"'()"))]
+            trailing = tok[len(tok.rstrip(".,!?:;\"'()")):]
+            new_tokens.append(f"{leading}_______{trailing}")
+            clean_blank = stripped
+            replaced = True
+        else:
+            new_tokens.append(tok)
+            
+    if not replaced:
+        last_tok = tokens[-1]
+        trailing = last_tok[len(last_tok.rstrip(".,!?:;\"'()")):]
+        clean_blank = last_tok.strip(".,!?:;\"'()")
+        tokens[-1] = f"_______{trailing}"
+        cloze_sent = " ".join(tokens)
+    else:
+        cloze_sent = " ".join(new_tokens)
+        
+    options = [clean_blank]
+    for w in all_unit_words:
+        w_clean = w[0].strip(".,!?:;\"'()")
+        if w_clean.lower() != clean_blank.lower() and w_clean not in options:
+            options.append(w_clean)
+        if len(options) == 3:
+            break
+            
+    return (cloze_sent, clean_blank, trans, options)
+
+def make_cloze_for_lesson(sent_tuple, preferred_candidate, unit_words):
+    raw_sent = sent_tuple[0]
+    tokens = raw_sent.split()
+    clean_cand = preferred_candidate.strip(".,!?:;\"'()")
+    
+    found = None
+    for tok in tokens:
+        stripped = tok.strip(".,!?:;\"'()")
+        if stripped.lower() == clean_cand.lower():
+            found = stripped
+            break
+            
+    if not found:
+        candidates = [t.strip(".,!?:;\"'()") for t in tokens if len(t.strip(".,!?:;\"'()")) > 2]
+        found = candidates[-1] if candidates else tokens[-1].strip(".,!?:;\"'()")
+        
+    return create_cloze_stage(sent_tuple, found, unit_words)
+
+def clean_type_word(type_w_tuple, unit_words):
+    target, trans = type_w_tuple
+    clean_target = target.strip(".,!?:;\"'()")
+    if len(clean_target.split()) > 1:
+        stopwords = {'a', 'an', 'the', 'and', 'is', 'in', 'on', 'at', 'to', 'of', 'it', 'he', 'she'}
+        try:
+            curr_idx = [w[0] for w in unit_words].index(type_w_tuple[0])
+        except ValueError:
+            curr_idx = -1
+        if curr_idx != -1:
+            for offset in [-1, 1, -2, 2, -3, 3]:
+                cand_idx = curr_idx + offset
+                if 0 <= cand_idx < len(unit_words):
+                    cw = unit_words[cand_idx]
+                    cw_clean = cw[0].strip(".,!?:;\"'()")
+                    if len(cw_clean.split()) == 1 and cw_clean.lower() not in stopwords:
+                        return (cw_clean, cw[1])
+        for w in unit_words:
+            w_clean = w[0].strip(".,!?:;\"'()")
+            if len(w_clean.split()) == 1 and w_clean.lower() not in stopwords:
+                return (w_clean, w[1])
+        return (clean_target.split()[-1], trans)
+    return (clean_target, trans)
+
 def build_10_stages(
     unit_num,
     lesson_num,
@@ -97,19 +177,19 @@ def build_10_stages(
                 {
                     "id": f"u{unit_num}_l{lesson_num}_p1",
                     "text": f"{pic_word} ({pic_trans})",
-                    "imageUrl": f"/uploads/curriculum/{pic_word}.webp",
+                    "imageUrl": f"/uploads/curriculum/{pic_word.lower().replace(' ', '_')}.webp",
                     "isCorrect": True
                 },
                 {
                     "id": f"u{unit_num}_l{lesson_num}_p2",
                     "text": f"{pic_distractors[0][0]} ({pic_distractors[0][1]})",
-                    "imageUrl": f"/uploads/curriculum/{pic_distractors[0][0]}.webp",
+                    "imageUrl": f"/uploads/curriculum/{pic_distractors[0][0].lower().replace(' ', '_')}.webp",
                     "isCorrect": False
                 },
                 {
                     "id": f"u{unit_num}_l{lesson_num}_p3",
                     "text": f"{pic_distractors[1][0]} ({pic_distractors[1][1]})",
-                    "imageUrl": f"/uploads/curriculum/{pic_distractors[1][0]}.webp",
+                    "imageUrl": f"/uploads/curriculum/{pic_distractors[1][0].lower().replace(' ', '_')}.webp",
                     "isCorrect": False
                 }
             ]
@@ -657,6 +737,7 @@ def generate_section_1():
             xp=15,
             pearls=5
         ):
+            type_w_clean = clean_type_word(type_w, words)
             stages = build_10_stages(
                 unit_num=u_num,
                 lesson_num=l_num,
@@ -676,9 +757,9 @@ def generate_section_1():
                 listen_spoken_en=select_info[0],
                 listen_correct_hi=select_info[1],
                 listen_distractor_hi=select_info[2],
-                type_target_en=type_w[0],
-                type_trans_hi=type_w[1],
-                type_hint=f"संकेत: {type_w[0][0].upper()} से शुरू होता है",
+                type_target_en=type_w_clean[0],
+                type_trans_hi=type_w_clean[1],
+                type_hint=f"संकेत: {type_w_clean[0][0].upper()} से शुरू होता है",
                 partner_name=dlg_info["name"],
                 partner_msg_en=dlg_info["prompt"],
                 partner_msg_hi=dlg_info["translation"],
@@ -700,7 +781,7 @@ def generate_section_1():
             pic_dist=[words[1], words[2]],
             match_subset=words[0:4],
             core_sent=sents[0],
-            cloze_info=(f"{sents[0][0].split()[0]} _______.", sents[0][0].split()[-1], sents[0][1], [sents[0][0].split()[-1], words[1][0], words[2][0]]),
+            cloze_info=make_cloze_for_lesson(sents[0], words[0][0], words),
             listen_info=(sents[0][0], sents[0][2]),
             select_info=(sents[0][0], sents[0][1], sents[1][1]),
             type_w=words[0],
@@ -718,7 +799,7 @@ def generate_section_1():
             pic_dist=[words[5], words[6]],
             match_subset=words[4:8],
             core_sent=sents[1],
-            cloze_info=(f"{sents[1][0].split()[0]} _______ {sents[1][0].split()[-1]}.", sents[1][0].split()[1] if len(sents[1][0].split()) > 2 else sents[1][0].split()[-1], sents[1][1], [sents[1][0].split()[-1], words[4][0], words[5][0]]),
+            cloze_info=make_cloze_for_lesson(sents[1], words[4][0], words),
             listen_info=(sents[1][0], sents[1][2]),
             select_info=(sents[1][0], sents[1][1], sents[2][1]),
             type_w=words[4],
@@ -736,7 +817,7 @@ def generate_section_1():
             pic_dist=[words[9], words[10]],
             match_subset=words[8:12],
             core_sent=sents[2],
-            cloze_info=(f"{sents[2][0].split()[0]} _______.", sents[2][0].split()[-1], sents[2][1], [sents[2][0].split()[-1], words[8][0], words[9][0]]),
+            cloze_info=make_cloze_for_lesson(sents[2], words[8][0], words),
             listen_info=(sents[2][0], sents[2][2]),
             select_info=(sents[2][0], sents[2][1], sents[3][1]),
             type_w=words[8],
@@ -754,7 +835,7 @@ def generate_section_1():
             pic_dist=[words[4], words[8]],
             match_subset=[words[1], words[5], words[9], words[2]],
             core_sent=sents[3],
-            cloze_info=(f"{sents[3][0].split()[0]} _______.", sents[3][0].split()[-1], sents[3][1], [sents[3][0].split()[-1], words[1][0], words[3][0]]),
+            cloze_info=make_cloze_for_lesson(sents[3], words[1][0], words),
             listen_info=(sents[3][0], sents[3][2]),
             select_info=(sents[3][0], sents[3][1], sents[0][1]),
             type_w=words[1],
@@ -772,7 +853,7 @@ def generate_section_1():
             pic_dist=[words[13], words[14]],
             match_subset=words[12:16],
             core_sent=sents[4],
-            cloze_info=(f"{sents[4][0].split()[0]} _______.", sents[4][0].split()[-1], sents[4][1], [sents[4][0].split()[-1], words[12][0], words[13][0]]),
+            cloze_info=make_cloze_for_lesson(sents[4], words[12][0], words),
             listen_info=(sents[4][0], sents[4][2]),
             select_info=(sents[4][0], sents[4][1], sents[1][1]),
             type_w=words[12],
@@ -795,7 +876,7 @@ def generate_section_1():
             pic_dist=[words[6], words[7]],
             match_subset=[words[3], words[7], words[11], words[15]],
             core_sent=sents[5],
-            cloze_info=(f"{sents[5][0].split()[0]} _______.", sents[5][0].split()[-1], sents[5][1], [sents[5][0].split()[-1], words[5][0], words[7][0]]),
+            cloze_info=make_cloze_for_lesson(sents[5], words[5][0], words),
             listen_info=(sents[5][0], sents[5][2]),
             select_info=(sents[5][0], sents[5][1], sents[2][1]),
             type_w=words[5],
@@ -813,7 +894,7 @@ def generate_section_1():
             pic_dist=[words[10], words[11]],
             match_subset=[words[0], words[4], words[8], words[12]],
             core_sent=sents[6],
-            cloze_info=(f"{sents[6][0].split()[0]} _______.", sents[6][0].split()[-1], sents[6][1], [sents[6][0].split()[-1], words[9][0], words[10][0]]),
+            cloze_info=make_cloze_for_lesson(sents[6], words[9][0], words),
             listen_info=(sents[6][0], sents[6][2]),
             select_info=(sents[6][0], sents[6][1], sents[3][1]),
             type_w=words[9],
@@ -831,7 +912,7 @@ def generate_section_1():
             pic_dist=[words[14], words[15]],
             match_subset=[words[2], words[6], words[10], words[14]],
             core_sent=sents[7],
-            cloze_info=(f"{sents[7][0].split()[0]} _______.", sents[7][0].split()[-1], sents[7][1], [sents[7][0].split()[-1], words[13][0], words[14][0]]),
+            cloze_info=make_cloze_for_lesson(sents[7], words[13][0], words),
             listen_info=(sents[7][0], sents[7][2]),
             select_info=(sents[7][0], sents[7][1], sents[4][1]),
             type_w=words[13],
@@ -849,7 +930,7 @@ def generate_section_1():
             pic_dist=[words[7], words[11]],
             match_subset=[words[1], words[4], words[9], words[13]],
             core_sent=sents[0],
-            cloze_info=(f"{sents[0][0].split()[0]} _______.", sents[0][0].split()[-1], sents[0][1], [sents[0][0].split()[-1], words[3][0], words[7][0]]),
+            cloze_info=make_cloze_for_lesson(sents[0], words[3][0], words),
             listen_info=(sents[6][0], sents[6][2]),
             select_info=(sents[7][0], sents[7][1], sents[5][1]),
             type_w=words[3],
@@ -873,7 +954,7 @@ def generate_section_1():
             pic_dist=[words[4], words[8]],
             match_subset=exam_matches,
             core_sent=sents[5],
-            cloze_info=(f"{sents[5][0].split()[0]} _______.", sents[5][0].split()[-1], sents[5][1], [sents[5][0].split()[-1], words[0][0], words[4][0]]),
+            cloze_info=make_cloze_for_lesson(sents[5], words[0][0], words),
             listen_info=(sents[7][0], sents[7][2]),
             select_info=(sents[4][0], sents[4][1], sents[0][1]),
             type_w=words[15],

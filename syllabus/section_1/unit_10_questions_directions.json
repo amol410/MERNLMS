@@ -88,13 +88,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Where _______.",
-          "blank": "station?",
+          "sentence": "Where is the _______?",
+          "blank": "station",
           "translation": "स्टेशन कहाँ है?",
           "options": [
-            "station?",
-            "where",
-            "who"
+            "station",
+            "what",
+            "where"
           ]
         },
         {
@@ -253,13 +253,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Turn _______ road.",
-          "blank": "left",
+          "sentence": "Turn left at the _______",
+          "blank": "road",
           "translation": "सड़क पर बाएँ मुड़िए।",
           "options": [
             "road",
-            "why",
-            "how"
+            "what",
+            "where"
           ]
         },
         {
@@ -418,13 +418,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Turn _______.",
+          "sentence": "Turn right and go _______",
           "blank": "straight",
           "translation": "दाएँ मुड़िए और सीधे जाइए।",
           "options": [
             "straight",
-            "straight",
-            "near"
+            "what",
+            "where"
           ]
         },
         {
@@ -582,13 +582,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Stop _______.",
+          "sentence": "Stop here, _______",
           "blank": "please",
           "translation": "कृपया यहाँ रोकिए।",
           "options": [
             "please",
-            "where",
-            "when"
+            "what",
+            "where"
           ]
         },
         {
@@ -746,13 +746,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Is _______.",
-          "blank": "far?",
+          "sentence": "Is it near or _______?",
+          "blank": "far",
           "translation": "क्या यह पास है या दूर?",
           "options": [
-            "far?",
-            "turn",
-            "road"
+            "far",
+            "what",
+            "where"
           ]
         },
         {
@@ -923,13 +923,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "It _______.",
+          "sentence": "It is far from _______",
           "blank": "here",
           "translation": "यह यहाँ से दूर है।",
           "options": [
             "here",
-            "how",
-            "right"
+            "what",
+            "where"
           ]
         },
         {
@@ -1089,13 +1089,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "How _______.",
-          "blank": "today?",
+          "sentence": "How are you _______?",
+          "blank": "today",
           "translation": "आप आज कैसे हैं?",
           "options": [
-            "today?",
-            "near",
-            "far"
+            "today",
+            "what",
+            "where"
           ]
         },
         {
@@ -1254,13 +1254,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Which _______.",
-          "blank": "market?",
+          "sentence": "Which way to the _______?",
+          "blank": "market",
           "translation": "बाज़ार का रास्ता कौन सा है?",
           "options": [
-            "market?",
-            "road",
-            "station"
+            "market",
+            "what",
+            "where"
           ]
         },
         {
@@ -1419,13 +1419,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Where _______.",
-          "blank": "station?",
+          "sentence": "Where is the _______?",
+          "blank": "station",
           "translation": "स्टेशन कहाँ है?",
           "options": [
-            "station?",
-            "when",
-            "right"
+            "station",
+            "what",
+            "where"
           ]
         },
         {
@@ -1596,13 +1596,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "It _______.",
+          "sentence": "It is far from _______",
           "blank": "here",
           "translation": "यह यहाँ से दूर है।",
           "options": [
             "here",
             "what",
-            "why"
+            "where"
           ]
         },
         {
@@ -1763,13 +1763,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Where _______.",
-          "blank": "station?",
+          "sentence": "Where is the _______?",
+          "blank": "station",
           "translation": "स्टेशन कहाँ है?",
           "options": [
-            "station?",
-            "where",
-            "who"
+            "station",
+            "what",
+            "where"
           ]
         },
         {
@@ -1928,13 +1928,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Turn _______ road.",
-          "blank": "left",
+          "sentence": "Turn left at the _______",
+          "blank": "road",
           "translation": "सड़क पर बाएँ मुड़िए।",
           "options": [
             "road",
-            "why",
-            "how"
+            "what",
+            "where"
           ]
         },
         {
@@ -2093,13 +2093,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Turn _______.",
+          "sentence": "Turn right and go _______",
           "blank": "straight",
           "translation": "दाएँ मुड़िए और सीधे जाइए।",
           "options": [
             "straight",
-            "straight",
-            "near"
+            "what",
+            "where"
           ]
         },
         {
@@ -2257,13 +2257,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Stop _______.",
+          "sentence": "Stop here, _______",
           "blank": "please",
           "translation": "कृपया यहाँ रोकिए।",
           "options": [
             "please",
-            "where",
-            "when"
+            "what",
+            "where"
           ]
         },
         {
@@ -2421,13 +2421,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Is _______.",
-          "blank": "far?",
+          "sentence": "Is it near or _______?",
+          "blank": "far",
           "translation": "क्या यह पास है या दूर?",
           "options": [
-            "far?",
-            "turn",
-            "road"
+            "far",
+            "what",
+            "where"
           ]
         },
         {
@@ -2598,13 +2598,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "It _______.",
+          "sentence": "It is far from _______",
           "blank": "here",
           "translation": "यह यहाँ से दूर है।",
           "options": [
             "here",
-            "how",
-            "right"
+            "what",
+            "where"
           ]
         },
         {
@@ -2764,13 +2764,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "How _______.",
-          "blank": "today?",
+          "sentence": "How are you _______?",
+          "blank": "today",
           "translation": "आप आज कैसे हैं?",
           "options": [
-            "today?",
-            "near",
-            "far"
+            "today",
+            "what",
+            "where"
           ]
         },
         {
@@ -2929,13 +2929,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Which _______.",
-          "blank": "market?",
+          "sentence": "Which way to the _______?",
+          "blank": "market",
           "translation": "बाज़ार का रास्ता कौन सा है?",
           "options": [
-            "market?",
-            "road",
-            "station"
+            "market",
+            "what",
+            "where"
           ]
         },
         {
@@ -3094,13 +3094,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "Where _______.",
-          "blank": "station?",
+          "sentence": "Where is the _______?",
+          "blank": "station",
           "translation": "स्टेशन कहाँ है?",
           "options": [
-            "station?",
-            "when",
-            "right"
+            "station",
+            "what",
+            "where"
           ]
         },
         {
@@ -3271,13 +3271,13 @@
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "It _______.",
+          "sentence": "It is far from _______",
           "blank": "here",
           "translation": "यह यहाँ से दूर है।",
           "options": [
             "here",
             "what",
-            "why"
+            "where"
           ]
         },
         {
