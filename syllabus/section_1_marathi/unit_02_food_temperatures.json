@@ -1,0 +1,1670 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Marathi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "mr",
+  "level": "A1",
+  "unitNumber": 2,
+  "unitTitle": "Food, Drinks & Temperatures",
+  "unitDescription": "अन्न, पेये आणि तापमान",
+  "accentColor": "#58CC02",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Food, Drinks & Temperatures • Lesson 1",
+      "subtitle": "अन्न, पेये आणि तापमान: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'पाणी' साठी योग्य चित्र निवडा:",
+          "targetWord": "water",
+          "translation": "पाणी",
+          "options": [
+            {
+              "id": "u2_l1_p1",
+              "text": "water (पाणी)",
+              "imageUrl": "/uploads/curriculum/water.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u2_l1_p2",
+              "text": "tea (चहा)",
+              "imageUrl": "/uploads/curriculum/tea.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u2_l1_p3",
+              "text": "coffee (कॉफी)",
+              "imageUrl": "/uploads/curriculum/coffee.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "water",
+              "native": "पाणी"
+            },
+            {
+              "target": "tea",
+              "native": "चहा"
+            },
+            {
+              "target": "coffee",
+              "native": "कॉफी"
+            },
+            {
+              "target": "milk",
+              "native": "दूध"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "थंड पाणी",
+          "targetSentence": "cold water",
+          "tokens": [
+            "cold",
+            "water",
+            "hot",
+            "tea"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "cold _______.",
+          "blank": "water",
+          "translation": "थंड पाणी",
+          "options": [
+            "water",
+            "tea",
+            "coffee"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "cold water",
+          "tokens": [
+            "cold",
+            "water",
+            "hot",
+            "tea"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "cold water",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "थंड पाणी",
+              "isCorrect": true
+            },
+            {
+              "text": "गरम चहा",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "थंड पाणी",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'पाणी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "water",
+          "translation": "पाणी",
+          "hint": "संकेत: W ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Waiter",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Tea or coffee?",
+          "translation": "चहा की कॉफी?",
+          "options": [
+            {
+              "text": "Hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is big.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "cold water",
+          "translation": "थंड पाणी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "cold water. Water is good.",
+          "translationText": "थंड पाणी पाणी चांगले आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Food, Drinks & Temperatures • Lesson 2",
+      "subtitle": "अन्न, पेये आणि तापमान: वाक्य रचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'थंड' साठी योग्य चित्र निवडा:",
+          "targetWord": "cold",
+          "translation": "थंड",
+          "options": [
+            {
+              "id": "u2_l2_p1",
+              "text": "cold (थंड)",
+              "imageUrl": "/uploads/curriculum/cold.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u2_l2_p2",
+              "text": "hot (गरम)",
+              "imageUrl": "/uploads/curriculum/hot.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u2_l2_p3",
+              "text": "sweet (गोड)",
+              "imageUrl": "/uploads/curriculum/sweet.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "cold",
+              "native": "थंड"
+            },
+            {
+              "target": "hot",
+              "native": "गरम"
+            },
+            {
+              "target": "sweet",
+              "native": "गोड"
+            },
+            {
+              "target": "and",
+              "native": "आणि"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "गरम चहा",
+          "targetSentence": "hot tea",
+          "tokens": [
+            "hot",
+            "tea",
+            "cold",
+            "water"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "hot _______ tea.",
+          "blank": "tea",
+          "translation": "गरम चहा",
+          "options": [
+            "tea",
+            "cold",
+            "hot"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "hot tea",
+          "tokens": [
+            "hot",
+            "tea",
+            "cold",
+            "water"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "hot tea",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "गरम चहा",
+              "isCorrect": true
+            },
+            {
+              "text": "चहा आणि पाणी",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "गरम चहा",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'थंड' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "cold",
+          "translation": "थंड",
+          "hint": "संकेत: C ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Waiter",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Tea or coffee?",
+          "translation": "चहा की कॉफी?",
+          "options": [
+            {
+              "text": "Hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is big.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Hot tea and cold water",
+          "translation": "थंड पाणी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "hot tea. It is very good.",
+          "translationText": "गरम चहा हे खूप छान आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Food, Drinks & Temperatures • Lesson 3",
+      "subtitle": "अन्न, पेये आणि तापमान: संयुक्त वाक्ये",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'पाव' साठी योग्य चित्र निवडा:",
+          "targetWord": "bread",
+          "translation": "पाव",
+          "options": [
+            {
+              "id": "u2_l3_p1",
+              "text": "bread (पाव)",
+              "imageUrl": "/uploads/curriculum/bread.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u2_l3_p2",
+              "text": "sugar (साखर)",
+              "imageUrl": "/uploads/curriculum/sugar.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u2_l3_p3",
+              "text": "food (जेवण)",
+              "imageUrl": "/uploads/curriculum/food.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "bread",
+              "native": "पाव"
+            },
+            {
+              "target": "sugar",
+              "native": "साखर"
+            },
+            {
+              "target": "food",
+              "native": "जेवण"
+            },
+            {
+              "target": "tasty",
+              "native": "चवदार"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "चहा आणि पाणी",
+          "targetSentence": "tea and water",
+          "tokens": [
+            "tea",
+            "and",
+            "water",
+            "coffee",
+            "milk"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "tea _______.",
+          "blank": "water",
+          "translation": "चहा आणि पाणी",
+          "options": [
+            "water",
+            "bread",
+            "sugar"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "tea and water",
+          "tokens": [
+            "tea",
+            "and",
+            "water",
+            "coffee",
+            "milk"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "tea and water",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "चहा आणि पाणी",
+              "isCorrect": true
+            },
+            {
+              "text": "गरम कॉफी आणि थंड दूध",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "चहा आणि पाणी",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'पाव' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "bread",
+          "translation": "पाव",
+          "hint": "संकेत: B ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Waiter",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Tea or coffee?",
+          "translation": "चहा की कॉफी?",
+          "options": [
+            {
+              "text": "Hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is big.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "tea and water",
+          "translation": "चहा आणि पाणी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "tea and water. We like this.",
+          "translationText": "चहा आणि पाणी आम्हाला हे आवडते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Food, Drinks & Temperatures • Lesson 4",
+      "subtitle": "अन्न, पेये आणि तापमान: श्रवण सराव (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'चहा' साठी योग्य चित्र निवडा:",
+          "targetWord": "tea",
+          "translation": "चहा",
+          "options": [
+            {
+              "id": "u2_l4_p1",
+              "text": "tea (चहा)",
+              "imageUrl": "/uploads/curriculum/tea.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u2_l4_p2",
+              "text": "cold (थंड)",
+              "imageUrl": "/uploads/curriculum/cold.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u2_l4_p3",
+              "text": "bread (पाव)",
+              "imageUrl": "/uploads/curriculum/bread.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "tea",
+              "native": "चहा"
+            },
+            {
+              "target": "hot",
+              "native": "गरम"
+            },
+            {
+              "target": "sugar",
+              "native": "साखर"
+            },
+            {
+              "target": "coffee",
+              "native": "कॉफी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "गरम कॉफी आणि थंड दूध",
+          "targetSentence": "hot coffee and cold milk",
+          "tokens": [
+            "hot",
+            "coffee",
+            "and",
+            "cold",
+            "milk",
+            "tea"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "hot _______.",
+          "blank": "milk",
+          "translation": "गरम कॉफी आणि थंड दूध",
+          "options": [
+            "milk",
+            "tea",
+            "milk"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "hot coffee and cold milk",
+          "tokens": [
+            "hot",
+            "coffee",
+            "and",
+            "cold",
+            "milk",
+            "tea"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "hot coffee and cold milk",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "गरम कॉफी आणि थंड दूध",
+              "isCorrect": true
+            },
+            {
+              "text": "थंड पाणी",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "गरम कॉफी आणि थंड दूध",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'चहा' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "tea",
+          "translation": "चहा",
+          "hint": "संकेत: T ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Waiter",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Tea or coffee?",
+          "translation": "चहा की कॉफी?",
+          "options": [
+            {
+              "text": "Hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is big.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Water, please",
+          "translation": "गरम चहा",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "hot coffee and cold milk. Listen and speak every day.",
+          "translationText": "गरम कॉफी आणि थंड दूध दररोज ऐका आणि बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Food, Drinks & Temperatures • Lesson 5",
+      "subtitle": "अन्न, पेये आणि तापमान: गुणविशेष आणि प्रकार",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'तिखट' साठी योग्य चित्र निवडा:",
+          "targetWord": "spicy",
+          "translation": "तिखट",
+          "options": [
+            {
+              "id": "u2_l5_p1",
+              "text": "spicy (तिखट)",
+              "imageUrl": "/uploads/curriculum/spicy.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u2_l5_p2",
+              "text": "fresh (ताजे)",
+              "imageUrl": "/uploads/curriculum/fresh.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u2_l5_p3",
+              "text": "please (कृपया)",
+              "imageUrl": "/uploads/curriculum/please.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "spicy",
+              "native": "तिखट"
+            },
+            {
+              "target": "fresh",
+              "native": "ताजे"
+            },
+            {
+              "target": "please",
+              "native": "कृपया"
+            },
+            {
+              "target": "thank you",
+              "native": "धन्यवाद"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "हे जेवण गरम आहे.",
+          "targetSentence": "This food is hot",
+          "tokens": [
+            "This",
+            "food",
+            "is",
+            "hot",
+            "cold",
+            "tea"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "This _______.",
+          "blank": "hot",
+          "translation": "हे जेवण गरम आहे.",
+          "options": [
+            "hot",
+            "spicy",
+            "fresh"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "This food is hot",
+          "tokens": [
+            "This",
+            "food",
+            "is",
+            "hot",
+            "cold",
+            "tea"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "This food is hot",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "हे जेवण गरम आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "गरम चहा",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "हे जेवण गरम आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'तिखट' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "spicy",
+          "translation": "तिखट",
+          "hint": "संकेत: S ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Waiter",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Tea or coffee?",
+          "translation": "चहा की कॉफी?",
+          "options": [
+            {
+              "text": "Hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is big.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "This food is hot",
+          "translation": "हे जेवण गरम आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "This food is hot. You are doing very well.",
+          "translationText": "हे जेवण गरम आहे. तुम्ही खूप छान करत आहात.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Food, Drinks & Temperatures • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Food, Drinks & Temperatures • Lesson 7",
+      "subtitle": "अन्न, पेये आणि तापमान: संमिश्र सराव",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'गरम' साठी योग्य चित्र निवडा:",
+          "targetWord": "hot",
+          "translation": "गरम",
+          "options": [
+            {
+              "id": "u2_l7_p1",
+              "text": "hot (गरम)",
+              "imageUrl": "/uploads/curriculum/hot.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u2_l7_p2",
+              "text": "sweet (गोड)",
+              "imageUrl": "/uploads/curriculum/sweet.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u2_l7_p3",
+              "text": "and (आणि)",
+              "imageUrl": "/uploads/curriculum/and.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "milk",
+              "native": "दूध"
+            },
+            {
+              "target": "and",
+              "native": "आणि"
+            },
+            {
+              "target": "tasty",
+              "native": "चवदार"
+            },
+            {
+              "target": "thank you",
+              "native": "धन्यवाद"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "चहा गोड आणि चवदार आहे.",
+          "targetSentence": "Tea is sweet and tasty",
+          "tokens": [
+            "Tea",
+            "is",
+            "sweet",
+            "and",
+            "tasty",
+            "spicy"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Tea _______.",
+          "blank": "tasty",
+          "translation": "चहा गोड आणि चवदार आहे.",
+          "options": [
+            "tasty",
+            "hot",
+            "and"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Tea is sweet and tasty",
+          "tokens": [
+            "Tea",
+            "is",
+            "sweet",
+            "and",
+            "tasty",
+            "spicy"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Tea is sweet and tasty",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "चहा गोड आणि चवदार आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "चहा आणि पाणी",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "चहा गोड आणि चवदार आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'गरम' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "hot",
+          "translation": "गरम",
+          "hint": "संकेत: H ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Waiter",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Tea or coffee?",
+          "translation": "चहा की कॉफी?",
+          "options": [
+            {
+              "text": "Hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is big.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Tea is sweet and tasty",
+          "translation": "चहा गोड आणि चवदार आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Tea is sweet and tasty. Practice makes you perfect.",
+          "translationText": "चहा गोड आणि चवदार आहे. सरावाने सर्व सोपे होते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Food, Drinks & Temperatures • Lesson 8",
+      "subtitle": "अन्न, पेये आणि तापमान: प्रगत वाक्यरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'साखर' साठी योग्य चित्र निवडा:",
+          "targetWord": "sugar",
+          "translation": "साखर",
+          "options": [
+            {
+              "id": "u2_l8_p1",
+              "text": "sugar (साखर)",
+              "imageUrl": "/uploads/curriculum/sugar.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u2_l8_p2",
+              "text": "food (जेवण)",
+              "imageUrl": "/uploads/curriculum/food.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u2_l8_p3",
+              "text": "tasty (चवदार)",
+              "imageUrl": "/uploads/curriculum/tasty.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "water",
+              "native": "पाणी"
+            },
+            {
+              "target": "cold",
+              "native": "थंड"
+            },
+            {
+              "target": "bread",
+              "native": "पाव"
+            },
+            {
+              "target": "spicy",
+              "native": "तिखट"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "कृपया पाणी द्या.",
+          "targetSentence": "Water, please",
+          "tokens": [
+            "Water,",
+            "please",
+            "Thank",
+            "you",
+            "tea"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Water, _______.",
+          "blank": "please",
+          "translation": "कृपया पाणी द्या.",
+          "options": [
+            "please",
+            "sugar",
+            "food"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Water, please",
+          "tokens": [
+            "Water,",
+            "please",
+            "Thank",
+            "you",
+            "tea"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Water, please",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "कृपया पाणी द्या.",
+              "isCorrect": true
+            },
+            {
+              "text": "गरम कॉफी आणि थंड दूध",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कृपया पाणी द्या.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'साखर' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "sugar",
+          "translation": "साखर",
+          "hint": "संकेत: S ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Waiter",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Tea or coffee?",
+          "translation": "चहा की कॉफी?",
+          "options": [
+            {
+              "text": "Hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is big.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Water, please",
+          "translation": "कृपया पाणी द्या.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Water, please. Everything is in order.",
+          "translationText": "कृपया पाणी द्या. सर्व काही व्यवस्थित आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Food, Drinks & Temperatures • Lesson 9",
+      "subtitle": "अन्न, पेये आणि तापमान: संभाषण प्रयोगशाळा (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'ताजे' साठी योग्य चित्र निवडा:",
+          "targetWord": "fresh",
+          "translation": "ताजे",
+          "options": [
+            {
+              "id": "u2_l9_p1",
+              "text": "fresh (ताजे)",
+              "imageUrl": "/uploads/curriculum/fresh.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u2_l9_p2",
+              "text": "please (कृपया)",
+              "imageUrl": "/uploads/curriculum/please.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u2_l9_p3",
+              "text": "thank you (धन्यवाद)",
+              "imageUrl": "/uploads/curriculum/thank you.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "coffee",
+              "native": "कॉफी"
+            },
+            {
+              "target": "sweet",
+              "native": "गोड"
+            },
+            {
+              "target": "food",
+              "native": "जेवण"
+            },
+            {
+              "target": "please",
+              "native": "कृपया"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मला गरम चहा पाहिजे.",
+          "targetSentence": "I want hot tea",
+          "tokens": [
+            "I",
+            "want",
+            "hot",
+            "tea",
+            "cold",
+            "water"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "tea",
+          "translation": "मला गरम चहा पाहिजे.",
+          "options": [
+            "tea",
+            "fresh",
+            "please"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I want hot tea",
+          "tokens": [
+            "I",
+            "want",
+            "hot",
+            "tea",
+            "cold",
+            "water"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I want hot tea",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मला गरम चहा पाहिजे.",
+              "isCorrect": true
+            },
+            {
+              "text": "हे जेवण गरम आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मला गरम चहा पाहिजे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'ताजे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "fresh",
+          "translation": "ताजे",
+          "hint": "संकेत: F ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Waiter",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Tea or coffee?",
+          "translation": "चहा की कॉफी?",
+          "options": [
+            {
+              "text": "Hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is big.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Tea is sweet",
+          "translation": "चहा आणि पाणी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I want hot tea. Speak clearly and with confidence.",
+          "translationText": "मला गरम चहा पाहिजे. स्पष्ट आणि आत्मविश्वासाने बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Food, Drinks & Temperatures • Lesson 10",
+      "subtitle": "अन्न, पेये आणि तापमान: संवाद प्रभुत्व (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'दूध' साठी योग्य चित्र निवडा:",
+          "targetWord": "milk",
+          "translation": "दूध",
+          "options": [
+            {
+              "id": "u2_l10_p1",
+              "text": "milk (दूध)",
+              "imageUrl": "/uploads/curriculum/milk.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u2_l10_p2",
+              "text": "and (आणि)",
+              "imageUrl": "/uploads/curriculum/and.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u2_l10_p3",
+              "text": "tasty (चवदार)",
+              "imageUrl": "/uploads/curriculum/tasty.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "tea",
+              "native": "चहा"
+            },
+            {
+              "target": "cold",
+              "native": "थंड"
+            },
+            {
+              "target": "sugar",
+              "native": "साखर"
+            },
+            {
+              "target": "fresh",
+              "native": "ताजे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "थंड पाणी",
+          "targetSentence": "cold water",
+          "tokens": [
+            "cold",
+            "water",
+            "hot",
+            "tea"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "cold _______.",
+          "blank": "water",
+          "translation": "थंड पाणी",
+          "options": [
+            "water",
+            "milk",
+            "and"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Water, please",
+          "tokens": [
+            "Water,",
+            "please",
+            "Thank",
+            "you",
+            "tea"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I want hot tea",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मला गरम चहा पाहिजे.",
+              "isCorrect": true
+            },
+            {
+              "text": "चहा गोड आणि चवदार आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मला गरम चहा पाहिजे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'दूध' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "milk",
+          "translation": "दूध",
+          "hint": "संकेत: M ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Waiter",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Tea or coffee?",
+          "translation": "चहा की कॉफी?",
+          "options": [
+            {
+              "text": "Hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is big.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Hot tea and cold water",
+          "translation": "थंड पाणी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I drink hot tea every morning. The food is fresh and tasty.",
+          "translationText": "मी दररोज सकाळी गरम चहा पितो. जेवण ताजे आणि चवदार आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Food, Drinks & Temperatures • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Food, Drinks & Temperatures • Unit 2 Milestone Exam",
+      "subtitle": "अन्न, पेये आणि तापमान: संपूर्ण युनिट परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'पाणी' साठी योग्य चित्र निवडा:",
+          "targetWord": "water",
+          "translation": "पाणी",
+          "options": [
+            {
+              "id": "u2_l12_p1",
+              "text": "water (पाणी)",
+              "imageUrl": "/uploads/curriculum/water.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u2_l12_p2",
+              "text": "cold (थंड)",
+              "imageUrl": "/uploads/curriculum/cold.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u2_l12_p3",
+              "text": "bread (पाव)",
+              "imageUrl": "/uploads/curriculum/bread.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "water",
+              "native": "पाणी"
+            },
+            {
+              "target": "cold",
+              "native": "थंड"
+            },
+            {
+              "target": "bread",
+              "native": "पाव"
+            },
+            {
+              "target": "spicy",
+              "native": "तिखट"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "चहा गोड आणि चवदार आहे.",
+          "targetSentence": "Tea is sweet and tasty",
+          "tokens": [
+            "Tea",
+            "is",
+            "sweet",
+            "and",
+            "tasty",
+            "spicy"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Tea _______.",
+          "blank": "tasty",
+          "translation": "चहा गोड आणि चवदार आहे.",
+          "options": [
+            "tasty",
+            "water",
+            "cold"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I want hot tea",
+          "tokens": [
+            "I",
+            "want",
+            "hot",
+            "tea",
+            "cold",
+            "water"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "This food is hot",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "हे जेवण गरम आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "थंड पाणी",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "हे जेवण गरम आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'धन्यवाद' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "thank you",
+          "translation": "धन्यवाद",
+          "hint": "संकेत: T ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Waiter",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Tea or coffee?",
+          "translation": "चहा की कॉफी?",
+          "options": [
+            {
+              "text": "Hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "My house is big.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Hot tea and cold water",
+          "translation": "थंड पाणी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I drink hot tea every morning. The food is fresh and tasty.",
+          "translationText": "मी दररोज सकाळी गरम चहा पितो. जेवण ताजे आणि चवदार आहे.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1685 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Marathi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "mr",
+  "level": "A1",
+  "unitNumber": 5,
+  "unitTitle": "Numbers, Quantities & Shopping",
+  "unitDescription": "संख्या, प्रमाण आणि खरेदी",
+  "accentColor": "#22C55E",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Numbers, Quantities & Shopping • Lesson 1",
+      "subtitle": "संख्या, प्रमाण आणि खरेदी: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'एक' साठी योग्य चित्र निवडा:",
+          "targetWord": "one",
+          "translation": "एक",
+          "options": [
+            {
+              "id": "u5_l1_p1",
+              "text": "one (एक)",
+              "imageUrl": "/uploads/curriculum/one.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u5_l1_p2",
+              "text": "two (दोन)",
+              "imageUrl": "/uploads/curriculum/two.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u5_l1_p3",
+              "text": "three (तीन)",
+              "imageUrl": "/uploads/curriculum/three.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "one",
+              "native": "एक"
+            },
+            {
+              "target": "two",
+              "native": "दोन"
+            },
+            {
+              "target": "three",
+              "native": "तीन"
+            },
+            {
+              "target": "four",
+              "native": "चार"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "याची किंमत किती आहे?",
+          "targetSentence": "How much does it cost?",
+          "tokens": [
+            "How",
+            "much",
+            "does",
+            "it",
+            "cost?",
+            "many"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "How _______.",
+          "blank": "cost?",
+          "translation": "याची किंमत किती आहे?",
+          "options": [
+            "cost?",
+            "two",
+            "three"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "How much does it cost?",
+          "tokens": [
+            "How",
+            "much",
+            "does",
+            "it",
+            "cost?",
+            "many"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "How much does it cost?",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "याची किंमत किती आहे?",
+              "isCorrect": true
+            },
+            {
+              "text": "याची किंमत दहा रुपये आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "याची किंमत किती आहे?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'एक' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "one",
+          "translation": "एक",
+          "hint": "संकेत: O ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Shopkeeper",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How much tea do you want?",
+          "translation": "तुम्हाला किती चहा पाहिजे?",
+          "options": [
+            {
+              "text": "One cup of hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "She is my sister.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "One cup of hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "How much does it cost?",
+          "translation": "याची किंमत किती आहे?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "How much does it cost?. One is good.",
+          "translationText": "याची किंमत किती आहे? एक चांगले आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Numbers, Quantities & Shopping • Lesson 2",
+      "subtitle": "संख्या, प्रमाण आणि खरेदी: वाक्य रचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'पाच' साठी योग्य चित्र निवडा:",
+          "targetWord": "five",
+          "translation": "पाच",
+          "options": [
+            {
+              "id": "u5_l2_p1",
+              "text": "five (पाच)",
+              "imageUrl": "/uploads/curriculum/five.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u5_l2_p2",
+              "text": "ten (दहा)",
+              "imageUrl": "/uploads/curriculum/ten.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u5_l2_p3",
+              "text": "hundred (शंभर)",
+              "imageUrl": "/uploads/curriculum/hundred.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "five",
+              "native": "पाच"
+            },
+            {
+              "target": "ten",
+              "native": "दहा"
+            },
+            {
+              "target": "hundred",
+              "native": "शंभर"
+            },
+            {
+              "target": "rupee",
+              "native": "रुपया"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "याची किंमत दहा रुपये आहे.",
+          "targetSentence": "It costs ten rupees",
+          "tokens": [
+            "It",
+            "costs",
+            "ten",
+            "rupees",
+            "five",
+            "hundred"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "It _______ rupees.",
+          "blank": "costs",
+          "translation": "याची किंमत दहा रुपये आहे.",
+          "options": [
+            "rupees",
+            "five",
+            "ten"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "It costs ten rupees",
+          "tokens": [
+            "It",
+            "costs",
+            "ten",
+            "rupees",
+            "five",
+            "hundred"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "It costs ten rupees",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "याची किंमत दहा रुपये आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "कृपया दोन कप चहा द्या.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "याची किंमत दहा रुपये आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'पाच' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "five",
+          "translation": "पाच",
+          "hint": "संकेत: F ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Shopkeeper",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How much tea do you want?",
+          "translation": "तुम्हाला किती चहा पाहिजे?",
+          "options": [
+            {
+              "text": "One cup of hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "She is my sister.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "One cup of hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Two cups of tea, please",
+          "translation": "याची किंमत किती आहे?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "It costs ten rupees. It is very good.",
+          "translationText": "याची किंमत दहा रुपये आहे. हे खूप छान आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Numbers, Quantities & Shopping • Lesson 3",
+      "subtitle": "संख्या, प्रमाण आणि खरेदी: संयुक्त वाक्ये",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'किंमत' साठी योग्य चित्र निवडा:",
+          "targetWord": "cost",
+          "translation": "किंमत",
+          "options": [
+            {
+              "id": "u5_l3_p1",
+              "text": "cost (किंमत)",
+              "imageUrl": "/uploads/curriculum/cost.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u5_l3_p2",
+              "text": "expensive (महाग)",
+              "imageUrl": "/uploads/curriculum/expensive.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u5_l3_p3",
+              "text": "cheap (स्वस्त)",
+              "imageUrl": "/uploads/curriculum/cheap.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "cost",
+              "native": "किंमत"
+            },
+            {
+              "target": "expensive",
+              "native": "महाग"
+            },
+            {
+              "target": "cheap",
+              "native": "स्वस्त"
+            },
+            {
+              "target": "many",
+              "native": "अनेक"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "कृपया दोन कप चहा द्या.",
+          "targetSentence": "Two cups of tea, please",
+          "tokens": [
+            "Two",
+            "cups",
+            "of",
+            "tea,",
+            "please",
+            "three"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Two _______.",
+          "blank": "please",
+          "translation": "कृपया दोन कप चहा द्या.",
+          "options": [
+            "please",
+            "cost",
+            "expensive"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Two cups of tea, please",
+          "tokens": [
+            "Two",
+            "cups",
+            "of",
+            "tea,",
+            "please",
+            "three"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Two cups of tea, please",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "कृपया दोन कप चहा द्या.",
+              "isCorrect": true
+            },
+            {
+              "text": "हे पुस्तक महाग आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कृपया दोन कप चहा द्या.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'किंमत' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "cost",
+          "translation": "किंमत",
+          "hint": "संकेत: C ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Shopkeeper",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How much tea do you want?",
+          "translation": "तुम्हाला किती चहा पाहिजे?",
+          "options": [
+            {
+              "text": "One cup of hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "She is my sister.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "One cup of hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Two cups of tea, please",
+          "translation": "कृपया दोन कप चहा द्या.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Two cups of tea, please. We like this.",
+          "translationText": "कृपया दोन कप चहा द्या. आम्हाला हे आवडते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Numbers, Quantities & Shopping • Lesson 4",
+      "subtitle": "संख्या, प्रमाण आणि खरेदी: श्रवण सराव (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'दोन' साठी योग्य चित्र निवडा:",
+          "targetWord": "two",
+          "translation": "दोन",
+          "options": [
+            {
+              "id": "u5_l4_p1",
+              "text": "two (दोन)",
+              "imageUrl": "/uploads/curriculum/two.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u5_l4_p2",
+              "text": "five (पाच)",
+              "imageUrl": "/uploads/curriculum/five.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u5_l4_p3",
+              "text": "cost (किंमत)",
+              "imageUrl": "/uploads/curriculum/cost.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "two",
+              "native": "दोन"
+            },
+            {
+              "target": "ten",
+              "native": "दहा"
+            },
+            {
+              "target": "expensive",
+              "native": "महाग"
+            },
+            {
+              "target": "three",
+              "native": "तीन"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "हे पुस्तक महाग आहे.",
+          "targetSentence": "This book is expensive",
+          "tokens": [
+            "This",
+            "book",
+            "is",
+            "expensive",
+            "cheap",
+            "car"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "This _______.",
+          "blank": "expensive",
+          "translation": "हे पुस्तक महाग आहे.",
+          "options": [
+            "expensive",
+            "two",
+            "four"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "This book is expensive",
+          "tokens": [
+            "This",
+            "book",
+            "is",
+            "expensive",
+            "cheap",
+            "car"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "This book is expensive",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "हे पुस्तक महाग आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "याची किंमत किती आहे?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "हे पुस्तक महाग आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'दोन' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "two",
+          "translation": "दोन",
+          "hint": "संकेत: T ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Shopkeeper",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How much tea do you want?",
+          "translation": "तुम्हाला किती चहा पाहिजे?",
+          "options": [
+            {
+              "text": "One cup of hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "She is my sister.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "One cup of hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "How much does it cost?",
+          "translation": "याची किंमत दहा रुपये आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "This book is expensive. Listen and speak every day.",
+          "translationText": "हे पुस्तक महाग आहे. दररोज ऐका आणि बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Numbers, Quantities & Shopping • Lesson 5",
+      "subtitle": "संख्या, प्रमाण आणि खरेदी: गुणविशेष आणि प्रकार",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'किती' साठी योग्य चित्र निवडा:",
+          "targetWord": "how much",
+          "translation": "किती",
+          "options": [
+            {
+              "id": "u5_l5_p1",
+              "text": "how much (किती)",
+              "imageUrl": "/uploads/curriculum/how much.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u5_l5_p2",
+              "text": "total (एकूण)",
+              "imageUrl": "/uploads/curriculum/total.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u5_l5_p3",
+              "text": "buy (खरेदी करणे)",
+              "imageUrl": "/uploads/curriculum/buy.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "how much",
+              "native": "किती"
+            },
+            {
+              "target": "total",
+              "native": "एकूण"
+            },
+            {
+              "target": "buy",
+              "native": "खरेदी करणे"
+            },
+            {
+              "target": "shop",
+              "native": "दुकान"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "ते पेन खूप स्वस्त आहे.",
+          "targetSentence": "That pen is very cheap",
+          "tokens": [
+            "That",
+            "pen",
+            "is",
+            "very",
+            "cheap",
+            "expensive"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "That _______.",
+          "blank": "cheap",
+          "translation": "ते पेन खूप स्वस्त आहे.",
+          "options": [
+            "cheap",
+            "how much",
+            "total"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "That pen is very cheap",
+          "tokens": [
+            "That",
+            "pen",
+            "is",
+            "very",
+            "cheap",
+            "expensive"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "That pen is very cheap",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "ते पेन खूप स्वस्त आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "याची किंमत दहा रुपये आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "ते पेन खूप स्वस्त आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'किती' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "how much",
+          "translation": "किती",
+          "hint": "संकेत: H ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Shopkeeper",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How much tea do you want?",
+          "translation": "तुम्हाला किती चहा पाहिजे?",
+          "options": [
+            {
+              "text": "One cup of hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "She is my sister.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "One cup of hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "That pen is very cheap",
+          "translation": "ते पेन खूप स्वस्त आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "That pen is very cheap. You are doing very well.",
+          "translationText": "ते पेन खूप स्वस्त आहे. तुम्ही खूप छान करत आहात.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Numbers, Quantities & Shopping • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Numbers, Quantities & Shopping • Lesson 7",
+      "subtitle": "संख्या, प्रमाण आणि खरेदी: संमिश्र सराव",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'दहा' साठी योग्य चित्र निवडा:",
+          "targetWord": "ten",
+          "translation": "दहा",
+          "options": [
+            {
+              "id": "u5_l7_p1",
+              "text": "ten (दहा)",
+              "imageUrl": "/uploads/curriculum/ten.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u5_l7_p2",
+              "text": "hundred (शंभर)",
+              "imageUrl": "/uploads/curriculum/hundred.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u5_l7_p3",
+              "text": "rupee (रुपया)",
+              "imageUrl": "/uploads/curriculum/rupee.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "four",
+              "native": "चार"
+            },
+            {
+              "target": "rupee",
+              "native": "रुपया"
+            },
+            {
+              "target": "many",
+              "native": "अनेक"
+            },
+            {
+              "target": "shop",
+              "native": "दुकान"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मला पाच सफरचंद पाहिजेत.",
+          "targetSentence": "I want five apples",
+          "tokens": [
+            "I",
+            "want",
+            "five",
+            "apples",
+            "four",
+            "rupees"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "apples",
+          "translation": "मला पाच सफरचंद पाहिजेत.",
+          "options": [
+            "apples",
+            "ten",
+            "rupee"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I want five apples",
+          "tokens": [
+            "I",
+            "want",
+            "five",
+            "apples",
+            "four",
+            "rupees"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I want five apples",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मला पाच सफरचंद पाहिजेत.",
+              "isCorrect": true
+            },
+            {
+              "text": "कृपया दोन कप चहा द्या.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मला पाच सफरचंद पाहिजेत.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'दहा' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "ten",
+          "translation": "दहा",
+          "hint": "संकेत: T ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Shopkeeper",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How much tea do you want?",
+          "translation": "तुम्हाला किती चहा पाहिजे?",
+          "options": [
+            {
+              "text": "One cup of hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "She is my sister.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "One cup of hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I want five apples",
+          "translation": "मला पाच सफरचंद पाहिजेत.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I want five apples. Practice makes you perfect.",
+          "translationText": "मला पाच सफरचंद पाहिजेत. सरावाने सर्व सोपे होते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Numbers, Quantities & Shopping • Lesson 8",
+      "subtitle": "संख्या, प्रमाण आणि खरेदी: प्रगत वाक्यरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'महाग' साठी योग्य चित्र निवडा:",
+          "targetWord": "expensive",
+          "translation": "महाग",
+          "options": [
+            {
+              "id": "u5_l8_p1",
+              "text": "expensive (महाग)",
+              "imageUrl": "/uploads/curriculum/expensive.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u5_l8_p2",
+              "text": "cheap (स्वस्त)",
+              "imageUrl": "/uploads/curriculum/cheap.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u5_l8_p3",
+              "text": "many (अनेक)",
+              "imageUrl": "/uploads/curriculum/many.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "one",
+              "native": "एक"
+            },
+            {
+              "target": "five",
+              "native": "पाच"
+            },
+            {
+              "target": "cost",
+              "native": "किंमत"
+            },
+            {
+              "target": "how much",
+              "native": "किती"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "दुकान उघडे आहे.",
+          "targetSentence": "The shop is open",
+          "tokens": [
+            "The",
+            "shop",
+            "is",
+            "open",
+            "closed",
+            "house"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "The _______.",
+          "blank": "open",
+          "translation": "दुकान उघडे आहे.",
+          "options": [
+            "open",
+            "expensive",
+            "cheap"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "The shop is open",
+          "tokens": [
+            "The",
+            "shop",
+            "is",
+            "open",
+            "closed",
+            "house"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "The shop is open",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "दुकान उघडे आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "हे पुस्तक महाग आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "दुकान उघडे आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'महाग' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "expensive",
+          "translation": "महाग",
+          "hint": "संकेत: E ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Shopkeeper",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How much tea do you want?",
+          "translation": "तुम्हाला किती चहा पाहिजे?",
+          "options": [
+            {
+              "text": "One cup of hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "She is my sister.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "One cup of hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "The shop is open",
+          "translation": "दुकान उघडे आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "The shop is open. Everything is in order.",
+          "translationText": "दुकान उघडे आहे. सर्व काही व्यवस्थित आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Numbers, Quantities & Shopping • Lesson 9",
+      "subtitle": "संख्या, प्रमाण आणि खरेदी: संभाषण प्रयोगशाळा (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'एकूण' साठी योग्य चित्र निवडा:",
+          "targetWord": "total",
+          "translation": "एकूण",
+          "options": [
+            {
+              "id": "u5_l9_p1",
+              "text": "total (एकूण)",
+              "imageUrl": "/uploads/curriculum/total.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u5_l9_p2",
+              "text": "buy (खरेदी करणे)",
+              "imageUrl": "/uploads/curriculum/buy.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u5_l9_p3",
+              "text": "shop (दुकान)",
+              "imageUrl": "/uploads/curriculum/shop.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "three",
+              "native": "तीन"
+            },
+            {
+              "target": "hundred",
+              "native": "शंभर"
+            },
+            {
+              "target": "cheap",
+              "native": "स्वस्त"
+            },
+            {
+              "target": "buy",
+              "native": "खरेदी करणे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "एकूण पन्नास रुपये झाले.",
+          "targetSentence": "Total is fifty rupees",
+          "tokens": [
+            "Total",
+            "is",
+            "fifty",
+            "rupees",
+            "hundred",
+            "costs"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Total _______.",
+          "blank": "rupees",
+          "translation": "एकूण पन्नास रुपये झाले.",
+          "options": [
+            "rupees",
+            "total",
+            "buy"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Total is fifty rupees",
+          "tokens": [
+            "Total",
+            "is",
+            "fifty",
+            "rupees",
+            "hundred",
+            "costs"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Total is fifty rupees",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "एकूण पन्नास रुपये झाले.",
+              "isCorrect": true
+            },
+            {
+              "text": "ते पेन खूप स्वस्त आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "एकूण पन्नास रुपये झाले.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'एकूण' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "total",
+          "translation": "एकूण",
+          "hint": "संकेत: T ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Shopkeeper",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How much tea do you want?",
+          "translation": "तुम्हाला किती चहा पाहिजे?",
+          "options": [
+            {
+              "text": "One cup of hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "She is my sister.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "One cup of hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "It costs ten rupees",
+          "translation": "कृपया दोन कप चहा द्या.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Total is fifty rupees. Speak clearly and with confidence.",
+          "translationText": "एकूण पन्नास रुपये झाले. स्पष्ट आणि आत्मविश्वासाने बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Numbers, Quantities & Shopping • Lesson 10",
+      "subtitle": "संख्या, प्रमाण आणि खरेदी: संवाद प्रभुत्व (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'चार' साठी योग्य चित्र निवडा:",
+          "targetWord": "four",
+          "translation": "चार",
+          "options": [
+            {
+              "id": "u5_l10_p1",
+              "text": "four (चार)",
+              "imageUrl": "/uploads/curriculum/four.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u5_l10_p2",
+              "text": "rupee (रुपया)",
+              "imageUrl": "/uploads/curriculum/rupee.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u5_l10_p3",
+              "text": "many (अनेक)",
+              "imageUrl": "/uploads/curriculum/many.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "two",
+              "native": "दोन"
+            },
+            {
+              "target": "five",
+              "native": "पाच"
+            },
+            {
+              "target": "expensive",
+              "native": "महाग"
+            },
+            {
+              "target": "total",
+              "native": "एकूण"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "याची किंमत किती आहे?",
+          "targetSentence": "How much does it cost?",
+          "tokens": [
+            "How",
+            "much",
+            "does",
+            "it",
+            "cost?",
+            "many"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "How _______.",
+          "blank": "cost?",
+          "translation": "याची किंमत किती आहे?",
+          "options": [
+            "cost?",
+            "four",
+            "rupee"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "The shop is open",
+          "tokens": [
+            "The",
+            "shop",
+            "is",
+            "open",
+            "closed",
+            "house"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Total is fifty rupees",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "एकूण पन्नास रुपये झाले.",
+              "isCorrect": true
+            },
+            {
+              "text": "मला पाच सफरचंद पाहिजेत.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "एकूण पन्नास रुपये झाले.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'चार' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "four",
+          "translation": "चार",
+          "hint": "संकेत: F ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Shopkeeper",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How much tea do you want?",
+          "translation": "तुम्हाला किती चहा पाहिजे?",
+          "options": [
+            {
+              "text": "One cup of hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "She is my sister.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "One cup of hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Two cups of tea, please",
+          "translation": "याची किंमत किती आहे?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I go to the shop and buy two books. The total is one hundred rupees.",
+          "translationText": "मी दुकानात जातो आणि दोन पुस्तके खरेदी करतो. एकूण शंभर रुपये झाले.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Numbers, Quantities & Shopping • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Numbers, Quantities & Shopping • Unit 5 Milestone Exam",
+      "subtitle": "संख्या, प्रमाण आणि खरेदी: संपूर्ण युनिट परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'एक' साठी योग्य चित्र निवडा:",
+          "targetWord": "one",
+          "translation": "एक",
+          "options": [
+            {
+              "id": "u5_l12_p1",
+              "text": "one (एक)",
+              "imageUrl": "/uploads/curriculum/one.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u5_l12_p2",
+              "text": "five (पाच)",
+              "imageUrl": "/uploads/curriculum/five.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u5_l12_p3",
+              "text": "cost (किंमत)",
+              "imageUrl": "/uploads/curriculum/cost.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "one",
+              "native": "एक"
+            },
+            {
+              "target": "five",
+              "native": "पाच"
+            },
+            {
+              "target": "cost",
+              "native": "किंमत"
+            },
+            {
+              "target": "how much",
+              "native": "किती"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मला पाच सफरचंद पाहिजेत.",
+          "targetSentence": "I want five apples",
+          "tokens": [
+            "I",
+            "want",
+            "five",
+            "apples",
+            "four",
+            "rupees"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "apples",
+          "translation": "मला पाच सफरचंद पाहिजेत.",
+          "options": [
+            "apples",
+            "one",
+            "five"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Total is fifty rupees",
+          "tokens": [
+            "Total",
+            "is",
+            "fifty",
+            "rupees",
+            "hundred",
+            "costs"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "That pen is very cheap",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "ते पेन खूप स्वस्त आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "याची किंमत किती आहे?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "ते पेन खूप स्वस्त आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'दुकान' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "shop",
+          "translation": "दुकान",
+          "hint": "संकेत: S ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Shopkeeper",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How much tea do you want?",
+          "translation": "तुम्हाला किती चहा पाहिजे?",
+          "options": [
+            {
+              "text": "One cup of hot tea, please.",
+              "isCorrect": true
+            },
+            {
+              "text": "She is my sister.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "One cup of hot tea, please.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Two cups of tea, please",
+          "translation": "याची किंमत किती आहे?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I go to the shop and buy two books. The total is one hundred rupees.",
+          "translationText": "मी दुकानात जातो आणि दोन पुस्तके खरेदी करतो. एकूण शंभर रुपये झाले.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

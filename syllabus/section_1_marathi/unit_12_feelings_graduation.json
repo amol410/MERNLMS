@@ -1,0 +1,1686 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Marathi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "mr",
+  "level": "A1",
+  "unitNumber": 12,
+  "unitTitle": "Feelings, Physical Health & Section 1 Graduation",
+  "unitDescription": "भावना, आरोग्य आणि पदवीदान 🏆",
+  "accentColor": "#06B6D4",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Lesson 1",
+      "subtitle": "भावना, आरोग्य आणि पदवीदान 🏆: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'आनंदी' साठी योग्य चित्र निवडा:",
+          "targetWord": "happy",
+          "translation": "आनंदी",
+          "options": [
+            {
+              "id": "u12_l1_p1",
+              "text": "happy (आनंदी)",
+              "imageUrl": "/uploads/curriculum/happy.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u12_l1_p2",
+              "text": "sad (दुःखी)",
+              "imageUrl": "/uploads/curriculum/sad.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u12_l1_p3",
+              "text": "tired (थकलेला)",
+              "imageUrl": "/uploads/curriculum/tired.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "happy",
+              "native": "आनंदी"
+            },
+            {
+              "target": "sad",
+              "native": "दुःखी"
+            },
+            {
+              "target": "tired",
+              "native": "थकलेला"
+            },
+            {
+              "target": "hungry",
+              "native": "भुकेलेला"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मी आज खूप आनंदी आहे.",
+          "targetSentence": "I am very happy today",
+          "tokens": [
+            "I",
+            "am",
+            "very",
+            "happy",
+            "today",
+            "sad"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "today",
+          "translation": "मी आज खूप आनंदी आहे.",
+          "options": [
+            "today",
+            "sad",
+            "tired"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I am very happy today",
+          "tokens": [
+            "I",
+            "am",
+            "very",
+            "happy",
+            "today",
+            "sad"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I am very happy today",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मी आज खूप आनंदी आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "मला भूक लागली आहे आणि मी थकलो आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मी आज खूप आनंदी आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'आनंदी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "happy",
+          "translation": "आनंदी",
+          "hint": "संकेत: H ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Doctor",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How do you feel today?",
+          "translation": "आज तुम्हाला कसे वाटत आहे?",
+          "options": [
+            {
+              "text": "I feel very well, thank you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Train to Pune.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel very well, thank you!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I am very happy today",
+          "translation": "मी आज खूप आनंदी आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I am very happy today. Happy is good.",
+          "translationText": "मी आज खूप आनंदी आहे. आनंदी चांगले आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Lesson 2",
+      "subtitle": "भावना, आरोग्य आणि पदवीदान 🏆: वाक्य रचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'तहान लागलेला' साठी योग्य चित्र निवडा:",
+          "targetWord": "thirsty",
+          "translation": "तहान लागलेला",
+          "options": [
+            {
+              "id": "u12_l2_p1",
+              "text": "thirsty (तहान लागलेला)",
+              "imageUrl": "/uploads/curriculum/thirsty.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u12_l2_p2",
+              "text": "fine (ठीक)",
+              "imageUrl": "/uploads/curriculum/fine.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u12_l2_p3",
+              "text": "well (छान)",
+              "imageUrl": "/uploads/curriculum/well.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "thirsty",
+              "native": "तहान लागलेला"
+            },
+            {
+              "target": "fine",
+              "native": "ठीक"
+            },
+            {
+              "target": "well",
+              "native": "छान"
+            },
+            {
+              "target": "sick",
+              "native": "आजारी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मला भूक लागली आहे आणि मी थकलो आहे.",
+          "targetSentence": "I am hungry and tired",
+          "tokens": [
+            "I",
+            "am",
+            "hungry",
+            "and",
+            "tired",
+            "fine"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______ tired.",
+          "blank": "am",
+          "translation": "मला भूक लागली आहे आणि मी थकलो आहे.",
+          "options": [
+            "tired",
+            "thirsty",
+            "fine"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I am hungry and tired",
+          "tokens": [
+            "I",
+            "am",
+            "hungry",
+            "and",
+            "tired",
+            "fine"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I am hungry and tired",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मला भूक लागली आहे आणि मी थकलो आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "तुम्हाला तहान लागली आहे का?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मला भूक लागली आहे आणि मी थकलो आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'तहान लागलेला' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "thirsty",
+          "translation": "तहान लागलेला",
+          "hint": "संकेत: T ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Doctor",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How do you feel today?",
+          "translation": "आज तुम्हाला कसे वाटत आहे?",
+          "options": [
+            {
+              "text": "I feel very well, thank you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Train to Pune.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel very well, thank you!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I am very happy today",
+          "translation": "मी आज खूप आनंदी आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I am hungry and tired. It is very good.",
+          "translationText": "मला भूक लागली आहे आणि मी थकलो आहे. हे खूप छान आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Lesson 3",
+      "subtitle": "भावना, आरोग्य आणि पदवीदान 🏆: संयुक्त वाक्ये",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'डोकेदुखी' साठी योग्य चित्र निवडा:",
+          "targetWord": "headache",
+          "translation": "डोकेदुखी",
+          "options": [
+            {
+              "id": "u12_l3_p1",
+              "text": "headache (डोकेदुखी)",
+              "imageUrl": "/uploads/curriculum/headache.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u12_l3_p2",
+              "text": "fever (ताप)",
+              "imageUrl": "/uploads/curriculum/fever.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u12_l3_p3",
+              "text": "doctor (डॉक्टर)",
+              "imageUrl": "/uploads/curriculum/doctor.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "headache",
+              "native": "डोकेदुखी"
+            },
+            {
+              "target": "fever",
+              "native": "ताप"
+            },
+            {
+              "target": "doctor",
+              "native": "डॉक्टर"
+            },
+            {
+              "target": "medicine",
+              "native": "औषध"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "तुम्हाला तहान लागली आहे का?",
+          "targetSentence": "Are you thirsty?",
+          "tokens": [
+            "Are",
+            "you",
+            "thirsty?",
+            "hungry",
+            "fine"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Are _______.",
+          "blank": "thirsty?",
+          "translation": "तुम्हाला तहान लागली आहे का?",
+          "options": [
+            "thirsty?",
+            "headache",
+            "fever"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Are you thirsty?",
+          "tokens": [
+            "Are",
+            "you",
+            "thirsty?",
+            "hungry",
+            "fine"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Are you thirsty?",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तुम्हाला तहान लागली आहे का?",
+              "isCorrect": true
+            },
+            {
+              "text": "माझे डोके खूप दुखत आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "तुम्हाला तहान लागली आहे का?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'डोकेदुखी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "headache",
+          "translation": "डोकेदुखी",
+          "hint": "संकेत: H ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Doctor",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How do you feel today?",
+          "translation": "आज तुम्हाला कसे वाटत आहे?",
+          "options": [
+            {
+              "text": "I feel very well, thank you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Train to Pune.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel very well, thank you!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Are you thirsty?",
+          "translation": "तुम्हाला तहान लागली आहे का?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Are you thirsty?. We like this.",
+          "translationText": "तुम्हाला तहान लागली आहे का? आम्हाला हे आवडते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Lesson 4",
+      "subtitle": "भावना, आरोग्य आणि पदवीदान 🏆: श्रवण सराव (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'दुःखी' साठी योग्य चित्र निवडा:",
+          "targetWord": "sad",
+          "translation": "दुःखी",
+          "options": [
+            {
+              "id": "u12_l4_p1",
+              "text": "sad (दुःखी)",
+              "imageUrl": "/uploads/curriculum/sad.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u12_l4_p2",
+              "text": "thirsty (तहान लागलेला)",
+              "imageUrl": "/uploads/curriculum/thirsty.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u12_l4_p3",
+              "text": "headache (डोकेदुखी)",
+              "imageUrl": "/uploads/curriculum/headache.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "sad",
+              "native": "दुःखी"
+            },
+            {
+              "target": "fine",
+              "native": "ठीक"
+            },
+            {
+              "target": "fever",
+              "native": "ताप"
+            },
+            {
+              "target": "tired",
+              "native": "थकलेला"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझे डोके खूप दुखत आहे.",
+          "targetSentence": "I have a bad headache",
+          "tokens": [
+            "I",
+            "have",
+            "a",
+            "bad",
+            "headache",
+            "fever"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "headache",
+          "translation": "माझे डोके खूप दुखत आहे.",
+          "options": [
+            "headache",
+            "sad",
+            "hungry"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I have a bad headache",
+          "tokens": [
+            "I",
+            "have",
+            "a",
+            "bad",
+            "headache",
+            "fever"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I have a bad headache",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझे डोके खूप दुखत आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "मी आज खूप आनंदी आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "माझे डोके खूप दुखत आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'दुःखी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "sad",
+          "translation": "दुःखी",
+          "hint": "संकेत: S ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Doctor",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How do you feel today?",
+          "translation": "आज तुम्हाला कसे वाटत आहे?",
+          "options": [
+            {
+              "text": "I feel very well, thank you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Train to Pune.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel very well, thank you!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I feel much better now",
+          "translation": "मला भूक लागली आहे आणि मी थकलो आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I have a bad headache. Listen and speak every day.",
+          "translationText": "माझे डोके खूप दुखत आहे. दररोज ऐका आणि बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Lesson 5",
+      "subtitle": "भावना, आरोग्य आणि पदवीदान 🏆: गुणविशेष आणि प्रकार",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'विश्रांती' साठी योग्य चित्र निवडा:",
+          "targetWord": "rest",
+          "translation": "विश्रांती",
+          "options": [
+            {
+              "id": "u12_l5_p1",
+              "text": "rest (विश्रांती)",
+              "imageUrl": "/uploads/curriculum/rest.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u12_l5_p2",
+              "text": "feel (वाटणे)",
+              "imageUrl": "/uploads/curriculum/feel.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u12_l5_p3",
+              "text": "ready (तयार)",
+              "imageUrl": "/uploads/curriculum/ready.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "rest",
+              "native": "विश्रांती"
+            },
+            {
+              "target": "feel",
+              "native": "वाटणे"
+            },
+            {
+              "target": "ready",
+              "native": "तयार"
+            },
+            {
+              "target": "graduate",
+              "native": "पदवीधर"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "पाणी प्या आणि विश्रांती घ्या.",
+          "targetSentence": "Drink water and take rest",
+          "tokens": [
+            "Drink",
+            "water",
+            "and",
+            "take",
+            "rest",
+            "medicine"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Drink _______.",
+          "blank": "rest",
+          "translation": "पाणी प्या आणि विश्रांती घ्या.",
+          "options": [
+            "rest",
+            "rest",
+            "feel"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Drink water and take rest",
+          "tokens": [
+            "Drink",
+            "water",
+            "and",
+            "take",
+            "rest",
+            "medicine"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Drink water and take rest",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "पाणी प्या आणि विश्रांती घ्या.",
+              "isCorrect": true
+            },
+            {
+              "text": "मला भूक लागली आहे आणि मी थकलो आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "पाणी प्या आणि विश्रांती घ्या.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'विश्रांती' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "rest",
+          "translation": "विश्रांती",
+          "hint": "संकेत: R ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Doctor",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How do you feel today?",
+          "translation": "आज तुम्हाला कसे वाटत आहे?",
+          "options": [
+            {
+              "text": "I feel very well, thank you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Train to Pune.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel very well, thank you!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Drink water and take rest",
+          "translation": "पाणी प्या आणि विश्रांती घ्या.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Drink water and take rest. You are doing very well.",
+          "translationText": "पाणी प्या आणि विश्रांती घ्या. तुम्ही खूप छान करत आहात.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Lesson 7",
+      "subtitle": "भावना, आरोग्य आणि पदवीदान 🏆: संमिश्र सराव",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'ठीक' साठी योग्य चित्र निवडा:",
+          "targetWord": "fine",
+          "translation": "ठीक",
+          "options": [
+            {
+              "id": "u12_l7_p1",
+              "text": "fine (ठीक)",
+              "imageUrl": "/uploads/curriculum/fine.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u12_l7_p2",
+              "text": "well (छान)",
+              "imageUrl": "/uploads/curriculum/well.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u12_l7_p3",
+              "text": "sick (आजारी)",
+              "imageUrl": "/uploads/curriculum/sick.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "hungry",
+              "native": "भुकेलेला"
+            },
+            {
+              "target": "sick",
+              "native": "आजारी"
+            },
+            {
+              "target": "medicine",
+              "native": "औषध"
+            },
+            {
+              "target": "graduate",
+              "native": "पदवीधर"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "डॉक्टर औषध देतात.",
+          "targetSentence": "The doctor gives medicine",
+          "tokens": [
+            "The",
+            "doctor",
+            "gives",
+            "medicine",
+            "water",
+            "rest"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "The _______.",
+          "blank": "medicine",
+          "translation": "डॉक्टर औषध देतात.",
+          "options": [
+            "medicine",
+            "fine",
+            "sick"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "The doctor gives medicine",
+          "tokens": [
+            "The",
+            "doctor",
+            "gives",
+            "medicine",
+            "water",
+            "rest"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "The doctor gives medicine",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "डॉक्टर औषध देतात.",
+              "isCorrect": true
+            },
+            {
+              "text": "तुम्हाला तहान लागली आहे का?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "डॉक्टर औषध देतात.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'ठीक' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "fine",
+          "translation": "ठीक",
+          "hint": "संकेत: F ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Doctor",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How do you feel today?",
+          "translation": "आज तुम्हाला कसे वाटत आहे?",
+          "options": [
+            {
+              "text": "I feel very well, thank you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Train to Pune.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel very well, thank you!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "The doctor gives medicine",
+          "translation": "डॉक्टर औषध देतात.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "The doctor gives medicine. Practice makes you perfect.",
+          "translationText": "डॉक्टर औषध देतात. सरावाने सर्व सोपे होते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Lesson 8",
+      "subtitle": "भावना, आरोग्य आणि पदवीदान 🏆: प्रगत वाक्यरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'ताप' साठी योग्य चित्र निवडा:",
+          "targetWord": "fever",
+          "translation": "ताप",
+          "options": [
+            {
+              "id": "u12_l8_p1",
+              "text": "fever (ताप)",
+              "imageUrl": "/uploads/curriculum/fever.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u12_l8_p2",
+              "text": "doctor (डॉक्टर)",
+              "imageUrl": "/uploads/curriculum/doctor.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u12_l8_p3",
+              "text": "medicine (औषध)",
+              "imageUrl": "/uploads/curriculum/medicine.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "happy",
+              "native": "आनंदी"
+            },
+            {
+              "target": "thirsty",
+              "native": "तहान लागलेला"
+            },
+            {
+              "target": "headache",
+              "native": "डोकेदुखी"
+            },
+            {
+              "target": "rest",
+              "native": "विश्रांती"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मला आता बरे वाटत आहे.",
+          "targetSentence": "I feel much better now",
+          "tokens": [
+            "I",
+            "feel",
+            "much",
+            "better",
+            "now",
+            "sick"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "now",
+          "translation": "मला आता बरे वाटत आहे.",
+          "options": [
+            "now",
+            "fever",
+            "doctor"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I feel much better now",
+          "tokens": [
+            "I",
+            "feel",
+            "much",
+            "better",
+            "now",
+            "sick"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I feel much better now",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मला आता बरे वाटत आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझे डोके खूप दुखत आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मला आता बरे वाटत आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'ताप' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "fever",
+          "translation": "ताप",
+          "hint": "संकेत: F ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Doctor",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How do you feel today?",
+          "translation": "आज तुम्हाला कसे वाटत आहे?",
+          "options": [
+            {
+              "text": "I feel very well, thank you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Train to Pune.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel very well, thank you!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I feel much better now",
+          "translation": "मला आता बरे वाटत आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I feel much better now. Everything is in order.",
+          "translationText": "मला आता बरे वाटत आहे. सर्व काही व्यवस्थित आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Lesson 9",
+      "subtitle": "भावना, आरोग्य आणि पदवीदान 🏆: संभाषण प्रयोगशाळा (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'वाटणे' साठी योग्य चित्र निवडा:",
+          "targetWord": "feel",
+          "translation": "वाटणे",
+          "options": [
+            {
+              "id": "u12_l9_p1",
+              "text": "feel (वाटणे)",
+              "imageUrl": "/uploads/curriculum/feel.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u12_l9_p2",
+              "text": "ready (तयार)",
+              "imageUrl": "/uploads/curriculum/ready.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u12_l9_p3",
+              "text": "graduate (पदवीधर)",
+              "imageUrl": "/uploads/curriculum/graduate.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "tired",
+              "native": "थकलेला"
+            },
+            {
+              "target": "well",
+              "native": "छान"
+            },
+            {
+              "target": "doctor",
+              "native": "डॉक्टर"
+            },
+            {
+              "target": "ready",
+              "native": "तयार"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मी पदवीसाठी तयार आहे!",
+          "targetSentence": "I am ready to graduate!",
+          "tokens": [
+            "I",
+            "am",
+            "ready",
+            "to",
+            "graduate!",
+            "happy",
+            "rest"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "graduate!",
+          "translation": "मी पदवीसाठी तयार आहे!",
+          "options": [
+            "graduate!",
+            "feel",
+            "ready"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I am ready to graduate!",
+          "tokens": [
+            "I",
+            "am",
+            "ready",
+            "to",
+            "graduate!",
+            "happy",
+            "rest"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I am ready to graduate!",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मी पदवीसाठी तयार आहे!",
+              "isCorrect": true
+            },
+            {
+              "text": "पाणी प्या आणि विश्रांती घ्या.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मी पदवीसाठी तयार आहे!",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'वाटणे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "feel",
+          "translation": "वाटणे",
+          "hint": "संकेत: F ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Doctor",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How do you feel today?",
+          "translation": "आज तुम्हाला कसे वाटत आहे?",
+          "options": [
+            {
+              "text": "I feel very well, thank you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Train to Pune.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel very well, thank you!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I am ready to graduate!",
+          "translation": "तुम्हाला तहान लागली आहे का?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I am ready to graduate!. Speak clearly and with confidence.",
+          "translationText": "मी पदवीसाठी तयार आहे! स्पष्ट आणि आत्मविश्वासाने बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Lesson 10",
+      "subtitle": "भावना, आरोग्य आणि पदवीदान 🏆: संवाद प्रभुत्व (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'भुकेलेला' साठी योग्य चित्र निवडा:",
+          "targetWord": "hungry",
+          "translation": "भुकेलेला",
+          "options": [
+            {
+              "id": "u12_l10_p1",
+              "text": "hungry (भुकेलेला)",
+              "imageUrl": "/uploads/curriculum/hungry.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u12_l10_p2",
+              "text": "sick (आजारी)",
+              "imageUrl": "/uploads/curriculum/sick.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u12_l10_p3",
+              "text": "medicine (औषध)",
+              "imageUrl": "/uploads/curriculum/medicine.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "sad",
+              "native": "दुःखी"
+            },
+            {
+              "target": "thirsty",
+              "native": "तहान लागलेला"
+            },
+            {
+              "target": "fever",
+              "native": "ताप"
+            },
+            {
+              "target": "feel",
+              "native": "वाटणे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मी आज खूप आनंदी आहे.",
+          "targetSentence": "I am very happy today",
+          "tokens": [
+            "I",
+            "am",
+            "very",
+            "happy",
+            "today",
+            "sad"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "today",
+          "translation": "मी आज खूप आनंदी आहे.",
+          "options": [
+            "today",
+            "hungry",
+            "sick"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I feel much better now",
+          "tokens": [
+            "I",
+            "feel",
+            "much",
+            "better",
+            "now",
+            "sick"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I am ready to graduate!",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मी पदवीसाठी तयार आहे!",
+              "isCorrect": true
+            },
+            {
+              "text": "डॉक्टर औषध देतात.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मी पदवीसाठी तयार आहे!",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'भुकेलेला' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "hungry",
+          "translation": "भुकेलेला",
+          "hint": "संकेत: H ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Doctor",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How do you feel today?",
+          "translation": "आज तुम्हाला कसे वाटत आहे?",
+          "options": [
+            {
+              "text": "I feel very well, thank you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Train to Pune.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel very well, thank you!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I am very happy today",
+          "translation": "मी आज खूप आनंदी आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Congratulations! You have completed Section 1 Rookie in English. You speak with confidence and are ready for Section 2!",
+          "translationText": "हार्दिक अभिनंदन! तुम्ही इंग्रजीतील सेक्शन १ रूकी यशस्वीरीत्या पूर्ण केले आहे. तुम्ही आत्मविश्वासाने बोलता आणि सेक्शन २ साठी सज्ज आहात!",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Feelings, Physical Health & Section 1 Graduation • Unit 12 Milestone Exam",
+      "subtitle": "भावना, आरोग्य आणि पदवीदान 🏆: संपूर्ण युनिट परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'आनंदी' साठी योग्य चित्र निवडा:",
+          "targetWord": "happy",
+          "translation": "आनंदी",
+          "options": [
+            {
+              "id": "u12_l12_p1",
+              "text": "happy (आनंदी)",
+              "imageUrl": "/uploads/curriculum/happy.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u12_l12_p2",
+              "text": "thirsty (तहान लागलेला)",
+              "imageUrl": "/uploads/curriculum/thirsty.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u12_l12_p3",
+              "text": "headache (डोकेदुखी)",
+              "imageUrl": "/uploads/curriculum/headache.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "happy",
+              "native": "आनंदी"
+            },
+            {
+              "target": "thirsty",
+              "native": "तहान लागलेला"
+            },
+            {
+              "target": "headache",
+              "native": "डोकेदुखी"
+            },
+            {
+              "target": "rest",
+              "native": "विश्रांती"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "डॉक्टर औषध देतात.",
+          "targetSentence": "The doctor gives medicine",
+          "tokens": [
+            "The",
+            "doctor",
+            "gives",
+            "medicine",
+            "water",
+            "rest"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "The _______.",
+          "blank": "medicine",
+          "translation": "डॉक्टर औषध देतात.",
+          "options": [
+            "medicine",
+            "happy",
+            "thirsty"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I am ready to graduate!",
+          "tokens": [
+            "I",
+            "am",
+            "ready",
+            "to",
+            "graduate!",
+            "happy",
+            "rest"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Drink water and take rest",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "पाणी प्या आणि विश्रांती घ्या.",
+              "isCorrect": true
+            },
+            {
+              "text": "मी आज खूप आनंदी आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "पाणी प्या आणि विश्रांती घ्या.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'पदवीधर' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "graduate",
+          "translation": "पदवीधर",
+          "hint": "संकेत: G ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Doctor",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "How do you feel today?",
+          "translation": "आज तुम्हाला कसे वाटत आहे?",
+          "options": [
+            {
+              "text": "I feel very well, thank you!",
+              "isCorrect": true
+            },
+            {
+              "text": "Train to Pune.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "I feel very well, thank you!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I am very happy today",
+          "translation": "मी आज खूप आनंदी आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Congratulations! You have completed Section 1 Rookie in English. You speak with confidence and are ready for Section 2!",
+          "translationText": "हार्दिक अभिनंदन! तुम्ही इंग्रजीतील सेक्शन १ रूकी यशस्वीरीत्या पूर्ण केले आहे. तुम्ही आत्मविश्वासाने बोलता आणि सेक्शन २ साठी सज्ज आहात!",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}
