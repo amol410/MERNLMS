@@ -1,0 +1,1683 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Marathi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "mr",
+  "level": "A1",
+  "unitNumber": 4,
+  "unitTitle": "Common Everyday Verbs & SVO",
+  "unitDescription": "दैनंदिन क्रिया आणि वाक्यरचना",
+  "accentColor": "#FF9600",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Common Everyday Verbs & SVO • Lesson 1",
+      "subtitle": "दैनंदिन क्रिया आणि वाक्यरचना: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'खाणे' साठी योग्य चित्र निवडा:",
+          "targetWord": "eat",
+          "translation": "खाणे",
+          "options": [
+            {
+              "id": "u4_l1_p1",
+              "text": "eat (खाणे)",
+              "imageUrl": "/uploads/curriculum/eat.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l1_p2",
+              "text": "drink (पिणे)",
+              "imageUrl": "/uploads/curriculum/drink.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l1_p3",
+              "text": "read (वाचणे)",
+              "imageUrl": "/uploads/curriculum/read.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाणे"
+            },
+            {
+              "target": "drink",
+              "native": "पिणे"
+            },
+            {
+              "target": "read",
+              "native": "वाचणे"
+            },
+            {
+              "target": "write",
+              "native": "लिहिणे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मी पुस्तक वाचतो.",
+          "targetSentence": "I read a book",
+          "tokens": [
+            "I",
+            "read",
+            "a",
+            "book",
+            "write",
+            "newspaper"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "book",
+          "translation": "मी पुस्तक वाचतो.",
+          "options": [
+            "book",
+            "drink",
+            "read"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I read a book",
+          "tokens": [
+            "I",
+            "read",
+            "a",
+            "book",
+            "write",
+            "newspaper"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I read a book",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मी पुस्तक वाचतो.",
+              "isCorrect": true
+            },
+            {
+              "text": "मी गरम पाणी पितो.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मी पुस्तक वाचतो.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'खाणे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "eat",
+          "translation": "खाणे",
+          "hint": "संकेत: E ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "तुम्ही इंग्रजी बोलता का?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "This is my dog.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I read a book",
+          "translation": "मी पुस्तक वाचतो.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I read a book. Eat is good.",
+          "translationText": "मी पुस्तक वाचतो. खाणे चांगले आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Common Everyday Verbs & SVO • Lesson 2",
+      "subtitle": "दैनंदिन क्रिया आणि वाक्यरचना: वाक्य रचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'बोलणे' साठी योग्य चित्र निवडा:",
+          "targetWord": "speak",
+          "translation": "बोलणे",
+          "options": [
+            {
+              "id": "u4_l2_p1",
+              "text": "speak (बोलणे)",
+              "imageUrl": "/uploads/curriculum/speak.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l2_p2",
+              "text": "learn (शिकणे)",
+              "imageUrl": "/uploads/curriculum/learn.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l2_p3",
+              "text": "live (राहणे)",
+              "imageUrl": "/uploads/curriculum/live.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "speak",
+              "native": "बोलणे"
+            },
+            {
+              "target": "learn",
+              "native": "शिकणे"
+            },
+            {
+              "target": "live",
+              "native": "राहणे"
+            },
+            {
+              "target": "go",
+              "native": "जाणे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मी गरम पाणी पितो.",
+          "targetSentence": "I drink hot water",
+          "tokens": [
+            "I",
+            "drink",
+            "hot",
+            "water",
+            "eat",
+            "tea"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______ water.",
+          "blank": "drink",
+          "translation": "मी गरम पाणी पितो.",
+          "options": [
+            "water",
+            "speak",
+            "learn"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I drink hot water",
+          "tokens": [
+            "I",
+            "drink",
+            "hot",
+            "water",
+            "eat",
+            "tea"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I drink hot water",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मी गरम पाणी पितो.",
+              "isCorrect": true
+            },
+            {
+              "text": "तुम्ही इंग्रजी बोलता.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मी गरम पाणी पितो.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'बोलणे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "speak",
+          "translation": "बोलणे",
+          "hint": "संकेत: S ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "तुम्ही इंग्रजी बोलता का?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "This is my dog.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I read a book daily",
+          "translation": "मी पुस्तक वाचतो.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I drink hot water. It is very good.",
+          "translationText": "मी गरम पाणी पितो. हे खूप छान आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Common Everyday Verbs & SVO • Lesson 3",
+      "subtitle": "दैनंदिन क्रिया आणि वाक्यरचना: संयुक्त वाक्ये",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'येणे' साठी योग्य चित्र निवडा:",
+          "targetWord": "come",
+          "translation": "येणे",
+          "options": [
+            {
+              "id": "u4_l3_p1",
+              "text": "come (येणे)",
+              "imageUrl": "/uploads/curriculum/come.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l3_p2",
+              "text": "like (आवडणे)",
+              "imageUrl": "/uploads/curriculum/like.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l3_p3",
+              "text": "book (पुस्तक)",
+              "imageUrl": "/uploads/curriculum/book.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "come",
+              "native": "येणे"
+            },
+            {
+              "target": "like",
+              "native": "आवडणे"
+            },
+            {
+              "target": "book",
+              "native": "पुस्तक"
+            },
+            {
+              "target": "newspaper",
+              "native": "वर्तमानपत्र"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "तुम्ही इंग्रजी बोलता.",
+          "targetSentence": "You speak English",
+          "tokens": [
+            "You",
+            "speak",
+            "English",
+            "Hindi",
+            "read"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "You _______.",
+          "blank": "English",
+          "translation": "तुम्ही इंग्रजी बोलता.",
+          "options": [
+            "English",
+            "come",
+            "like"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "You speak English",
+          "tokens": [
+            "You",
+            "speak",
+            "English",
+            "Hindi",
+            "read"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "You speak English",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तुम्ही इंग्रजी बोलता.",
+              "isCorrect": true
+            },
+            {
+              "text": "आम्ही दररोज इंग्रजी शिकतो.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "तुम्ही इंग्रजी बोलता.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'येणे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "come",
+          "translation": "येणे",
+          "hint": "संकेत: C ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "तुम्ही इंग्रजी बोलता का?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "This is my dog.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "You speak English",
+          "translation": "तुम्ही इंग्रजी बोलता.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "You speak English. We like this.",
+          "translationText": "तुम्ही इंग्रजी बोलता. आम्हाला हे आवडते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Common Everyday Verbs & SVO • Lesson 4",
+      "subtitle": "दैनंदिन क्रिया आणि वाक्यरचना: श्रवण सराव (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'पिणे' साठी योग्य चित्र निवडा:",
+          "targetWord": "drink",
+          "translation": "पिणे",
+          "options": [
+            {
+              "id": "u4_l4_p1",
+              "text": "drink (पिणे)",
+              "imageUrl": "/uploads/curriculum/drink.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l4_p2",
+              "text": "speak (बोलणे)",
+              "imageUrl": "/uploads/curriculum/speak.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l4_p3",
+              "text": "come (येणे)",
+              "imageUrl": "/uploads/curriculum/come.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "drink",
+              "native": "पिणे"
+            },
+            {
+              "target": "learn",
+              "native": "शिकणे"
+            },
+            {
+              "target": "like",
+              "native": "आवडणे"
+            },
+            {
+              "target": "read",
+              "native": "वाचणे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "आम्ही दररोज इंग्रजी शिकतो.",
+          "targetSentence": "We learn English daily",
+          "tokens": [
+            "We",
+            "learn",
+            "English",
+            "daily",
+            "speak",
+            "Hindi"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "We _______.",
+          "blank": "daily",
+          "translation": "आम्ही दररोज इंग्रजी शिकतो.",
+          "options": [
+            "daily",
+            "drink",
+            "write"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "We learn English daily",
+          "tokens": [
+            "We",
+            "learn",
+            "English",
+            "daily",
+            "speak",
+            "Hindi"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "We learn English daily",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "आम्ही दररोज इंग्रजी शिकतो.",
+              "isCorrect": true
+            },
+            {
+              "text": "मी पुस्तक वाचतो.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "आम्ही दररोज इंग्रजी शिकतो.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'पिणे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "drink",
+          "translation": "पिणे",
+          "hint": "संकेत: D ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "तुम्ही इंग्रजी बोलता का?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "This is my dog.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "We learn English",
+          "translation": "मी गरम पाणी पितो.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "We learn English daily. Listen and speak every day.",
+          "translationText": "आम्ही दररोज इंग्रजी शिकतो. दररोज ऐका आणि बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Common Everyday Verbs & SVO • Lesson 5",
+      "subtitle": "दैनंदिन क्रिया आणि वाक्यरचना: गुणविशेष आणि प्रकार",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'इंग्रजी' साठी योग्य चित्र निवडा:",
+          "targetWord": "English",
+          "translation": "इंग्रजी",
+          "options": [
+            {
+              "id": "u4_l5_p1",
+              "text": "English (इंग्रजी)",
+              "imageUrl": "/uploads/curriculum/English.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l5_p2",
+              "text": "Hindi (हिंदी)",
+              "imageUrl": "/uploads/curriculum/Hindi.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l5_p3",
+              "text": "Marathi (मराठी)",
+              "imageUrl": "/uploads/curriculum/Marathi.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "English",
+              "native": "इंग्रजी"
+            },
+            {
+              "target": "Hindi",
+              "native": "हिंदी"
+            },
+            {
+              "target": "Marathi",
+              "native": "मराठी"
+            },
+            {
+              "target": "daily",
+              "native": "दररोज"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "ती सफरचंद खाते.",
+          "targetSentence": "She eats an apple",
+          "tokens": [
+            "She",
+            "eats",
+            "an",
+            "apple",
+            "drinks",
+            "bread"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "She _______.",
+          "blank": "apple",
+          "translation": "ती सफरचंद खाते.",
+          "options": [
+            "apple",
+            "English",
+            "Hindi"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "She eats an apple",
+          "tokens": [
+            "She",
+            "eats",
+            "an",
+            "apple",
+            "drinks",
+            "bread"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "She eats an apple",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "ती सफरचंद खाते.",
+              "isCorrect": true
+            },
+            {
+              "text": "मी गरम पाणी पितो.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "ती सफरचंद खाते.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'इंग्रजी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "English",
+          "translation": "इंग्रजी",
+          "hint": "संकेत: E ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "तुम्ही इंग्रजी बोलता का?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "This is my dog.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "She eats an apple",
+          "translation": "ती सफरचंद खाते.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "She eats an apple. You are doing very well.",
+          "translationText": "ती सफरचंद खाते. तुम्ही खूप छान करत आहात.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Common Everyday Verbs & SVO • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Common Everyday Verbs & SVO • Lesson 7",
+      "subtitle": "दैनंदिन क्रिया आणि वाक्यरचना: संमिश्र सराव",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'शिकणे' साठी योग्य चित्र निवडा:",
+          "targetWord": "learn",
+          "translation": "शिकणे",
+          "options": [
+            {
+              "id": "u4_l7_p1",
+              "text": "learn (शिकणे)",
+              "imageUrl": "/uploads/curriculum/learn.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l7_p2",
+              "text": "live (राहणे)",
+              "imageUrl": "/uploads/curriculum/live.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l7_p3",
+              "text": "go (जाणे)",
+              "imageUrl": "/uploads/curriculum/go.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "write",
+              "native": "लिहिणे"
+            },
+            {
+              "target": "go",
+              "native": "जाणे"
+            },
+            {
+              "target": "newspaper",
+              "native": "वर्तमानपत्र"
+            },
+            {
+              "target": "daily",
+              "native": "दररोज"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "तो पत्र लिहितो.",
+          "targetSentence": "He writes a letter",
+          "tokens": [
+            "He",
+            "writes",
+            "a",
+            "letter",
+            "reads",
+            "book"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "He _______.",
+          "blank": "letter",
+          "translation": "तो पत्र लिहितो.",
+          "options": [
+            "letter",
+            "learn",
+            "go"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "He writes a letter",
+          "tokens": [
+            "He",
+            "writes",
+            "a",
+            "letter",
+            "reads",
+            "book"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "He writes a letter",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तो पत्र लिहितो.",
+              "isCorrect": true
+            },
+            {
+              "text": "तुम्ही इंग्रजी बोलता.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "तो पत्र लिहितो.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'शिकणे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "learn",
+          "translation": "शिकणे",
+          "hint": "संकेत: L ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "तुम्ही इंग्रजी बोलता का?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "This is my dog.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "He writes a letter",
+          "translation": "तो पत्र लिहितो.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "He writes a letter. Practice makes you perfect.",
+          "translationText": "तो पत्र लिहितो. सरावाने सर्व सोपे होते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Common Everyday Verbs & SVO • Lesson 8",
+      "subtitle": "दैनंदिन क्रिया आणि वाक्यरचना: प्रगत वाक्यरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'आवडणे' साठी योग्य चित्र निवडा:",
+          "targetWord": "like",
+          "translation": "आवडणे",
+          "options": [
+            {
+              "id": "u4_l8_p1",
+              "text": "like (आवडणे)",
+              "imageUrl": "/uploads/curriculum/like.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l8_p2",
+              "text": "book (पुस्तक)",
+              "imageUrl": "/uploads/curriculum/book.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l8_p3",
+              "text": "newspaper (वर्तमानपत्र)",
+              "imageUrl": "/uploads/curriculum/newspaper.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाणे"
+            },
+            {
+              "target": "speak",
+              "native": "बोलणे"
+            },
+            {
+              "target": "come",
+              "native": "येणे"
+            },
+            {
+              "target": "English",
+              "native": "इंग्रजी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "ते मुंबईत राहतात.",
+          "targetSentence": "They live in Mumbai",
+          "tokens": [
+            "They",
+            "live",
+            "in",
+            "Mumbai",
+            "go",
+            "Delhi"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "They _______.",
+          "blank": "Mumbai",
+          "translation": "ते मुंबईत राहतात.",
+          "options": [
+            "Mumbai",
+            "like",
+            "book"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "They live in Mumbai",
+          "tokens": [
+            "They",
+            "live",
+            "in",
+            "Mumbai",
+            "go",
+            "Delhi"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "They live in Mumbai",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "ते मुंबईत राहतात.",
+              "isCorrect": true
+            },
+            {
+              "text": "आम्ही दररोज इंग्रजी शिकतो.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "ते मुंबईत राहतात.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'आवडणे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "like",
+          "translation": "आवडणे",
+          "hint": "संकेत: L ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "तुम्ही इंग्रजी बोलता का?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "This is my dog.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "They live in Mumbai",
+          "translation": "ते मुंबईत राहतात.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "They live in Mumbai. Everything is in order.",
+          "translationText": "ते मुंबईत राहतात. सर्व काही व्यवस्थित आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Common Everyday Verbs & SVO • Lesson 9",
+      "subtitle": "दैनंदिन क्रिया आणि वाक्यरचना: संभाषण प्रयोगशाळा (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'हिंदी' साठी योग्य चित्र निवडा:",
+          "targetWord": "Hindi",
+          "translation": "हिंदी",
+          "options": [
+            {
+              "id": "u4_l9_p1",
+              "text": "Hindi (हिंदी)",
+              "imageUrl": "/uploads/curriculum/Hindi.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l9_p2",
+              "text": "Marathi (मराठी)",
+              "imageUrl": "/uploads/curriculum/Marathi.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l9_p3",
+              "text": "daily (दररोज)",
+              "imageUrl": "/uploads/curriculum/daily.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "read",
+              "native": "वाचणे"
+            },
+            {
+              "target": "live",
+              "native": "राहणे"
+            },
+            {
+              "target": "book",
+              "native": "पुस्तक"
+            },
+            {
+              "target": "Marathi",
+              "native": "मराठी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मला गरम चहा आवडतो.",
+          "targetSentence": "I like hot tea",
+          "tokens": [
+            "I",
+            "like",
+            "hot",
+            "tea",
+            "want",
+            "cold"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "tea",
+          "translation": "मला गरम चहा आवडतो.",
+          "options": [
+            "tea",
+            "Hindi",
+            "Marathi"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I like hot tea",
+          "tokens": [
+            "I",
+            "like",
+            "hot",
+            "tea",
+            "want",
+            "cold"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I like hot tea",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मला गरम चहा आवडतो.",
+              "isCorrect": true
+            },
+            {
+              "text": "ती सफरचंद खाते.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मला गरम चहा आवडतो.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'हिंदी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "Hindi",
+          "translation": "हिंदी",
+          "hint": "संकेत: H ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "तुम्ही इंग्रजी बोलता का?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "This is my dog.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I drink hot water",
+          "translation": "तुम्ही इंग्रजी बोलता.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I like hot tea. Speak clearly and with confidence.",
+          "translationText": "मला गरम चहा आवडतो. स्पष्ट आणि आत्मविश्वासाने बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Common Everyday Verbs & SVO • Lesson 10",
+      "subtitle": "दैनंदिन क्रिया आणि वाक्यरचना: संवाद प्रभुत्व (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'लिहिणे' साठी योग्य चित्र निवडा:",
+          "targetWord": "write",
+          "translation": "लिहिणे",
+          "options": [
+            {
+              "id": "u4_l10_p1",
+              "text": "write (लिहिणे)",
+              "imageUrl": "/uploads/curriculum/write.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l10_p2",
+              "text": "go (जाणे)",
+              "imageUrl": "/uploads/curriculum/go.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l10_p3",
+              "text": "newspaper (वर्तमानपत्र)",
+              "imageUrl": "/uploads/curriculum/newspaper.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "drink",
+              "native": "पिणे"
+            },
+            {
+              "target": "speak",
+              "native": "बोलणे"
+            },
+            {
+              "target": "like",
+              "native": "आवडणे"
+            },
+            {
+              "target": "Hindi",
+              "native": "हिंदी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मी पुस्तक वाचतो.",
+          "targetSentence": "I read a book",
+          "tokens": [
+            "I",
+            "read",
+            "a",
+            "book",
+            "write",
+            "newspaper"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "book",
+          "translation": "मी पुस्तक वाचतो.",
+          "options": [
+            "book",
+            "write",
+            "go"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "They live in Mumbai",
+          "tokens": [
+            "They",
+            "live",
+            "in",
+            "Mumbai",
+            "go",
+            "Delhi"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I like hot tea",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मला गरम चहा आवडतो.",
+              "isCorrect": true
+            },
+            {
+              "text": "तो पत्र लिहितो.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मला गरम चहा आवडतो.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'लिहिणे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "write",
+          "translation": "लिहिणे",
+          "hint": "संकेत: W ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "तुम्ही इंग्रजी बोलता का?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "This is my dog.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I read a book daily",
+          "translation": "मी पुस्तक वाचतो.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Every day I read a book and drink hot tea. I learn English with my friends.",
+          "translationText": "दररोज मी पुस्तक वाचतो आणि गरम चहा पितो. मी माझ्या मित्रांसोबत इंग्रजी शिकतो.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Common Everyday Verbs & SVO • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Common Everyday Verbs & SVO • Unit 4 Milestone Exam",
+      "subtitle": "दैनंदिन क्रिया आणि वाक्यरचना: संपूर्ण युनिट परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'खाणे' साठी योग्य चित्र निवडा:",
+          "targetWord": "eat",
+          "translation": "खाणे",
+          "options": [
+            {
+              "id": "u4_l12_p1",
+              "text": "eat (खाणे)",
+              "imageUrl": "/uploads/curriculum/eat.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u4_l12_p2",
+              "text": "speak (बोलणे)",
+              "imageUrl": "/uploads/curriculum/speak.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u4_l12_p3",
+              "text": "come (येणे)",
+              "imageUrl": "/uploads/curriculum/come.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "eat",
+              "native": "खाणे"
+            },
+            {
+              "target": "speak",
+              "native": "बोलणे"
+            },
+            {
+              "target": "come",
+              "native": "येणे"
+            },
+            {
+              "target": "English",
+              "native": "इंग्रजी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "तो पत्र लिहितो.",
+          "targetSentence": "He writes a letter",
+          "tokens": [
+            "He",
+            "writes",
+            "a",
+            "letter",
+            "reads",
+            "book"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "He _______.",
+          "blank": "letter",
+          "translation": "तो पत्र लिहितो.",
+          "options": [
+            "letter",
+            "eat",
+            "speak"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I like hot tea",
+          "tokens": [
+            "I",
+            "like",
+            "hot",
+            "tea",
+            "want",
+            "cold"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "She eats an apple",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "ती सफरचंद खाते.",
+              "isCorrect": true
+            },
+            {
+              "text": "मी पुस्तक वाचतो.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "ती सफरचंद खाते.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'दररोज' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "daily",
+          "translation": "दररोज",
+          "hint": "संकेत: D ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Rohan",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you speak English?",
+          "translation": "तुम्ही इंग्रजी बोलता का?",
+          "options": [
+            {
+              "text": "Yes, I speak English.",
+              "isCorrect": true
+            },
+            {
+              "text": "This is my dog.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I speak English.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "I read a book daily",
+          "translation": "मी पुस्तक वाचतो.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Every day I read a book and drink hot tea. I learn English with my friends.",
+          "translationText": "दररोज मी पुस्तक वाचतो आणि गरम चहा पितो. मी माझ्या मित्रांसोबत इंग्रजी शिकतो.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

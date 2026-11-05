@@ -782,12 +782,12 @@ export default function CurriculumPage() {
 
               {unitDescription && (
                 <p className="text-sm font-semibold text-cyan-300/80">
-                  🇩🇪 {unitDescription}
+                  {NATIVE_LANGUAGES.find(l => l.code === nativeLanguage)?.flag || '🌐'} {unitDescription}
                 </p>
               )}
 
               <p className="text-xs text-gray-400 pt-1">
-                Active learning path for German A1 Goethe / CEFR Curriculum
+                Active learning path for {LEARNING_LANGUAGES.find(l => l.code === learningLanguage)?.name || learningLanguage.toUpperCase()} {level} • {NATIVE_LANGUAGES.find(l => l.code === nativeLanguage)?.name || nativeLanguage.toUpperCase()} Instruction
               </p>
             </div>
 

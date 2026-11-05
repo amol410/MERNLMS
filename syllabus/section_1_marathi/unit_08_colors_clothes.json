@@ -1,0 +1,1685 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Marathi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "mr",
+  "level": "A1",
+  "unitNumber": 8,
+  "unitTitle": "Colors, Clothes & Appearance",
+  "unitDescription": "रंग, कपडे आणि व्यक्तिमत्त्व",
+  "accentColor": "#E11D48",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Colors, Clothes & Appearance • Lesson 1",
+      "subtitle": "रंग, कपडे आणि व्यक्तिमत्त्व: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'लाल' साठी योग्य चित्र निवडा:",
+          "targetWord": "red",
+          "translation": "लाल",
+          "options": [
+            {
+              "id": "u8_l1_p1",
+              "text": "red (लाल)",
+              "imageUrl": "/uploads/curriculum/red.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l1_p2",
+              "text": "blue (निळा)",
+              "imageUrl": "/uploads/curriculum/blue.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l1_p3",
+              "text": "green (हिरवा)",
+              "imageUrl": "/uploads/curriculum/green.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "blue",
+              "native": "निळा"
+            },
+            {
+              "target": "green",
+              "native": "हिरवा"
+            },
+            {
+              "target": "white",
+              "native": "पांढरा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझा शर्ट निळा आहे.",
+          "targetSentence": "My shirt is blue",
+          "tokens": [
+            "My",
+            "shirt",
+            "is",
+            "blue",
+            "red",
+            "pants"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "My _______.",
+          "blank": "blue",
+          "translation": "माझा शर्ट निळा आहे.",
+          "options": [
+            "blue",
+            "blue",
+            "green"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "My shirt is blue",
+          "tokens": [
+            "My",
+            "shirt",
+            "is",
+            "blue",
+            "red",
+            "pants"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "My shirt is blue",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझा शर्ट निळा आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "ती लाल ड्रेस घालते.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "माझा शर्ट निळा आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'लाल' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "red",
+          "translation": "लाल",
+          "hint": "संकेत: R ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you like my new red shirt?",
+          "translation": "तुला माझा नवीन लाल शर्ट आवडला का?",
+          "options": [
+            {
+              "text": "Yes, it looks very beautiful!",
+              "isCorrect": true
+            },
+            {
+              "text": "Seven o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, it looks very beautiful!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "My shirt is blue",
+          "translation": "माझा शर्ट निळा आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "My shirt is blue. Red is good.",
+          "translationText": "माझा शर्ट निळा आहे. लाल चांगले आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Colors, Clothes & Appearance • Lesson 2",
+      "subtitle": "रंग, कपडे आणि व्यक्तिमत्त्व: वाक्य रचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'काळा' साठी योग्य चित्र निवडा:",
+          "targetWord": "black",
+          "translation": "काळा",
+          "options": [
+            {
+              "id": "u8_l2_p1",
+              "text": "black (काळा)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l2_p2",
+              "text": "yellow (पिवळा)",
+              "imageUrl": "/uploads/curriculum/yellow.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l2_p3",
+              "text": "shirt (शर्ट)",
+              "imageUrl": "/uploads/curriculum/shirt.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "black",
+              "native": "काळा"
+            },
+            {
+              "target": "yellow",
+              "native": "पिवळा"
+            },
+            {
+              "target": "shirt",
+              "native": "शर्ट"
+            },
+            {
+              "target": "pants",
+              "native": "पॅन्ट"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "ती लाल ड्रेस घालते.",
+          "targetSentence": "She wears a red dress",
+          "tokens": [
+            "She",
+            "wears",
+            "a",
+            "red",
+            "dress",
+            "blue"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "She _______ dress.",
+          "blank": "wears",
+          "translation": "ती लाल ड्रेस घालते.",
+          "options": [
+            "dress",
+            "black",
+            "yellow"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "She wears a red dress",
+          "tokens": [
+            "She",
+            "wears",
+            "a",
+            "red",
+            "dress",
+            "blue"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "She wears a red dress",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "ती लाल ड्रेस घालते.",
+              "isCorrect": true
+            },
+            {
+              "text": "हे काळे बूट नवीन आहेत.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "ती लाल ड्रेस घालते.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'काळा' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "black",
+          "translation": "काळा",
+          "hint": "संकेत: B ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you like my new red shirt?",
+          "translation": "तुला माझा नवीन लाल शर्ट आवडला का?",
+          "options": [
+            {
+              "text": "Yes, it looks very beautiful!",
+              "isCorrect": true
+            },
+            {
+              "text": "Seven o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, it looks very beautiful!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "My shirt is blue",
+          "translation": "माझा शर्ट निळा आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "She wears a red dress. It is very good.",
+          "translationText": "ती लाल ड्रेस घालते. हे खूप छान आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Colors, Clothes & Appearance • Lesson 3",
+      "subtitle": "रंग, कपडे आणि व्यक्तिमत्त्व: संयुक्त वाक्ये",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'बूट' साठी योग्य चित्र निवडा:",
+          "targetWord": "shoes",
+          "translation": "बूट",
+          "options": [
+            {
+              "id": "u8_l3_p1",
+              "text": "shoes (बूट)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l3_p2",
+              "text": "dress (ड्रेस)",
+              "imageUrl": "/uploads/curriculum/dress.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l3_p3",
+              "text": "hat (टोपी)",
+              "imageUrl": "/uploads/curriculum/hat.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "shoes",
+              "native": "बूट"
+            },
+            {
+              "target": "dress",
+              "native": "ड्रेस"
+            },
+            {
+              "target": "hat",
+              "native": "टोपी"
+            },
+            {
+              "target": "wear",
+              "native": "घालणे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "हे काळे बूट नवीन आहेत.",
+          "targetSentence": "These black shoes are new",
+          "tokens": [
+            "These",
+            "black",
+            "shoes",
+            "are",
+            "new",
+            "old"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "These _______.",
+          "blank": "new",
+          "translation": "हे काळे बूट नवीन आहेत.",
+          "options": [
+            "new",
+            "shoes",
+            "dress"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "These black shoes are new",
+          "tokens": [
+            "These",
+            "black",
+            "shoes",
+            "are",
+            "new",
+            "old"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "These black shoes are new",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "हे काळे बूट नवीन आहेत.",
+              "isCorrect": true
+            },
+            {
+              "text": "मला हिरवा रंग आवडतो.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "हे काळे बूट नवीन आहेत.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'बूट' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "shoes",
+          "translation": "बूट",
+          "hint": "संकेत: S ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you like my new red shirt?",
+          "translation": "तुला माझा नवीन लाल शर्ट आवडला का?",
+          "options": [
+            {
+              "text": "Yes, it looks very beautiful!",
+              "isCorrect": true
+            },
+            {
+              "text": "Seven o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, it looks very beautiful!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "These black shoes are new",
+          "translation": "हे काळे बूट नवीन आहेत.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "These black shoes are new. We like this.",
+          "translationText": "हे काळे बूट नवीन आहेत. आम्हाला हे आवडते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Colors, Clothes & Appearance • Lesson 4",
+      "subtitle": "रंग, कपडे आणि व्यक्तिमत्त्व: श्रवण सराव (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'निळा' साठी योग्य चित्र निवडा:",
+          "targetWord": "blue",
+          "translation": "निळा",
+          "options": [
+            {
+              "id": "u8_l4_p1",
+              "text": "blue (निळा)",
+              "imageUrl": "/uploads/curriculum/blue.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l4_p2",
+              "text": "black (काळा)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l4_p3",
+              "text": "shoes (बूट)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "blue",
+              "native": "निळा"
+            },
+            {
+              "target": "yellow",
+              "native": "पिवळा"
+            },
+            {
+              "target": "dress",
+              "native": "ड्रेस"
+            },
+            {
+              "target": "green",
+              "native": "हिरवा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मला हिरवा रंग आवडतो.",
+          "targetSentence": "I like the green color",
+          "tokens": [
+            "I",
+            "like",
+            "the",
+            "green",
+            "color",
+            "red"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "I _______.",
+          "blank": "color",
+          "translation": "मला हिरवा रंग आवडतो.",
+          "options": [
+            "color",
+            "blue",
+            "white"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "I like the green color",
+          "tokens": [
+            "I",
+            "like",
+            "the",
+            "green",
+            "color",
+            "red"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "I like the green color",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मला हिरवा रंग आवडतो.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझा शर्ट निळा आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मला हिरवा रंग आवडतो.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'निळा' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "blue",
+          "translation": "निळा",
+          "hint": "संकेत: B ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you like my new red shirt?",
+          "translation": "तुला माझा नवीन लाल शर्ट आवडला का?",
+          "options": [
+            {
+              "text": "Yes, it looks very beautiful!",
+              "isCorrect": true
+            },
+            {
+              "text": "Seven o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, it looks very beautiful!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "You look very beautiful",
+          "translation": "ती लाल ड्रेस घालते.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "I like the green color. Listen and speak every day.",
+          "translationText": "मला हिरवा रंग आवडतो. दररोज ऐका आणि बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Colors, Clothes & Appearance • Lesson 5",
+      "subtitle": "रंग, कपडे आणि व्यक्तिमत्त्व: गुणविशेष आणि प्रकार",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'दिसणे' साठी योग्य चित्र निवडा:",
+          "targetWord": "look",
+          "translation": "दिसणे",
+          "options": [
+            {
+              "id": "u8_l5_p1",
+              "text": "look (दिसणे)",
+              "imageUrl": "/uploads/curriculum/look.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l5_p2",
+              "text": "beautiful (सुंदर)",
+              "imageUrl": "/uploads/curriculum/beautiful.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l5_p3",
+              "text": "color (रंग)",
+              "imageUrl": "/uploads/curriculum/color.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "look",
+              "native": "दिसणे"
+            },
+            {
+              "target": "beautiful",
+              "native": "सुंदर"
+            },
+            {
+              "target": "color",
+              "native": "रंग"
+            },
+            {
+              "target": "favorite",
+              "native": "आवडता"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "तू आज खूप सुंदर दिसत आहेस.",
+          "targetSentence": "You look very beautiful today",
+          "tokens": [
+            "You",
+            "look",
+            "very",
+            "beautiful",
+            "today",
+            "smart"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "You _______.",
+          "blank": "today",
+          "translation": "तू आज खूप सुंदर दिसत आहेस.",
+          "options": [
+            "today",
+            "look",
+            "beautiful"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "You look very beautiful today",
+          "tokens": [
+            "You",
+            "look",
+            "very",
+            "beautiful",
+            "today",
+            "smart"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "You look very beautiful today",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तू आज खूप सुंदर दिसत आहेस.",
+              "isCorrect": true
+            },
+            {
+              "text": "ती लाल ड्रेस घालते.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "तू आज खूप सुंदर दिसत आहेस.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'दिसणे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "look",
+          "translation": "दिसणे",
+          "hint": "संकेत: L ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you like my new red shirt?",
+          "translation": "तुला माझा नवीन लाल शर्ट आवडला का?",
+          "options": [
+            {
+              "text": "Yes, it looks very beautiful!",
+              "isCorrect": true
+            },
+            {
+              "text": "Seven o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, it looks very beautiful!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "You look very beautiful today",
+          "translation": "तू आज खूप सुंदर दिसत आहेस.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "You look very beautiful today. You are doing very well.",
+          "translationText": "तू आज खूप सुंदर दिसत आहेस. तुम्ही खूप छान करत आहात.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Colors, Clothes & Appearance • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Colors, Clothes & Appearance • Lesson 7",
+      "subtitle": "रंग, कपडे आणि व्यक्तिमत्त्व: संमिश्र सराव",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'पिवळा' साठी योग्य चित्र निवडा:",
+          "targetWord": "yellow",
+          "translation": "पिवळा",
+          "options": [
+            {
+              "id": "u8_l7_p1",
+              "text": "yellow (पिवळा)",
+              "imageUrl": "/uploads/curriculum/yellow.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l7_p2",
+              "text": "shirt (शर्ट)",
+              "imageUrl": "/uploads/curriculum/shirt.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l7_p3",
+              "text": "pants (पॅन्ट)",
+              "imageUrl": "/uploads/curriculum/pants.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "white",
+              "native": "पांढरा"
+            },
+            {
+              "target": "pants",
+              "native": "पॅन्ट"
+            },
+            {
+              "target": "wear",
+              "native": "घालणे"
+            },
+            {
+              "target": "favorite",
+              "native": "आवडता"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "त्याची पांढरी टोपी स्वच्छ आहे.",
+          "targetSentence": "His white hat is clean",
+          "tokens": [
+            "His",
+            "white",
+            "hat",
+            "is",
+            "clean",
+            "black"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "His _______.",
+          "blank": "clean",
+          "translation": "त्याची पांढरी टोपी स्वच्छ आहे.",
+          "options": [
+            "clean",
+            "yellow",
+            "pants"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "His white hat is clean",
+          "tokens": [
+            "His",
+            "white",
+            "hat",
+            "is",
+            "clean",
+            "black"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "His white hat is clean",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "त्याची पांढरी टोपी स्वच्छ आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "हे काळे बूट नवीन आहेत.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "त्याची पांढरी टोपी स्वच्छ आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'पिवळा' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "yellow",
+          "translation": "पिवळा",
+          "hint": "संकेत: Y ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you like my new red shirt?",
+          "translation": "तुला माझा नवीन लाल शर्ट आवडला का?",
+          "options": [
+            {
+              "text": "Yes, it looks very beautiful!",
+              "isCorrect": true
+            },
+            {
+              "text": "Seven o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, it looks very beautiful!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "His white hat is clean",
+          "translation": "त्याची पांढरी टोपी स्वच्छ आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "His white hat is clean. Practice makes you perfect.",
+          "translationText": "त्याची पांढरी टोपी स्वच्छ आहे. सरावाने सर्व सोपे होते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Colors, Clothes & Appearance • Lesson 8",
+      "subtitle": "रंग, कपडे आणि व्यक्तिमत्त्व: प्रगत वाक्यरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'ड्रेस' साठी योग्य चित्र निवडा:",
+          "targetWord": "dress",
+          "translation": "ड्रेस",
+          "options": [
+            {
+              "id": "u8_l8_p1",
+              "text": "dress (ड्रेस)",
+              "imageUrl": "/uploads/curriculum/dress.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l8_p2",
+              "text": "hat (टोपी)",
+              "imageUrl": "/uploads/curriculum/hat.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l8_p3",
+              "text": "wear (घालणे)",
+              "imageUrl": "/uploads/curriculum/wear.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "black",
+              "native": "काळा"
+            },
+            {
+              "target": "shoes",
+              "native": "बूट"
+            },
+            {
+              "target": "look",
+              "native": "दिसणे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "तुझा आवडता रंग कोणता आहे?",
+          "targetSentence": "What is your favorite color?",
+          "tokens": [
+            "What",
+            "is",
+            "your",
+            "favorite",
+            "color?",
+            "dress"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "What _______.",
+          "blank": "color?",
+          "translation": "तुझा आवडता रंग कोणता आहे?",
+          "options": [
+            "color?",
+            "dress",
+            "hat"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "What is your favorite color?",
+          "tokens": [
+            "What",
+            "is",
+            "your",
+            "favorite",
+            "color?",
+            "dress"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "What is your favorite color?",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तुझा आवडता रंग कोणता आहे?",
+              "isCorrect": true
+            },
+            {
+              "text": "मला हिरवा रंग आवडतो.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "तुझा आवडता रंग कोणता आहे?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'ड्रेस' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "dress",
+          "translation": "ड्रेस",
+          "hint": "संकेत: D ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you like my new red shirt?",
+          "translation": "तुला माझा नवीन लाल शर्ट आवडला का?",
+          "options": [
+            {
+              "text": "Yes, it looks very beautiful!",
+              "isCorrect": true
+            },
+            {
+              "text": "Seven o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, it looks very beautiful!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "What is your favorite color?",
+          "translation": "तुझा आवडता रंग कोणता आहे?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "What is your favorite color?. Everything is in order.",
+          "translationText": "तुझा आवडता रंग कोणता आहे? सर्व काही व्यवस्थित आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Colors, Clothes & Appearance • Lesson 9",
+      "subtitle": "रंग, कपडे आणि व्यक्तिमत्त्व: संभाषण प्रयोगशाळा (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'सुंदर' साठी योग्य चित्र निवडा:",
+          "targetWord": "beautiful",
+          "translation": "सुंदर",
+          "options": [
+            {
+              "id": "u8_l9_p1",
+              "text": "beautiful (सुंदर)",
+              "imageUrl": "/uploads/curriculum/beautiful.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l9_p2",
+              "text": "color (रंग)",
+              "imageUrl": "/uploads/curriculum/color.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l9_p3",
+              "text": "favorite (आवडता)",
+              "imageUrl": "/uploads/curriculum/favorite.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "green",
+              "native": "हिरवा"
+            },
+            {
+              "target": "shirt",
+              "native": "शर्ट"
+            },
+            {
+              "target": "hat",
+              "native": "टोपी"
+            },
+            {
+              "target": "color",
+              "native": "रंग"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "निळा हा माझा आवडता रंग आहे.",
+          "targetSentence": "Blue is my favorite color",
+          "tokens": [
+            "Blue",
+            "is",
+            "my",
+            "favorite",
+            "color",
+            "Red"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Blue _______.",
+          "blank": "color",
+          "translation": "निळा हा माझा आवडता रंग आहे.",
+          "options": [
+            "color",
+            "beautiful",
+            "color"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Blue is my favorite color",
+          "tokens": [
+            "Blue",
+            "is",
+            "my",
+            "favorite",
+            "color",
+            "Red"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Blue is my favorite color",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "निळा हा माझा आवडता रंग आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "तू आज खूप सुंदर दिसत आहेस.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "निळा हा माझा आवडता रंग आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'सुंदर' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "beautiful",
+          "translation": "सुंदर",
+          "hint": "संकेत: B ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you like my new red shirt?",
+          "translation": "तुला माझा नवीन लाल शर्ट आवडला का?",
+          "options": [
+            {
+              "text": "Yes, it looks very beautiful!",
+              "isCorrect": true
+            },
+            {
+              "text": "Seven o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, it looks very beautiful!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Blue is my favorite color",
+          "translation": "हे काळे बूट नवीन आहेत.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Blue is my favorite color. Speak clearly and with confidence.",
+          "translationText": "निळा हा माझा आवडता रंग आहे. स्पष्ट आणि आत्मविश्वासाने बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Colors, Clothes & Appearance • Lesson 10",
+      "subtitle": "रंग, कपडे आणि व्यक्तिमत्त्व: संवाद प्रभुत्व (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'पांढरा' साठी योग्य चित्र निवडा:",
+          "targetWord": "white",
+          "translation": "पांढरा",
+          "options": [
+            {
+              "id": "u8_l10_p1",
+              "text": "white (पांढरा)",
+              "imageUrl": "/uploads/curriculum/white.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l10_p2",
+              "text": "pants (पॅन्ट)",
+              "imageUrl": "/uploads/curriculum/pants.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l10_p3",
+              "text": "wear (घालणे)",
+              "imageUrl": "/uploads/curriculum/wear.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "blue",
+              "native": "निळा"
+            },
+            {
+              "target": "black",
+              "native": "काळा"
+            },
+            {
+              "target": "dress",
+              "native": "ड्रेस"
+            },
+            {
+              "target": "beautiful",
+              "native": "सुंदर"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझा शर्ट निळा आहे.",
+          "targetSentence": "My shirt is blue",
+          "tokens": [
+            "My",
+            "shirt",
+            "is",
+            "blue",
+            "red",
+            "pants"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "My _______.",
+          "blank": "blue",
+          "translation": "माझा शर्ट निळा आहे.",
+          "options": [
+            "blue",
+            "white",
+            "pants"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "What is your favorite color?",
+          "tokens": [
+            "What",
+            "is",
+            "your",
+            "favorite",
+            "color?",
+            "dress"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Blue is my favorite color",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "निळा हा माझा आवडता रंग आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "त्याची पांढरी टोपी स्वच्छ आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "निळा हा माझा आवडता रंग आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'पांढरा' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "white",
+          "translation": "पांढरा",
+          "hint": "संकेत: W ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you like my new red shirt?",
+          "translation": "तुला माझा नवीन लाल शर्ट आवडला का?",
+          "options": [
+            {
+              "text": "Yes, it looks very beautiful!",
+              "isCorrect": true
+            },
+            {
+              "text": "Seven o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, it looks very beautiful!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "My shirt is blue",
+          "translation": "माझा शर्ट निळा आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Today I wear my favorite blue shirt. My new black shoes are very comfortable.",
+          "translationText": "आज मी माझा आवडता निळा शर्ट घातला आहे. माझे नवीन काळे बूट खूप आरामदायक आहेत.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Colors, Clothes & Appearance • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Colors, Clothes & Appearance • Unit 8 Milestone Exam",
+      "subtitle": "रंग, कपडे आणि व्यक्तिमत्त्व: संपूर्ण युनिट परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'लाल' साठी योग्य चित्र निवडा:",
+          "targetWord": "red",
+          "translation": "लाल",
+          "options": [
+            {
+              "id": "u8_l12_p1",
+              "text": "red (लाल)",
+              "imageUrl": "/uploads/curriculum/red.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l12_p2",
+              "text": "black (काळा)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l12_p3",
+              "text": "shoes (बूट)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "black",
+              "native": "काळा"
+            },
+            {
+              "target": "shoes",
+              "native": "बूट"
+            },
+            {
+              "target": "look",
+              "native": "दिसणे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "त्याची पांढरी टोपी स्वच्छ आहे.",
+          "targetSentence": "His white hat is clean",
+          "tokens": [
+            "His",
+            "white",
+            "hat",
+            "is",
+            "clean",
+            "black"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "His _______.",
+          "blank": "clean",
+          "translation": "त्याची पांढरी टोपी स्वच्छ आहे.",
+          "options": [
+            "clean",
+            "red",
+            "black"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Blue is my favorite color",
+          "tokens": [
+            "Blue",
+            "is",
+            "my",
+            "favorite",
+            "color",
+            "Red"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "You look very beautiful today",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तू आज खूप सुंदर दिसत आहेस.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझा शर्ट निळा आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "तू आज खूप सुंदर दिसत आहेस.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'आवडता' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "favorite",
+          "translation": "आवडता",
+          "hint": "संकेत: F ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Neha",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Do you like my new red shirt?",
+          "translation": "तुला माझा नवीन लाल शर्ट आवडला का?",
+          "options": [
+            {
+              "text": "Yes, it looks very beautiful!",
+              "isCorrect": true
+            },
+            {
+              "text": "Seven o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, it looks very beautiful!",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "My shirt is blue",
+          "translation": "माझा शर्ट निळा आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Today I wear my favorite blue shirt. My new black shoes are very comfortable.",
+          "translationText": "आज मी माझा आवडता निळा शर्ट घातला आहे. माझे नवीन काळे बूट खूप आरामदायक आहेत.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

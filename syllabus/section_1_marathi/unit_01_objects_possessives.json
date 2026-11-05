@@ -1,0 +1,1685 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Marathi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "mr",
+  "level": "A1",
+  "unitNumber": 1,
+  "unitTitle": "Basic Objects & Possessives",
+  "unitDescription": "मूलभूत वस्तू आणि संबंध",
+  "accentColor": "#1CB0F6",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Basic Objects & Possessives • Lesson 1",
+      "subtitle": "मूलभूत वस्तू आणि संबंध: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'घर' साठी योग्य चित्र निवडा:",
+          "targetWord": "house",
+          "translation": "घर",
+          "options": [
+            {
+              "id": "u1_l1_p1",
+              "text": "house (घर)",
+              "imageUrl": "/uploads/curriculum/house.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u1_l1_p2",
+              "text": "car (गाडी)",
+              "imageUrl": "/uploads/curriculum/car.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u1_l1_p3",
+              "text": "my (माझे / माझी)",
+              "imageUrl": "/uploads/curriculum/my.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "house",
+              "native": "घर"
+            },
+            {
+              "target": "car",
+              "native": "गाडी"
+            },
+            {
+              "target": "my",
+              "native": "माझे / माझी"
+            },
+            {
+              "target": "your",
+              "native": "तुझे / तुझी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझी गाडी",
+          "targetSentence": "my car",
+          "tokens": [
+            "my",
+            "car",
+            "house",
+            "your",
+            "is"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "my _______.",
+          "blank": "car",
+          "translation": "माझी गाडी",
+          "options": [
+            "car",
+            "car",
+            "my"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "my car",
+          "tokens": [
+            "my",
+            "car",
+            "house",
+            "your",
+            "is"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "my car",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझी गाडी",
+              "isCorrect": true
+            },
+            {
+              "text": "माझे घर मोठे आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "माझी गाडी",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'घर' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "house",
+          "translation": "घर",
+          "hint": "संकेत: H ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Is this your car?",
+          "translation": "ही तुझी गाडी आहे का?",
+          "options": [
+            {
+              "text": "Yes, this is my car.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold tea, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, this is my car.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "my car",
+          "translation": "माझी गाडी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "my car. House is good.",
+          "translationText": "माझी गाडी घर चांगले आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Basic Objects & Possessives • Lesson 2",
+      "subtitle": "मूलभूत वस्तू आणि संबंध: वाक्य रचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'मोठे / मोठी' साठी योग्य चित्र निवडा:",
+          "targetWord": "big",
+          "translation": "मोठे / मोठी",
+          "options": [
+            {
+              "id": "u1_l2_p1",
+              "text": "big (मोठे / मोठी)",
+              "imageUrl": "/uploads/curriculum/big.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u1_l2_p2",
+              "text": "small (लहान)",
+              "imageUrl": "/uploads/curriculum/small.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u1_l2_p3",
+              "text": "is (आहे)",
+              "imageUrl": "/uploads/curriculum/is.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "big",
+              "native": "मोठे / मोठी"
+            },
+            {
+              "target": "small",
+              "native": "लहान"
+            },
+            {
+              "target": "is",
+              "native": "आहे"
+            },
+            {
+              "target": "clean",
+              "native": "स्वच्छ"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझे घर मोठे आहे.",
+          "targetSentence": "my house is big",
+          "tokens": [
+            "my",
+            "house",
+            "is",
+            "big",
+            "small",
+            "car"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "my _______ big.",
+          "blank": "house",
+          "translation": "माझे घर मोठे आहे.",
+          "options": [
+            "big",
+            "big",
+            "small"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "my house is big",
+          "tokens": [
+            "my",
+            "house",
+            "is",
+            "big",
+            "small",
+            "car"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "my house is big",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझे घर मोठे आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "तुझी गाडी लहान आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "माझे घर मोठे आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'मोठे / मोठी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "big",
+          "translation": "मोठे / मोठी",
+          "hint": "संकेत: B ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Is this your car?",
+          "translation": "ही तुझी गाडी आहे का?",
+          "options": [
+            {
+              "text": "Yes, this is my car.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold tea, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, this is my car.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "My car is big",
+          "translation": "माझी गाडी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "my house is big. It is very good.",
+          "translationText": "माझे घर मोठे आहे. हे खूप छान आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Basic Objects & Possessives • Lesson 3",
+      "subtitle": "मूलभूत वस्तू आणि संबंध: संयुक्त वाक्ये",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'घाणेरडे' साठी योग्य चित्र निवडा:",
+          "targetWord": "dirty",
+          "translation": "घाणेरडे",
+          "options": [
+            {
+              "id": "u1_l3_p1",
+              "text": "dirty (घाणेरडे)",
+              "imageUrl": "/uploads/curriculum/dirty.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u1_l3_p2",
+              "text": "new (नवीन)",
+              "imageUrl": "/uploads/curriculum/new.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u1_l3_p3",
+              "text": "old (जुने)",
+              "imageUrl": "/uploads/curriculum/old.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "dirty",
+              "native": "घाणेरडे"
+            },
+            {
+              "target": "new",
+              "native": "नवीन"
+            },
+            {
+              "target": "old",
+              "native": "जुने"
+            },
+            {
+              "target": "name",
+              "native": "नाव"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "तुझी गाडी लहान आहे.",
+          "targetSentence": "your car is small",
+          "tokens": [
+            "your",
+            "car",
+            "is",
+            "small",
+            "big",
+            "house"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "your _______.",
+          "blank": "small",
+          "translation": "तुझी गाडी लहान आहे.",
+          "options": [
+            "small",
+            "dirty",
+            "new"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "your car is small",
+          "tokens": [
+            "your",
+            "car",
+            "is",
+            "small",
+            "big",
+            "house"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "your car is small",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तुझी गाडी लहान आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "त्याचे घर स्वच्छ आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "तुझी गाडी लहान आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'घाणेरडे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "dirty",
+          "translation": "घाणेरडे",
+          "hint": "संकेत: D ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Is this your car?",
+          "translation": "ही तुझी गाडी आहे का?",
+          "options": [
+            {
+              "text": "Yes, this is my car.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold tea, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, this is my car.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "your car is small",
+          "translation": "तुझी गाडी लहान आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "your car is small. We like this.",
+          "translationText": "तुझी गाडी लहान आहे. आम्हाला हे आवडते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Basic Objects & Possessives • Lesson 4",
+      "subtitle": "मूलभूत वस्तू आणि संबंध: श्रवण सराव (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'गाडी' साठी योग्य चित्र निवडा:",
+          "targetWord": "car",
+          "translation": "गाडी",
+          "options": [
+            {
+              "id": "u1_l4_p1",
+              "text": "car (गाडी)",
+              "imageUrl": "/uploads/curriculum/car.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u1_l4_p2",
+              "text": "big (मोठे / मोठी)",
+              "imageUrl": "/uploads/curriculum/big.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u1_l4_p3",
+              "text": "dirty (घाणेरडे)",
+              "imageUrl": "/uploads/curriculum/dirty.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "car",
+              "native": "गाडी"
+            },
+            {
+              "target": "small",
+              "native": "लहान"
+            },
+            {
+              "target": "new",
+              "native": "नवीन"
+            },
+            {
+              "target": "my",
+              "native": "माझे / माझी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "त्याचे घर स्वच्छ आहे.",
+          "targetSentence": "his house is clean",
+          "tokens": [
+            "his",
+            "house",
+            "is",
+            "clean",
+            "dirty",
+            "my"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "his _______.",
+          "blank": "clean",
+          "translation": "त्याचे घर स्वच्छ आहे.",
+          "options": [
+            "clean",
+            "car",
+            "your"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "his house is clean",
+          "tokens": [
+            "his",
+            "house",
+            "is",
+            "clean",
+            "dirty",
+            "my"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "his house is clean",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "त्याचे घर स्वच्छ आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझी गाडी",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "त्याचे घर स्वच्छ आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'गाडी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "car",
+          "translation": "गाडी",
+          "hint": "संकेत: C ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Is this your car?",
+          "translation": "ही तुझी गाडी आहे का?",
+          "options": [
+            {
+              "text": "Yes, this is my car.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold tea, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, this is my car.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "This is my house",
+          "translation": "माझे घर मोठे आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "his house is clean. Listen and speak every day.",
+          "translationText": "त्याचे घर स्वच्छ आहे. दररोज ऐका आणि बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Basic Objects & Possessives • Lesson 5",
+      "subtitle": "मूलभूत वस्तू आणि संबंध: गुणविशेष आणि प्रकार",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'हे / ही' साठी योग्य चित्र निवडा:",
+          "targetWord": "this",
+          "translation": "हे / ही",
+          "options": [
+            {
+              "id": "u1_l5_p1",
+              "text": "this (हे / ही)",
+              "imageUrl": "/uploads/curriculum/this.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u1_l5_p2",
+              "text": "that (ते / ती)",
+              "imageUrl": "/uploads/curriculum/that.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u1_l5_p3",
+              "text": "here (येथे)",
+              "imageUrl": "/uploads/curriculum/here.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "this",
+              "native": "हे / ही"
+            },
+            {
+              "target": "that",
+              "native": "ते / ती"
+            },
+            {
+              "target": "here",
+              "native": "येथे"
+            },
+            {
+              "target": "there",
+              "native": "तेथे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझी गाडी खूप स्वच्छ आहे.",
+          "targetSentence": "my car is very clean",
+          "tokens": [
+            "my",
+            "car",
+            "is",
+            "very",
+            "clean",
+            "house"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "my _______.",
+          "blank": "clean",
+          "translation": "माझी गाडी खूप स्वच्छ आहे.",
+          "options": [
+            "clean",
+            "this",
+            "that"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "my car is very clean",
+          "tokens": [
+            "my",
+            "car",
+            "is",
+            "very",
+            "clean",
+            "house"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "my car is very clean",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझी गाडी खूप स्वच्छ आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझे घर मोठे आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "माझी गाडी खूप स्वच्छ आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'हे / ही' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "this",
+          "translation": "हे / ही",
+          "hint": "संकेत: T ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Is this your car?",
+          "translation": "ही तुझी गाडी आहे का?",
+          "options": [
+            {
+              "text": "Yes, this is my car.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold tea, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, this is my car.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "my car is very clean",
+          "translation": "माझी गाडी खूप स्वच्छ आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "my car is very clean. You are doing very well.",
+          "translationText": "माझी गाडी खूप स्वच्छ आहे. तुम्ही खूप छान करत आहात.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Basic Objects & Possessives • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Basic Objects & Possessives • Lesson 7",
+      "subtitle": "मूलभूत वस्तू आणि संबंध: संमिश्र सराव",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'लहान' साठी योग्य चित्र निवडा:",
+          "targetWord": "small",
+          "translation": "लहान",
+          "options": [
+            {
+              "id": "u1_l7_p1",
+              "text": "small (लहान)",
+              "imageUrl": "/uploads/curriculum/small.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u1_l7_p2",
+              "text": "is (आहे)",
+              "imageUrl": "/uploads/curriculum/is.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u1_l7_p3",
+              "text": "clean (स्वच्छ)",
+              "imageUrl": "/uploads/curriculum/clean.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "your",
+              "native": "तुझे / तुझी"
+            },
+            {
+              "target": "clean",
+              "native": "स्वच्छ"
+            },
+            {
+              "target": "name",
+              "native": "नाव"
+            },
+            {
+              "target": "there",
+              "native": "तेथे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "ही माझी गाडी आहे.",
+          "targetSentence": "this is my car",
+          "tokens": [
+            "this",
+            "is",
+            "my",
+            "car",
+            "that",
+            "house"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "this _______.",
+          "blank": "car",
+          "translation": "ही माझी गाडी आहे.",
+          "options": [
+            "car",
+            "small",
+            "clean"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "this is my car",
+          "tokens": [
+            "this",
+            "is",
+            "my",
+            "car",
+            "that",
+            "house"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "this is my car",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "ही माझी गाडी आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "तुझी गाडी लहान आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "ही माझी गाडी आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'लहान' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "small",
+          "translation": "लहान",
+          "hint": "संकेत: S ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Is this your car?",
+          "translation": "ही तुझी गाडी आहे का?",
+          "options": [
+            {
+              "text": "Yes, this is my car.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold tea, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, this is my car.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "this is my car",
+          "translation": "ही माझी गाडी आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "this is my car. Practice makes you perfect.",
+          "translationText": "ही माझी गाडी आहे. सरावाने सर्व सोपे होते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Basic Objects & Possessives • Lesson 8",
+      "subtitle": "मूलभूत वस्तू आणि संबंध: प्रगत वाक्यरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'नवीन' साठी योग्य चित्र निवडा:",
+          "targetWord": "new",
+          "translation": "नवीन",
+          "options": [
+            {
+              "id": "u1_l8_p1",
+              "text": "new (नवीन)",
+              "imageUrl": "/uploads/curriculum/new.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u1_l8_p2",
+              "text": "old (जुने)",
+              "imageUrl": "/uploads/curriculum/old.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u1_l8_p3",
+              "text": "name (नाव)",
+              "imageUrl": "/uploads/curriculum/name.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "house",
+              "native": "घर"
+            },
+            {
+              "target": "big",
+              "native": "मोठे / मोठी"
+            },
+            {
+              "target": "dirty",
+              "native": "घाणेरडे"
+            },
+            {
+              "target": "this",
+              "native": "हे / ही"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "ते तुझे घर आहे.",
+          "targetSentence": "that is your house",
+          "tokens": [
+            "that",
+            "is",
+            "your",
+            "house",
+            "this",
+            "car"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "that _______.",
+          "blank": "house",
+          "translation": "ते तुझे घर आहे.",
+          "options": [
+            "house",
+            "new",
+            "old"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "that is your house",
+          "tokens": [
+            "that",
+            "is",
+            "your",
+            "house",
+            "this",
+            "car"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "that is your house",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "ते तुझे घर आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "त्याचे घर स्वच्छ आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "ते तुझे घर आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'नवीन' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "new",
+          "translation": "नवीन",
+          "hint": "संकेत: N ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Is this your car?",
+          "translation": "ही तुझी गाडी आहे का?",
+          "options": [
+            {
+              "text": "Yes, this is my car.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold tea, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, this is my car.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "that is your house",
+          "translation": "ते तुझे घर आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "that is your house. Everything is in order.",
+          "translationText": "ते तुझे घर आहे. सर्व काही व्यवस्थित आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Basic Objects & Possessives • Lesson 9",
+      "subtitle": "मूलभूत वस्तू आणि संबंध: संभाषण प्रयोगशाळा (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'ते / ती' साठी योग्य चित्र निवडा:",
+          "targetWord": "that",
+          "translation": "ते / ती",
+          "options": [
+            {
+              "id": "u1_l9_p1",
+              "text": "that (ते / ती)",
+              "imageUrl": "/uploads/curriculum/that.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u1_l9_p2",
+              "text": "here (येथे)",
+              "imageUrl": "/uploads/curriculum/here.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u1_l9_p3",
+              "text": "there (तेथे)",
+              "imageUrl": "/uploads/curriculum/there.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "my",
+              "native": "माझे / माझी"
+            },
+            {
+              "target": "is",
+              "native": "आहे"
+            },
+            {
+              "target": "old",
+              "native": "जुने"
+            },
+            {
+              "target": "here",
+              "native": "येथे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझी गाडी नवीन आणि स्वच्छ आहे.",
+          "targetSentence": "my car is new and clean",
+          "tokens": [
+            "my",
+            "car",
+            "is",
+            "new",
+            "and",
+            "clean",
+            "old"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "my _______.",
+          "blank": "clean",
+          "translation": "माझी गाडी नवीन आणि स्वच्छ आहे.",
+          "options": [
+            "clean",
+            "that",
+            "here"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "my car is new and clean",
+          "tokens": [
+            "my",
+            "car",
+            "is",
+            "new",
+            "and",
+            "clean",
+            "old"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "my car is new and clean",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझी गाडी नवीन आणि स्वच्छ आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझी गाडी खूप स्वच्छ आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "माझी गाडी नवीन आणि स्वच्छ आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'ते / ती' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "that",
+          "translation": "ते / ती",
+          "hint": "संकेत: T ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Is this your car?",
+          "translation": "ही तुझी गाडी आहे का?",
+          "options": [
+            {
+              "text": "Yes, this is my car.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold tea, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, this is my car.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "My car is new and clean",
+          "translation": "तुझी गाडी लहान आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "my car is new and clean. Speak clearly and with confidence.",
+          "translationText": "माझी गाडी नवीन आणि स्वच्छ आहे. स्पष्ट आणि आत्मविश्वासाने बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Basic Objects & Possessives • Lesson 10",
+      "subtitle": "मूलभूत वस्तू आणि संबंध: संवाद प्रभुत्व (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'तुझे / तुझी' साठी योग्य चित्र निवडा:",
+          "targetWord": "your",
+          "translation": "तुझे / तुझी",
+          "options": [
+            {
+              "id": "u1_l10_p1",
+              "text": "your (तुझे / तुझी)",
+              "imageUrl": "/uploads/curriculum/your.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u1_l10_p2",
+              "text": "clean (स्वच्छ)",
+              "imageUrl": "/uploads/curriculum/clean.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u1_l10_p3",
+              "text": "name (नाव)",
+              "imageUrl": "/uploads/curriculum/name.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "car",
+              "native": "गाडी"
+            },
+            {
+              "target": "big",
+              "native": "मोठे / मोठी"
+            },
+            {
+              "target": "new",
+              "native": "नवीन"
+            },
+            {
+              "target": "that",
+              "native": "ते / ती"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझी गाडी",
+          "targetSentence": "my car",
+          "tokens": [
+            "my",
+            "car",
+            "house",
+            "your",
+            "is"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "my _______.",
+          "blank": "car",
+          "translation": "माझी गाडी",
+          "options": [
+            "car",
+            "your",
+            "clean"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "that is your house",
+          "tokens": [
+            "that",
+            "is",
+            "your",
+            "house",
+            "this",
+            "car"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "my car is new and clean",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझी गाडी नवीन आणि स्वच्छ आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "ही माझी गाडी आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "माझी गाडी नवीन आणि स्वच्छ आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'तुझे / तुझी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "your",
+          "translation": "तुझे / तुझी",
+          "hint": "संकेत: Y ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Is this your car?",
+          "translation": "ही तुझी गाडी आहे का?",
+          "options": [
+            {
+              "text": "Yes, this is my car.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold tea, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, this is my car.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "My car is big",
+          "translation": "माझी गाडी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "This is my car. My car is very clean and new.",
+          "translationText": "ही माझी गाडी आहे. माझी गाडी खूप स्वच्छ आणि नवीन आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Basic Objects & Possessives • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Basic Objects & Possessives • Unit 1 Milestone Exam",
+      "subtitle": "मूलभूत वस्तू आणि संबंध: संपूर्ण युनिट परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'घर' साठी योग्य चित्र निवडा:",
+          "targetWord": "house",
+          "translation": "घर",
+          "options": [
+            {
+              "id": "u1_l12_p1",
+              "text": "house (घर)",
+              "imageUrl": "/uploads/curriculum/house.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u1_l12_p2",
+              "text": "big (मोठे / मोठी)",
+              "imageUrl": "/uploads/curriculum/big.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u1_l12_p3",
+              "text": "dirty (घाणेरडे)",
+              "imageUrl": "/uploads/curriculum/dirty.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "house",
+              "native": "घर"
+            },
+            {
+              "target": "big",
+              "native": "मोठे / मोठी"
+            },
+            {
+              "target": "dirty",
+              "native": "घाणेरडे"
+            },
+            {
+              "target": "this",
+              "native": "हे / ही"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "ही माझी गाडी आहे.",
+          "targetSentence": "this is my car",
+          "tokens": [
+            "this",
+            "is",
+            "my",
+            "car",
+            "that",
+            "house"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "this _______.",
+          "blank": "car",
+          "translation": "ही माझी गाडी आहे.",
+          "options": [
+            "car",
+            "house",
+            "big"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "my car is new and clean",
+          "tokens": [
+            "my",
+            "car",
+            "is",
+            "new",
+            "and",
+            "clean",
+            "old"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "my car is very clean",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझी गाडी खूप स्वच्छ आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझी गाडी",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "माझी गाडी खूप स्वच्छ आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'तेथे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "there",
+          "translation": "तेथे",
+          "hint": "संकेत: T ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Anna",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Is this your car?",
+          "translation": "ही तुझी गाडी आहे का?",
+          "options": [
+            {
+              "text": "Yes, this is my car.",
+              "isCorrect": true
+            },
+            {
+              "text": "Cold tea, please.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, this is my car.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "My car is big",
+          "translation": "माझी गाडी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "This is my car. My car is very clean and new.",
+          "translationText": "ही माझी गाडी आहे. माझी गाडी खूप स्वच्छ आणि नवीन आहे.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1694 @@
+{
+  "courseTitle": "English A1 Comprehensive Curriculum (For Marathi Speakers)",
+  "learningLanguage": "en",
+  "nativeLanguage": "mr",
+  "level": "A1",
+  "unitNumber": 6,
+  "unitTitle": "Home, Rooms & Prepositions",
+  "unitDescription": "घर, खोल्या आणि स्थलदर्शक शब्द",
+  "accentColor": "#EC4899",
+  "lessonsCount": 12,
+  "lessons": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Home, Rooms & Prepositions • Lesson 1",
+      "subtitle": "घर, खोल्या आणि स्थलदर्शक शब्द: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'खोली' साठी योग्य चित्र निवडा:",
+          "targetWord": "room",
+          "translation": "खोली",
+          "options": [
+            {
+              "id": "u6_l1_p1",
+              "text": "room (खोली)",
+              "imageUrl": "/uploads/curriculum/room.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u6_l1_p2",
+              "text": "kitchen (स्वयंपाकघर)",
+              "imageUrl": "/uploads/curriculum/kitchen.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u6_l1_p3",
+              "text": "bedroom (शयनकक्ष)",
+              "imageUrl": "/uploads/curriculum/bedroom.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "room",
+              "native": "खोली"
+            },
+            {
+              "target": "kitchen",
+              "native": "स्वयंपाकघर"
+            },
+            {
+              "target": "bedroom",
+              "native": "शयनकक्ष"
+            },
+            {
+              "target": "table",
+              "native": "टेबल"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझी बॅग कुठे आहे?",
+          "targetSentence": "Where is my bag?",
+          "tokens": [
+            "Where",
+            "is",
+            "my",
+            "bag?",
+            "chair",
+            "table"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Where _______.",
+          "blank": "bag?",
+          "translation": "माझी बॅग कुठे आहे?",
+          "options": [
+            "bag?",
+            "kitchen",
+            "bedroom"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Where is my bag?",
+          "tokens": [
+            "Where",
+            "is",
+            "my",
+            "bag?",
+            "chair",
+            "table"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Where is my bag?",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझी बॅग कुठे आहे?",
+              "isCorrect": true
+            },
+            {
+              "text": "फोन टेबलावर आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "माझी बॅग कुठे आहे?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'खोली' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "room",
+          "translation": "खोली",
+          "hint": "संकेत: R ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where are my keys?",
+          "translation": "माझ्या चाव्या कुठे आहेत?",
+          "options": [
+            {
+              "text": "Your keys are on the table.",
+              "isCorrect": true
+            },
+            {
+              "text": "I drink water.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Your keys are on the table.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Where is my bag?",
+          "translation": "माझी बॅग कुठे आहे?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Where is my bag?. Room is good.",
+          "translationText": "माझी बॅग कुठे आहे? खोली चांगले आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Home, Rooms & Prepositions • Lesson 2",
+      "subtitle": "घर, खोल्या आणि स्थलदर्शक शब्द: वाक्य रचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'खुर्ची' साठी योग्य चित्र निवडा:",
+          "targetWord": "chair",
+          "translation": "खुर्ची",
+          "options": [
+            {
+              "id": "u6_l2_p1",
+              "text": "chair (खुर्ची)",
+              "imageUrl": "/uploads/curriculum/chair.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u6_l2_p2",
+              "text": "bed (पलंग)",
+              "imageUrl": "/uploads/curriculum/bed.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u6_l2_p3",
+              "text": "door (दरवाजा)",
+              "imageUrl": "/uploads/curriculum/door.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "chair",
+              "native": "खुर्ची"
+            },
+            {
+              "target": "bed",
+              "native": "पलंग"
+            },
+            {
+              "target": "door",
+              "native": "दरवाजा"
+            },
+            {
+              "target": "window",
+              "native": "खिडकी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "फोन टेबलावर आहे.",
+          "targetSentence": "The phone is on the table",
+          "tokens": [
+            "The",
+            "phone",
+            "is",
+            "on",
+            "the",
+            "table",
+            "chair"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "The _______ table.",
+          "blank": "phone",
+          "translation": "फोन टेबलावर आहे.",
+          "options": [
+            "table",
+            "chair",
+            "bed"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "The phone is on the table",
+          "tokens": [
+            "The",
+            "phone",
+            "is",
+            "on",
+            "the",
+            "table",
+            "chair"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "The phone is on the table",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "फोन टेबलावर आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "मांजर खुर्चीखाली आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "फोन टेबलावर आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'खुर्ची' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "chair",
+          "translation": "खुर्ची",
+          "hint": "संकेत: C ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where are my keys?",
+          "translation": "माझ्या चाव्या कुठे आहेत?",
+          "options": [
+            {
+              "text": "Your keys are on the table.",
+              "isCorrect": true
+            },
+            {
+              "text": "I drink water.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Your keys are on the table.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "The phone is on the table",
+          "translation": "माझी बॅग कुठे आहे?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "The phone is on the table. It is very good.",
+          "translationText": "फोन टेबलावर आहे. हे खूप छान आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Home, Rooms & Prepositions • Lesson 3",
+      "subtitle": "घर, खोल्या आणि स्थलदर्शक शब्द: संयुक्त वाक्ये",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'आत / मध्ये' साठी योग्य चित्र निवडा:",
+          "targetWord": "in",
+          "translation": "आत / मध्ये",
+          "options": [
+            {
+              "id": "u6_l3_p1",
+              "text": "in (आत / मध्ये)",
+              "imageUrl": "/uploads/curriculum/in.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u6_l3_p2",
+              "text": "on (वर)",
+              "imageUrl": "/uploads/curriculum/on.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u6_l3_p3",
+              "text": "under (खाली)",
+              "imageUrl": "/uploads/curriculum/under.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "in",
+              "native": "आत / मध्ये"
+            },
+            {
+              "target": "on",
+              "native": "वर"
+            },
+            {
+              "target": "under",
+              "native": "खाली"
+            },
+            {
+              "target": "behind",
+              "native": "मागे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "मांजर खुर्चीखाली आहे.",
+          "targetSentence": "The cat is under the chair",
+          "tokens": [
+            "The",
+            "cat",
+            "is",
+            "under",
+            "the",
+            "chair",
+            "table"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "The _______.",
+          "blank": "chair",
+          "translation": "मांजर खुर्चीखाली आहे.",
+          "options": [
+            "chair",
+            "in",
+            "on"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "The cat is under the chair",
+          "tokens": [
+            "The",
+            "cat",
+            "is",
+            "under",
+            "the",
+            "chair",
+            "table"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "The cat is under the chair",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "मांजर खुर्चीखाली आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझ्या चाव्या बॅगेत आहेत.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मांजर खुर्चीखाली आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'आत / मध्ये' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "in",
+          "translation": "आत / मध्ये",
+          "hint": "संकेत: I ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where are my keys?",
+          "translation": "माझ्या चाव्या कुठे आहेत?",
+          "options": [
+            {
+              "text": "Your keys are on the table.",
+              "isCorrect": true
+            },
+            {
+              "text": "I drink water.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Your keys are on the table.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "The cat is under the chair",
+          "translation": "मांजर खुर्चीखाली आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "The cat is under the chair. We like this.",
+          "translationText": "मांजर खुर्चीखाली आहे. आम्हाला हे आवडते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Home, Rooms & Prepositions • Lesson 4",
+      "subtitle": "घर, खोल्या आणि स्थलदर्शक शब्द: श्रवण सराव (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'स्वयंपाकघर' साठी योग्य चित्र निवडा:",
+          "targetWord": "kitchen",
+          "translation": "स्वयंपाकघर",
+          "options": [
+            {
+              "id": "u6_l4_p1",
+              "text": "kitchen (स्वयंपाकघर)",
+              "imageUrl": "/uploads/curriculum/kitchen.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u6_l4_p2",
+              "text": "chair (खुर्ची)",
+              "imageUrl": "/uploads/curriculum/chair.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u6_l4_p3",
+              "text": "in (आत / मध्ये)",
+              "imageUrl": "/uploads/curriculum/in.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "kitchen",
+              "native": "स्वयंपाकघर"
+            },
+            {
+              "target": "bed",
+              "native": "पलंग"
+            },
+            {
+              "target": "on",
+              "native": "वर"
+            },
+            {
+              "target": "bedroom",
+              "native": "शयनकक्ष"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझ्या चाव्या बॅगेत आहेत.",
+          "targetSentence": "My keys are in the bag",
+          "tokens": [
+            "My",
+            "keys",
+            "are",
+            "in",
+            "the",
+            "bag",
+            "room"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "My _______.",
+          "blank": "bag",
+          "translation": "माझ्या चाव्या बॅगेत आहेत.",
+          "options": [
+            "bag",
+            "kitchen",
+            "table"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "My keys are in the bag",
+          "tokens": [
+            "My",
+            "keys",
+            "are",
+            "in",
+            "the",
+            "bag",
+            "room"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "My keys are in the bag",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "माझ्या चाव्या बॅगेत आहेत.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझी बॅग कुठे आहे?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "माझ्या चाव्या बॅगेत आहेत.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'स्वयंपाकघर' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "kitchen",
+          "translation": "स्वयंपाकघर",
+          "hint": "संकेत: K ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where are my keys?",
+          "translation": "माझ्या चाव्या कुठे आहेत?",
+          "options": [
+            {
+              "text": "Your keys are on the table.",
+              "isCorrect": true
+            },
+            {
+              "text": "I drink water.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Your keys are on the table.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Where is my key?",
+          "translation": "फोन टेबलावर आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "My keys are in the bag. Listen and speak every day.",
+          "translationText": "माझ्या चाव्या बॅगेत आहेत. दररोज ऐका आणि बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Home, Rooms & Prepositions • Lesson 5",
+      "subtitle": "घर, खोल्या आणि स्थलदर्शक शब्द: गुणविशेष आणि प्रकार",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'कुठे' साठी योग्य चित्र निवडा:",
+          "targetWord": "where",
+          "translation": "कुठे",
+          "options": [
+            {
+              "id": "u6_l5_p1",
+              "text": "where (कुठे)",
+              "imageUrl": "/uploads/curriculum/where.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u6_l5_p2",
+              "text": "key (चावी)",
+              "imageUrl": "/uploads/curriculum/key.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u6_l5_p3",
+              "text": "phone (फोन)",
+              "imageUrl": "/uploads/curriculum/phone.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "where",
+              "native": "कुठे"
+            },
+            {
+              "target": "key",
+              "native": "चावी"
+            },
+            {
+              "target": "phone",
+              "native": "फोन"
+            },
+            {
+              "target": "bag",
+              "native": "बॅग / पिशवी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "बेडरूम खूप स्वच्छ आहे.",
+          "targetSentence": "The bedroom is very clean",
+          "tokens": [
+            "The",
+            "bedroom",
+            "is",
+            "very",
+            "clean",
+            "dirty"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "The _______.",
+          "blank": "clean",
+          "translation": "बेडरूम खूप स्वच्छ आहे.",
+          "options": [
+            "clean",
+            "where",
+            "key"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "The bedroom is very clean",
+          "tokens": [
+            "The",
+            "bedroom",
+            "is",
+            "very",
+            "clean",
+            "dirty"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "The bedroom is very clean",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "बेडरूम खूप स्वच्छ आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "फोन टेबलावर आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "बेडरूम खूप स्वच्छ आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'कुठे' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "where",
+          "translation": "कुठे",
+          "hint": "संकेत: W ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where are my keys?",
+          "translation": "माझ्या चाव्या कुठे आहेत?",
+          "options": [
+            {
+              "text": "Your keys are on the table.",
+              "isCorrect": true
+            },
+            {
+              "text": "I drink water.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Your keys are on the table.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "The bedroom is very clean",
+          "translation": "बेडरूम खूप स्वच्छ आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "The bedroom is very clean. You are doing very well.",
+          "translationText": "बेडरूम खूप स्वच्छ आहे. तुम्ही खूप छान करत आहात.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Home, Rooms & Prepositions • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Home, Rooms & Prepositions • Lesson 7",
+      "subtitle": "घर, खोल्या आणि स्थलदर्शक शब्द: संमिश्र सराव",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'पलंग' साठी योग्य चित्र निवडा:",
+          "targetWord": "bed",
+          "translation": "पलंग",
+          "options": [
+            {
+              "id": "u6_l7_p1",
+              "text": "bed (पलंग)",
+              "imageUrl": "/uploads/curriculum/bed.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u6_l7_p2",
+              "text": "door (दरवाजा)",
+              "imageUrl": "/uploads/curriculum/door.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u6_l7_p3",
+              "text": "window (खिडकी)",
+              "imageUrl": "/uploads/curriculum/window.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "table",
+              "native": "टेबल"
+            },
+            {
+              "target": "window",
+              "native": "खिडकी"
+            },
+            {
+              "target": "behind",
+              "native": "मागे"
+            },
+            {
+              "target": "bag",
+              "native": "बॅग / पिशवी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "कृपया दरवाजा उघडा.",
+          "targetSentence": "Open the door, please",
+          "tokens": [
+            "Open",
+            "the",
+            "door,",
+            "please",
+            "Close",
+            "window"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Open _______.",
+          "blank": "please",
+          "translation": "कृपया दरवाजा उघडा.",
+          "options": [
+            "please",
+            "bed",
+            "window"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Open the door, please",
+          "tokens": [
+            "Open",
+            "the",
+            "door,",
+            "please",
+            "Close",
+            "window"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Open the door, please",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "कृपया दरवाजा उघडा.",
+              "isCorrect": true
+            },
+            {
+              "text": "मांजर खुर्चीखाली आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कृपया दरवाजा उघडा.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'पलंग' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "bed",
+          "translation": "पलंग",
+          "hint": "संकेत: B ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where are my keys?",
+          "translation": "माझ्या चाव्या कुठे आहेत?",
+          "options": [
+            {
+              "text": "Your keys are on the table.",
+              "isCorrect": true
+            },
+            {
+              "text": "I drink water.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Your keys are on the table.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Open the door, please",
+          "translation": "कृपया दरवाजा उघडा.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Open the door, please. Practice makes you perfect.",
+          "translationText": "कृपया दरवाजा उघडा. सरावाने सर्व सोपे होते.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Home, Rooms & Prepositions • Lesson 8",
+      "subtitle": "घर, खोल्या आणि स्थलदर्शक शब्द: प्रगत वाक्यरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'वर' साठी योग्य चित्र निवडा:",
+          "targetWord": "on",
+          "translation": "वर",
+          "options": [
+            {
+              "id": "u6_l8_p1",
+              "text": "on (वर)",
+              "imageUrl": "/uploads/curriculum/on.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u6_l8_p2",
+              "text": "under (खाली)",
+              "imageUrl": "/uploads/curriculum/under.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u6_l8_p3",
+              "text": "behind (मागे)",
+              "imageUrl": "/uploads/curriculum/behind.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "room",
+              "native": "खोली"
+            },
+            {
+              "target": "chair",
+              "native": "खुर्ची"
+            },
+            {
+              "target": "in",
+              "native": "आत / मध्ये"
+            },
+            {
+              "target": "where",
+              "native": "कुठे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "खिडकी बंद करा.",
+          "targetSentence": "Close the window",
+          "tokens": [
+            "Close",
+            "the",
+            "window",
+            "Open",
+            "door",
+            "table"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Close _______.",
+          "blank": "window",
+          "translation": "खिडकी बंद करा.",
+          "options": [
+            "window",
+            "on",
+            "under"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Close the window",
+          "tokens": [
+            "Close",
+            "the",
+            "window",
+            "Open",
+            "door",
+            "table"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "Close the window",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "खिडकी बंद करा.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझ्या चाव्या बॅगेत आहेत.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "खिडकी बंद करा.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'वर' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "on",
+          "translation": "वर",
+          "hint": "संकेत: O ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where are my keys?",
+          "translation": "माझ्या चाव्या कुठे आहेत?",
+          "options": [
+            {
+              "text": "Your keys are on the table.",
+              "isCorrect": true
+            },
+            {
+              "text": "I drink water.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Your keys are on the table.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Close the window",
+          "translation": "खिडकी बंद करा.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Close the window. Everything is in order.",
+          "translationText": "खिडकी बंद करा. सर्व काही व्यवस्थित आहे.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Home, Rooms & Prepositions • Lesson 9",
+      "subtitle": "घर, खोल्या आणि स्थलदर्शक शब्द: संभाषण प्रयोगशाळा (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'चावी' साठी योग्य चित्र निवडा:",
+          "targetWord": "key",
+          "translation": "चावी",
+          "options": [
+            {
+              "id": "u6_l9_p1",
+              "text": "key (चावी)",
+              "imageUrl": "/uploads/curriculum/key.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u6_l9_p2",
+              "text": "phone (फोन)",
+              "imageUrl": "/uploads/curriculum/phone.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u6_l9_p3",
+              "text": "bag (बॅग / पिशवी)",
+              "imageUrl": "/uploads/curriculum/bag.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "bedroom",
+              "native": "शयनकक्ष"
+            },
+            {
+              "target": "door",
+              "native": "दरवाजा"
+            },
+            {
+              "target": "under",
+              "native": "खाली"
+            },
+            {
+              "target": "phone",
+              "native": "फोन"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "तो स्वयंपाकघरात आहे.",
+          "targetSentence": "He is in the kitchen",
+          "tokens": [
+            "He",
+            "is",
+            "in",
+            "the",
+            "kitchen",
+            "bedroom",
+            "She"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "He _______.",
+          "blank": "kitchen",
+          "translation": "तो स्वयंपाकघरात आहे.",
+          "options": [
+            "kitchen",
+            "key",
+            "phone"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "He is in the kitchen",
+          "tokens": [
+            "He",
+            "is",
+            "in",
+            "the",
+            "kitchen",
+            "bedroom",
+            "She"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "He is in the kitchen",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तो स्वयंपाकघरात आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "बेडरूम खूप स्वच्छ आहे.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "तो स्वयंपाकघरात आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'चावी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "key",
+          "translation": "चावी",
+          "hint": "संकेत: K ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where are my keys?",
+          "translation": "माझ्या चाव्या कुठे आहेत?",
+          "options": [
+            {
+              "text": "Your keys are on the table.",
+              "isCorrect": true
+            },
+            {
+              "text": "I drink water.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Your keys are on the table.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "Open the door, please",
+          "translation": "मांजर खुर्चीखाली आहे.",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "He is in the kitchen. Speak clearly and with confidence.",
+          "translationText": "तो स्वयंपाकघरात आहे. स्पष्ट आणि आत्मविश्वासाने बोला.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Home, Rooms & Prepositions • Lesson 10",
+      "subtitle": "घर, खोल्या आणि स्थलदर्शक शब्द: संवाद प्रभुत्व (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'टेबल' साठी योग्य चित्र निवडा:",
+          "targetWord": "table",
+          "translation": "टेबल",
+          "options": [
+            {
+              "id": "u6_l10_p1",
+              "text": "table (टेबल)",
+              "imageUrl": "/uploads/curriculum/table.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u6_l10_p2",
+              "text": "window (खिडकी)",
+              "imageUrl": "/uploads/curriculum/window.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u6_l10_p3",
+              "text": "behind (मागे)",
+              "imageUrl": "/uploads/curriculum/behind.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "kitchen",
+              "native": "स्वयंपाकघर"
+            },
+            {
+              "target": "chair",
+              "native": "खुर्ची"
+            },
+            {
+              "target": "on",
+              "native": "वर"
+            },
+            {
+              "target": "key",
+              "native": "चावी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "माझी बॅग कुठे आहे?",
+          "targetSentence": "Where is my bag?",
+          "tokens": [
+            "Where",
+            "is",
+            "my",
+            "bag?",
+            "chair",
+            "table"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Where _______.",
+          "blank": "bag?",
+          "translation": "माझी बॅग कुठे आहे?",
+          "options": [
+            "bag?",
+            "table",
+            "window"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "Close the window",
+          "tokens": [
+            "Close",
+            "the",
+            "window",
+            "Open",
+            "door",
+            "table"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "He is in the kitchen",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "तो स्वयंपाकघरात आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "कृपया दरवाजा उघडा.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "तो स्वयंपाकघरात आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'टेबल' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "table",
+          "translation": "टेबल",
+          "hint": "संकेत: T ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where are my keys?",
+          "translation": "माझ्या चाव्या कुठे आहेत?",
+          "options": [
+            {
+              "text": "Your keys are on the table.",
+              "isCorrect": true
+            },
+            {
+              "text": "I drink water.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Your keys are on the table.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "The phone is on the table",
+          "translation": "माझी बॅग कुठे आहे?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Welcome to my house. The kitchen is clean and my books are on the table.",
+          "translationText": "माझ्या घरात आपले स्वागत आहे. स्वयंपाकघर स्वच्छ आहे आणि माझी पुस्तके टेबलावर आहेत.",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Home, Rooms & Prepositions • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Home, Rooms & Prepositions • Unit 6 Milestone Exam",
+      "subtitle": "घर, खोल्या आणि स्थलदर्शक शब्द: संपूर्ण युनिट परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र निवडा",
+          "prompt": "'खोली' साठी योग्य चित्र निवडा:",
+          "targetWord": "room",
+          "translation": "खोली",
+          "options": [
+            {
+              "id": "u6_l12_p1",
+              "text": "room (खोली)",
+              "imageUrl": "/uploads/curriculum/room.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u6_l12_p2",
+              "text": "chair (खुर्ची)",
+              "imageUrl": "/uploads/curriculum/chair.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u6_l12_p3",
+              "text": "in (आत / मध्ये)",
+              "imageUrl": "/uploads/curriculum/in.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "योग्य शब्दांच्या जोड्या जुळवा",
+          "pairs": [
+            {
+              "target": "room",
+              "native": "खोली"
+            },
+            {
+              "target": "chair",
+              "native": "खुर्ची"
+            },
+            {
+              "target": "in",
+              "native": "आत / मध्ये"
+            },
+            {
+              "target": "where",
+              "native": "कुठे"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "इंग्रजी वाक्य तयार करा",
+          "prompt": "कृपया दरवाजा उघडा.",
+          "targetSentence": "Open the door, please",
+          "tokens": [
+            "Open",
+            "the",
+            "door,",
+            "please",
+            "Close",
+            "window"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "गाळलेली जागा भरा",
+          "sentence": "Open _______.",
+          "blank": "please",
+          "translation": "कृपया दरवाजा उघडा.",
+          "options": [
+            "please",
+            "room",
+            "chair"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "ऐका आणि योग्य शब्दांवर टॅप करा",
+          "targetSentence": "He is in the kitchen",
+          "tokens": [
+            "He",
+            "is",
+            "in",
+            "the",
+            "kitchen",
+            "bedroom",
+            "She"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "ऐका आणि योग्य अर्थ निवडा",
+          "spokenGerman": "The bedroom is very clean",
+          "question": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "prompt": "या वाक्याचा योग्य मराठी अर्थ काय आहे?",
+          "options": [
+            {
+              "text": "बेडरूम खूप स्वच्छ आहे.",
+              "isCorrect": true
+            },
+            {
+              "text": "माझी बॅग कुठे आहे?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "बेडरूम खूप स्वच्छ आहे.",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाईप करा",
+          "prompt": "'बॅग / पिशवी' साठी इंग्रजी शब्द टाईप करा:",
+          "target": "bag",
+          "translation": "बॅग / पिशवी",
+          "hint": "संकेत: B ने सुरू होते",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "संभाषण पूर्ण करा",
+          "partnerName": "Amit",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Where are my keys?",
+          "translation": "माझ्या चाव्या कुठे आहेत?",
+          "options": [
+            {
+              "text": "Your keys are on the table.",
+              "isCorrect": true
+            },
+            {
+              "text": "I drink water.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Your keys are on the table.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलून सराव करा",
+          "prompt": "The phone is on the table",
+          "translation": "माझी बॅग कुठे आहे?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध वाचन (Karaoke Reading)",
+          "storyText": "Welcome to my house. The kitchen is clean and my books are on the table.",
+          "translationText": "माझ्या घरात आपले स्वागत आहे. स्वयंपाकघर स्वच्छ आहे आणि माझी पुस्तके टेबलावर आहेत.",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ]
+}
