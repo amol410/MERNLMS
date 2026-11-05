@@ -386,6 +386,8 @@ exports.bulkUpload = async (req, res, next) => {
             unitNumber = 1,
             unitTitle = 'Coral Reef',
             lessonsData, // Can be array of objects, JSON string, or CSV text
+            replace = false,
+            conflictResolution,
         } = req.body;
 
         let effectiveLearningLanguage = learningLanguage;
@@ -394,6 +396,7 @@ exports.bulkUpload = async (req, res, next) => {
         let effectiveUnitNumber = parseInt(unitNumber, 10) || 1;
         let effectiveUnitTitle = unitTitle;
         let effectiveUnitDescription = '';
+        let isReplaceMode = Boolean(replace === true || replace === 'true');
 
         let parsedItems = [];
 
@@ -405,6 +408,9 @@ exports.bulkUpload = async (req, res, next) => {
                 if (Array.isArray(jsonParsed)) {
                     parsedItems = jsonParsed;
                 } else if (jsonParsed && typeof jsonParsed === 'object') {
+                    if (jsonParsed.replace !== undefined) {
+                        isReplaceMode = Boolean(jsonParsed.replace === true || jsonParsed.replace === 'true');
+                    }
                     // Extract root-level metadata if explicitly declared in the uploaded JSON file
                     if (jsonParsed.unitNumber !== undefined && jsonParsed.unitNumber !== null && !isNaN(parseInt(jsonParsed.unitNumber, 10))) {
                         effectiveUnitNumber = parseInt(jsonParsed.unitNumber, 10);
@@ -429,6 +435,22 @@ exports.bulkUpload = async (req, res, next) => {
                         parsedItems = jsonParsed.lessons;
                     } else if (Array.isArray(jsonParsed.lessonsData)) {
                         parsedItems = jsonParsed.lessonsData;
+                    } else if (Array.isArray(jsonParsed.units)) {
+                        parsedItems = [];
+                        for (const u of jsonParsed.units) {
+                            const uLessons = u.lessons || u.lessonsData || [];
+                            for (const l of uLessons) {
+                                parsedItems.push({
+                                    ...l,
+                                    unitNumber: l.unitNumber !== undefined ? l.unitNumber : u.unitNumber,
+                                    unitTitle: l.unitTitle || u.unitTitle,
+                                    unitDescription: l.unitDescription || u.unitDescription,
+                                    learningLanguage: l.learningLanguage || u.learningLanguage || jsonParsed.learningLanguage,
+                                    nativeLanguage: l.nativeLanguage || u.nativeLanguage || jsonParsed.nativeLanguage,
+                                    level: l.level || u.level || jsonParsed.level,
+                                });
+                            }
+                        }
                     }
                 }
             } catch {
@@ -471,90 +493,148 @@ exports.bulkUpload = async (req, res, next) => {
             }
         }
 
-        // 2. Unit-by-Unit Bulk Upload Conflict Resolution:
-        // Find existing lessons for this unit to update matches and preserve untouched lessons
-        const existingLessons = await CurriculumLesson.findAll({
-            where: {
-                learningLanguage: effectiveLearningLanguage,
-                nativeLanguage: effectiveNativeLanguage,
-                level: effectiveLevel,
-                unitNumber: effectiveUnitNumber,
-            },
-            order: [['lessonIndex', 'ASC']],
-        });
+        // 2. Unit-by-Unit Bulk Upload Conflict Resolution & Replace Support:
+        const targetUnitNumbers = [...new Set(parsedItems.map(item => (
+            item.unitNumber !== undefined && item.unitNumber !== null && !isNaN(parseInt(item.unitNumber, 10))
+                ? parseInt(item.unitNumber, 10)
+                : effectiveUnitNumber
+        )))];
 
-        let maxIndex = existingLessons.reduce((max, l) => Math.max(max, l.lessonIndex !== undefined ? l.lessonIndex : -1), -1);
+        // In Replace Mode: Completely discard and remove all existing lessons in target unit(s)
+        if (isReplaceMode) {
+            await CurriculumLesson.destroy({
+                where: {
+                    learningLanguage: effectiveLearningLanguage,
+                    nativeLanguage: effectiveNativeLanguage,
+                    level: effectiveLevel,
+                    unitNumber: targetUnitNumbers.length === 1 ? targetUnitNumbers[0] : { [Op.in]: targetUnitNumbers },
+                },
+            });
+        }
 
         const processedLessons = [];
 
-        for (let i = 0; i < parsedItems.length; i++) {
-            const item = parsedItems[i];
-            if (!item.title) continue;
+        for (const uNum of targetUnitNumbers) {
+            const unitItems = parsedItems.filter(item => {
+                const itemUnit = item.unitNumber !== undefined && item.unitNumber !== null && !isNaN(parseInt(item.unitNumber, 10))
+                    ? parseInt(item.unitNumber, 10)
+                    : effectiveUnitNumber;
+                return itemUnit === uNum;
+            });
 
-            const cleanStages = item.stages ? sanitizeLessonStages(item.stages) : [];
+            let existingLessons = [];
+            let maxIndex = -1;
 
-            // Match existing lesson by id, lessonIndex, or title (for conflict resolution)
-            let existing = null;
-            if (item.id) {
-                existing = existingLessons.find(l => l.id === item.id);
-            }
-            if (!existing && item.lessonIndex !== undefined) {
-                existing = existingLessons.find(l => l.lessonIndex === item.lessonIndex);
-            }
-            if (!existing && item.conflictResolution !== 'append' && item.title) {
-                existing = existingLessons.find(l => l.title.trim().toLowerCase() === item.title.trim().toLowerCase());
-            }
-
-            if (existing) {
-                // Update existing lesson: preserves original id & untouched lessons' UserNodeProgress
-                existing.title = item.title.trim();
-                if (item.subtitle !== undefined) existing.subtitle = item.subtitle.trim();
-                if (item.nodeType !== undefined) existing.nodeType = item.nodeType;
-                if (item.xpReward !== undefined) existing.xpReward = item.xpReward;
-                if (item.pearlsReward !== undefined) existing.pearlsReward = item.pearlsReward;
-                if (item.stages !== undefined) existing.stages = cleanStages;
-                if (item.audioUrl !== undefined) existing.audioUrl = item.audioUrl;
-                if (item.unitTitle || effectiveUnitTitle) existing.unitTitle = item.unitTitle || effectiveUnitTitle;
-                if (item.unitDescription !== undefined || effectiveUnitDescription) existing.unitDescription = item.unitDescription !== undefined ? item.unitDescription : effectiveUnitDescription;
-                if (item.isLive !== undefined) existing.isLive = Boolean(item.isLive);
-                await existing.save();
-                processedLessons.push(existing);
-            } else {
-                // Insert new lesson maintaining course hierarchy integrity
-                maxIndex++;
-                const newLessonIndex = (item.lessonIndex !== undefined && !existingLessons.some(l => l.lessonIndex === item.lessonIndex))
-                    ? item.lessonIndex
-                    : maxIndex;
-
-                const lesson = await CurriculumLesson.create({
-                    owner: req.user.id,
-                    learningLanguage: item.learningLanguage || effectiveLearningLanguage,
-                    nativeLanguage: item.nativeLanguage || effectiveNativeLanguage,
-                    level: item.level || effectiveLevel,
-                    unitNumber: item.unitNumber || effectiveUnitNumber,
-                    unitTitle: item.unitTitle || effectiveUnitTitle,
-                    unitDescription: item.unitDescription || effectiveUnitDescription,
-                    lessonIndex: newLessonIndex,
-                    title: item.title.trim(),
-                    subtitle: (item.subtitle || '').trim(),
-                    nodeType: item.nodeType || 'lesson',
-                    xpReward: item.xpReward || 15,
-                    pearlsReward: item.pearlsReward || 5,
-                    isLive: item.isLive !== undefined ? Boolean(item.isLive) : false,
-                    stages: cleanStages,
-                    audioUrl: item.audioUrl || null,
+            if (!isReplaceMode) {
+                existingLessons = await CurriculumLesson.findAll({
+                    where: {
+                        learningLanguage: effectiveLearningLanguage,
+                        nativeLanguage: effectiveNativeLanguage,
+                        level: effectiveLevel,
+                        unitNumber: uNum,
+                    },
+                    order: [['lessonIndex', 'ASC']],
                 });
-                processedLessons.push(lesson);
+                maxIndex = existingLessons.reduce((max, l) => Math.max(max, l.lessonIndex !== undefined ? l.lessonIndex : -1), -1);
+            }
+
+            for (let i = 0; i < unitItems.length; i++) {
+                const item = unitItems[i];
+                if (!item.title) continue;
+
+                const cleanStages = item.stages ? sanitizeLessonStages(item.stages) : [];
+
+                // Match existing lesson:
+                // Only match if NOT in replace mode AND:
+                // 1) Explicit primary key id match, OR
+                // 2) Explicit conflictResolution === 'update' by title
+                let existing = null;
+                if (!isReplaceMode) {
+                    if (item.id) {
+                        existing = existingLessons.find(l => String(l.id) === String(item.id));
+                    }
+                    const shouldUpdateByTitle = (req.body.conflictResolution === 'update' || item.conflictResolution === 'update');
+                    if (!existing && shouldUpdateByTitle && item.title) {
+                        existing = existingLessons.find(l => l.title.trim().toLowerCase() === item.title.trim().toLowerCase());
+                    }
+                }
+
+                if (existing) {
+                    // Update existing lesson: preserves original id & untouched lessons' UserNodeProgress
+                    existing.title = item.title.trim();
+                    if (item.subtitle !== undefined) existing.subtitle = item.subtitle.trim();
+                    if (item.nodeType !== undefined) existing.nodeType = item.nodeType;
+                    if (item.xpReward !== undefined) existing.xpReward = item.xpReward;
+                    if (item.pearlsReward !== undefined) existing.pearlsReward = item.pearlsReward;
+                    if (item.stages !== undefined) existing.stages = cleanStages;
+                    if (item.audioUrl !== undefined) existing.audioUrl = item.audioUrl;
+                    if (item.unitTitle || effectiveUnitTitle) existing.unitTitle = item.unitTitle || effectiveUnitTitle;
+                    if (item.unitDescription !== undefined || effectiveUnitDescription) {
+                        existing.unitDescription = item.unitDescription !== undefined ? item.unitDescription : effectiveUnitDescription;
+                    }
+                    if (item.isLive !== undefined) existing.isLive = Boolean(item.isLive);
+                    await existing.save();
+                    processedLessons.push(existing);
+                } else {
+                    // Determine lessonIndex for newly inserted lesson:
+                    let newLessonIndex;
+                    if (isReplaceMode) {
+                        // In replace mode: lessons start fresh; respect declared lessonIndex or sequential 0..N
+                        if (item.lessonIndex !== undefined && !isNaN(parseInt(item.lessonIndex, 10))) {
+                            newLessonIndex = parseInt(item.lessonIndex, 10);
+                        } else {
+                            maxIndex++;
+                            newLessonIndex = maxIndex;
+                        }
+                    } else {
+                        // In append mode:
+                        // If there are existing lessons in this unit, new lessons MUST go strictly below existing lessons!
+                        if (existingLessons.length > 0) {
+                            maxIndex++;
+                            newLessonIndex = maxIndex;
+                        } else {
+                            // First time uploading to an empty unit: respect declared index or sequential 0..N
+                            maxIndex++;
+                            newLessonIndex = (item.lessonIndex !== undefined && !isNaN(parseInt(item.lessonIndex, 10)))
+                                ? parseInt(item.lessonIndex, 10)
+                                : maxIndex;
+                            maxIndex = Math.max(maxIndex, newLessonIndex);
+                        }
+                    }
+
+                    const lesson = await CurriculumLesson.create({
+                        owner: req.user.id,
+                        learningLanguage: item.learningLanguage || effectiveLearningLanguage,
+                        nativeLanguage: item.nativeLanguage || effectiveNativeLanguage,
+                        level: item.level || effectiveLevel,
+                        unitNumber: uNum,
+                        unitTitle: item.unitTitle || effectiveUnitTitle,
+                        unitDescription: item.unitDescription !== undefined ? item.unitDescription : effectiveUnitDescription,
+                        lessonIndex: newLessonIndex,
+                        title: item.title.trim(),
+                        subtitle: (item.subtitle || '').trim(),
+                        nodeType: item.nodeType || 'lesson',
+                        xpReward: item.xpReward || 15,
+                        pearlsReward: item.pearlsReward || 5,
+                        isLive: item.isLive !== undefined ? Boolean(item.isLive) : false,
+                        stages: cleanStages,
+                        audioUrl: item.audioUrl || null,
+                    });
+                    processedLessons.push(lesson);
+                }
             }
         }
 
         res.status(201).json({
             success: true,
-            message: `Bulk uploaded ${processedLessons.length} lessons in unit ${effectiveUnitNumber}`,
+            message: isReplaceMode
+                ? `Replaced Unit ${targetUnitNumbers.join(', ')} with ${processedLessons.length} lessons`
+                : `Bulk uploaded ${processedLessons.length} lessons in unit ${effectiveUnitNumber}`,
             count: processedLessons.length,
             unitNumber: effectiveUnitNumber,
             unitTitle: effectiveUnitTitle,
             lessons: processedLessons,
+            replaced: isReplaceMode,
         });
     } catch (error) {
         next(error);

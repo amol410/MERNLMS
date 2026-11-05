@@ -8,7 +8,7 @@
   "unitNumber": 7,
   "unitTitle": "Daily Routines & Time",
   "unitDescription": "दैनिक दिनचर्या और समय",
-  "accentColor": "#00CD9C",
+  "accentColor": "#10B981",
   "lessonsCount": 12,
   "lessons": [
     {
@@ -21,6 +21,34 @@
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सुबह' के लिए सही चित्र चुनें:",
+          "targetWord": "morning",
+          "translation": "सुबह",
+          "options": [
+            {
+              "id": "u7_l1_p1",
+              "text": "morning (सुबह)",
+              "imageUrl": "/uploads/curriculum/morning.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l1_p2",
+              "text": "evening (शाम)",
+              "imageUrl": "/uploads/curriculum/evening.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l1_p3",
+              "text": "night (रात)",
+              "imageUrl": "/uploads/curriculum/night.webp",
+              "isCorrect": false
+            }
+          ]
+        },
         {
           "type": "word_match",
           "title": "सही शब्द जोड़ियों का मिलान करें",
@@ -46,47 +74,101 @@
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "सबको शुभ प्रभात!",
-          "targetSentence": "Good morning, everyone!",
+          "prompt": "शुभ प्रभात",
+          "targetSentence": "Good morning",
           "tokens": [
             "Good",
-            "morning,",
-            "everyone!",
-            "night",
-            "evening"
-          ]
-        },
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "Good morning, everyone!",
-          "tokens": [
-            "Good",
-            "morning,",
-            "everyone!",
-            "night",
-            "evening"
-          ],
-          "audioUrl": ""
-        },
-        {
-          "type": "cloze_test",
-          "title": "रिक्त स्थान भरें",
-          "sentence": "Good _______.",
-          "blank": "everyone!",
-          "translation": "सबको शुभ प्रभात!",
-          "options": [
-            "everyone!",
+            "morning",
             "evening",
             "night"
           ]
         },
         {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Good _______.",
+          "blank": "morning",
+          "translation": "शुभ प्रभात",
+          "options": [
+            "morning",
+            "evening",
+            "night"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Good morning",
+          "tokens": [
+            "Good",
+            "morning",
+            "evening",
+            "night"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Good morning",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "शुभ प्रभात",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं जल्दी उठता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "शुभ प्रभात",
+          "audioUrl": ""
+        },
+        {
           "type": "type_word",
-          "title": "स्पेलिंग लिखें",
+          "title": "स्पेलिंग टाइप करें",
           "prompt": "'सुबह' के लिए अंग्रेज़ी शब्द टाइप करें:",
           "target": "morning",
-          "hint": "संकेत: m से शुरू होता है"
+          "translation": "सुबह",
+          "hint": "संकेत: M से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Good morning",
+          "translation": "शुभ प्रभात",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Good morning. Morning is good.",
+          "translationText": "शुभ प्रभात। सुबह अच्छा है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -101,16 +183,44 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'घड़ी' के लिए सही चित्र चुनें:",
+          "targetWord": "clock",
+          "translation": "घड़ी",
+          "options": [
+            {
+              "id": "u7_l2_p1",
+              "text": "clock (घड़ी)",
+              "imageUrl": "/uploads/curriculum/clock.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l2_p2",
+              "text": "hour (घंटा)",
+              "imageUrl": "/uploads/curriculum/hour.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l2_p3",
+              "text": "wake up (उठना)",
+              "imageUrl": "/uploads/curriculum/wake up.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "clock",
               "native": "घड़ी"
             },
             {
-              "target": "o'clock",
-              "native": "बजे"
+              "target": "hour",
+              "native": "घंटा"
             },
             {
               "target": "wake up",
@@ -137,22 +247,20 @@
           ]
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मैं आठ बजे नाश्ता करता हूँ।",
-          "targetSentence": "I eat breakfast at eight o'clock",
-          "tokens": [
-            "I",
-            "eat",
-            "breakfast",
-            "at",
-            "eight",
-            "o'clock"
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______ early.",
+          "blank": "wake",
+          "translation": "मैं जल्दी उठता हूँ।",
+          "options": [
+            "early",
+            "clock",
+            "hour"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "I wake up early",
           "tokens": [
             "I",
@@ -165,11 +273,66 @@
           "audioUrl": ""
         },
         {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I wake up early",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं जल्दी उठता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं 8 बजे नाश्ता करता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं जल्दी उठता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'घड़ी' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "clock",
+          "translation": "घड़ी",
+          "hint": "संकेत: C से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
-          "prompt": "Good morning!",
-          "translation": "सबको शुभ प्रभात!",
+          "prompt": "Good morning, how are you?",
+          "translation": "शुभ प्रभात",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I wake up early. It is very good.",
+          "translationText": "मैं जल्दी उठता हूँ। यह बहुत अच्छा है।",
           "audioUrl": ""
         }
       ]
@@ -185,8 +348,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'नाश्ता' के लिए सही चित्र चुनें:",
+          "targetWord": "breakfast",
+          "translation": "नाश्ता",
+          "options": [
+            {
+              "id": "u7_l3_p1",
+              "text": "breakfast (नाश्ता)",
+              "imageUrl": "/uploads/curriculum/breakfast.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l3_p2",
+              "text": "lunch (दोपहर का खाना)",
+              "imageUrl": "/uploads/curriculum/lunch.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l3_p3",
+              "text": "dinner (रात का खाना)",
+              "imageUrl": "/uploads/curriculum/dinner.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "breakfast",
@@ -209,41 +400,104 @@
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "कितने बजे हैं?",
-          "targetSentence": "What time is it?",
-          "tokens": [
-            "What",
-            "time",
-            "is",
-            "it?",
-            "clock",
-            "now"
-          ]
-        },
-        {
-          "type": "cloze_test",
-          "title": "रिक्त स्थान भरें",
-          "sentence": "What time is _______.",
-          "blank": "it?",
-          "translation": "कितने बजे हैं?",
-          "options": [
-            "it?",
-            "morning",
-            "o'clock"
-          ]
-        },
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "I eat breakfast at eight o'clock",
+          "prompt": "मैं 8 बजे नाश्ता करता हूँ।",
+          "targetSentence": "I eat breakfast at 8",
           "tokens": [
             "I",
             "eat",
             "breakfast",
             "at",
-            "eight",
-            "o'clock"
+            "8",
+            "lunch"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "8",
+          "translation": "मैं 8 बजे नाश्ता करता हूँ।",
+          "options": [
+            "8",
+            "breakfast",
+            "lunch"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I eat breakfast at 8",
+          "tokens": [
+            "I",
+            "eat",
+            "breakfast",
+            "at",
+            "8",
+            "lunch"
           ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I eat breakfast at 8",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं 8 बजे नाश्ता करता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह रात में देर से सोता है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं 8 बजे नाश्ता करता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'नाश्ता' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "breakfast",
+          "translation": "नाश्ता",
+          "hint": "संकेत: B से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I eat breakfast at 8",
+          "translation": "मैं 8 बजे नाश्ता करता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I eat breakfast at 8. We like this.",
+          "translationText": "मैं 8 बजे नाश्ता करता हूँ। हमें यह पसंद है।",
           "audioUrl": ""
         }
       ]
@@ -252,75 +506,164 @@
       "lessonIndex": 3,
       "unitLessonNum": 4,
       "title": "Daily Routines & Time • Lesson 4",
-      "subtitle": "दैनिक दिनचर्या और समय: श्रवण और समझ",
+      "subtitle": "दैनिक दिनचर्या और समय: श्रवण अभ्यास (Ear Training)",
       "nodeType": "lesson",
-      "xpReward": 20,
+      "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "What time is it?",
-          "tokens": [
-            "What",
-            "time",
-            "is",
-            "it?",
-            "clock",
-            "now"
-          ],
-          "audioUrl": ""
-        },
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "It is five o'clock",
-          "tokens": [
-            "It",
-            "is",
-            "five",
-            "o'clock",
-            "six",
-            "time"
-          ],
-          "audioUrl": ""
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'शाम' के लिए सही चित्र चुनें:",
+          "targetWord": "evening",
+          "translation": "शाम",
+          "options": [
+            {
+              "id": "u7_l4_p1",
+              "text": "evening (शाम)",
+              "imageUrl": "/uploads/curriculum/evening.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l4_p2",
+              "text": "clock (घड़ी)",
+              "imageUrl": "/uploads/curriculum/clock.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l4_p3",
+              "text": "breakfast (नाश्ता)",
+              "imageUrl": "/uploads/curriculum/breakfast.webp",
+              "isCorrect": false
+            }
+          ]
         },
         {
           "type": "word_match",
-          "title": "रैपिड मिलान",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "morning",
-              "native": "सुबह"
+              "target": "evening",
+              "native": "शाम"
             },
             {
-              "target": "time",
-              "native": "समय"
-            },
-            {
-              "target": "wake up",
-              "native": "उठना"
+              "target": "hour",
+              "native": "घंटा"
             },
             {
               "target": "lunch",
               "native": "दोपहर का खाना"
+            },
+            {
+              "target": "night",
+              "native": "रात"
             }
           ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "पाँच बजे हैं।",
-          "targetSentence": "It is five o'clock",
+          "prompt": "वह रात में देर से सोता है।",
+          "targetSentence": "He sleeps late at night",
           "tokens": [
-            "It",
-            "is",
-            "five",
-            "o'clock",
-            "six",
+            "He",
+            "sleeps",
+            "late",
+            "at",
+            "night",
+            "early"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "He _______.",
+          "blank": "night",
+          "translation": "वह रात में देर से सोता है।",
+          "options": [
+            "night",
+            "evening",
             "time"
           ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "He sleeps late at night",
+          "tokens": [
+            "He",
+            "sleeps",
+            "late",
+            "at",
+            "night",
+            "early"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "He sleeps late at night",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह रात में देर से सोता है।",
+              "isCorrect": true
+            },
+            {
+              "text": "शुभ प्रभात",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह रात में देर से सोता है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'शाम' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "evening",
+          "translation": "शाम",
+          "hint": "संकेत: E से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "What time is it?",
+          "translation": "मैं जल्दी उठता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "He sleeps late at night. Listen and speak every day.",
+          "translationText": "वह रात में देर से सोता है। हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
         }
       ]
     },
@@ -328,15 +671,43 @@
       "lessonIndex": 4,
       "unitLessonNum": 5,
       "title": "Daily Routines & Time • Lesson 5",
-      "subtitle": "दैनिक दिनचर्या और समय: व्यावहारिक प्रयोग",
+      "subtitle": "दैनिक दिनचर्या और समय: गुण और विशेषताएं",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'कल' के लिए सही चित्र चुनें:",
+          "targetWord": "tomorrow",
+          "translation": "कल",
+          "options": [
+            {
+              "id": "u7_l5_p1",
+              "text": "tomorrow (कल)",
+              "imageUrl": "/uploads/curriculum/tomorrow.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l5_p2",
+              "text": "early (जल्दी)",
+              "imageUrl": "/uploads/curriculum/early.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l5_p3",
+              "text": "late (देर से)",
+              "imageUrl": "/uploads/curriculum/late.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "tomorrow",
@@ -359,34 +730,104 @@
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मैं आज काम करता हूँ।",
-          "targetSentence": "I work today",
+          "prompt": "कितने बजे हैं?",
+          "targetSentence": "What time is it?",
           "tokens": [
-            "I",
-            "work",
-            "today",
-            "tomorrow",
-            "yesterday"
+            "What",
+            "time",
+            "is",
+            "it?",
+            "clock",
+            "hour"
           ]
         },
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I work _______.",
-          "blank": "today",
-          "translation": "मैं आज काम करता हूँ।",
+          "sentence": "What _______.",
+          "blank": "it?",
+          "translation": "कितने बजे हैं?",
           "options": [
-            "today",
-            "night",
-            "breakfast"
+            "it?",
+            "tomorrow",
+            "early"
           ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "What time is it?",
+          "tokens": [
+            "What",
+            "time",
+            "is",
+            "it?",
+            "clock",
+            "hour"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "What time is it?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "कितने बजे हैं?",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं जल्दी उठता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कितने बजे हैं?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'कल' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "tomorrow",
+          "translation": "कल",
+          "hint": "संकेत: T से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
         },
         {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
           "prompt": "What time is it?",
-          "translation": "वह कभी देर से नहीं आता।",
+          "translation": "कितने बजे हैं?",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "What time is it?. You are doing very well.",
+          "translationText": "कितने बजे हैं? आप बहुत अच्छा कर रहे हैं।",
           "audioUrl": ""
         }
       ]
@@ -406,65 +847,47 @@
       "lessonIndex": 6,
       "unitLessonNum": 7,
       "title": "Daily Routines & Time • Lesson 7",
-      "subtitle": "दैनिक दिनचर्या और समय: विस्तृत वाक्य",
+      "subtitle": "दैनिक दिनचर्या और समय: संयुक्त प्रयोग",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "वह कभी देर से नहीं आता।",
-          "targetSentence": "He is never late",
-          "tokens": [
-            "He",
-            "is",
-            "never",
-            "late",
-            "always",
-            "early"
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'घंटा' के लिए सही चित्र चुनें:",
+          "targetWord": "hour",
+          "translation": "घंटा",
+          "options": [
+            {
+              "id": "u7_l7_p1",
+              "text": "hour (घंटा)",
+              "imageUrl": "/uploads/curriculum/hour.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l7_p2",
+              "text": "wake up (उठना)",
+              "imageUrl": "/uploads/curriculum/wake up.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l7_p3",
+              "text": "sleep (सोना)",
+              "imageUrl": "/uploads/curriculum/sleep.webp",
+              "isCorrect": false
+            }
           ]
-        },
-        {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "हम रात में साथ खाना खाते हैं।",
-          "targetSentence": "We eat dinner together at night",
-          "tokens": [
-            "We",
-            "eat",
-            "dinner",
-            "together",
-            "at",
-            "night"
-          ]
-        },
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "He is never late",
-          "tokens": [
-            "He",
-            "is",
-            "never",
-            "late",
-            "always",
-            "early"
-          ],
-          "audioUrl": ""
         },
         {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "evening",
-              "native": "शाम"
-            },
-            {
-              "target": "clock",
-              "native": "घड़ी"
+              "target": "time",
+              "native": "समय"
             },
             {
               "target": "sleep",
@@ -473,8 +896,115 @@
             {
               "target": "today",
               "native": "आज"
+            },
+            {
+              "target": "always",
+              "native": "हमेशा"
             }
           ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं दोपहर में खाना खाता हूँ।",
+          "targetSentence": "I eat lunch in the afternoon",
+          "tokens": [
+            "I",
+            "eat",
+            "lunch",
+            "in",
+            "the",
+            "afternoon"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "afternoon",
+          "translation": "मैं दोपहर में खाना खाता हूँ।",
+          "options": [
+            "afternoon",
+            "hour",
+            "sleep"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I eat lunch in the afternoon",
+          "tokens": [
+            "I",
+            "eat",
+            "lunch",
+            "in",
+            "the",
+            "afternoon"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I eat lunch in the afternoon",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं दोपहर में खाना खाता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं 8 बजे नाश्ता करता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं दोपहर में खाना खाता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'घंटा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "hour",
+          "translation": "घंटा",
+          "hint": "संकेत: H से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I eat lunch in the afternoon",
+          "translation": "मैं दोपहर में खाना खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I eat lunch in the afternoon. Practice makes you perfect.",
+          "translationText": "मैं दोपहर में खाना खाता हूँ। अभ्यास से सब आसान हो जाता है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -482,54 +1012,162 @@
       "lessonIndex": 7,
       "unitLessonNum": 8,
       "title": "Daily Routines & Time • Lesson 8",
-      "subtitle": "दैनिक दिनचर्या और समय: बातचीत और संवाद",
+      "subtitle": "दैनिक दिनचर्या और समय: जटिल वाक्य संरचना",
       "nodeType": "lesson",
-      "xpReward": 20,
+      "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "dialogue_bubble",
-          "title": "संवाद पूरा करें",
-          "partnerName": "Friend",
-          "partnerMessage": "What time is it now?",
-          "translation": "अभी कितने बजे हैं?",
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'दोपहर का खाना' के लिए सही चित्र चुनें:",
+          "targetWord": "lunch",
+          "translation": "दोपहर का खाना",
           "options": [
             {
-              "text": "It is five o'clock.",
+              "id": "u7_l8_p1",
+              "text": "lunch (दोपहर का खाना)",
+              "imageUrl": "/uploads/curriculum/lunch.webp",
               "isCorrect": true
             },
             {
-              "text": "The keys are in the bag.",
+              "id": "u7_l8_p2",
+              "text": "dinner (रात का खाना)",
+              "imageUrl": "/uploads/curriculum/dinner.webp",
               "isCorrect": false
+            },
+            {
+              "id": "u7_l8_p3",
+              "text": "today (आज)",
+              "imageUrl": "/uploads/curriculum/today.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "morning",
+              "native": "सुबह"
+            },
+            {
+              "target": "clock",
+              "native": "घड़ी"
+            },
+            {
+              "target": "breakfast",
+              "native": "नाश्ता"
+            },
+            {
+              "target": "tomorrow",
+              "native": "कल"
             }
           ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "हम रात में साथ खाना खाते हैं।",
-          "targetSentence": "We eat dinner together at night",
+          "prompt": "मैं आज काम करता हूँ।",
+          "targetSentence": "I work today",
           "tokens": [
-            "We",
-            "eat",
-            "dinner",
-            "together",
-            "at",
-            "night"
+            "I",
+            "work",
+            "today",
+            "tomorrow",
+            "always"
           ]
         },
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "We eat dinner together at _______.",
-          "blank": "night",
-          "translation": "हम रात में साथ खाना खाते हैं।",
+          "sentence": "I _______.",
+          "blank": "today",
+          "translation": "मैं आज काम करता हूँ।",
           "options": [
-            "night",
-            "time",
-            "lunch"
+            "today",
+            "lunch",
+            "dinner"
           ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I work today",
+          "tokens": [
+            "I",
+            "work",
+            "today",
+            "tomorrow",
+            "always"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I work today",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं आज काम करता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह रात में देर से सोता है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं आज काम करता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'दोपहर का खाना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "lunch",
+          "translation": "दोपहर का खाना",
+          "hint": "संकेत: L से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I work today",
+          "translation": "मैं आज काम करता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I work today. Everything is in order.",
+          "translationText": "मैं आज काम करता हूँ। सब कुछ सही क्रम में है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -537,85 +1175,51 @@
       "lessonIndex": 8,
       "unitLessonNum": 9,
       "title": "Daily Routines & Time • Lesson 9",
-      "subtitle": "दैनिक दिनचर्या और समय: मौखिक उच्चारण अभ्यास",
+      "subtitle": "दैनिक दिनचर्या और समय: मौखिक अभ्यास (Speech Lab)",
       "nodeType": "lesson",
-      "xpReward": 25,
+      "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "Good morning!",
-          "translation": "सबको शुभ प्रभात!",
-          "minAccuracy": 75,
-          "audioUrl": ""
-        },
-        {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "What time is it?",
-          "translation": "मैं जल्दी उठता हूँ।",
-          "minAccuracy": 75,
-          "audioUrl": ""
-        },
-        {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "I wake up early",
-          "translation": "मैं आठ बजे नाश्ता करता हूँ।",
-          "minAccuracy": 75,
-          "audioUrl": ""
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'जल्दी' के लिए सही चित्र चुनें:",
+          "targetWord": "early",
+          "translation": "जल्दी",
+          "options": [
+            {
+              "id": "u7_l9_p1",
+              "text": "early (जल्दी)",
+              "imageUrl": "/uploads/curriculum/early.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l9_p2",
+              "text": "late (देर से)",
+              "imageUrl": "/uploads/curriculum/late.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l9_p3",
+              "text": "always (हमेशा)",
+              "imageUrl": "/uploads/curriculum/always.webp",
+              "isCorrect": false
+            }
+          ]
         },
         {
           "type": "word_match",
-          "title": "शब्द मिलान",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "night",
               "native": "रात"
             },
             {
-              "target": "o'clock",
-              "native": "बजे"
-            },
-            {
-              "target": "breakfast",
-              "native": "नाश्ता"
-            },
-            {
-              "target": "early",
-              "native": "जल्दी"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 9,
-      "unitLessonNum": 10,
-      "title": "Daily Routines & Time • Lesson 10",
-      "subtitle": "दैनिक दिनचर्या और समय: समग्र पुनरावृत्ति",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
-        {
-          "type": "word_match",
-          "title": "5-जोड़ी मिलान",
-          "pairs": [
-            {
-              "target": "morning",
-              "native": "सुबह"
-            },
-            {
-              "target": "time",
-              "native": "समय"
-            },
-            {
-              "target": "sleep",
-              "native": "सोना"
+              "target": "wake up",
+              "native": "उठना"
             },
             {
               "target": "dinner",
@@ -628,38 +1232,269 @@
           ]
         },
         {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "कल स्कूल बंद है।",
+          "targetSentence": "School is closed tomorrow",
+          "tokens": [
+            "School",
+            "is",
+            "closed",
+            "tomorrow",
+            "today",
+            "open"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "School _______.",
+          "blank": "tomorrow",
+          "translation": "कल स्कूल बंद है।",
+          "options": [
+            "tomorrow",
+            "early",
+            "late"
+          ]
+        },
+        {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "School is closed tomorrow",
+          "tokens": [
+            "School",
+            "is",
+            "closed",
+            "tomorrow",
+            "today",
+            "open"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "School is closed tomorrow",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "कल स्कूल बंद है।",
+              "isCorrect": true
+            },
+            {
+              "text": "कितने बजे हैं?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कल स्कूल बंद है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'जल्दी' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "early",
+          "translation": "जल्दी",
+          "hint": "संकेत: E से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I wake up early",
+          "translation": "मैं 8 बजे नाश्ता करता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "School is closed tomorrow. Speak clearly and with confidence.",
+          "translationText": "कल स्कूल बंद है। स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Daily Routines & Time • Lesson 10",
+      "subtitle": "दैनिक दिनचर्या और समय: संवाद अभ्यास (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'समय' के लिए सही चित्र चुनें:",
+          "targetWord": "time",
+          "translation": "समय",
+          "options": [
+            {
+              "id": "u7_l10_p1",
+              "text": "time (समय)",
+              "imageUrl": "/uploads/curriculum/time.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l10_p2",
+              "text": "sleep (सोना)",
+              "imageUrl": "/uploads/curriculum/sleep.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l10_p3",
+              "text": "today (आज)",
+              "imageUrl": "/uploads/curriculum/today.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "evening",
+              "native": "शाम"
+            },
+            {
+              "target": "clock",
+              "native": "घड़ी"
+            },
+            {
+              "target": "lunch",
+              "native": "दोपहर का खाना"
+            },
+            {
+              "target": "early",
+              "native": "जल्दी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "शुभ प्रभात",
+          "targetSentence": "Good morning",
+          "tokens": [
+            "Good",
+            "morning",
+            "evening",
+            "night"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Good _______.",
+          "blank": "morning",
+          "translation": "शुभ प्रभात",
+          "options": [
+            "morning",
+            "time",
+            "sleep"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
           "targetSentence": "I work today",
           "tokens": [
             "I",
             "work",
             "today",
             "tomorrow",
-            "yesterday"
+            "always"
           ],
           "audioUrl": ""
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "वह कभी देर से नहीं आता।",
-          "targetSentence": "He is never late",
-          "tokens": [
-            "He",
-            "is",
-            "never",
-            "late",
-            "always",
-            "early"
-          ]
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "School is closed tomorrow",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "कल स्कूल बंद है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं दोपहर में खाना खाता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कल स्कूल बंद है।",
+          "audioUrl": ""
         },
         {
           "type": "type_word",
           "title": "स्पेलिंग टाइप करें",
-          "prompt": "'शाम' के लिए सही शब्द टाइप करें:",
-          "target": "evening",
-          "hint": "संकेत: e से शुरू होता है"
+          "prompt": "'समय' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "time",
+          "translation": "समय",
+          "hint": "संकेत: T से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Good morning, how are you?",
+          "translation": "शुभ प्रभात",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I wake up early in the morning and eat breakfast at eight o'clock.",
+          "translationText": "मैं सुबह जल्दी उठता हूँ और आठ बजे नाश्ता करता हूँ।",
+          "audioUrl": ""
         }
       ]
     },
@@ -677,42 +1512,889 @@
     {
       "lessonIndex": 11,
       "unitLessonNum": 12,
-      "title": "Daily Routines & Time • Daily Routines & Time • Milestone Exam",
-      "subtitle": "इकाई 7 संपूर्ण परीक्षा",
+      "title": "Daily Routines & Time • Unit 7 Milestone Exam",
+      "subtitle": "दैनिक दिनचर्या और समय: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
       "nodeType": "quiz",
       "xpReward": 35,
       "pearlsReward": 10,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सुबह' के लिए सही चित्र चुनें:",
+          "targetWord": "morning",
+          "translation": "सुबह",
+          "options": [
+            {
+              "id": "u7_l12_p1",
+              "text": "morning (सुबह)",
+              "imageUrl": "/uploads/curriculum/morning.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l12_p2",
+              "text": "clock (घड़ी)",
+              "imageUrl": "/uploads/curriculum/clock.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l12_p3",
+              "text": "breakfast (नाश्ता)",
+              "imageUrl": "/uploads/curriculum/breakfast.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "इकाई 7 मुख्य शब्द परीक्षा",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "morning",
               "native": "सुबह"
             },
             {
+              "target": "clock",
+              "native": "घड़ी"
+            },
+            {
+              "target": "breakfast",
+              "native": "नाश्ता"
+            },
+            {
+              "target": "tomorrow",
+              "native": "कल"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं दोपहर में खाना खाता हूँ।",
+          "targetSentence": "I eat lunch in the afternoon",
+          "tokens": [
+            "I",
+            "eat",
+            "lunch",
+            "in",
+            "the",
+            "afternoon"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "afternoon",
+          "translation": "मैं दोपहर में खाना खाता हूँ।",
+          "options": [
+            "afternoon",
+            "morning",
+            "clock"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "School is closed tomorrow",
+          "tokens": [
+            "School",
+            "is",
+            "closed",
+            "tomorrow",
+            "today",
+            "open"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "What time is it?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "कितने बजे हैं?",
+              "isCorrect": true
+            },
+            {
+              "text": "शुभ प्रभात",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कितने बजे हैं?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'हमेशा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "always",
+          "translation": "हमेशा",
+          "hint": "संकेत: A से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Good morning, how are you?",
+          "translation": "शुभ प्रभात",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I wake up early in the morning and eat breakfast at eight o'clock.",
+          "translationText": "मैं सुबह जल्दी उठता हूँ और आठ बजे नाश्ता करता हूँ।",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ],
+  "lessonsData": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Daily Routines & Time • Lesson 1",
+      "subtitle": "दैनिक दिनचर्या और समय: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सुबह' के लिए सही चित्र चुनें:",
+          "targetWord": "morning",
+          "translation": "सुबह",
+          "options": [
+            {
+              "id": "u7_l1_p1",
+              "text": "morning (सुबह)",
+              "imageUrl": "/uploads/curriculum/morning.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l1_p2",
+              "text": "evening (शाम)",
+              "imageUrl": "/uploads/curriculum/evening.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l1_p3",
+              "text": "night (रात)",
+              "imageUrl": "/uploads/curriculum/night.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "morning",
+              "native": "सुबह"
+            },
+            {
+              "target": "evening",
+              "native": "शाम"
+            },
+            {
               "target": "night",
               "native": "रात"
             },
             {
+              "target": "time",
+              "native": "समय"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "शुभ प्रभात",
+          "targetSentence": "Good morning",
+          "tokens": [
+            "Good",
+            "morning",
+            "evening",
+            "night"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Good _______.",
+          "blank": "morning",
+          "translation": "शुभ प्रभात",
+          "options": [
+            "morning",
+            "evening",
+            "night"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "Good morning",
+          "tokens": [
+            "Good",
+            "morning",
+            "evening",
+            "night"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "Good morning",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "शुभ प्रभात",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं जल्दी उठता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "शुभ प्रभात",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'सुबह' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "morning",
+          "translation": "सुबह",
+          "hint": "संकेत: M से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Good morning",
+          "translation": "शुभ प्रभात",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "Good morning. Morning is good.",
+          "translationText": "शुभ प्रभात। सुबह अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Daily Routines & Time • Lesson 2",
+      "subtitle": "दैनिक दिनचर्या और समय: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'घड़ी' के लिए सही चित्र चुनें:",
+          "targetWord": "clock",
+          "translation": "घड़ी",
+          "options": [
+            {
+              "id": "u7_l2_p1",
+              "text": "clock (घड़ी)",
+              "imageUrl": "/uploads/curriculum/clock.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l2_p2",
+              "text": "hour (घंटा)",
+              "imageUrl": "/uploads/curriculum/hour.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l2_p3",
+              "text": "wake up (उठना)",
+              "imageUrl": "/uploads/curriculum/wake up.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
               "target": "clock",
               "native": "घड़ी"
+            },
+            {
+              "target": "hour",
+              "native": "घंटा"
             },
             {
               "target": "wake up",
               "native": "उठना"
             },
             {
-              "target": "breakfast",
-              "native": "नाश्ता"
+              "target": "sleep",
+              "native": "सोना"
             }
           ]
         },
         {
           "type": "sentence_builder",
-          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं जल्दी उठता हूँ।",
+          "targetSentence": "I wake up early",
+          "tokens": [
+            "I",
+            "wake",
+            "up",
+            "early",
+            "late",
+            "sleep"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______ early.",
+          "blank": "wake",
+          "translation": "मैं जल्दी उठता हूँ।",
+          "options": [
+            "early",
+            "clock",
+            "hour"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I wake up early",
+          "tokens": [
+            "I",
+            "wake",
+            "up",
+            "early",
+            "late",
+            "sleep"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I wake up early",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं जल्दी उठता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं 8 बजे नाश्ता करता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं जल्दी उठता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'घड़ी' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "clock",
+          "translation": "घड़ी",
+          "hint": "संकेत: C से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Good morning, how are you?",
+          "translation": "शुभ प्रभात",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I wake up early. It is very good.",
+          "translationText": "मैं जल्दी उठता हूँ। यह बहुत अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Daily Routines & Time • Lesson 3",
+      "subtitle": "दैनिक दिनचर्या और समय: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'नाश्ता' के लिए सही चित्र चुनें:",
+          "targetWord": "breakfast",
+          "translation": "नाश्ता",
+          "options": [
+            {
+              "id": "u7_l3_p1",
+              "text": "breakfast (नाश्ता)",
+              "imageUrl": "/uploads/curriculum/breakfast.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l3_p2",
+              "text": "lunch (दोपहर का खाना)",
+              "imageUrl": "/uploads/curriculum/lunch.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l3_p3",
+              "text": "dinner (रात का खाना)",
+              "imageUrl": "/uploads/curriculum/dinner.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "breakfast",
+              "native": "नाश्ता"
+            },
+            {
+              "target": "lunch",
+              "native": "दोपहर का खाना"
+            },
+            {
+              "target": "dinner",
+              "native": "रात का खाना"
+            },
+            {
+              "target": "today",
+              "native": "आज"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं 8 बजे नाश्ता करता हूँ।",
+          "targetSentence": "I eat breakfast at 8",
+          "tokens": [
+            "I",
+            "eat",
+            "breakfast",
+            "at",
+            "8",
+            "lunch"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "8",
+          "translation": "मैं 8 बजे नाश्ता करता हूँ।",
+          "options": [
+            "8",
+            "breakfast",
+            "lunch"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I eat breakfast at 8",
+          "tokens": [
+            "I",
+            "eat",
+            "breakfast",
+            "at",
+            "8",
+            "lunch"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I eat breakfast at 8",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं 8 बजे नाश्ता करता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह रात में देर से सोता है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं 8 बजे नाश्ता करता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'नाश्ता' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "breakfast",
+          "translation": "नाश्ता",
+          "hint": "संकेत: B से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I eat breakfast at 8",
+          "translation": "मैं 8 बजे नाश्ता करता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I eat breakfast at 8. We like this.",
+          "translationText": "मैं 8 बजे नाश्ता करता हूँ। हमें यह पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Daily Routines & Time • Lesson 4",
+      "subtitle": "दैनिक दिनचर्या और समय: श्रवण अभ्यास (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'शाम' के लिए सही चित्र चुनें:",
+          "targetWord": "evening",
+          "translation": "शाम",
+          "options": [
+            {
+              "id": "u7_l4_p1",
+              "text": "evening (शाम)",
+              "imageUrl": "/uploads/curriculum/evening.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l4_p2",
+              "text": "clock (घड़ी)",
+              "imageUrl": "/uploads/curriculum/clock.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l4_p3",
+              "text": "breakfast (नाश्ता)",
+              "imageUrl": "/uploads/curriculum/breakfast.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "evening",
+              "native": "शाम"
+            },
+            {
+              "target": "hour",
+              "native": "घंटा"
+            },
+            {
+              "target": "lunch",
+              "native": "दोपहर का खाना"
+            },
+            {
+              "target": "night",
+              "native": "रात"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह रात में देर से सोता है।",
+          "targetSentence": "He sleeps late at night",
+          "tokens": [
+            "He",
+            "sleeps",
+            "late",
+            "at",
+            "night",
+            "early"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "He _______.",
+          "blank": "night",
+          "translation": "वह रात में देर से सोता है।",
+          "options": [
+            "night",
+            "evening",
+            "time"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "He sleeps late at night",
+          "tokens": [
+            "He",
+            "sleeps",
+            "late",
+            "at",
+            "night",
+            "early"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "He sleeps late at night",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह रात में देर से सोता है।",
+              "isCorrect": true
+            },
+            {
+              "text": "शुभ प्रभात",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह रात में देर से सोता है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'शाम' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "evening",
+          "translation": "शाम",
+          "hint": "संकेत: E से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "What time is it?",
+          "translation": "मैं जल्दी उठता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "He sleeps late at night. Listen and speak every day.",
+          "translationText": "वह रात में देर से सोता है। हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Daily Routines & Time • Lesson 5",
+      "subtitle": "दैनिक दिनचर्या और समय: गुण और विशेषताएं",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'कल' के लिए सही चित्र चुनें:",
+          "targetWord": "tomorrow",
+          "translation": "कल",
+          "options": [
+            {
+              "id": "u7_l5_p1",
+              "text": "tomorrow (कल)",
+              "imageUrl": "/uploads/curriculum/tomorrow.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l5_p2",
+              "text": "early (जल्दी)",
+              "imageUrl": "/uploads/curriculum/early.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l5_p3",
+              "text": "late (देर से)",
+              "imageUrl": "/uploads/curriculum/late.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "tomorrow",
+              "native": "कल"
+            },
+            {
+              "target": "early",
+              "native": "जल्दी"
+            },
+            {
+              "target": "late",
+              "native": "देर से"
+            },
+            {
+              "target": "always",
+              "native": "हमेशा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
           "prompt": "कितने बजे हैं?",
           "targetSentence": "What time is it?",
           "tokens": [
@@ -721,41 +2403,938 @@
             "is",
             "it?",
             "clock",
-            "now"
+            "hour"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "What _______.",
+          "blank": "it?",
+          "translation": "कितने बजे हैं?",
+          "options": [
+            "it?",
+            "tomorrow",
+            "early"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
-          "targetSentence": "We eat dinner together at night",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "What time is it?",
           "tokens": [
-            "We",
-            "eat",
-            "dinner",
-            "together",
-            "at",
-            "night"
+            "What",
+            "time",
+            "is",
+            "it?",
+            "clock",
+            "hour"
           ],
           "audioUrl": ""
         },
         {
-          "type": "cloze_test",
-          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
-          "sentence": "I wake up _______.",
-          "blank": "early",
-          "translation": "मैं जल्दी उठता हूँ।",
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "What time is it?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
           "options": [
-            "early",
-            "o'clock",
-            "lunch"
-          ]
+            {
+              "text": "कितने बजे हैं?",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं जल्दी उठता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कितने बजे हैं?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'कल' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "tomorrow",
+          "translation": "कल",
+          "hint": "संकेत: T से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
         },
         {
           "type": "sprechen",
-          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
-          "prompt": "Good morning!",
-          "translation": "सबको शुभ प्रभात!",
-          "minAccuracy": 80,
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "What time is it?",
+          "translation": "कितने बजे हैं?",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "What time is it?. You are doing very well.",
+          "translationText": "कितने बजे हैं? आप बहुत अच्छा कर रहे हैं।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Daily Routines & Time • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Daily Routines & Time • Lesson 7",
+      "subtitle": "दैनिक दिनचर्या और समय: संयुक्त प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'घंटा' के लिए सही चित्र चुनें:",
+          "targetWord": "hour",
+          "translation": "घंटा",
+          "options": [
+            {
+              "id": "u7_l7_p1",
+              "text": "hour (घंटा)",
+              "imageUrl": "/uploads/curriculum/hour.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l7_p2",
+              "text": "wake up (उठना)",
+              "imageUrl": "/uploads/curriculum/wake up.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l7_p3",
+              "text": "sleep (सोना)",
+              "imageUrl": "/uploads/curriculum/sleep.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "time",
+              "native": "समय"
+            },
+            {
+              "target": "sleep",
+              "native": "सोना"
+            },
+            {
+              "target": "today",
+              "native": "आज"
+            },
+            {
+              "target": "always",
+              "native": "हमेशा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं दोपहर में खाना खाता हूँ।",
+          "targetSentence": "I eat lunch in the afternoon",
+          "tokens": [
+            "I",
+            "eat",
+            "lunch",
+            "in",
+            "the",
+            "afternoon"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "afternoon",
+          "translation": "मैं दोपहर में खाना खाता हूँ।",
+          "options": [
+            "afternoon",
+            "hour",
+            "sleep"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I eat lunch in the afternoon",
+          "tokens": [
+            "I",
+            "eat",
+            "lunch",
+            "in",
+            "the",
+            "afternoon"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I eat lunch in the afternoon",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं दोपहर में खाना खाता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं 8 बजे नाश्ता करता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं दोपहर में खाना खाता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'घंटा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "hour",
+          "translation": "घंटा",
+          "hint": "संकेत: H से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I eat lunch in the afternoon",
+          "translation": "मैं दोपहर में खाना खाता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I eat lunch in the afternoon. Practice makes you perfect.",
+          "translationText": "मैं दोपहर में खाना खाता हूँ। अभ्यास से सब आसान हो जाता है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Daily Routines & Time • Lesson 8",
+      "subtitle": "दैनिक दिनचर्या और समय: जटिल वाक्य संरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'दोपहर का खाना' के लिए सही चित्र चुनें:",
+          "targetWord": "lunch",
+          "translation": "दोपहर का खाना",
+          "options": [
+            {
+              "id": "u7_l8_p1",
+              "text": "lunch (दोपहर का खाना)",
+              "imageUrl": "/uploads/curriculum/lunch.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l8_p2",
+              "text": "dinner (रात का खाना)",
+              "imageUrl": "/uploads/curriculum/dinner.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l8_p3",
+              "text": "today (आज)",
+              "imageUrl": "/uploads/curriculum/today.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "morning",
+              "native": "सुबह"
+            },
+            {
+              "target": "clock",
+              "native": "घड़ी"
+            },
+            {
+              "target": "breakfast",
+              "native": "नाश्ता"
+            },
+            {
+              "target": "tomorrow",
+              "native": "कल"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं आज काम करता हूँ।",
+          "targetSentence": "I work today",
+          "tokens": [
+            "I",
+            "work",
+            "today",
+            "tomorrow",
+            "always"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "today",
+          "translation": "मैं आज काम करता हूँ।",
+          "options": [
+            "today",
+            "lunch",
+            "dinner"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I work today",
+          "tokens": [
+            "I",
+            "work",
+            "today",
+            "tomorrow",
+            "always"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "I work today",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मैं आज काम करता हूँ।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह रात में देर से सोता है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मैं आज काम करता हूँ।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'दोपहर का खाना' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "lunch",
+          "translation": "दोपहर का खाना",
+          "hint": "संकेत: L से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I work today",
+          "translation": "मैं आज काम करता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I work today. Everything is in order.",
+          "translationText": "मैं आज काम करता हूँ। सब कुछ सही क्रम में है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Daily Routines & Time • Lesson 9",
+      "subtitle": "दैनिक दिनचर्या और समय: मौखिक अभ्यास (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'जल्दी' के लिए सही चित्र चुनें:",
+          "targetWord": "early",
+          "translation": "जल्दी",
+          "options": [
+            {
+              "id": "u7_l9_p1",
+              "text": "early (जल्दी)",
+              "imageUrl": "/uploads/curriculum/early.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l9_p2",
+              "text": "late (देर से)",
+              "imageUrl": "/uploads/curriculum/late.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l9_p3",
+              "text": "always (हमेशा)",
+              "imageUrl": "/uploads/curriculum/always.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "night",
+              "native": "रात"
+            },
+            {
+              "target": "wake up",
+              "native": "उठना"
+            },
+            {
+              "target": "dinner",
+              "native": "रात का खाना"
+            },
+            {
+              "target": "late",
+              "native": "देर से"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "कल स्कूल बंद है।",
+          "targetSentence": "School is closed tomorrow",
+          "tokens": [
+            "School",
+            "is",
+            "closed",
+            "tomorrow",
+            "today",
+            "open"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "School _______.",
+          "blank": "tomorrow",
+          "translation": "कल स्कूल बंद है।",
+          "options": [
+            "tomorrow",
+            "early",
+            "late"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "School is closed tomorrow",
+          "tokens": [
+            "School",
+            "is",
+            "closed",
+            "tomorrow",
+            "today",
+            "open"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "School is closed tomorrow",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "कल स्कूल बंद है।",
+              "isCorrect": true
+            },
+            {
+              "text": "कितने बजे हैं?",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कल स्कूल बंद है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'जल्दी' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "early",
+          "translation": "जल्दी",
+          "hint": "संकेत: E से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I wake up early",
+          "translation": "मैं 8 बजे नाश्ता करता हूँ।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "School is closed tomorrow. Speak clearly and with confidence.",
+          "translationText": "कल स्कूल बंद है। स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Daily Routines & Time • Lesson 10",
+      "subtitle": "दैनिक दिनचर्या और समय: संवाद अभ्यास (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'समय' के लिए सही चित्र चुनें:",
+          "targetWord": "time",
+          "translation": "समय",
+          "options": [
+            {
+              "id": "u7_l10_p1",
+              "text": "time (समय)",
+              "imageUrl": "/uploads/curriculum/time.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l10_p2",
+              "text": "sleep (सोना)",
+              "imageUrl": "/uploads/curriculum/sleep.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l10_p3",
+              "text": "today (आज)",
+              "imageUrl": "/uploads/curriculum/today.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "evening",
+              "native": "शाम"
+            },
+            {
+              "target": "clock",
+              "native": "घड़ी"
+            },
+            {
+              "target": "lunch",
+              "native": "दोपहर का खाना"
+            },
+            {
+              "target": "early",
+              "native": "जल्दी"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "शुभ प्रभात",
+          "targetSentence": "Good morning",
+          "tokens": [
+            "Good",
+            "morning",
+            "evening",
+            "night"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "Good _______.",
+          "blank": "morning",
+          "translation": "शुभ प्रभात",
+          "options": [
+            "morning",
+            "time",
+            "sleep"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "I work today",
+          "tokens": [
+            "I",
+            "work",
+            "today",
+            "tomorrow",
+            "always"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "School is closed tomorrow",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "कल स्कूल बंद है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मैं दोपहर में खाना खाता हूँ।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कल स्कूल बंद है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'समय' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "time",
+          "translation": "समय",
+          "hint": "संकेत: T से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Good morning, how are you?",
+          "translation": "शुभ प्रभात",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I wake up early in the morning and eat breakfast at eight o'clock.",
+          "translationText": "मैं सुबह जल्दी उठता हूँ और आठ बजे नाश्ता करता हूँ।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Daily Routines & Time • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Daily Routines & Time • Unit 7 Milestone Exam",
+      "subtitle": "दैनिक दिनचर्या और समय: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सुबह' के लिए सही चित्र चुनें:",
+          "targetWord": "morning",
+          "translation": "सुबह",
+          "options": [
+            {
+              "id": "u7_l12_p1",
+              "text": "morning (सुबह)",
+              "imageUrl": "/uploads/curriculum/morning.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u7_l12_p2",
+              "text": "clock (घड़ी)",
+              "imageUrl": "/uploads/curriculum/clock.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u7_l12_p3",
+              "text": "breakfast (नाश्ता)",
+              "imageUrl": "/uploads/curriculum/breakfast.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "morning",
+              "native": "सुबह"
+            },
+            {
+              "target": "clock",
+              "native": "घड़ी"
+            },
+            {
+              "target": "breakfast",
+              "native": "नाश्ता"
+            },
+            {
+              "target": "tomorrow",
+              "native": "कल"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मैं दोपहर में खाना खाता हूँ।",
+          "targetSentence": "I eat lunch in the afternoon",
+          "tokens": [
+            "I",
+            "eat",
+            "lunch",
+            "in",
+            "the",
+            "afternoon"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "I _______.",
+          "blank": "afternoon",
+          "translation": "मैं दोपहर में खाना खाता हूँ।",
+          "options": [
+            "afternoon",
+            "morning",
+            "clock"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "School is closed tomorrow",
+          "tokens": [
+            "School",
+            "is",
+            "closed",
+            "tomorrow",
+            "today",
+            "open"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "What time is it?",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "कितने बजे हैं?",
+              "isCorrect": true
+            },
+            {
+              "text": "शुभ प्रभात",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "कितने बजे हैं?",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'हमेशा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "always",
+          "translation": "हमेशा",
+          "hint": "संकेत: A से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Mother",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "Did you eat breakfast?",
+          "translation": "क्या तुमने नाश्ता किया?",
+          "options": [
+            {
+              "text": "Yes, I ate breakfast.",
+              "isCorrect": true
+            },
+            {
+              "text": "The table is blue.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "Yes, I ate breakfast.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "Good morning, how are you?",
+          "translation": "शुभ प्रभात",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I wake up early in the morning and eat breakfast at eight o'clock.",
+          "translationText": "मैं सुबह जल्दी उठता हूँ और आठ बजे नाश्ता करता हूँ।",
           "audioUrl": ""
         }
       ]

@@ -1088,7 +1088,7 @@ exports.getLessonDetails = async (req, res, next) => {
                 nodeType: lesson.nodeType,
                 xpReward: lesson.xpReward,
                 pearlsReward: lesson.pearlsReward,
-                stages: sanitizeLessonStages(lesson.stages),
+                stages: sanitizeLessonStages(lesson.stages).filter(s => s && s.enabled !== false),
                 karaokeData: lesson.karaokeData,
                 audioUrl: lesson.audioUrl,
                 sourceNoteId: lesson.sourceNoteId,

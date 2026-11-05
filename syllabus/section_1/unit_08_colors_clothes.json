@@ -8,7 +8,7 @@
   "unitNumber": 8,
   "unitTitle": "Colors, Clothes & Appearance",
   "unitDescription": "रंग, कपड़े और रूप-रंग",
-  "accentColor": "#E91E63",
+  "accentColor": "#EC4899",
   "lessonsCount": 12,
   "lessons": [
     {
@@ -21,6 +21,34 @@
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'लाल' के लिए सही चित्र चुनें:",
+          "targetWord": "red",
+          "translation": "लाल",
+          "options": [
+            {
+              "id": "u8_l1_p1",
+              "text": "red (लाल)",
+              "imageUrl": "/uploads/curriculum/red.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l1_p2",
+              "text": "blue (नीला)",
+              "imageUrl": "/uploads/curriculum/blue.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l1_p3",
+              "text": "green (हरा)",
+              "imageUrl": "/uploads/curriculum/green.webp",
+              "isCorrect": false
+            }
+          ]
+        },
         {
           "type": "word_match",
           "title": "सही शब्द जोड़ियों का मिलान करें",
@@ -46,51 +74,103 @@
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "लाल गाड़ी और नीला घर",
-          "targetSentence": "a red car and a blue house",
+          "prompt": "लाल गाड़ी",
+          "targetSentence": "a red car",
           "tokens": [
             "a",
             "red",
             "car",
-            "and",
-            "a",
             "blue",
-            "house"
+            "shirt"
           ]
-        },
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "a red car and a blue house",
-          "tokens": [
-            "a",
-            "red",
-            "car",
-            "and",
-            "a",
-            "blue",
-            "house"
-          ],
-          "audioUrl": ""
         },
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
           "sentence": "a _______.",
-          "blank": "house",
-          "translation": "लाल गाड़ी और नीला घर",
+          "blank": "car",
+          "translation": "लाल गाड़ी",
           "options": [
-            "house",
+            "car",
             "blue",
             "green"
           ]
         },
         {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "a red car",
+          "tokens": [
+            "a",
+            "red",
+            "car",
+            "blue",
+            "shirt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "a red car",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "लाल गाड़ी",
+              "isCorrect": true
+            },
+            {
+              "text": "सफ़ेद कमीज़ और काले जूते",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "लाल गाड़ी",
+          "audioUrl": ""
+        },
+        {
           "type": "type_word",
-          "title": "स्पेलिंग लिखें",
+          "title": "स्पेलिंग टाइप करें",
           "prompt": "'लाल' के लिए अंग्रेज़ी शब्द टाइप करें:",
           "target": "red",
-          "hint": "संकेत: r से शुरू होता है"
+          "translation": "लाल",
+          "hint": "संकेत: R से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "a red car",
+          "translation": "लाल गाड़ी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "a red car. Red is good.",
+          "translationText": "लाल गाड़ी। लाल अच्छा है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -105,8 +185,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'काला' के लिए सही चित्र चुनें:",
+          "targetWord": "black",
+          "translation": "काला",
+          "options": [
+            {
+              "id": "u8_l2_p1",
+              "text": "black (काला)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l2_p2",
+              "text": "white (सफ़ेद)",
+              "imageUrl": "/uploads/curriculum/white.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l2_p3",
+              "text": "shirt (कमीज़)",
+              "imageUrl": "/uploads/curriculum/shirt.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "black",
@@ -122,58 +230,111 @@
             },
             {
               "target": "pants",
-              "native": "पतलून"
+              "native": "पैंट"
             }
           ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मेरी कमीज़ सफ़ेद है।",
-          "targetSentence": "My shirt is white",
+          "prompt": "सफ़ेद कमीज़ और काले जूते",
+          "targetSentence": "a white shirt and black shoes",
           "tokens": [
-            "My",
-            "shirt",
-            "is",
+            "a",
             "white",
+            "shirt",
+            "and",
             "black",
-            "red"
+            "shoes"
           ]
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "वह काले जूते पहनता है।",
-          "targetSentence": "He wears black shoes",
-          "tokens": [
-            "He",
-            "wears",
-            "black",
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "a _______ shoes.",
+          "blank": "white",
+          "translation": "सफ़ेद कमीज़ और काले जूते",
+          "options": [
             "shoes",
-            "white",
-            "pants"
+            "black",
+            "white"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "My shirt is white",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "a white shirt and black shoes",
           "tokens": [
-            "My",
-            "shirt",
-            "is",
+            "a",
             "white",
+            "shirt",
+            "and",
             "black",
-            "red"
+            "shoes"
           ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "a white shirt and black shoes",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "सफ़ेद कमीज़ और काले जूते",
+              "isCorrect": true
+            },
+            {
+              "text": "मेरी कमीज़ नीली है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "सफ़ेद कमीज़ और काले जूते",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'काला' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "black",
+          "translation": "काला",
+          "hint": "संकेत: B से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
           "audioUrl": ""
         },
         {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
           "prompt": "My favorite color is blue",
-          "translation": "लाल गाड़ी और नीला घर",
+          "translation": "लाल गाड़ी",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "a white shirt and black shoes. It is very good.",
+          "translationText": "सफ़ेद कमीज़ और काले जूते यह बहुत अच्छा है।",
           "audioUrl": ""
         }
       ]
@@ -189,8 +350,36 @@
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'जूते' के लिए सही चित्र चुनें:",
+          "targetWord": "shoes",
+          "translation": "जूते",
+          "options": [
+            {
+              "id": "u8_l3_p1",
+              "text": "shoes (जूते)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l3_p2",
+              "text": "hat (टोपी)",
+              "imageUrl": "/uploads/curriculum/hat.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l3_p3",
+              "text": "dress (ड्रेस)",
+              "imageUrl": "/uploads/curriculum/dress.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "shoes",
@@ -202,53 +391,115 @@
             },
             {
               "target": "dress",
-              "native": "पोशाक"
+              "native": "ड्रेस"
             },
             {
-              "target": "coat",
-              "native": "कोट"
+              "target": "wear",
+              "native": "पहनना"
             }
           ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मैंने टोपी पहनी हुई है।",
-          "targetSentence": "I am wearing a hat",
+          "prompt": "मेरी कमीज़ नीली है।",
+          "targetSentence": "My shirt is blue",
           "tokens": [
-            "I",
-            "am",
-            "wearing",
-            "a",
-            "hat",
-            "coat",
-            "dress"
+            "My",
+            "shirt",
+            "is",
+            "blue",
+            "red",
+            "green"
           ]
         },
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "I am wearing a _______.",
-          "blank": "hat",
-          "translation": "मैंने टोपी पहनी हुई है।",
+          "sentence": "My _______.",
+          "blank": "blue",
+          "translation": "मेरी कमीज़ नीली है।",
           "options": [
-            "hat",
-            "red",
-            "white"
+            "blue",
+            "shoes",
+            "hat"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "He wears black shoes",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "My shirt is blue",
           "tokens": [
-            "He",
-            "wears",
-            "black",
-            "shoes",
-            "white",
-            "pants"
+            "My",
+            "shirt",
+            "is",
+            "blue",
+            "red",
+            "green"
           ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "My shirt is blue",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मेरी कमीज़ नीली है।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह लाल ड्रेस पहनती है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मेरी कमीज़ नीली है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'जूते' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "shoes",
+          "translation": "जूते",
+          "hint": "संकेत: S से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My shirt is blue",
+          "translation": "मेरी कमीज़ नीली है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "My shirt is blue. We like this.",
+          "translationText": "मेरी कमीज़ नीली है। हमें यह पसंद है।",
           "audioUrl": ""
         }
       ]
@@ -257,76 +508,164 @@
       "lessonIndex": 3,
       "unitLessonNum": 4,
       "title": "Colors, Clothes & Appearance • Lesson 4",
-      "subtitle": "रंग, कपड़े और रूप-रंग: श्रवण और समझ",
+      "subtitle": "रंग, कपड़े और रूप-रंग: श्रवण अभ्यास (Ear Training)",
       "nodeType": "lesson",
-      "xpReward": 20,
+      "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "I am wearing a hat",
-          "tokens": [
-            "I",
-            "am",
-            "wearing",
-            "a",
-            "hat",
-            "coat",
-            "dress"
-          ],
-          "audioUrl": ""
-        },
-        {
-          "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "Her dress is very beautiful",
-          "tokens": [
-            "Her",
-            "dress",
-            "is",
-            "very",
-            "beautiful",
-            "shirt"
-          ],
-          "audioUrl": ""
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'नीला' के लिए सही चित्र चुनें:",
+          "targetWord": "blue",
+          "translation": "नीला",
+          "options": [
+            {
+              "id": "u8_l4_p1",
+              "text": "blue (नीला)",
+              "imageUrl": "/uploads/curriculum/blue.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l4_p2",
+              "text": "black (काला)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l4_p3",
+              "text": "shoes (जूते)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": false
+            }
+          ]
         },
         {
           "type": "word_match",
-          "title": "रैपिड मिलान",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
-              "target": "red",
-              "native": "लाल"
+              "target": "blue",
+              "native": "नीला"
             },
             {
-              "target": "yellow",
-              "native": "पीला"
-            },
-            {
-              "target": "shirt",
-              "native": "कमीज़"
+              "target": "white",
+              "native": "सफ़ेद"
             },
             {
               "target": "hat",
               "native": "टोपी"
+            },
+            {
+              "target": "green",
+              "native": "हरा"
             }
           ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "उसकी पोशाक बहुत सुंदर है।",
-          "targetSentence": "Her dress is very beautiful",
+          "prompt": "वह लाल ड्रेस पहनती है।",
+          "targetSentence": "She wears a red dress",
           "tokens": [
-            "Her",
+            "She",
+            "wears",
+            "a",
+            "red",
             "dress",
-            "is",
-            "very",
-            "beautiful",
-            "shirt"
+            "hat"
           ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "She _______.",
+          "blank": "dress",
+          "translation": "वह लाल ड्रेस पहनती है।",
+          "options": [
+            "dress",
+            "blue",
+            "yellow"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "She wears a red dress",
+          "tokens": [
+            "She",
+            "wears",
+            "a",
+            "red",
+            "dress",
+            "hat"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "She wears a red dress",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह लाल ड्रेस पहनती है।",
+              "isCorrect": true
+            },
+            {
+              "text": "लाल गाड़ी",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह लाल ड्रेस पहनती है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'नीला' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "blue",
+          "translation": "नीला",
+          "hint": "संकेत: B से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I wear black shoes",
+          "translation": "सफ़ेद कमीज़ और काले जूते",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "She wears a red dress. Listen and speak every day.",
+          "translationText": "वह लाल ड्रेस पहनती है। हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
         }
       ]
     },
@@ -334,24 +673,44 @@
       "lessonIndex": 4,
       "unitLessonNum": 5,
       "title": "Colors, Clothes & Appearance • Lesson 5",
-      "subtitle": "रंग, कपड़े और रूप-रंग: व्यावहारिक प्रयोग",
+      "subtitle": "रंग, कपड़े और रूप-रंग: गुण और विशेषताएं",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'रंग' के लिए सही चित्र चुनें:",
+          "targetWord": "color",
+          "translation": "रंग",
+          "options": [
+            {
+              "id": "u8_l5_p1",
+              "text": "color (रंग)",
+              "imageUrl": "/uploads/curriculum/color.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l5_p2",
+              "text": "favorite (पसंदीदा)",
+              "imageUrl": "/uploads/curriculum/favorite.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l5_p3",
+              "text": "bright (चमकीला)",
+              "imageUrl": "/uploads/curriculum/bright.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
-            {
-              "target": "wear",
-              "native": "पहनना"
-            },
-            {
-              "target": "wearing",
-              "native": "पहने हुए"
-            },
             {
               "target": "color",
               "native": "रंग"
@@ -359,42 +718,118 @@
             {
               "target": "favorite",
               "native": "पसंदीदा"
+            },
+            {
+              "target": "bright",
+              "native": "चमकीला"
+            },
+            {
+              "target": "dark",
+              "native": "गहरा"
             }
           ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मेरा पसंदीदा रंग नीला है।",
-          "targetSentence": "My favorite color is blue",
+          "prompt": "मेरे जूते काले और साफ़ हैं।",
+          "targetSentence": "My shoes are black and clean",
           "tokens": [
             "My",
-            "favorite",
-            "color",
-            "is",
-            "blue",
-            "green",
-            "red"
+            "shoes",
+            "are",
+            "black",
+            "and",
+            "clean"
           ]
         },
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My favorite color is _______.",
-          "blank": "blue",
-          "translation": "मेरा पसंदीदा रंग नीला है।",
+          "sentence": "My _______.",
+          "blank": "clean",
+          "translation": "मेरे जूते काले और साफ़ हैं।",
           "options": [
-            "blue",
-            "green",
-            "shoes"
+            "clean",
+            "color",
+            "favorite"
           ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "My shoes are black and clean",
+          "tokens": [
+            "My",
+            "shoes",
+            "are",
+            "black",
+            "and",
+            "clean"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "My shoes are black and clean",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मेरे जूते काले और साफ़ हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "सफ़ेद कमीज़ और काले जूते",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मेरे जूते काले और साफ़ हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'रंग' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "color",
+          "translation": "रंग",
+          "hint": "संकेत: C से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
         },
         {
           "type": "sprechen",
           "title": "बोलकर अभ्यास करें",
-          "prompt": "I wear black shoes",
-          "translation": "आपकी गाड़ी का रंग क्या है?",
+          "prompt": "My shoes are black and clean",
+          "translation": "मेरे जूते काले और साफ़ हैं।",
           "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "My shoes are black and clean. You are doing very well.",
+          "translationText": "मेरे जूते काले और साफ़ हैं। आप बहुत अच्छा कर रहे हैं।",
           "audioUrl": ""
         }
       ]
@@ -414,57 +849,538 @@
       "lessonIndex": 6,
       "unitLessonNum": 7,
       "title": "Colors, Clothes & Appearance • Lesson 7",
-      "subtitle": "रंग, कपड़े और रूप-रंग: विस्तृत वाक्य",
+      "subtitle": "रंग, कपड़े और रूप-रंग: संयुक्त प्रयोग",
       "nodeType": "lesson",
       "xpReward": 15,
       "pearlsReward": 5,
       "isLive": true,
       "stages": [
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "आपकी गाड़ी का रंग क्या है?",
-          "targetSentence": "What color is your car?",
-          "tokens": [
-            "What",
-            "color",
-            "is",
-            "your",
-            "car?",
-            "house"
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सफ़ेद' के लिए सही चित्र चुनें:",
+          "targetWord": "white",
+          "translation": "सफ़ेद",
+          "options": [
+            {
+              "id": "u8_l7_p1",
+              "text": "white (सफ़ेद)",
+              "imageUrl": "/uploads/curriculum/white.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l7_p2",
+              "text": "shirt (कमीज़)",
+              "imageUrl": "/uploads/curriculum/shirt.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l7_p3",
+              "text": "pants (पैंट)",
+              "imageUrl": "/uploads/curriculum/pants.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "yellow",
+              "native": "पीला"
+            },
+            {
+              "target": "pants",
+              "native": "पैंट"
+            },
+            {
+              "target": "wear",
+              "native": "पहनना"
+            },
+            {
+              "target": "dark",
+              "native": "गहरा"
+            }
           ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मेरी गाड़ी लाल है।",
-          "targetSentence": "My car is red",
+          "prompt": "मेरा पसंदीदा रंग हरा है।",
+          "targetSentence": "My favorite color is green",
           "tokens": [
             "My",
-            "car",
+            "favorite",
+            "color",
             "is",
-            "red",
-            "blue",
-            "white"
+            "green",
+            "blue"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "My _______.",
+          "blank": "green",
+          "translation": "मेरा पसंदीदा रंग हरा है।",
+          "options": [
+            "green",
+            "white",
+            "pants"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "What color is your car?",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "My favorite color is green",
           "tokens": [
-            "What",
+            "My",
+            "favorite",
             "color",
             "is",
-            "your",
-            "car?",
-            "house"
+            "green",
+            "blue"
           ],
           "audioUrl": ""
         },
         {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "My favorite color is green",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मेरा पसंदीदा रंग हरा है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मेरी कमीज़ नीली है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मेरा पसंदीदा रंग हरा है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'सफ़ेद' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "white",
+          "translation": "सफ़ेद",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My favorite color is green",
+          "translation": "मेरा पसंदीदा रंग हरा है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "My favorite color is green. Practice makes you perfect.",
+          "translationText": "मेरा पसंदीदा रंग हरा है। अभ्यास से सब आसान हो जाता है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Colors, Clothes & Appearance • Lesson 8",
+      "subtitle": "रंग, कपड़े और रूप-रंग: जटिल वाक्य संरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'टोपी' के लिए सही चित्र चुनें:",
+          "targetWord": "hat",
+          "translation": "टोपी",
+          "options": [
+            {
+              "id": "u8_l8_p1",
+              "text": "hat (टोपी)",
+              "imageUrl": "/uploads/curriculum/hat.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l8_p2",
+              "text": "dress (ड्रेस)",
+              "imageUrl": "/uploads/curriculum/dress.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l8_p3",
+              "text": "wear (पहनना)",
+              "imageUrl": "/uploads/curriculum/wear.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "शब्दों का मिलान करें",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "black",
+              "native": "काला"
+            },
+            {
+              "target": "shoes",
+              "native": "जूते"
+            },
+            {
+              "target": "color",
+              "native": "रंग"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "उसने टोपी पहनी है।",
+          "targetSentence": "He is wearing a hat",
+          "tokens": [
+            "He",
+            "is",
+            "wearing",
+            "a",
+            "hat",
+            "shirt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "He _______.",
+          "blank": "hat",
+          "translation": "उसने टोपी पहनी है।",
+          "options": [
+            "hat",
+            "hat",
+            "dress"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "He is wearing a hat",
+          "tokens": [
+            "He",
+            "is",
+            "wearing",
+            "a",
+            "hat",
+            "shirt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "He is wearing a hat",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "उसने टोपी पहनी है।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह लाल ड्रेस पहनती है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "उसने टोपी पहनी है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'टोपी' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "hat",
+          "translation": "टोपी",
+          "hint": "संकेत: H से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "He is wearing a hat",
+          "translation": "उसने टोपी पहनी है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "He is wearing a hat. Everything is in order.",
+          "translationText": "उसने टोपी पहनी है। सब कुछ सही क्रम में है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Colors, Clothes & Appearance • Lesson 9",
+      "subtitle": "रंग, कपड़े और रूप-रंग: मौखिक अभ्यास (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पसंदीदा' के लिए सही चित्र चुनें:",
+          "targetWord": "favorite",
+          "translation": "पसंदीदा",
+          "options": [
+            {
+              "id": "u8_l9_p1",
+              "text": "favorite (पसंदीदा)",
+              "imageUrl": "/uploads/curriculum/favorite.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l9_p2",
+              "text": "bright (चमकीला)",
+              "imageUrl": "/uploads/curriculum/bright.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l9_p3",
+              "text": "dark (गहरा)",
+              "imageUrl": "/uploads/curriculum/dark.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "green",
+              "native": "हरा"
+            },
+            {
+              "target": "shirt",
+              "native": "कमीज़"
+            },
+            {
+              "target": "dress",
+              "native": "ड्रेस"
+            },
+            {
+              "target": "bright",
+              "native": "चमकीला"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "यह पीली कमीज़ नई है।",
+          "targetSentence": "This yellow shirt is new",
+          "tokens": [
+            "This",
+            "yellow",
+            "shirt",
+            "is",
+            "new",
+            "old"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "This _______.",
+          "blank": "new",
+          "translation": "यह पीली कमीज़ नई है।",
+          "options": [
+            "new",
+            "favorite",
+            "bright"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "This yellow shirt is new",
+          "tokens": [
+            "This",
+            "yellow",
+            "shirt",
+            "is",
+            "new",
+            "old"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "This yellow shirt is new",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "यह पीली कमीज़ नई है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मेरे जूते काले और साफ़ हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "यह पीली कमीज़ नई है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पसंदीदा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "favorite",
+          "translation": "पसंदीदा",
+          "hint": "संकेत: F से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My car is red",
+          "translation": "मेरी कमीज़ नीली है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "This yellow shirt is new. Speak clearly and with confidence.",
+          "translationText": "यह पीली कमीज़ नई है। स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Colors, Clothes & Appearance • Lesson 10",
+      "subtitle": "रंग, कपड़े और रूप-रंग: संवाद अभ्यास (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पीला' के लिए सही चित्र चुनें:",
+          "targetWord": "yellow",
+          "translation": "पीला",
+          "options": [
+            {
+              "id": "u8_l10_p1",
+              "text": "yellow (पीला)",
+              "imageUrl": "/uploads/curriculum/yellow.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l10_p2",
+              "text": "pants (पैंट)",
+              "imageUrl": "/uploads/curriculum/pants.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l10_p3",
+              "text": "wear (पहनना)",
+              "imageUrl": "/uploads/curriculum/wear.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "blue",
@@ -475,201 +1391,116 @@
               "native": "काला"
             },
             {
-              "target": "pants",
-              "native": "पतलून"
+              "target": "hat",
+              "native": "टोपी"
             },
             {
-              "target": "coat",
-              "native": "कोट"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 7,
-      "unitLessonNum": 8,
-      "title": "Colors, Clothes & Appearance • Lesson 8",
-      "subtitle": "रंग, कपड़े और रूप-रंग: बातचीत और संवाद",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
-        {
-          "type": "dialogue_bubble",
-          "title": "संवाद पूरा करें",
-          "partnerName": "Aman",
-          "partnerMessage": "What color is your shirt?",
-          "translation": "आपकी कमीज़ का रंग क्या है?",
-          "options": [
-            {
-              "text": "My shirt is blue.",
-              "isCorrect": true
-            },
-            {
-              "text": "It is eight o'clock.",
-              "isCorrect": false
+              "target": "favorite",
+              "native": "पसंदीदा"
             }
           ]
         },
         {
           "type": "sentence_builder",
           "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "मेरी गाड़ी लाल है।",
-          "targetSentence": "My car is red",
+          "prompt": "लाल गाड़ी",
+          "targetSentence": "a red car",
           "tokens": [
-            "My",
-            "car",
-            "is",
+            "a",
             "red",
+            "car",
             "blue",
-            "white"
+            "shirt"
           ]
         },
         {
           "type": "cloze_test",
           "title": "रिक्त स्थान भरें",
-          "sentence": "My car is _______.",
-          "blank": "red",
-          "translation": "मेरी गाड़ी लाल है।",
+          "sentence": "a _______.",
+          "blank": "car",
+          "translation": "लाल गाड़ी",
           "options": [
-            "red",
+            "car",
             "yellow",
-            "hat"
-          ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 8,
-      "unitLessonNum": 9,
-      "title": "Colors, Clothes & Appearance • Lesson 9",
-      "subtitle": "रंग, कपड़े और रूप-रंग: मौखिक उच्चारण अभ्यास",
-      "nodeType": "lesson",
-      "xpReward": 25,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
-        {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "My favorite color is blue",
-          "translation": "लाल गाड़ी और नीला घर",
-          "minAccuracy": 75,
-          "audioUrl": ""
-        },
-        {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "I wear black shoes",
-          "translation": "मेरी कमीज़ सफ़ेद है।",
-          "minAccuracy": 75,
-          "audioUrl": ""
-        },
-        {
-          "type": "sprechen",
-          "title": "स्पष्ट बोलें",
-          "prompt": "My car is red",
-          "translation": "वह काले जूते पहनता है।",
-          "minAccuracy": 75,
-          "audioUrl": ""
-        },
-        {
-          "type": "word_match",
-          "title": "शब्द मिलान",
-          "pairs": [
-            {
-              "target": "green",
-              "native": "हरा"
-            },
-            {
-              "target": "white",
-              "native": "सफ़ेद"
-            },
-            {
-              "target": "shoes",
-              "native": "जूते"
-            },
-            {
-              "target": "wearing",
-              "native": "पहने हुए"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "lessonIndex": 9,
-      "unitLessonNum": 10,
-      "title": "Colors, Clothes & Appearance • Lesson 10",
-      "subtitle": "रंग, कपड़े और रूप-रंग: समग्र पुनरावृत्ति",
-      "nodeType": "lesson",
-      "xpReward": 20,
-      "pearlsReward": 5,
-      "isLive": true,
-      "stages": [
-        {
-          "type": "word_match",
-          "title": "5-जोड़ी मिलान",
-          "pairs": [
-            {
-              "target": "red",
-              "native": "लाल"
-            },
-            {
-              "target": "yellow",
-              "native": "पीला"
-            },
-            {
-              "target": "pants",
-              "native": "पतलून"
-            },
-            {
-              "target": "dress",
-              "native": "पोशाक"
-            },
-            {
-              "target": "color",
-              "native": "रंग"
-            }
+            "pants"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "सुनिए और टैप करें",
-          "targetSentence": "My favorite color is blue",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "He is wearing a hat",
           "tokens": [
-            "My",
-            "favorite",
-            "color",
+            "He",
             "is",
-            "blue",
-            "green",
-            "red"
+            "wearing",
+            "a",
+            "hat",
+            "shirt"
           ],
           "audioUrl": ""
         },
         {
-          "type": "sentence_builder",
-          "title": "अंग्रेज़ी वाक्य बनाइए",
-          "prompt": "आपकी गाड़ी का रंग क्या है?",
-          "targetSentence": "What color is your car?",
-          "tokens": [
-            "What",
-            "color",
-            "is",
-            "your",
-            "car?",
-            "house"
-          ]
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "This yellow shirt is new",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "यह पीली कमीज़ नई है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मेरा पसंदीदा रंग हरा है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "यह पीली कमीज़ नई है।",
+          "audioUrl": ""
         },
         {
           "type": "type_word",
           "title": "स्पेलिंग टाइप करें",
-          "prompt": "'नीला' के लिए सही शब्द टाइप करें:",
-          "target": "blue",
-          "hint": "संकेत: b से शुरू होता है"
+          "prompt": "'पीला' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "yellow",
+          "translation": "पीला",
+          "hint": "संकेत: Y से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My favorite color is blue",
+          "translation": "लाल गाड़ी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I am wearing a white shirt and black shoes. My favorite color is blue.",
+          "translationText": "मैंने सफ़ेद कमीज़ और काले जूते पहने हैं। मेरा पसंदीदा रंग नीला है।",
+          "audioUrl": ""
         }
       ]
     },
@@ -687,86 +1518,1835 @@
     {
       "lessonIndex": 11,
       "unitLessonNum": 12,
-      "title": "Colors, Clothes & Appearance • Colors, Clothes & Appearance • Milestone Exam",
-      "subtitle": "इकाई 8 संपूर्ण परीक्षा",
+      "title": "Colors, Clothes & Appearance • Unit 8 Milestone Exam",
+      "subtitle": "रंग, कपड़े और रूप-रंग: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
       "nodeType": "quiz",
       "xpReward": 35,
       "pearlsReward": 10,
       "isLive": true,
       "stages": [
         {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'लाल' के लिए सही चित्र चुनें:",
+          "targetWord": "red",
+          "translation": "लाल",
+          "options": [
+            {
+              "id": "u8_l12_p1",
+              "text": "red (लाल)",
+              "imageUrl": "/uploads/curriculum/red.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l12_p2",
+              "text": "black (काला)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l12_p3",
+              "text": "shoes (जूते)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
           "type": "word_match",
-          "title": "इकाई 8 मुख्य शब्द परीक्षा",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
           "pairs": [
             {
               "target": "red",
               "native": "लाल"
             },
             {
+              "target": "black",
+              "native": "काला"
+            },
+            {
+              "target": "shoes",
+              "native": "जूते"
+            },
+            {
+              "target": "color",
+              "native": "रंग"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरा पसंदीदा रंग हरा है।",
+          "targetSentence": "My favorite color is green",
+          "tokens": [
+            "My",
+            "favorite",
+            "color",
+            "is",
+            "green",
+            "blue"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "My _______.",
+          "blank": "green",
+          "translation": "मेरा पसंदीदा रंग हरा है।",
+          "options": [
+            "green",
+            "red",
+            "black"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "This yellow shirt is new",
+          "tokens": [
+            "This",
+            "yellow",
+            "shirt",
+            "is",
+            "new",
+            "old"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "My shoes are black and clean",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मेरे जूते काले और साफ़ हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "लाल गाड़ी",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मेरे जूते काले और साफ़ हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'गहरा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "dark",
+          "translation": "गहरा",
+          "hint": "संकेत: D से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My favorite color is blue",
+          "translation": "लाल गाड़ी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I am wearing a white shirt and black shoes. My favorite color is blue.",
+          "translationText": "मैंने सफ़ेद कमीज़ और काले जूते पहने हैं। मेरा पसंदीदा रंग नीला है।",
+          "audioUrl": ""
+        }
+      ]
+    }
+  ],
+  "lessonsData": [
+    {
+      "lessonIndex": 0,
+      "unitLessonNum": 1,
+      "title": "Colors, Clothes & Appearance • Lesson 1",
+      "subtitle": "रंग, कपड़े और रूप-रंग: मुख्य शब्द",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'लाल' के लिए सही चित्र चुनें:",
+          "targetWord": "red",
+          "translation": "लाल",
+          "options": [
+            {
+              "id": "u8_l1_p1",
+              "text": "red (लाल)",
+              "imageUrl": "/uploads/curriculum/red.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l1_p2",
+              "text": "blue (नीला)",
+              "imageUrl": "/uploads/curriculum/blue.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l1_p3",
+              "text": "green (हरा)",
+              "imageUrl": "/uploads/curriculum/green.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "blue",
+              "native": "नीला"
+            },
+            {
               "target": "green",
               "native": "हरा"
             },
             {
+              "target": "yellow",
+              "native": "पीला"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "लाल गाड़ी",
+          "targetSentence": "a red car",
+          "tokens": [
+            "a",
+            "red",
+            "car",
+            "blue",
+            "shirt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "a _______.",
+          "blank": "car",
+          "translation": "लाल गाड़ी",
+          "options": [
+            "car",
+            "blue",
+            "green"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "a red car",
+          "tokens": [
+            "a",
+            "red",
+            "car",
+            "blue",
+            "shirt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "a red car",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "लाल गाड़ी",
+              "isCorrect": true
+            },
+            {
+              "text": "सफ़ेद कमीज़ और काले जूते",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "लाल गाड़ी",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'लाल' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "red",
+          "translation": "लाल",
+          "hint": "संकेत: R से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "a red car",
+          "translation": "लाल गाड़ी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "a red car. Red is good.",
+          "translationText": "लाल गाड़ी। लाल अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 1,
+      "unitLessonNum": 2,
+      "title": "Colors, Clothes & Appearance • Lesson 2",
+      "subtitle": "रंग, कपड़े और रूप-रंग: वाक्य निर्माण",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'काला' के लिए सही चित्र चुनें:",
+          "targetWord": "black",
+          "translation": "काला",
+          "options": [
+            {
+              "id": "u8_l2_p1",
+              "text": "black (काला)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l2_p2",
+              "text": "white (सफ़ेद)",
+              "imageUrl": "/uploads/curriculum/white.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l2_p3",
+              "text": "shirt (कमीज़)",
+              "imageUrl": "/uploads/curriculum/shirt.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
               "target": "black",
               "native": "काला"
+            },
+            {
+              "target": "white",
+              "native": "सफ़ेद"
             },
             {
               "target": "shirt",
               "native": "कमीज़"
             },
             {
-              "target": "shoes",
-              "native": "जूते"
+              "target": "pants",
+              "native": "पैंट"
             }
           ]
         },
         {
           "type": "sentence_builder",
-          "title": "परीक्षा प्रश्न 1: वाक्य अनुवाद",
-          "prompt": "मैंने टोपी पहनी हुई है।",
-          "targetSentence": "I am wearing a hat",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "सफ़ेद कमीज़ और काले जूते",
+          "targetSentence": "a white shirt and black shoes",
           "tokens": [
-            "I",
-            "am",
+            "a",
+            "white",
+            "shirt",
+            "and",
+            "black",
+            "shoes"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "a _______ shoes.",
+          "blank": "white",
+          "translation": "सफ़ेद कमीज़ और काले जूते",
+          "options": [
+            "shoes",
+            "black",
+            "white"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "a white shirt and black shoes",
+          "tokens": [
+            "a",
+            "white",
+            "shirt",
+            "and",
+            "black",
+            "shoes"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "a white shirt and black shoes",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "सफ़ेद कमीज़ और काले जूते",
+              "isCorrect": true
+            },
+            {
+              "text": "मेरी कमीज़ नीली है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "सफ़ेद कमीज़ और काले जूते",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'काला' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "black",
+          "translation": "काला",
+          "hint": "संकेत: B से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My favorite color is blue",
+          "translation": "लाल गाड़ी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "a white shirt and black shoes. It is very good.",
+          "translationText": "सफ़ेद कमीज़ और काले जूते यह बहुत अच्छा है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 2,
+      "unitLessonNum": 3,
+      "title": "Colors, Clothes & Appearance • Lesson 3",
+      "subtitle": "रंग, कपड़े और रूप-रंग: संयुक्त वाक्य",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'जूते' के लिए सही चित्र चुनें:",
+          "targetWord": "shoes",
+          "translation": "जूते",
+          "options": [
+            {
+              "id": "u8_l3_p1",
+              "text": "shoes (जूते)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l3_p2",
+              "text": "hat (टोपी)",
+              "imageUrl": "/uploads/curriculum/hat.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l3_p3",
+              "text": "dress (ड्रेस)",
+              "imageUrl": "/uploads/curriculum/dress.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "shoes",
+              "native": "जूते"
+            },
+            {
+              "target": "hat",
+              "native": "टोपी"
+            },
+            {
+              "target": "dress",
+              "native": "ड्रेस"
+            },
+            {
+              "target": "wear",
+              "native": "पहनना"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरी कमीज़ नीली है।",
+          "targetSentence": "My shirt is blue",
+          "tokens": [
+            "My",
+            "shirt",
+            "is",
+            "blue",
+            "red",
+            "green"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "My _______.",
+          "blank": "blue",
+          "translation": "मेरी कमीज़ नीली है।",
+          "options": [
+            "blue",
+            "shoes",
+            "hat"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "My shirt is blue",
+          "tokens": [
+            "My",
+            "shirt",
+            "is",
+            "blue",
+            "red",
+            "green"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "My shirt is blue",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मेरी कमीज़ नीली है।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह लाल ड्रेस पहनती है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मेरी कमीज़ नीली है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'जूते' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "shoes",
+          "translation": "जूते",
+          "hint": "संकेत: S से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My shirt is blue",
+          "translation": "मेरी कमीज़ नीली है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "My shirt is blue. We like this.",
+          "translationText": "मेरी कमीज़ नीली है। हमें यह पसंद है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 3,
+      "unitLessonNum": 4,
+      "title": "Colors, Clothes & Appearance • Lesson 4",
+      "subtitle": "रंग, कपड़े और रूप-रंग: श्रवण अभ्यास (Ear Training)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'नीला' के लिए सही चित्र चुनें:",
+          "targetWord": "blue",
+          "translation": "नीला",
+          "options": [
+            {
+              "id": "u8_l4_p1",
+              "text": "blue (नीला)",
+              "imageUrl": "/uploads/curriculum/blue.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l4_p2",
+              "text": "black (काला)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l4_p3",
+              "text": "shoes (जूते)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "blue",
+              "native": "नीला"
+            },
+            {
+              "target": "white",
+              "native": "सफ़ेद"
+            },
+            {
+              "target": "hat",
+              "native": "टोपी"
+            },
+            {
+              "target": "green",
+              "native": "हरा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "वह लाल ड्रेस पहनती है।",
+          "targetSentence": "She wears a red dress",
+          "tokens": [
+            "She",
+            "wears",
+            "a",
+            "red",
+            "dress",
+            "hat"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "She _______.",
+          "blank": "dress",
+          "translation": "वह लाल ड्रेस पहनती है।",
+          "options": [
+            "dress",
+            "blue",
+            "yellow"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "She wears a red dress",
+          "tokens": [
+            "She",
+            "wears",
+            "a",
+            "red",
+            "dress",
+            "hat"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "She wears a red dress",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "वह लाल ड्रेस पहनती है।",
+              "isCorrect": true
+            },
+            {
+              "text": "लाल गाड़ी",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "वह लाल ड्रेस पहनती है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'नीला' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "blue",
+          "translation": "नीला",
+          "hint": "संकेत: B से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "I wear black shoes",
+          "translation": "सफ़ेद कमीज़ और काले जूते",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "She wears a red dress. Listen and speak every day.",
+          "translationText": "वह लाल ड्रेस पहनती है। हर दिन सुनिए और बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 4,
+      "unitLessonNum": 5,
+      "title": "Colors, Clothes & Appearance • Lesson 5",
+      "subtitle": "रंग, कपड़े और रूप-रंग: गुण और विशेषताएं",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'रंग' के लिए सही चित्र चुनें:",
+          "targetWord": "color",
+          "translation": "रंग",
+          "options": [
+            {
+              "id": "u8_l5_p1",
+              "text": "color (रंग)",
+              "imageUrl": "/uploads/curriculum/color.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l5_p2",
+              "text": "favorite (पसंदीदा)",
+              "imageUrl": "/uploads/curriculum/favorite.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l5_p3",
+              "text": "bright (चमकीला)",
+              "imageUrl": "/uploads/curriculum/bright.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "color",
+              "native": "रंग"
+            },
+            {
+              "target": "favorite",
+              "native": "पसंदीदा"
+            },
+            {
+              "target": "bright",
+              "native": "चमकीला"
+            },
+            {
+              "target": "dark",
+              "native": "गहरा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरे जूते काले और साफ़ हैं।",
+          "targetSentence": "My shoes are black and clean",
+          "tokens": [
+            "My",
+            "shoes",
+            "are",
+            "black",
+            "and",
+            "clean"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "My _______.",
+          "blank": "clean",
+          "translation": "मेरे जूते काले और साफ़ हैं।",
+          "options": [
+            "clean",
+            "color",
+            "favorite"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "My shoes are black and clean",
+          "tokens": [
+            "My",
+            "shoes",
+            "are",
+            "black",
+            "and",
+            "clean"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "My shoes are black and clean",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मेरे जूते काले और साफ़ हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "सफ़ेद कमीज़ और काले जूते",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मेरे जूते काले और साफ़ हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'रंग' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "color",
+          "translation": "रंग",
+          "hint": "संकेत: C से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My shoes are black and clean",
+          "translation": "मेरे जूते काले और साफ़ हैं।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "My shoes are black and clean. You are doing very well.",
+          "translationText": "मेरे जूते काले और साफ़ हैं। आप बहुत अच्छा कर रहे हैं।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 5,
+      "unitLessonNum": 6,
+      "title": "Colors, Clothes & Appearance • Treasure Chest 1",
+      "subtitle": "Bonus 25 Pearls 💎 & 15 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 15,
+      "pearlsReward": 25,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 6,
+      "unitLessonNum": 7,
+      "title": "Colors, Clothes & Appearance • Lesson 7",
+      "subtitle": "रंग, कपड़े और रूप-रंग: संयुक्त प्रयोग",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'सफ़ेद' के लिए सही चित्र चुनें:",
+          "targetWord": "white",
+          "translation": "सफ़ेद",
+          "options": [
+            {
+              "id": "u8_l7_p1",
+              "text": "white (सफ़ेद)",
+              "imageUrl": "/uploads/curriculum/white.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l7_p2",
+              "text": "shirt (कमीज़)",
+              "imageUrl": "/uploads/curriculum/shirt.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l7_p3",
+              "text": "pants (पैंट)",
+              "imageUrl": "/uploads/curriculum/pants.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "yellow",
+              "native": "पीला"
+            },
+            {
+              "target": "pants",
+              "native": "पैंट"
+            },
+            {
+              "target": "wear",
+              "native": "पहनना"
+            },
+            {
+              "target": "dark",
+              "native": "गहरा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरा पसंदीदा रंग हरा है।",
+          "targetSentence": "My favorite color is green",
+          "tokens": [
+            "My",
+            "favorite",
+            "color",
+            "is",
+            "green",
+            "blue"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "My _______.",
+          "blank": "green",
+          "translation": "मेरा पसंदीदा रंग हरा है।",
+          "options": [
+            "green",
+            "white",
+            "pants"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "My favorite color is green",
+          "tokens": [
+            "My",
+            "favorite",
+            "color",
+            "is",
+            "green",
+            "blue"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "My favorite color is green",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मेरा पसंदीदा रंग हरा है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मेरी कमीज़ नीली है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मेरा पसंदीदा रंग हरा है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'सफ़ेद' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "white",
+          "translation": "सफ़ेद",
+          "hint": "संकेत: W से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My favorite color is green",
+          "translation": "मेरा पसंदीदा रंग हरा है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "My favorite color is green. Practice makes you perfect.",
+          "translationText": "मेरा पसंदीदा रंग हरा है। अभ्यास से सब आसान हो जाता है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 7,
+      "unitLessonNum": 8,
+      "title": "Colors, Clothes & Appearance • Lesson 8",
+      "subtitle": "रंग, कपड़े और रूप-रंग: जटिल वाक्य संरचना",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'टोपी' के लिए सही चित्र चुनें:",
+          "targetWord": "hat",
+          "translation": "टोपी",
+          "options": [
+            {
+              "id": "u8_l8_p1",
+              "text": "hat (टोपी)",
+              "imageUrl": "/uploads/curriculum/hat.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l8_p2",
+              "text": "dress (ड्रेस)",
+              "imageUrl": "/uploads/curriculum/dress.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l8_p3",
+              "text": "wear (पहनना)",
+              "imageUrl": "/uploads/curriculum/wear.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "black",
+              "native": "काला"
+            },
+            {
+              "target": "shoes",
+              "native": "जूते"
+            },
+            {
+              "target": "color",
+              "native": "रंग"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "उसने टोपी पहनी है।",
+          "targetSentence": "He is wearing a hat",
+          "tokens": [
+            "He",
+            "is",
             "wearing",
             "a",
             "hat",
-            "coat",
+            "shirt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "He _______.",
+          "blank": "hat",
+          "translation": "उसने टोपी पहनी है।",
+          "options": [
+            "hat",
+            "hat",
             "dress"
           ]
         },
         {
           "type": "listen_tap",
-          "title": "परीक्षा प्रश्न 2: श्रवण परीक्षण",
-          "targetSentence": "My car is red",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "He is wearing a hat",
           "tokens": [
-            "My",
-            "car",
+            "He",
             "is",
-            "red",
-            "blue",
-            "white"
+            "wearing",
+            "a",
+            "hat",
+            "shirt"
           ],
           "audioUrl": ""
         },
         {
-          "type": "cloze_test",
-          "title": "परीक्षा प्रश्न 3: रिक्त स्थान",
-          "sentence": "My shirt is _______.",
-          "blank": "white",
-          "translation": "मेरी कमीज़ सफ़ेद है।",
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "He is wearing a hat",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
           "options": [
-            "white",
-            "white",
-            "hat"
-          ]
+            {
+              "text": "उसने टोपी पहनी है।",
+              "isCorrect": true
+            },
+            {
+              "text": "वह लाल ड्रेस पहनती है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "उसने टोपी पहनी है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'टोपी' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "hat",
+          "translation": "टोपी",
+          "hint": "संकेत: H से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
         },
         {
           "type": "sprechen",
-          "title": "परीक्षा प्रश्न 4: मौखिक उच्चारण",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "He is wearing a hat",
+          "translation": "उसने टोपी पहनी है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "He is wearing a hat. Everything is in order.",
+          "translationText": "उसने टोपी पहनी है। सब कुछ सही क्रम में है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 8,
+      "unitLessonNum": 9,
+      "title": "Colors, Clothes & Appearance • Lesson 9",
+      "subtitle": "रंग, कपड़े और रूप-रंग: मौखिक अभ्यास (Speech Lab)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पसंदीदा' के लिए सही चित्र चुनें:",
+          "targetWord": "favorite",
+          "translation": "पसंदीदा",
+          "options": [
+            {
+              "id": "u8_l9_p1",
+              "text": "favorite (पसंदीदा)",
+              "imageUrl": "/uploads/curriculum/favorite.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l9_p2",
+              "text": "bright (चमकीला)",
+              "imageUrl": "/uploads/curriculum/bright.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l9_p3",
+              "text": "dark (गहरा)",
+              "imageUrl": "/uploads/curriculum/dark.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "green",
+              "native": "हरा"
+            },
+            {
+              "target": "shirt",
+              "native": "कमीज़"
+            },
+            {
+              "target": "dress",
+              "native": "ड्रेस"
+            },
+            {
+              "target": "bright",
+              "native": "चमकीला"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "यह पीली कमीज़ नई है।",
+          "targetSentence": "This yellow shirt is new",
+          "tokens": [
+            "This",
+            "yellow",
+            "shirt",
+            "is",
+            "new",
+            "old"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "This _______.",
+          "blank": "new",
+          "translation": "यह पीली कमीज़ नई है।",
+          "options": [
+            "new",
+            "favorite",
+            "bright"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "This yellow shirt is new",
+          "tokens": [
+            "This",
+            "yellow",
+            "shirt",
+            "is",
+            "new",
+            "old"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "This yellow shirt is new",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "यह पीली कमीज़ नई है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मेरे जूते काले और साफ़ हैं।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "यह पीली कमीज़ नई है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पसंदीदा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "favorite",
+          "translation": "पसंदीदा",
+          "hint": "संकेत: F से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My car is red",
+          "translation": "मेरी कमीज़ नीली है।",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "This yellow shirt is new. Speak clearly and with confidence.",
+          "translationText": "यह पीली कमीज़ नई है। स्पष्टता और आत्मविश्वास से बोलिए।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 9,
+      "unitLessonNum": 10,
+      "title": "Colors, Clothes & Appearance • Lesson 10",
+      "subtitle": "रंग, कपड़े और रूप-रंग: संवाद अभ्यास (Dialogue Mastery)",
+      "nodeType": "lesson",
+      "xpReward": 15,
+      "pearlsReward": 5,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'पीला' के लिए सही चित्र चुनें:",
+          "targetWord": "yellow",
+          "translation": "पीला",
+          "options": [
+            {
+              "id": "u8_l10_p1",
+              "text": "yellow (पीला)",
+              "imageUrl": "/uploads/curriculum/yellow.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l10_p2",
+              "text": "pants (पैंट)",
+              "imageUrl": "/uploads/curriculum/pants.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l10_p3",
+              "text": "wear (पहनना)",
+              "imageUrl": "/uploads/curriculum/wear.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "blue",
+              "native": "नीला"
+            },
+            {
+              "target": "black",
+              "native": "काला"
+            },
+            {
+              "target": "hat",
+              "native": "टोपी"
+            },
+            {
+              "target": "favorite",
+              "native": "पसंदीदा"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "लाल गाड़ी",
+          "targetSentence": "a red car",
+          "tokens": [
+            "a",
+            "red",
+            "car",
+            "blue",
+            "shirt"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "a _______.",
+          "blank": "car",
+          "translation": "लाल गाड़ी",
+          "options": [
+            "car",
+            "yellow",
+            "pants"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "He is wearing a hat",
+          "tokens": [
+            "He",
+            "is",
+            "wearing",
+            "a",
+            "hat",
+            "shirt"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "This yellow shirt is new",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "यह पीली कमीज़ नई है।",
+              "isCorrect": true
+            },
+            {
+              "text": "मेरा पसंदीदा रंग हरा है।",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "यह पीली कमीज़ नई है।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'पीला' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "yellow",
+          "translation": "पीला",
+          "hint": "संकेत: Y से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
           "prompt": "My favorite color is blue",
-          "translation": "लाल गाड़ी और नीला घर",
-          "minAccuracy": 80,
+          "translation": "लाल गाड़ी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I am wearing a white shirt and black shoes. My favorite color is blue.",
+          "translationText": "मैंने सफ़ेद कमीज़ और काले जूते पहने हैं। मेरा पसंदीदा रंग नीला है।",
+          "audioUrl": ""
+        }
+      ]
+    },
+    {
+      "lessonIndex": 10,
+      "unitLessonNum": 11,
+      "title": "Colors, Clothes & Appearance • Treasure Chest 2",
+      "subtitle": "Bonus 35 Pearls 💎 & 20 XP 🔥",
+      "nodeType": "chest",
+      "xpReward": 20,
+      "pearlsReward": 35,
+      "isLive": true,
+      "stages": []
+    },
+    {
+      "lessonIndex": 11,
+      "unitLessonNum": 12,
+      "title": "Colors, Clothes & Appearance • Unit 8 Milestone Exam",
+      "subtitle": "रंग, कपड़े और रूप-रंग: संपूर्ण इकाई परीक्षा (Mastery Challenge)",
+      "nodeType": "quiz",
+      "xpReward": 35,
+      "pearlsReward": 10,
+      "isLive": true,
+      "stages": [
+        {
+          "type": "picture_select",
+          "enabled": false,
+          "title": "चित्र चुनिए",
+          "prompt": "'लाल' के लिए सही चित्र चुनें:",
+          "targetWord": "red",
+          "translation": "लाल",
+          "options": [
+            {
+              "id": "u8_l12_p1",
+              "text": "red (लाल)",
+              "imageUrl": "/uploads/curriculum/red.webp",
+              "isCorrect": true
+            },
+            {
+              "id": "u8_l12_p2",
+              "text": "black (काला)",
+              "imageUrl": "/uploads/curriculum/black.webp",
+              "isCorrect": false
+            },
+            {
+              "id": "u8_l12_p3",
+              "text": "shoes (जूते)",
+              "imageUrl": "/uploads/curriculum/shoes.webp",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "type": "word_match",
+          "title": "सही शब्द जोड़ियों का मिलान करें",
+          "pairs": [
+            {
+              "target": "red",
+              "native": "लाल"
+            },
+            {
+              "target": "black",
+              "native": "काला"
+            },
+            {
+              "target": "shoes",
+              "native": "जूते"
+            },
+            {
+              "target": "color",
+              "native": "रंग"
+            }
+          ]
+        },
+        {
+          "type": "sentence_builder",
+          "title": "अंग्रेज़ी वाक्य बनाइए",
+          "prompt": "मेरा पसंदीदा रंग हरा है।",
+          "targetSentence": "My favorite color is green",
+          "tokens": [
+            "My",
+            "favorite",
+            "color",
+            "is",
+            "green",
+            "blue"
+          ]
+        },
+        {
+          "type": "cloze_test",
+          "title": "रिक्त स्थान भरें",
+          "sentence": "My _______.",
+          "blank": "green",
+          "translation": "मेरा पसंदीदा रंग हरा है।",
+          "options": [
+            "green",
+            "red",
+            "black"
+          ]
+        },
+        {
+          "type": "listen_tap",
+          "title": "सुनिए और सही शब्दों पर टैप करें",
+          "targetSentence": "This yellow shirt is new",
+          "tokens": [
+            "This",
+            "yellow",
+            "shirt",
+            "is",
+            "new",
+            "old"
+          ],
+          "audioUrl": ""
+        },
+        {
+          "type": "listen_select",
+          "title": "सुनिए और सही अर्थ चुनिए",
+          "spokenGerman": "My shoes are black and clean",
+          "question": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "prompt": "इस वाक्य का सही हिंदी अर्थ क्या है?",
+          "options": [
+            {
+              "text": "मेरे जूते काले और साफ़ हैं।",
+              "isCorrect": true
+            },
+            {
+              "text": "लाल गाड़ी",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "मेरे जूते काले और साफ़ हैं।",
+          "audioUrl": ""
+        },
+        {
+          "type": "type_word",
+          "title": "स्पेलिंग टाइप करें",
+          "prompt": "'गहरा' के लिए अंग्रेज़ी शब्द टाइप करें:",
+          "target": "dark",
+          "translation": "गहरा",
+          "hint": "संकेत: D से शुरू होता है",
+          "audioUrl": ""
+        },
+        {
+          "type": "dialogue_bubble",
+          "title": "बातचीत पूरी करें",
+          "partnerName": "Friend",
+          "partnerAvatar": "dolphina",
+          "partnerMessage": "What is your favorite color?",
+          "translation": "तुम्हारा पसंदीदा रंग कौन सा है?",
+          "options": [
+            {
+              "text": "My favorite color is blue.",
+              "isCorrect": true
+            },
+            {
+              "text": "It is five o'clock.",
+              "isCorrect": false
+            }
+          ],
+          "correctOption": "My favorite color is blue.",
+          "audioUrl": ""
+        },
+        {
+          "type": "sprechen",
+          "title": "बोलकर अभ्यास करें",
+          "prompt": "My favorite color is blue",
+          "translation": "लाल गाड़ी",
+          "minAccuracy": 75,
+          "audioUrl": ""
+        },
+        {
+          "type": "karaoke",
+          "title": "लयबद्ध पाठन (Karaoke Reading)",
+          "storyText": "I am wearing a white shirt and black shoes. My favorite color is blue.",
+          "translationText": "मैंने सफ़ेद कमीज़ और काले जूते पहने हैं। मेरा पसंदीदा रंग नीला है।",
           "audioUrl": ""
         }
       ]
