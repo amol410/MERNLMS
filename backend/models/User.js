@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const { DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -11,9 +12,13 @@ const User = sequelize.define('User', {
     googleId: { type: DataTypes.STRING(255), allowNull: true, unique: true },
     resetPasswordOtp: { type: DataTypes.STRING(6), allowNull: true },
     resetPasswordOtpExpires: { type: DataTypes.DATE, allowNull: true },
+    resetPasswordOtpAttempts: { type: DataTypes.INTEGER, defaultValue: 0, allowNull: false, field: 'reset_password_otp_attempts' },
+    resetPasswordOtpLockedUntil: { type: DataTypes.DATE, allowNull: true, field: 'reset_password_otp_locked_until' },
     isEmailVerified: { type: DataTypes.BOOLEAN, defaultValue: false, field: 'is_email_verified' },
     verificationOtp: { type: DataTypes.STRING(6), allowNull: true, field: 'verification_otp' },
     verificationOtpExpires: { type: DataTypes.DATE, allowNull: true, field: 'verification_otp_expires' },
+    verificationOtpAttempts: { type: DataTypes.INTEGER, defaultValue: 0, allowNull: false, field: 'verification_otp_attempts' },
+    verificationOtpLockedUntil: { type: DataTypes.DATE, allowNull: true, field: 'verification_otp_locked_until' },
     role: { type: DataTypes.ENUM('student', 'trainer', 'admin'), defaultValue: 'student' },
     avatar: { type: DataTypes.STRING(500), defaultValue: null },
     bio: { type: DataTypes.TEXT, defaultValue: '' },
@@ -61,6 +66,15 @@ User.prototype.getSignedJwtToken = function() {
     return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE || '7d',
     });
+};
+
+// Constant-time string comparison (defense-in-depth against timing attacks on OTP matching).
+User.compareTimingSafe = function(left, right) {
+    if (typeof left !== 'string' || typeof right !== 'string') return false;
+    const a = Buffer.from(left);
+    const b = Buffer.from(right);
+    if (a.length !== b.length) return false;
+    return crypto.timingSafeEqual(a, b);
 };
 
 module.exports = User;

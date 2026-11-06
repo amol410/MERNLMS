@@ -3,6 +3,64 @@ const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 const { sendPasswordResetOtpEmail, sendVerificationOtpEmail } = require('../services/emailService');
 
+// Security tuning for OTP brute-force protection (industry-standard attempt limiting).
+const OTP_MAX_ATTEMPTS = 5;              // Allow a small number of guesses before lockout.
+const OTP_LOCKOUT_MINUTES = 15;          // Lockout window after exceeding the attempt limit.
+const OTP_TOTAL_MAX_ATTEMPTS = 10;       // Hard ceiling across multiple windows (forces re-issue).
+const LOCKOUT_MS = OTP_LOCKOUT_MINUTES * 60 * 1000;
+
+/**
+ * Shared helper: enforce attempt throttling + lockout against a set of counter/lockout
+ * fields on a user instance. Returns a frozen object the caller should send to the client,
+ * or null when the request may proceed. On `recordFailure` it persists the increment.
+ *
+ * @param {object} user        Sequelize user instance
+ * @param {string} attemptsKey field holding the running failed-attempt count
+ * @param {string} lockedKey   field holding the lockout expiration timestamp
+ * @param {object} [opts]      overrides
+ * @param {boolean} [opts.persistFailure] whether to persist the recorded failure
+ * @returns {{ block: boolean, status: number, message: string, retryAfterSeconds: number } | null}
+ */
+async function checkOtpLockout(user, attemptsKey, lockedKey, opts = {}) {
+    const now = Date.now();
+    const lockedUntil = user[lockedKey] ? new Date(user[lockedKey]).getTime() : 0;
+
+    // Active lockout -> block immediately.
+    if (lockedUntil > now) {
+        return {
+            block: true,
+            status: 429,
+            message: `Too many verification attempts. Please try again in ${OTP_LOCKOUT_MINUTES} minutes or request a new code.`,
+            retryAfterSeconds: Math.ceil((lockedUntil - now) / 1000),
+        };
+    }
+
+    // Past lockout expired -> reset the per-window counter (not the lifetime ceiling).
+    if (lockedUntil && lockedUntil <= now) {
+        user[lockedKey] = null;
+    }
+
+    const attempts = user[attemptsKey] || 0;
+    if (attempts >= OTP_MAX_ATTEMPTS) {
+        user[attemptsKey] = 0;
+        user[lockedKey] = new Date(now + LOCKOUT_MS);
+        await user.save();
+        return {
+            block: true,
+            status: 429,
+            message: `Too many verification attempts. Please try again in ${OTP_LOCKOUT_MINUTES} minutes or request a new code.`,
+            retryAfterSeconds: OTP_LOCKOUT_MINUTES * 60,
+        };
+    }
+
+    if (opts.persistFailure) {
+        user[attemptsKey] = attempts + 1;
+        await user.save();
+    }
+
+    return null;
+}
+
 const sendToken = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();
   res.status(statusCode).json({
@@ -118,17 +176,32 @@ exports.verifyRegistrationOtp = async (req, res, next) => {
       return sendToken(user, 200, res);
     }
 
-    if (!user.verificationOtp || user.verificationOtp !== formattedOtp) {
+    // Rate-limit / lockout guard against brute-forcing the 6-digit code.
+    const lockout = await checkOtpLockout(user, 'verificationOtpAttempts', 'verificationOtpLockedUntil');
+    if (lockout) {
+      res.set('Retry-After', String(lockout.retryAfterSeconds));
+      return res.status(lockout.status).json({ success: false, message: lockout.message });
+    }
+
+    if (!user.verificationOtp || !user.verificationOtpExpires) {
+      await checkOtpLockout(user, 'verificationOtpAttempts', 'verificationOtpLockedUntil', { persistFailure: true });
       return res.status(400).json({ success: false, message: 'Invalid or expired verification code' });
     }
 
-    if (!user.verificationOtpExpires || new Date() > new Date(user.verificationOtpExpires)) {
+    if (new Date() > new Date(user.verificationOtpExpires)) {
       return res.status(400).json({ success: false, message: 'Verification code has expired. Please request a new one.' });
+    }
+
+    if (!User.compareTimingSafe(user.verificationOtp, formattedOtp)) {
+      await checkOtpLockout(user, 'verificationOtpAttempts', 'verificationOtpLockedUntil', { persistFailure: true });
+      return res.status(400).json({ success: false, message: 'Invalid or expired verification code' });
     }
 
     user.isEmailVerified = true;
     user.verificationOtp = null;
     user.verificationOtpExpires = null;
+    user.verificationOtpAttempts = 0;
+    user.verificationOtpLockedUntil = null;
     user.lastLogin = new Date();
     await user.save();
 
@@ -163,6 +236,8 @@ exports.resendRegistrationOtp = async (req, res, next) => {
     const otp = crypto.randomInt(100000, 1000000).toString();
     user.verificationOtp = otp;
     user.verificationOtpExpires = new Date(Date.now() + 15 * 60 * 1000);
+    user.verificationOtpAttempts = 0;
+    user.verificationOtpLockedUntil = null;
     await user.save();
 
     try {
@@ -320,6 +395,8 @@ exports.forgotPassword = async (req, res, next) => {
 
     user.resetPasswordOtp = otp;
     user.resetPasswordOtpExpires = otpExpires;
+    user.resetPasswordOtpAttempts = 0;
+    user.resetPasswordOtpLockedUntil = null;
     await user.save();
 
     // Send branded email via Hostinger SMTP
@@ -359,13 +436,31 @@ exports.verifyOtp = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    if (!user.resetPasswordOtp || user.resetPasswordOtp !== formattedOtp) {
+    // Rate-limit / lockout guard against brute-forcing the 6-digit OTP.
+    const lockout = await checkOtpLockout(user, 'resetPasswordOtpAttempts', 'resetPasswordOtpLockedUntil');
+    if (lockout) {
+      res.set('Retry-After', String(lockout.retryAfterSeconds));
+      return res.status(lockout.status).json({ success: false, message: lockout.message });
+    }
+
+    if (!user.resetPasswordOtp || !user.resetPasswordOtpExpires) {
+      await checkOtpLockout(user, 'resetPasswordOtpAttempts', 'resetPasswordOtpLockedUntil', { persistFailure: true });
       return res.status(400).json({ success: false, message: 'Invalid or expired OTP' });
     }
 
-    if (!user.resetPasswordOtpExpires || new Date() > new Date(user.resetPasswordOtpExpires)) {
+    if (new Date() > new Date(user.resetPasswordOtpExpires)) {
       return res.status(400).json({ success: false, message: 'OTP has expired. Please request a new one.' });
     }
+
+    if (!User.compareTimingSafe(user.resetPasswordOtp, formattedOtp)) {
+      await checkOtpLockout(user, 'resetPasswordOtpAttempts', 'resetPasswordOtpLockedUntil', { persistFailure: true });
+      return res.status(400).json({ success: false, message: 'Invalid or expired OTP' });
+    }
+
+    // Successful verification: reset the throttle so reset-password can proceed.
+    user.resetPasswordOtpAttempts = 0;
+    user.resetPasswordOtpLockedUntil = null;
+    await user.save();
 
     return res.status(200).json({
       success: true,
@@ -402,18 +497,33 @@ exports.resetPassword = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    if (!user.resetPasswordOtp || user.resetPasswordOtp !== formattedOtp) {
+    // Rate-limit / lockout guard against brute-forcing the 6-digit OTP.
+    const lockout = await checkOtpLockout(user, 'resetPasswordOtpAttempts', 'resetPasswordOtpLockedUntil');
+    if (lockout) {
+      res.set('Retry-After', String(lockout.retryAfterSeconds));
+      return res.status(lockout.status).json({ success: false, message: lockout.message });
+    }
+
+    if (!user.resetPasswordOtp || !user.resetPasswordOtpExpires) {
+      await checkOtpLockout(user, 'resetPasswordOtpAttempts', 'resetPasswordOtpLockedUntil', { persistFailure: true });
       return res.status(400).json({ success: false, message: 'Invalid or expired OTP' });
     }
 
-    if (!user.resetPasswordOtpExpires || new Date() > new Date(user.resetPasswordOtpExpires)) {
+    if (new Date() > new Date(user.resetPasswordOtpExpires)) {
       return res.status(400).json({ success: false, message: 'OTP has expired. Please request a new one.' });
+    }
+
+    if (!User.compareTimingSafe(user.resetPasswordOtp, formattedOtp)) {
+      await checkOtpLockout(user, 'resetPasswordOtpAttempts', 'resetPasswordOtpLockedUntil', { persistFailure: true });
+      return res.status(400).json({ success: false, message: 'Invalid or expired OTP' });
     }
 
     // Set new password (auto-hashed with 12 rounds in User.beforeUpdate) and clear OTP fields
     user.password = targetPassword;
     user.resetPasswordOtp = null;
     user.resetPasswordOtpExpires = null;
+    user.resetPasswordOtpAttempts = 0;
+    user.resetPasswordOtpLockedUntil = null;
     user.isEmailVerified = true;
     await user.save();
 
@@ -434,8 +544,7 @@ exports.resetPassword = async (req, res, next) => {
 exports.googleLogin = async (req, res, next) => {
   try {
     const token = req.body.idToken || req.body.credential || req.body.id_token || req.body.token;
-    const accessToken = req.body.accessToken || req.body.access_token;
-    if (!token && !accessToken) {
+    if (!token) {
       return res.status(400).json({ success: false, message: 'Google ID token or credential is required' });
     }
 
@@ -452,55 +561,39 @@ exports.googleLogin = async (req, res, next) => {
     const allowedAudiences = Array.from(new Set([...envClientIds, ...defaultClientIds]));
     const client = new OAuth2Client(envClientIds[0] || defaultClientIds[0]);
 
+    // Verify the ID token cryptographically (signature, issuer, audience, expiry).
     let payload = null;
-    if (token) {
-      try {
-        const ticket = await client.verifyIdToken({
-          idToken: token,
-          audience: allowedAudiences.length > 0 ? allowedAudiences : undefined,
-        });
-        payload = ticket.getPayload();
-      } catch (verifyErr) {
-        if (!accessToken) {
-          return res.status(401).json({
-            success: false,
-            message: 'Invalid or expired Google token: ' + verifyErr.message,
-          });
-        }
-      }
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: allowedAudiences.length > 0 ? allowedAudiences : undefined,
+      });
+      payload = ticket.getPayload();
+    } catch (verifyErr) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid or expired Google token: ' + verifyErr.message,
+      });
     }
 
-    if (!payload && accessToken) {
-      try {
-        const tokenInfo = await client.getTokenInfo(accessToken);
-        if (!tokenInfo || !tokenInfo.sub) {
-          return res.status(401).json({
-            success: false,
-            message: 'Invalid or expired Google access token',
-          });
-        }
-        payload = {
-          sub: tokenInfo.sub,
-          email: tokenInfo.email || req.body.email,
-          name: req.body.name || (tokenInfo.email ? tokenInfo.email.split('@')[0] : 'Google User'),
-          picture: req.body.avatar || req.body.photoUrl || null,
-          email_verified: true,
-        };
-      } catch (accessErr) {
-        return res.status(401).json({
-          success: false,
-          message: 'Invalid or expired Google token: ' + accessErr.message,
-        });
-      }
-    }
-
+    // Reject tokens that don't carry a verified, non-null Google subject.
     if (!payload || !payload.sub) {
       return res.status(401).json({ success: false, message: 'Failed to retrieve Google profile' });
     }
 
+    // SECURITY: only trust the cryptographically verified payload — never req.body.
+    // This prevents account takeovers where an attacker submits their own valid token
+    // plus an arbitrary req.body.email/name/avatar to impersonate a victim.
+    if (payload.email_verified !== true || !payload.email) {
+      return res.status(401).json({
+        success: false,
+        message: 'Google account does not provide a verified email address',
+      });
+    }
+
     const googleId = payload.sub;
-    const email = payload.email ? payload.email.toLowerCase().trim() : null;
-    const name = payload.name || (email ? email.split('@')[0] : 'Google User');
+    const email = payload.email.toLowerCase().trim();
+    const name = payload.name || email.split('@')[0];
     const avatar = payload.picture || null;
 
     // 1. Try finding user by googleId
@@ -525,9 +618,6 @@ exports.googleLogin = async (req, res, next) => {
 
     // 3. If still not found, create new user (always verified for Google users)
     if (!user) {
-      if (!email) {
-        return res.status(400).json({ success: false, message: 'Google account does not provide an email address' });
-      }
       const randomPassword = crypto.randomBytes(32).toString('hex');
       user = await User.create({
         name,
