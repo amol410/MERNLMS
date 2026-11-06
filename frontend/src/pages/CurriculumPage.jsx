@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
-  Compass, Plus, Upload, ListPlus, Search, Filter, Sparkles,
+  Compass, Plus, Upload, Download, ListPlus, Search, Filter, Sparkles,
   Layers, CheckCircle2, AlertCircle, Edit3, Trash2, Eye, EyeOff,
   Headphones, Mic, Music, Trophy, ChevronRight, ChevronLeft, ChevronDown, ChevronUp,
   RefreshCw, Globe, MessageSquare, Type, HelpCircle, Check, ArrowUp, ArrowDown
@@ -242,6 +242,8 @@ export default function CurriculumPage() {
   const [loading, setLoading] = useState(true);
   const [unitsSummary, setUnitsSummary] = useState([]);
   const [togglingUnit, setTogglingUnit] = useState(false);
+  const [downloadingSection, setDownloadingSection] = useState(false);
+  const [downloadingUnit, setDownloadingUnit] = useState(false);
 
   // Modals
   const [outlineModalOpen, setOutlineModalOpen] = useState(false);
@@ -455,6 +457,150 @@ export default function CurriculumPage() {
     setEditorModalOpen(true);
   };
 
+  // Helper to format a lesson cleanly for AI prompting & re-upload compatibility
+  const formatLessonForExport = (lesson, idx) => ({
+    id: lesson.id || lesson._id,
+    lessonIndex: lesson.lessonIndex !== undefined ? lesson.lessonIndex : idx,
+    title: lesson.title || '',
+    subtitle: lesson.subtitle || '',
+    nodeType: lesson.nodeType || 'lesson',
+    xpReward: lesson.xpReward ?? 15,
+    pearlsReward: lesson.pearlsReward ?? 5,
+    isLive: Boolean(lesson.isLive),
+    stages: Array.isArray(lesson.stages) ? lesson.stages : [],
+    ...(lesson.karaokeData ? { karaokeData: lesson.karaokeData } : {}),
+    ...(lesson.audioUrl ? { audioUrl: lesson.audioUrl } : {}),
+  });
+
+  // Download complete section JSON (Units 1-35, 36-70, etc.)
+  const handleDownloadSectionJson = async () => {
+    setDownloadingSection(true);
+    try {
+      const res = await api.get('/curriculum/lessons', {
+        params: {
+          learningLanguage,
+          nativeLanguage,
+          level,
+          sectionNumber: selectedSection,
+        },
+      });
+
+      const fetchedLessons = res.data?.lessons || [];
+      if (!fetchedLessons.length) {
+        toast.error(`No lessons found for Section ${selectedSection} (${learningLanguage.toUpperCase()} ${level})`);
+        return;
+      }
+
+      // Group lessons by unitNumber
+      const unitsMap = new Map();
+      fetchedLessons.forEach(l => {
+        const uNum = l.unitNumber;
+        if (!unitsMap.has(uNum)) {
+          const metaUnit = unitsSummary.find(u => u.unitNumber === uNum);
+          unitsMap.set(uNum, {
+            sectionNumber: selectedSection,
+            sectionTitle: currentSectionMeta.title,
+            unitNumber: uNum,
+            unitTitle: l.unitTitle || metaUnit?.unitTitle || `Unit ${uNum}`,
+            unitDescription: l.unitDescription || metaUnit?.unitDescription || '',
+            lessonsCount: 0,
+            lessons: [],
+          });
+        }
+        const unitObj = unitsMap.get(uNum);
+        unitObj.lessons.push(formatLessonForExport(l, unitObj.lessons.length));
+        unitObj.lessonsCount = unitObj.lessons.length;
+      });
+
+      const units = Array.from(unitsMap.values()).sort((a, b) => a.unitNumber - b.unitNumber);
+
+      const exportData = {
+        courseTitle: `${learningLanguage.toUpperCase()} ${level} Comprehensive Curriculum (${nativeLanguage.toUpperCase()} Native)`,
+        learningLanguage,
+        nativeLanguage,
+        level,
+        sectionNumber: selectedSection,
+        sectionTitle: currentSectionMeta.title,
+        totalSections: 3,
+        totalUnits: units.length,
+        totalLessons: fetchedLessons.length,
+        exportedAt: new Date().toISOString(),
+        units,
+      };
+
+      const jsonStr = JSON.stringify(exportData, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `curriculum_${learningLanguage}_${nativeLanguage}_${level}_section_${selectedSection}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      toast.success(`Exported Section ${selectedSection} (${fetchedLessons.length} lessons in ${units.length} units)!`);
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to download section JSON');
+    } finally {
+      setDownloadingSection(false);
+    }
+  };
+
+  // Download active unit JSON (single unit)
+  const handleDownloadUnitJson = async () => {
+    setDownloadingUnit(true);
+    try {
+      let unitLessons = lessons;
+      if (!unitLessons.length || unitLessons[0]?.unitNumber !== unitNumber) {
+        const res = await api.get('/curriculum/lessons', {
+          params: {
+            learningLanguage,
+            nativeLanguage,
+            level,
+            unitNumber,
+          },
+        });
+        unitLessons = res.data?.lessons || [];
+      }
+
+      if (!unitLessons.length) {
+        toast.error(`No lessons found for Unit ${unitNumber}`);
+        return;
+      }
+
+      const exportData = {
+        learningLanguage,
+        nativeLanguage,
+        level,
+        unitNumber,
+        unitTitle,
+        unitDescription,
+        sectionNumber: selectedSection,
+        totalLessons: unitLessons.length,
+        exportedAt: new Date().toISOString(),
+        lessons: unitLessons.map(formatLessonForExport),
+      };
+
+      const jsonStr = JSON.stringify(exportData, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `curriculum_${learningLanguage}_${nativeLanguage}_${level}_unit_${unitNumber}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      toast.success(`Exported Unit ${unitNumber} (${unitLessons.length} lessons)!`);
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to download unit JSON');
+    } finally {
+      setDownloadingUnit(false);
+    }
+  };
+
   // Open editor for new lesson
   const handleCreateNewLesson = () => {
     setEditingLesson(null);
@@ -512,6 +658,16 @@ export default function CurriculumPage() {
           >
             <Upload className="w-4 h-4 text-emerald-400" />
             Bulk Upload
+          </button>
+
+          <button
+            onClick={handleDownloadSectionJson}
+            disabled={downloadingSection}
+            className="btn-secondary text-xs flex items-center gap-2 cursor-pointer hover:border-purple-400 text-purple-300 border-purple-500/30 bg-purple-500/10"
+            title={`Download complete Section ${selectedSection} JSON for AI editing`}
+          >
+            <Download className="w-4 h-4 text-purple-400" />
+            {downloadingSection ? 'Exporting...' : `Download Section ${selectedSection} JSON`}
           </button>
 
           <button
@@ -833,6 +989,17 @@ export default function CurriculumPage() {
                       <span>Publish All Live</span>
                     </>
                   )}
+                </button>
+
+                <button
+                  type="button"
+                  disabled={downloadingUnit || totalLessons === 0}
+                  onClick={handleDownloadUnitJson}
+                  className="px-3 py-2 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/15 text-cyan-300 hover:bg-cyan-500/25 transition-all flex items-center gap-1.5 cursor-pointer shadow-md"
+                  title={`Download Unit ${unitNumber} JSON for AI editing`}
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>{downloadingUnit ? 'Exporting...' : 'Export Unit JSON'}</span>
                 </button>
 
                 <button
