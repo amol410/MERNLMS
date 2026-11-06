@@ -1,4 +1,5 @@
 const { Op } = require('sequelize');
+const { sequelize } = require('../config/database');
 const Quiz = require('../models/Quiz');
 const QuizAttempt = require('../models/QuizAttempt');
 const User = require('../models/User');
@@ -231,12 +232,7 @@ exports.submitAttempt = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Attempt limit reached' });
     }
 
-    // Clean replacement: erase prior attempts for this quiz and user so only latest is kept
-    await QuizAttempt.destroy({
-      where: { quizId: quiz.id, studentId: req.user.id },
-    });
-
-    // Grade answers — match by question._id (index assigned at creation)
+    // Step A: Grade answers in memory BEFORE touching the database
     const gradedAnswers = quiz.questions.map((question, index) => {
       const qId = question._id ?? index;
       const submittedAnswer = answers && Array.isArray(answers)
@@ -283,28 +279,39 @@ exports.submitAttempt = async (req, res, next) => {
     const percentage = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
     const passed = percentage >= quiz.passingScore;
 
-    const attempt = await QuizAttempt.create({
-      quizId: quiz.id,
-      studentId: req.user.id,
-      answers: gradedAnswers,
-      score, maxScore, percentage, passed, attemptNumber,
-      startedAt: startedAt ? new Date(startedAt) : new Date(),
-      submittedAt: new Date(),
-      timeTakenSecs,
-    });
+    const quizWithSubject = await Quiz.findByPk(quiz.id, { include: [subjectInclude] });
 
-    // Clean replacement in activity log:
-    // Remove previous activity entry for this user and quiz so it only appears on the most recent date
-    try {
+    // Step B: Atomic database replacement via managed transaction
+    // Guarantees prior attempt & activity records are preserved if a timeout or crash occurs
+    const attempt = await sequelize.transaction(async (t) => {
+      await QuizAttempt.destroy({
+        where: { quizId: quiz.id, studentId: req.user.id },
+        transaction: t,
+      });
+
+      const newAttempt = await QuizAttempt.create({
+        quizId: quiz.id,
+        studentId: req.user.id,
+        answers: gradedAnswers,
+        score,
+        maxScore,
+        percentage,
+        passed,
+        attemptNumber,
+        startedAt: startedAt ? new Date(startedAt) : new Date(),
+        submittedAt: new Date(),
+        timeTakenSecs,
+      }, { transaction: t });
+
       await UserActivity.destroy({
         where: {
           userId: req.user.id,
           activityType: 'quiz',
           resourceId: quiz.id,
         },
+        transaction: t,
       });
 
-      const quizWithSubject = await Quiz.findByPk(quiz.id, { include: [subjectInclude] });
       await UserActivity.create({
         userId: req.user.id,
         activityType: 'quiz',
@@ -313,7 +320,7 @@ exports.submitAttempt = async (req, res, next) => {
         subjectName: quizWithSubject?.subject?.name || null,
         topicName: quiz.topic || null,
         metadata: {
-          attemptId: attempt.id,
+          attemptId: newAttempt.id,
           attemptCount: attemptNumber,
           timeTakenSecs: timeTakenSecs || 0,
           score,
@@ -322,10 +329,10 @@ exports.submitAttempt = async (req, res, next) => {
           passed
         },
         activityDate: getClientDate(req),
-      });
-    } catch (logErr) {
-      console.error('Activity log error (quiz):', logErr.message);
-    }
+      }, { transaction: t });
+
+      return newAttempt;
+    });
 
     const result = {
       attempt,
