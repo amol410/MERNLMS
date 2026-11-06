@@ -42,9 +42,9 @@ if (process.env.NODE_ENV === 'test') {
             dialect: 'mysql',
             logging: process.env.NODE_ENV === 'development' ? console.log : false,
             pool: {
-                max: 5,
-                min: 0,
-                acquire: 30000,
+                max: process.env.DB_POOL_MAX ? parseInt(process.env.DB_POOL_MAX, 10) : 10,
+                min: process.env.DB_POOL_MIN ? parseInt(process.env.DB_POOL_MIN, 10) : 1,
+                acquire: process.env.DB_POOL_ACQUIRE ? parseInt(process.env.DB_POOL_ACQUIRE, 10) : 15000,
                 idle: 10000,
             },
         }
