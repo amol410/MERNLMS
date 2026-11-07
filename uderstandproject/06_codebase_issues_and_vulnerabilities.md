@@ -589,6 +589,7 @@ The audit evaluated the source code using multiple analytical lenses:
 - **Remediation Strategy:**
   1. Use Redis as the backing store for `express-rate-limit` (`rate-limit-redis`).
   2. Store app version configuration in the MySQL database rather than writing to local disk files.
+- **Status Update (Classroom NAT & Shared IP Mitigation):** Authenticated route rate limiting has been migrated from IP-based (`req.ip`) to student-based (`usr_${decoded.id}`) in `backend/server.js`, preventing 50+ students on a shared school Wi-Fi NAT IP from exhausting each other's quota. Public authentication burst limit was also scaled to 1,000 requests / 15 min to prevent classroom login barriers.
 
 ---
 

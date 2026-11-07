@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const path = require('path');
 
@@ -33,8 +34,35 @@ app.use(compression({
     threshold: 1024,
 }));
 
-const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 400, message: { success: false, message: 'Too many requests, please try again later.' } });
-const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100, message: { success: false, message: 'Too many auth requests, please try again later.' } });
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: process.env.RATE_LIMIT_API_MAX ? parseInt(process.env.RATE_LIMIT_API_MAX, 10) : 1000,
+    standardHeaders: true,
+    legacyHeaders: false,
+    validate: { trustProxy: false },
+    keyGenerator: (req) => {
+        if (req.headers && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+            const token = req.headers.authorization.split(' ')[1];
+            try {
+                const decoded = jwt.decode(token);
+                if (decoded && decoded.id) {
+                    return `usr_${decoded.id}`;
+                }
+            } catch (_) {}
+        }
+        return req.ip || 'anonymous';
+    },
+    message: { success: false, message: 'Too many requests, please slow down and try again.' }
+});
+
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: process.env.RATE_LIMIT_AUTH_MAX ? parseInt(process.env.RATE_LIMIT_AUTH_MAX, 10) : 1000,
+    standardHeaders: true,
+    legacyHeaders: false,
+    validate: { trustProxy: false },
+    message: { success: false, message: 'Too many auth requests from this network, please try again later.' }
+});
 
 app.use('/api/', limiter);
 app.use(express.json({ limit: '10mb' }));
