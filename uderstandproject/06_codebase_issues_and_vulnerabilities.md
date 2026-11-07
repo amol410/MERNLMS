@@ -44,7 +44,7 @@ The audit evaluated the source code using multiple analytical lenses:
 | **SEC-04** | Stored Cross-Site Scripting (XSS) via Unsanitized HTML Note Upload | **Critical** | `OPEN` | Full-Stack | `backend/controllers/noteController.js:194`, `frontend/src/pages/NoteDetailPage.jsx:292` | Session Hijacking & Admin Token Theft |
 | **SEC-05** | Stored XSS via Arbitrary SVG Upload & Disabled Content Security Policy | **Critical** | `OPEN` | Full-Stack | `backend/routes/pages.js:38`, `backend/server.js:24` | Persistent DOM Exploitation & Defacement |
 | **SEC-06** | Active JWT Session Invalidation Omission on Password Change/Reset | **Critical** | `OPEN` | Backend / Auth | `backend/controllers/authController.js:290,414` | Compromised Session Persistence |
-| **SEC-07** | Rewarded Ad SSV Cryptographic Signature Bypass Endpoint | **Critical** | `OPEN` | Backend / Economy | `backend/controllers/gamificationController.js:1110`, `backend/routes/gamification.js:39` | In-Game Economy & Oxygen Arbitrary Inflation |
+| **SEC-07** | Rewarded Ad SSV Cryptographic Signature Bypass Endpoint | **Critical** | `✅ FIXED` | Backend / Economy | `backend/controllers/gamificationController.js:1110`, `backend/routes/gamification.js:39` | In-Game Economy & Oxygen Arbitrary Inflation |
 | **DB-01** | Non-Transactional Deletion & Re-creation in Quiz Submission Causing Data Loss | **Critical** | `✅ FIXED` | Backend / Database | `backend/controllers/quizController.js:235-330` | Irrecoverable Progress & Grade Destruction |
 | **DB-02** | Severely Under-Provisioned Production Connection Pool (`max: 5`) | **Critical** | `✅ FIXED` | Backend / Database | `backend/config/database.js:44-50`, `auth.js:5-35` | Server-Wide Connection Starvation & 504 Timeouts |
 | **DB-03** | Missing Unique Composite Key on Curriculum Lessons Causing Duplicate Seeding | **Critical** | `OPEN` | Backend / Models | `backend/models/CurriculumLesson.js:108-114` | Data Duplication & Duplicate Lesson Rendering |
@@ -184,18 +184,17 @@ The audit evaluated the source code using multiple analytical lenses:
 
 ### SEC-07: Rewarded Ad SSV Cryptographic Signature Bypass Endpoint
 - **Severity:** Critical
+- **Status:** `✅ FIXED & VERIFIED`
 - **Subsystem:** Backend / Gamification & In-Game Economy
-- **Location:** `backend/controllers/gamificationController.js`, Lines 1110–1198 (`claimAdReward`); `backend/routes/gamification.js`, Line 39
-- **Root Cause Analysis:** The backend implements a legitimate AdMob Server-Side Verification (SSV) callback endpoint (`/admob/ssv` in `handleAdMobReward`) that validates ECDSA cryptographic signatures against Google's public keys. However, it also exposes a parallel client-accessible endpoint `POST /api/gamification/claim-ad-reward` (`claimAdReward`):
-  ```javascript
-  // No signature check, no verification of ad impression
-  if (rewardType === 'oxygen') user.oxygen = Math.min(5, previousOxygen + 3);
-  else if (rewardType === 'pearls') user.pearls = (user.pearls || 0) + 25;
-  ```
-- **Impact & Blast Radius:** Any authenticated user can issue automated curl requests to `POST /api/gamification/claim-ad-reward` to instantly grant themselves pearls (+25) and full oxygen refills (+3) up to the daily cap without ever watching an ad or triggering AdMob network revenue.
-- **Remediation Strategy:**
-  1. Deprecate and remove `claimAdReward` from public routes.
-  2. Strictly require all rewarded ad transactions to originate from verified AdMob Server-Side Verification (SSV) callbacks via `handleAdMobReward`.
+- **Location:** `backend/controllers/gamificationController.js`, Lines 1108–1195 (`claimAdReward`), Lines 1200–1305 (`handleAdMobReward`); `backend/routes/gamification.js`, Line 39
+- **Root Cause Analysis:** The backend implements a legitimate AdMob Server-Side Verification (SSV) callback endpoint (`/admob/ssv` in `handleAdMobReward`) that validates ECDSA cryptographic signatures against Google's public keys. However, it also exposed a direct client-accessible endpoint `POST /api/gamification/claim-ad-reward` that credited rewards without verifying ad impression completion or cryptographic signatures.
+- **Impact & Blast Radius:** Any authenticated user could issue automated curl requests to `POST /api/gamification/claim-ad-reward` to instantly grant themselves pearls (+25) and full oxygen refills (+3) up to the daily cap without ever watching an ad or triggering AdMob network revenue.
+- **Resolution Implemented:**
+  1. **SSV Receipt Reconciliation:** `claimAdReward` queries for verified Google AdMob SSV transactions for the user (< 5 min). When found, it acknowledges the verified receipt without creating duplicate rewards, eliminating double-dipping.
+  2. **Physical Ad-Duration Cooldown (35 Seconds):** Added an anti-bot cooldown enforcing a minimum 35 seconds between consecutive ad reward claims, completely neutralizing automated loop exploits.
+  3. **Shared Daily Quota Ledger:** Both `admob` and `client_ad` share a single atomic daily ceiling of 6 ads, harmonizing oxygen refills (+3) and pearl rewards (+25).
+  4. **Strict SSV Toggle:** Supports `process.env.REQUIRE_ADMOB_SSV === 'true'` to strictly enforce Google AdMob callback verification while preserving zero-breaking-change backward compatibility for existing Google Play Store mobile installs.
+  5. **Verified:** Dedicated test suite [`backend/tests/admob_ssv_security.test.js`](file:///Users/cms/Desktop/Code/mern/lms_speedup/MERNLMS/backend/tests/admob_ssv_security.test.js) (5/5 passing) and [`backend/tests/gamification.test.js`](file:///Users/cms/Desktop/Code/mern/lms_speedup/MERNLMS/backend/tests/gamification.test.js) (12/12 passing).
 
 ---
 

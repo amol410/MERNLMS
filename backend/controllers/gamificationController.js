@@ -1114,6 +1114,8 @@ exports.claimAdReward = async (req, res, next) => {
             return res.status(400).json({ success: false, message: 'Invalid rewardType. Expected: oxygen, pearls, or double_xp' });
         }
 
+        const requireAdmobSsv = process.env.REQUIRE_ADMOB_SSV === 'true';
+
         const result = await sequelize.transaction(async transaction => {
             const user = await User.findByPk(userId, {
                 transaction,
@@ -1123,6 +1125,80 @@ exports.claimAdReward = async (req, res, next) => {
 
             const todayStart = new Date();
             todayStart.setUTCHours(0, 0, 0, 0);
+
+            // 1. Check for recent cryptographically verified AdMob SSV transaction (within last 5 minutes)
+            const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+            const recentSsvTx = await RewardTransaction.findOne({
+                where: {
+                    userId,
+                    kind: 'admob',
+                    createdAt: { [Op.gte]: fiveMinutesAgo },
+                },
+                order: [['createdAt', 'DESC']],
+                transaction,
+            });
+
+            if (recentSsvTx) {
+                const resp = recentSsvTx.responseBody || {};
+                if (!resp.reconciledByClient) {
+                    resp.reconciledByClient = true;
+                    recentSsvTx.responseBody = resp;
+                    await recentSsvTx.save({ transaction });
+                }
+                return {
+                    status: 200,
+                    body: {
+                        success: true,
+                        message: 'Reward confirmed via verified AdMob SSV.',
+                        verifiedByAdMob: true,
+                        rewardType: resp.rewardType || rewardType,
+                        oxygenEarned: recentSsvTx.oxygenEarned,
+                        pearlsEarned: recentSsvTx.pearlsEarned,
+                        xpEarned: recentSsvTx.xpEarned,
+                        oxygen: user.oxygen,
+                        pearls: user.pearls,
+                        totalXp: user.totalXp,
+                    }
+                };
+            }
+
+            // 2. If strict SSV mode is enabled and no verified AdMob callback was received, reject
+            if (requireAdmobSsv) {
+                return {
+                    status: 400,
+                    body: {
+                        success: false,
+                        message: 'Ad reward must be verified via AdMob SSV callback.'
+                    }
+                };
+            }
+
+            // 3. Transitional Mode: Enforce physical ad-duration cooldown (minimum 35 seconds between claims)
+            const latestAdTx = await RewardTransaction.findOne({
+                where: {
+                    userId,
+                    kind: { [Op.in]: ['admob', 'client_ad'] },
+                },
+                order: [['createdAt', 'DESC']],
+                transaction,
+            });
+
+            if (latestAdTx) {
+                const elapsedMs = Date.now() - new Date(latestAdTx.createdAt).getTime();
+                const MIN_AD_COOLDOWN_MS = 35 * 1000;
+                if (elapsedMs < MIN_AD_COOLDOWN_MS) {
+                    const waitSec = Math.ceil((MIN_AD_COOLDOWN_MS - elapsedMs) / 1000);
+                    return {
+                        status: 429,
+                        body: {
+                            success: false,
+                            message: `Please wait ${waitSec}s for the ad to complete before claiming rewards.`
+                        }
+                    };
+                }
+            }
+
+            // 4. Daily hard limit check (max 6 rewarded ads per 24 hours across admob and client_ad)
             const adsToday = await RewardTransaction.count({
                 where: {
                     userId,
@@ -1248,7 +1324,11 @@ exports.handleAdMobReward = async (req, res, next) => {
             const todayStart = new Date();
             todayStart.setUTCHours(0, 0, 0, 0);
             const adsToday = await RewardTransaction.count({
-                where: { userId, kind: 'admob', createdAt: { [Op.gte]: todayStart } },
+                where: {
+                    userId,
+                    kind: { [Op.in]: ['admob', 'client_ad'] },
+                    createdAt: { [Op.gte]: todayStart },
+                },
                 transaction,
             });
             if (adsToday >= 6) {
@@ -1260,7 +1340,7 @@ exports.handleAdMobReward = async (req, res, next) => {
             let oxygenEarned = 0;
             if (rewardType === 'oxygen') {
                 const previousOxygen = user.oxygen || 0;
-                user.oxygen = Math.min(5, previousOxygen + 2);
+                user.oxygen = Math.min(5, previousOxygen + 3);
                 user.lastOxygenRefill = new Date();
                 oxygenEarned = user.oxygen - previousOxygen;
             } else if (rewardType === 'pearls') {
@@ -1282,6 +1362,7 @@ exports.handleAdMobReward = async (req, res, next) => {
             const responseBody = {
                 success: true,
                 transactionId,
+                rewardType,
                 xpEarned,
                 pearlsEarned,
                 oxygenEarned,
@@ -1289,6 +1370,7 @@ exports.handleAdMobReward = async (req, res, next) => {
                 pearls: user.pearls,
                 totalXp: user.totalXp,
                 idempotentReplay: false,
+                reconciledByClient: false,
             };
             await RewardTransaction.create({
                 userId,
