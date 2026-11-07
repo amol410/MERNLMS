@@ -32,6 +32,25 @@ function invalidateUserCache(userId) {
   }
 }
 
+/**
+ * SEC-06: decides whether a JWT still represents a live session.
+ *
+ * Backward compatibility note: tokens minted before this feature existed carry
+ * no `tokenVersion` claim. Those are treated as version 0, which matches the
+ * column default for every existing user, so deploying this change does not
+ * log anybody out. Only an explicit password change/reset rotates the version
+ * and revokes older tokens.
+ *
+ * @param {object} decoded - verified JWT payload
+ * @param {object} user - the persisted user row
+ * @returns {boolean} true when the token has not been revoked
+ */
+function isTokenVersionCurrent(decoded, user) {
+  const tokenVersion = decoded.tokenVersion;
+  if (tokenVersion === undefined || tokenVersion === null) return true; // legacy token
+  return Number(tokenVersion) === Number(user.tokenVersion || 0);
+}
+
 const protect = async (req, res, next) => {
   let token;
 
@@ -62,6 +81,10 @@ const protect = async (req, res, next) => {
     if (!req.user.isActive) {
       return res.status(403).json({ success: false, message: 'Not authorized, account deactivated' });
     }
+    // SEC-06: reject tokens revoked by a password change/reset.
+    if (!isTokenVersionCurrent(decoded, req.user)) {
+      return res.status(401).json({ success: false, message: 'Session expired, please log in again' });
+    }
     next();
   } catch (error) {
     return res.status(401).json({ success: false, message: 'Not authorized, token failed' });
@@ -88,7 +111,7 @@ const optionalProtect = async (req, res, next) => {
         setCachedUser(decoded.id, user);
       }
     }
-    if (user && user.isActive) {
+    if (user && user.isActive && isTokenVersionCurrent(decoded, user)) {
       req.user = user;
     }
   } catch (error) {

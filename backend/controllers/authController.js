@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
+const { invalidateUserCache } = require('../middleware/auth');
 const { sendPasswordResetOtpEmail, sendVerificationOtpEmail } = require('../services/emailService');
 
 // Security tuning for OTP brute-force protection (industry-standard attempt limiting).
@@ -365,6 +366,13 @@ exports.changePassword = async (req, res, next) => {
     user.password = newPassword;
     await user.save();
 
+    // SEC-06: revoke every previously issued token (including any held by an
+    // attacker), then drop the cached row so the new version takes effect
+    // immediately rather than after the 60s cache TTL.
+    await user.invalidateSessions();
+    invalidateUserCache(user.id);
+
+    // Hand the caller a fresh token so the legitimate session continues.
     sendToken(user, 200, res);
   } catch (error) {
     next(error);
@@ -526,6 +534,10 @@ exports.resetPassword = async (req, res, next) => {
     user.resetPasswordOtpLockedUntil = null;
     user.isEmailVerified = true;
     await user.save();
+
+    // SEC-06: a password reset must evict any session an attacker may hold.
+    await user.invalidateSessions();
+    invalidateUserCache(user.id);
 
     return res.status(200).json({
       success: true,

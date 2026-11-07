@@ -41,6 +41,13 @@ const User = sequelize.define('User', {
     totalXp: { type: DataTypes.INTEGER, defaultValue: 0, field: 'total_xp' },
     currentLeague: { type: DataTypes.STRING(50), defaultValue: 'Coral Reef', field: 'current_league' },
     fcmToken: { type: DataTypes.STRING(500), allowNull: true, field: 'fcm_token' },
+
+    // Session/token revocation counter (SEC-06).
+    // Every JWT embeds the value it was signed with; the `protect` middleware
+    // rejects tokens whose `tokenVersion` no longer matches the user's row.
+    // Incremented on password change/reset so any previously issued token
+    // (including a stolen one) is invalidated immediately.
+    tokenVersion: { type: DataTypes.INTEGER, defaultValue: 0, allowNull: false, field: 'token_version' },
 }, { tableName: 'users', timestamps: true });
 
 User.beforeCreate(async (user) => {
@@ -63,9 +70,25 @@ User.prototype.matchPassword = async function(enteredPassword) {
 };
 
 User.prototype.getSignedJwtToken = function() {
-    return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
+    return jwt.sign({
+        id: this.id,
+        // Include the current session version so password changes can revoke it.
+        tokenVersion: this.tokenVersion || 0,
+    }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE || '7d',
     });
+};
+
+/**
+ * Rotates the session version, invalidating every JWT issued to this user.
+ * Uses a DB-level atomic increment so parallel password changes cannot lose
+ * an update. Also refreshes the in-memory value on the instance.
+ * @returns {Promise<number>} the new token version
+ */
+User.prototype.invalidateSessions = async function() {
+    await this.increment('tokenVersion');
+    await this.reload({ attributes: ['tokenVersion'] });
+    return this.tokenVersion;
 };
 
 // Constant-time string comparison (defense-in-depth against timing attacks on OTP matching).
