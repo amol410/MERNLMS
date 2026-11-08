@@ -6,11 +6,15 @@ dotenv.config({ path: path.join(__dirname, '.env') });
 const { connectDB } = require('./config/database');
 const User = require('./models/User');
 
-const ADMIN_EMAIL = 'admin@speedupexam.com';
-const ADMIN_PASSWORD = 'Admin@SpeedUp2024!';
-const ADMIN_NAME = 'Super Admin';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const ADMIN_NAME = process.env.ADMIN_NAME || 'Super Admin';
 
 async function seed() {
+  if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
+    console.error('Error: ADMIN_EMAIL and ADMIN_PASSWORD environment variables are required. Usage: ADMIN_EMAIL=... ADMIN_PASSWORD=... node seedAdmin.js');
+    process.exit(1);
+  }
   await connectDB();
 
   const existing = await User.findOne({ where: { email: ADMIN_EMAIL } });

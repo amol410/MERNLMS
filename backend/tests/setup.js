@@ -4,6 +4,9 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+// Ensure isolated in-memory test JWT secret is always set (SEC-01 / SEC-11 hygiene)
+process.env.JWT_SECRET = process.env.JWT_SECRET || 'in_memory_mock_jwt_test_secret_only';
+
 beforeAll(async () => {
     await sequelize.sync({ force: true });
 });
@@ -35,7 +38,7 @@ const createTestUser = async (overrides = {}) => {
 
     const token = jwt.sign(
         { id: user.id, role: user.role, email: user.email },
-        process.env.JWT_SECRET || 'dolphinCoderLMS2026ProductionSecretKeyX9a7b3c8d2e1f4g5h6',
+        process.env.JWT_SECRET,
         { expiresIn: '1d' }
     );
 

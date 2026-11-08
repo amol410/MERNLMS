@@ -22,14 +22,16 @@ if (typeof dns.setDefaultResultOrder === 'function') {
 
 const BASE_URL = process.env.LIVE_API_URL || 'https://dolphincoder.com';
 
+const hasLiveCredentials = Boolean(process.env.ADMIN_PASSWORD && process.env.STUDENT_PASSWORD);
+
 const ADMIN_CREDENTIALS = {
   email: process.env.ADMIN_EMAIL || 'admin@speedupexam.com',
-  password: process.env.ADMIN_PASSWORD || 'Admin@SpeedUp2024!',
+  password: process.env.ADMIN_PASSWORD || '',
 };
 
 const STUDENT_CREDENTIALS = {
-  email: process.env.STUDENT_EMAIL || 'dmacaule111@gmail.com',
-  password: process.env.STUDENT_PASSWORD || 'Amol0410@@@',
+  email: process.env.STUDENT_EMAIL || 'student@speedupexam.com',
+  password: process.env.STUDENT_PASSWORD || '',
 };
 
 // 30-second timeout per test for cloud internet variance
@@ -134,6 +136,10 @@ describe('🐬 DolphinCoder LMS - Live Hostinger Database & Integration Suite', 
   let studentToken = null;
 
   beforeAll(async () => {
+    if (!hasLiveCredentials) {
+      console.warn('\n⚠️ [WARN] ADMIN_PASSWORD and STUDENT_PASSWORD not provided in environment. Skipping live authenticated tests.\n');
+      return;
+    }
     // Authenticate Admin
     const adminRes = await liveRequest({
       url: `${BASE_URL}/api/auth/login`,

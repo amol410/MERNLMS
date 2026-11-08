@@ -4,11 +4,11 @@ const User = require('./models/User');
 
 (async () => {
   await sequelize.authenticate();
-  const adminEmail = process.env.ADMIN_EMAIL || (process.env.NODE_ENV === 'production' ? null : 'admin@speedupexam.com');
-  const adminPassword = process.env.ADMIN_PASSWORD || (process.env.NODE_ENV === 'production' ? null : 'Admin@SpeedUp2024!');
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
 
   if (!adminEmail || !adminPassword) {
-    throw new Error('ADMIN_EMAIL and ADMIN_PASSWORD environment variables are required in production.');
+    throw new Error('ADMIN_EMAIL and ADMIN_PASSWORD environment variables are required. Usage: ADMIN_EMAIL=... ADMIN_PASSWORD=... node fixAdmin.js');
   }
 
   const u = await User.findOne({ where: { email: adminEmail } });

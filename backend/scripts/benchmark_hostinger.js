@@ -22,12 +22,12 @@ const ITERATIONS = parseInt(process.env.BENCHMARK_RUNS || '3', 10);
 
 const ADMIN_CREDENTIALS = {
   email: process.env.ADMIN_EMAIL || 'admin@speedupexam.com',
-  password: process.env.ADMIN_PASSWORD || 'Admin@SpeedUp2024!',
+  password: process.env.ADMIN_PASSWORD || '',
 };
 
 const STUDENT_CREDENTIALS = {
-  email: process.env.STUDENT_EMAIL || 'dmacaule111@gmail.com',
-  password: process.env.STUDENT_PASSWORD || 'Amol0410@@@',
+  email: process.env.STUDENT_EMAIL || 'student@speedupexam.com',
+  password: process.env.STUDENT_PASSWORD || '',
 };
 
 // Colors for terminal formatting
@@ -233,6 +233,10 @@ async function runLiveBenchmark() {
 
   // Phase 1: Authentication
   console.log(`${COLORS.bold}🔑 Phase 1: Authenticating Test Accounts...${COLORS.reset}`);
+  if (!ADMIN_CREDENTIALS.password || !STUDENT_CREDENTIALS.password) {
+    console.log(`   ${COLORS.yellow}⚠️ ADMIN_PASSWORD and/or STUDENT_PASSWORD not set in environment. Authenticated tests will fail or skip.${COLORS.reset}`);
+    console.log(`   ${COLORS.gray}Usage: ADMIN_PASSWORD=... STUDENT_PASSWORD=... node scripts/benchmark_hostinger.js${COLORS.reset}`);
+  }
 
   let adminToken = null;
   let studentToken = null;
