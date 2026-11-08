@@ -12,7 +12,12 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await login(form.email, form.password);
-    if (result.success) navigate('/dashboard');
+    if (result.success) {
+      navigate('/dashboard');
+    } else if (result.requireVerification) {
+      // Unverified account: seamlessly route to OTP verification screen
+      navigate('/register', { state: { step: 'otp', email: result.email || form.email } });
+    }
   };
 
   return (

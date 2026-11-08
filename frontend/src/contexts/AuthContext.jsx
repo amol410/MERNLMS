@@ -29,7 +29,13 @@ export const AuthProvider = ({ children }) => {
       toast.success(`Welcome back, ${data.user.name}! 🐬`);
       return { success: true };
     } catch (error) {
-      const msg = error.response?.data?.message || 'Login failed';
+      const errData = error.response?.data;
+      const msg = errData?.message || 'Login failed';
+      // If unverified account, pass back requireVerification and email so UI can prompt for OTP
+      if (errData?.requireVerification) {
+        toast.error(msg);
+        return { success: false, requireVerification: true, email: errData.email || email, message: msg };
+      }
       toast.error(msg);
       return { success: false, message: msg };
     } finally {
@@ -41,8 +47,14 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const { data } = await api.post('/auth/register', { name, email, password, role });
-      saveAuth(data.token, data.user);
-      toast.success(`Welcome to DolphinCoder LMS, ${data.user.name}! 🎉`);
+      if (data.requireVerification) {
+        toast.success(data.message || 'Verification code sent to your email! ✉️');
+        return { success: true, requireVerification: true, email: data.email || email, message: data.message };
+      }
+      if (data.token && data.user) {
+        saveAuth(data.token, data.user);
+        toast.success(`Welcome to DolphinCoder LMS, ${data.user.name}! 🎉`);
+      }
       return { success: true };
     } catch (error) {
       const msg = error.response?.data?.message || 'Registration failed';
@@ -50,6 +62,37 @@ export const AuthProvider = ({ children }) => {
       return { success: false, message: msg };
     } finally {
       setLoading(false);
+    }
+  }, []);
+
+  const verifyRegistrationOtp = useCallback(async (email, otp) => {
+    setLoading(true);
+    try {
+      const { data } = await api.post('/auth/verify-registration-otp', { email, otp });
+      if (data.token && data.user) {
+        saveAuth(data.token, data.user);
+        toast.success(`Welcome to DolphinCoder LMS, ${data.user.name}! 🎉`);
+        return { success: true, user: data.user, token: data.token };
+      }
+      return { success: true };
+    } catch (error) {
+      const msg = error.response?.data?.message || 'Invalid or expired verification code';
+      toast.error(msg);
+      return { success: false, message: msg };
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const resendRegistrationOtp = useCallback(async (email) => {
+    try {
+      const { data } = await api.post('/auth/resend-registration-otp', { email });
+      toast.success(data.message || 'Fresh verification code sent! ✉️');
+      return { success: true };
+    } catch (error) {
+      const msg = error.response?.data?.message || 'Failed to resend code';
+      toast.error(msg);
+      return { success: false, message: msg };
     }
   }, []);
 
@@ -66,7 +109,16 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, updateUser }}>
+    <AuthContext.Provider value={{
+      user,
+      loading,
+      login,
+      register,
+      verifyRegistrationOtp,
+      resendRegistrationOtp,
+      logout,
+      updateUser,
+    }}>
       {children}
     </AuthContext.Provider>
   );

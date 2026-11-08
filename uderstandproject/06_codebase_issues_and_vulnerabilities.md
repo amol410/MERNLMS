@@ -12,7 +12,7 @@
 
 An exhaustive, end-to-end code audit was performed across all repositories and submodules composing the **DolphinCoder LMS** platform. The audit identified **36 distinct issues** categorized across three severity tiers:
 
-- **Critical Severity (12 Issues | 9 Resolved & Verified):** High-impact security vulnerabilities (Account Takeover, Stored XSS, Credential Leaking in Git History), non-transactional destructive database operations causing permanent data loss, unmanaged native resource/memory leaks in mobile audio services, and a broken user registration flow on the web application.  
+- **Critical Severity (12 Issues | 10 Resolved & Verified):** High-impact security vulnerabilities (Account Takeover, Stored XSS, Credential Leaking in Git History), non-transactional destructive database operations causing permanent data loss, unmanaged native resource/memory leaks in mobile audio services, and a broken user registration flow on the web application.  
   * **[RESOLVED] SEC-01:** Production Database & JWT Credentials eliminated from codebase and sanitized across all test files, setup fixtures, and administrative utilities.
   * **[RESOLVED] SEC-02:** Google OAuth Account Takeover eliminated via cryptographic ID token verification & strict payload identity claims.
   * **[RESOLVED] SEC-03:** OTP Brute-Force eliminated with database-persisted attempt counters (max 5) and 15-minute lockouts.
@@ -21,6 +21,7 @@ An exhaustive, end-to-end code audit was performed across all repositories and s
   * **[RESOLVED] DB-01:** Quiz attempt data loss eliminated via atomic Sequelize managed transactions.
   * **[RESOLVED] DB-02:** Database connection starvation resolved via 60s in-memory auth caching (bypassing MySQL for 80%+ of calls) and tuned pool limits.
   * **[RESOLVED] DB-03:** CurriculumLesson composite unique key (`unique_curriculum_lesson_node`) and self-healing deduplication migration preventing duplicate lesson seeding.
+  * **[RESOLVED] FE-01:** Broken web registration flow resolved with seamless 2-step 6-digit OTP email verification, 60s cooldown timer, and auto-activation.
   * **[RESOLVED] MOB-01:** Native audio hardware channel leaks resolved by pre-allocating dedicated reusable fallback player with guaranteed disposal.
 - **Moderate Severity (15 Issues):** Architectural anti-patterns including streaming binary audio (`LONGBLOB`) directly through single-connection MySQL queries with a 5-connection pool limit, in-memory N+1 aggregation loops on user activities, destructive catch-all routing in Express, aggressive auto-migrators dropping valid indexes, timezone desynchronization in gamification streaks, and massive monolithic UI components (up to 5,715 lines in a single file).
 - **Minute Severity (9 Issues):** Dead Mongoose error branches, unreferenced NPM packages (`express-validator`), mock tests performing static string assertions rather than runtime validation, test artifact spills in the Flutter project root, and inconsistent console logging in production startup hooks.
@@ -52,7 +53,7 @@ The audit evaluated the source code using multiple analytical lenses:
 | **DB-01** | Non-Transactional Deletion & Re-creation in Quiz Submission Causing Data Loss | **Critical** | `✅ FIXED` | Backend / Database | `backend/controllers/quizController.js:235-330` | Irrecoverable Progress & Grade Destruction |
 | **DB-02** | Severely Under-Provisioned Production Connection Pool (`max: 5`) | **Critical** | `✅ FIXED` | Backend / Database | `backend/config/database.js:44-50`, `auth.js:5-35` | Server-Wide Connection Starvation & 504 Timeouts |
 | **DB-03** | Missing Unique Composite Key on Curriculum Lessons Causing Duplicate Seeding | **Critical** | `✅ FIXED` | Backend / Models | `backend/models/CurriculumLesson.js:108-114` | Data Duplication & Duplicate Lesson Rendering |
-| **FE-01** | Broken Web Registration Flow: OTP Required by API but Absent in Frontend UI | **Critical** | `OPEN` | Frontend / Auth | `frontend/src/pages/Register.jsx:14-15` | Total Registration Block for All Web Users |
+| **FE-01** | Broken Web Registration Flow: OTP Required by API but Absent in Frontend UI | **Critical** | `✅ FIXED` | Frontend / Auth | `frontend/src/pages/Register.jsx:14-15` | Total Registration Block for All Web Users |
 | **MOB-01** | Unmanaged Native AudioPlayer Allocation on Sensory Feedback Fallback | **Critical** | `✅ FIXED` | Mobile / Audio | `app/dolphincoder/lib/core/services/sound_effects_service.dart:105-180` | Native Audio Channel Exhaustion & Mobile Crash |
 | **SEC-08** | Content Security Policy (CSP) & COEP Explicitly Disabled in Helmet | **Moderate** | `OPEN` | Backend / Security | `backend/server.js:24` | Complete Loss of Browser Defense-in-Depth |
 | **SEC-09** | HTML Template Injection in Password Reset & Email Verification Services | **Moderate** | `OPEN` | Backend / Email | `backend/services/emailService.js:41,69,126,154` | Phishing & Visual Spoofing via Transactional Emails |
@@ -252,29 +253,19 @@ The audit evaluated the source code using multiple analytical lenses:
 
 ### FE-01: Broken Web Registration Flow: OTP Required by API but Absent in Frontend UI
 - **Severity:** Critical
-- **Status:** `OPEN`
+- **Status:** `✅ FIXED & VERIFIED`
 - **Subsystem:** Frontend / Authentication Flow
-- **Location:** `frontend/src/pages/Register.jsx`, Lines 14–16; `frontend/src/contexts/AuthContext.jsx`, Lines 43–45
+- **Location:** `frontend/src/pages/Register.jsx`, Lines 14–120; `frontend/src/contexts/AuthContext.jsx`, Lines 40–80; `frontend/src/pages/Login.jsx`, Line 15
 - **Root Cause Analysis:** 
-  1. When backend added email OTP verification to `authController.register`, the registration endpoint stops returning a JWT token upon registration, instead returning:
-     ```json
-     { "success": true, "requireVerification": true, "email": "user@example.com" }
-     ```
-  2. In `frontend/src/contexts/AuthContext.jsx`:
-     ```javascript
-     const { data } = await api.post('/auth/register', { name, email, password, role });
-     saveAuth(data.token, data.user); // data.token is undefined!
-     ```
-  3. In `frontend/src/pages/Register.jsx`:
-     ```javascript
-     const result = await register(form.name, form.email, form.password, 'student');
-     if (result.success) navigate('/dashboard');
-     ```
-  4. The web application has no OTP input screen or dialog. It saves `localStorage.setItem('token', undefined)` and immediately navigates the unverified user to `/dashboard`.
-- **Impact & Blast Radius:** Every single new user registering via the web application is immediately greeted with failed API requests (401 Unauthorized) across the dashboard and is locked out of using the platform.
-- **Remediation Strategy:**
-  1. Implement an OTP Verification Modal or route (`/verify-email`) on the React frontend matching the mobile application's `verify_email_screen.dart`.
-  2. When `data.requireVerification` is true, redirect the user to enter their 6-digit OTP and call `/api/auth/verify-registration-otp` before storing the JWT and redirecting to `/dashboard`.
+  1. When backend added email OTP verification to `authController.register`, the registration endpoint stops returning a JWT token upon registration, instead returning `{ success: true, requireVerification: true, email }`.
+  2. The web application previously had no OTP input screen or dialog. It saved `localStorage.setItem('token', undefined)` and immediately navigated the unverified user to `/dashboard` where all requests failed with 401.
+- **Impact & Blast Radius:** Every single new user registering via the web application was locked out immediately after sign up.
+- **Resolution Implemented:**
+  1. **Two-Step Registration Flow (`Register.jsx`):** Added Step 2 OTP verification screen directly within the card UI. Users enter their 6-digit code with auto-focus, large monospace formatting, and validation.
+  2. **Auth Context Support (`AuthContext.jsx`):** Implemented `verifyRegistrationOtp(email, otp)` and `resendRegistrationOtp(email)`. On successful OTP verification, stores the JWT and user profile and activates session.
+  3. **Resend Cooldown & Typo Recovery:** Added 60-second cooldown timer preventing spam, and an "Edit Details" button allowing users to correct typos in their email address.
+  4. **Smart Login Handoff (`Login.jsx`):** If an unverified user tries to sign in on `/login`, they are seamlessly transitioned to the OTP verification screen with their email pre-filled.
+  5. **Verified with Tests:** Verified via `frontend/tests/frontend_audit_and_contracts.test.mjs` and complete Vite production build.
 
 ---
 

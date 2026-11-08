@@ -96,3 +96,27 @@ test('3. LingoDolphy & Curriculum Studio Component Integrity', () => {
     assert.ok(editorModal.includes(st), `Expected LessonEditorModal to include stage type ${st}`);
   }
 });
+
+test('4. Registration and OTP Email Verification Contract (FE-01)', () => {
+  const authContext = fs.readFileSync(path.join(FRONTEND_SRC, 'contexts/AuthContext.jsx'), 'utf8');
+  const registerJsx = fs.readFileSync(path.join(FRONTEND_SRC, 'pages/Register.jsx'), 'utf8');
+  const loginJsx = fs.readFileSync(path.join(FRONTEND_SRC, 'pages/Login.jsx'), 'utf8');
+
+  // Verify AuthContext exports OTP verification functions
+  assert.ok(authContext.includes('verifyRegistrationOtp'), 'AuthContext should export verifyRegistrationOtp');
+  assert.ok(authContext.includes('resendRegistrationOtp'), 'AuthContext should export resendRegistrationOtp');
+  assert.ok(authContext.includes('/auth/verify-registration-otp'), 'AuthContext should hit /auth/verify-registration-otp');
+  assert.ok(authContext.includes('/auth/resend-registration-otp'), 'AuthContext should hit /auth/resend-registration-otp');
+
+  // Verify Register.jsx implements 2-step flow with OTP input
+  assert.ok(registerJsx.includes("step === 'form'"), 'Register.jsx should support form step');
+  assert.ok(registerJsx.includes('requireVerification'), 'Register.jsx should check requireVerification');
+  assert.ok(registerJsx.includes('verifyRegistrationOtp'), 'Register.jsx should call verifyRegistrationOtp');
+  assert.ok(registerJsx.includes('resendRegistrationOtp'), 'Register.jsx should call resendRegistrationOtp');
+  assert.ok(registerJsx.includes('resendCooldown'), 'Register.jsx should implement resend cooldown timer');
+
+  // Verify Login.jsx handles unverified redirection
+  assert.ok(loginJsx.includes('requireVerification'), 'Login.jsx should handle requireVerification');
+  assert.ok(loginJsx.includes("step: 'otp'"), 'Login.jsx should redirect unverified users to OTP step');
+});
+
