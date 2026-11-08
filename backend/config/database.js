@@ -18,20 +18,50 @@ Sequelize.Model.prototype.toJSON = function() {
 let sequelize;
 
 if (process.env.NODE_ENV === 'test') {
-    sequelize = new Sequelize({
-        dialect: 'sqlite',
-        storage: ':memory:',
-        logging: false,
-    });
+    const isMysqlTest = process.env.TEST_DB_DIALECT === 'mysql';
 
-    // SQLite single-connection transaction queue to safely support concurrent transactions in tests
-    const originalTransaction = sequelize.transaction.bind(sequelize);
-    let sqliteTxQueue = Promise.resolve();
-    sequelize.transaction = function(...args) {
-        const next = sqliteTxQueue.then(() => originalTransaction(...args));
-        sqliteTxQueue = next.catch(() => {});
-        return next;
-    };
+    if (isMysqlTest) {
+        // Real MySQL Test Database: true parallel transactions with multi-connection pool
+        // Bypasses the SQLite single-file queue so genuine InnoDB concurrency is tested (TST-01)
+        const testDbName = process.env.TEST_DB_NAME || (process.env.DB_NAME ? `${process.env.DB_NAME}_test` : 'lms_test');
+        sequelize = new Sequelize(
+            testDbName,
+            process.env.TEST_DB_USER || process.env.DB_USER,
+            process.env.TEST_DB_PASSWORD || process.env.DB_PASSWORD,
+            {
+                host: process.env.TEST_DB_HOST || process.env.DB_HOST || '127.0.0.1',
+                port: process.env.TEST_DB_PORT ? parseInt(process.env.TEST_DB_PORT, 10) : (process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306),
+                dialect: 'mysql',
+                logging: process.env.DEBUG_SQL === 'true' ? console.log : false,
+                pool: {
+                    max: 10,
+                    min: 1,
+                    acquire: 15000,
+                    idle: 10000,
+                },
+            }
+        );
+    } else {
+        // Fast In-Memory SQLite Mock (Default for offline zero-config unit testing)
+        sequelize = new Sequelize({
+            dialect: 'sqlite',
+            storage: ':memory:',
+            logging: false,
+            dialectOptions: {
+                busyTimeout: 10000,
+            },
+        });
+
+        // SQLite in-memory transaction queue to prevent SQLITE_BUSY errors during parallel unit tests
+        // NOTE (TST-01): Set TEST_DB_DIALECT=mysql to test true unqueued MySQL parallel transactions
+        const originalTransaction = sequelize.transaction.bind(sequelize);
+        let sqliteTxQueue = Promise.resolve();
+        sequelize.transaction = function(...args) {
+            const next = sqliteTxQueue.then(() => originalTransaction(...args));
+            sqliteTxQueue = next.catch(() => {});
+            return next;
+        };
+    }
 } else {
     sequelize = new Sequelize(
         process.env.DB_NAME,

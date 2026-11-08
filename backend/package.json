@@ -8,7 +8,8 @@
         "dev": "nodemon server.js",
         "seed": "node seedAdmin.js",
         "test": "NODE_ENV=test jest --runInBand --forceExit",
-        "test:live": "jest tests/hostinger_live.test.js --runInBand --forceExit --timeout 30000"
+        "test:live": "jest tests/hostinger_live.test.js --runInBand --forceExit --timeout 30000",
+        "test:concurrency:mysql": "node scripts/verify_mysql_concurrency.js"
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
