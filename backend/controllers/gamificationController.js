@@ -613,6 +613,11 @@ exports.completeNode = async (req, res, next) => {
                 isDoubleXpActive,
                 unlockedNextIndex: nextNodeIndex,
                 idempotentReplay: false,
+                // Echo the authoritative course track so the client can
+                // reconcile its active language instead of guessing.
+                targetLanguage: targetLang,
+                nativeLanguage: nativeLang,
+                currentLevel: level,
             };
             await RewardTransaction.create({
                 userId,

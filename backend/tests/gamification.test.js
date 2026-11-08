@@ -276,4 +276,59 @@ describe('Gamification & In-Game Economy API Tests', () => {
             expect((await User.findByPk(user.id)).totalXp).toBe(24);
         });
     });
+
+    describe('complete-node course contract', () => {
+        it('echoes the active course track so the client can reconcile language', async () => {
+            const { token } = await createTestUser({
+                targetLanguage: 'en',
+                nativeLanguage: 'hi',
+                currentLevel: 'A1',
+            });
+
+            const res = await request(app)
+                .post('/api/gamification/complete-node')
+                .set('Authorization', `Bearer ${token}`)
+                .send({
+                    nodeIndex: 0,
+                    attemptId: 'lesson-course-echo-001',
+                    scorePct: 100,
+                    targetLanguage: 'en',
+                    nativeLanguage: 'hi',
+                    level: 'A1',
+                });
+
+            expect(res.status).toBe(200);
+            expect(res.body.success).toBe(true);
+            // Previously omitted, which forced the client to guess the course.
+            expect(res.body.targetLanguage).toBe('en');
+            expect(res.body.nativeLanguage).toBe('hi');
+            expect(res.body.currentLevel).toBe('A1');
+        });
+
+        it('reports the course actually used, not the client-supplied one', async () => {
+            const { token } = await createTestUser({
+                targetLanguage: 'en',
+                nativeLanguage: 'hi',
+                currentLevel: 'A1',
+            });
+
+            const res = await request(app)
+                .post('/api/gamification/complete-node')
+                .set('Authorization', `Bearer ${token}`)
+                .send({
+                    nodeIndex: 0,
+                    attemptId: 'lesson-course-authoritative-001',
+                    scorePct: 100,
+                    targetLanguage: 'en',
+                    nativeLanguage: 'hi',
+                    level: 'A1',
+                });
+
+            expect(res.status).toBe(200);
+            expect(res.body.targetLanguage).toBe('en');
+            expect(res.body.nativeLanguage).toBe('hi');
+            // Must never silently resolve to Marathi/English defaults.
+            expect(res.body.nativeLanguage).not.toBe('mr');
+        });
+    });
 });
