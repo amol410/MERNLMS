@@ -1,7 +1,15 @@
+const fs = require('fs');
+const path = require('path');
 const { Op } = require('sequelize');
 const Page = require('../models/Page');
 const User = require('../models/User');
 const { pingIndexNow } = require('../utils/seoHelper');
+const { sanitizeSvgContent } = require('../utils/svgSanitizer');
+
+const uploadDir = path.join(__dirname, '../uploads/pages');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 const RESERVED_SLUGS = new Set([
     'dashboard',
@@ -286,18 +294,50 @@ exports.deletePage = async (req, res, next) => {
 // @access  Private (Admin)
 exports.uploadImage = async (req, res) => {
     try {
-        if (!req.file) {
+        if (!req.file || !req.file.buffer) {
             return res.status(400).json({
                 success: false,
                 message: 'No image file uploaded',
             });
         }
 
-        const relativeUrl = `/uploads/pages/${req.file.filename}`;
+        const ext = path.extname(req.file.originalname || '').toLowerCase();
+        const isSvg = ext === '.svg' || req.file.mimetype === 'image/svg+xml';
+        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+        const safeExt = isSvg ? '.svg' : (ext || '.png');
+        const filename = `page-${uniqueSuffix}${safeExt}`;
+        const targetPath = path.join(uploadDir, filename);
+
+        if (isSvg) {
+            const sanitizeResult = sanitizeSvgContent(req.file.buffer);
+            if (!sanitizeResult.isValid) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Invalid SVG file structure',
+                    error: sanitizeResult.error,
+                });
+            }
+
+            if (sanitizeResult.hasMalicious) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Uploaded SVG contains dangerous scripts or active event handlers',
+                    threats: sanitizeResult.detectedThreats,
+                });
+            }
+
+            // Write clean sanitized SVG to disk
+            await fs.promises.writeFile(targetPath, sanitizeResult.cleanSvg, 'utf8');
+        } else {
+            // Write raster image buffer to disk
+            await fs.promises.writeFile(targetPath, req.file.buffer);
+        }
+
+        const relativeUrl = `/uploads/pages/${filename}`;
         res.status(200).json({
             success: true,
             url: relativeUrl,
-            filename: req.file.filename,
+            filename,
         });
     } catch (error) {
         res.status(500).json({

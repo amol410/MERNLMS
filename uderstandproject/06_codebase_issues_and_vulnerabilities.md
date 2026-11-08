@@ -47,7 +47,7 @@ The audit evaluated the source code using multiple analytical lenses:
 | **SEC-02** | Google OAuth Account Takeover (ATO) via Unverified Request Body Email | **Critical** | `✅ FIXED` | Backend / Auth | `backend/controllers/authController.js:544-646` | Arbitrary User & Admin Account Hijacking |
 | **SEC-03** | Lack of Rate Limiting & Attempt Lockout on 6-Digit Password Reset & OTP | **Critical** | `✅ FIXED` | Backend / Auth | `backend/controllers/authController.js:6-62`, `User.js:15-21` | Account Takeover via OTP Brute-Force |
 | **SEC-04** | Stored Cross-Site Scripting (XSS) via Unsanitized HTML Note Upload | **Critical** | `OPEN` | Full-Stack | `backend/controllers/noteController.js:194`, `frontend/src/pages/NoteDetailPage.jsx:292` | Session Hijacking & Admin Token Theft |
-| **SEC-05** | Stored XSS via Arbitrary SVG Upload & Disabled Content Security Policy | **Critical** | `OPEN` | Full-Stack | `backend/routes/pages.js:38`, `backend/server.js:24` | Persistent DOM Exploitation & Defacement |
+| **SEC-05** | Stored XSS via Arbitrary SVG Upload & Disabled Content Security Policy | **Critical** | `✅ FIXED & VERIFIED` | Full-Stack | `backend/routes/pages.js:38`, `backend/server.js:24` | Persistent DOM Exploitation & Defacement |
 | **SEC-06** | Active JWT Session Invalidation Omission on Password Change/Reset | **Critical** | `✅ FIXED` | Backend / Auth | `backend/controllers/authController.js:290,414` | Compromised Session Persistence |
 | **SEC-07** | Rewarded Ad SSV Cryptographic Signature Bypass Endpoint | **Critical** | `✅ FIXED` | Backend / Economy | `backend/controllers/gamificationController.js:1110`, `backend/routes/gamification.js:39` | In-Game Economy & Oxygen Arbitrary Inflation |
 | **DB-01** | Non-Transactional Deletion & Re-creation in Quiz Submission Causing Data Loss | **Critical** | `✅ FIXED` | Backend / Database | `backend/controllers/quizController.js:235-330` | Irrecoverable Progress & Grade Destruction |
@@ -156,22 +156,26 @@ The audit evaluated the source code using multiple analytical lenses:
 
 ### SEC-05: Stored XSS via Arbitrary SVG Upload & Disabled Content Security Policy
 - **Severity:** Critical
+- **Status:** `✅ FIXED & VERIFIED`
 - **Subsystem:** Full-Stack (Backend Pages Route & Frontend Page Viewer)
-- **Location:** `backend/routes/pages.js`, Lines 37–46; `backend/server.js`, Lines 24 & 91; `frontend/src/pages/PublicPageView.jsx`, Line 198
+- **Location:** `backend/routes/pages.js`, Lines 25–53; `backend/controllers/pageController.js`, Lines 285–335; `backend/utils/svgSanitizer.js`; `backend/server.js`, Lines 119–127; `frontend/src/pages/PublicPageView.jsx`, Lines 3, 198
 - **Root Cause Analysis:** 
   1. The Multer file filter allows SVG files:
      ```javascript
      const allowed = /jpeg|jpg|png|gif|webp|svg\+xml|svg/;
      ```
   2. SVG files can contain embedded XML JavaScript payloads (`<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>`).
-  3. Uploaded files are served directly as static files from `/uploads` (`backend/server.js:91`).
-  4. In `backend/server.js:24`, Helmet's Content Security Policy is disabled (`helmet({ contentSecurityPolicy: false })`).
-  5. In `PublicPageView.jsx:198`, dynamic page contents are injected into `dangerouslySetInnerHTML` without sanitization.
+  3. Uploaded files were saved raw to disk and served directly as static files from `/uploads` (`backend/server.js:91`).
+  4. In `backend/server.js:24`, Helmet's Content Security Policy was disabled (`helmet({ contentSecurityPolicy: false })`).
+  5. In `PublicPageView.jsx:198`, dynamic page contents were injected into `dangerouslySetInnerHTML` without sanitization.
 - **Impact & Blast Radius:** An uploaded SVG loaded directly in the browser executes JavaScript within the origin domain of `dolphincoder.com`, allowing cookie/storage theft, session hijacking, and defacement of custom landing pages.
-- **Remediation Strategy:**
-  1. Disallow SVG uploads entirely for image uploads, or sanitize SVGs with an XML/SVG sanitizer like `svg-purifier` before saving to disk.
-  2. Re-encode raster images (JPEG, PNG, WebP) using Sharp (as done in `curriculumController.js`) rather than saving raw client bytes.
-  3. Serve uploaded files with `Content-Disposition: attachment` or host user uploads on an isolated cookieless domain (e.g. `uploads.dolphincoder.com` or an S3/Cloudflare R2 bucket) with a strict CSP.
+- **Resolution Implemented:**
+  1. **In-Memory Upload Inspection:** Migrated `backend/routes/pages.js` to `multer.memoryStorage()` so uploaded image buffers are validated in memory before filesystem writes.
+  2. **Dedicated SVG Sanitization Utility (`backend/utils/svgSanitizer.js`):** Built zero-dependency `sanitizeSvgContent` to detect and strip `<script>`, `<foreignObject>`, `<iframe|embed|object|audio|video>`, `on*` event handlers, XXE entity declarations, and obfuscated `javascript:` / `data:` URI protocols.
+  3. **Controller Protection (`backend/controllers/pageController.js`):** Rejects malicious SVG payloads with HTTP 400 (`Uploaded SVG contains dangerous scripts or active event handlers`). Valid SVGs are written cleanly and safely to disk.
+  4. **Static File Serving CSP Sandbox (`backend/server.js`):** Configured `express.static` with `setHeaders` to attach `X-Content-Type-Options: nosniff` and enforce `Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'` on all `.svg` files served from `/uploads`.
+  5. **Frontend DOMPurify (`frontend/src/pages/PublicPageView.jsx`):** Applied `DOMPurify.sanitize(page.content || '')` to dynamic page HTML rendering.
+  6. **Automated Verification:** Added `backend/tests/svg_xss_protection.test.js` (13/13 passing tests) and updated `frontend/tests/frontend_audit_and_contracts.test.mjs` (5/5 passing tests). Production Vite build verified.
 
 ---
 

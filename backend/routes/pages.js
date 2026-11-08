@@ -22,17 +22,8 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Multer storage for page images
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadDir);
-    },
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname).toLowerCase();
-        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-        cb(null, `page-${uniqueSuffix}${ext}`);
-    },
-});
+// Multer in-memory storage for safe inspection, sanitization, and atomic disk writes
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
     const allowed = /jpeg|jpg|png|gif|webp|svg\+xml|svg/;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 import api from '../api/axios';
 import { useAuth } from '../contexts/AuthContext';
 import { Calendar, User, Edit3, ArrowLeft, Globe } from 'lucide-react';
@@ -195,7 +196,7 @@ export default function PublicPageView() {
       <div className="glass-card p-6 sm:p-10 rounded-2xl border border-white/10 shadow-xl">
         <div
           className="ProseMirror prose-invert max-w-none text-gray-200"
-          dangerouslySetInnerHTML={{ __html: page.content }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(page.content || '') }}
         />
       </div>
     </article>

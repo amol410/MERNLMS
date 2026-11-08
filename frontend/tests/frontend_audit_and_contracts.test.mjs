@@ -120,3 +120,12 @@ test('4. Registration and OTP Email Verification Contract (FE-01)', () => {
   assert.ok(loginJsx.includes("step: 'otp'"), 'Login.jsx should redirect unverified users to OTP step');
 });
 
+test('5. Public Page Stored XSS Protection Contract (SEC-05)', () => {
+  const publicPageViewPath = path.resolve(__dirname, '../src/pages/PublicPageView.jsx');
+  const publicPageViewJsx = fs.readFileSync(publicPageViewPath, 'utf8');
+
+  // Verify DOMPurify is imported and active
+  assert.ok(publicPageViewJsx.includes("import DOMPurify from 'dompurify'"), 'PublicPageView.jsx must import DOMPurify');
+  assert.ok(publicPageViewJsx.includes('DOMPurify.sanitize('), 'PublicPageView.jsx must sanitize page.content with DOMPurify');
+});
+

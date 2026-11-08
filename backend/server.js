@@ -116,7 +116,15 @@ const curriculumUploadDir = path.join(__dirname, 'uploads/curriculum');
 if (!fs.existsSync(curriculumUploadDir)) {
     fs.mkdirSync(curriculumUploadDir, { recursive: true });
 }
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+    setHeaders: (res, filePath) => {
+        res.setHeader('X-Content-Type-Options', 'nosniff');
+        if (filePath && filePath.endsWith('.svg')) {
+            // Strict CSP sandbox: neutralizes script execution inside SVG vector assets
+            res.setHeader('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'");
+        }
+    }
+}));
 
 const {
     INDEXNOW_KEY,
