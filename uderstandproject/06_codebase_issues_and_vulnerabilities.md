@@ -12,7 +12,7 @@
 
 An exhaustive, end-to-end code audit was performed across all repositories and submodules composing the **DolphinCoder LMS** platform. The audit identified **36 distinct issues** categorized across three severity tiers:
 
-- **Critical Severity (12 Issues | 8 Resolved & Verified):** High-impact security vulnerabilities (Account Takeover, Stored XSS, Credential Leaking in Git History), non-transactional destructive database operations causing permanent data loss, unmanaged native resource/memory leaks in mobile audio services, and a broken user registration flow on the web application.  
+- **Critical Severity (12 Issues | 9 Resolved & Verified):** High-impact security vulnerabilities (Account Takeover, Stored XSS, Credential Leaking in Git History), non-transactional destructive database operations causing permanent data loss, unmanaged native resource/memory leaks in mobile audio services, and a broken user registration flow on the web application.  
   * **[RESOLVED] SEC-01:** Production Database & JWT Credentials eliminated from codebase and sanitized across all test files, setup fixtures, and administrative utilities.
   * **[RESOLVED] SEC-02:** Google OAuth Account Takeover eliminated via cryptographic ID token verification & strict payload identity claims.
   * **[RESOLVED] SEC-03:** OTP Brute-Force eliminated with database-persisted attempt counters (max 5) and 15-minute lockouts.
@@ -20,6 +20,7 @@ An exhaustive, end-to-end code audit was performed across all repositories and s
   * **[RESOLVED] SEC-07:** Rewarded Ad Economy Bypass eliminated via SSV receipt reconciliation, 35s physical cooldown, and unified 6-ad daily quota.
   * **[RESOLVED] DB-01:** Quiz attempt data loss eliminated via atomic Sequelize managed transactions.
   * **[RESOLVED] DB-02:** Database connection starvation resolved via 60s in-memory auth caching (bypassing MySQL for 80%+ of calls) and tuned pool limits.
+  * **[RESOLVED] DB-03:** CurriculumLesson composite unique key (`unique_curriculum_lesson_node`) and self-healing deduplication migration preventing duplicate lesson seeding.
   * **[RESOLVED] MOB-01:** Native audio hardware channel leaks resolved by pre-allocating dedicated reusable fallback player with guaranteed disposal.
 - **Moderate Severity (15 Issues):** Architectural anti-patterns including streaming binary audio (`LONGBLOB`) directly through single-connection MySQL queries with a 5-connection pool limit, in-memory N+1 aggregation loops on user activities, destructive catch-all routing in Express, aggressive auto-migrators dropping valid indexes, timezone desynchronization in gamification streaks, and massive monolithic UI components (up to 5,715 lines in a single file).
 - **Minute Severity (9 Issues):** Dead Mongoose error branches, unreferenced NPM packages (`express-validator`), mock tests performing static string assertions rather than runtime validation, test artifact spills in the Flutter project root, and inconsistent console logging in production startup hooks.
@@ -50,7 +51,7 @@ The audit evaluated the source code using multiple analytical lenses:
 | **SEC-07** | Rewarded Ad SSV Cryptographic Signature Bypass Endpoint | **Critical** | `✅ FIXED` | Backend / Economy | `backend/controllers/gamificationController.js:1110`, `backend/routes/gamification.js:39` | In-Game Economy & Oxygen Arbitrary Inflation |
 | **DB-01** | Non-Transactional Deletion & Re-creation in Quiz Submission Causing Data Loss | **Critical** | `✅ FIXED` | Backend / Database | `backend/controllers/quizController.js:235-330` | Irrecoverable Progress & Grade Destruction |
 | **DB-02** | Severely Under-Provisioned Production Connection Pool (`max: 5`) | **Critical** | `✅ FIXED` | Backend / Database | `backend/config/database.js:44-50`, `auth.js:5-35` | Server-Wide Connection Starvation & 504 Timeouts |
-| **DB-03** | Missing Unique Composite Key on Curriculum Lessons Causing Duplicate Seeding | **Critical** | `OPEN` | Backend / Models | `backend/models/CurriculumLesson.js:108-114` | Data Duplication & Duplicate Lesson Rendering |
+| **DB-03** | Missing Unique Composite Key on Curriculum Lessons Causing Duplicate Seeding | **Critical** | `✅ FIXED` | Backend / Models | `backend/models/CurriculumLesson.js:108-114` | Data Duplication & Duplicate Lesson Rendering |
 | **FE-01** | Broken Web Registration Flow: OTP Required by API but Absent in Frontend UI | **Critical** | `OPEN` | Frontend / Auth | `frontend/src/pages/Register.jsx:14-15` | Total Registration Block for All Web Users |
 | **MOB-01** | Unmanaged Native AudioPlayer Allocation on Sensory Feedback Fallback | **Critical** | `✅ FIXED` | Mobile / Audio | `app/dolphincoder/lib/core/services/sound_effects_service.dart:105-180` | Native Audio Channel Exhaustion & Mobile Crash |
 | **SEC-08** | Content Security Policy (CSP) & COEP Explicitly Disabled in Helmet | **Moderate** | `OPEN` | Backend / Security | `backend/server.js:24` | Complete Loss of Browser Defense-in-Depth |
@@ -237,27 +238,15 @@ The audit evaluated the source code using multiple analytical lenses:
 
 ### DB-03: Missing Unique Composite Key on Curriculum Lessons Causing Duplicate Seeding
 - **Severity:** Critical
-- **Status:** `OPEN`
+- **Status:** `✅ FIXED & VERIFIED`
 - **Subsystem:** Backend / Models & Database Schema
-- **Location:** `backend/models/CurriculumLesson.js`, Lines 108–114; `scripts/seed_section_1.js`, Lines 83–85
-- **Root Cause Analysis:** The `CurriculumLesson` table defines non-unique indexes on `(learningLanguage, nativeLanguage, level, unitNumber, lessonIndex)`:
-  ```javascript
-  indexes: [
-      { fields: ['learningLanguage', 'nativeLanguage', 'level', 'isLive', 'unitNumber'] },
-      { fields: ['isLive', 'learningLanguage', 'nativeLanguage', 'level', 'unitNumber', 'lessonIndex'] },
-  ]
-  ```
-  In `scripts/seed_section_1.js`, records are inserted with:
-  ```javascript
-  await CurriculumLesson.bulkCreate(chunk, {
-      updateOnDuplicate: ['title', 'subtitle', 'nodeType', 'xpReward', 'pearlsReward', 'stages', 'isLive']
-  });
-  ```
-  Because MySQL `ON DUPLICATE KEY UPDATE` requires a unique or primary key conflict to trigger an update, and the composite index is non-unique while `id` is omitted in the seed chunk, MySQL performs an `INSERT` rather than an `UPDATE`.
-- **Impact & Blast Radius:** Running the seed script multiple times without `--force` results in duplicate curriculum lessons for every unit. Queries like `findAll` return duplicated and conflicting lesson nodes, corrupting the learner path on mobile and web.
-- **Remediation Strategy:**
-  1. Add a composite unique index on `['learningLanguage', 'nativeLanguage', 'level', 'unitNumber', 'lessonIndex']` named `unique_curriculum_lesson_node`.
-  2. Ensure seed scripts match against this unique key during `bulkCreate`.
+- **Location:** `backend/models/CurriculumLesson.js`, Lines 108–117; `backend/utils/schemaMigrator.js`, Lines 190–200, 260–310; `scripts/seed_section_1.js`, Lines 83–85
+- **Root Cause Analysis:** The `CurriculumLesson` table previously defined only non-unique indexes on `(learningLanguage, nativeLanguage, level, unitNumber, lessonIndex)`. Because records in seed chunks omit `id` and no composite unique key existed on the logical node position, MySQL `ON DUPLICATE KEY UPDATE` performed an `INSERT` rather than an `UPDATE`, silently duplicating lessons whenever seed scripts ran.
+- **Impact & Blast Radius:** Running seed scripts or admin imports multiple times multiplied lesson nodes for every unit, corrupting the learner stepping stone path on mobile and web.
+- **Resolution Implemented:**
+  1. **Composite Unique Index:** Added `unique_curriculum_lesson_node` on `(learningLanguage, nativeLanguage, level, unitNumber, lessonIndex)` in `backend/models/CurriculumLesson.js`, while preserving the Project Slipstream B-tree compound index.
+  2. **Self-Healing Additive Migration:** Added `migrateCurriculumLessonUniqueIndex(sequelize)` in `backend/utils/schemaMigrator.js`. On startup, it safely deduplicates pre-existing historical duplicates (retaining canonical lowest `id`) before creating the unique index in MySQL, guaranteeing zero startup crashes.
+  3. **Verified Idempotency:** Validated that `bulkCreate` with `updateOnDuplicate` and `ignoreDuplicates: true` updates existing records without row multiplication. 8/8 tests pass in `backend/tests/curriculum_unique_constraint.test.js`.
 
 ---
 

@@ -106,6 +106,11 @@ const CurriculumLesson = sequelize.define('CurriculumLesson', {
     tableName: 'CurriculumLessons',
     timestamps: true,
     indexes: [
+        {
+            name: 'unique_curriculum_lesson_node',
+            unique: true,
+            fields: ['learningLanguage', 'nativeLanguage', 'level', 'unitNumber', 'lessonIndex'],
+        },
         { fields: ['learningLanguage', 'nativeLanguage', 'level', 'isLive', 'unitNumber'] },
         { fields: ['isLive', 'learningLanguage', 'nativeLanguage', 'level', 'unitNumber', 'lessonIndex'] },
         { fields: ['learningLanguage', 'nativeLanguage', 'level', 'unitNumber'] },

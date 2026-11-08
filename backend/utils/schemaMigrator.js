@@ -190,6 +190,13 @@ async function runAllMigrations(sequelize) {
     } catch (fcmErr) {
         console.warn('⚠️ [Database] FCM token column migration notice:', fcmErr.message);
     }
+
+    // 4. CurriculumLesson unique composite index migration (DB-03)
+    try {
+        await migrateCurriculumLessonUniqueIndex(sequelize);
+    } catch (currErr) {
+        console.warn('⚠️ [Database] CurriculumLesson unique index migration notice:', currErr.message);
+    }
 }
 
 /**
@@ -262,11 +269,60 @@ async function migrateUserVerificationColumns(sequelize) {
     }
 }
 
+/**
+ * DB-03: Safely enforces composite unique index on CurriculumLessons
+ * (learningLanguage, nativeLanguage, level, unitNumber, lessonIndex).
+ * Safely deduplicates existing historical rows (retaining the canonical lowest id)
+ * before adding the index to ensure non-blocking, zero-error migration.
+ */
+async function migrateCurriculumLessonUniqueIndex(sequelize) {
+    if (sequelize.getDialect() !== 'mysql') return;
+
+    try {
+        const [indexes] = await sequelize.query("SHOW INDEX FROM `CurriculumLessons`");
+        const hasUnique = Array.isArray(indexes) && indexes.some(idx => {
+            const name = idx.Key_name || idx.key_name;
+            return name === 'unique_curriculum_lesson_node';
+        });
+
+        if (!hasUnique) {
+            console.log('🔄 [AutoMigrator] Checking CurriculumLessons for duplicate rows before adding unique index...');
+            // Step 1: Deduplicate any pre-existing duplicate rows, keeping lowest id
+            await sequelize.query(`
+                DELETE c1 FROM \`CurriculumLessons\` c1
+                INNER JOIN \`CurriculumLessons\` c2 
+                WHERE c1.id > c2.id 
+                  AND c1.learningLanguage = c2.learningLanguage 
+                  AND c1.nativeLanguage = c2.nativeLanguage 
+                  AND c1.level = c2.level 
+                  AND c1.unitNumber = c2.unitNumber 
+                  AND c1.lessonIndex = c2.lessonIndex
+            `).catch((dedupErr) => {
+                console.warn('⚠️ [AutoMigrator] Lesson deduplication notice:', dedupErr.message);
+            });
+
+            // Step 2: Add composite unique index
+            await sequelize.query(`
+                ALTER TABLE \`CurriculumLessons\`
+                ADD UNIQUE INDEX \`unique_curriculum_lesson_node\` 
+                (\`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`unitNumber\`, \`lessonIndex\`)
+            `);
+            console.log('✅ [AutoMigrator] Created unique index unique_curriculum_lesson_node on CurriculumLessons.');
+        }
+    } catch (err) {
+        // Ignore if index already exists or table doesn't exist yet
+        if (!err.message || !err.message.includes('Duplicate key name')) {
+            console.warn('⚠️ [AutoMigrator] CurriculumLesson unique index notice:', err.message);
+        }
+    }
+}
+
 module.exports = {
     selfHealingDatabaseSync,
     autoMigrateColumns,
     pruneDuplicateIndexes,
     migrateUserVerificationColumns,
     migrateUserFcmTokenColumn,
+    migrateCurriculumLessonUniqueIndex,
     runAllMigrations,
 };
