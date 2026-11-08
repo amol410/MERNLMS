@@ -7,6 +7,7 @@ const UserActivity = require('../models/UserActivity');
 const KaraokeAudio = require('../models/KaraokeAudio');
 const { getClientDate } = require('../utils/dateHelper');
 const mammoth = require('mammoth');
+const { sanitizeNoteHtml } = require('../utils/htmlSanitizer');
 
 const ownerInclude = { model: User, as: 'ownerUser', attributes: ['id', 'name'] };
 const subjectInclude = { model: Subject, as: 'subject', attributes: ['id', 'name'] };
@@ -119,8 +120,9 @@ exports.getNoteById = async (req, res, next) => {
 exports.createNote = async (req, res, next) => {
   try {
     const { title, content, tags, color, isPinned, contentType, subject, topic, isKaraoke, audioUrl, karaokeData } = req.body;
+    const cleanContent = content ? sanitizeNoteHtml(content) : '';
     const note = await Note.create({ 
-      owner: req.user.id, title, content, tags, color, isPinned, 
+      owner: req.user.id, title, content: cleanContent, tags, color, isPinned, 
       contentType: contentType || 'richtext',
       subjectId: subject || null,
       topic: topic || null,
@@ -143,7 +145,7 @@ exports.updateNote = async (req, res, next) => {
     }
     const { title, content, tags, color, isPinned, contentType, subject, topic, isKaraoke, audioUrl, karaokeData } = req.body;
     if (title !== undefined) note.title = title;
-    if (content !== undefined) note.content = content;
+    if (content !== undefined) note.content = sanitizeNoteHtml(content);
     if (tags !== undefined) note.tags = tags;
     if (color !== undefined) note.color = color;
     if (isPinned !== undefined) note.isPinned = isPinned;
@@ -189,10 +191,10 @@ exports.uploadNoteFile = async (req, res, next) => {
 
     if (ext === 'docx') {
       const result = await mammoth.convertToHtml({ buffer: req.file.buffer });
-      content = result.value;
+      content = sanitizeNoteHtml(result.value);
       contentType = 'docx';
     } else if (ext === 'html' || ext === 'htm') {
-      content = req.file.buffer.toString('utf8');
+      content = sanitizeNoteHtml(req.file.buffer.toString('utf8'));
       contentType = 'html';
     } else {
       return res.status(400).json({ success: false, message: 'Only .docx and .html files are supported' });

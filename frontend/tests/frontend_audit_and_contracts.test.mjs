@@ -129,3 +129,16 @@ test('5. Public Page Stored XSS Protection Contract (SEC-05)', () => {
   assert.ok(publicPageViewJsx.includes('DOMPurify.sanitize('), 'PublicPageView.jsx must sanitize page.content with DOMPurify');
 });
 
+test('6. Note Detail Stored XSS & Iframe Sandbox Protection Contract (SEC-04)', () => {
+  const noteDetailPagePath = path.resolve(__dirname, '../src/pages/NoteDetailPage.jsx');
+  const noteDetailPageJsx = fs.readFileSync(noteDetailPagePath, 'utf8');
+
+  // Verify DOMPurify is imported and sanitizes note.content
+  assert.ok(noteDetailPageJsx.includes("import DOMPurify from 'dompurify'"), 'NoteDetailPage.jsx must import DOMPurify');
+  assert.ok(noteDetailPageJsx.includes('DOMPurify.sanitize('), 'NoteDetailPage.jsx must sanitize note.content with DOMPurify');
+
+  // Verify iframe sandbox has been hardened (omits allow-same-origin to prevent localStorage theft)
+  assert.ok(noteDetailPageJsx.includes('sandbox="allow-scripts allow-popups"'), 'NoteDetailPage.jsx iframe must sandbox scripts without allow-same-origin');
+  assert.ok(!noteDetailPageJsx.includes('allow-scripts allow-same-origin'), 'NoteDetailPage.jsx must NOT combine allow-scripts with allow-same-origin');
+});
+

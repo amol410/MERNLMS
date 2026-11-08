@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Edit, Trash2, Pin, Tag, Calendar, Maximize2, Minimize2 } from 'lucide-react';
@@ -271,7 +272,7 @@ export default function NoteDetailPage() {
           >
             <iframe
               srcDoc={processedHtmlContent}
-              sandbox="allow-scripts allow-same-origin allow-popups"
+              sandbox="allow-scripts allow-popups"
               className="w-full h-full border-0"
               title={note.title}
             />
@@ -289,7 +290,7 @@ export default function NoteDetailPage() {
         ) : (
           <div
             className="ProseMirror p-6 prose-invert max-w-none"
-            dangerouslySetInnerHTML={{ __html: note.content }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(note.content || '') }}
           />
         )}
       </div>
