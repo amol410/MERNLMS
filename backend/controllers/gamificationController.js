@@ -12,6 +12,77 @@ const { getTodayLocalYMD, getClientDate } = require('../utils/dateHelper');
 const { sanitizeLessonStages } = require('../utils/stageSanitizer');
 const { verifyAdMobQuery } = require('../utils/adMobVerifier');
 
+function parseUnlockedLevels(raw) {
+    const levels = new Set(['A1']);
+    if (Array.isArray(raw)) {
+        raw.forEach(l => { if (typeof l === 'string' && l.trim()) levels.add(l.trim().toUpperCase()); });
+    } else if (typeof raw === 'string' && raw.trim()) {
+        try {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+                parsed.forEach(l => { if (typeof l === 'string' && l.trim()) levels.add(l.trim().toUpperCase()); });
+            }
+        } catch (_) {}
+    }
+    return Array.from(levels);
+}
+
+function parsePlacementSkipMap(raw) {
+    if (raw && typeof raw === 'object' && !Array.isArray(raw)) return { ...raw };
+    if (typeof raw === 'string' && raw.trim()) {
+        try {
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+                return parsed;
+            }
+        } catch (_) {}
+    }
+    return {};
+}
+
+function getEffectiveSkipNodeForCourse(user, courseId) {
+    if (!user) return 0;
+    const normalizedCourseId = (courseId || '').toLowerCase();
+    const skipMap = parsePlacementSkipMap(user.placementSkipMap);
+    if (Number.isInteger(skipMap[normalizedCourseId]) && skipMap[normalizedCourseId] > 0) {
+        return skipMap[normalizedCourseId];
+    }
+    const userDefaultCourseId = `${user.targetLanguage || 'de'}_${user.nativeLanguage || (user.targetLanguage === 'en' ? 'mr' : 'en')}_${user.currentLevel || 'A1'}`.toLowerCase();
+    if (normalizedCourseId === userDefaultCourseId && Number.isInteger(user.placementSkipToNode) && user.placementSkipToNode > 0) {
+        return user.placementSkipToNode;
+    }
+    return 0;
+}
+
+function applyDailyStreakUpdate(user, todayYMD) {
+    if (!user.lastActiveDate) {
+        user.streakCount = 1;
+        user.streakFreezeCount = Math.max(0, user.streakFreezeCount || 0);
+        user.lastActiveDate = todayYMD;
+    } else {
+        const lastDate = new Date(user.lastActiveDate);
+        const todayDate = new Date(todayYMD);
+        const diffDays = Math.round((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+        if (diffDays === 1) {
+            user.streakCount = (user.streakCount || 0) + 1;
+            user.streakFreezeCount = Math.max(0, user.streakFreezeCount || 0);
+            user.lastActiveDate = todayYMD;
+        } else if (diffDays > 1) {
+            if ((user.streakFreezeCount || 0) > 0) {
+                user.streakFreezeCount = Math.max(0, (user.streakFreezeCount || 0) - 1);
+                user.lastActiveDate = todayYMD;
+            } else {
+                user.streakCount = 1;
+                user.streakFreezeCount = 0;
+                user.lastActiveDate = todayYMD;
+            }
+        } else {
+            user.streakFreezeCount = Math.max(0, user.streakFreezeCount || 0);
+        }
+    }
+    user.longestStreak = Math.max(user.longestStreak || 1, user.streakCount || 1);
+}
+
 // 1. Get current user gamification economy status (with oxygen auto-refill)
 exports.getStatus = async (req, res, next) => {
     try {
@@ -32,6 +103,14 @@ exports.getStatus = async (req, res, next) => {
             }
         }
 
+        const targetLang = user.targetLanguage || 'de';
+        const nativeLang = user.nativeLanguage || (targetLang === 'en' ? 'mr' : 'en');
+        const currentLevel = user.currentLevel || 'A1';
+        const activeCourseId = `${targetLang}_${nativeLang}_${currentLevel}`.toLowerCase();
+        const effectiveSkipToNode = getEffectiveSkipNodeForCourse(user, activeCourseId);
+        const unlockedLevels = parseUnlockedLevels(user.unlockedLevels);
+        const isAcceleratedFallback = !!(user.placementLevel && user.placementLevel !== currentLevel);
+
         const isDoubleXpActive = !!(user.doubleXpExpiresAt && new Date(user.doubleXpExpiresAt) > new Date());
         res.status(200).json({
             success: true,
@@ -42,9 +121,9 @@ exports.getStatus = async (req, res, next) => {
                 longestStreak: user.longestStreak || 1,
                 lastActiveDate: user.lastActiveDate,
                 dailyTargetXp: user.dailyTargetXp || 20,
-                targetLanguage: user.targetLanguage || 'de',
-                nativeLanguage: user.nativeLanguage || (user.targetLanguage === 'en' ? 'mr' : 'en'),
-                currentLevel: user.currentLevel || 'A1',
+                targetLanguage: targetLang,
+                nativeLanguage: nativeLang,
+                currentLevel,
                 pearls: user.pearls ?? 100,
                 oxygen: user.oxygen ?? 5,
                 totalXp: user.totalXp || 0,
@@ -52,6 +131,11 @@ exports.getStatus = async (req, res, next) => {
                 streakFreezeCount: user.streakFreezeCount || 0,
                 isDoubleXpActive,
                 doubleXpExpiresAt: user.doubleXpExpiresAt,
+                placementCompleted: !!user.placementCompleted,
+                placementLevel: user.placementLevel || null,
+                placementSkipToNode: effectiveSkipToNode,
+                unlockedLevels,
+                isAcceleratedFallback,
             }
         });
     } catch (error) {
@@ -214,13 +298,15 @@ exports.getPath = async (req, res, next) => {
         const userId = req.user.id;
 
         // Determine learning language, native instruction language, and CEFR level
-        const targetLang = req.query.learningLanguage || req.query.targetLanguage || req.user.targetLanguage || 'de';
-        let nativeLang = req.query.nativeLanguage || req.user.nativeLanguage;
+        const userRecord = await User.findByPk(userId);
+        const targetLang = req.query.learningLanguage || req.query.targetLanguage || userRecord?.targetLanguage || req.user.targetLanguage || 'de';
+        let nativeLang = req.query.nativeLanguage || userRecord?.nativeLanguage || req.user.nativeLanguage;
         if (!nativeLang) {
             nativeLang = (targetLang === 'en') ? 'mr' : 'en';
         }
-        const level = req.query.level || req.user.currentLevel || 'A1';
+        const level = req.query.level || userRecord?.currentLevel || req.user.currentLevel || 'A1';
         const courseId = `${targetLang}_${nativeLang}_${level}`.toLowerCase();
+        const skipToNode = getEffectiveSkipNodeForCourse(userRecord || req.user, courseId);
 
         // Query user progress strictly scoped to this course
         const progressList = await UserNodeProgress.findAll({
@@ -230,8 +316,12 @@ exports.getPath = async (req, res, next) => {
             },
         });
         const progressMap = {};
+        let highestCompletedIndex = -1;
         progressList.forEach(p => {
             progressMap[p.nodeIndex] = p;
+            if (p.status === 'completed' && p.nodeIndex > highestCompletedIndex) {
+                highestCompletedIndex = p.nodeIndex;
+            }
         });
 
         // Section & Unit pagination support (with windowing lookahead)
@@ -362,16 +452,24 @@ exports.getPath = async (req, res, next) => {
             );
         }
 
-        // Enrich nodes with user completion status
+        // Enrich nodes with user completion status + Virtual Placement Skip Pointer (no ghost DB rows)
+        const frontierIndex = Math.max(skipToNode, highestCompletedIndex + 1);
         const nodes = targetNodesList.map(node => {
             const prog = progressMap[node.index];
             let status = 'locked';
-            if (node.index === 0) {
-                status = prog ? prog.status : 'available';
+            let isFastTracked = false;
+
+            if (prog && prog.status === 'completed') {
+                status = 'completed';
+            } else if (node.index < skipToNode) {
+                status = 'completed';
+                isFastTracked = true;
+            } else if (node.index === 0 || node.index === skipToNode || node.index === frontierIndex) {
+                status = (prog && prog.status === 'completed') ? 'completed' : 'available';
             } else {
-                // If previous node completed, this is at least available
                 const prev = progressMap[node.index - 1];
-                if (prev && prev.status === 'completed') {
+                const prevCompleted = (prev && prev.status === 'completed') || (node.index - 1 < skipToNode);
+                if (prevCompleted) {
                     status = prog ? prog.status : 'available';
                 } else {
                     status = prog ? prog.status : 'locked';
@@ -381,13 +479,24 @@ exports.getPath = async (req, res, next) => {
             return {
                 ...node,
                 stages: null,
-                status: status,
-                stars: prog ? prog.stars : 0,
-                scorePct: prog ? prog.scorePct : 0,
+                status,
+                isFastTracked,
+                stars: prog ? prog.stars : (isFastTracked ? 3 : 0),
+                scorePct: prog ? prog.scorePct : (isFastTracked ? 100 : 0),
             };
         });
 
-        res.status(200).json({ success: true, nodes });
+        res.status(200).json({
+            success: true,
+            nodes,
+            meta: {
+                courseId,
+                skipToNode,
+                frontierIndex,
+                placementLevel: userRecord?.placementLevel || null,
+                unlockedLevels: parseUnlockedLevels(userRecord?.unlockedLevels),
+            },
+        });
     } catch (error) {
         next(error);
     }
@@ -1055,6 +1164,13 @@ exports.switchCourse = async (req, res, next) => {
         if (targetLanguage) user.targetLanguage = targetLanguage;
         if (nativeLanguage) user.nativeLanguage = nativeLanguage;
         if (level) user.currentLevel = level;
+
+        const activeCourseId = `${user.targetLanguage || 'de'}_${user.nativeLanguage || 'en'}_${user.currentLevel || 'A1'}`.toLowerCase();
+        const skipMap = parsePlacementSkipMap(user.placementSkipMap);
+        if (Number.isInteger(skipMap[activeCourseId])) {
+            user.placementSkipToNode = skipMap[activeCourseId];
+        }
+
         await user.save();
 
         res.status(200).json({
@@ -1064,6 +1180,10 @@ exports.switchCourse = async (req, res, next) => {
                 targetLanguage: user.targetLanguage,
                 nativeLanguage: user.nativeLanguage,
                 currentLevel: user.currentLevel || 'A1',
+                placementCompleted: !!user.placementCompleted,
+                placementLevel: user.placementLevel || null,
+                placementSkipToNode: getEffectiveSkipNodeForCourse(user, activeCourseId),
+                unlockedLevels: parseUnlockedLevels(user.unlockedLevels),
             }
         });
     } catch (error) {
@@ -1278,6 +1398,7 @@ exports.claimAdReward = async (req, res, next) => {
     }
 };
 
+
 exports.handleAdMobReward = async (req, res, next) => {
     try {
         const rawQuery = req.originalUrl.split('?').slice(1).join('?');
@@ -1387,6 +1508,743 @@ exports.handleAdMobReward = async (req, res, next) => {
                 responseBody,
             }, { transaction });
             return { status: 200, body: responseBody };
+        });
+
+        return res.status(result.status).json(result.body);
+    } catch (error) {
+        next(error);
+    }
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 11. DUOLINGO-STYLE DIAGNOSTIC PLACEMENT TEST & SECTION JUMP ENGINE
+// ═══════════════════════════════════════════════════════════════════════════
+
+function buildDiagnosticPlacementQuestions(targetLang = 'de', nativeLang = 'en') {
+    const isEnTarget = targetLang === 'en';
+    const nLang = nativeLang || (isEnTarget ? 'mr' : 'en');
+
+    const tr = (en, hi, mr) => {
+        if (nLang === 'hi') return hi;
+        if (nLang === 'mr') return mr;
+        return en;
+    };
+
+    if (isEnTarget) {
+        return [
+            // A1 Tier (Questions 1-4)
+            {
+                id: 'en_a1_1',
+                cefr: 'A1',
+                skill: 'vocabulary',
+                type: 'cloze_test',
+                prompt: tr('Select the correct English greeting for the morning:', 'सुबह के अभिवादन के लिए सही अंग्रेजी शब्द चुनें:', 'सकाळच्या अभिवादनासाठी योग्य इंग्रजी पर्याय निवडा:'),
+                sentence: '_____! How are you today?',
+                translation: tr('Good morning! How are you today?', 'सुप्रभात! आज आप कैसे हैं?', 'शुभ सकाळ! आज तुम्ही कसे आहात?'),
+                options: ['Good morning', 'Good night', 'Goodbye'],
+                correctAnswer: 'Good morning',
+            },
+            {
+                id: 'en_a1_2',
+                cefr: 'A1',
+                skill: 'grammar',
+                type: 'cloze_test',
+                prompt: tr('Fill in the blank with the correct verb:', 'सही क्रिया (verb) से खाली स्थान भरें:', 'योग्य क्रियापद वापरून रिकामी जागा भरा:'),
+                sentence: 'She _____ a doctor at the city hospital.',
+                translation: tr('She is a doctor at the city hospital.', 'वह शहर के अस्पताल में एक डॉक्टर हैं।', 'ती शहरातील रुग्णालयात डॉक्टर आहे.'),
+                options: ['is', 'are', 'am'],
+                correctAnswer: 'is',
+            },
+            {
+                id: 'en_a1_3',
+                cefr: 'A1',
+                skill: 'listening',
+                type: 'listen_select',
+                prompt: tr('Listen and choose what the speaker needs:', 'सुनें और चुनें कि वक्ता को क्या चाहिए:', 'ऐका आणि वक्त्याला काय हवे आहे ते निवडा:'),
+                sentence: 'Excuse me, where is the train station?',
+                translation: tr('Excuse me, where is the train station?', 'क्षमा करें, रेलवे स्टेशन कहाँ है?', 'माफ करा, रेल्वे स्टेशन कुठे आहे?'),
+                options: [
+                    tr('Directions to the train station', 'रेलवे स्टेशन का रास्ता', 'रेल्वे स्टेशनचा पत्ता'),
+                    tr('A cup of hot coffee', 'एक कप गर्म कॉफी', 'एक कप गरम कॉफी'),
+                    tr('A hotel room key', 'होटल के कमरे की चाबी', 'हॉटेलच्या खोलीची किल्ली'),
+                ],
+                correctAnswer: tr('Directions to the train station', 'रेलवे स्टेशन का रास्ता', 'रेल्वे स्टेशनचा पत्ता'),
+            },
+            {
+                id: 'en_a1_4',
+                cefr: 'A1',
+                skill: 'sentence',
+                type: 'sentence_builder',
+                prompt: tr('Arrange the words: "I live in India"', 'शब्दों को सही क्रम में लगाएं: "मैं भारत में रहता हूँ"', 'शब्द योग्य क्रमाने लावा: "मी भारतात राहतो"'),
+                targetSentence: 'I live in India',
+                tokens: ['I', 'live', 'in', 'India', 'lives', 'from'],
+                correctAnswer: 'I live in India',
+            },
+            // A2 Tier (Questions 5-8)
+            {
+                id: 'en_a2_1',
+                cefr: 'A2',
+                skill: 'grammar',
+                type: 'cloze_test',
+                prompt: tr('Choose the correct past tense form:', 'सही भूतकाल (Past Tense) रूप चुनें:', 'योग्य भूतकाळाचे रूप निवडा:'),
+                sentence: 'Yesterday, we _____ to the market to buy fresh fruit.',
+                translation: tr('Yesterday, we went to the market to buy fresh fruit.', 'कल हम ताजे फल खरीदने बाजार गए थे।', 'काल आम्ही ताजी फळे खरेदी करण्यासाठी बाजारात गेलो होतो.'),
+                options: ['went', 'goed', 'gone'],
+                correctAnswer: 'went',
+            },
+            {
+                id: 'en_a2_2',
+                cefr: 'A2',
+                skill: 'vocabulary',
+                type: 'dialogue_bubble',
+                partnerName: 'Sarah',
+                partnerMessage: 'Could you please pass me the salt?',
+                prompt: tr('Choose the most natural polite response:', 'सबसे स्वाभाविक विनम्र उत्तर चुनें:', 'सर्वात नैसर्गिक आणि नम्र उत्तर निवडा:'),
+                options: [
+                    'Sure, here you go!',
+                    'No, I am yesterday.',
+                    'Where is the salt going?',
+                ],
+                correctAnswer: 'Sure, here you go!',
+            },
+            {
+                id: 'en_a2_3',
+                cefr: 'A2',
+                skill: 'grammar',
+                type: 'cloze_test',
+                prompt: tr('Complete the comparison:', 'तुलना पूरी करें:', 'तुलना पूर्ण करा:'),
+                sentence: 'Mumbai is _____ than my hometown.',
+                translation: tr('Mumbai is bigger than my hometown.', 'मुंबई मेरे गृहनगर से बड़ा है।', 'मुंबई माझ्या गावापेक्षा मोठी आहे.'),
+                options: ['bigger', 'more big', 'biggest'],
+                correctAnswer: 'bigger',
+            },
+            {
+                id: 'en_a2_4',
+                cefr: 'A2',
+                skill: 'listening',
+                type: 'listen_select',
+                prompt: tr('Listen and identify when the meeting starts:', 'सुनें और बताएं कि मीटिंग कब शुरू होगी:', 'ऐका आणि मीटिंग कधी सुरू होईल ते ओळखा:'),
+                sentence: 'Our flight was delayed, so the meeting will start at half past three.',
+                translation: tr('The meeting will start at 3:30.', 'मीटिंग 3:30 बजे शुरू होगी।', 'मीटिंग ३:३० वाजता सुरू होईल.'),
+                options: ['At 3:30', 'At 2:30', 'At 4:00'],
+                correctAnswer: 'At 3:30',
+            },
+            // B1 Tier (Questions 9-12)
+            {
+                id: 'en_b1_1',
+                cefr: 'B1',
+                skill: 'grammar',
+                type: 'cloze_test',
+                prompt: tr('Complete the conditional sentence:', 'शर्तवाचक वाक्य (Conditional) पूरा करें:', 'अट दर्शवणारे वाक्य पूर्ण करा:'),
+                sentence: 'If I had known about the traffic, I _____ earlier.',
+                translation: tr('If I had known about the traffic, I would have left earlier.', 'अगर मुझे ट्रैफिक के बारे में पता होता, तो मैं पहले निकल जाता।', 'जर मला ट्रॅफिकबद्दल माहित असते, तर मी लवकर निघालो असतो.'),
+                options: ['would have left', 'will leave', 'had left'],
+                correctAnswer: 'would have left',
+            },
+            {
+                id: 'en_b1_2',
+                cefr: 'B1',
+                skill: 'grammar',
+                type: 'cloze_test',
+                prompt: tr('Select the correct present perfect continuous form:', 'सही व्याकरण विकल्प चुनें:', 'योग्य व्याकरण पर्याय निवडा:'),
+                sentence: 'She _____ at this software company since 2021.',
+                translation: tr('She has been working at this software company since 2021.', 'वह 2021 से इस सॉफ्टवेयर कंपनी में काम कर रही है।', 'ती २०२१ पासून या सॉफ्टवेअर कंपनीत काम करत आहे.'),
+                options: ['has been working', 'is working', 'worked'],
+                correctAnswer: 'has been working',
+            },
+            {
+                id: 'en_b1_3',
+                cefr: 'B1',
+                skill: 'vocabulary',
+                type: 'dialogue_bubble',
+                partnerName: 'Manager',
+                partnerMessage: 'We need to postpone the product launch until nextWednesday.',
+                prompt: tr('What does "postpone" mean in this context?', 'यहाँ "postpone" का क्या अर्थ है?', 'या संदर्भात "postpone" चा अर्थ काय आहे?'),
+                options: [
+                    tr('Reschedule to a later time', 'बाद के समय के लिए टालना', 'पुढील वेळेवर ढकलणे'),
+                    tr('Cancel the project permanently', 'हमेशा के लिए रद्द करना', 'कायमचे रद्द करणे'),
+                    tr('Start the launch immediately', 'तुरंत शुरू करना', 'ताबडतोब सुरू करणे'),
+                ],
+                correctAnswer: tr('Reschedule to a later time', 'बाद के समय के लिए टालना', 'पुढील वेळेवर ढकलणे'),
+            },
+            {
+                id: 'en_b1_4',
+                cefr: 'B1',
+                skill: 'sentence',
+                type: 'sentence_builder',
+                prompt: tr('Construct the complex sentence:', 'जटिल वाक्य बनाएं:', 'वाक्य पूर्ण करा:'),
+                targetSentence: 'Although it was raining we enjoyed the trip',
+                tokens: ['Although', 'it', 'was', 'raining', 'we', 'enjoyed', 'the', 'trip', 'because'],
+                correctAnswer: 'Although it was raining we enjoyed the trip',
+            },
+        ];
+    }
+
+    // German Target ('de')
+    return [
+        // A1 Tier (Questions 1-4)
+        {
+            id: 'de_a1_1',
+            cefr: 'A1',
+            skill: 'vocabulary',
+            type: 'cloze_test',
+            prompt: tr('Choose the correct German greeting for the morning:', 'सुबह के लिए सही जर्मन अभिवादन चुनें:', 'सकाळसाठी योग्य जर्मन अभिवादन निवडा:'),
+            sentence: '_____! Wie geht es dir?',
+            translation: tr('Good morning! How are you?', 'सुप्रभात! आप कैसे हैं?', 'शुभ सकाळ! तुम्ही कसे आहात?'),
+            options: ['Guten Morgen', 'Gute Nacht', 'Auf Wiedersehen'],
+            correctAnswer: 'Guten Morgen',
+        },
+        {
+            id: 'de_a1_2',
+            cefr: 'A1',
+            skill: 'grammar',
+            type: 'cloze_test',
+            prompt: tr('Select the correct verb conjugation:', 'सही क्रिया रूप चुनें:', 'योग्य क्रियापद रूप निवडा:'),
+            sentence: 'Ich _____ aus Indien und wohne in Berlin.',
+            translation: tr('I come from India and live in Berlin.', 'मैं भारत से हूँ और बर्लिन में रहता हूँ।', 'मी भारताचा आहे आणि बर्लिनमध्ये राहतो.'),
+            options: ['komme', 'kommst', 'kommt'],
+            correctAnswer: 'komme',
+        },
+        {
+            id: 'de_a1_3',
+            cefr: 'A1',
+            skill: 'listening',
+            type: 'listen_select',
+            prompt: tr('Listen and choose what the customer orders:', 'सुनें और चुनें कि ग्राहक क्या ऑर्डर कर रहा है:', 'ऐका आणि ग्राहक काय ऑर्डर करत आहे ते निवडा:'),
+            sentence: 'Ich möchte bitte einen Kaffee und ein Wasser.',
+            translation: tr('I would like a coffee and a water, please.', 'मुझे कृपया एक कॉफी और एक पानी चाहिए।', 'मला कृपया एक कॉफी आणि एक पाणी हवे आहे.'),
+            options: [
+                tr('One coffee and one water', 'एक कॉफी और एक पानी', 'एक कॉफी आणि एक पाणी'),
+                tr('Two teas and bread', 'दो चाय और ब्रेड', 'दोन चहा आणि ब्रेड'),
+                tr('The restaurant bill', 'रेस्तरां का बिल', 'हॉटेलचे बिल'),
+            ],
+            correctAnswer: tr('One coffee and one water', 'एक कॉफी और एक पानी', 'एक कॉफी आणि एक पाणी'),
+        },
+        {
+            id: 'de_a1_4',
+            cefr: 'A1',
+            skill: 'sentence',
+            type: 'sentence_builder',
+            prompt: tr('Translate: "My name is Anna"', 'अनुवाद करें: "मेरा नाम अन्ना है"', 'भाषांतर करा: "माझे नाव अन्ना आहे"'),
+            targetSentence: 'Ich heiße Anna',
+            tokens: ['Ich', 'heiße', 'Anna', 'du', 'bin', 'heißt'],
+            correctAnswer: 'Ich heiße Anna',
+        },
+        // A2 Tier (Questions 5-8)
+        {
+            id: 'de_a2_1',
+            cefr: 'A2',
+            skill: 'grammar',
+            type: 'cloze_test',
+            prompt: tr('Complete the Perfekt (past tense) sentence:', 'भूतकाल (Perfekt) वाक्य पूरा करें:', 'भूतकाळातील (Perfekt) वाक्य पूर्ण करा:'),
+            sentence: 'Gestern _____ ich ins Kino gegangen.',
+            translation: tr('Yesterday I went to the cinema.', 'कल मैं सिनेमा गया था।', 'काल मी सिनेमाला गेलो होतो.'),
+            options: ['bin', 'habe', 'war'],
+            correctAnswer: 'bin',
+        },
+        {
+            id: 'de_a2_2',
+            cefr: 'A2',
+            skill: 'grammar',
+            type: 'cloze_test',
+            prompt: tr('Choose the correct subordinate clause word order (weil):', '"weil" के साथ सही शब्द क्रम चुनें:', '"weil" सह योग्य शब्दक्रम निवडा:'),
+            sentence: 'Ich lerne Deutsch, weil ich in Deutschland _____ möchte.',
+            translation: tr('I am learning German because I want to work in Germany.', 'मैं जर्मन सीख रहा हूँ क्योंकि मैं जर्मनी में काम करना चाहता हूँ।', 'मी जर्मन शिकत आहे कारण मला जर्मनीमध्ये काम करायचे आहे.'),
+            options: ['arbeiten', 'arbeite', 'gearbeitet'],
+            correctAnswer: 'arbeiten',
+        },
+        {
+            id: 'de_a2_3',
+            cefr: 'A2',
+            skill: 'vocabulary',
+            type: 'dialogue_bubble',
+            partnerName: 'Lukas',
+            partnerMessage: 'Entschuldigung, wie komme ich zum Hauptbahnhof?',
+            prompt: tr('Choose the most natural reply:', 'सबसे सही उत्तर चुनें:', 'सर्वात योग्य उत्तर निवडा:'),
+            options: [
+                'Gehen Sie hier geradeaus und dann links.',
+                'Ich habe gestern im Bahnhof geschlafen.',
+                'Der Zug schmeckt sehr gut.',
+            ],
+            correctAnswer: 'Gehen Sie hier geradeaus und dann links.',
+        },
+        {
+            id: 'de_a2_4',
+            cefr: 'A2',
+            skill: 'listening',
+            type: 'listen_select',
+            prompt: tr('Listen and identify when the train departs:', 'सुनें और बताएं कि ट्रेन कब छूटेगी:', 'ऐका आणि ट्रेन कधी सुटेल ते सांगा:'),
+            sentence: 'Der ICE nach München fährt heute auf Gleis vier um halb neun ab.',
+            translation: tr('The ICE to Munich departs today on track 4 at 8:30.', 'म्यूनिख के लिए ट्रेन आज प्लेटफॉर्म 4 से 8:30 बजे रवाना होगी।', 'म्युनिकची ट्रेन आज फलाट ४ वरून ८:३० वाजता सुटेल.'),
+            options: ['08:30 (Track 4)', '09:30 (Track 4)', '08:15 (Track 2)'],
+            correctAnswer: '08:30 (Track 4)',
+        },
+        // B1 Tier (Questions 9-12)
+        {
+            id: 'de_b1_1',
+            cefr: 'B1',
+            skill: 'grammar',
+            type: 'cloze_test',
+            prompt: tr('Choose the correct Konjunktiv II (polite/hypothetical) form:', 'सही Konjunktiv II रूप चुनें:', 'योग्य Konjunktiv II रूप निवडा:'),
+            sentence: 'Wenn ich mehr Zeit hätte, _____ ich jeden Tag Sport machen.',
+            translation: tr('If I had more time, I would play sports every day.', 'यदि मेरे पास अधिक समय होता, तो मैं हर दिन खेलकूद करता।', 'जर माझ्याकडे जास्त वेळ असता, तर मी दररोज व्यायाम केला असता.'),
+            options: ['würde', 'werde', 'wurde'],
+            correctAnswer: 'würde',
+        },
+        {
+            id: 'de_b1_2',
+            cefr: 'B1',
+            skill: 'grammar',
+            type: 'cloze_test',
+            prompt: tr('Select the correct genitive conjunction (obwohl / trotz):', 'सही व्याकरण विकल्प चुनें:', 'योग्य व्याकरण पर्याय निवडा:'),
+            sentence: '_____ es stark regnete, sind wir spazieren gegangen.',
+            translation: tr('Although it was raining heavily, we went for a walk.', 'हालाँकि तेज़ बारिश हो रही थी, फिर भी हम टहलने गए।', 'जोरदार पाऊस पडत असूनही आम्ही फिरायला गेलो.'),
+            options: ['Obwohl', 'Trotzdem', 'Wegen'],
+            correctAnswer: 'Obwohl',
+        },
+        {
+            id: 'de_b1_3',
+            cefr: 'B1',
+            skill: ' grammar',
+            type: 'cloze_test',
+            prompt: tr('Select the correct relative pronoun in Dative:', 'सही संबंधवाचक सर्वनाम (Relative Pronoun) चुनें:', 'योग्य सर्वनाम (Relative Pronoun) निवडा:'),
+            sentence: 'Das ist der Kollege, _____ ich gestern bei der Arbeit geholfen habe.',
+            translation: tr('That is the colleague whom I helped at work yesterday.', 'यह वह सहकर्मी है जिसकी मैंने कल काम में मदद की थी।', 'हा तोच सहकारी आहे ज्याला मी काल कामात मदत केली.'),
+            options: ['dem', 'den', 'der'],
+            correctAnswer: 'dem',
+        },
+        {
+            id: 'de_b1_4',
+            cefr: 'B1',
+            skill: 'sentence',
+            type: 'sentence_builder',
+            prompt: tr('Construct the B1 sentence:', 'B1 स्तर का जर्मन वाक्य बनाएं:', 'B1 स्तराचे जर्मन वाक्य तयार करा:'),
+            targetSentence: 'Obwohl ich müde bin gehe ich heute zum Training',
+            tokens: ['Obwohl', 'ich', 'müde', 'bin', 'gehe', 'ich', 'heute', 'zum', 'Training', 'weil'],
+            correctAnswer: 'Obwohl ich müde bin gehe ich heute zum Training',
+        },
+    ];
+}
+
+async function resolveSection2StartNodeIndex(targetLang, nativeLang, level = 'A1') {
+    const allLessons = await CurriculumLesson.findAll({
+        where: {
+            isLive: true,
+            learningLanguage: targetLang,
+            nativeLanguage: nativeLang,
+            level,
+        },
+        attributes: ['id', 'unitNumber', 'lessonIndex', 'title'],
+        order: [
+            ['unitNumber', 'ASC'],
+            ['lessonIndex', 'ASC'],
+            ['id', 'ASC'],
+        ],
+        raw: true,
+    });
+
+    if (!Array.isArray(allLessons) || allLessons.length === 0) {
+        return {
+            nodeIndex: 35,
+            targetUnitNumber: 36,
+            targetSectionNumber: 2,
+            targetSectionTitle: 'Explorer',
+        };
+    }
+
+    // 1. Look for the exact start of Section 2 (Unit 36+)
+    const sec2Idx = allLessons.findIndex(l => (l.unitNumber || 1) >= 36);
+    if (sec2Idx !== -1) {
+        return {
+            nodeIndex: sec2Idx,
+            targetUnitNumber: allLessons[sec2Idx].unitNumber || 36,
+            targetSectionNumber: 2,
+            targetSectionTitle: 'Explorer',
+        };
+    }
+
+    // 2. If the course has fewer than 36 units published in DB right now,
+    // route to the second half of published units so the skip pointer is always valid and in-bounds!
+    const maxUnit = allLessons.reduce((acc, l) => Math.max(acc, l.unitNumber || 1), 1);
+    if (maxUnit >= 2) {
+        const fallbackUnit = Math.max(2, Math.floor(maxUnit / 2) + 1);
+        const midIdx = allLessons.findIndex(l => (l.unitNumber || 1) >= fallbackUnit);
+        if (midIdx > 0) {
+            return {
+                nodeIndex: midIdx,
+                targetUnitNumber: allLessons[midIdx].unitNumber || fallbackUnit,
+                targetSectionNumber: 2,
+                targetSectionTitle: 'Explorer',
+            };
+        }
+    }
+
+    const fallbackIdx = allLessons.length > 1 ? Math.floor(allLessons.length / 2) : 0;
+    return {
+        nodeIndex: fallbackIdx,
+        targetUnitNumber: allLessons[fallbackIdx]?.unitNumber || 36,
+        targetSectionNumber: 2,
+        targetSectionTitle: 'Explorer',
+    };
+}
+
+/**
+ * 11a. Fetch Calibrated Diagnostic Placement Questions (or Section Jump Test Questions)
+ * Route: GET / POST /api/gamification/placement/questions
+ */
+exports.getPlacementQuestions = async (req, res, next) => {
+    try {
+        const user = await User.findByPk(req.user.id);
+        const targetLang = req.query.targetLanguage || req.body?.targetLanguage || user?.targetLanguage || 'de';
+        const nativeLang = req.query.nativeLanguage || req.body?.nativeLanguage || user?.nativeLanguage || (targetLang === 'en' ? 'mr' : 'en');
+        const mode = req.query.mode || req.body?.mode || 'placement';
+        const targetUnitNumber = parseInt(req.query.targetUnitNumber || req.body?.targetUnitNumber || '0', 10) || null;
+
+        const questions = buildDiagnosticPlacementQuestions(targetLang, nativeLang);
+
+        return res.status(200).json({
+            success: true,
+            mode,
+            targetLanguage: targetLang,
+            nativeLanguage: nativeLang,
+            targetUnitNumber,
+            totalQuestions: questions.length,
+            maxMistakesAllowed: mode === 'jump' ? 3 : null,
+            questions,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * 11b. Evaluate Placement Test & Apply Safe Curriculum Routing (with A1 Section 2 Fallback)
+ * Route: POST /api/gamification/placement/evaluate
+ */
+exports.evaluatePlacement = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const {
+            scorePct,
+            correctCount,
+            totalQuestions = 12,
+            targetLanguage,
+            nativeLanguage,
+        } = req.body;
+
+        let computedScorePct = 0;
+        if (typeof scorePct === 'number' && Number.isFinite(scorePct)) {
+            computedScorePct = Math.max(0, Math.min(100, Math.round(scorePct)));
+        } else if (typeof correctCount === 'number' && totalQuestions > 0) {
+            computedScorePct = Math.max(0, Math.min(100, Math.round((correctCount / totalQuestions) * 100)));
+        } else {
+            return res.status(400).json({
+                success: false,
+                message: 'Either scorePct (0-100) or correctCount is required',
+            });
+        }
+
+        // CEFR Mapping Thresholds:
+        // < 45% (0-5/12) -> A1
+        // 45% - 79% (6-9/12) -> A2
+        // >= 80% (10-12/12) -> B1
+        let assignedLevel = 'A1';
+        if (computedScorePct >= 80) {
+            assignedLevel = 'B1';
+        } else if (computedScorePct >= 45) {
+            assignedLevel = 'A2';
+        }
+
+        const result = await sequelize.transaction(async transaction => {
+            const user = await User.findByPk(userId, {
+                transaction,
+                lock: transaction.LOCK.UPDATE,
+            });
+            if (!user) return { status: 404, body: { success: false, message: 'User not found' } };
+
+            const tLang = targetLanguage || user.targetLanguage || 'de';
+            const nLang = nativeLanguage || user.nativeLanguage || (tLang === 'en' ? 'mr' : 'en');
+            user.targetLanguage = tLang;
+            user.nativeLanguage = nLang;
+
+            // Update unlocked levels badge list
+            const unlockedSet = new Set(parseUnlockedLevels(user.unlockedLevels));
+            unlockedSet.add('A1');
+            if (assignedLevel === 'A2') {
+                unlockedSet.add('A2');
+            } else if (assignedLevel === 'B1') {
+                unlockedSet.add('A2');
+                unlockedSet.add('B1');
+            }
+
+            // Check if the assigned CEFR level has live published lessons in CurriculumLesson
+            const liveTargetLevelCount = await CurriculumLesson.count({
+                where: {
+                    learningLanguage: tLang,
+                    nativeLanguage: nLang,
+                    level: assignedLevel,
+                    isLive: true,
+                },
+                transaction,
+            });
+
+            const skipMap = parsePlacementSkipMap(user.placementSkipMap);
+            let effectiveLevel = assignedLevel;
+            let isFallback = false;
+            let fallbackReason = null;
+            let targetSectionNumber = 1;
+            let targetSectionTitle = 'Rookie';
+            let targetUnitNumber = 1;
+            let effectiveSkipNode = 0;
+
+            if (assignedLevel === 'A1') {
+                effectiveLevel = 'A1';
+                const a1CourseId = `${tLang}_${nLang}_a1`.toLowerCase();
+                // High-Water Mark Rule: Never demote an existing user who already has progress
+                const existingSkip = getEffectiveSkipNodeForCourse(user, a1CourseId);
+                const highestCompleted = await UserNodeProgress.max('nodeIndex', {
+                    where: { userId, courseId: a1CourseId, status: 'completed' },
+                    transaction,
+                });
+                const currentFrontier = Math.max(
+                    existingSkip,
+                    Number.isInteger(highestCompleted) ? highestCompleted + 1 : 0
+                );
+                effectiveSkipNode = currentFrontier;
+                skipMap[a1CourseId] = effectiveSkipNode;
+            } else if (liveTargetLevelCount > 0) {
+                // Target level (A2 or B1) has live published lessons -> Route directly!
+                effectiveLevel = assignedLevel;
+                isFallback = false;
+                const targetCourseId = `${tLang}_${nLang}_${assignedLevel}`.toLowerCase();
+                const existingSkip = getEffectiveSkipNodeForCourse(user, targetCourseId);
+                effectiveSkipNode = existingSkip;
+                skipMap[targetCourseId] = effectiveSkipNode;
+
+                // Ensure Node 0 of the target level is available
+                const node0 = await UserNodeProgress.findOne({
+                    where: { userId, courseId: targetCourseId, nodeIndex: 0 },
+                    transaction,
+                });
+                if (!node0) {
+                    await UserNodeProgress.create({
+                        userId,
+                        courseId: targetCourseId,
+                        nodeIndex: 0,
+                        status: 'available',
+                    }, { transaction });
+                }
+            } else {
+                // MISSING CONTENT SAFE ROUTING:
+                // Assigned level is A2 or B1, but 0 lessons are published for it yet.
+                // Route user to A1 Section 2 (Explorer, Unit 36) via Virtual Skip Pointer!
+                effectiveLevel = 'A1';
+                isFallback = true;
+                fallbackReason = `${assignedLevel} curriculum is being prepared; fast-tracked to A1 Section 2 (Explorer).`;
+
+                const sec2Info = await resolveSection2StartNodeIndex(tLang, nLang, 'A1');
+                const a1CourseId = `${tLang}_${nLang}_a1`.toLowerCase();
+                const existingSkip = getEffectiveSkipNodeForCourse(user, a1CourseId);
+                const highestCompleted = await UserNodeProgress.max('nodeIndex', {
+                    where: { userId, courseId: a1CourseId, status: 'completed' },
+                    transaction,
+                });
+                const currentFrontier = Math.max(
+                    existingSkip,
+                    Number.isInteger(highestCompleted) ? highestCompleted + 1 : 0
+                );
+
+                // High-Water Mark Rule: never move pointer backward
+                effectiveSkipNode = Math.max(currentFrontier, sec2Info.nodeIndex);
+                skipMap[a1CourseId] = effectiveSkipNode;
+                targetSectionNumber = sec2Info.targetSectionNumber;
+                targetSectionTitle = sec2Info.targetSectionTitle;
+                targetUnitNumber = sec2Info.targetUnitNumber;
+            }
+
+            user.currentLevel = effectiveLevel;
+            user.placementCompleted = true;
+            user.placementLevel = assignedLevel;
+            user.placementSkipToNode = effectiveSkipNode;
+            user.placementSkipMap = JSON.stringify(skipMap);
+            user.placementTestDate = new Date();
+            user.unlockedLevels = JSON.stringify(Array.from(unlockedSet));
+
+            // Protect / increment daily streak (0 XP and 0 Pearls awarded to prevent leaderboard farming)
+            const todayYMD = new Date().toISOString().split('T')[0];
+            applyDailyStreakUpdate(user, todayYMD);
+            await user.save({ transaction });
+
+            await UserActivity.create({
+                userId,
+                activityType: 'quiz',
+                resourceId: 0,
+                resourceTitle: `Diagnostic Placement (${assignedLevel})`,
+                subjectName: 'Placement Test',
+                topicName: `${tLang.toUpperCase()} Placement`,
+                activityDate: todayYMD,
+                metadata: {
+                    isPlacementTest: true,
+                    scorePct: computedScorePct,
+                    assignedLevel,
+                    effectiveLevel,
+                    isFallback,
+                    placementSkipToNode: effectiveSkipNode,
+                    targetUnitNumber,
+                    xpEarned: 0,
+                    pearlsEarned: 0,
+                },
+            }, { transaction });
+
+            return {
+                status: 200,
+                body: {
+                    success: true,
+                    message: isFallback
+                        ? `You tested into ${assignedLevel}! Fast-tracking you to A1 Section 2 (${targetSectionTitle}, Unit ${targetUnitNumber}).`
+                        : `Placement complete! Starting at ${effectiveLevel}.`,
+                    placement: {
+                        scorePct: computedScorePct,
+                        assignedLevel,
+                        effectiveLevel,
+                        isFallback,
+                        fallbackReason,
+                        targetSectionNumber,
+                        targetSectionTitle,
+                        targetUnitNumber,
+                        placementSkipToNode: effectiveSkipNode,
+                        unlockedLevels: Array.from(unlockedSet),
+                        xpEarned: 0,
+                        pearlsEarned: 0,
+                        streakCount: user.streakCount,
+                    },
+                    status: {
+                        streakCount: user.streakCount,
+                        longestStreak: user.longestStreak,
+                        lastActiveDate: user.lastActiveDate,
+                        targetLanguage: user.targetLanguage,
+                        nativeLanguage: user.nativeLanguage,
+                        currentLevel: user.currentLevel,
+                        placementCompleted: true,
+                        placementLevel: user.placementLevel,
+                        placementSkipToNode: effectiveSkipNode,
+                        unlockedLevels: Array.from(unlockedSet),
+                        isAcceleratedFallback: isFallback,
+                        totalXp: user.totalXp || 0,
+                        pearls: user.pearls ?? 100,
+                        oxygen: user.oxygen ?? 5,
+                    },
+                },
+            };
+        });
+
+        return res.status(result.status).json(result.body);
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * 11c. Mid-Course Section / Unit Jump Gate ("JUMP HERE?")
+ * Route: POST /api/gamification/jump-section
+ * Body: { targetUnitNumber, scorePct, mistakesCount }
+ */
+exports.jumpSection = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const {
+            targetUnitNumber,
+            scorePct = 0,
+            mistakesCount = 0,
+            targetLanguage,
+            nativeLanguage,
+            level,
+        } = req.body;
+
+        const parsedUnit = parseInt(targetUnitNumber, 10);
+        if (!Number.isInteger(parsedUnit) || parsedUnit < 2) {
+            return res.status(400).json({
+                success: false,
+                message: 'targetUnitNumber must be an integer >= 2',
+            });
+        }
+
+        const passed = scorePct >= 80 && mistakesCount <= 3;
+        if (!passed) {
+            return res.status(200).json({
+                success: true,
+                passed: false,
+                scorePct,
+                mistakesCount,
+                message: 'You need at least 80% accuracy and no more than 3 mistakes to jump to this unit.',
+            });
+        }
+
+        const result = await sequelize.transaction(async transaction => {
+            const user = await User.findByPk(userId, {
+                transaction,
+                lock: transaction.LOCK.UPDATE,
+            });
+            if (!user) return { status: 404, body: { success: false, message: 'User not found' } };
+
+            const tLang = targetLanguage || user.targetLanguage || 'de';
+            const nLang = nativeLanguage || user.nativeLanguage || (tLang === 'en' ? 'mr' : 'en');
+            const cLevel = level || user.currentLevel || 'A1';
+            const courseId = `${tLang}_${nLang}_${cLevel}`.toLowerCase();
+
+            // Resolve global nodeIndex for targetUnitNumber
+            const allLessons = await CurriculumLesson.findAll({
+                where: {
+                    isLive: true,
+                    learningLanguage: tLang,
+                    nativeLanguage: nLang,
+                    level: cLevel,
+                },
+                attributes: ['id', 'unitNumber', 'lessonIndex'],
+                order: [
+                    ['unitNumber', 'ASC'],
+                    ['lessonIndex', 'ASC'],
+                    ['id', 'ASC'],
+                ],
+                raw: true,
+                transaction,
+            });
+
+            let targetNodeIndex = parsedUnit - 1;
+            if (Array.isArray(allLessons) && allLessons.length > 0) {
+                const foundIdx = allLessons.findIndex(l => (l.unitNumber || 1) >= parsedUnit);
+                if (foundIdx !== -1) {
+                    targetNodeIndex = foundIdx;
+                } else {
+                    targetNodeIndex = allLessons.length - 1;
+                }
+            }
+
+            const skipMap = parsePlacementSkipMap(user.placementSkipMap);
+            const existingSkip = getEffectiveSkipNodeForCourse(user, courseId);
+            const newSkipNode = Math.max(existingSkip, targetNodeIndex);
+
+            skipMap[courseId] = newSkipNode;
+            user.placementSkipToNode = newSkipNode;
+            user.placementSkipMap = JSON.stringify(skipMap);
+
+            const todayYMD = new Date().toISOString().split('T')[0];
+            applyDailyStreakUpdate(user, todayYMD);
+            await user.save({ transaction });
+
+            return {
+                status: 200,
+                body: {
+                    success: true,
+                    passed: true,
+                    message: `Successfully jumped to Unit ${parsedUnit}!`,
+                    targetUnitNumber: parsedUnit,
+                    unlockedNodeIndex: newSkipNode,
+                    xpEarned: 0,
+                    pearlsEarned: 0,
+                    streakCount: user.streakCount,
+                },
+            };
         });
 
         return res.status(result.status).json(result.body);
