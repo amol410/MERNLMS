@@ -1443,6 +1443,87 @@ exports.claimAdReward = async (req, res, next) => {
 };
 
 
+/**
+ * 10b. Emergency oxygen refill (used when no rewarded/interstitial ad can be loaded)
+ * Route: POST /api/gamification/emergency-refill
+ * Grants +1 oxygen, only when the learner has 0 oxygen, at most once per cooldown window.
+ */
+const EMERGENCY_REFILL_COOLDOWN_MS = 4 * 60 * 60 * 1000;
+
+exports.emergencyRefill = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+
+        const result = await sequelize.transaction(async transaction => {
+            const user = await User.findByPk(userId, {
+                transaction,
+                lock: transaction.LOCK.UPDATE,
+            });
+            if (!user) return { status: 404, body: { success: false, message: 'User not found' } };
+
+            if ((user.oxygen ?? 0) > 0) {
+                return {
+                    status: 400,
+                    body: { success: false, message: 'You still have oxygen. Emergency refill is only for 0 oxygen.', oxygen: user.oxygen },
+                };
+            }
+
+            const last = await RewardTransaction.findOne({
+                where: { userId, kind: 'emergency_refill' },
+                order: [['createdAt', 'DESC']],
+                transaction,
+            });
+            if (last) {
+                const elapsedMs = Date.now() - new Date(last.createdAt).getTime();
+                if (elapsedMs < EMERGENCY_REFILL_COOLDOWN_MS) {
+                    const retryAfterSec = Math.ceil((EMERGENCY_REFILL_COOLDOWN_MS - elapsedMs) / 1000);
+                    return {
+                        status: 429,
+                        body: {
+                            success: false,
+                            message: 'Emergency refill already used recently.',
+                            retryAfterSec,
+                        },
+                    };
+                }
+            }
+
+            user.oxygen = 1;
+            if (!user.lastOxygenRefill) user.lastOxygenRefill = new Date();
+            await user.save({ transaction });
+
+            const responseBody = {
+                success: true,
+                message: 'Emergency refill: +1 Oxygen bubble 🫧',
+                rewardType: 'emergency_refill',
+                oxygenEarned: 1,
+                pearlsEarned: 0,
+                xpEarned: 0,
+                oxygen: user.oxygen,
+                pearls: user.pearls,
+                totalXp: user.totalXp,
+            };
+
+            await RewardTransaction.create({
+                userId,
+                kind: 'emergency_refill',
+                reference: `emergency-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+                xpEarned: 0,
+                pearlsEarned: 0,
+                oxygenEarned: 1,
+                responseBody,
+            }, { transaction });
+
+            return { status: 200, body: responseBody };
+        });
+
+        return res.status(result.status).json(result.body);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 exports.handleAdMobReward = async (req, res, next) => {
     try {
         const rawQuery = req.originalUrl.split('?').slice(1).join('?');

@@ -15,6 +15,7 @@ const {
     switchCourse,
     getLessonDetails,
     claimAdReward,
+    emergencyRefill,
     handleAdMobReward,
     getPlacementQuestions,
     evaluatePlacement,
@@ -40,6 +41,7 @@ router.post('/claim-quest', claimQuest);
 router.post('/quests/claim', claimQuest);
 router.post('/switch-course', switchCourse);
 router.post('/claim-ad-reward', claimAdReward);
+router.post('/emergency-refill', emergencyRefill);
 router.get('/placement/questions', getPlacementQuestions);
 router.post('/placement/questions', getPlacementQuestions);
 router.post('/placement/evaluate', evaluatePlacement);
