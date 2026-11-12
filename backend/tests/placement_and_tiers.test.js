@@ -295,4 +295,199 @@ describe('Duolingo-Style Placement, A1 Section 2 Fallback & Universal Challenges
             ]);
         });
     });
+
+    describe('5. Section 2 Gate Lesson Placement (Section 2, Unit 4, Lesson 4)', () => {
+        const makeGateStages = () => ([
+            { type: 'word_match', enabled: true, pairs: [{ target: 'kaufen', native: 'to buy' }] },
+            { type: 'listen_tap', enabled: true, targetSentence: 'Wie viel kostet das?', tokens: ['Wie', 'viel', 'kostet', 'das?'] },
+            { type: 'picture_select', enabled: false, prompt: 'Hidden stage', options: [] },
+            { type: 'sentence_builder', enabled: true, prompt: 'Translate', targetSentence: 'Ich möchte bezahlen', tokens: ['Ich', 'möchte', 'bezahlen'] },
+            { type: 'cloze_test', enabled: true, sentence: 'Das _____ zwanzig Euro.', blank: 'kostet', options: ['kostet', 'kauft'] },
+            { type: 'type_word', enabled: true, prompt: 'Das ist sehr _____.', target: 'billig' },
+            { type: 'dialogue_bubble', enabled: true, partnerName: 'Kassierer', partnerMessage: 'Mit Karte?', options: [{ text: 'Ja, bitte!', isCorrect: true }] },
+            { type: 'listen_select', enabled: true, sentence: 'Die Rechnung bitte.', question: 'What is requested?', options: [{ text: 'The bill', isCorrect: true }] },
+            { type: 'sprechen', enabled: true, prompt: 'Ich zahle bar', translation: 'I pay in cash' },
+            { type: 'karaoke', enabled: true, storyText: 'Im Supermarkt', translationText: 'At the supermarket' },
+        ]);
+
+        it('fetches normalized Section 2, Unit 4, Lesson 4 and omits disabled, sprechen, and karaoke stages', async () => {
+            await CurriculumLesson.bulkCreate([
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 1, sectionTitle: 'Rookie', unitNumber: 1, lessonIndex: 0,
+                    title: 'S1 U1 L1', nodeType: 'lesson', isLive: true, stages: [{ type: 'word_match', pairs: [] }],
+                },
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 2, sectionTitle: 'Explorer', unitNumber: 1, lessonIndex: 0,
+                    title: 'S2 U1 L1', nodeType: 'lesson', isLive: true, stages: [{ type: 'word_match', pairs: [] }],
+                },
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 2, sectionTitle: 'Explorer', unitNumber: 4, unitTitle: 'Shopping & Money', lessonIndex: 3,
+                    title: 'Shopping & Money • Lesson 4', nodeType: 'lesson', isLive: true, stages: makeGateStages(),
+                },
+            ]);
+
+            const { token } = await createTestUser({ targetLanguage: 'de', nativeLanguage: 'en' });
+            const res = await request(app)
+                .get('/api/gamification/placement/lesson?targetLanguage=de&nativeLanguage=en')
+                .set('Authorization', `Bearer ${token}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.success).toBe(true);
+            expect(res.body.placementMode).toBe('section2_gate');
+            expect(res.body.passRules).toEqual({ minScorePct: 70, maxMistakes: 3 });
+            expect(res.body.destinationSection2.nodeIndex).toBe(1);
+            expect(res.body.destinationSection2.targetSectionNumber).toBe(2);
+            expect(res.body.destinationSection2.targetUnitNumber).toBe(1);
+            expect(res.body.lesson.sectionNumber).toBe(2);
+            expect(res.body.lesson.unitNumber).toBe(4);
+            expect(res.body.lesson.lessonIndex).toBe(3);
+            expect(res.body.lesson.stages.map(s => s.type)).toEqual([
+                'word_match',
+                'listen_tap',
+                'sentence_builder',
+                'cloze_test',
+                'type_word',
+                'dialogue_bubble',
+                'listen_select',
+            ]);
+        });
+
+        it('falls back to legacy unitNumber=39 lessonIndex=3 when sectionNumber has not been normalized', async () => {
+            await CurriculumLesson.create({
+                owner: 1, learningLanguage: 'en', nativeLanguage: 'hi', level: 'A1',
+                sectionNumber: 1, unitNumber: 39, unitTitle: 'Shopping & Money', lessonIndex: 3,
+                title: 'Legacy S2 U4 L4', nodeType: 'lesson', isLive: true,
+                stages: [{ type: 'cloze_test', enabled: true, sentence: 'How _____ is this?', blank: 'much', options: ['much', 'many'] }],
+            });
+
+            const { token } = await createTestUser({ targetLanguage: 'en', nativeLanguage: 'hi' });
+            const res = await request(app)
+                .get('/api/gamification/placement/lesson?targetLanguage=en&nativeLanguage=hi')
+                .set('Authorization', `Bearer ${token}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.lesson.title).toBe('Legacy S2 U4 L4');
+            expect(res.body.lesson.unitNumber).toBe(39);
+        });
+
+        it('returns 404 PLACEMENT_LESSON_UNAVAILABLE when Section 2 Unit 4 Lesson 4 is missing', async () => {
+            const { token } = await createTestUser({ targetLanguage: 'de', nativeLanguage: 'en' });
+            const res = await request(app)
+                .get('/api/gamification/placement/lesson?targetLanguage=de&nativeLanguage=en')
+                .set('Authorization', `Bearer ${token}`);
+
+            expect(res.status).toBe(404);
+            expect(res.body.success).toBe(false);
+            expect(res.body.code).toBe('PLACEMENT_LESSON_UNAVAILABLE');
+        });
+
+        it('unlocks Section 2 Unit 1 Lesson 1 on section2_gate pass without inflating XP or Pearls, and keeps beginner at Unit 1 on fail', async () => {
+            await CurriculumLesson.bulkCreate([
+                {
+                    owner: 1, learningLanguage: 'en', nativeLanguage: 'mr', level: 'A1',
+                    sectionNumber: 1, sectionTitle: 'Rookie', unitNumber: 1, lessonIndex: 0,
+                    title: 'S1 U1 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+                {
+                    owner: 1, learningLanguage: 'en', nativeLanguage: 'mr', level: 'A1',
+                    sectionNumber: 1, sectionTitle: 'Rookie', unitNumber: 2, lessonIndex: 0,
+                    title: 'S1 U2 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+                {
+                    owner: 1, learningLanguage: 'en', nativeLanguage: 'mr', level: 'A1',
+                    sectionNumber: 2, sectionTitle: 'Explorer', unitNumber: 1, lessonIndex: 0,
+                    title: 'S2 U1 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+                {
+                    owner: 1, learningLanguage: 'en', nativeLanguage: 'mr', level: 'A1',
+                    sectionNumber: 2, sectionTitle: 'Explorer', unitNumber: 4, lessonIndex: 3,
+                    title: 'S2 U4 L4', nodeType: 'lesson', isLive: true, stages: makeGateStages(),
+                },
+            ]);
+
+            const { user: failUser, token: failToken } = await createTestUser({
+                targetLanguage: 'en', nativeLanguage: 'mr', totalXp: 20, pearls: 80,
+            });
+            // Fail due to > 3 mistakes even if scorePct >= 70
+            const failRes = await request(app)
+                .post('/api/gamification/placement/evaluate')
+                .set('Authorization', `Bearer ${failToken}`)
+                .send({
+                    placementMode: 'section2_gate',
+                    scorePct: 80,
+                    mistakesCount: 4,
+                    targetLanguage: 'en',
+                    nativeLanguage: 'mr',
+                });
+
+            expect(failRes.status).toBe(200);
+            expect(failRes.body.passed).toBe(false);
+            expect(failRes.body.placement.placementSkipToNode).toBe(0);
+            expect(failRes.body.placement.assignedLevel).toBe('A1');
+
+            const { user: passUser, token: passToken } = await createTestUser({
+                targetLanguage: 'en', nativeLanguage: 'mr', totalXp: 50, pearls: 100,
+            });
+            // Boundary pass: 70% accuracy & 3 mistakes
+            const passRes = await request(app)
+                .post('/api/gamification/placement/evaluate')
+                .set('Authorization', `Bearer ${passToken}`)
+                .send({
+                    placementMode: 'section2_gate',
+                    scorePct: 70,
+                    mistakesCount: 3,
+                    targetLanguage: 'en',
+                    nativeLanguage: 'mr',
+                });
+
+            expect(passRes.status).toBe(200);
+            expect(passRes.body.passed).toBe(true);
+            expect(passRes.body.placement.assignedLevel).toBe('SEC 2');
+            expect(passRes.body.placement.effectiveLevel).toBe('A1');
+            expect(passRes.body.placement.placementSkipToNode).toBe(2); // Index 2 is S2 U1 L1
+            expect(passRes.body.placement.xpEarned).toBe(0);
+            expect(passRes.body.placement.pearlsEarned).toBe(0);
+            expect(passRes.body.status.isAcceleratedFallback).toBe(true);
+
+            const refreshed = await User.findByPk(passUser.id);
+            expect(refreshed.totalXp).toBe(50);
+            expect(refreshed.pearls).toBe(100);
+            expect(refreshed.placementSkipToNode).toBe(2);
+
+            const pathRes = await request(app)
+                .get('/api/gamification/path?targetLanguage=en&nativeLanguage=mr&level=A1')
+                .set('Authorization', `Bearer ${passToken}`);
+
+            expect(pathRes.status).toBe(200);
+            expect(pathRes.body.nodes[0].status).toBe('completed');
+            expect(pathRes.body.nodes[0].isFastTracked).toBe(true);
+            expect(pathRes.body.nodes[1].status).toBe('completed');
+            expect(pathRes.body.nodes[2].title).toBe('S2 U1 L1');
+            expect(pathRes.body.nodes[2].status).toBe('available');
+
+            // Verify resolveNodeDefinition respects sectionNumber ordering when completing Section 2 node
+            const completeRes = await request(app)
+                .post('/api/gamification/complete-node')
+                .set('Authorization', `Bearer ${passToken}`)
+                .send({
+                    nodeIndex: 2,
+                    scorePct: 100,
+                    attemptId: 'sec2_node2_test_attempt_01',
+                    learningLanguage: 'en',
+                    nativeLanguage: 'mr',
+                    level: 'A1',
+                });
+
+            expect(completeRes.status).toBe(200);
+            expect(completeRes.body.success).toBe(true);
+            const progRows = await UserNodeProgress.findAll({
+                where: { userId: passUser.id, nodeIndex: 2 },
+            });
+            expect(progRows).toHaveLength(1);
+            expect(progRows[0].status).toBe('completed');
+        });
+    });
 });

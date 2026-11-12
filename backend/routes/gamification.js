@@ -18,6 +18,7 @@ const {
     emergencyRefill,
     handleAdMobReward,
     getPlacementQuestions,
+    getPlacementLesson,
     evaluatePlacement,
     jumpSection,
 } = require('../controllers/gamificationController');
@@ -44,6 +45,7 @@ router.post('/claim-ad-reward', claimAdReward);
 router.post('/emergency-refill', emergencyRefill);
 router.get('/placement/questions', getPlacementQuestions);
 router.post('/placement/questions', getPlacementQuestions);
+router.get('/placement/lesson', getPlacementLesson);
 router.post('/placement/evaluate', evaluatePlacement);
 router.post('/jump-section', jumpSection);
 

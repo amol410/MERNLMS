@@ -12,6 +12,10 @@ const { getTodayLocalYMD, getClientDate } = require('../utils/dateHelper');
 const { sanitizeLessonStages } = require('../utils/stageSanitizer');
 const { verifyAdMobQuery } = require('../utils/adMobVerifier');
 
+const PLACEMENT_MIN_SCORE_PCT = 70;
+const PLACEMENT_MAX_MISTAKES = 3;
+const PLACEMENT_EXCLUDED_STAGE_TYPES = new Set(['sprechen', 'karaoke']);
+
 function parseUnlockedLevels(raw) {
     const levels = new Set(['A1']);
     if (Array.isArray(raw)) {
@@ -109,7 +113,7 @@ exports.getStatus = async (req, res, next) => {
         const activeCourseId = `${targetLang}_${nativeLang}_${currentLevel}`.toLowerCase();
         const effectiveSkipToNode = getEffectiveSkipNodeForCourse(user, activeCourseId);
         const unlockedLevels = parseUnlockedLevels(user.unlockedLevels);
-        const isAcceleratedFallback = !!(user.placementLevel && user.placementLevel !== currentLevel);
+        const isAcceleratedFallback = !!(effectiveSkipToNode > 0 && user.placementLevel && user.placementLevel !== currentLevel);
 
         const isDoubleXpActive = !!(user.doubleXpExpiresAt && new Date(user.doubleXpExpiresAt) > new Date());
         res.status(200).json({
@@ -555,7 +559,7 @@ async function resolveNodeDefinition(targetLang, nativeLang, level, nodeIndex) {
             level,
         },
         attributes: ['id', 'nodeType', 'xpReward', 'pearlsReward'],
-        order: [['unitNumber', 'ASC'], ['lessonIndex', 'ASC'], ['id', 'ASC']],
+        order: [['sectionNumber', 'ASC'], ['unitNumber', 'ASC'], ['lessonIndex', 'ASC'], ['id', 'ASC']],
     });
 
     if (lessons.length > 0) {
@@ -1235,6 +1239,40 @@ exports.switchCourse = async (req, res, next) => {
     }
 };
 
+function formatLessonPayload(lesson, { excludeStageTypes = null } = {}) {
+    const activeStages = sanitizeLessonStages(lesson.stages).filter(s => s && s.enabled !== false);
+    let stages = activeStages;
+    if (excludeStageTypes && excludeStageTypes.size > 0) {
+        const filtered = activeStages.filter(s => !excludeStageTypes.has(s.type));
+        // Fall back to all active stages if a custom lesson only contains excluded stage types.
+        if (filtered.length > 0) {
+            stages = filtered;
+        }
+    }
+
+    return {
+        id: lesson.id,
+        sectionNumber: lesson.sectionNumber,
+        sectionTitle: lesson.sectionTitle,
+        unitNumber: lesson.unitNumber,
+        unitTitle: lesson.unitTitle,
+        unitDescription: lesson.unitDescription,
+        lessonIndex: lesson.lessonIndex,
+        title: lesson.title,
+        subtitle: lesson.subtitle,
+        nodeType: lesson.nodeType,
+        xpReward: lesson.xpReward,
+        pearlsReward: lesson.pearlsReward,
+        stages,
+        karaokeData: lesson.karaokeData,
+        audioUrl: lesson.audioUrl,
+        sourceNoteId: lesson.sourceNoteId,
+        updatedAt: lesson.updatedAt
+            ? (typeof lesson.updatedAt.toISOString === 'function' ? lesson.updatedAt.toISOString() : String(lesson.updatedAt))
+            : null,
+    };
+}
+
 // 9. Get full interactive stage data for a single lesson on demand
 exports.getLessonDetails = async (req, res, next) => {
     try {
@@ -1246,23 +1284,7 @@ exports.getLessonDetails = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            lesson: {
-                id: lesson.id,
-                unitNumber: lesson.unitNumber,
-                unitTitle: lesson.unitTitle,
-                unitDescription: lesson.unitDescription,
-                lessonIndex: lesson.lessonIndex,
-                title: lesson.title,
-                subtitle: lesson.subtitle,
-                nodeType: lesson.nodeType,
-                xpReward: lesson.xpReward,
-                pearlsReward: lesson.pearlsReward,
-                stages: sanitizeLessonStages(lesson.stages).filter(s => s && s.enabled !== false),
-                karaokeData: lesson.karaokeData,
-                audioUrl: lesson.audioUrl,
-                sourceNoteId: lesson.sourceNoteId,
-                updatedAt: lesson.updatedAt ? (typeof lesson.updatedAt.toISOString === 'function' ? lesson.updatedAt.toISOString() : String(lesson.updatedAt)) : null,
-            }
+            lesson: formatLessonPayload(lesson),
         });
     } catch (error) {
         next(error);
@@ -2017,6 +2039,93 @@ async function resolveSection2StartNodeIndex(targetLang, nativeLang, level = 'A1
 }
 
 /**
+ * Locate Section 2, Unit 4, Lesson 4 (0-indexed lessonIndex = 3) for onboarding placement.
+ * Supports both normalized per-section units (sectionNumber=2, unitNumber=4) and legacy
+ * sequential numbering (sectionNumber=1, unitNumber=39).
+ */
+async function findSection2GateLesson(targetLang, nativeLang, level = 'A1') {
+    return CurriculumLesson.findOne({
+        where: {
+            isLive: true,
+            learningLanguage: targetLang,
+            nativeLanguage: nativeLang,
+            level,
+            [Op.or]: [
+                { sectionNumber: 2, unitNumber: 4, lessonIndex: 3 },
+                { sectionNumber: 1, unitNumber: 39, lessonIndex: 3 },
+            ],
+        },
+        order: [
+            ['sectionNumber', 'DESC'],
+            ['unitNumber', 'ASC'],
+            ['lessonIndex', 'ASC'],
+            ['id', 'ASC'],
+        ],
+    });
+}
+
+async function computeA1Frontier(user, userId, a1CourseId, transaction) {
+    const existingSkip = getEffectiveSkipNodeForCourse(user, a1CourseId);
+    const highestCompleted = await UserNodeProgress.max('nodeIndex', {
+        where: { userId, courseId: a1CourseId, status: 'completed' },
+        transaction,
+    });
+    return Math.max(
+        existingSkip,
+        Number.isInteger(highestCompleted) ? highestCompleted + 1 : 0
+    );
+}
+
+/**
+ * 11a-gate. Fetch Section 2 Gate Lesson (Section 2, Unit 4, Lesson 4) for Onboarding Placement
+ * Route: GET /api/gamification/placement/lesson
+ */
+exports.getPlacementLesson = async (req, res, next) => {
+    try {
+        const user = await User.findByPk(req.user.id);
+        const targetLang = req.query.targetLanguage || user?.targetLanguage || 'de';
+        const nativeLang = req.query.nativeLanguage || user?.nativeLanguage || (targetLang === 'en' ? 'mr' : 'en');
+        const level = req.query.level || 'A1';
+
+        const lesson = await findSection2GateLesson(targetLang, nativeLang, level);
+        if (!lesson) {
+            return res.status(404).json({
+                success: false,
+                code: 'PLACEMENT_LESSON_UNAVAILABLE',
+                message: 'Section 2 placement lesson is not published for this course yet.',
+            });
+        }
+
+        const payload = formatLessonPayload(lesson, { excludeStageTypes: PLACEMENT_EXCLUDED_STAGE_TYPES });
+        if (!payload.stages || payload.stages.length === 0) {
+            return res.status(404).json({
+                success: false,
+                code: 'PLACEMENT_LESSON_UNAVAILABLE',
+                message: 'Section 2 placement lesson has no interactive stages available.',
+            });
+        }
+
+        const destinationSection2 = await resolveSection2StartNodeIndex(targetLang, nativeLang, level);
+
+        return res.status(200).json({
+            success: true,
+            placementMode: 'section2_gate',
+            targetLanguage: targetLang,
+            nativeLanguage: nativeLang,
+            level,
+            passRules: {
+                minScorePct: PLACEMENT_MIN_SCORE_PCT,
+                maxMistakes: PLACEMENT_MAX_MISTAKES,
+            },
+            destinationSection2,
+            lesson: payload,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
  * 11a. Fetch Calibrated Diagnostic Placement Questions (or Section Jump Test Questions)
  * Route: GET / POST /api/gamification/placement/questions
  */
@@ -2056,6 +2165,9 @@ exports.evaluatePlacement = async (req, res, next) => {
             scorePct,
             correctCount,
             totalQuestions = 12,
+            mistakesCount = 0,
+            placementMode = 'legacy',
+            lessonId = null,
             targetLanguage,
             nativeLanguage,
         } = req.body;
@@ -2072,15 +2184,24 @@ exports.evaluatePlacement = async (req, res, next) => {
             });
         }
 
-        // CEFR Mapping Thresholds:
-        // < 45% (0-5/12) -> A1
-        // 45% - 79% (6-9/12) -> A2
-        // >= 80% (10-12/12) -> B1
+        const isSection2Gate = placementMode === 'section2_gate';
+        const parsedMistakes = Math.max(
+            0,
+            Number.isFinite(Number(mistakesCount)) ? Math.round(Number(mistakesCount)) : 0
+        );
+        const gatePassed = isSection2Gate
+            ? (computedScorePct >= PLACEMENT_MIN_SCORE_PCT && parsedMistakes <= PLACEMENT_MAX_MISTAKES)
+            : false;
+
+        // Legacy CEFR Mapping Thresholds (preserved for diagnostic quiz / mid-course callers):
+        // < 45% -> A1, 45% - 79% -> A2, >= 80% -> B1
         let assignedLevel = 'A1';
-        if (computedScorePct >= 80) {
-            assignedLevel = 'B1';
-        } else if (computedScorePct >= 45) {
-            assignedLevel = 'A2';
+        if (!isSection2Gate) {
+            if (computedScorePct >= 80) {
+                assignedLevel = 'B1';
+            } else if (computedScorePct >= 45) {
+                assignedLevel = 'A2';
+            }
         }
 
         const result = await sequelize.transaction(async transaction => {
@@ -2095,29 +2216,20 @@ exports.evaluatePlacement = async (req, res, next) => {
             user.targetLanguage = tLang;
             user.nativeLanguage = nLang;
 
-            // Update unlocked levels badge list
             const unlockedSet = new Set(parseUnlockedLevels(user.unlockedLevels));
             unlockedSet.add('A1');
-            if (assignedLevel === 'A2') {
-                unlockedSet.add('A2');
-            } else if (assignedLevel === 'B1') {
-                unlockedSet.add('A2');
-                unlockedSet.add('B1');
+            if (!isSection2Gate) {
+                if (assignedLevel === 'A2') {
+                    unlockedSet.add('A2');
+                } else if (assignedLevel === 'B1') {
+                    unlockedSet.add('A2');
+                    unlockedSet.add('B1');
+                }
             }
 
-            // Check if the assigned CEFR level has live published lessons in CurriculumLesson
-            const liveTargetLevelCount = await CurriculumLesson.count({
-                where: {
-                    learningLanguage: tLang,
-                    nativeLanguage: nLang,
-                    level: assignedLevel,
-                    isLive: true,
-                },
-                transaction,
-            });
-
             const skipMap = parsePlacementSkipMap(user.placementSkipMap);
-            let effectiveLevel = assignedLevel;
+            const a1CourseId = `${tLang}_${nLang}_a1`.toLowerCase();
+            let effectiveLevel = 'A1';
             let isFallback = false;
             let fallbackReason = null;
             let targetSectionNumber = 1;
@@ -2125,69 +2237,72 @@ exports.evaluatePlacement = async (req, res, next) => {
             let targetUnitNumber = 1;
             let effectiveSkipNode = 0;
 
-            if (assignedLevel === 'A1') {
-                effectiveLevel = 'A1';
-                const a1CourseId = `${tLang}_${nLang}_a1`.toLowerCase();
-                // High-Water Mark Rule: Never demote an existing user who already has progress
-                const existingSkip = getEffectiveSkipNodeForCourse(user, a1CourseId);
-                const highestCompleted = await UserNodeProgress.max('nodeIndex', {
-                    where: { userId, courseId: a1CourseId, status: 'completed' },
-                    transaction,
-                });
-                const currentFrontier = Math.max(
-                    existingSkip,
-                    Number.isInteger(highestCompleted) ? highestCompleted + 1 : 0
-                );
-                effectiveSkipNode = currentFrontier;
-                skipMap[a1CourseId] = effectiveSkipNode;
-            } else if (liveTargetLevelCount > 0) {
-                // Target level (A2 or B1) has live published lessons -> Route directly!
-                effectiveLevel = assignedLevel;
-                isFallback = false;
-                const targetCourseId = `${tLang}_${nLang}_${assignedLevel}`.toLowerCase();
-                const existingSkip = getEffectiveSkipNodeForCourse(user, targetCourseId);
-                effectiveSkipNode = existingSkip;
-                skipMap[targetCourseId] = effectiveSkipNode;
-
-                // Ensure Node 0 of the target level is available
-                const node0 = await UserNodeProgress.findOne({
-                    where: { userId, courseId: targetCourseId, nodeIndex: 0 },
-                    transaction,
-                });
-                if (!node0) {
-                    await UserNodeProgress.create({
-                        userId,
-                        courseId: targetCourseId,
-                        nodeIndex: 0,
-                        status: 'available',
-                    }, { transaction });
+            if (isSection2Gate) {
+                const currentFrontier = await computeA1Frontier(user, userId, a1CourseId, transaction);
+                if (gatePassed) {
+                    const sec2Info = await resolveSection2StartNodeIndex(tLang, nLang, 'A1');
+                    assignedLevel = 'SEC 2';
+                    effectiveLevel = 'A1';
+                    effectiveSkipNode = Math.max(currentFrontier, sec2Info.nodeIndex);
+                    isFallback = effectiveSkipNode > 0;
+                    fallbackReason = 'Passed Section 2 Gate Lesson (Section 2, Unit 4, Lesson 4).';
+                    targetSectionNumber = sec2Info.targetSectionNumber;
+                    targetSectionTitle = sec2Info.targetSectionTitle;
+                    targetUnitNumber = sec2Info.targetUnitNumber;
+                } else {
+                    assignedLevel = 'A1';
+                    effectiveLevel = 'A1';
+                    isFallback = false;
+                    effectiveSkipNode = currentFrontier;
                 }
+                skipMap[a1CourseId] = effectiveSkipNode;
             } else {
-                // MISSING CONTENT SAFE ROUTING:
-                // Assigned level is A2 or B1, but 0 lessons are published for it yet.
-                // Route user to A1 Section 2 (Explorer, Unit 36) via Virtual Skip Pointer!
-                effectiveLevel = 'A1';
-                isFallback = true;
-                fallbackReason = `${assignedLevel} curriculum is being prepared; fast-tracked to A1 Section 2 (Explorer).`;
-
-                const sec2Info = await resolveSection2StartNodeIndex(tLang, nLang, 'A1');
-                const a1CourseId = `${tLang}_${nLang}_a1`.toLowerCase();
-                const existingSkip = getEffectiveSkipNodeForCourse(user, a1CourseId);
-                const highestCompleted = await UserNodeProgress.max('nodeIndex', {
-                    where: { userId, courseId: a1CourseId, status: 'completed' },
+                const liveTargetLevelCount = await CurriculumLesson.count({
+                    where: {
+                        learningLanguage: tLang,
+                        nativeLanguage: nLang,
+                        level: assignedLevel,
+                        isLive: true,
+                    },
                     transaction,
                 });
-                const currentFrontier = Math.max(
-                    existingSkip,
-                    Number.isInteger(highestCompleted) ? highestCompleted + 1 : 0
-                );
 
-                // High-Water Mark Rule: never move pointer backward
-                effectiveSkipNode = Math.max(currentFrontier, sec2Info.nodeIndex);
-                skipMap[a1CourseId] = effectiveSkipNode;
-                targetSectionNumber = sec2Info.targetSectionNumber;
-                targetSectionTitle = sec2Info.targetSectionTitle;
-                targetUnitNumber = sec2Info.targetUnitNumber;
+                if (assignedLevel === 'A1') {
+                    effectiveLevel = 'A1';
+                    effectiveSkipNode = await computeA1Frontier(user, userId, a1CourseId, transaction);
+                    skipMap[a1CourseId] = effectiveSkipNode;
+                } else if (liveTargetLevelCount > 0) {
+                    effectiveLevel = assignedLevel;
+                    isFallback = false;
+                    const targetCourseId = `${tLang}_${nLang}_${assignedLevel}`.toLowerCase();
+                    effectiveSkipNode = getEffectiveSkipNodeForCourse(user, targetCourseId);
+                    skipMap[targetCourseId] = effectiveSkipNode;
+
+                    const node0 = await UserNodeProgress.findOne({
+                        where: { userId, courseId: targetCourseId, nodeIndex: 0 },
+                        transaction,
+                    });
+                    if (!node0) {
+                        await UserNodeProgress.create({
+                            userId,
+                            courseId: targetCourseId,
+                            nodeIndex: 0,
+                            status: 'available',
+                        }, { transaction });
+                    }
+                } else {
+                    effectiveLevel = 'A1';
+                    isFallback = true;
+                    fallbackReason = `${assignedLevel} curriculum is being prepared; fast-tracked to A1 Section 2 (Explorer).`;
+
+                    const sec2Info = await resolveSection2StartNodeIndex(tLang, nLang, 'A1');
+                    const currentFrontier = await computeA1Frontier(user, userId, a1CourseId, transaction);
+                    effectiveSkipNode = Math.max(currentFrontier, sec2Info.nodeIndex);
+                    skipMap[a1CourseId] = effectiveSkipNode;
+                    targetSectionNumber = sec2Info.targetSectionNumber;
+                    targetSectionTitle = sec2Info.targetSectionTitle;
+                    targetUnitNumber = sec2Info.targetUnitNumber;
+                }
             }
 
             user.currentLevel = effectiveLevel;
@@ -2206,13 +2321,19 @@ exports.evaluatePlacement = async (req, res, next) => {
             await UserActivity.create({
                 userId,
                 activityType: 'quiz',
-                resourceId: 0,
-                resourceTitle: `Diagnostic Placement (${assignedLevel})`,
+                resourceId: Number.isInteger(Number(lessonId)) ? Number(lessonId) : 0,
+                resourceTitle: isSection2Gate
+                    ? `Section 2 Gate (${gatePassed ? 'Passed' : 'Section 1'})`
+                    : `Diagnostic Placement (${assignedLevel})`,
                 subjectName: 'Placement Test',
                 topicName: `${tLang.toUpperCase()} Placement`,
                 activityDate: todayYMD,
                 metadata: {
                     isPlacementTest: true,
+                    placementMode,
+                    passed: isSection2Gate ? gatePassed : (assignedLevel !== 'A1'),
+                    mistakesCount: parsedMistakes,
+                    lessonId,
                     scorePct: computedScorePct,
                     assignedLevel,
                     effectiveLevel,
@@ -2224,15 +2345,31 @@ exports.evaluatePlacement = async (req, res, next) => {
                 },
             }, { transaction });
 
+            const responseMessage = isSection2Gate
+                ? (gatePassed
+                    ? `Section 2 unlocked! Fast-tracked to A1 Section 2 (${targetSectionTitle}, Unit ${targetUnitNumber}).`
+                    : 'Placement complete! Starting at Section 1, Unit 1 to build strong fundamentals.')
+                : (isFallback
+                    ? `You tested into ${assignedLevel}! Fast-tracking you to A1 Section 2 (${targetSectionTitle}, Unit ${targetUnitNumber}).`
+                    : `Placement complete! Starting at ${effectiveLevel}.`);
+
+            const isAcceleratedStatus = isSection2Gate
+                ? (effectiveSkipNode > 0 && gatePassed)
+                : isFallback;
+
             return {
                 status: 200,
                 body: {
                     success: true,
-                    message: isFallback
-                        ? `You tested into ${assignedLevel}! Fast-tracking you to A1 Section 2 (${targetSectionTitle}, Unit ${targetUnitNumber}).`
-                        : `Placement complete! Starting at ${effectiveLevel}.`,
+                    passed: isSection2Gate ? gatePassed : (assignedLevel !== 'A1'),
+                    message: responseMessage,
                     placement: {
+                        placementMode,
+                        passed: isSection2Gate ? gatePassed : (assignedLevel !== 'A1'),
                         scorePct: computedScorePct,
+                        mistakesCount: parsedMistakes,
+                        minScorePct: PLACEMENT_MIN_SCORE_PCT,
+                        maxMistakes: PLACEMENT_MAX_MISTAKES,
                         assignedLevel,
                         effectiveLevel,
                         isFallback,
@@ -2257,7 +2394,7 @@ exports.evaluatePlacement = async (req, res, next) => {
                         placementLevel: user.placementLevel,
                         placementSkipToNode: effectiveSkipNode,
                         unlockedLevels: Array.from(unlockedSet),
-                        isAcceleratedFallback: isFallback,
+                        isAcceleratedFallback: isAcceleratedStatus,
                         totalXp: user.totalXp || 0,
                         pearls: user.pearls ?? 100,
                         oxygen: user.oxygen ?? 5,
