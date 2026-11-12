@@ -1210,17 +1210,33 @@ exports.switchCourse = async (req, res, next) => {
         const user = await User.findByPk(req.user.id);
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
+        const prevTargetLang = user.targetLanguage || 'de';
+        const prevNativeLang = user.nativeLanguage || (prevTargetLang === 'en' ? 'mr' : 'en');
+        const prevCourseId = `${prevTargetLang}_${prevNativeLang}_${user.currentLevel || 'A1'}`.toLowerCase();
+
         if (targetLanguage) user.targetLanguage = targetLanguage;
         if (nativeLanguage) user.nativeLanguage = nativeLanguage;
         if (level) user.currentLevel = level;
 
-        const activeCourseId = `${user.targetLanguage || 'de'}_${user.nativeLanguage || 'en'}_${user.currentLevel || 'A1'}`.toLowerCase();
+        const nextTargetLang = user.targetLanguage || 'de';
+        const nextNativeLang = user.nativeLanguage || (nextTargetLang === 'en' ? 'mr' : 'en');
+        const activeCourseId = `${nextTargetLang}_${nextNativeLang}_${user.currentLevel || 'A1'}`.toLowerCase();
         const skipMap = parsePlacementSkipMap(user.placementSkipMap);
-        if (Number.isInteger(skipMap[activeCourseId])) {
-            user.placementSkipToNode = skipMap[activeCourseId];
+
+        // Preserve any legacy scalar skip pointer under the previous course before switching away.
+        if (!Number.isInteger(skipMap[prevCourseId]) && Number.isInteger(user.placementSkipToNode) && user.placementSkipToNode > 0) {
+            skipMap[prevCourseId] = user.placementSkipToNode;
+            user.placementSkipMap = JSON.stringify(skipMap);
         }
 
+        // Prevent fast-track skip pointers from leaking across unplaced courses.
+        user.placementSkipToNode = Number.isInteger(skipMap[activeCourseId]) ? skipMap[activeCourseId] : 0;
+
         await user.save();
+
+        const effectiveSkipToNode = getEffectiveSkipNodeForCourse(user, activeCourseId);
+        const currentLevel = user.currentLevel || 'A1';
+        const isAcceleratedFallback = !!(effectiveSkipToNode > 0 && user.placementLevel && user.placementLevel !== currentLevel);
 
         res.status(200).json({
             success: true,
@@ -1228,10 +1244,11 @@ exports.switchCourse = async (req, res, next) => {
             status: {
                 targetLanguage: user.targetLanguage,
                 nativeLanguage: user.nativeLanguage,
-                currentLevel: user.currentLevel || 'A1',
+                currentLevel,
                 placementCompleted: !!user.placementCompleted,
                 placementLevel: user.placementLevel || null,
-                placementSkipToNode: getEffectiveSkipNodeForCourse(user, activeCourseId),
+                placementSkipToNode: effectiveSkipToNode,
+                isAcceleratedFallback,
                 unlockedLevels: parseUnlockedLevels(user.unlockedLevels),
             }
         });

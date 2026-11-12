@@ -1,4 +1,5 @@
 const { Op } = require('sequelize');
+const User = require('../models/User');
 const CurriculumLesson = require('../models/CurriculumLesson');
 const UserNodeProgress = require('../models/UserNodeProgress');
 const gamificationController = require('../controllers/gamificationController');
@@ -32,44 +33,57 @@ describe('Project Slipstream - Backend Acceleration & Windowing Tests', () => {
     });
 
     describe('2. Path Controller Lookahead Windowing & Query Logic', () => {
+        let originalUserFindByPk;
         let originalFindAll;
         let originalProgressFindAll;
         let capturedWhere;
         let capturedAttributes;
 
+        const mockLessons = [1, 2, 3, 4].map(u => ({
+            id: u,
+            sectionNumber: 1,
+            sectionTitle: 'Rookie',
+            unitNumber: u,
+            unitTitle: `Unit ${u}`,
+            unitDescription: `Intro ${u}`,
+            lessonIndex: 0,
+            title: `Lesson ${u}`,
+            subtitle: 'Basic',
+            nodeType: 'lesson',
+            xpReward: 15,
+            pearlsReward: 5,
+            audioUrl: null,
+            sourceNoteId: null,
+        }));
+
         beforeEach(() => {
+            originalUserFindByPk = User.findByPk;
             originalFindAll = CurriculumLesson.findAll;
             originalProgressFindAll = UserNodeProgress.findAll;
 
+            User.findByPk = jest.fn().mockResolvedValue({
+                id: 1,
+                targetLanguage: 'de',
+                nativeLanguage: 'en',
+                currentLevel: 'A1',
+                placementSkipToNode: 0,
+                placementSkipMap: '{}',
+            });
             UserNodeProgress.findAll = jest.fn().mockResolvedValue([]);
             CurriculumLesson.findAll = jest.fn(async (options) => {
                 capturedWhere = options.where;
                 capturedAttributes = options.attributes;
-                return [
-                    {
-                        id: 1,
-                        unitNumber: 1,
-                        unitTitle: 'Greetings',
-                        unitDescription: 'Intro',
-                        lessonIndex: 0,
-                        title: 'Hello',
-                        subtitle: 'Basic',
-                        nodeType: 'lesson',
-                        xpReward: 15,
-                        pearlsReward: 5,
-                        audioUrl: null,
-                        sourceNoteId: null,
-                    },
-                ];
+                return mockLessons;
             });
         });
 
         afterEach(() => {
+            User.findByPk = originalUserFindByPk;
             CurriculumLesson.findAll = originalFindAll;
             UserNodeProgress.findAll = originalProgressFindAll;
         });
 
-        it('supports windowing query parameters (startUnit and endUnit)', async () => {
+        it('supports ordinal windowing query parameters (startUnit and endUnit)', async () => {
             const req = {
                 user: { id: 1, currentLevel: 'A1' },
                 query: {
@@ -93,8 +107,8 @@ describe('Project Slipstream - Backend Acceleration & Windowing Tests', () => {
             const jsonResponse = res.json.mock.calls[0][0];
             expect(jsonResponse.success).toBe(true);
 
-            // Verify where clause filtered by unitNumber range [2, 4]
-            expect(capturedWhere.unitNumber).toEqual({ [Op.between]: [2, 4] });
+            // Without section filter, getPath resolves sequential ordinal unit IDs [2, 3, 4]
+            expect(capturedWhere.id).toEqual({ [Op.in]: [2, 3, 4] });
             expect(capturedWhere.learningLanguage).toBe('de');
             expect(capturedWhere.nativeLanguage).toBe('en');
             expect(capturedWhere.level).toBe('A1');
@@ -102,6 +116,34 @@ describe('Project Slipstream - Backend Acceleration & Windowing Tests', () => {
 
             // Verify heavy stages & karaokeData are omitted from map query attributes
             expect(capturedAttributes).toBeDefined();
+            expect(capturedAttributes).not.toContain('stages');
+            expect(capturedAttributes).not.toContain('karaokeData');
+        });
+
+        it('supports section-scoped windowing with unitNumber BETWEEN [startUnit, endUnit]', async () => {
+            const req = {
+                user: { id: 1, currentLevel: 'A1' },
+                query: {
+                    targetLanguage: 'de',
+                    nativeLanguage: 'en',
+                    level: 'A1',
+                    section: '1',
+                    startUnit: '2',
+                    endUnit: '4',
+                },
+            };
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn(),
+            };
+            const next = jest.fn();
+
+            await gamificationController.getPath(req, res, next);
+
+            expect(next).not.toHaveBeenCalled();
+            expect(res.json).toHaveBeenCalled();
+            expect(capturedWhere.sectionNumber).toBe(1);
+            expect(capturedWhere.unitNumber).toEqual({ [Op.between]: [2, 4] });
             expect(capturedAttributes).not.toContain('stages');
             expect(capturedAttributes).not.toContain('karaokeData');
         });
@@ -128,8 +170,9 @@ describe('Project Slipstream - Backend Acceleration & Windowing Tests', () => {
             const jsonResponse = res.json.mock.calls[0][0];
             expect(jsonResponse.success).toBe(true);
 
-            // unitNumber should NOT be constrained, returning all course units to legacy apps
+            // unitNumber and id should NOT be constrained when windowing params are omitted
             expect(capturedWhere.unitNumber).toBeUndefined();
+            expect(capturedWhere.id).toBeUndefined();
         });
     });
 

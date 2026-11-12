@@ -489,5 +489,215 @@ describe('Duolingo-Style Placement, A1 Section 2 Fallback & Universal Challenges
             expect(progRows).toHaveLength(1);
             expect(progRows[0].status).toBe('completed');
         });
+
+        it('isolates placementSkipToNode and isAcceleratedFallback across courses on switchCourse', async () => {
+            await CurriculumLesson.bulkCreate([
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 1, sectionTitle: 'Rookie', unitNumber: 1, lessonIndex: 0,
+                    title: 'DE S1 U1 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 2, sectionTitle: 'Explorer', unitNumber: 1, lessonIndex: 0,
+                    title: 'DE S2 U1 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+                {
+                    owner: 1, learningLanguage: 'en', nativeLanguage: 'mr', level: 'A1',
+                    sectionNumber: 1, sectionTitle: 'Rookie', unitNumber: 1, lessonIndex: 0,
+                    title: 'EN S1 U1 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+            ]);
+
+            const { token } = await createTestUser({ targetLanguage: 'de', nativeLanguage: 'en' });
+
+            const evalRes = await request(app)
+                .post('/api/gamification/placement/evaluate')
+                .set('Authorization', `Bearer ${token}`)
+                .send({
+                    placementMode: 'section2_gate',
+                    scorePct: 90,
+                    mistakesCount: 0,
+                    targetLanguage: 'de',
+                    nativeLanguage: 'en',
+                });
+            expect(evalRes.status).toBe(200);
+            expect(evalRes.body.placement.placementSkipToNode).toBe(1);
+
+            // Switching to an unplaced course must clear the fast-track pointer and fallback badge
+            const switchRes = await request(app)
+                .post('/api/gamification/switch-course')
+                .set('Authorization', `Bearer ${token}`)
+                .send({ targetLanguage: 'en', nativeLanguage: 'mr', level: 'A1' });
+            expect(switchRes.status).toBe(200);
+            expect(switchRes.body.status.placementSkipToNode).toBe(0);
+
+            const statusOtherCourse = await request(app)
+                .get('/api/gamification/status')
+                .set('Authorization', `Bearer ${token}`);
+            expect(statusOtherCourse.status).toBe(200);
+            expect(statusOtherCourse.body.status.placementSkipToNode).toBe(0);
+            expect(statusOtherCourse.body.status.isAcceleratedFallback).toBe(false);
+
+            // Switching back to de/en must restore its course-scoped Section 2 pointer cleanly
+            await request(app)
+                .post('/api/gamification/switch-course')
+                .set('Authorization', `Bearer ${token}`)
+                .send({ targetLanguage: 'de', nativeLanguage: 'en', level: 'A1' });
+
+            const statusOriginalCourse = await request(app)
+                .get('/api/gamification/status')
+                .set('Authorization', `Bearer ${token}`);
+            expect(statusOriginalCourse.status).toBe(200);
+            expect(statusOriginalCourse.body.status.placementSkipToNode).toBe(1);
+            expect(statusOriginalCourse.body.status.isAcceleratedFallback).toBe(true);
+        });
+
+        it('enforces the 69% scorePct lower boundary and protects high-water progress if a Section 2 learner later fails the gate', async () => {
+            await CurriculumLesson.bulkCreate([
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 1, sectionTitle: 'Rookie', unitNumber: 1, lessonIndex: 0,
+                    title: 'S1 U1 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 1, sectionTitle: 'Rookie', unitNumber: 2, lessonIndex: 0,
+                    title: 'S1 U2 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 2, sectionTitle: 'Explorer', unitNumber: 1, lessonIndex: 0,
+                    title: 'S2 U1 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+            ]);
+
+            const { token: beginnerToken } = await createTestUser({
+                targetLanguage: 'de', nativeLanguage: 'en',
+            });
+            const boundaryFail = await request(app)
+                .post('/api/gamification/placement/evaluate')
+                .set('Authorization', `Bearer ${beginnerToken}`)
+                .send({
+                    placementMode: 'section2_gate',
+                    scorePct: 69,
+                    mistakesCount: 0,
+                    targetLanguage: 'de',
+                    nativeLanguage: 'en',
+                });
+            expect(boundaryFail.status).toBe(200);
+            expect(boundaryFail.body.passed).toBe(false);
+            expect(boundaryFail.body.placement.placementSkipToNode).toBe(0);
+
+            const { user: advancedUser, token: advancedToken } = await createTestUser({
+                targetLanguage: 'de',
+                nativeLanguage: 'en',
+                placementCompleted: true,
+                placementLevel: 'SEC 2',
+                placementSkipToNode: 2,
+                placementSkipMap: JSON.stringify({ de_en_a1: 2 }),
+            });
+            await UserNodeProgress.create({
+                userId: advancedUser.id,
+                courseId: 'de_en_a1',
+                nodeIndex: 2,
+                status: 'completed',
+                score: 95,
+            });
+
+            const retakeFail = await request(app)
+                .post('/api/gamification/placement/evaluate')
+                .set('Authorization', `Bearer ${advancedToken}`)
+                .send({
+                    placementMode: 'section2_gate',
+                    scorePct: 50,
+                    mistakesCount: 4,
+                    targetLanguage: 'de',
+                    nativeLanguage: 'en',
+                });
+            expect(retakeFail.status).toBe(200);
+            expect(retakeFail.body.passed).toBe(false);
+            // High-water mark >= completed nodeIndex + 1 (3) must never demote back to 0
+            expect(retakeFail.body.placement.placementSkipToNode).toBeGreaterThanOrEqual(2);
+
+            const refreshed = await User.findByPk(advancedUser.id);
+            expect(refreshed.placementSkipToNode).toBeGreaterThanOrEqual(2);
+            const prog = await UserNodeProgress.findOne({
+                where: { userId: advancedUser.id, courseId: 'de_en_a1', nodeIndex: 2 },
+            });
+            expect(prog.status).toBe('completed');
+        });
+
+        it('resolves section-scoped mid-course jump-section coordinates accurately across normalized sections', async () => {
+            await CurriculumLesson.bulkCreate([
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 1, sectionTitle: 'Rookie', unitNumber: 1, lessonIndex: 0,
+                    title: 'S1 U1 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 1, sectionTitle: 'Rookie', unitNumber: 2, lessonIndex: 0,
+                    title: 'S1 U2 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 2, sectionTitle: 'Explorer', unitNumber: 1, lessonIndex: 0,
+                    title: 'S2 U1 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+                {
+                    owner: 1, learningLanguage: 'de', nativeLanguage: 'en', level: 'A1',
+                    sectionNumber: 2, sectionTitle: 'Explorer', unitNumber: 2, lessonIndex: 0,
+                    title: 'S2 U2 L1', nodeType: 'lesson', isLive: true, stages: [],
+                },
+            ]);
+
+            const { token } = await createTestUser({ targetLanguage: 'de', nativeLanguage: 'en' });
+            const jumpRes = await request(app)
+                .post('/api/gamification/jump-section')
+                .set('Authorization', `Bearer ${token}`)
+                .send({
+                    targetSectionNumber: 2,
+                    targetUnitNumber: 2,
+                    scorePct: 90,
+                    mistakesCount: 1,
+                    targetLanguage: 'de',
+                    nativeLanguage: 'en',
+                    level: 'A1',
+                });
+
+            expect(jumpRes.status).toBe(200);
+            expect(jumpRes.body.passed).toBe(true);
+            expect(jumpRes.body.targetSectionNumber).toBe(2);
+            expect(jumpRes.body.targetUnitNumber).toBe(2);
+            expect(jumpRes.body.unlockedNodeIndex).toBe(3);
+        });
+
+        it('keeps fallback non-empty stages if a custom lesson only contains karaoke in getLessonDetails', async () => {
+            const karaokeOnly = await CurriculumLesson.create({
+                owner: 1,
+                learningLanguage: 'de',
+                nativeLanguage: 'en',
+                level: 'A1',
+                sectionNumber: 1,
+                unitNumber: 5,
+                lessonIndex: 0,
+                title: 'Legacy Karaoke Only',
+                nodeType: 'lesson',
+                isLive: true,
+                stages: [
+                    { type: 'karaoke', enabled: true, storyText: 'Hallo!', translationText: 'Hello!' },
+                ],
+            });
+
+            const { token } = await createTestUser({ targetLanguage: 'de', nativeLanguage: 'en' });
+            const res = await request(app)
+                .get(`/api/gamification/lesson/${karaokeOnly.id}`)
+                .set('Authorization', `Bearer ${token}`);
+
+            expect(res.status).toBe(200);
+            expect(res.body.success).toBe(true);
+            expect(res.body.lesson.stages).toHaveLength(1);
+        });
     });
 });
