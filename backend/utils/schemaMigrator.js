@@ -271,21 +271,46 @@ async function migrateUserVerificationColumns(sequelize) {
 
 /**
  * DB-03: Safely enforces composite unique index on CurriculumLessons
- * (learningLanguage, nativeLanguage, level, unitNumber, lessonIndex).
- * Safely deduplicates existing historical rows (retaining the canonical lowest id)
- * before adding the index to ensure non-blocking, zero-error migration.
+ * (learningLanguage, nativeLanguage, level, sectionNumber, unitNumber, lessonIndex).
+ * Also normalizes legacy 36..105 unit numbers into Section 2 / Section 3 (Units 1..12)
+ * and deduplicates existing historical rows before adding the index.
  */
 async function migrateCurriculumLessonUniqueIndex(sequelize) {
     if (sequelize.getDialect() !== 'mysql') return;
 
     try {
-        const [indexes] = await sequelize.query("SHOW INDEX FROM `CurriculumLessons`");
-        const hasUnique = Array.isArray(indexes) && indexes.some(idx => {
-            const name = idx.Key_name || idx.key_name;
-            return name === 'unique_curriculum_lesson_node';
-        });
+        // Normalize any legacy rows that used 36..70 or 71..105 with default sectionNumber = 1
+        await sequelize.query(`
+            UPDATE \`CurriculumLessons\`
+            SET \`sectionNumber\` = 2,
+                \`sectionTitle\` = 'Explorer',
+                \`unitNumber\` = \`unitNumber\` - 35
+            WHERE \`sectionNumber\` = 1 AND \`unitNumber\` BETWEEN 36 AND 70
+        `).catch(() => {});
 
-        if (!hasUnique) {
+        await sequelize.query(`
+            UPDATE \`CurriculumLessons\`
+            SET \`sectionNumber\` = 3,
+                \`sectionTitle\` = 'Traveler',
+                \`unitNumber\` = \`unitNumber\` - 70
+            WHERE \`sectionNumber\` = 1 AND \`unitNumber\` >= 71
+        `).catch(() => {});
+
+        const [indexes] = await sequelize.query("SHOW INDEX FROM `CurriculumLessons`");
+        const uniqueRows = Array.isArray(indexes)
+            ? indexes.filter(idx => (idx.Key_name || idx.key_name) === 'unique_curriculum_lesson_node')
+            : [];
+        const hasUnique = uniqueRows.length > 0;
+        const hasSectionNumberInUnique = uniqueRows.some(idx => (idx.Column_name || idx.column_name) === 'sectionNumber');
+
+        if (hasUnique && !hasSectionNumberInUnique) {
+            await sequelize.query(`
+                ALTER TABLE \`CurriculumLessons\`
+                DROP INDEX \`unique_curriculum_lesson_node\`
+            `).catch(() => {});
+        }
+
+        if (!hasUnique || !hasSectionNumberInUnique) {
             console.log('🔄 [AutoMigrator] Checking CurriculumLessons for duplicate rows before adding unique index...');
             // Step 1: Deduplicate any pre-existing duplicate rows, keeping lowest id
             await sequelize.query(`
@@ -295,17 +320,18 @@ async function migrateCurriculumLessonUniqueIndex(sequelize) {
                   AND c1.learningLanguage = c2.learningLanguage 
                   AND c1.nativeLanguage = c2.nativeLanguage 
                   AND c1.level = c2.level 
+                  AND c1.sectionNumber = c2.sectionNumber 
                   AND c1.unitNumber = c2.unitNumber 
                   AND c1.lessonIndex = c2.lessonIndex
             `).catch((dedupErr) => {
                 console.warn('⚠️ [AutoMigrator] Lesson deduplication notice:', dedupErr.message);
             });
 
-            // Step 2: Add composite unique index
+            // Step 2: Add composite unique index including sectionNumber
             await sequelize.query(`
                 ALTER TABLE \`CurriculumLessons\`
                 ADD UNIQUE INDEX \`unique_curriculum_lesson_node\` 
-                (\`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`unitNumber\`, \`lessonIndex\`)
+                (\`learningLanguage\`, \`nativeLanguage\`, \`level\`, \`sectionNumber\`, \`unitNumber\`, \`lessonIndex\`)
             `);
             console.log('✅ [AutoMigrator] Created unique index unique_curriculum_lesson_node on CurriculumLessons.');
         }

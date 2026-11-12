@@ -332,20 +332,10 @@ exports.getPath = async (req, res, next) => {
             level: level,
         };
 
-        const section = req.query.section ? parseInt(req.query.section) : null;
-        const unit = req.query.unit ? parseInt(req.query.unit) : null;
-        const startUnit = req.query.startUnit ? parseInt(req.query.startUnit) : null;
-        const endUnit = req.query.endUnit ? parseInt(req.query.endUnit) : null;
-
-        if (startUnit && endUnit) {
-            whereClause.unitNumber = { [Op.between]: [startUnit, endUnit] };
-        } else if (unit) {
-            whereClause.unitNumber = unit;
-        } else if (section) {
-            const secStartUnit = (section - 1) * 35 + 1;
-            const secEndUnit = section * 35;
-            whereClause.unitNumber = { [Op.between]: [secStartUnit, secEndUnit] };
-        }
+        const section = req.query.section ? parseInt(req.query.section, 10) : null;
+        const unit = req.query.unit ? parseInt(req.query.unit, 10) : null;
+        const startUnit = req.query.startUnit ? parseInt(req.query.startUnit, 10) : null;
+        const endUnit = req.query.endUnit ? parseInt(req.query.endUnit, 10) : null;
 
         // Query all live lesson IDs for this course to preserve global node.index under windowing
         const allCourseLessons = await CurriculumLesson.findAll({
@@ -355,8 +345,9 @@ exports.getPath = async (req, res, next) => {
                 nativeLanguage: nativeLang,
                 level: level,
             },
-            attributes: ['id'],
+            attributes: ['id', 'sectionNumber', 'unitNumber'],
             order: [
+                ['sectionNumber', 'ASC'],
                 ['unitNumber', 'ASC'],
                 ['lessonIndex', 'ASC'],
                 ['id', 'ASC'],
@@ -364,12 +355,54 @@ exports.getPath = async (req, res, next) => {
             raw: true,
         });
         const globalIndexMap = new Map();
+        const unitOrdinalMap = new Map();
+        let unitCounter = 0;
         if (Array.isArray(allCourseLessons)) {
             allCourseLessons.forEach((lesson, idx) => {
                 if (lesson && lesson.id !== undefined) {
                     globalIndexMap.set(lesson.id, idx);
+                    const secKey = `${lesson.sectionNumber || 1}_${lesson.unitNumber || 1}`;
+                    if (!unitOrdinalMap.has(secKey)) {
+                        unitCounter++;
+                        unitOrdinalMap.set(secKey, unitCounter);
+                    }
                 }
             });
+        }
+
+        if (startUnit && endUnit) {
+            if (section) {
+                whereClause.sectionNumber = section;
+                whereClause.unitNumber = { [Op.between]: [startUnit, endUnit] };
+            } else if (Array.isArray(allCourseLessons) && allCourseLessons.length > 0) {
+                const matchingIds = allCourseLessons
+                    .filter(l => {
+                        const secKey = `${l.sectionNumber || 1}_${l.unitNumber || 1}`;
+                        const seqUnit = unitOrdinalMap.get(secKey) || 1;
+                        return seqUnit >= startUnit && seqUnit <= endUnit;
+                    })
+                    .map(l => l.id);
+                whereClause.id = { [Op.in]: matchingIds };
+            } else {
+                whereClause.unitNumber = { [Op.between]: [startUnit, endUnit] };
+            }
+        } else if (unit) {
+            if (section) {
+                whereClause.sectionNumber = section;
+            }
+            whereClause.unitNumber = unit;
+        } else if (section) {
+            if (section === 1) {
+                whereClause.sectionNumber = 1;
+                whereClause.unitNumber = { [Op.lte]: 35 };
+            } else {
+                const secStartUnit = (section - 1) * 35 + 1;
+                const secEndUnit = section * 35;
+                whereClause[Op.or] = [
+                    { sectionNumber: section },
+                    { sectionNumber: 1, unitNumber: { [Op.between]: [secStartUnit, secEndUnit] } },
+                ];
+            }
         }
 
         // Fetch live published lessons created by admin/trainers for this language/level
@@ -378,6 +411,8 @@ exports.getPath = async (req, res, next) => {
             where: whereClause,
             attributes: [
                 'id',
+                'sectionNumber',
+                'sectionTitle',
                 'unitNumber',
                 'unitTitle',
                 'unitDescription',
@@ -392,6 +427,7 @@ exports.getPath = async (req, res, next) => {
                 'updatedAt',
             ],
             order: [
+                ['sectionNumber', 'ASC'],
                 ['unitNumber', 'ASC'],
                 ['lessonIndex', 'ASC'],
                 ['id', 'ASC'],
@@ -406,16 +442,24 @@ exports.getPath = async (req, res, next) => {
         if (liveCurriculum && liveCurriculum.length > 0) {
             targetNodesList = liveCurriculum.map((l, idx) => {
                 const globalIdx = globalIndexMap.has(l.id) ? globalIndexMap.get(l.id) : idx;
-                const uNum = l.unitNumber || 1;
-                const secNum = uNum <= 35 ? 1 : (uNum <= 70 ? 2 : 3);
-                const secTitle = secNum === 1 ? 'Rookie' : (secNum === 2 ? 'Explorer' : 'Traveler');
-                const secUnitNum = secNum === 1 ? uNum : (secNum === 2 ? uNum - 35 : uNum - 70);
-                const colorHex = unitColors[(uNum - 1) % unitColors.length];
+                const rawUnit = l.unitNumber || 1;
+                const rawSec = l.sectionNumber || 1;
+                const isLegacyHighUnit = rawSec === 1 && rawUnit > 35;
+                const secNum = isLegacyHighUnit ? (rawUnit <= 70 ? 2 : 3) : rawSec;
+                const defaultSecTitle = secNum === 1 ? 'Rookie' : (secNum === 2 ? 'Explorer' : 'Traveler');
+                const secTitle = (l.sectionTitle && !(l.sectionTitle === 'Rookie' && secNum !== 1))
+                    ? l.sectionTitle
+                    : defaultSecTitle;
+                const secUnitNum = isLegacyHighUnit
+                    ? (secNum === 2 ? rawUnit - 35 : rawUnit - 70)
+                    : rawUnit;
+                const colorIdx = (secNum - 1) * 12 + (secUnitNum - 1);
+                const colorHex = unitColors[Math.abs(colorIdx) % unitColors.length];
 
                 return {
                     id: l.id,
                     index: globalIdx,
-                    unitNumber: uNum,
+                    unitNumber: rawUnit,
                     unitTitle: l.unitTitle || 'First Steps',
                     unitDescription: l.unitDescription || '',
                     sectionNumber: secNum,
@@ -1834,8 +1878,9 @@ async function resolveSection2StartNodeIndex(targetLang, nativeLang, level = 'A1
             nativeLanguage: nativeLang,
             level,
         },
-        attributes: ['id', 'unitNumber', 'lessonIndex', 'title'],
+        attributes: ['id', 'sectionNumber', 'sectionTitle', 'unitNumber', 'lessonIndex', 'title'],
         order: [
+            ['sectionNumber', 'ASC'],
             ['unitNumber', 'ASC'],
             ['lessonIndex', 'ASC'],
             ['id', 'ASC'],
@@ -1846,24 +1891,26 @@ async function resolveSection2StartNodeIndex(targetLang, nativeLang, level = 'A1
     if (!Array.isArray(allLessons) || allLessons.length === 0) {
         return {
             nodeIndex: 35,
-            targetUnitNumber: 36,
+            targetUnitNumber: 1,
             targetSectionNumber: 2,
             targetSectionTitle: 'Explorer',
         };
     }
 
-    // 1. Look for the exact start of Section 2 (Unit 36+)
-    const sec2Idx = allLessons.findIndex(l => (l.unitNumber || 1) >= 36);
+    // 1. Look for the exact start of Section 2 (sectionNumber >= 2, or legacy unitNumber >= 36)
+    const sec2Idx = allLessons.findIndex(l => (l.sectionNumber && l.sectionNumber >= 2) || (l.unitNumber || 1) >= 36);
     if (sec2Idx !== -1) {
         return {
             nodeIndex: sec2Idx,
-            targetUnitNumber: allLessons[sec2Idx].unitNumber || 36,
-            targetSectionNumber: 2,
-            targetSectionTitle: 'Explorer',
+            targetUnitNumber: allLessons[sec2Idx].unitNumber || 1,
+            targetSectionNumber: allLessons[sec2Idx].sectionNumber >= 2 ? allLessons[sec2Idx].sectionNumber : 2,
+            targetSectionTitle: (allLessons[sec2Idx].sectionTitle && allLessons[sec2Idx].sectionTitle !== 'Rookie')
+                ? allLessons[sec2Idx].sectionTitle
+                : 'Explorer',
         };
     }
 
-    // 2. If the course has fewer than 36 units published in DB right now,
+    // 2. If the course only has Section 1 units published in DB right now,
     // route to the second half of published units so the skip pointer is always valid and in-bounds!
     const maxUnit = allLessons.reduce((acc, l) => Math.max(acc, l.unitNumber || 1), 1);
     if (maxUnit >= 2) {
@@ -1882,7 +1929,7 @@ async function resolveSection2StartNodeIndex(targetLang, nativeLang, level = 'A1
     const fallbackIdx = allLessons.length > 1 ? Math.floor(allLessons.length / 2) : 0;
     return {
         nodeIndex: fallbackIdx,
-        targetUnitNumber: allLessons[fallbackIdx]?.unitNumber || 36,
+        targetUnitNumber: allLessons[fallbackIdx]?.unitNumber || 1,
         targetSectionNumber: 2,
         targetSectionTitle: 'Explorer',
     };
@@ -2153,6 +2200,7 @@ exports.jumpSection = async (req, res, next) => {
     try {
         const userId = req.user.id;
         const {
+            targetSectionNumber,
             targetUnitNumber,
             scorePct = 0,
             mistakesCount = 0,
@@ -2161,11 +2209,15 @@ exports.jumpSection = async (req, res, next) => {
             level,
         } = req.body;
 
+        const parsedSection = targetSectionNumber !== undefined && targetSectionNumber !== null
+            ? parseInt(targetSectionNumber, 10)
+            : null;
         const parsedUnit = parseInt(targetUnitNumber, 10);
-        if (!Number.isInteger(parsedUnit) || parsedUnit < 2) {
+        const isFirstCourseUnit = (!parsedSection || parsedSection <= 1) && parsedUnit < 2;
+        if (!Number.isInteger(parsedUnit) || parsedUnit < 1 || isFirstCourseUnit) {
             return res.status(400).json({
                 success: false,
-                message: 'targetUnitNumber must be an integer >= 2',
+                message: 'targetUnitNumber must be an integer >= 2 (or >= 1 for Section 2+)',
             });
         }
 
@@ -2192,7 +2244,7 @@ exports.jumpSection = async (req, res, next) => {
             const cLevel = level || user.currentLevel || 'A1';
             const courseId = `${tLang}_${nLang}_${cLevel}`.toLowerCase();
 
-            // Resolve global nodeIndex for targetUnitNumber
+            // Resolve global nodeIndex for (targetSectionNumber, targetUnitNumber)
             const allLessons = await CurriculumLesson.findAll({
                 where: {
                     isLive: true,
@@ -2200,8 +2252,9 @@ exports.jumpSection = async (req, res, next) => {
                     nativeLanguage: nLang,
                     level: cLevel,
                 },
-                attributes: ['id', 'unitNumber', 'lessonIndex'],
+                attributes: ['id', 'sectionNumber', 'unitNumber', 'lessonIndex'],
                 order: [
+                    ['sectionNumber', 'ASC'],
                     ['unitNumber', 'ASC'],
                     ['lessonIndex', 'ASC'],
                     ['id', 'ASC'],
@@ -2212,7 +2265,16 @@ exports.jumpSection = async (req, res, next) => {
 
             let targetNodeIndex = parsedUnit - 1;
             if (Array.isArray(allLessons) && allLessons.length > 0) {
-                const foundIdx = allLessons.findIndex(l => (l.unitNumber || 1) >= parsedUnit);
+                let foundIdx = -1;
+                if (parsedSection && parsedSection >= 1) {
+                    foundIdx = allLessons.findIndex(l => {
+                        const lSec = l.sectionNumber || 1;
+                        const lUnit = l.unitNumber || 1;
+                        return lSec > parsedSection || (lSec === parsedSection && lUnit >= parsedUnit);
+                    });
+                } else {
+                    foundIdx = allLessons.findIndex(l => (l.unitNumber || 1) >= parsedUnit);
+                }
                 if (foundIdx !== -1) {
                     targetNodeIndex = foundIdx;
                 } else {
@@ -2237,7 +2299,10 @@ exports.jumpSection = async (req, res, next) => {
                 body: {
                     success: true,
                     passed: true,
-                    message: `Successfully jumped to Unit ${parsedUnit}!`,
+                    message: parsedSection
+                        ? `Successfully jumped to Section ${parsedSection} • Unit ${parsedUnit}!`
+                        : `Successfully jumped to Unit ${parsedUnit}!`,
+                    targetSectionNumber: parsedSection || 1,
                     targetUnitNumber: parsedUnit,
                     unlockedNodeIndex: newSkipNode,
                     xpEarned: 0,

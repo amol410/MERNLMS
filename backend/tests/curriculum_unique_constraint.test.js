@@ -301,8 +301,58 @@ describe('DB-03: CurriculumLesson Composite Unique Constraint & Idempotency Suit
             'learningLanguage',
             'nativeLanguage',
             'level',
+            'sectionNumber',
             'unitNumber',
             'lessonIndex',
         ]);
+    });
+
+    test('9. Allows same unitNumber (1-12) across different sections (sectionNumber 1, 2, 3) within the same level', async () => {
+        const sec1Lesson = await CurriculumLesson.create({
+            owner: testOwnerId,
+            learningLanguage: 'en',
+            nativeLanguage: 'hi',
+            level: 'A1',
+            sectionNumber: 1,
+            sectionTitle: 'Rookie',
+            unitNumber: 1,
+            unitTitle: 'Greetings',
+            lessonIndex: 0,
+            title: 'Section 1 Unit 1 Lesson 0',
+        });
+
+        const sec2Lesson = await CurriculumLesson.create({
+            owner: testOwnerId,
+            learningLanguage: 'en',
+            nativeLanguage: 'hi',
+            level: 'A1',
+            sectionNumber: 2,
+            sectionTitle: 'Explorer',
+            unitNumber: 1,
+            unitTitle: 'Daily Routines',
+            lessonIndex: 0,
+            title: 'Section 2 Unit 1 Lesson 0',
+        });
+
+        const sec3Lesson = await CurriculumLesson.create({
+            owner: testOwnerId,
+            learningLanguage: 'en',
+            nativeLanguage: 'hi',
+            level: 'A1',
+            sectionNumber: 3,
+            sectionTitle: 'Traveler',
+            unitNumber: 1,
+            unitTitle: 'In Town',
+            lessonIndex: 0,
+            title: 'Section 3 Unit 1 Lesson 0',
+        });
+
+        expect(sec1Lesson.sectionNumber).toBe(1);
+        expect(sec2Lesson.sectionNumber).toBe(2);
+        expect(sec3Lesson.sectionNumber).toBe(3);
+        expect(sec1Lesson.unitNumber).toBe(1);
+        expect(sec2Lesson.unitNumber).toBe(1);
+        expect(sec3Lesson.unitNumber).toBe(1);
+        expect(await CurriculumLesson.count()).toBe(3);
     });
 });

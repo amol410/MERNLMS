@@ -19,6 +19,8 @@ export default function UnitOutlineModal({
   currentLanguage = 'de',
   currentNative = 'en',
   currentLevel = 'A1',
+  sectionNumber = 1,
+  sectionTitle = 'Rookie',
   unitNumber = 1,
   unitTitle = 'Coral Reef',
 }) {
@@ -113,6 +115,8 @@ export default function UnitOutlineModal({
         learningLanguage: currentLanguage,
         nativeLanguage: currentNative,
         level: currentLevel,
+        sectionNumber,
+        sectionTitle,
         unitNumber: parseInt(targetUnitNum, 10),
         unitTitle: targetUnitTitle,
         unitDescription: targetUnitDesc,
@@ -141,7 +145,7 @@ export default function UnitOutlineModal({
             <div>
               <h2 className="text-xl font-bold text-white">Outline Unit Headings</h2>
               <p className="text-xs text-gray-400">
-                Batch outline all lesson headings for {currentLevel} • Unit {targetUnitNum}
+                Batch outline all lesson headings for {currentLevel} • Section {sectionNumber} ({sectionTitle}) • Unit {targetUnitNum}
               </p>
             </div>
           </div>

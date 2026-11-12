@@ -41,9 +41,9 @@ const SECTIONS = [
     number: 1,
     title: 'Rookie',
     subtitle: 'First Steps & Daily Essentials',
-    range: 'Units 1 – 35',
+    range: 'Units 1 – 12',
     minUnit: 1,
-    maxUnit: 35,
+    maxUnit: 12,
     icon: '🔰',
     gradient: 'from-blue-600/30 via-slate-900 to-cyan-950/40 border-cyan-500/40 text-cyan-300',
     activeBadge: 'bg-cyan-500 text-white shadow-lg shadow-cyan-900/50',
@@ -53,9 +53,9 @@ const SECTIONS = [
     number: 2,
     title: 'Explorer',
     subtitle: 'Conversations, Routines & Travel',
-    range: 'Units 36 – 70',
-    minUnit: 36,
-    maxUnit: 70,
+    range: 'Units 1 – 12',
+    minUnit: 1,
+    maxUnit: 12,
     icon: '🧭',
     gradient: 'from-emerald-600/30 via-slate-900 to-teal-950/40 border-emerald-500/40 text-emerald-300',
     activeBadge: 'bg-emerald-500 text-white shadow-lg shadow-emerald-900/50',
@@ -65,9 +65,9 @@ const SECTIONS = [
     number: 3,
     title: 'Traveler',
     subtitle: 'Grammar Depth, Past Tense & Mastery',
-    range: 'Units 71 – 105',
-    minUnit: 71,
-    maxUnit: 105,
+    range: 'Units 1 – 12',
+    minUnit: 1,
+    maxUnit: 12,
     icon: '✈️',
     gradient: 'from-purple-600/30 via-slate-900 to-indigo-950/40 border-purple-500/40 text-purple-300',
     activeBadge: 'bg-purple-500 text-white shadow-lg shadow-purple-900/50',
@@ -93,19 +93,32 @@ function getInitialCurriculumFilters(searchParams) {
     if (raw) stored = JSON.parse(raw);
   } catch (_) {}
 
-  // 1. Check URL parameters first (e.g. ?lang=en&native=hi&level=A1&unit=4)
+  // 1. Check URL parameters first (e.g. ?lang=en&native=hi&level=A1&section=1&unit=4)
   const urlLang = searchParams.get('lang') || searchParams.get('learningLanguage');
   const urlNative = searchParams.get('native') || searchParams.get('nativeLanguage');
   const urlLevel = searchParams.get('level');
+  const urlSection = searchParams.get('section') || searchParams.get('sectionNumber');
   const urlUnit = searchParams.get('unit') || searchParams.get('unitNumber');
 
-  // Fallback chain: URL Param -> localStorage -> Default ('en' to 'hi', A1, Unit 1)
+  // Fallback chain: URL Param -> localStorage -> Default ('en' to 'hi', A1, Section 1, Unit 1)
   const learningLanguage = urlLang || stored?.learningLanguage || 'en';
   const nativeLanguage = urlNative || stored?.nativeLanguage || 'hi';
   const level = urlLevel || stored?.level || 'A1';
-  const unitNumber = urlUnit
+  let sectionNumber = urlSection
+    ? (parseInt(urlSection, 10) || 1)
+    : (stored?.sectionNumber ? (parseInt(stored.sectionNumber, 10) || 1) : 1);
+  let unitNumber = urlUnit
     ? (parseInt(urlUnit, 10) || 1)
     : (stored?.unitNumber ? (parseInt(stored.unitNumber, 10) || 1) : 1);
+
+  if (unitNumber >= 36 && unitNumber <= 70) {
+    sectionNumber = 2;
+    unitNumber = unitNumber - 35;
+  } else if (unitNumber >= 71) {
+    sectionNumber = 3;
+    unitNumber = unitNumber - 70;
+  }
+
   const unitTitle = stored?.unitTitle || '';
   const unitDescription = stored?.unitDescription || '';
 
@@ -113,6 +126,7 @@ function getInitialCurriculumFilters(searchParams) {
     learningLanguage,
     nativeLanguage,
     level,
+    sectionNumber,
     unitNumber,
     unitTitle,
     unitDescription,
@@ -130,9 +144,7 @@ export default function CurriculumPage() {
   const [learningLanguage, setLearningLanguage] = useState(initialFilters.learningLanguage);
   const [nativeLanguage, setNativeLanguage] = useState(initialFilters.nativeLanguage);
   const [level, setLevel] = useState(initialFilters.level);
-  const [selectedSection, setSelectedSection] = useState(() => {
-    return initialFilters.unitNumber <= 35 ? 1 : (initialFilters.unitNumber <= 70 ? 2 : 3);
-  });
+  const [selectedSection, setSelectedSection] = useState(initialFilters.sectionNumber || 1);
   const [unitNumber, setUnitNumber] = useState(initialFilters.unitNumber);
   const [unitTitle, setUnitTitle] = useState(initialFilters.unitTitle || 'Basic Objects & Possessives');
   const [unitDescription, setUnitDescription] = useState(initialFilters.unitDescription || '');
@@ -144,24 +156,27 @@ export default function CurriculumPage() {
         learningLanguage,
         nativeLanguage,
         level,
+        sectionNumber: selectedSection,
         unitNumber,
         unitTitle,
         unitDescription,
       }));
     } catch (_) {}
-  }, [learningLanguage, nativeLanguage, level, unitNumber, unitTitle, unitDescription]);
+  }, [learningLanguage, nativeLanguage, level, selectedSection, unitNumber, unitTitle, unitDescription]);
 
   // 2. Silently synchronize active filters to URL search parameters (Hybrid URL + LocalStorage Deep-linking)
   useEffect(() => {
     const currentLang = searchParams.get('lang');
     const currentNative = searchParams.get('native');
     const currentLevel = searchParams.get('level');
+    const currentSection = searchParams.get('section');
     const currentUnit = searchParams.get('unit');
 
     if (
       currentLang !== learningLanguage ||
       currentNative !== nativeLanguage ||
       currentLevel !== level ||
+      currentSection !== String(selectedSection) ||
       currentUnit !== String(unitNumber)
     ) {
       setSearchParams(
@@ -170,13 +185,14 @@ export default function CurriculumPage() {
           next.set('lang', learningLanguage);
           next.set('native', nativeLanguage);
           next.set('level', level);
+          next.set('section', String(selectedSection));
           next.set('unit', String(unitNumber));
           return next;
         },
         { replace: true }
       );
     }
-  }, [learningLanguage, nativeLanguage, level, unitNumber, searchParams, setSearchParams]);
+  }, [learningLanguage, nativeLanguage, level, selectedSection, unitNumber, searchParams, setSearchParams]);
 
   // Search filter inside unit
   const [lessonSearch, setLessonSearch] = useState('');
@@ -251,43 +267,41 @@ export default function CurriculumPage() {
   const [editorModalOpen, setEditorModalOpen] = useState(false);
   const [editingLesson, setEditingLesson] = useState(null);
 
-  // Synchronize active section based on unitNumber
-  useEffect(() => {
-    const secNum = unitNumber <= 35 ? 1 : (unitNumber <= 70 ? 2 : 3);
-    if (secNum !== selectedSection) {
-      setSelectedSection(secNum);
-    }
-  }, [unitNumber]);
-
   // Fetch lessons for active filters
   const fetchCurriculum = useCallback(async () => {
     setLoading(true);
     try {
       const [lessonsRes, unitsRes] = await Promise.allSettled([
         api.get('/curriculum/lessons', {
-          params: { learningLanguage, nativeLanguage, level, unitNumber },
+          params: { learningLanguage, nativeLanguage, level, sectionNumber: selectedSection, unitNumber },
         }),
         api.get('/curriculum/units', {
           params: { learningLanguage, nativeLanguage, level },
         }),
       ]);
 
+      let fetchedLessons = [];
       if (lessonsRes.status === 'fulfilled') {
-        const fetchedLessons = lessonsRes.value.data.lessons || [];
+        fetchedLessons = lessonsRes.value.data.lessons || [];
         setLessons(fetchedLessons);
         if (fetchedLessons.length > 0) {
           if (fetchedLessons[0].unitTitle) setUnitTitle(fetchedLessons[0].unitTitle);
-          if (fetchedLessons[0].unitDescription) setUnitDescription(fetchedLessons[0].unitDescription);
+          setUnitDescription(fetchedLessons[0].unitDescription || '');
         }
       }
 
       if (unitsRes.status === 'fulfilled') {
         const fetchedUnits = unitsRes.value.data.units || [];
         setUnitsSummary(fetchedUnits);
-        const curUnit = fetchedUnits.find(u => u.unitNumber === unitNumber);
+        const curUnit = fetchedUnits.find(
+          u => (u.sectionNumber || 1) === selectedSection && u.unitNumber === unitNumber
+        );
         if (curUnit) {
           if (curUnit.unitTitle) setUnitTitle(curUnit.unitTitle);
-          if (curUnit.unitDescription) setUnitDescription(curUnit.unitDescription);
+          setUnitDescription(curUnit.unitDescription || '');
+        } else if (fetchedLessons.length === 0) {
+          setUnitTitle(`Unit ${unitNumber}`);
+          setUnitDescription('');
         }
       }
     } catch {
@@ -295,7 +309,7 @@ export default function CurriculumPage() {
     } finally {
       setLoading(false);
     }
-  }, [learningLanguage, nativeLanguage, level, unitNumber]);
+  }, [learningLanguage, nativeLanguage, level, selectedSection, unitNumber]);
 
   useEffect(() => {
     fetchCurriculum();
@@ -308,23 +322,42 @@ export default function CurriculumPage() {
 
   const unitsForCurrentSection = useMemo(() => {
     if (!unitsSummary || unitsSummary.length === 0) return [];
-    return unitsSummary.filter(
-      u => u.unitNumber >= currentSectionMeta.minUnit && u.unitNumber <= currentSectionMeta.maxUnit
-    );
-  }, [unitsSummary, currentSectionMeta]);
+    return unitsSummary.filter(u => (u.sectionNumber || 1) === selectedSection);
+  }, [unitsSummary, selectedSection]);
+
+  // Build full 1..12 unit options for the selected section so admin can jump to any unit (populated or empty)
+  const unitSelectorOptions = useMemo(() => {
+    const map = new Map();
+    unitsForCurrentSection.forEach(u => map.set(u.unitNumber, u));
+    const maxU = Math.max(12, unitNumber, ...Array.from(map.keys()));
+    const list = [];
+    for (let i = 1; i <= maxU; i++) {
+      const existing = map.get(i);
+      if (existing) {
+        list.push(existing);
+      } else {
+        list.push({
+          sectionNumber: selectedSection,
+          unitNumber: i,
+          unitTitle: i === unitNumber && unitTitle ? unitTitle : `Unit ${i}`,
+          totalLessons: 0,
+          liveLessons: 0,
+          isEmptySlot: true,
+        });
+      }
+    }
+    return list;
+  }, [unitsForCurrentSection, selectedSection, unitNumber, unitTitle]);
 
   // Handle switching section
   const handleSelectSection = (secNum) => {
-    setSelectedSection(secNum);
-    const sec = SECTIONS.find(s => s.number === secNum);
-    if (sec) {
-      if (unitNumber < sec.minUnit || unitNumber > sec.maxUnit) {
-        setUnitNumber(sec.minUnit);
-      }
+    if (secNum !== selectedSection) {
+      setSelectedSection(secNum);
+      setUnitNumber(1);
     }
   };
 
-  // Navigate to previous / next unit
+  // Navigate to previous / next unit (1 to 12 inside each section)
   const handlePrevUnit = () => {
     if (unitNumber > 1) {
       setUnitNumber(prev => prev - 1);
@@ -332,7 +365,7 @@ export default function CurriculumPage() {
   };
 
   const handleNextUnit = () => {
-    if (unitNumber < 105) {
+    if (unitNumber < 12) {
       setUnitNumber(prev => prev + 1);
     }
   };
@@ -380,9 +413,11 @@ export default function CurriculumPage() {
       await api.patch(`/curriculum/units/${unitNumber}/live`, {
         isLive: targetLive,
         learningLanguage,
+        nativeLanguage,
         level,
+        sectionNumber: selectedSection,
       });
-      toast.success(`Unit ${unitNumber} updated to ${targetLive ? 'LIVE 🟢' : 'DRAFT 🔒'}`);
+      toast.success(`Section ${selectedSection} • Unit ${unitNumber} updated to ${targetLive ? 'LIVE 🟢' : 'DRAFT 🔒'}`);
       fetchCurriculum();
     } catch {
       toast.error('Failed to update unit live status');
@@ -408,14 +443,14 @@ export default function CurriculumPage() {
 
   // Delete entire unit
   const handleDeleteEntireUnit = async () => {
-    if (!confirm(`⚠️ Are you sure you want to delete ALL lessons in Unit ${unitNumber}: "${unitTitle}"? This cannot be undone.`)) {
+    if (!confirm(`⚠️ Are you sure you want to delete ALL lessons in Section ${selectedSection} • Unit ${unitNumber}: "${unitTitle}"? This cannot be undone.`)) {
       return;
     }
     try {
       const res = await api.delete(`/curriculum/units/${unitNumber}`, {
-        params: { learningLanguage, level },
+        params: { learningLanguage, nativeLanguage, level, sectionNumber: selectedSection },
       });
-      toast.success(res.data.message || `Deleted Unit ${unitNumber}`);
+      toast.success(res.data.message || `Deleted Section ${selectedSection} • Unit ${unitNumber}`);
       fetchCurriculum();
     } catch {
       toast.error('Failed to delete unit');
@@ -491,12 +526,14 @@ export default function CurriculumPage() {
         return;
       }
 
-      // Group lessons by unitNumber
+      // Group lessons by unitNumber (1-12 inside the selected section)
       const unitsMap = new Map();
       fetchedLessons.forEach(l => {
         const uNum = l.unitNumber;
         if (!unitsMap.has(uNum)) {
-          const metaUnit = unitsSummary.find(u => u.unitNumber === uNum);
+          const metaUnit = unitsSummary.find(
+            u => (u.sectionNumber || 1) === selectedSection && u.unitNumber === uNum
+          );
           unitsMap.set(uNum, {
             sectionNumber: selectedSection,
             sectionTitle: currentSectionMeta.title,
@@ -558,6 +595,7 @@ export default function CurriculumPage() {
             learningLanguage,
             nativeLanguage,
             level,
+            sectionNumber: selectedSection,
             unitNumber,
           },
         });
@@ -565,7 +603,7 @@ export default function CurriculumPage() {
       }
 
       if (!unitLessons.length) {
-        toast.error(`No lessons found for Unit ${unitNumber}`);
+        toast.error(`No lessons found for Section ${selectedSection} • Unit ${unitNumber}`);
         return;
       }
 
@@ -573,10 +611,11 @@ export default function CurriculumPage() {
         learningLanguage,
         nativeLanguage,
         level,
+        sectionNumber: selectedSection,
+        sectionTitle: currentSectionMeta.title,
         unitNumber,
         unitTitle,
         unitDescription,
-        sectionNumber: selectedSection,
         totalLessons: unitLessons.length,
         exportedAt: new Date().toISOString(),
         lessons: unitLessons.map(formatLessonForExport),
@@ -587,13 +626,13 @@ export default function CurriculumPage() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `curriculum_${learningLanguage}_${nativeLanguage}_${level}_unit_${unitNumber}.json`;
+      link.download = `curriculum_${learningLanguage}_${nativeLanguage}_${level}_sec${selectedSection}_unit_${unitNumber}.json`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
 
-      toast.success(`Exported Unit ${unitNumber} (${unitLessons.length} lessons)!`);
+      toast.success(`Exported Section ${selectedSection} • Unit ${unitNumber} (${unitLessons.length} lessons)!`);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to download unit JSON');
     } finally {
@@ -804,14 +843,14 @@ export default function CurriculumPage() {
             </h2>
           </div>
           <span className="text-xs text-gray-400">
-            Each section contains 35 modular progressive units
+            Each section contains 12 modular progressive units (Units 1 – 12)
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {SECTIONS.map(sec => {
             const isSelected = selectedSection === sec.number;
-            const secUnits = unitsSummary.filter(u => u.unitNumber >= sec.minUnit && u.unitNumber <= sec.maxUnit);
+            const secUnits = unitsSummary.filter(u => (u.sectionNumber || 1) === sec.number);
             const secLessons = secUnits.reduce((acc, u) => acc + (u.totalLessons || 0), 0);
             const secLive = secUnits.reduce((acc, u) => acc + (u.liveLessons || 0), 0);
 
@@ -848,7 +887,7 @@ export default function CurriculumPage() {
                 </p>
 
                 <div className="flex items-center justify-between text-[11px] pt-3 border-t border-white/10 text-gray-400">
-                  <span>{secUnits.length || 35} Units • {secLessons} Lessons</span>
+                  <span>{secUnits.length || 12} Units • {secLessons} Lessons</span>
                   <span className={secLive > 0 ? 'text-emerald-400 font-semibold' : 'text-gray-500'}>
                     {secLive > 0 ? `${secLive} Live 🟢` : 'Draft Mode 🔒'}
                   </span>
@@ -883,12 +922,12 @@ export default function CurriculumPage() {
               <ChevronLeft className="w-4 h-4" />
             </button>
             <span className="text-xs font-bold text-gray-300">
-              Unit {unitNumber} / 105
+              Section {selectedSection} • Unit {unitNumber} / 12
             </span>
             <button
               type="button"
               onClick={handleNextUnit}
-              disabled={unitNumber >= 105}
+              disabled={unitNumber >= 12}
               className="p-1.5 rounded-xl bg-slate-800 text-gray-300 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
               title="Next Unit"
             >
@@ -907,15 +946,11 @@ export default function CurriculumPage() {
             onChange={e => setUnitNumber(parseInt(e.target.value, 10))}
             className="input-field text-sm font-bold bg-slate-800 flex-1"
           >
-            {unitsForCurrentSection.length > 0 ? (
-              unitsForCurrentSection.map(u => (
-                <option key={u.unitNumber} value={u.unitNumber}>
-                  Unit {u.unitNumber}: {u.unitTitle} — ({u.totalLessons || 0} lessons {u.liveLessons > 0 ? `• ${u.liveLessons} live` : '• draft'})
-                </option>
-              ))
-            ) : (
-              <option value={unitNumber}>Unit {unitNumber}: {unitTitle}</option>
-            )}
+            {unitSelectorOptions.map(u => (
+              <option key={`${selectedSection}_${u.unitNumber}`} value={u.unitNumber}>
+                Section {selectedSection} • Unit {u.unitNumber}: {u.unitTitle} — ({u.totalLessons || 0} lessons {u.liveLessons > 0 ? `• ${u.liveLessons} live` : (u.totalLessons > 0 ? '• draft' : '• empty')})
+              </option>
+            ))}
           </select>
         </div>
 
@@ -928,7 +963,7 @@ export default function CurriculumPage() {
                   SECTION {selectedSection}: {currentSectionMeta.title.toUpperCase()}
                 </span>
                 <span className="text-[11px] font-black text-gray-300 px-2 py-0.5 rounded-full bg-white/10">
-                  {level} • UNIT {unitNumber} (Lesson {unitNumber <= 35 ? unitNumber : (unitNumber <= 70 ? unitNumber - 35 : unitNumber - 70)} of 35)
+                  {level} • SECTION {selectedSection} • UNIT {unitNumber} (Unit {unitNumber} of 12)
                 </span>
               </div>
 
@@ -1376,15 +1411,20 @@ export default function CurriculumPage() {
         currentLanguage={learningLanguage}
         currentNative={nativeLanguage}
         currentLevel={level}
+        sectionNumber={selectedSection}
+        sectionTitle={currentSectionMeta.title}
         unitNumber={unitNumber}
         unitTitle={unitTitle}
       />
 
       <BulkUploadModal
-        key={`bulk-upload-${unitNumber}-${bulkModalOpen}`}
+        key={`bulk-upload-${selectedSection}-${unitNumber}-${bulkModalOpen}`}
         isOpen={bulkModalOpen}
         onClose={() => setBulkModalOpen(false)}
-        onSuccess={(uploadedUnit) => {
+        onSuccess={(uploadedUnit, uploadedSection) => {
+          if (uploadedSection && typeof uploadedSection === 'number') {
+            setSelectedSection(uploadedSection);
+          }
           if (uploadedUnit && typeof uploadedUnit === 'number') {
             setUnitNumber(uploadedUnit);
           }
@@ -1393,6 +1433,8 @@ export default function CurriculumPage() {
         currentLanguage={learningLanguage}
         currentNative={nativeLanguage}
         currentLevel={level}
+        sectionNumber={selectedSection}
+        sectionTitle={currentSectionMeta.title}
         unitNumber={unitNumber}
       />
 
@@ -1405,6 +1447,8 @@ export default function CurriculumPage() {
         currentLanguage={learningLanguage}
         currentNative={nativeLanguage}
         currentLevel={level}
+        sectionNumber={selectedSection}
+        sectionTitle={currentSectionMeta.title}
         currentUnit={unitNumber}
       />
     </div>
