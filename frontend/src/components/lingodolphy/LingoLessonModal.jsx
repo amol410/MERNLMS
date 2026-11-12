@@ -352,16 +352,30 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
         setLoading(true);
         const res = await api.get(`/gamification/lesson/${node.id || node.sourceId}`);
         const rawStages = res.data?.lesson?.stages;
-        const validStages = Array.isArray(rawStages) ? rawStages.filter(s => {
-          if (!s || !s.type) return false;
-          if (s.type === 'word_match' || s.type === 'match_pairs') return Array.isArray(s.pairs) && s.pairs.length > 0;
+        const validStages = Array.isArray(rawStages) ? rawStages.map(s => {
+          if (!s || !s.type) return null;
+          const canonicalMap = {
+            match_pairs: 'word_match',
+            picture_cards: 'picture_select',
+            cloze: 'cloze_test',
+            type_input: 'type_word',
+            dialogue: 'dialogue_bubble',
+            listen_comprehension: 'listen_select',
+          };
+          const normalizedType = canonicalMap[s.type] || s.type;
+          return { ...s, type: normalizedType };
+        }).filter(s => {
+          if (!s || !s.type || s.enabled === false) return false;
+          if (s.type === 'word_match') return Array.isArray(s.pairs) && s.pairs.length > 0;
           if (s.type === 'listen_tap') return Boolean(s.targetSentence?.trim() || (Array.isArray(s.tokens) && s.tokens.length > 0));
+          if (s.type === 'picture_select') return Array.isArray(s.options) && s.options.length > 0;
           if (s.type === 'sentence_builder') return Boolean(s.targetSentence?.trim() || (Array.isArray(s.tokens) && s.tokens.length > 0));
-          if (s.type === 'cloze_test' || s.type === 'cloze') return Boolean((s.sentence || s.prompt)?.trim());
-          if (s.type === 'type_word' || s.type === 'type_input') return Boolean((s.target || s.word || s.prompt)?.trim());
-          if (s.type === 'dialogue_bubble' || s.type === 'dialogue') return Boolean((s.partnerMessage || s.message || s.prompt)?.trim());
-          if (s.type === 'listen_select' || s.type === 'listen_comprehension') return Boolean((s.sentence || s.spokenGerman || s.question || s.prompt)?.trim());
+          if (s.type === 'cloze_test') return Boolean((s.sentence || s.prompt)?.trim());
+          if (s.type === 'type_word') return Boolean((s.target || s.targetWord || s.word || s.prompt)?.trim());
+          if (s.type === 'dialogue_bubble') return Boolean((s.partnerMessage || s.message || s.prompt)?.trim());
+          if (s.type === 'listen_select') return Boolean((s.sentence || s.spokenGerman || s.question || s.prompt)?.trim());
           if (s.type === 'sprechen') return Boolean(s.prompt?.trim());
+          if (s.type === 'karaoke') return Boolean((s.storyText || s.prompt || s.sentence)?.trim() || s.karaokeData || s.audioUrl);
           return true;
         }) : [];
 
@@ -721,6 +735,17 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
         expected = currentStage.correctAnswer || '';
         isCorrect = selectedOption === expected;
       }
+    } else if (currentStage.type === 'picture_select') {
+      if (typeof selectedOption === 'object' && selectedOption !== null) {
+        isCorrect = selectedOption.isCorrect === true;
+        const correctOpt = currentStage.options?.find(o => o.isCorrect);
+        expected = correctOpt ? (correctOpt.text || correctOpt.word || '') : (currentStage.targetWord || '');
+      } else {
+        isCorrect = false;
+        expected = currentStage.targetWord || '';
+      }
+    } else if (currentStage.type === 'karaoke') {
+      isCorrect = true;
     } else if (currentStage.type === 'sprechen') {
       const prompt = currentStage.prompt || '';
       const promptWords = cleanSpeechWords(prompt);
@@ -1195,7 +1220,100 @@ export default function LingoLessonModal({ node, targetLanguage = 'de', nativeLa
                 </div>
               )}
 
-              {/* 6. SPRECHEN (SPEECH PRACTICE) */}
+              {/* 6. PICTURE SELECT (VISUAL CARDS) */}
+              {currentStage.type === 'picture_select' && (
+                <div className="flex flex-col gap-5">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#1E2B31] border border-cyan-500/30 shadow-md">
+                    <button
+                      onClick={() => speakText(currentStage.targetWord || currentStage.target || '', targetLanguage)}
+                      className="w-12 h-12 rounded-2xl bg-cyan-500 text-white flex items-center justify-center shadow-lg shadow-cyan-500/30 hover:scale-105 transition-all flex-shrink-0"
+                    >
+                      <Volume2 className="w-6 h-6" />
+                    </button>
+                    <div className="text-left">
+                      <p className="text-xl font-black text-white">{currentStage.targetWord || currentStage.target}</p>
+                      {currentStage.translation && (
+                        <p className="text-xs text-gray-400 font-medium">{currentStage.translation}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    {(currentStage.options || []).map((opt, idx) => {
+                      const isChosen = selectedOption === opt;
+                      return (
+                        <button
+                          key={opt.id || idx}
+                          onClick={() => {
+                            setSelectedOption(opt);
+                            if (opt.text || opt.word) speakText(opt.text || opt.word, targetLanguage);
+                          }}
+                          className={clsx(
+                            'p-3 rounded-2xl border-2 border-b-4 transition-all flex flex-col items-center gap-2',
+                            isChosen
+                              ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 shadow-lg shadow-cyan-500/20'
+                              : 'bg-[#1E2B31] border-[#2C3E47] text-white hover:border-cyan-500/40'
+                          )}
+                        >
+                          {opt.imageUrl ? (
+                            <img
+                              src={opt.imageUrl}
+                              alt={opt.text || opt.word || ''}
+                              className="w-full h-28 object-cover rounded-xl bg-slate-800"
+                            />
+                          ) : (
+                            <div className="w-full h-28 rounded-xl bg-slate-800/80 flex items-center justify-center text-3xl">
+                              🖼️
+                            </div>
+                          )}
+                          <span className="font-bold text-sm">{opt.text || opt.word}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* 7. KARAOKE RHYTHM STAGE */}
+              {currentStage.type === 'karaoke' && (
+                <div className="flex flex-col gap-5">
+                  <div className="flex items-center justify-between p-4 rounded-2xl bg-[#1E2B31] border border-purple-500/30">
+                    <div className="flex items-center gap-3 text-left">
+                      <button
+                        onClick={() => speakText(currentStage.storyText || currentStage.prompt || currentStage.sentence || '', targetLanguage)}
+                        className="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center shadow-lg shadow-purple-600/30 hover:scale-105 transition-all"
+                      >
+                        <Volume2 className="w-6 h-6" />
+                      </button>
+                      <div>
+                        <span className="text-[11px] font-black text-purple-400 uppercase tracking-wider block">
+                          Synced Karaoke Track
+                        </span>
+                        <span className="text-xs text-gray-300">Tap any word to hear pronunciation</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6 rounded-2xl bg-[#1A262C] border border-white/10 text-left">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {((currentStage.storyText || currentStage.prompt || currentStage.sentence || '').split(/\s+/).filter(Boolean)).map((word, wIdx) => (
+                        <button
+                          key={wIdx}
+                          onClick={() => speakText(word, targetLanguage)}
+                          className="px-3 py-1.5 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-200 font-bold text-base hover:bg-purple-500/30 transition-all"
+                        >
+                          {word}
+                        </button>
+                      ))}
+                    </div>
+                    {(currentStage.translationText || currentStage.translation) && (
+                      <p className="text-sm text-gray-400 italic border-t border-white/10 pt-3">
+                        {currentStage.translationText || currentStage.translation}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* 8. SPRECHEN (SPEECH PRACTICE) */}
               {currentStage.type === 'sprechen' && (
                 <div className="flex flex-col items-center text-center gap-6 py-4">
                   {/* German prompt with real-time word match highlighting */}

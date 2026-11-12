@@ -9,6 +9,47 @@ const { sanitizeLessonStages, validateLessonStages } = require('../utils/stageSa
 // Helper to determine if user has trainer or admin role
 const isStaff = (user) => user && (user.role === 'trainer' || user.role === 'admin');
 
+const SECTION_TITLES = {
+    1: 'Rookie',
+    2: 'Explorer',
+    3: 'Traveler',
+};
+
+function getSectionTitle(secNum, customTitle) {
+    if (customTitle && String(customTitle).trim()) {
+        const trimmed = String(customTitle).trim();
+        if (SECTION_TITLES[secNum] && trimmed === 'Rookie' && secNum !== 1) {
+            return SECTION_TITLES[secNum];
+        }
+        return trimmed;
+    }
+    return SECTION_TITLES[secNum] || 'Rookie';
+}
+
+function normalizeSectionAndUnit(rawSectionNumber, rawUnitNumber) {
+    let secNum = rawSectionNumber !== undefined && rawSectionNumber !== null && rawSectionNumber !== '' && !isNaN(parseInt(rawSectionNumber, 10))
+        ? parseInt(rawSectionNumber, 10)
+        : 1;
+    let uNum = rawUnitNumber !== undefined && rawUnitNumber !== null && rawUnitNumber !== '' && !isNaN(parseInt(rawUnitNumber, 10))
+        ? parseInt(rawUnitNumber, 10)
+        : 1;
+
+    // Normalize legacy 36-70 / 71-105 unit numbers into Section 2 / 3 with 1-based unit numbers
+    if (uNum >= 36 && uNum <= 70) {
+        if (secNum === 1 || secNum === 2) {
+            secNum = 2;
+            uNum = uNum - 35;
+        }
+    } else if (uNum >= 71) {
+        if (secNum === 1 || secNum === 3) {
+            secNum = 3;
+            uNum = uNum - 70;
+        }
+    }
+
+    return { sectionNumber: secNum, unitNumber: uNum };
+}
+
 // 1. Get all lessons with multi-language & CEFR level filtering
 exports.getLessons = async (req, res, next) => {
     try {
@@ -27,13 +68,18 @@ exports.getLessons = async (req, res, next) => {
             level,
         };
 
+        if (sectionNumber !== undefined && sectionNumber !== '') {
+            where.sectionNumber = parseInt(sectionNumber, 10) || 1;
+        }
         if (unitNumber !== undefined && unitNumber !== '') {
-            where.unitNumber = parseInt(unitNumber, 10);
-        } else if (sectionNumber !== undefined && sectionNumber !== '') {
-            const sec = parseInt(sectionNumber, 10);
-            const minUnit = sec === 1 ? 1 : (sec === 2 ? 36 : 71);
-            const maxUnit = sec === 1 ? 35 : (sec === 2 ? 70 : 105);
-            where.unitNumber = { [Op.between]: [minUnit, maxUnit] };
+            const parsedUnit = parseInt(unitNumber, 10);
+            if ((sectionNumber === undefined || sectionNumber === '') && parsedUnit >= 36) {
+                const norm = normalizeSectionAndUnit(1, parsedUnit);
+                where.sectionNumber = norm.sectionNumber;
+                where.unitNumber = norm.unitNumber;
+            } else {
+                where.unitNumber = parsedUnit;
+            }
         }
 
         // If user is a student (not staff), enforce isLive: true
@@ -46,6 +92,7 @@ exports.getLessons = async (req, res, next) => {
         const lessons = await CurriculumLesson.findAll({
             where,
             order: [
+                ['sectionNumber', 'ASC'],
                 ['unitNumber', 'ASC'],
                 ['lessonIndex', 'ASC'],
                 ['id', 'ASC'],
@@ -99,6 +146,8 @@ exports.createLesson = async (req, res, next) => {
             learningLanguage = 'de',
             nativeLanguage = 'en',
             level = 'A1',
+            sectionNumber = 1,
+            sectionTitle,
             unitNumber = 1,
             unitTitle = 'Coral Reef',
             unitDescription = 'Introductions & Daily Greetings',
@@ -130,11 +179,22 @@ exports.createLesson = async (req, res, next) => {
             }
         }
 
+        const norm = normalizeSectionAndUnit(sectionNumber, unitNumber);
+        const resolvedSectionNumber = norm.sectionNumber;
+        const resolvedUnitNumber = norm.unitNumber;
+        const resolvedSectionTitle = getSectionTitle(resolvedSectionNumber, sectionTitle);
+
         // Determine next lessonIndex if not provided
         let targetIndex = lessonIndex;
         if (targetIndex === undefined || targetIndex === null) {
             const maxLesson = await CurriculumLesson.findOne({
-                where: { learningLanguage, nativeLanguage, level, unitNumber },
+                where: {
+                    learningLanguage,
+                    nativeLanguage,
+                    level,
+                    sectionNumber: resolvedSectionNumber,
+                    unitNumber: resolvedUnitNumber,
+                },
                 order: [['lessonIndex', 'DESC']],
             });
             targetIndex = maxLesson ? maxLesson.lessonIndex + 1 : 0;
@@ -147,7 +207,9 @@ exports.createLesson = async (req, res, next) => {
             learningLanguage,
             nativeLanguage,
             level,
-            unitNumber,
+            sectionNumber: resolvedSectionNumber,
+            sectionTitle: resolvedSectionTitle,
+            unitNumber: resolvedUnitNumber,
             unitTitle,
             unitDescription,
             lessonIndex: targetIndex,
@@ -193,7 +255,7 @@ exports.updateLesson = async (req, res, next) => {
         }
 
         const fields = [
-            'learningLanguage', 'nativeLanguage', 'level', 'unitNumber',
+            'learningLanguage', 'nativeLanguage', 'level', 'sectionNumber', 'sectionTitle', 'unitNumber',
             'unitTitle', 'unitDescription', 'lessonIndex', 'title',
             'subtitle', 'nodeType', 'xpReward', 'pearlsReward', 'isLive',
             'stages', 'karaokeData', 'audioUrl', 'sourceNoteId',
@@ -208,6 +270,10 @@ exports.updateLesson = async (req, res, next) => {
                 }
             }
         });
+
+        if (req.body.sectionNumber !== undefined && req.body.sectionTitle === undefined) {
+            lesson.sectionTitle = getSectionTitle(parseInt(req.body.sectionNumber, 10) || 1);
+        }
 
         await lesson.save();
 
@@ -269,6 +335,8 @@ exports.batchCreateHeadings = async (req, res, next) => {
             learningLanguage = 'de',
             nativeLanguage = 'en',
             level = 'A1',
+            sectionNumber = 1,
+            sectionTitle,
             unitNumber = 1,
             unitTitle = 'Coral Reef',
             unitDescription = 'Introductions & Daily Greetings',
@@ -279,9 +347,20 @@ exports.batchCreateHeadings = async (req, res, next) => {
             return res.status(400).json({ success: false, message: 'Please provide at least one lesson heading' });
         }
 
+        const norm = normalizeSectionAndUnit(sectionNumber, unitNumber);
+        const resolvedSectionNumber = norm.sectionNumber;
+        const resolvedUnitNumber = norm.unitNumber;
+        const resolvedSectionTitle = getSectionTitle(resolvedSectionNumber, sectionTitle);
+
         // Find existing max index in this unit
         const maxLesson = await CurriculumLesson.findOne({
-            where: { learningLanguage, nativeLanguage, level, unitNumber },
+            where: {
+                learningLanguage,
+                nativeLanguage,
+                level,
+                sectionNumber: resolvedSectionNumber,
+                unitNumber: resolvedUnitNumber,
+            },
             order: [['lessonIndex', 'DESC']],
         });
         let startIndex = maxLesson ? maxLesson.lessonIndex + 1 : 0;
@@ -349,7 +428,9 @@ exports.batchCreateHeadings = async (req, res, next) => {
                 learningLanguage,
                 nativeLanguage,
                 level,
-                unitNumber,
+                sectionNumber: resolvedSectionNumber,
+                sectionTitle: resolvedSectionTitle,
+                unitNumber: resolvedUnitNumber,
                 unitTitle,
                 unitDescription,
                 lessonIndex: startIndex + i,
@@ -383,6 +464,8 @@ exports.bulkUpload = async (req, res, next) => {
             learningLanguage = 'de',
             nativeLanguage = 'en',
             level = 'A1',
+            sectionNumber = 1,
+            sectionTitle,
             unitNumber = 1,
             unitTitle = 'Coral Reef',
             lessonsData, // Can be array of objects, JSON string, or CSV text
@@ -393,6 +476,8 @@ exports.bulkUpload = async (req, res, next) => {
         let effectiveLearningLanguage = learningLanguage;
         let effectiveNativeLanguage = nativeLanguage;
         let effectiveLevel = level;
+        let effectiveSectionNumber = parseInt(sectionNumber, 10) || 1;
+        let effectiveSectionTitle = getSectionTitle(effectiveSectionNumber, sectionTitle);
         let effectiveUnitNumber = parseInt(unitNumber, 10) || 1;
         let effectiveUnitTitle = unitTitle;
         let effectiveUnitDescription = '';
@@ -412,6 +497,13 @@ exports.bulkUpload = async (req, res, next) => {
                         isReplaceMode = Boolean(jsonParsed.replace === true || jsonParsed.replace === 'true');
                     }
                     // Extract root-level metadata if explicitly declared in the uploaded JSON file
+                    if (jsonParsed.sectionNumber !== undefined && jsonParsed.sectionNumber !== null && !isNaN(parseInt(jsonParsed.sectionNumber, 10))) {
+                        effectiveSectionNumber = parseInt(jsonParsed.sectionNumber, 10);
+                        effectiveSectionTitle = getSectionTitle(effectiveSectionNumber, jsonParsed.sectionTitle || sectionTitle);
+                    }
+                    if (jsonParsed.sectionTitle) {
+                        effectiveSectionTitle = jsonParsed.sectionTitle.trim();
+                    }
                     if (jsonParsed.unitNumber !== undefined && jsonParsed.unitNumber !== null && !isNaN(parseInt(jsonParsed.unitNumber, 10))) {
                         effectiveUnitNumber = parseInt(jsonParsed.unitNumber, 10);
                     }
@@ -442,6 +534,10 @@ exports.bulkUpload = async (req, res, next) => {
                             for (const l of uLessons) {
                                 parsedItems.push({
                                     ...l,
+                                    sectionNumber: l.sectionNumber !== undefined
+                                        ? l.sectionNumber
+                                        : (u.sectionNumber !== undefined ? u.sectionNumber : jsonParsed.sectionNumber),
+                                    sectionTitle: l.sectionTitle || u.sectionTitle || jsonParsed.sectionTitle,
                                     unitNumber: l.unitNumber !== undefined ? l.unitNumber : u.unitNumber,
                                     unitTitle: l.unitTitle || u.unitTitle,
                                     unitDescription: l.unitDescription || u.unitDescription,
@@ -449,6 +545,29 @@ exports.bulkUpload = async (req, res, next) => {
                                     nativeLanguage: l.nativeLanguage || u.nativeLanguage || jsonParsed.nativeLanguage,
                                     level: l.level || u.level || jsonParsed.level,
                                 });
+                            }
+                        }
+                    } else if (Array.isArray(jsonParsed.sections)) {
+                        parsedItems = [];
+                        for (const sec of jsonParsed.sections) {
+                            const secUnits = sec.units || [];
+                            for (const u of secUnits) {
+                                const uLessons = u.lessons || u.lessonsData || [];
+                                for (const l of uLessons) {
+                                    parsedItems.push({
+                                        ...l,
+                                        sectionNumber: l.sectionNumber !== undefined
+                                            ? l.sectionNumber
+                                            : (u.sectionNumber !== undefined ? u.sectionNumber : sec.sectionNumber),
+                                        sectionTitle: l.sectionTitle || u.sectionTitle || sec.sectionTitle,
+                                        unitNumber: l.unitNumber !== undefined ? l.unitNumber : u.unitNumber,
+                                        unitTitle: l.unitTitle || u.unitTitle,
+                                        unitDescription: l.unitDescription || u.unitDescription,
+                                        learningLanguage: l.learningLanguage || u.learningLanguage || jsonParsed.learningLanguage,
+                                        nativeLanguage: l.nativeLanguage || u.nativeLanguage || jsonParsed.nativeLanguage,
+                                        level: l.level || u.level || jsonParsed.level,
+                                    });
+                                }
                             }
                         }
                     }
@@ -478,6 +597,12 @@ exports.bulkUpload = async (req, res, next) => {
             return res.status(400).json({ success: false, message: 'No valid lesson data found in upload' });
         }
 
+        // Normalize effective section and unit
+        const effNorm = normalizeSectionAndUnit(effectiveSectionNumber, effectiveUnitNumber);
+        effectiveSectionNumber = effNorm.sectionNumber;
+        effectiveUnitNumber = effNorm.unitNumber;
+        effectiveSectionTitle = getSectionTitle(effectiveSectionNumber, effectiveSectionTitle);
+
         // 1. Strict Malformed Challenge Schema Rejection: Check all stages before any DB write
         for (let i = 0; i < parsedItems.length; i++) {
             const item = parsedItems[i];
@@ -493,33 +618,52 @@ exports.bulkUpload = async (req, res, next) => {
             }
         }
 
-        // 2. Unit-by-Unit Bulk Upload Conflict Resolution & Replace Support:
-        const targetUnitNumbers = [...new Set(parsedItems.map(item => (
-            item.unitNumber !== undefined && item.unitNumber !== null && !isNaN(parseInt(item.unitNumber, 10))
+        // 2. Unit-by-Unit Bulk Upload Conflict Resolution & Replace Support (scoped by sectionNumber + unitNumber):
+        const resolveItemTarget = (item) => {
+            const rawSec = item.sectionNumber !== undefined && item.sectionNumber !== null && !isNaN(parseInt(item.sectionNumber, 10))
+                ? parseInt(item.sectionNumber, 10)
+                : effectiveSectionNumber;
+            const rawUnit = item.unitNumber !== undefined && item.unitNumber !== null && !isNaN(parseInt(item.unitNumber, 10))
                 ? parseInt(item.unitNumber, 10)
-                : effectiveUnitNumber
-        )))];
+                : effectiveUnitNumber;
+            return normalizeSectionAndUnit(rawSec, rawUnit);
+        };
 
-        // In Replace Mode: Completely discard and remove all existing lessons in target unit(s)
+        const targetUnitsMap = new Map();
+        parsedItems.forEach(item => {
+            const t = resolveItemTarget(item);
+            const key = `${t.sectionNumber}_${t.unitNumber}`;
+            if (!targetUnitsMap.has(key)) {
+                targetUnitsMap.set(key, t);
+            }
+        });
+        const targetUnits = Array.from(targetUnitsMap.values());
+        const targetUnitNumbers = [...new Set(targetUnits.map(t => t.unitNumber))];
+
+        // In Replace Mode: Completely discard and remove all existing lessons in target (sectionNumber, unitNumber) pair(s)
         if (isReplaceMode) {
-            await CurriculumLesson.destroy({
-                where: {
-                    learningLanguage: effectiveLearningLanguage,
-                    nativeLanguage: effectiveNativeLanguage,
-                    level: effectiveLevel,
-                    unitNumber: targetUnitNumbers.length === 1 ? targetUnitNumbers[0] : { [Op.in]: targetUnitNumbers },
-                },
-            });
+            for (const target of targetUnits) {
+                await CurriculumLesson.destroy({
+                    where: {
+                        learningLanguage: effectiveLearningLanguage,
+                        nativeLanguage: effectiveNativeLanguage,
+                        level: effectiveLevel,
+                        sectionNumber: target.sectionNumber,
+                        unitNumber: target.unitNumber,
+                    },
+                });
+            }
         }
 
         const processedLessons = [];
 
-        for (const uNum of targetUnitNumbers) {
+        for (const target of targetUnits) {
+            const secNum = target.sectionNumber;
+            const uNum = target.unitNumber;
+
             const unitItems = parsedItems.filter(item => {
-                const itemUnit = item.unitNumber !== undefined && item.unitNumber !== null && !isNaN(parseInt(item.unitNumber, 10))
-                    ? parseInt(item.unitNumber, 10)
-                    : effectiveUnitNumber;
-                return itemUnit === uNum;
+                const t = resolveItemTarget(item);
+                return t.sectionNumber === secNum && t.unitNumber === uNum;
             });
 
             let existingLessons = [];
@@ -531,6 +675,7 @@ exports.bulkUpload = async (req, res, next) => {
                         learningLanguage: effectiveLearningLanguage,
                         nativeLanguage: effectiveNativeLanguage,
                         level: effectiveLevel,
+                        sectionNumber: secNum,
                         unitNumber: uNum,
                     },
                     order: [['lessonIndex', 'ASC']],
@@ -543,6 +688,7 @@ exports.bulkUpload = async (req, res, next) => {
                 if (!item.title) continue;
 
                 const cleanStages = item.stages ? sanitizeLessonStages(item.stages) : [];
+                const itemSectionTitle = getSectionTitle(secNum, item.sectionTitle || effectiveSectionTitle);
 
                 // Match existing lesson:
                 // Only match if NOT in replace mode AND:
@@ -562,6 +708,8 @@ exports.bulkUpload = async (req, res, next) => {
                 if (existing) {
                     // Update existing lesson: preserves original id & untouched lessons' UserNodeProgress
                     existing.title = item.title.trim();
+                    existing.sectionNumber = secNum;
+                    existing.sectionTitle = itemSectionTitle;
                     if (item.subtitle !== undefined) existing.subtitle = item.subtitle.trim();
                     if (item.nodeType !== undefined) existing.nodeType = item.nodeType;
                     if (item.xpReward !== undefined) existing.xpReward = item.xpReward;
@@ -607,6 +755,8 @@ exports.bulkUpload = async (req, res, next) => {
                         learningLanguage: item.learningLanguage || effectiveLearningLanguage,
                         nativeLanguage: item.nativeLanguage || effectiveNativeLanguage,
                         level: item.level || effectiveLevel,
+                        sectionNumber: secNum,
+                        sectionTitle: itemSectionTitle,
                         unitNumber: uNum,
                         unitTitle: item.unitTitle || effectiveUnitTitle,
                         unitDescription: item.unitDescription !== undefined ? item.unitDescription : effectiveUnitDescription,
@@ -628,9 +778,11 @@ exports.bulkUpload = async (req, res, next) => {
         res.status(201).json({
             success: true,
             message: isReplaceMode
-                ? `Replaced Unit ${targetUnitNumbers.join(', ')} with ${processedLessons.length} lessons`
-                : `Bulk uploaded ${processedLessons.length} lessons in unit ${effectiveUnitNumber}`,
+                ? `Replaced Section ${effectiveSectionNumber} • Unit ${targetUnitNumbers.join(', ')} with ${processedLessons.length} lessons`
+                : `Bulk uploaded ${processedLessons.length} lessons in Section ${effectiveSectionNumber} • Unit ${effectiveUnitNumber}`,
             count: processedLessons.length,
+            sectionNumber: effectiveSectionNumber,
+            sectionTitle: effectiveSectionTitle,
             unitNumber: effectiveUnitNumber,
             unitTitle: effectiveUnitTitle,
             lessons: processedLessons,
@@ -656,6 +808,8 @@ exports.getUnitsSummary = async (req, res, next) => {
             where: { learningLanguage, nativeLanguage, level },
             attributes: [
                 'id',
+                'sectionNumber',
+                'sectionTitle',
                 'unitNumber',
                 'unitTitle',
                 'unitDescription',
@@ -668,23 +822,27 @@ exports.getUnitsSummary = async (req, res, next) => {
                 'pearlsReward',
             ],
             order: [
+                ['sectionNumber', 'ASC'],
                 ['unitNumber', 'ASC'],
                 ['lessonIndex', 'ASC'],
             ],
         });
 
-        // Group by unitNumber
+        // Group by (sectionNumber, unitNumber)
         const unitsMap = {};
         lessons.forEach(l => {
-            if (!unitsMap[l.unitNumber]) {
-                const uNum = l.unitNumber || 1;
-                const secNum = uNum <= 35 ? 1 : (uNum <= 70 ? 2 : 3);
-                const secTitle = secNum === 1 ? 'Rookie' : (secNum === 2 ? 'Explorer' : 'Traveler');
-                const secUnitNum = secNum === 1 ? uNum : (secNum === 2 ? uNum - 35 : uNum - 70);
+            const rawUnit = l.unitNumber || 1;
+            const rawSec = l.sectionNumber || 1;
+            const norm = normalizeSectionAndUnit(rawSec, rawUnit);
+            const secNum = norm.sectionNumber;
+            const secUnitNum = norm.unitNumber;
+            const secTitle = getSectionTitle(secNum, l.sectionTitle);
+            const key = `${secNum}_${secUnitNum}`;
 
-                unitsMap[l.unitNumber] = {
-                    unitNumber: l.unitNumber,
-                    unitTitle: l.unitTitle || `Unit ${l.unitNumber}`,
+            if (!unitsMap[key]) {
+                unitsMap[key] = {
+                    unitNumber: secUnitNum,
+                    unitTitle: l.unitTitle || `Unit ${secUnitNum}`,
                     unitDescription: l.unitDescription || '',
                     sectionNumber: secNum,
                     sectionTitle: secTitle,
@@ -695,16 +853,19 @@ exports.getUnitsSummary = async (req, res, next) => {
                     lessons: [],
                 };
             }
-            unitsMap[l.unitNumber].totalLessons++;
+            unitsMap[key].totalLessons++;
             if (l.isLive) {
-                unitsMap[l.unitNumber].liveLessons++;
+                unitsMap[key].liveLessons++;
             } else {
-                unitsMap[l.unitNumber].draftLessons++;
+                unitsMap[key].draftLessons++;
             }
-            unitsMap[l.unitNumber].lessons.push(l);
+            unitsMap[key].lessons.push(l);
         });
 
-        const units = Object.values(unitsMap).sort((a, b) => a.unitNumber - b.unitNumber);
+        const units = Object.values(unitsMap).sort((a, b) => {
+            if (a.sectionNumber !== b.sectionNumber) return a.sectionNumber - b.sectionNumber;
+            return a.unitNumber - b.unitNumber;
+        });
 
         res.json({
             success: true,
@@ -723,8 +884,9 @@ exports.getUnitsSummary = async (req, res, next) => {
 exports.toggleUnitLiveStatus = async (req, res, next) => {
     try {
         const { unitNumber } = req.params;
-        const { isLive, learningLanguage = 'de', level = 'A1', nativeLanguage } = req.body;
+        const { isLive, learningLanguage = 'de', level = 'A1', nativeLanguage, sectionNumber } = req.body;
         const resolvedNativeLanguage = nativeLanguage || req.query?.nativeLanguage;
+        const resolvedSectionNumber = sectionNumber !== undefined ? sectionNumber : req.query?.sectionNumber;
 
         const where = {
             unitNumber: parseInt(unitNumber, 10),
@@ -734,6 +896,9 @@ exports.toggleUnitLiveStatus = async (req, res, next) => {
         if (resolvedNativeLanguage) {
             where.nativeLanguage = resolvedNativeLanguage;
         }
+        if (resolvedSectionNumber !== undefined && resolvedSectionNumber !== '') {
+            where.sectionNumber = parseInt(resolvedSectionNumber, 10);
+        }
 
         await CurriculumLesson.update(
             { isLive: Boolean(isLive) },
@@ -742,7 +907,7 @@ exports.toggleUnitLiveStatus = async (req, res, next) => {
 
         res.json({
             success: true,
-            message: `All lessons in Unit ${unitNumber} updated to ${isLive ? 'LIVE 🟢' : 'DRAFT 🔒'}`,
+            message: `All lessons in ${resolvedSectionNumber ? `Section ${resolvedSectionNumber} • ` : ''}Unit ${unitNumber} updated to ${isLive ? 'LIVE 🟢' : 'DRAFT 🔒'}`,
         });
     } catch (error) {
         next(error);
@@ -753,8 +918,9 @@ exports.toggleUnitLiveStatus = async (req, res, next) => {
 exports.deleteUnit = async (req, res, next) => {
     try {
         const { unitNumber } = req.params;
-        const { learningLanguage = 'de', level = 'A1', nativeLanguage } = req.query;
+        const { learningLanguage = 'de', level = 'A1', nativeLanguage, sectionNumber } = req.query;
         const resolvedNativeLanguage = nativeLanguage || req.body?.nativeLanguage;
+        const resolvedSectionNumber = sectionNumber !== undefined ? sectionNumber : req.body?.sectionNumber;
 
         const where = {
             unitNumber: parseInt(unitNumber, 10),
@@ -764,12 +930,15 @@ exports.deleteUnit = async (req, res, next) => {
         if (resolvedNativeLanguage) {
             where.nativeLanguage = resolvedNativeLanguage;
         }
+        if (resolvedSectionNumber !== undefined && resolvedSectionNumber !== '') {
+            where.sectionNumber = parseInt(resolvedSectionNumber, 10);
+        }
 
         const count = await CurriculumLesson.destroy({ where });
 
         res.json({
             success: true,
-            message: `Deleted ${count} lessons from Unit ${unitNumber}`,
+            message: `Deleted ${count} lessons from ${resolvedSectionNumber ? `Section ${resolvedSectionNumber} • ` : ''}Unit ${unitNumber}`,
         });
     } catch (error) {
         next(error);

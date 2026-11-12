@@ -16,6 +16,9 @@ const {
     getLessonDetails,
     claimAdReward,
     handleAdMobReward,
+    getPlacementQuestions,
+    evaluatePlacement,
+    jumpSection,
 } = require('../controllers/gamificationController');
 
 router.get('/admob/ssv', handleAdMobReward);
@@ -37,6 +40,10 @@ router.post('/claim-quest', claimQuest);
 router.post('/quests/claim', claimQuest);
 router.post('/switch-course', switchCourse);
 router.post('/claim-ad-reward', claimAdReward);
+router.get('/placement/questions', getPlacementQuestions);
+router.post('/placement/questions', getPlacementQuestions);
+router.post('/placement/evaluate', evaluatePlacement);
+router.post('/jump-section', jumpSection);
 
 module.exports = router;
 

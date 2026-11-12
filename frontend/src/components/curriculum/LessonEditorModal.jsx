@@ -17,6 +17,8 @@ export default function LessonEditorModal({
   currentLanguage = 'de',
   currentNative = 'en',
   currentLevel = 'A1',
+  sectionNumber = 1,
+  sectionTitle = 'Rookie',
   currentUnit = 1,
 }) {
   const [loading, setLoading] = useState(false);
@@ -1681,6 +1683,8 @@ export default function LessonEditorModal({
       learningLanguage: currentLanguage,
       nativeLanguage: currentNative,
       level: currentLevel,
+      sectionNumber,
+      sectionTitle,
       unitNumber: currentUnit,
       title: title.trim(),
       subtitle: subtitle.trim(),
@@ -3339,7 +3343,7 @@ export default function LessonEditorModal({
                 {initialData ? `Edit Lesson: ${initialData.title}` : 'Create New Lesson'}
               </h2>
               <p className="text-xs text-gray-400">
-                {currentLevel} • Unit {currentUnit} • Modular Interactive Learning Tasks
+                {currentLevel} • Section {sectionNumber} ({sectionTitle}) • Unit {currentUnit} • Modular Interactive Learning Tasks
               </p>
             </div>
           </div>

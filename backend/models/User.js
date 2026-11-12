@@ -42,6 +42,14 @@ const User = sequelize.define('User', {
     currentLeague: { type: DataTypes.STRING(50), defaultValue: 'Coral Reef', field: 'current_league' },
     fcmToken: { type: DataTypes.STRING(500), allowNull: true, field: 'fcm_token' },
 
+    // Duolingo-Style Placement & Tiered Difficulty Engine (Additive Schema - Shared DB Safe)
+    placementCompleted: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: false, field: 'placement_completed' },
+    placementLevel: { type: DataTypes.STRING(10), allowNull: true, defaultValue: null, field: 'placement_level' },
+    placementSkipToNode: { type: DataTypes.INTEGER, allowNull: true, defaultValue: 0, field: 'placement_skip_to_node' },
+    placementSkipMap: { type: DataTypes.STRING(500), allowNull: true, defaultValue: '{}', field: 'placement_skip_map' },
+    placementTestDate: { type: DataTypes.DATE, allowNull: true, defaultValue: null, field: 'placement_test_date' },
+    unlockedLevels: { type: DataTypes.STRING(255), allowNull: true, defaultValue: '["A1"]', field: 'unlocked_levels' },
+
     // Session/token revocation counter (SEC-06).
     // Every JWT embeds the value it was signed with; the `protect` middleware
     // rejects tokens whose `tokenVersion` no longer matches the user's row.

@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 const AVAILABLE_COURSES = [
   {
     title: 'German A1 (Deutsch)',
-    subtitle: 'English instruction • Complete 105 Units',
+    subtitle: 'English instruction • 3 Sections (Units 1 – 12 each)',
     flag: '🇩🇪',
     targetLanguage: 'de',
     nativeLanguage: 'en',
@@ -21,7 +21,7 @@ const AVAILABLE_COURSES = [
   },
   {
     title: 'English A1 (इंग्रजी)',
-    subtitle: 'मराठी माध्यमातून शिका • Section 1 (35 Units)',
+    subtitle: 'मराठी माध्यमातून शिका • 3 Sections (Units 1 – 12 each)',
     flag: '🇬🇧',
     targetLanguage: 'en',
     nativeLanguage: 'mr',
@@ -30,7 +30,7 @@ const AVAILABLE_COURSES = [
   },
   {
     title: 'English A1 (अंग्रेजी)',
-    subtitle: 'हिन्दी माध्यम से सीखें • Section 1 (35 Units)',
+    subtitle: 'हिन्दी माध्यम से सीखें • 3 Sections (Units 1 – 12 each)',
     flag: '🇬🇧',
     targetLanguage: 'en',
     nativeLanguage: 'hi',
@@ -40,9 +40,9 @@ const AVAILABLE_COURSES = [
 ];
 
 const SECTIONS = [
-  { num: 1, title: 'Rookie', range: 'Units 1 – 35', color: '#1CB0F6' },
-  { num: 2, title: 'Explorer', range: 'Units 36 – 70', color: '#58CC02' },
-  { num: 3, title: 'Traveler', range: 'Units 71 – 105', color: '#FF9600' },
+  { num: 1, title: 'Rookie', range: 'Units 1 – 12', color: '#1CB0F6' },
+  { num: 2, title: 'Explorer', range: 'Units 1 – 12', color: '#58CC02' },
+  { num: 3, title: 'Traveler', range: 'Units 1 – 12', color: '#FF9600' },
 ];
 
 export default function LingoDolphyPage() {
@@ -168,23 +168,26 @@ export default function LingoDolphyPage() {
     }
   }
 
-  // Group nodes by Unit
+  // Group nodes by (Section, Unit)
   const unitsMap = useMemo(() => {
     const map = new Map();
     nodes.forEach(node => {
-      const uNum = node.unitNumber || 1;
-      if (!map.has(uNum)) {
-        map.set(uNum, {
+      const secNum = node.sectionNumber || 1;
+      const uNum = node.sectionUnitNumber || node.unitNumber || 1;
+      const key = `${secNum}_${uNum}`;
+      if (!map.has(key)) {
+        map.set(key, {
+          key,
           unitNumber: uNum,
           unitTitle: node.unitTitle || 'Introductions & Greetings',
           unitDescription: node.unitDescription || '',
-          sectionNumber: node.sectionNumber || 1,
+          sectionNumber: secNum,
           sectionTitle: node.sectionTitle || 'Rookie',
           colorHex: node.colorHex || '#1CB0F6',
           lessons: [],
         });
       }
-      map.get(uNum).lessons.push(node);
+      map.get(key).lessons.push(node);
     });
     return Array.from(map.values());
   }, [nodes]);
@@ -295,7 +298,7 @@ export default function LingoDolphyPage() {
             {unitsMap.map((unit) => {
               const unitColor = unit.colorHex || '#1CB0F6';
               return (
-                <div key={unit.unitNumber} className="relative">
+                <div key={unit.key || `${unit.sectionNumber}_${unit.unitNumber}`} className="relative">
                   {/* Sticky Unit Header Banner */}
                   <div
                     style={{ backgroundColor: unitColor }}
@@ -533,7 +536,7 @@ export default function LingoDolphyPage() {
                             <p className="text-base font-black text-white">Hindi</p>
                             <span className="text-xs text-orange-400 font-bold">(हिन्दी)</span>
                           </div>
-                          <p className="text-xs text-gray-400">हिन्दी माध्यम से सीखें • 35 Units</p>
+                          <p className="text-xs text-gray-400">हिन्दी माध्यम से सीखें • 3 Sections (Units 1 – 12)</p>
                         </div>
                         {targetLanguage === 'en' && nativeLanguage === 'hi' && <Check className="w-5 h-5 text-cyan-400" />}
                       </button>
@@ -562,7 +565,7 @@ export default function LingoDolphyPage() {
                             <p className="text-base font-black text-white">Marathi</p>
                             <span className="text-xs text-emerald-400 font-bold">(मराठी)</span>
                           </div>
-                          <p className="text-xs text-gray-400">मराठी माध्यमातून शिका • 35 Units</p>
+                          <p className="text-xs text-gray-400">मराठी माध्यमातून शिका • 3 Sections (Units 1 – 12)</p>
                         </div>
                         {targetLanguage === 'en' && nativeLanguage === 'mr' && <Check className="w-5 h-5 text-cyan-400" />}
                       </button>

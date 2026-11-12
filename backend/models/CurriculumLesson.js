@@ -26,6 +26,16 @@ const CurriculumLesson = sequelize.define('CurriculumLesson', {
         defaultValue: 'A1',
         allowNull: false,
     },
+    sectionNumber: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+        allowNull: false,
+    },
+    sectionTitle: {
+        type: DataTypes.STRING(100),
+        defaultValue: 'Rookie',
+        allowNull: true,
+    },
     unitNumber: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
@@ -109,9 +119,11 @@ const CurriculumLesson = sequelize.define('CurriculumLesson', {
         {
             name: 'unique_curriculum_lesson_node',
             unique: true,
-            fields: ['learningLanguage', 'nativeLanguage', 'level', 'unitNumber', 'lessonIndex'],
+            fields: ['learningLanguage', 'nativeLanguage', 'level', 'sectionNumber', 'unitNumber', 'lessonIndex'],
         },
         { fields: ['learningLanguage', 'nativeLanguage', 'level', 'isLive', 'unitNumber'] },
+        { fields: ['learningLanguage', 'nativeLanguage', 'level', 'sectionNumber', 'unitNumber'] },
+        { fields: ['isLive', 'learningLanguage', 'nativeLanguage', 'level', 'sectionNumber', 'unitNumber', 'lessonIndex'] },
         { fields: ['isLive', 'learningLanguage', 'nativeLanguage', 'level', 'unitNumber', 'lessonIndex'] },
         { fields: ['learningLanguage', 'nativeLanguage', 'level', 'unitNumber'] },
         { fields: ['isLive'] },

@@ -98,12 +98,18 @@ function flattenCurriculumJson(jsonData, ownerId = 1) {
     for (const unit of jsonData.units) {
         if (!Array.isArray(unit.lessonsData)) continue;
 
+        const secNum = parseInt(unit.sectionNumber || jsonData.sectionNumber || 1, 10) || 1;
+        const defaultSecTitle = secNum === 1 ? 'Rookie' : (secNum === 2 ? 'Explorer' : 'Traveler');
+        const secTitle = unit.sectionTitle || jsonData.sectionTitle || defaultSecTitle;
+
         for (const l of unit.lessonsData) {
             lessons.push({
                 owner: ownerId,
                 learningLanguage: jsonData.learningLanguage || 'en',
                 nativeLanguage: jsonData.nativeLanguage || 'hi',
                 level: jsonData.level || 'A1',
+                sectionNumber: l.sectionNumber || secNum,
+                sectionTitle: l.sectionTitle || secTitle,
                 unitNumber: unit.unitNumber || 1,
                 unitTitle: unit.unitTitle || 'Unit',
                 unitDescription: unit.unitDescription || '',

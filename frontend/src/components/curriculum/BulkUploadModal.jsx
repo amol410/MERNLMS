@@ -16,6 +16,8 @@ const SAMPLE_JSON = JSON.stringify({
   learningLanguage: "de",
   nativeLanguage: "en",
   level: "A1",
+  sectionNumber: 1,
+  sectionTitle: "Rookie",
   unitNumber: 1,
   unitTitle: "Coral Reef",
   lessons: [
@@ -65,21 +67,25 @@ export default function BulkUploadModal({
   currentLanguage = 'de',
   currentNative = 'en',
   currentLevel = 'A1',
+  sectionNumber = 1,
+  sectionTitle = 'Rookie',
   unitNumber = 1,
 }) {
   const [mode, setMode] = useState('csv'); // 'csv' or 'json'
   const [content, setContent] = useState(SAMPLE_CSV);
   const [loading, setLoading] = useState(false);
+  const [targetSection, setTargetSection] = useState(sectionNumber);
   const [targetUnit, setTargetUnit] = useState(unitNumber);
   const [replaceMode, setReplaceMode] = useState(false);
 
-  // Synchronize targetUnit whenever the modal opens or unitNumber prop changes
+  // Synchronize targetSection & targetUnit whenever the modal opens or props change
   useEffect(() => {
     if (isOpen) {
+      setTargetSection(sectionNumber);
       setTargetUnit(unitNumber);
       setReplaceMode(false);
     }
-  }, [isOpen, unitNumber]);
+  }, [isOpen, sectionNumber, unitNumber]);
 
   if (!isOpen) return null;
 
@@ -109,10 +115,15 @@ export default function BulkUploadModal({
           setMode('json');
           try {
             const parsed = JSON.parse(text);
+            let detectedSec = targetSection;
+            if (parsed.sectionNumber && !isNaN(parseInt(parsed.sectionNumber, 10))) {
+              detectedSec = parseInt(parsed.sectionNumber, 10);
+              setTargetSection(detectedSec);
+            }
             if (parsed.unitNumber && !isNaN(parseInt(parsed.unitNumber, 10))) {
               const detectedUnit = parseInt(parsed.unitNumber, 10);
               setTargetUnit(detectedUnit);
-              toast.success(`Loaded ${file.name} (Auto-detected Unit ${detectedUnit})`);
+              toast.success(`Loaded ${file.name} (Auto-detected Section ${detectedSec} • Unit ${detectedUnit})`);
               return;
             }
           } catch (_) {}
@@ -134,6 +145,7 @@ export default function BulkUploadModal({
 
     setLoading(true);
     try {
+      let payloadSection = parseInt(targetSection, 10) || 1;
       let payloadUnit = parseInt(targetUnit, 10) || 1;
       let payloadLang = currentLanguage;
       let payloadNative = currentNative;
@@ -143,6 +155,9 @@ export default function BulkUploadModal({
       if (mode === 'json' || content.trim().startsWith('{')) {
         try {
           const parsed = JSON.parse(content);
+          if (parsed.sectionNumber && !isNaN(parseInt(parsed.sectionNumber, 10))) {
+            payloadSection = parseInt(parsed.sectionNumber, 10);
+          }
           if (parsed.unitNumber && !isNaN(parseInt(parsed.unitNumber, 10))) {
             payloadUnit = parseInt(parsed.unitNumber, 10);
           }
@@ -156,14 +171,17 @@ export default function BulkUploadModal({
         learningLanguage: payloadLang,
         nativeLanguage: payloadNative,
         level: payloadLevel,
+        sectionNumber: payloadSection,
+        sectionTitle,
         unitNumber: payloadUnit,
         lessonsData: content,
         replace: Boolean(replaceMode),
       });
 
+      const finalSection = res.data?.sectionNumber || payloadSection;
       const finalUnit = res.data?.unitNumber || payloadUnit;
-      toast.success(res.data.message || `Bulk upload successful for Unit ${finalUnit}!`);
-      onSuccess?.(finalUnit);
+      toast.success(res.data.message || `Bulk upload successful for Section ${finalSection} • Unit ${finalUnit}!`);
+      onSuccess?.(finalUnit, finalSection);
       onClose();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to bulk upload lessons');
@@ -183,20 +201,33 @@ export default function BulkUploadModal({
             </div>
             <div>
               <h2 className="text-xl font-bold text-white">Bulk Upload Lessons</h2>
-              <div className="flex items-center gap-2 mt-0.5">
+              <div className="flex flex-wrap items-center gap-2 mt-0.5">
                 <span className="text-xs text-gray-400">
                   Target: {currentLevel} •
                 </span>
+                <label className="flex items-center gap-1 text-xs text-cyan-300 font-bold bg-cyan-500/10 px-2 py-0.5 rounded-lg border border-cyan-500/20">
+                  <span>Section:</span>
+                  <select
+                    value={targetSection}
+                    onChange={e => setTargetSection(parseInt(e.target.value, 10))}
+                    className="bg-transparent text-cyan-300 font-bold text-xs border-0 p-0 focus:ring-0 cursor-pointer"
+                    title="Change target section (1-3)"
+                  >
+                    <option value={1} className="bg-slate-900">1 (Rookie)</option>
+                    <option value={2} className="bg-slate-900">2 (Explorer)</option>
+                    <option value={3} className="bg-slate-900">3 (Traveler)</option>
+                  </select>
+                </label>
                 <label className="flex items-center gap-1 text-xs text-emerald-300 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-500/20">
-                  <span>Unit:</span>
+                  <span>Unit (1–12):</span>
                   <input
                     type="number"
                     min="1"
-                    max="200"
+                    max="12"
                     value={targetUnit}
                     onChange={e => setTargetUnit(e.target.value)}
-                    className="w-12 bg-transparent text-emerald-300 font-bold text-xs border-0 p-0 focus:ring-0 text-center"
-                    title="Change target unit number for upload"
+                    className="w-10 bg-transparent text-emerald-300 font-bold text-xs border-0 p-0 focus:ring-0 text-center"
+                    title="Change target unit number (1 to 12)"
                   />
                 </label>
               </div>
@@ -331,7 +362,7 @@ export default function BulkUploadModal({
 
         {/* Footer */}
         <div className="p-6 border-t border-white/10 bg-slate-900/60 flex items-center justify-between">
-          <span className="text-xs text-gray-500">Target: {currentLevel} • Unit {targetUnit}</span>
+          <span className="text-xs text-gray-500">Target: {currentLevel} • Section {targetSection} • Unit {targetUnit}</span>
           <div className="flex gap-3">
             <button type="button" onClick={onClose} className="btn-secondary text-sm">
               Cancel
