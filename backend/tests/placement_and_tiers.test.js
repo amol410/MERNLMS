@@ -234,7 +234,7 @@ describe('Duolingo-Style Placement, A1 Section 2 Fallback & Universal Challenges
     });
 
     describe('4. Universal Lesson-Agnostic Challenge Types', () => {
-        it('allows all 10 challenge types (including picture_select and karaoke) inside any lesson in any unit', async () => {
+        it('allows all active interactive challenge types (including picture_select and sprechen) while excluding passive karaoke stages', async () => {
             const all10Stages = [
                 { type: 'word_match', enabled: true, pairs: [{ target: 'Hund', native: 'Dog' }] },
                 { type: 'listen_tap', enabled: true, targetSentence: 'Der Hund schläft', tokens: ['Der', 'Hund', 'schläft'] },
@@ -266,7 +266,7 @@ describe('Duolingo-Style Placement, A1 Section 2 Fallback & Universal Challenges
                 unitNumber: 12,
                 unitTitle: 'Universal Challenge Unit',
                 lessonIndex: 3,
-                title: 'All 10 Challenges in One Lesson',
+                title: 'All Challenges in One Lesson',
                 nodeType: 'lesson',
                 isLive: true,
                 stages: all10Stages,
@@ -279,7 +279,7 @@ describe('Duolingo-Style Placement, A1 Section 2 Fallback & Universal Challenges
 
             expect(res.status).toBe(200);
             expect(res.body.success).toBe(true);
-            expect(res.body.lesson.stages).toHaveLength(10);
+            expect(res.body.lesson.stages).toHaveLength(9);
             const returnedTypes = res.body.lesson.stages.map(s => s.type);
             expect(returnedTypes).toEqual([
                 'word_match',
@@ -291,8 +291,8 @@ describe('Duolingo-Style Placement, A1 Section 2 Fallback & Universal Challenges
                 'dialogue_bubble',
                 'listen_select',
                 'sprechen',
-                'karaoke',
             ]);
+            expect(returnedTypes).not.toContain('karaoke');
         });
     });
 

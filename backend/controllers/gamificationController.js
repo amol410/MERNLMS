@@ -15,6 +15,7 @@ const { verifyAdMobQuery } = require('../utils/adMobVerifier');
 const PLACEMENT_MIN_SCORE_PCT = 70;
 const PLACEMENT_MAX_MISTAKES = 3;
 const PLACEMENT_EXCLUDED_STAGE_TYPES = new Set(['sprechen', 'karaoke']);
+const LESSON_EXCLUDED_STAGE_TYPES = new Set(['karaoke']);
 
 function parseUnlockedLevels(raw) {
     const levels = new Set(['A1']);
@@ -1284,7 +1285,7 @@ exports.getLessonDetails = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            lesson: formatLessonPayload(lesson),
+            lesson: formatLessonPayload(lesson, { excludeStageTypes: LESSON_EXCLUDED_STAGE_TYPES }),
         });
     } catch (error) {
         next(error);
