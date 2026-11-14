@@ -22,6 +22,17 @@ const REPLAY_PEARLS_PER_LESSON = 5;
 const REPLAY_MIN_SCORE_PCT = 80;
 const REPLAY_PEARLS_DAILY_CAP = 50;
 
+// Gradual rollout: REPLAY_PEARLS_ROLLOUT_PERCENT (0-100, default 100) enables the feature for a stable
+// share of users (user id bucket). Raise it step by step, e.g. 10 -> 25 -> 50 -> 100, while comparing
+// cohorts with `node scripts/replay_pearls_report.js`.
+function getReplayRolloutPercent() {
+    const raw = Number.parseInt(process.env.REPLAY_PEARLS_ROLLOUT_PERCENT ?? '100', 10);
+    return Number.isFinite(raw) ? Math.min(100, Math.max(0, raw)) : 100;
+}
+function isReplayPearlsEnabledFor(userId) {
+    return (Number(userId) % 100) < getReplayRolloutPercent();
+}
+
 const PLACEMENT_MIN_SCORE_PCT = 70;
 const PLACEMENT_MAX_MISTAKES = 3;
 const PLACEMENT_EXCLUDED_STAGE_TYPES = new Set(['sprechen', 'karaoke']);
@@ -151,6 +162,7 @@ exports.getStatus = async (req, res, next) => {
                 placementSkipToNode: effectiveSkipToNode,
                 unlockedLevels,
                 isAcceleratedFallback,
+                replayPearlsEnabled: isReplayPearlsEnabledFor(user.id),
             }
         });
     } catch (error) {
@@ -700,7 +712,7 @@ exports.completeNode = async (req, res, next) => {
 
             // Replay bonus: server decides eligibility, amount and caps (the client only reports the score).
             let replayPearlsEarned = 0;
-            if (wasAlreadyCompleted && node.type !== 'chest' && reward.scorePct >= REPLAY_MIN_SCORE_PCT) {
+            if (isReplayPearlsEnabledFor(userId) && wasAlreadyCompleted && node.type !== 'chest' && reward.scorePct >= REPLAY_MIN_SCORE_PCT) {
                 const replayRef = `${courseId}:${nodeIndex}:${todayYMD}`;
                 const alreadyPaidToday = await RewardTransaction.findOne({
                     where: { userId, kind: 'replay_pearls', reference: replayRef },
@@ -1004,6 +1016,15 @@ exports.refillOxygen = async (req, res, next) => {
             user.oxygen = 5;
             user.lastOxygenRefill = new Date();
             await user.save({ transaction });
+
+            await RewardTransaction.create({
+                userId,
+                kind: 'shop_refill',
+                reference: `shop-refill-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+                pearlsEarned: -cost,
+                oxygenEarned: 5,
+                responseBody: { cost },
+            }, { transaction });
 
             return {
                 status: 200,

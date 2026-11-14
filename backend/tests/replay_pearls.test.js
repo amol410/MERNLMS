@@ -76,3 +76,32 @@ describe('Replay pearls (review bonus)', () => {
         expect(await RewardTransaction.count({ where: { userId: user.id, kind: 'replay_pearls' } })).toBe(1);
     });
 });
+
+describe('Replay pearls rollout control', () => {
+    afterEach(() => {
+        delete process.env.REPLAY_PEARLS_ROLLOUT_PERCENT;
+    });
+
+    it('pays nothing and reports disabled when the user is outside the rollout share', async () => {
+        const { user, token } = await createTestUser({ pearls: 100 });
+        // Choose a rollout percent that excludes this user's id bucket (user.id % 100 >= percent)
+        process.env.REPLAY_PEARLS_ROLLOUT_PERCENT = String(user.id % 100);
+
+        const status = await request(app)
+            .get('/api/gamification/status')
+            .set('Authorization', `Bearer ${token}`);
+        expect(status.body.status.replayPearlsEnabled).toBe(false);
+
+        await complete(token, 6, 90, 'rollout-0001');
+        const replay = await complete(token, 6, 90, 'rollout-0002');
+        expect(replay.body.replayPearlsEarned).toBe(0);
+    });
+
+    it('reports enabled by default (100%)', async () => {
+        const { token } = await createTestUser({});
+        const status = await request(app)
+            .get('/api/gamification/status')
+            .set('Authorization', `Bearer ${token}`);
+        expect(status.body.status.replayPearlsEnabled).toBe(true);
+    });
+});
