@@ -29,7 +29,7 @@ describe('SEC-07: Rewarded Ad Security & Anti-Bypass Suite', () => {
 
             expect(first.status).toBe(200);
             expect(first.body.success).toBe(true);
-            expect(first.body.pearlsEarned).toBe(25);
+            expect(first.body.pearlsEarned).toBe(50);
 
             // Immediate 2nd claim (bot loop / curl exploit attempt)
             const second = await request(app)
@@ -41,9 +41,9 @@ describe('SEC-07: Rewarded Ad Security & Anti-Bypass Suite', () => {
             expect(second.body.success).toBe(false);
             expect(second.body.message).toMatch(/Please wait \d+s for the ad to complete/i);
 
-            // Verify user pearls only incremented once (50 + 25 = 75, not 100)
+            // Verify user pearls only incremented once (50 + 50 = 100, not 150)
             const dbUser = await User.findByPk(user.id);
-            expect(dbUser.pearls).toBe(75);
+            expect(dbUser.pearls).toBe(100);
         });
 
         it('allows subsequent claim after the 35s cooldown window has elapsed', async () => {
@@ -121,11 +121,11 @@ describe('SEC-07: Rewarded Ad Security & Anti-Bypass Suite', () => {
                 });
 
             expect(ssvRes.status).toBe(200);
-            expect(ssvRes.body.pearlsEarned).toBe(25);
+            expect(ssvRes.body.pearlsEarned).toBe(50);
 
-            // User now has 125 pearls from the SSV callback
+            // User now has 150 pearls from the SSV callback
             let dbUser = await User.findByPk(user.id);
-            expect(dbUser.pearls).toBe(125);
+            expect(dbUser.pearls).toBe(150);
 
             // 2. Mobile app onUserEarnedReward fires and calls claim-ad-reward
             const clientRes = await request(app)
@@ -135,11 +135,11 @@ describe('SEC-07: Rewarded Ad Security & Anti-Bypass Suite', () => {
 
             expect(clientRes.status).toBe(200);
             expect(clientRes.body.verifiedByAdMob).toBe(true);
-            expect(clientRes.body.pearls).toBe(125);
+            expect(clientRes.body.pearls).toBe(150);
 
-            // Verify user pearls remain 125 (NOT double credited to 150!)
+            // Verify user pearls remain 150 (NOT double credited to 200!)
             dbUser = await User.findByPk(user.id);
-            expect(dbUser.pearls).toBe(125);
+            expect(dbUser.pearls).toBe(150);
         });
     });
 

@@ -247,9 +247,9 @@ describe('Gamification & In-Game Economy API Tests', () => {
             const replay = await request(app).get('/api/gamification/admob/ssv').query(query);
 
             expect(first.status).toBe(200);
-            expect(first.body.pearlsEarned).toBe(25);
+            expect(first.body.pearlsEarned).toBe(50);
             expect(replay.body.idempotentReplay).toBe(true);
-            expect((await User.findByPk(user.id)).pearls).toBe(125);
+            expect((await User.findByPk(user.id)).pearls).toBe(150);
         });
 
         it('doubles XP from the server lesson receipt instead of a client amount', async () => {

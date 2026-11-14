@@ -12,6 +12,16 @@ const { getTodayLocalYMD, getClientDate } = require('../utils/dateHelper');
 const { sanitizeLessonStages } = require('../utils/stageSanitizer');
 const { verifyAdMobQuery } = require('../utils/adMobVerifier');
 
+// Pearls granted for one completed pearls ad (client claim and AdMob SSV paths share this).
+const AD_PEARLS_REWARD = 50;
+
+// Replay (review) bonus: replaying an already-completed lesson with good accuracy.
+// Applies to every user; capped per lesson per day and per day overall so replays
+// always earn less than ads can.
+const REPLAY_PEARLS_PER_LESSON = 5;
+const REPLAY_MIN_SCORE_PCT = 80;
+const REPLAY_PEARLS_DAILY_CAP = 50;
+
 const PLACEMENT_MIN_SCORE_PCT = 70;
 const PLACEMENT_MAX_MISTAKES = 3;
 const PLACEMENT_EXCLUDED_STAGE_TYPES = new Set(['sprechen', 'karaoke']);
@@ -644,6 +654,7 @@ exports.completeNode = async (req, res, next) => {
                 where: { userId, courseId, nodeIndex },
                 transaction,
             });
+            const wasAlreadyCompleted = !!progress && progress.status === 'completed';
             if (!progress) {
                 progress = await UserNodeProgress.create({
                     userId,
@@ -686,6 +697,35 @@ exports.completeNode = async (req, res, next) => {
 
             // Server-authoritative UTC date (anti-tamper: strictly ignore client-supplied timestamps)
             const todayYMD = new Date().toISOString().split('T')[0];
+
+            // Replay bonus: server decides eligibility, amount and caps (the client only reports the score).
+            let replayPearlsEarned = 0;
+            if (wasAlreadyCompleted && node.type !== 'chest' && reward.scorePct >= REPLAY_MIN_SCORE_PCT) {
+                const replayRef = `${courseId}:${nodeIndex}:${todayYMD}`;
+                const alreadyPaidToday = await RewardTransaction.findOne({
+                    where: { userId, kind: 'replay_pearls', reference: replayRef },
+                    transaction,
+                });
+                if (!alreadyPaidToday) {
+                    const dayStart = new Date();
+                    dayStart.setUTCHours(0, 0, 0, 0);
+                    const paidToday = (await RewardTransaction.sum('pearlsEarned', {
+                        where: { userId, kind: 'replay_pearls', createdAt: { [Op.gte]: dayStart } },
+                        transaction,
+                    })) || 0;
+                    replayPearlsEarned = Math.max(0, Math.min(REPLAY_PEARLS_PER_LESSON, REPLAY_PEARLS_DAILY_CAP - paidToday));
+                    if (replayPearlsEarned > 0) {
+                        user.pearls = (user.pearls || 0) + replayPearlsEarned;
+                        await RewardTransaction.create({
+                            userId,
+                            kind: 'replay_pearls',
+                            reference: replayRef,
+                            pearlsEarned: replayPearlsEarned,
+                            responseBody: { courseId, nodeIndex, scorePct: reward.scorePct },
+                        }, { transaction });
+                    }
+                }
+            }
             if (!user.lastActiveDate) {
                 user.streakCount = 1;
                 user.streakFreezeCount = Math.max(0, user.streakFreezeCount || 0);
@@ -760,7 +800,8 @@ exports.completeNode = async (req, res, next) => {
                 message: 'Node completed successfully',
                 attemptId,
                 xpEarned: finalXpEarned,
-                pearlsEarned: reward.pearlsEarned,
+                pearlsEarned: reward.pearlsEarned + replayPearlsEarned,
+                replayPearlsEarned,
                 stars: reward.stars,
                 scorePct: reward.scorePct,
                 streakCount: user.streakCount,
@@ -1431,7 +1472,7 @@ exports.claimAdReward = async (req, res, next) => {
                 user.lastOxygenRefill = new Date();
                 oxygenEarned = user.oxygen - previousOxygen;
             } else if (rewardType === 'pearls') {
-                pearlsEarned = 25;
+                pearlsEarned = AD_PEARLS_REWARD;
                 user.pearls = (user.pearls || 0) + pearlsEarned;
             } else if (rewardType === 'double_xp') {
                 if (attemptId) {
@@ -1635,7 +1676,7 @@ exports.handleAdMobReward = async (req, res, next) => {
                 user.lastOxygenRefill = new Date();
                 oxygenEarned = user.oxygen - previousOxygen;
             } else if (rewardType === 'pearls') {
-                pearlsEarned = 25;
+                pearlsEarned = AD_PEARLS_REWARD;
                 user.pearls = (user.pearls || 0) + pearlsEarned;
             } else {
                 const lesson = await RewardTransaction.findOne({
